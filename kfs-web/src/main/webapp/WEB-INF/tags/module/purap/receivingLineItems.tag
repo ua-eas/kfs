@@ -1,21 +1,22 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
+<%@ tag import="org.kuali.kfs.sys.util.Guid" %>
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 
 <%@ attribute name="itemAttributes" required="true" type="java.util.Map" description="The DataDictionary entry containing attributes for this row's fields."%>
@@ -25,272 +26,241 @@
 
 <c:set var="fullEntryMode" value="${KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}" />
 <c:set var="documentType" value="${KualiForm.document.documentHeader.workflowDocument.documentTypeName}" />
-<c:set var="colCount" value="12"/>
+<c:set var="colCount" value="13"/>
 
 <c:if test="${KualiForm.stateFinal}">
-	<c:set var="colCount" value="10"/>
+	<c:set var="colCount" value="11"/>
 </c:if>
 <c:set var="tabindexOverrideBase" value="20" />
 
 <kul:tab tabTitle="Items" defaultOpen="true" tabErrorKey="${PurapConstants.LINEITEM_TAB_ERRORS}">
-	<div class="tab-container" align=center>
-	<table cellpadding="0" cellspacing="0" class="datatable" summary="Items Section">
-		<tr>
-			<td colspan="${colCount}" class="subhead">
-			    <span class="subhead-left">Receiving Line Items</span>
-			</td>
-		</tr>
+	<div class="tab-container">
+		<table class="standard acct-lines side-margins" summary="Items Section">
+			<c:if test="${fullEntryMode}">
+				<tr>
+					<th></th>
+					<td colspan="${colCount - 1}" class="datacell" align="right" nowrap="nowrap">
+						<div align="right">
+							<c:if test="${KualiForm.ableToShowClearAndLoadQtyButtons}">
+								<html:submit
+										property="methodToCall.loadQty"
+										alt="load qty received"
+										title="load qty received"
+										styleClass="btn btn-default"
+										value="Load Qty Received"/>
+								<html:submit
+										property="methodToCall.clearQty"
+										alt="clear qty received"
+										title="clear qty received"
+										styleClass="btn btn-default"
+										value="Clear Qty Received"/>
+							</c:if>
+							<c:if test="${KualiForm.hideAddUnorderedItem}">
+								<html:submit
+										property="methodToCall.showAddUnorderedItem"
+										alt="add unordered item"
+										title="add unordered item"
+										styleClass="btn btn-default"
+										value="Add Unordered Item"/>
+							</c:if>
+							<c:if test="${!KualiForm.hideAddUnorderedItem}">
+								<button alt="add unordered item" border="0" class="btn btn-default disabled" disabled>
+									Add Unordered Item
+								</button>
+							</c:if>
+						</div>
+					</td>
+				</tr>
+			</c:if>
 
-		<c:if test="${fullEntryMode}">
-		<tr>
-			<td colspan="${colCount}" class="datacell" align="right" nowrap="nowrap">
-				<div align="right">
-					<c:if test="${KualiForm.ableToShowClearAndLoadQtyButtons}">
-						<html:image property="methodToCall.loadQty" src="${ConfigProperties.externalizable.images.url}tinybutton-loadqtyreceived.gif" alt="load qty received" title="load qty received" styleClass="tinybutton" />
-						<html:image property="methodToCall.clearQty" src="${ConfigProperties.externalizable.images.url}tinybutton-clearqtyreceived.gif" alt="clear qty received" title="clear qty received" styleClass="tinybutton" />
+			<tr class="header top">
+				<th></th>
+				<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemCatalogNumber}" />
+				<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemDescription}" colspan="2" />
+				<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemOrderedQuantity}" />
+				<kul:htmlAttributeHeaderCell>
+					<kul:htmlAttributeLabel attributeEntry="${itemAttributes.itemUnitOfMeasureCode}" useShortLabel="true" noColon="true"/>
+				</kul:htmlAttributeHeaderCell>
+
+				<c:if test="${KualiForm.stateFinal == false}">
+					<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemReceivedPriorQuantity}" />
+					<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemReceivedToBeQuantity}" />
+				</c:if>
+
+				<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemReceivedTotalQuantity}" />
+				<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemReturnedTotalQuantity}" />
+				<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemDamagedTotalQuantity}" />
+				<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemReasonAddedCode}" />
+				<kul:htmlAttributeHeaderCell literalLabel="Actions"/>
+			</tr>
+
+			<c:if test="${fullEntryMode and !KualiForm.hideAddUnorderedItem}">
+				<tr class="top new">
+					<td class="infoline">
+						<kul:htmlControlAttribute attributeEntry="${itemAttributes.itemLineNumber}" property="newLineItemReceivingItemLine.itemLineNumber" readOnly="${true}"/>
+					</td>
+					<td class="infoline">
+						<kul:htmlControlAttribute attributeEntry="${itemAttributes.itemCatalogNumber}" property="newLineItemReceivingItemLine.itemCatalogNumber" tabindexOverride="${tabindexOverrideBase + 0}"/>
+					</td>
+					<td class="infoline relative" colspan="2">
+						<kul:htmlControlAttribute
+								attributeEntry="${itemAttributes.itemDescription}"
+								property="newLineItemReceivingItemLine.itemDescription"
+								tabindexOverride="${tabindexOverrideBase + 0}"
+								styleClass="fullwidth"/>
+						<kul:expandedTextArea
+								textAreaFieldName="newLineItemReceivingItemLine.itemDescription"
+								action="purapItemLine"
+								textAreaLabel="description"
+								addClass="embed textarea"/>
+					</td>
+					<td class="infoline">
+						<kul:htmlControlAttribute attributeEntry="${itemAttributes.itemOrderedQuantity}" property="newLineItemReceivingItemLine.itemOrderedQuantity" readOnly="${true}"/>
+					</td>
+					<td class="infoline" nowrap="nowrap">
+						<c:set var="itemUnitOfMeasureCodeField"  value="newLineItemReceivingItemLine.itemUnitOfMeasureCode" />
+						<c:set var="itemUnitOfMeasureDescriptionField"  value="newLineItemReceivingItemLine.itemUnitOfMeasure.itemUnitOfMeasureDescription" />
+						<kul:htmlControlAttribute attributeEntry="${itemAttributes.itemUnitOfMeasureCode}"
+							property="${itemUnitOfMeasureCodeField}"
+							onblur="loadItemUnitOfMeasureInfo( '${itemUnitOfMeasureCodeField}', '${itemUnitOfMeasureDescriptionField}' );${onblur}" tabindexOverride="${tabindexOverrideBase + 0}"/>
+						<kul:lookup boClassName="org.kuali.kfs.sys.businessobject.UnitOfMeasure"
+							fieldConversions="itemUnitOfMeasureCode:newLineItemReceivingItemLine.itemUnitOfMeasureCode"
+							lookupParameters="'Y':active"/>
+						<div id="newLineItemReceivingItemLine.itemUnitOfMeasure.itemUnitOfMeasureDescription.div" class="fineprint">
+							<html:hidden write="true" property="${itemUnitOfMeasureDescriptionField}"/>&nbsp;
+						</div>
+					</td>
+
+					<c:if test="${KualiForm.stateFinal == false}">
+
+					<td class="infoline">
+						<kul:htmlControlAttribute attributeEntry="${itemAttributes.itemReceivedPriorQuantity}" property="newLineItemReceivingItemLine.itemReceivedPriorQuantity" readOnly="${true}"/>
+					</td>
+					<td class="infoline">
+						<kul:htmlControlAttribute attributeEntry="${itemAttributes.itemReceivedToBeQuantity}" property="newLineItemReceivingItemLine.itemReceivedToBeQuantity" readOnly="${true}"/>
+					</td>
 					</c:if>
-					<c:if test="${KualiForm.hideAddUnorderedItem}">
-						<html:image property="methodToCall.showAddUnorderedItem"
-							src="${ConfigProperties.externalizable.images.url}tinybutton-addunorditem.gif"
-							alt="add unordered item" title="add unordered item"
-							styleClass="tinybutton" />
+
+					<td class="infoline">
+						<kul:htmlControlAttribute attributeEntry="${itemAttributes.itemReceivedTotalQuantity}" property="newLineItemReceivingItemLine.itemReceivedTotalQuantity" tabindexOverride="${tabindexOverrideBase + 0}"/>
+					</td>
+					<td class="infoline">
+						<kul:htmlControlAttribute attributeEntry="${itemAttributes.itemReturnedTotalQuantity}" property="newLineItemReceivingItemLine.itemReturnedTotalQuantity" tabindexOverride="${tabindexOverrideBase + 0}"/>
+					</td>
+					<td class="infoline">
+						<kul:htmlControlAttribute attributeEntry="${itemAttributes.itemDamagedTotalQuantity}" property="newLineItemReceivingItemLine.itemDamagedTotalQuantity" tabindexOverride="${tabindexOverrideBase + 0}"/>
+					</td>
+					<td class="infoline">
+						<kul:htmlControlAttribute attributeEntry="${itemAttributes.itemReasonAddedCode}" property="newLineItemReceivingItemLine.itemReasonAddedCode" tabindexOverride="${tabindexOverrideBase + 0}"/>
+					</td>
+					<td class="infoline">
+						<div class="actions">
+							<html:html-button
+									property="methodToCall.addItem"
+									alt="Insert an Item"
+									title="Add an Item"
+									styleClass="btn btn-green skinny"
+									value="Add"
+									innerHTML="<span class=\"fa fa-plus\"></span>"/>
+						</div>
+					</td>
+				</tr>
+			</c:if>
+
+			<c:set var="itemCount" value="0"/>
+			<logic:iterate indexId="ctr" name="KualiForm" property="document.items" id="itemLine">
+				<c:if test="${itemLine.itemType.lineItemIndicator == true}">
+					<c:set var="itemCount" value="${itemCount + 1}"/>
+				</c:if>
+			</logic:iterate>
+
+			<logic:iterate indexId="ctr" name="KualiForm" property="document.items" id="itemLine">
+				<tr class="top line" style="${ctr == itemCount - 1 ? 'border-bottom:1px solid #BBBBBB;' : ''}">
+					<th class="infoline" nowrap="nowrap">
+						<bean:write name="KualiForm" property="document.item[${ctr}].itemLineNumber"/>
+					</th>
+					<td class="infoline">
+						<kul:htmlControlAttribute
+							attributeEntry="${itemAttributes.itemCatalogNumber}"
+							property="document.item[${ctr}].itemCatalogNumber"
+							extraReadOnlyProperty="document.item[${ctr}].itemCatalogNumber"
+							readOnly="${((itemLine.itemTypeCode eq 'ITEM') or not (fullEntryMode))}" />
+					</td>
+					<td class="infoline" colspan="2">
+						<kul:htmlControlAttribute
+							attributeEntry="${itemAttributes.itemDescription}"
+							property="document.item[${ctr}].itemDescription"
+							readOnly="${((itemLine.itemTypeCode eq 'ITEM') or not (fullEntryMode))}" />
+					</td>
+					<td class="infoline">
+						<kul:htmlControlAttribute
+							attributeEntry="${itemAttributes.itemOrderedQuantity}"
+							property="document.item[${ctr}].itemOrderedQuantity"
+							readOnly="${true}" />
+					</td>
+					<td class="infoline">
+						<kul:htmlControlAttribute
+							attributeEntry="${itemAttributes.itemUnitOfMeasureCode}"
+							property="document.item[${ctr}].itemUnitOfMeasureCode"
+							onblur="loadItemUnitOfMeasureInfo( 'document.item[${ctr}].itemUnitOfMeasureCode', 'document.item[${ctr}].itemUnitOfMeasure.itemUnitOfMeasureDescription' );${onblur}"
+							readOnly="${((itemLine.itemTypeCode eq 'ITEM') or not (fullEntryMode))}"
+							tabindexOverride="${tabindexOverrideBase + 0}"/>
+							<c:if test="${((!itemLine.itemTypeCode eq 'ITEM') && fullEntryMode)}">
+								<kul:lookup boClassName="org.kuali.kfs.sys.businessobject.UnitOfMeasure"
+										fieldConversions="itemUnitOfMeasureCode:document.item[${ctr}].itemUnitOfMeasureCode"
+										lookupParameters="'Y':active"/>
+							</c:if>
+							<div id="document.item[${ctr}].itemUnitOfMeasure.itemUnitOfMeasureDescription.div" class="fineprint">
+								<html:hidden write="true" property="document.item[${ctr}].itemUnitOfMeasure.itemUnitOfMeasureDescription"/>&nbsp;
+							</div>
+
+					</td>
+
+					<c:if test="${KualiForm.stateFinal == false}">
+					<td class="infoline">
+						<kul:htmlControlAttribute
+							attributeEntry="${itemAttributes.itemReceivedPriorQuantity}"
+							property="document.item[${ctr}].itemReceivedPriorQuantity"
+							readOnly="${true}" />
+					</td>
+					<td class="infoline">
+						<kul:htmlControlAttribute
+							attributeEntry="${itemAttributes.itemReceivedToBeQuantity}"
+							property="document.item[${ctr}].itemReceivedToBeQuantity"
+							readOnly="${true}" />
+					</td>
 					</c:if>
-					<c:if test="${!KualiForm.hideAddUnorderedItem}">
-						<img src="${ConfigProperties.externalizable.images.url}tinybutton-addunorditem-grey.gif"
-							alt="add unordered item" border="0" styleClass="tinybutton" />
-					</c:if>
-				</div>
-			</td>
-		</tr>
-		</c:if>
-		
-		<!--  Column Names -->
-		<tr>
-			<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemLineNumber}" />
-			<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemCatalogNumber}" />
-			<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemDescription}" />
-			<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemOrderedQuantity}" />						
-			<kul:htmlAttributeHeaderCell><kul:htmlAttributeLabel attributeEntry="${itemAttributes.itemUnitOfMeasureCode}" useShortLabel="true"/></kul:htmlAttributeHeaderCell>
 
-			<c:if test="${KualiForm.stateFinal == false}">
-			<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemReceivedPriorQuantity}" />
-			<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemReceivedToBeQuantity}" />		
-			</c:if>
-
-			<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemReceivedTotalQuantity}" />
-			<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemReturnedTotalQuantity}" />
-			<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemDamagedTotalQuantity}" />
-			<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemReasonAddedCode}" />
-			<kul:htmlAttributeHeaderCell literalLabel="Actions"/>
-		</tr>
-		
-		<!--  New Receiving Line Item -->
-		<c:if test="${fullEntryMode and !KualiForm.hideAddUnorderedItem}">
-		<tr>
-            <td class="infoline">
-                <kul:htmlControlAttribute attributeEntry="${itemAttributes.itemLineNumber}" property="newLineItemReceivingItemLine.itemLineNumber" readOnly="${true}"/>
-            </td>
-			<td class="infoline">
-			    <kul:htmlControlAttribute attributeEntry="${itemAttributes.itemCatalogNumber}" property="newLineItemReceivingItemLine.itemCatalogNumber" tabindexOverride="${tabindexOverrideBase + 0}"/>
-		    </td>
-			<td class="infoline">
-			    <kul:htmlControlAttribute attributeEntry="${itemAttributes.itemDescription}" property="newLineItemReceivingItemLine.itemDescription" tabindexOverride="${tabindexOverrideBase + 0}"/>
-		    </td>
-			<td class="infoline">
-			    <kul:htmlControlAttribute attributeEntry="${itemAttributes.itemOrderedQuantity}" property="newLineItemReceivingItemLine.itemOrderedQuantity" readOnly="${true}"/>
-		    </td>
-			<td class="infoline" nowrap="nowrap">
-                <c:set var="itemUnitOfMeasureCodeField"  value="newLineItemReceivingItemLine.itemUnitOfMeasureCode" />
-                <c:set var="itemUnitOfMeasureDescriptionField"  value="newLineItemReceivingItemLine.itemUnitOfMeasure.itemUnitOfMeasureDescription" />
-                <kul:htmlControlAttribute attributeEntry="${itemAttributes.itemUnitOfMeasureCode}" 
-                    property="${itemUnitOfMeasureCodeField}" 
-                    onblur="loadItemUnitOfMeasureInfo( '${itemUnitOfMeasureCodeField}', '${itemUnitOfMeasureDescriptionField}' );${onblur}" tabindexOverride="${tabindexOverrideBase + 0}"/>
-                <kul:lookup boClassName="org.kuali.kfs.sys.businessobject.UnitOfMeasure" 
-                    fieldConversions="itemUnitOfMeasureCode:newLineItemReceivingItemLine.itemUnitOfMeasureCode"
-                    lookupParameters="'Y':active"/>     
-                <div id="newLineItemReceivingItemLine.itemUnitOfMeasure.itemUnitOfMeasureDescription.div" class="fineprint">
-                    <html:hidden write="true" property="${itemUnitOfMeasureDescriptionField}"/>&nbsp;        
-                </div>     
-            </td>        
-
-			<c:if test="${KualiForm.stateFinal == false}">
-
-			<td class="infoline">
-			    <kul:htmlControlAttribute attributeEntry="${itemAttributes.itemReceivedPriorQuantity}" property="newLineItemReceivingItemLine.itemReceivedPriorQuantity" readOnly="${true}"/>
-		    </td>
-			<td class="infoline">
-				<kul:htmlControlAttribute attributeEntry="${itemAttributes.itemReceivedToBeQuantity}" property="newLineItemReceivingItemLine.itemReceivedToBeQuantity" readOnly="${true}"/>
-			</td>
-			</c:if>
-			
-			<td class="infoline">
-				<kul:htmlControlAttribute attributeEntry="${itemAttributes.itemReceivedTotalQuantity}" property="newLineItemReceivingItemLine.itemReceivedTotalQuantity" tabindexOverride="${tabindexOverrideBase + 0}"/>
-			</td>
-			<td class="infoline">
-				<kul:htmlControlAttribute attributeEntry="${itemAttributes.itemReturnedTotalQuantity}" property="newLineItemReceivingItemLine.itemReturnedTotalQuantity" tabindexOverride="${tabindexOverrideBase + 0}"/>
-			</td>
-			<td class="infoline">
-				<kul:htmlControlAttribute attributeEntry="${itemAttributes.itemDamagedTotalQuantity}" property="newLineItemReceivingItemLine.itemDamagedTotalQuantity" tabindexOverride="${tabindexOverrideBase + 0}"/>
-			</td>
-			<td class="infoline">
-				<kul:htmlControlAttribute attributeEntry="${itemAttributes.itemReasonAddedCode}" property="newLineItemReceivingItemLine.itemReasonAddedCode" tabindexOverride="${tabindexOverrideBase + 0}"/>
-			</td>
-
-			<td class="infoline">
-			    <div align="center">
-			        <html:image property="methodToCall.addItem" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-add1.gif" alt="Insert an Item" title="Add an Item" styleClass="tinybutton" />
-			    </div>
-			</td>						
-		</tr>
-		</c:if>
-		
-		<!-- Existing Receiving Line Items -->
-		<logic:iterate indexId="ctr" name="KualiForm" property="document.items" id="itemLine">
-			<c:set var="currentTabIndex" value="${KualiForm.currentTabIndex}" scope="request" />
-			<c:set var="topLevelTabIndex" value="${KualiForm.currentTabIndex}" scope="request" />
-			
-			<c:choose>
-				<c:when test="${itemLine.objectId == null}">
-					<c:set var="newObjectId" value="<%= (new org.kuali.rice.kns.util.Guid()).toString()%>" />
-                    <c:set var="tabKey" value="Item-${newObjectId}" />
-			    </c:when>
-			    <c:when test="${itemLine.objectId != null}">
-			        <c:set var="tabKey" value="Item-${itemLine.objectId}" />
-			    </c:when>
-			</c:choose>
-			
-            <!--  hit form method to increment tab index -->
-            <c:set var="dummyIncrementer" value="${kfunc:incrementTabIndex(KualiForm, tabKey)}" />
-
-            <c:set var="currentTab" value="${kfunc:getTabState(KualiForm, tabKey)}"/>
-
-			<%-- default to closed --%>
-			<c:choose>
-				<c:when test="${empty currentTab}">
-					<c:set var="isOpen" value="true" />
-				</c:when>
-				<c:when test="${!empty currentTab}">
-					<c:set var="isOpen" value="${currentTab == 'OPEN'}" />
-				</c:when>
-			</c:choose>
-
-		<tr>
-			<td colspan="${colCount}" class="tab-subhead" style="border-right: none;">				 
-		    <c:if test="${isOpen == 'true' || isOpen == 'TRUE'}">
-			    <html:image
-				    property="methodToCall.toggleTab.tab${tabKey}"
-				    src="${ConfigProperties.kr.externalizable.images.url}tinybutton-hide.gif"
-				    alt="hide" title="toggle" styleClass="tinybutton"
-				    styleId="tab-${tabKey}-imageToggle"
-				    onclick="javascript: return toggleTab(document, '${tabKey}'); " />
-		    </c:if> 
-		    <c:if test="${isOpen != 'true' && isOpen != 'TRUE'}">
-			    <html:image
-	  			    property="methodToCall.toggleTab.tab${tabKey}"
-				    src="${ConfigProperties.kr.externalizable.images.url}tinybutton-show.gif"
-				    alt="show" title="toggle" styleClass="tinybutton"
-				    styleId="tab-${tabKey}-imageToggle"
-				    onclick="javascript: return toggleTab(document, '${tabKey}'); " />
-			</c:if>
-			</td>
-		</tr>
-
-		<c:if test="${isOpen != 'true' && isOpen != 'TRUE'}">
-			<tbody style="display: none;" id="tab-${tabKey}-div">
-		</c:if>
-
-		<tr>			
-			<td class="infoline" nowrap="nowrap">
-				    &nbsp;<b><bean:write name="KualiForm" property="document.item[${ctr}].itemLineNumber"/></b>&nbsp; 
-			</td>		
-			<td class="infoline">
-			    <kul:htmlControlAttribute
-				    attributeEntry="${itemAttributes.itemCatalogNumber}"
-				    property="document.item[${ctr}].itemCatalogNumber"
-				    extraReadOnlyProperty="document.item[${ctr}].itemCatalogNumber"
-				    readOnly="${((itemLine.itemTypeCode eq 'ITEM') or not (fullEntryMode))}" />
-			</td>
-			<td class="infoline">
-				<kul:htmlControlAttribute
-				    attributeEntry="${itemAttributes.itemDescription}"
-				    property="document.item[${ctr}].itemDescription"
-				    readOnly="${((itemLine.itemTypeCode eq 'ITEM') or not (fullEntryMode))}" />
-			</td>
-			<td class="infoline">
-			    <kul:htmlControlAttribute
-				    attributeEntry="${itemAttributes.itemOrderedQuantity}"
-				    property="document.item[${ctr}].itemOrderedQuantity"
-				    readOnly="${true}" />
-		    </td>
-			<td class="infoline">
-	            <kul:htmlControlAttribute 
-	                attributeEntry="${itemAttributes.itemUnitOfMeasureCode}" 
-	                property="document.item[${ctr}].itemUnitOfMeasureCode"
-	                onblur="loadItemUnitOfMeasureInfo( 'document.item[${ctr}].itemUnitOfMeasureCode', 'document.item[${ctr}].itemUnitOfMeasure.itemUnitOfMeasureDescription' );${onblur}"
-	                readOnly="${((itemLine.itemTypeCode eq 'ITEM') or not (fullEntryMode))}"
-	                tabindexOverride="${tabindexOverrideBase + 0}"/>
-	                <c:if test="${((!itemLine.itemTypeCode eq 'ITEM') && fullEntryMode)}">
-	                	<kul:lookup boClassName="org.kuali.kfs.sys.businessobject.UnitOfMeasure" 
-                                fieldConversions="itemUnitOfMeasureCode:document.item[${ctr}].itemUnitOfMeasureCode"
-                                lookupParameters="'Y':active"/>
-                    </c:if> 
-	            	<div id="document.item[${ctr}].itemUnitOfMeasure.itemUnitOfMeasureDescription.div" class="fineprint">
-	                	<html:hidden write="true" property="document.item[${ctr}].itemUnitOfMeasure.itemUnitOfMeasureDescription"/>&nbsp;  
-	            	</div>   
-	            	
-		    </td>
-
-			<c:if test="${KualiForm.stateFinal == false}">
-			<td class="infoline">
-			    <kul:htmlControlAttribute
-				    attributeEntry="${itemAttributes.itemReceivedPriorQuantity}"
-				    property="document.item[${ctr}].itemReceivedPriorQuantity"
-				    readOnly="${true}" />
-			</td>
-			<td class="infoline">
-			    <kul:htmlControlAttribute
-				    attributeEntry="${itemAttributes.itemReceivedToBeQuantity}"
-				    property="document.item[${ctr}].itemReceivedToBeQuantity"
-				    readOnly="${true}" />
-			</td>
-			</c:if>
-			
-			<td class="infoline">
-			    <kul:htmlControlAttribute
-				    attributeEntry="${itemAttributes.itemReceivedTotalQuantity}"
-				    property="document.item[${ctr}].itemReceivedTotalQuantity"
-				    readOnly="${not (fullEntryMode)}" tabindexOverride="${tabindexOverrideBase + 0}"/>
-			</td>
-			<td class="infoline">
-			    <kul:htmlControlAttribute
-				    attributeEntry="${itemAttributes.itemReturnedTotalQuantity}"
-				    property="document.item[${ctr}].itemReturnedTotalQuantity"
-				    readOnly="${not (fullEntryMode)}" tabindexOverride="${tabindexOverrideBase + 0}"/>
-			</td>
-			<td class="infoline">
-			    <kul:htmlControlAttribute
-				    attributeEntry="${itemAttributes.itemDamagedTotalQuantity}"
-				    property="document.item[${ctr}].itemDamagedTotalQuantity"
-				    readOnly="${not (fullEntryMode)}" tabindexOverride="${tabindexOverrideBase + 0}"/>
-			</td>
-			<td class="infoline">				
-				<kul:htmlControlAttribute
-				    attributeEntry="${itemAttributes.itemReasonAddedCode}"	
-				    property="document.item[${ctr}].itemReasonAddedCode"
-				    extraReadOnlyProperty="document.item[${ctr}].itemReasonAdded.itemReasonAddedDescription"			    				    
-				    readOnly="${not (fullEntryMode) or itemLine.itemLineNumber != null}" tabindexOverride="${tabindexOverrideBase + 0}"/>					
-			</td>
-			<td class="infoline">
-			    &nbsp;
-			</td>
-		</tr>
-
-		<c:if test="${isOpen != 'true' && isOpen != 'TRUE'}">
-			</tbody>
-		</c:if>
-
-		</logic:iterate>
-		
-	</table>
+					<td class="infoline">
+						<kul:htmlControlAttribute
+							attributeEntry="${itemAttributes.itemReceivedTotalQuantity}"
+							property="document.item[${ctr}].itemReceivedTotalQuantity"
+							readOnly="${not (fullEntryMode)}" tabindexOverride="${tabindexOverrideBase + 0}"/>
+					</td>
+					<td class="infoline">
+						<kul:htmlControlAttribute
+							attributeEntry="${itemAttributes.itemReturnedTotalQuantity}"
+							property="document.item[${ctr}].itemReturnedTotalQuantity"
+							readOnly="${not (fullEntryMode)}" tabindexOverride="${tabindexOverrideBase + 0}"/>
+					</td>
+					<td class="infoline">
+						<kul:htmlControlAttribute
+							attributeEntry="${itemAttributes.itemDamagedTotalQuantity}"
+							property="document.item[${ctr}].itemDamagedTotalQuantity"
+							readOnly="${not (fullEntryMode)}" tabindexOverride="${tabindexOverrideBase + 0}"/>
+					</td>
+					<td class="infoline">
+						<kul:htmlControlAttribute
+							attributeEntry="${itemAttributes.itemReasonAddedCode}"
+							property="document.item[${ctr}].itemReasonAddedCode"
+							extraReadOnlyProperty="document.item[${ctr}].itemReasonAdded.itemReasonAddedDescription"
+							readOnly="${not (fullEntryMode) or itemLine.itemLineNumber != null}" tabindexOverride="${tabindexOverrideBase + 0}"/>
+					</td>
+					<td class="infoline">
+						<div class="actions">&nbsp;</div>
+					</td>
+				</tr>
+			</logic:iterate>
+		</table>
 	</div>
 </kul:tab>

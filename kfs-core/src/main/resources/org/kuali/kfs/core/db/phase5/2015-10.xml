@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns='http://www.liquibase.org/xml/ns/dbchangelog'
+                   xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+                   xsi:schemaLocation='http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd'>
+
+    <changeSet author="KFS601" id="KFSCD-26_SOURCE_OF_FUNDS_TABLE" context="bootstrap,demo,unit">
+        <createTable tableName="CA_SOURCE_OF_FUNDS_T">
+            <column name="FUNDS_TYPE_CD" type="VARCHAR(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8,0)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SOURCE_NAME" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SOURCE_DESC" type="VARCHAR(200)"/>
+            <column name="ACTIVE_IND" type="VARCHAR(1)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="KFS601" id="KFSCD-26_SOURCE_OF_FUNDS_PRIMARY_KEYS" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FUNDS_TYPE_CD" constraintName="CA_SOURCE_OF_FUNDS_TP1" tableName="CA_SOURCE_OF_FUNDS_T"/>
+     </changeSet>
+
+    <changeSet author="KFS601" id="KFSCD-26_SOURCE_OF_FUNDS_OBJ_ID_CONSTRAINTS" context="bootstrap,demo,unit">
+        <addUniqueConstraint tableName="CA_SOURCE_OF_FUNDS_T" columnNames="OBJ_ID" constraintName="CA_SOURCE_OF_FUNDS_TC0" />
+    </changeSet>
+
+    <changeSet author="KFS61" id="KFSCD-12_DI_AND_YEDI_ACCOUNTING_LINES" context="bootstrap,demo,unit">
+        <insert tableName="KRCR_PARM_T">
+            <column name="NMSPC_CD" value="KFS-FP"/>
+            <column name="CMPNT_CD" value="DistributionOfIncomeAndExpense"/>
+            <column name="PARM_NM" value="ALLOW_ADDITIONAL_FROM_LINE_IND"/>
+            <column name="OBJ_ID" value="KFSCD12-1"/>
+            <column name="PARM_TYP_CD" value="CONFG"/>
+            <column name="VAL" value="N"/>
+            <column name="PARM_DESC_TXT" value="Specifies whether or not an additional FROM line will be available when claiming an Electronic Payment on the Distribution of Income and Expense and the Year End Distribution of Income and Expense document. Set the parameter to Y to add an editable From line to these documents."/>
+            <column name="EVAL_OPRTR_CD" value="A"/>
+            <column name="APPL_ID" value="KFS"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="KFS601" id="KFSCD-25_ADD_SOURCE_OF_FUNDS_TYPE_CODE_TO_ACCOUNT_TABLE" context="bootstrap,demo,unit">
+        <addColumn tableName="CA_ACCOUNT_T">
+            <column name="FUNDS_TYPE_CD" type="VARCHAR(3)"/>
+        </addColumn>
+        <createIndex tableName="CA_ACCOUNT_T" indexName="CA_ACCOUNT_TI29">
+            <column name="FUNDS_TYPE_CD" type="VARCHAR(3)"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="KFS601" id="KFSCD-25_FUNDS_TYPE_CD_FOREIGN_KEYS" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint constraintName="CA_ACCOUNT_TR22" referencedTableName="CA_SOURCE_OF_FUNDS_T" baseColumnNames="FUNDS_TYPE_CD" baseTableName="CA_ACCOUNT_T"  referencedColumnNames="FUNDS_TYPE_CD" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" />
+    </changeSet>
+
+    <changeSet author="KFS601" id="KFSCD-25_ADD_SOURCE_OF_FUNDS_PARM" context="bootstrap,demo,unit">
+        <insert tableName="KRCR_PARM_T">
+            <column name="NMSPC_CD" value="KFS-COA" />
+            <column name="CMPNT_CD" value="Account" />
+            <column name="PARM_NM" value="DISPLAY_SOURCE_OF_FUNDS_IND" />
+            <column name="OBJ_ID" value="KFSCD-25-1" />
+            <column name="PARM_TYP_CD" value="CONFG" />
+            <column name="VAL" value="N" />
+            <column name="PARM_DESC_TXT"
+                    value="Determines whether or not the Source of Funds field will display and will be required when creating or editing accounts." />
+            <column name="EVAL_OPRTR_CD" value="A" />
+            <column name="APPL_ID" value="KFS" />
+        </insert>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINI-196_ADD_BACKDOOR_PARAMETER" context="bootstrap,demo,unit">
+        <insert tableName="krcr_parm_t">
+            <column name="NMSPC_CD"><![CDATA[KR-WKFLW]]></column>
+            <column name="CMPNT_CD"><![CDATA[Backdoor]]></column>
+            <column name="PARM_NM"><![CDATA[SHOW_BACK_DOOR_LOGIN_IND]]></column>
+            <column name="OBJ_ID"><![CDATA[ABC6785416434C4D9E5F05AF077DBZYX]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="PARM_TYP_CD"><![CDATA[CONFG]]></column>
+            <column name="VAL"><![CDATA[Y]]></column>
+            <column name="PARM_DESC_TXT"><![CDATA[Flag to show the backdoor login.]]></column>
+            <column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
+            <column name="APPL_ID"><![CDATA[KFS]]></column>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

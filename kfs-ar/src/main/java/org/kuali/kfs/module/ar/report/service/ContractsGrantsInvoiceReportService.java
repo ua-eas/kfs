@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,18 +18,17 @@
  */
 package org.kuali.kfs.module.ar.report.service;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Collection;
-
+import com.lowagie.text.DocumentException;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAgency;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.module.ar.businessobject.ContractsGrantsInvoiceLookupResult;
 import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
 import org.kuali.kfs.module.ar.document.ContractsGrantsLetterOfCreditReviewDocument;
 
-import com.lowagie.text.DocumentException;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Collection;
 
 /**
  * This interface defines the methods required for the report generation process for Contracts & Grants.
@@ -88,6 +87,7 @@ public interface ContractsGrantsInvoiceReportService {
 
     /**
      * This helper method returns a list of award lookup results based on the contracts & grants invoice lookup
+     *
      * @param awards a Collection of CGB Awards to populate Contracts & Grants Invoice lookup results from
      * @return a Collection of lookup results for the C&G Invoice lookup
      */

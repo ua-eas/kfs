@@ -1,31 +1,25 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document.service.impl;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.batch.DvToPdpExtractStep;
 import org.kuali.kfs.fp.businessobject.DisbursementVoucherNonEmployeeExpense;
 import org.kuali.kfs.fp.businessobject.DisbursementVoucherNonEmployeeTravel;
@@ -35,6 +29,8 @@ import org.kuali.kfs.fp.businessobject.DisbursementVoucherPreConferenceRegistran
 import org.kuali.kfs.fp.dataaccess.DisbursementVoucherDao;
 import org.kuali.kfs.fp.document.DisbursementVoucherConstants;
 import org.kuali.kfs.fp.document.DisbursementVoucherDocument;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.pdp.PdpConstants;
 import org.kuali.kfs.pdp.PdpParameterConstants;
 import org.kuali.kfs.pdp.businessobject.PaymentAccountDetail;
@@ -58,11 +54,15 @@ import org.kuali.rice.core.api.parameter.ParameterEvaluator;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.DocumentService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Transactional
 public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSourceToExtractService<DisbursementVoucherDocument> {
@@ -79,6 +79,7 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
 
     /**
      * Rolls the disbursement voucher back to a cancelled state
+     *
      * @see org.kuali.kfs.sys.batch.service.PaymentSourceToExtractService#cancelPayment(org.kuali.kfs.sys.document.PaymentSource, java.sql.Date)
      */
     @Override
@@ -93,8 +94,7 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
                 dv.getFinancialSystemDocumentHeader().setFinancialDocumentStatusCode(KFSConstants.DocumentStatusCodes.CANCELLED);
                 // save the document
                 getDocumentService().saveDocument(dv, AccountingDocumentSaveWithNoLedgerEntryGenerationEvent.class);
-            }
-            catch (WorkflowException we) {
+            } catch (WorkflowException we) {
                 LOG.error("encountered workflow exception while attempting to save Disbursement Voucher: " + dv.getDocumentNumber() + " " + we);
                 throw new RuntimeException(we);
             }
@@ -104,6 +104,7 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
 
     /**
      * Always returns true - on the DV, we roll back everything
+     *
      * @see org.kuali.kfs.sys.batch.service.PaymentSourceToExtractService#shouldRollBackPendingEntry(org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry)
      */
     @Override
@@ -120,8 +121,7 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
     protected void oppositifyEntry(GeneralLedgerPendingEntry glpe, BusinessObjectService boService, GeneralLedgerPendingEntrySequenceHelper glpeSeqHelper) {
         if (glpe.getTransactionDebitCreditCode().equals(KFSConstants.GL_CREDIT_CODE)) {
             glpe.setTransactionDebitCreditCode(KFSConstants.GL_DEBIT_CODE);
-        }
-        else if (glpe.getTransactionDebitCreditCode().equals(KFSConstants.GL_DEBIT_CODE)) {
+        } else if (glpe.getTransactionDebitCreditCode().equals(KFSConstants.GL_DEBIT_CODE)) {
             glpe.setTransactionDebitCreditCode(KFSConstants.GL_CREDIT_CODE);
         }
         glpe.setTransactionLedgerEntrySequenceNumber(glpeSeqHelper.getSequenceCounter());
@@ -132,6 +132,7 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
 
     /**
      * Retrieve disbursement vouchers for extraction
+     *
      * @see org.kuali.kfs.sys.batch.service.PaymentSourceToExtractService#retrievePaymentSourcesByCampus(boolean)
      */
     @Override
@@ -153,8 +154,7 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
                 if (documentsByCampus.containsKey(dvdCampusCode)) {
                     List<DisbursementVoucherDocument> documents = documentsByCampus.get(dvdCampusCode);
                     documents.add(element);
-                }
-                else {
+                } else {
                     List<DisbursementVoucherDocument> documents = new ArrayList<DisbursementVoucherDocument>();
                     documents.add(element);
                     documentsByCampus.put(dvdCampusCode, documents);
@@ -167,6 +167,7 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
 
     /**
      * Creates a PaymentGroup to pay the passed in DisbursementVoucher
+     *
      * @see org.kuali.kfs.fp.document.service.DisbursementVoucherPaymentService#createPaymentGroup(org.kuali.kfs.fp.document.DisbursementVoucherDocument, java.sql.Date)
      */
     @Override
@@ -192,9 +193,9 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
             pg.setEmployeeIndicator(Boolean.TRUE);
             pg.setPayeeIdTypeCd(PdpConstants.PayeeIdTypeCodes.EMPLOYEE);
             pg.setTaxablePayment(
-                    !/*REFACTORME*/getParameterEvaluatorService().getParameterEvaluator(DisbursementVoucherDocument.class, DisbursementVoucherConstants.RESEARCH_PAYMENT_REASONS_PARM_NM, rc).evaluationSucceeds()
-                        && !getParameterService().getParameterValueAsString(DisbursementVoucherDocument.class, DisbursementVoucherConstants.PAYMENT_REASON_CODE_RENTAL_PAYMENT_PARM_NM).equals(rc)
-                        && !getParameterService().getParameterValueAsString(DisbursementVoucherDocument.class, DisbursementVoucherConstants.PAYMENT_REASON_CODE_ROYALTIES_PARM_NM).equals(rc));
+                !/*REFACTORME*/getParameterEvaluatorService().getParameterEvaluator(DisbursementVoucherDocument.class, DisbursementVoucherConstants.RESEARCH_PAYMENT_REASONS_PARM_NM, rc).evaluationSucceeds()
+                    && !getParameterService().getParameterValueAsString(DisbursementVoucherDocument.class, DisbursementVoucherConstants.PAYMENT_REASON_CODE_RENTAL_PAYMENT_PARM_NM).equals(rc)
+                    && !getParameterService().getParameterValueAsString(DisbursementVoucherDocument.class, DisbursementVoucherConstants.PAYMENT_REASON_CODE_ROYALTIES_PARM_NM).equals(rc));
         }
         // Payee is not an employee
         else {
@@ -214,17 +215,15 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
             ParameterEvaluator parameterEvaluator1 = /*REFACTORME*/getParameterEvaluatorService().getParameterEvaluator(DvToPdpExtractStep.class, PdpParameterConstants.TAXABLE_PAYMENT_REASON_CODES_BY_OWNERSHIP_CODES_PARAMETER_NAME, PdpParameterConstants.NON_TAXABLE_PAYMENT_REASON_CODES_BY_OWNERSHIP_CODES_PARAMETER_NAME, vendorOwnerCode, payReasonCode);
             ParameterEvaluator parameterEvaluator2 = /*REFACTORME*/getParameterEvaluatorService().getParameterEvaluator(DvToPdpExtractStep.class, PdpParameterConstants.TAXABLE_PAYMENT_REASON_CODES_BY_CORPORATION_OWNERSHIP_TYPE_CATEGORY_PARAMETER_NAME, PdpParameterConstants.NON_TAXABLE_PAYMENT_REASON_CODES_BY_CORPORATION_OWNERSHIP_TYPE_CATEGORY_PARAMETER_NAME, vendorOwnerCategoryCode, payReasonCode);
 
-            if ( parameterEvaluator1.evaluationSucceeds() ) {
+            if (parameterEvaluator1.evaluationSucceeds()) {
                 pg.setTaxablePayment(Boolean.TRUE);
-            }
-            else if (getParameterService().getParameterValueAsString(DvToPdpExtractStep.class, PdpParameterConstants.CORPORATION_OWNERSHIP_TYPE_PARAMETER_NAME).equals("CP") &&
-                      StringUtils.isEmpty(vendorOwnerCategoryCode) &&
+            } else if (getParameterService().getParameterValueAsString(DvToPdpExtractStep.class, PdpParameterConstants.CORPORATION_OWNERSHIP_TYPE_PARAMETER_NAME).equals("CP") &&
+                StringUtils.isEmpty(vendorOwnerCategoryCode) &&
                       /*REFACTORME*/getParameterEvaluatorService().getParameterEvaluator(DvToPdpExtractStep.class, PdpParameterConstants.TAXABLE_PAYMENT_REASON_CODES_FOR_BLANK_CORPORATION_OWNERSHIP_TYPE_CATEGORIES_PARAMETER_NAME, payReasonCode).evaluationSucceeds()) {
                 pg.setTaxablePayment(Boolean.TRUE);
-            }
-            else if (getParameterService().getParameterValueAsString(DvToPdpExtractStep.class, PdpParameterConstants.CORPORATION_OWNERSHIP_TYPE_PARAMETER_NAME).equals("CP")
-                        && !StringUtils.isEmpty(vendorOwnerCategoryCode)
-                        && parameterEvaluator2.evaluationSucceeds() ) {
+            } else if (getParameterService().getParameterValueAsString(DvToPdpExtractStep.class, PdpParameterConstants.CORPORATION_OWNERSHIP_TYPE_PARAMETER_NAME).equals("CP")
+                && !StringUtils.isEmpty(vendorOwnerCategoryCode)
+                && parameterEvaluator2.evaluationSucceeds()) {
                 pg.setTaxablePayment(Boolean.TRUE);
             }
         }
@@ -258,8 +257,8 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
      * This method builds a payment detail object from the disbursement voucher document provided and links that detail file to the
      * batch and process run date given.
      *
-     * @param document The disbursement voucher document to retrieve payment information from to populate the PaymentDetail.
-     * @param batch The batch file associated with the payment.
+     * @param document       The disbursement voucher document to retrieve payment information from to populate the PaymentDetail.
+     * @param batch          The batch file associated with the payment.
      * @param processRunDate The date of the payment detail invoice.
      * @return A fully populated PaymentDetail instance.
      */
@@ -272,9 +271,8 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
         int maxNoteLines;
         try {
             maxNoteLines = Integer.parseInt(maxNoteLinesParam);
-        }
-        catch (NumberFormatException nfe) {
-            throw new IllegalArgumentException("Invalid Max Notes Lines parameter, value: "+maxNoteLinesParam+" cannot be converted to an integer");
+        } catch (NumberFormatException nfe) {
+            throw new IllegalArgumentException("Invalid Max Notes Lines parameter, value: " + maxNoteLinesParam + " cannot be converted to an integer");
         }
 
         PaymentDetail pd = new PaymentDetail();
@@ -294,21 +292,19 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
         pd.setFinancialSystemOriginCode(KFSConstants.ORIGIN_CODE_KUALI);
 
         // Handle accounts
-        for (SourceAccountingLine sal : (List<? extends SourceAccountingLine>)document.getSourceAccountingLines()) {
+        for (SourceAccountingLine sal : (List<? extends SourceAccountingLine>) document.getSourceAccountingLines()) {
             PaymentAccountDetail pad = new PaymentAccountDetail();
             pad.setFinChartCode(sal.getChartOfAccountsCode());
             pad.setAccountNbr(sal.getAccountNumber());
             if (StringUtils.isNotEmpty(sal.getSubAccountNumber())) {
                 pad.setSubAccountNbr(sal.getSubAccountNumber());
-            }
-            else {
+            } else {
                 pad.setSubAccountNbr(KFSConstants.getDashSubAccountNumber());
             }
             pad.setFinObjectCode(sal.getFinancialObjectCode());
             if (StringUtils.isNotEmpty(sal.getFinancialSubObjectCode())) {
                 pad.setFinSubObjectCode(sal.getFinancialSubObjectCode());
-            }
-            else {
+            } else {
                 pad.setFinSubObjectCode(KFSConstants.getDashFinancialSubObjectCode());
             }
             if (StringUtils.isNotEmpty(sal.getOrganizationReferenceId())) {
@@ -316,8 +312,7 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
             }
             if (StringUtils.isNotEmpty(sal.getProjectCode())) {
                 pad.setProjectCode(sal.getProjectCode());
-            }
-            else {
+            } else {
                 pad.setProjectCode(KFSConstants.getDashProjectCode());
             }
             pad.setAccountNetAmount(sal.getAmount());
@@ -352,7 +347,7 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
             pnt.setCustomerNoteLineNbr(new KualiInteger(line++));
             pnt.setCustomerNoteText("Send Check To: " + dvSpecialHandlingPersonName);
             if (LOG.isDebugEnabled()) {
-                LOG.debug("Creating special handling person name note: "+pnt.getCustomerNoteText());
+                LOG.debug("Creating special handling person name note: " + pnt.getCustomerNoteText());
             }
             pd.addNote(pnt);
         }
@@ -361,7 +356,7 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
             pnt.setCustomerNoteLineNbr(new KualiInteger(line++));
             pnt.setCustomerNoteText(dvSpecialHandlingLine1Address);
             if (LOG.isDebugEnabled()) {
-                LOG.debug("Creating special handling address 1 note: "+pnt.getCustomerNoteText());
+                LOG.debug("Creating special handling address 1 note: " + pnt.getCustomerNoteText());
             }
             pd.addNote(pnt);
         }
@@ -370,7 +365,7 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
             pnt.setCustomerNoteLineNbr(new KualiInteger(line++));
             pnt.setCustomerNoteText(dvSpecialHandlingLine2Address);
             if (LOG.isDebugEnabled()) {
-                LOG.debug("Creating special handling address 2 note: "+pnt.getCustomerNoteText());
+                LOG.debug("Creating special handling address 2 note: " + pnt.getCustomerNoteText());
             }
             pd.addNote(pnt);
         }
@@ -379,7 +374,7 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
             pnt.setCustomerNoteLineNbr(new KualiInteger(line++));
             pnt.setCustomerNoteText(dvSpecialHandlingCity + ", " + dvSpecialHandlingState + " " + dvSpecialHandlingZip);
             if (LOG.isDebugEnabled()) {
-                LOG.debug("Creating special handling city note: "+pnt.getCustomerNoteText());
+                LOG.debug("Creating special handling city note: " + pnt.getCustomerNoteText());
             }
             pd.addNote(pnt);
         }
@@ -388,7 +383,7 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
             pnt.setCustomerNoteLineNbr(new KualiInteger(line++));
             pnt.setCustomerNoteText("Attachment Included");
             if (LOG.isDebugEnabled()) {
-                LOG.debug("create attachment note: "+pnt.getCustomerNoteText());
+                LOG.debug("create attachment note: " + pnt.getCustomerNoteText());
             }
             pd.addNote(pnt);
         }
@@ -401,7 +396,7 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
             pnt.setCustomerNoteLineNbr(new KualiInteger(line++));
             pnt.setCustomerNoteText("Reimbursement associated with " + dvnet.getDisbVchrServicePerformedDesc());
             if (LOG.isDebugEnabled()) {
-                LOG.debug("Creating non employee travel notes: "+pnt.getCustomerNoteText());
+                LOG.debug("Creating non employee travel notes: " + pnt.getCustomerNoteText());
             }
             pd.addNote(pnt);
 
@@ -409,7 +404,7 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
             pnt.setCustomerNoteLineNbr(new KualiInteger(line++));
             pnt.setCustomerNoteText("The total per diem amount for your daily expenses is " + dvnet.getDisbVchrPerdiemCalculatedAmt());
             if (LOG.isDebugEnabled()) {
-                LOG.debug("Creating non employee travel notes: "+pnt.getCustomerNoteText());
+                LOG.debug("Creating non employee travel notes: " + pnt.getCustomerNoteText());
             }
             pd.addNote(pnt);
 
@@ -418,41 +413,40 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
                 pnt.setCustomerNoteLineNbr(new KualiInteger(line++));
                 pnt.setCustomerNoteText("The total dollar amount for your vehicle mileage is " + dvnet.getDisbVchrPersonalCarAmount());
                 if (LOG.isDebugEnabled()) {
-                    LOG.debug("Creating non employee travel vehicle note: "+pnt.getCustomerNoteText());
+                    LOG.debug("Creating non employee travel vehicle note: " + pnt.getCustomerNoteText());
                 }
                 pd.addNote(pnt);
 
-                for (DisbursementVoucherNonEmployeeExpense exp : (List<DisbursementVoucherNonEmployeeExpense>)dvnet.getDvNonEmployeeExpenses()) {
+                for (DisbursementVoucherNonEmployeeExpense exp : (List<DisbursementVoucherNonEmployeeExpense>) dvnet.getDvNonEmployeeExpenses()) {
                     if (line < (maxNoteLines - 8)) {
                         pnt = new PaymentNoteText();
                         pnt.setCustomerNoteLineNbr(new KualiInteger(line++));
                         pnt.setCustomerNoteText(exp.getDisbVchrExpenseCompanyName() + " " + exp.getDisbVchrExpenseAmount());
                         if (LOG.isDebugEnabled()) {
-                            LOG.debug("Creating non employee travel expense note: "+pnt.getCustomerNoteText());
+                            LOG.debug("Creating non employee travel expense note: " + pnt.getCustomerNoteText());
                         }
                         pd.addNote(pnt);
                     }
                 }
             }
-        }
-        else if (/*REFACTORME*/getParameterEvaluatorService().getParameterEvaluator(DisbursementVoucherDocument.class, DisbursementVoucherConstants.PREPAID_TRAVEL_PAYMENT_REASONS_PARM_NM, paymentReasonCode).evaluationSucceeds()) {
+        } else if (/*REFACTORME*/getParameterEvaluatorService().getParameterEvaluator(DisbursementVoucherDocument.class, DisbursementVoucherConstants.PREPAID_TRAVEL_PAYMENT_REASONS_PARM_NM, paymentReasonCode).evaluationSucceeds()) {
             pnt = new PaymentNoteText();
             pnt.setCustomerNoteLineNbr(new KualiInteger(line++));
             pnt.setCustomerNoteText("Payment is for the following individuals/charges:");
             pd.addNote(pnt);
             if (LOG.isDebugEnabled()) {
-                LOG.info("Creating prepaid travel note note: "+pnt.getCustomerNoteText());
+                LOG.info("Creating prepaid travel note note: " + pnt.getCustomerNoteText());
             }
 
             DisbursementVoucherPreConferenceDetail dvpcd = document.getDvPreConferenceDetail();
 
-            for (DisbursementVoucherPreConferenceRegistrant dvpcr : (List<DisbursementVoucherPreConferenceRegistrant>)dvpcd.getDvPreConferenceRegistrants()) {
+            for (DisbursementVoucherPreConferenceRegistrant dvpcr : (List<DisbursementVoucherPreConferenceRegistrant>) dvpcd.getDvPreConferenceRegistrants()) {
                 if (line < (maxNoteLines - 8)) {
                     pnt = new PaymentNoteText();
                     pnt.setCustomerNoteLineNbr(new KualiInteger(line++));
                     pnt.setCustomerNoteText(dvpcr.getDvConferenceRegistrantName() + " " + dvpcr.getDisbVchrExpenseAmount());
                     if (LOG.isDebugEnabled()) {
-                        LOG.debug("Creating pre-paid conference registrants note: "+pnt.getCustomerNoteText());
+                        LOG.debug("Creating pre-paid conference registrants note: " + pnt.getCustomerNoteText());
                     }
                     pd.addNote(pnt);
                 }
@@ -475,6 +469,7 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
 
     /**
      * Uses the value in the KFS-FP / DisbursementVoucher / PRE_DISBURSEMENT_EXTRACT_ORGANIZATION parameter
+     *
      * @see org.kuali.kfs.sys.document.PaymentSource#getPreDisbursementCustomerProfileUnit()
      */
     @Override
@@ -486,6 +481,7 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
 
     /**
      * Uses the value in the KFS-FP / DisbursementVoucher / PRE_DISBURSEMENT_EXTRACT_SUB_UNIT
+     *
      * @see org.kuali.kfs.sys.document.PaymentSource#getPreDisbursementCustomerProfileSubUnit()
      */
     @Override
@@ -495,7 +491,6 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
     }
 
     /**
-     *
      * @see org.kuali.kfs.sys.batch.service.PaymentSourceToExtractService#markAsExtracted(org.kuali.rice.krad.document.Document, java.sql.Date)
      */
     @Override
@@ -504,8 +499,7 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
             document.getFinancialSystemDocumentHeader().setFinancialDocumentStatusCode(KFSConstants.DocumentStatusCodes.Payments.EXTRACTED);
             document.setExtractDate(sqlProcessRunDate);
             getDocumentService().saveDocument(document, AccountingDocumentSaveWithNoLedgerEntryGenerationEvent.class);
-        }
-        catch (WorkflowException we) {
+        } catch (WorkflowException we) {
             LOG.error("Could not save disbursement voucher document #" + document.getDocumentNumber() + ": " + we);
             throw new RuntimeException(we);
         }
@@ -513,6 +507,7 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
 
     /**
      * The amount check total amount from the given DV
+     *
      * @see org.kuali.kfs.sys.batch.service.PaymentSourceToExtractService#getPaymentAmount(org.kuali.rice.krad.document.Document)
      */
     @Override
@@ -522,6 +517,7 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
 
     /**
      * Calls setPaidDate to set when this DisbursementVoucher was paid
+     *
      * @see org.kuali.kfs.sys.batch.service.PaymentSourceToExtractService#markAsPaid(org.kuali.kfs.sys.document.PaymentSource, java.sql.Date)
      */
     @Override
@@ -529,8 +525,7 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
         try {
             paymentSource.setPaidDate(processDate);
             getDocumentService().saveDocument(paymentSource, AccountingDocumentSaveWithNoLedgerEntryGenerationEvent.class);
-        }
-        catch (WorkflowException we) {
+        } catch (WorkflowException we) {
             LOG.error("encountered workflow exception while attempting to save Disbursement Voucher: " + paymentSource.getDocumentNumber() + " " + we);
             throw new RuntimeException(we);
         }
@@ -539,6 +534,7 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
     /**
      * Resets the DisbursementVoucher so that it it no longer marked as extracted; to do that, it sets its financial system document status back to approved,
      * and sets the paid date and extract date to null
+     *
      * @see org.kuali.kfs.sys.batch.service.PaymentSourceToExtractService#resetFromExtraction(org.kuali.kfs.sys.document.PaymentSource)
      */
     @Override
@@ -549,8 +545,7 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
             paymentSource.setPaidDate(null);
             paymentSource.getFinancialSystemDocumentHeader().setFinancialDocumentStatusCode(KFSConstants.DocumentStatusCodes.APPROVED);
             getDocumentService().saveDocument(paymentSource, AccountingDocumentSaveWithNoLedgerEntryGenerationEvent.class);
-        }
-        catch (WorkflowException we) {
+        } catch (WorkflowException we) {
             LOG.error("encountered workflow exception while attempting to save Disbursement Voucher: " + paymentSource.getDocumentNumber() + " " + we);
             throw new RuntimeException(we);
         }
@@ -558,6 +553,7 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
 
     /**
      * Returns DVCA
+     *
      * @see org.kuali.kfs.sys.document.PaymentSource#getAchCheckDocumentType()
      */
     @Override
@@ -567,6 +563,7 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
 
     /**
      * Returns true if the doc type is "DVCA"
+     *
      * @see org.kuali.kfs.sys.batch.service.PaymentSourceToExtractService#handlesAchCheckDocumentType(java.lang.String)
      */
     @Override
@@ -576,6 +573,7 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
 
     /**
      * Returns the value of the KFS-FP / Disbursement Voucher / IMMEDIATE_EXTRACT_NOTIFICATION_FROM_EMAIL_ADDRESS parameter
+     *
      * @see org.kuali.kfs.sys.document.PaymentSource#getImmediateExtractEMailFromAddress()
      */
     @Override
@@ -585,6 +583,7 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
 
     /**
      * Returns the value of the KFS-FP / Disbursement Voucher / IMMEDIATE_EXTRACT_NOTIFICATION_TO_EMAIL_ADDRESSES parameter
+     *
      * @see org.kuali.kfs.sys.document.PaymentSource#getImmediateExtractEmailToAddresses()
      */
     @Override
@@ -596,6 +595,7 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
 
     /**
      * Determines if the payment would be 0 - if it's greater than that, it should be extracted
+     *
      * @see org.kuali.kfs.sys.batch.service.PaymentSourceToExtractService#shouldExtractPayment(org.kuali.kfs.sys.document.PaymentSource)
      */
     @Override
@@ -612,6 +612,7 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
 
     /**
      * Injects an implementation of the BusinessObjectService
+     *
      * @param businessObjectService the implementation of the BusinessObjectService to inject
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
@@ -627,6 +628,7 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
 
     /**
      * Injects an implementation of the GeneralLedgerPendingEntryService
+     *
      * @param generalLedgerPendingEntryService the implementation of GeneralLedgerPendingEntryService to inject and use
      */
     public void setGeneralLedgerPendingEntryService(GeneralLedgerPendingEntryService generalLedgerPendingEntryService) {
@@ -651,6 +653,7 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
 
     /**
      * Sets the implementation of the ParameterService for this service to use
+     *
      * @param parameterService an implementation of ParameterService
      */
     public void setParameterService(ParameterService parameterService) {
@@ -666,6 +669,7 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
 
     /**
      * Sets the implementation of the ParameterEvaluatorService for this service to use
+     *
      * @param parameterService an implementation of ParameterEvaluatorService
      */
     public void setParameterEvaluatorService(ParameterEvaluatorService parameterEvaluatorService) {
@@ -681,6 +685,7 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
 
     /**
      * Sets the implementation of the VendorService for this service to use
+     *
      * @param parameterService an implementation of VendorService
      */
     public void setVendorService(VendorService vendorService) {
@@ -696,6 +701,7 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
 
     /**
      * Sets the implementation of the DocumentService for this service to use
+     *
      * @param parameterService an implementation of DocumentService
      */
     public void setDocumentService(DocumentService documentService) {
@@ -711,6 +717,7 @@ public class DisbursementVoucherExtractionHelperServiceImpl implements PaymentSo
 
     /**
      * Sets the implementation of the PaymentSourceHelperService for this service to use
+     *
      * @param paymentSourceHelperService an implementation of PaymentSourceHelperService
      */
     public void setPaymentSourceHelperService(PaymentSourceHelperService paymentSourceHelperService) {

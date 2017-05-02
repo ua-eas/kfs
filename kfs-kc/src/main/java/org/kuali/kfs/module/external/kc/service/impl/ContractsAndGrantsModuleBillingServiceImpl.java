@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,26 +18,27 @@
  */
 package org.kuali.kfs.module.external.kc.service.impl;
 
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.integration.cg.ContractsAndGrantsAward;
+import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
+import org.kuali.kfs.integration.cg.ContractsAndGrantsModuleBillingService;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.external.kc.KcConstants;
+import org.kuali.kfs.module.external.kc.businessobject.Award;
+import org.kuali.kfs.module.external.kc.service.ExternalizableLookupableBusinessObjectService;
+import org.kuali.kfs.module.external.kc.webService.AwardWebSoapService;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kra.external.award.AwardBillingUpdateDto;
+import org.kuali.kra.external.award.AwardBillingUpdateStatusDto;
+import org.kuali.kra.external.award.AwardFieldValuesDto;
+import org.kuali.kra.external.award.AwardWebService;
+import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
+
 import java.net.MalformedURLException;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.kfs.integration.cg.ContractsAndGrantsAward;
-import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
-import org.kuali.kfs.integration.cg.ContractsAndGrantsModuleBillingService;
-import org.kuali.kfs.module.external.kc.KcConstants;
-import org.kuali.kfs.module.external.kc.businessobject.Award;
-import org.kuali.kfs.module.external.kc.dto.AwardBillingUpdateDto;
-import org.kuali.kfs.module.external.kc.dto.AwardBillingUpdateStatusDto;
-import org.kuali.kfs.module.external.kc.dto.AwardFieldValuesDto;
-import org.kuali.kfs.module.external.kc.service.ExternalizableLookupableBusinessObjectService;
-import org.kuali.kfs.module.external.kc.webService.AwardWebSoapService;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kra.external.award.AwardWebService;
-import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
-import org.kuali.rice.krad.util.ObjectUtils;
 
 /**
  * Implementation of Contracts & Grants module billing service which will allow AR to utilize KC functionality to perform CGB actions.
@@ -49,20 +50,23 @@ public class ContractsAndGrantsModuleBillingServiceImpl implements ContractsAndG
 
     @Override
     public List<? extends ContractsAndGrantsAward> lookupAwards(Map<String, String> fieldValues, boolean unbounded) {
-        return (List<Award>)getAwardService().getSearchResults(fieldValues);
+        return (List<Award>) getAwardService().getSearchResults(fieldValues);
     }
 
     @Override
-    public ContractsAndGrantsBillingAward updateAwardIfNecessary(Long proposalNumber, ContractsAndGrantsBillingAward currentAward ) {
+    public ContractsAndGrantsBillingAward updateAwardIfNecessary(String proposalNumber, ContractsAndGrantsBillingAward currentAward) {
         ContractsAndGrantsBillingAward award = currentAward;
 
         if (ObjectUtils.isNull(proposalNumber)) {
             award = null;
         } else {
-            if (ObjectUtils.isNull(currentAward) || !currentAward.getProposalNumber().equals(proposalNumber))  {
-                Map<String, Long> primaryKeys = new HashMap<>();
-                primaryKeys.put(KFSPropertyConstants.PROPOSAL_NUMBER, proposalNumber);
-                award = (Award)awardService.findByPrimaryKey(primaryKeys);
+            if (ObjectUtils.isNull(currentAward) || !StringUtils.equals(currentAward.getProposalNumber(), proposalNumber)) {
+                Map<String, String> criteria = new HashMap<>();
+                criteria.put(KFSPropertyConstants.PROPOSAL_NUMBER, proposalNumber);
+                List<Award> awards = (List<Award>) awardService.findMatching(criteria);
+                if (awards.size() > 0) {
+                    award = awards.get(0);
+                }
             }
         }
         return award;
@@ -95,18 +99,18 @@ public class ContractsAndGrantsModuleBillingServiceImpl implements ContractsAndG
         AwardFieldValuesDto dto = new AwardFieldValuesDto();
         dto.setAccountNumber((String) criteria.get(KFSPropertyConstants.ACCOUNT_NUMBER));
         dto.setChartOfAccounts((String) criteria.get(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE));
-        dto.setAwardId((Long) criteria.get(KFSPropertyConstants.PROPOSAL_NUMBER));
+        dto.setAwardNumber((String) criteria.get(KFSPropertyConstants.PROPOSAL_NUMBER));
         return dto;
 
     }
 
     @Override
-    public void setLastBilledDateToAward(Long proposalNumber, Date lastBilledDate) {
+    public void setLastBilledDateToAward(String proposalNumber, Date lastBilledDate) {
         AwardBillingUpdateDto updateDto = new AwardBillingUpdateDto();
         updateDto.setDoLastBillDateUpdate(true);
         updateDto.setLastBillDate(lastBilledDate);
         AwardFieldValuesDto searchDto = new AwardFieldValuesDto();
-        searchDto.setAwardId(proposalNumber);
+        searchDto.setAwardNumber(proposalNumber);
         handleBillingStatusResult(getAwardWebService().updateAwardBillingStatus(searchDto, updateDto));
     }
 
@@ -146,6 +150,18 @@ public class ContractsAndGrantsModuleBillingServiceImpl implements ContractsAndG
         }
     }
 
+    @Override
+    public Map<String, Object> getLetterOfCreditAwardCriteria(String fundGroupCode, String fundCode) {
+        Map<String, Object> criteria = new HashMap<String, Object>();
+        if (ObjectUtils.isNotNull(fundGroupCode)) {
+            criteria.put("locFundGroupCode", fundGroupCode);
+        }
+        if (ObjectUtils.isNotNull(fundCode)) {
+            criteria.put("locFundCode", fundCode);
+        }
+        return criteria;
+    }
+
     protected AwardWebService getWebService() {
         // first attempt to get the service from the KSB - works when KFS & KC share a Rice instance
         AwardWebService awardWebService = (AwardWebService) GlobalResourceLoader.getService(KcConstants.Award.SERVICE);
@@ -153,11 +169,10 @@ public class ContractsAndGrantsModuleBillingServiceImpl implements ContractsAndG
         // if we couldn't get the service from the KSB, get as web service - for when KFS & KC have separate Rice instances
         if (awardWebService == null) {
             LOG.warn("Couldn't get AwardWebService from KSB, setting it up as SOAP web service - expected behavior for bundled Rice, but not when KFS & KC share a standalone Rice instance.");
-            AwardWebSoapService ss =  null;
+            AwardWebSoapService ss = null;
             try {
                 ss = new AwardWebSoapService();
-            }
-            catch (MalformedURLException ex) {
+            } catch (MalformedURLException ex) {
                 LOG.error("Could not intialize AwardWebSoapService: " + ex.getMessage());
                 throw new RuntimeException("Could not intialize AwardWebSoapService: " + ex.getMessage());
             }

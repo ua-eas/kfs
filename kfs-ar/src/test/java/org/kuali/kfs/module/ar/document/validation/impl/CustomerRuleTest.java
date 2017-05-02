@@ -1,30 +1,30 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
-
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.businessobject.Customer;
 import org.kuali.kfs.module.ar.businessobject.CustomerAddress;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.document.validation.MaintenanceRuleTestBase;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class CustomerRuleTest extends MaintenanceRuleTestBase {
@@ -135,12 +135,11 @@ public class CustomerRuleTest extends MaintenanceRuleTestBase {
         boolean result = rule.checkAddressIsValid(customerAddress);
         assertEquals("When customer address has country code " + CUSTOMER_ADDRESS_COUNTRY_CODE_RO + " and province and International Mail Code are empty checkAddressIsValid should return false. ", false, result);
     }
-    
+
     /**
      * This method checks if checkAddresses returns true when customer has only one primary address.
      */
-    public void testCheckAddresses_True()
-    {
+    public void testCheckAddresses_True() {
         customerAddress.setCustomerAddressTypeCode(ArKeyConstants.CustomerConstants.CUSTOMER_ADDRESS_TYPE_CODE_PRIMARY);
         customer.getCustomerAddresses().add(customerAddress);
 
@@ -149,12 +148,11 @@ public class CustomerRuleTest extends MaintenanceRuleTestBase {
         boolean result = rule.checkAddresses(customer);
         assertEquals("When customer has one primary address checkAddresses should return true. ", true, result);
     }
-    
+
     /**
      * This method checks if checkAddresses returns false when customer has more than one primary address.
      */
-    public void testCheckAddresses_HasMore_False()
-    {
+    public void testCheckAddresses_HasMore_False() {
         customerAddress.setCustomerAddressTypeCode(ArKeyConstants.CustomerConstants.CUSTOMER_ADDRESS_TYPE_CODE_PRIMARY);
         customer.getCustomerAddresses().add(customerAddress);
         customer.getCustomerAddresses().add(customerAddress);
@@ -163,12 +161,11 @@ public class CustomerRuleTest extends MaintenanceRuleTestBase {
         boolean result = rule.checkAddresses(customer);
         assertEquals("When customer has more than one primary address checkAddresses should return false. ", false, result);
     }
-    
+
     /**
      * This method checks if checkAddresses returns false when customer has no primary address.
      */
-    public void testCheckAddresses_HasNone_False()
-    {
+    public void testCheckAddresses_HasNone_False() {
         customerAddress.setCustomerAddressTypeCode(ArKeyConstants.CustomerConstants.CUSTOMER_ADDRESS_TYPE_CODE_ALTERNATE);
         customer.getCustomerAddresses().add(customerAddress);
 

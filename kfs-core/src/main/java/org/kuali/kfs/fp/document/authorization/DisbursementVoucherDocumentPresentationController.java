@@ -1,36 +1,35 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document.authorization;
 
-import java.util.Set;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.kuali.kfs.fp.document.DisbursementVoucherConstants;
 import org.kuali.kfs.fp.document.DisbursementVoucherDocument;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KfsAuthorizationConstants;
 import org.kuali.kfs.sys.KfsAuthorizationConstants.DisbursementVoucherEditMode;
 import org.kuali.kfs.sys.document.authorization.AccountingDocumentPresentationControllerBase;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.util.ObjectUtils;
 
+import java.util.Set;
 
 
 public class DisbursementVoucherDocumentPresentationController extends AccountingDocumentPresentationControllerBase {
@@ -39,8 +38,8 @@ public class DisbursementVoucherDocumentPresentationController extends Accountin
      */
     @Override
     public boolean canBlanketApprove(Document document) {
-                return false;
-            }
+        return false;
+    }
 
     @Override
     public Set<String> getDocumentActions(Document document) {
@@ -56,7 +55,7 @@ public class DisbursementVoucherDocumentPresentationController extends Accountin
      * @return
      */
     protected boolean canExtractNow(Document document) {
-        DisbursementVoucherDocument dvDoc = (DisbursementVoucherDocument)document;
+        DisbursementVoucherDocument dvDoc = (DisbursementVoucherDocument) document;
         boolean canExtractNow = true;
         canExtractNow &= dvDoc.getDocumentHeader().getWorkflowDocument().isApproved();
         canExtractNow &= ObjectUtils.isNull(dvDoc.getExtractDate());
@@ -94,7 +93,17 @@ public class DisbursementVoucherDocumentPresentationController extends Accountin
             editModes.add(DisbursementVoucherEditMode.EXTRACT_NOW);
         }
 
+        addACHSignUpInfoMode(document, editModes);
+
         return editModes;
+    }
+
+    protected void addACHSignUpInfoMode(Document document, Set<String> editModes) {
+        WorkflowDocument workflowDocument = document.getDocumentHeader().getWorkflowDocument();
+        if (!(workflowDocument.isFinal() ||
+            workflowDocument.isProcessed() ||
+            workflowDocument.isDisapproved()))
+            editModes.add(DisbursementVoucherEditMode.ACH_ACCOUNT_INFO_DISPLAYED);
     }
 
     protected void addPaymentReasonEditMode(Document document, Set<String> editModes) {
@@ -105,9 +114,8 @@ public class DisbursementVoucherDocumentPresentationController extends Accountin
 
     protected boolean isAtNode(Document document, String nodeName) {
         Set<String> currentNodes = document.getDocumentHeader().getWorkflowDocument().getCurrentNodeNames();
-        return currentNodes.contains(nodeName) ;
+        return currentNodes.contains(nodeName);
     }
-
 
 
     protected void addPayeeEditEntryMode(Document document, Set<String> editModes) {
@@ -115,8 +123,7 @@ public class DisbursementVoucherDocumentPresentationController extends Accountin
 
         if ((workflowDocument.isInitiated() || workflowDocument.isSaved() || workflowDocument.isCompletionRequested())) {
             editModes.add(KfsAuthorizationConstants.DisbursementVoucherEditMode.PAYEE_ENTRY);
-        }
-        else if (workflowDocument.isEnroute()) {
+        } else if (workflowDocument.isEnroute()) {
             Set<String> currentRouteLevels = workflowDocument.getCurrentNodeNames();
             if (CollectionUtils.isNotEmpty(currentRouteLevels) && (currentRouteLevels.contains(DisbursementVoucherConstants.RouteLevelNames.ACCOUNT) || currentRouteLevels.contains(DisbursementVoucherConstants.RouteLevelNames.TAX) || currentRouteLevels.contains(DisbursementVoucherConstants.RouteLevelNames.AWARD) || currentRouteLevels.contains(DisbursementVoucherConstants.RouteLevelNames.CAMPUS) || currentRouteLevels.contains(DisbursementVoucherConstants.RouteLevelNames.TRAVEL))) {
                 editModes.add(KfsAuthorizationConstants.DisbursementVoucherEditMode.PAYEE_ENTRY);
@@ -134,7 +141,8 @@ public class DisbursementVoucherDocumentPresentationController extends Accountin
 
     /**
      * If at a proper route node, adds the ability to edit payment handling fields
-     * @param document the disbursement voucher document authorization is being sought on
+     *
+     * @param document  the disbursement voucher document authorization is being sought on
      * @param editModes the edit modes so far, which can be added to
      */
     protected void addPaymentHandlingEntryMode(Document document, Set<String> editModes) {
@@ -151,7 +159,8 @@ public class DisbursementVoucherDocumentPresentationController extends Accountin
 
     /**
      * If at a proper route node, adds the ability to edit the due date for the voucher
-     * @param document the disbursement voucher document authorization is being sought on
+     *
+     * @param document  the disbursement voucher document authorization is being sought on
      * @param editModes the edit modes so far, which can be added to
      */
     protected void addVoucherDeadlineEntryMode(Document document, Set<String> editModes) {
@@ -168,7 +177,8 @@ public class DisbursementVoucherDocumentPresentationController extends Accountin
 
     /**
      * If at a proper route node, adds the ability to edit the travel information on the disbursement voucher
-     * @param document the disbursement voucher document authorization is being sought on
+     *
+     * @param document  the disbursement voucher document authorization is being sought on
      * @param editModes the edit modes so far, which can be added to
      */
     protected void addTravelEntryMode(Document document, Set<String> editModes) {
@@ -178,10 +188,10 @@ public class DisbursementVoucherDocumentPresentationController extends Accountin
         if (CollectionUtils.isNotEmpty(currentRouteLevels)) {
             if (currentRouteLevels.contains(DisbursementVoucherConstants.RouteLevelNames.ACCOUNT)) {  //FO?
             } else if (currentRouteLevels.contains(DisbursementVoucherConstants.RouteLevelNames.TAX)) { //tax manager? Then only allow this if we're going to route to travel node anyway
-                if (((DisbursementVoucherDocument)document).isTravelReviewRequired()) {
-                   editModes.add(KfsAuthorizationConstants.DisbursementVoucherEditMode.TRAVEL_ENTRY);
+                if (((DisbursementVoucherDocument) document).isTravelReviewRequired()) {
+                    editModes.add(KfsAuthorizationConstants.DisbursementVoucherEditMode.TRAVEL_ENTRY);
                 }
-            } else if (currentRouteLevels.contains(KFSConstants.RouteLevelNames.PAYMENT_METHOD) && ((DisbursementVoucherDocument)document).getDisbVchrPaymentMethodCode().equals(KFSConstants.PaymentSourceConstants.PAYMENT_METHOD_DRAFT)) {
+            } else if (currentRouteLevels.contains(KFSConstants.RouteLevelNames.PAYMENT_METHOD) && ((DisbursementVoucherDocument) document).getDisbVchrPaymentMethodCode().equals(KFSConstants.PaymentSourceConstants.PAYMENT_METHOD_DRAFT)) {
                 editModes.add(KfsAuthorizationConstants.DisbursementVoucherEditMode.TRAVEL_ENTRY);
             } else {
                 editModes.add(KfsAuthorizationConstants.DisbursementVoucherEditMode.TRAVEL_ENTRY); // we're not FO? Then always add it, as KIM permissions will take it out if we shouldn't have it
@@ -193,7 +203,8 @@ public class DisbursementVoucherDocumentPresentationController extends Accountin
 
     /**
      * If at a proper route node, adds the ability to edit whether special handling is needed on the disbursement voucher
-     * @param document the disbursement voucher document authorization is being sought on
+     *
+     * @param document  the disbursement voucher document authorization is being sought on
      * @param editModes the edit modes so far, which can be added to
      */
     protected void addSpecialHandlingChagingEntryMode(Document document, Set<String> editModes) {

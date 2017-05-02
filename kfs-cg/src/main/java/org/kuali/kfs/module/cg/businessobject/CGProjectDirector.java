@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -20,7 +20,6 @@
 package org.kuali.kfs.module.cg.businessobject;
 
 import org.kuali.rice.kim.api.identity.Person;
-
 
 
 /**
@@ -47,14 +46,14 @@ public interface CGProjectDirector {
      *
      * @return Returns the proposalNumber
      */
-    public Long getProposalNumber();
+    public String getProposalNumber();
 
     /**
      * Sets the proposalNumber attribute.
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber);
+    public void setProposalNumber(String proposalNumber);
 
     /**
      * Gets the project director attribute.

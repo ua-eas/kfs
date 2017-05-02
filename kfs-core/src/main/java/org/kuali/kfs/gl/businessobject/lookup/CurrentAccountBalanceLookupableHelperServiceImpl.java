@@ -1,29 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.businessobject.lookup;
-
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
@@ -36,6 +29,10 @@ import org.kuali.kfs.gl.batch.service.BalanceCalculator;
 import org.kuali.kfs.gl.businessobject.Balance;
 import org.kuali.kfs.gl.businessobject.CurrentAccountBalance;
 import org.kuali.kfs.gl.service.BalanceService;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSParameterKeyConstants;
@@ -47,11 +44,14 @@ import org.kuali.kfs.sys.service.OptionsService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.rice.kns.lookup.HtmlData;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.exception.ValidationException;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Add a current balance inquiry menu item to KFS main menu, an extension of KualiLookupableImpl to support
@@ -80,14 +80,14 @@ public class CurrentAccountBalanceLookupableHelperServiceImpl extends AbstractGe
     /**
      * This method determines how a column's value should appear on the Lookup
      * results page.
-     *
+     * <p>
      * For instance, given fiscalYear, the HtmlData would contain the year's value,
      * and also contain a hyperlink for a System Options Inquiry of the type
      * "Fiscal Year". The year would be displayed as a hyperlinked text to the search.
      *
      * @return HtmlData an object encapsulating text to be rendered on the Loookup results page.
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#getInquiryUrl(org.kuali.rice.kns.bo.BusinessObject,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Override
     public HtmlData getInquiryUrl(BusinessObject bo, String propertyName) {
@@ -105,7 +105,7 @@ public class CurrentAccountBalanceLookupableHelperServiceImpl extends AbstractGe
     /**
      * This method performs a search based on fieldValues and returns a list of
      * matching CurrentAccountBalance objects.
-     *
+     * <p>
      * Noteworthy, is there is no table for CurrentAccountBalance, rather results
      * are derived from matches against the Account, Balance, and Person tables.
      *
@@ -128,7 +128,7 @@ public class CurrentAccountBalanceLookupableHelperServiceImpl extends AbstractGe
         boolean isConsolidated = isConsolidationSelected(fieldValues);
 
         // added one more node for consolidationOption
-        if (consolidationOption.equals(Constant.EXCLUDE_SUBACCOUNTS)){
+        if (consolidationOption.equals(Constant.EXCLUDE_SUBACCOUNTS)) {
             fieldValues.put(Constant.SUB_ACCOUNT_OPTION, KFSConstants.getDashSubAccountNumber());
             isConsolidated = false;
         }
@@ -136,7 +136,7 @@ public class CurrentAccountBalanceLookupableHelperServiceImpl extends AbstractGe
         Map<String, String> localFieldValues = this.getLocalFieldValues(fieldValues);
 
         Collection<CurrentAccountBalance> searchResultsCollection = this.buildCurrentBalanceCollection(localFieldValues, isConsolidated, pendingEntryOption);
-        if(LOG.isDebugEnabled()){
+        if (LOG.isDebugEnabled()) {
             LOG.debug("searchResultsCollection.size(): " + searchResultsCollection.size());
         }
 
@@ -161,8 +161,7 @@ public class CurrentAccountBalanceLookupableHelperServiceImpl extends AbstractGe
             Person person = personService.getPersonByPrincipalName(principalName);
             if (ObjectUtils.isNotNull(person)) {
                 localFieldValues.put(PRINCIPAL_ID_KEY, person.getPrincipalId());
-            }
-            else {
+            } else {
                 localFieldValues.put(PRINCIPAL_ID_KEY, principalName);
             }
 
@@ -173,8 +172,7 @@ public class CurrentAccountBalanceLookupableHelperServiceImpl extends AbstractGe
             Person person = personService.getPersonByPrincipalName(supervisorPrincipalName);
             if (ObjectUtils.isNotNull(person)) {
                 localFieldValues.put(SUPERVISOR_PRINCIPAL_ID_KEY, person.getPrincipalId());
-            }
-            else {
+            } else {
                 localFieldValues.put(SUPERVISOR_PRINCIPAL_ID_KEY, supervisorPrincipalName);
             }
         }
@@ -185,8 +183,7 @@ public class CurrentAccountBalanceLookupableHelperServiceImpl extends AbstractGe
             Person person = personService.getPersonByPrincipalName(managerPrincipalName);
             if (ObjectUtils.isNotNull(person)) {
                 localFieldValues.put(MANAGER_PRINCIPAL_ID_KEY, person.getPrincipalId());
-            }
-            else {
+            } else {
                 localFieldValues.put(MANAGER_PRINCIPAL_ID_KEY, managerPrincipalName);
             }
         }
@@ -198,8 +195,8 @@ public class CurrentAccountBalanceLookupableHelperServiceImpl extends AbstractGe
     /**
      * Build a search result list based on the given criteria.
      *
-     * @param fieldValues Map of entries that will be used in the search for matching results.
-     * @param isConsolidated A property indicating whether subAccounts should be consolidated into one record or considered individually.
+     * @param fieldValues        Map of entries that will be used in the search for matching results.
+     * @param isConsolidated     A property indicating whether subAccounts should be consolidated into one record or considered individually.
      * @param pendingEntryOption A property that indicates if the General Ledger Pending Entry table should be searched too.
      * @return
      */
@@ -223,8 +220,7 @@ public class CurrentAccountBalanceLookupableHelperServiceImpl extends AbstractGe
             if (balanceMap.containsKey(key)) {
                 CurrentAccountBalance currentBalance = balanceMap.get(key);
                 this.updateCurrentBalance(currentBalance, balance, fiscalPeriod);
-            }
-            else {
+            } else {
                 CurrentAccountBalance currentBalance = new CurrentAccountBalance();
                 ObjectUtil.buildObject(currentBalance, balance);
                 currentBalance.resetAmounts();
@@ -244,7 +240,7 @@ public class CurrentAccountBalanceLookupableHelperServiceImpl extends AbstractGe
      * This method retrieves qualified Balance records. If pending entries are
      * needed, they can be included.
      *
-     * @param fieldValues The properties and correlated values that will be used in searching for results.
+     * @param fieldValues        The properties and correlated values that will be used in searching for results.
      * @param pendingEntryOption A property to indicate if the General Ledger Pending Entry table should be part of this search.
      * @return A list of Balance objects that meet the input criteria.
      */
@@ -263,8 +259,8 @@ public class CurrentAccountBalanceLookupableHelperServiceImpl extends AbstractGe
      * This method updates the current balance with the given balance for the specified period.
      *
      * @param currentBalance The object to update.
-     * @param balance The object that contains the updated information.
-     * @param fiscalPeriod The period that the balance will accumulate through, inclusive.
+     * @param balance        The object that contains the updated information.
+     * @param fiscalPeriod   The period that the balance will accumulate through, inclusive.
      */
     protected void updateCurrentBalance(CurrentAccountBalance currentBalance, Balance balance, String fiscalPeriod) {
         Collection<String> cashBudgetRecordLevelCodes = this.getParameterService().getParameterValuesAsString(CurrentAccountBalance.class, KFSParameterKeyConstants.GlParameterConstants.CASH_BUDGET_RECORD_LEVEL);
@@ -280,8 +276,8 @@ public class CurrentAccountBalanceLookupableHelperServiceImpl extends AbstractGe
 
         SystemOptions options = optionsService.getCurrentYearOptions();
         Collection<String> assetLiabilityFundBalanceTypeCodes = Arrays.asList(options.getFinancialObjectTypeAssetsCd(),  // AS
-                                                                              options.getFinObjectTypeLiabilitiesCode(), // LI
-                                                                              options.getFinObjectTypeFundBalanceCd());  // FB
+            options.getFinObjectTypeLiabilitiesCode(), // LI
+            options.getFinObjectTypeFundBalanceCd());  // FB
 
         Account account = balance.getAccount();
         if (ObjectUtils.isNull(account)) {
@@ -295,8 +291,7 @@ public class CurrentAccountBalanceLookupableHelperServiceImpl extends AbstractGe
         // Current Budget (A)
         if (isCashBudgetRecording) {
             currentBalance.setCurrentBudget(KualiDecimal.ZERO);
-        }
-        else {
+        } else {
             if (KFSConstants.PERIOD_CODE_CG_BEGINNING_BALANCE.equals(balanceTypeCode) && expenseObjectTypeCodes.contains(objectTypeCode)) {
                 currentBalance.setCurrentBudget(add(currentBalance.getCurrentBudget(), add(accumulateMonthlyAmounts(balance, fiscalPeriod), accumulateMonthlyAmounts(balance, KFSConstants.PERIOD_CODE_CG_BEGINNING_BALANCE))));
             }
@@ -306,8 +301,7 @@ public class CurrentAccountBalanceLookupableHelperServiceImpl extends AbstractGe
             if (fundBalanceObjCodes.contains(objectCode)) {
                 currentBalance.setBeginningFundBalance(add(currentBalance.getBeginningFundBalance(), accumulateMonthlyAmounts(balance, KFSConstants.PERIOD_CODE_BEGINNING_BALANCE)));
             }
-        }
-        else {
+        } else {
             currentBalance.setBeginningFundBalance(KualiDecimal.ZERO);
         }
 
@@ -316,8 +310,7 @@ public class CurrentAccountBalanceLookupableHelperServiceImpl extends AbstractGe
             if (currentAssetObjCodes.contains(objectCode)) {
                 currentBalance.setBeginningCurrentAssets(add(currentBalance.getBeginningCurrentAssets(), accumulateMonthlyAmounts(balance, KFSConstants.PERIOD_CODE_BEGINNING_BALANCE)));
             }
-        }
-        else {
+        } else {
             currentBalance.setBeginningCurrentAssets(KualiDecimal.ZERO);
         }
 
@@ -326,8 +319,7 @@ public class CurrentAccountBalanceLookupableHelperServiceImpl extends AbstractGe
             if (currentLiabilityObjCodes.contains(objectCode)) {
                 currentBalance.setBeginningCurrentLiabilities(add(currentBalance.getBeginningCurrentLiabilities(), accumulateMonthlyAmounts(balance, KFSConstants.PERIOD_CODE_BEGINNING_BALANCE)));
             }
-        }
-        else {
+        } else {
             currentBalance.setBeginningCurrentLiabilities(KualiDecimal.ZERO);
         }
 
@@ -337,8 +329,7 @@ public class CurrentAccountBalanceLookupableHelperServiceImpl extends AbstractGe
                 currentBalance.setTotalIncome(add(currentBalance.getTotalIncome(), accumulateMonthlyAmounts(balance, fiscalPeriod)));
                 currentBalance.setTotalIncome(add(currentBalance.getTotalIncome(), accumulateMonthlyAmounts(balance, KFSConstants.PERIOD_CODE_CG_BEGINNING_BALANCE)));
             }
-        }
-        else {
+        } else {
             currentBalance.setTotalIncome(KualiDecimal.ZERO);
         }
 
@@ -356,23 +347,20 @@ public class CurrentAccountBalanceLookupableHelperServiceImpl extends AbstractGe
         // Budget Balance Available (H)
         if (isCashBudgetRecording) {
             currentBalance.setBudgetBalanceAvailable(KualiDecimal.ZERO);
-        }
-        else {
+        } else {
             currentBalance.setBudgetBalanceAvailable(currentBalance.getCurrentBudget().subtract(currentBalance.getTotalExpense()).subtract(currentBalance.getEncumbrances()));
         }
 
         // Cash Expenditure Authority (I)
         if (isCashBudgetRecording) {
             currentBalance.setCashExpenditureAuthority(currentBalance.getBeginningCurrentAssets().subtract(currentBalance.getBeginningCurrentLiabilities()).add(currentBalance.getTotalIncome()).subtract(currentBalance.getTotalExpense()).subtract(currentBalance.getEncumbrances()));
-        }
-        else {
+        } else {
             currentBalance.setCashExpenditureAuthority(KualiDecimal.ZERO);
         }
         // Current Fund Balance (J)
         if (isCashBudgetRecording) {
             currentBalance.setCurrentFundBalance(currentBalance.getBeginningFundBalance().add(currentBalance.getTotalIncome()).subtract(currentBalance.getTotalExpense()));
-        }
-        else {
+        } else {
             currentBalance.setCurrentFundBalance(KualiDecimal.ZERO);
         }
 
@@ -395,8 +383,7 @@ public class CurrentAccountBalanceLookupableHelperServiceImpl extends AbstractGe
         if (!StringUtils.isEmpty(valueFiscalYear)) {
             try {
                 fiscalYear = Integer.parseInt(valueFiscalYear);
-            }
-            catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 GlobalVariables.getMessageMap().putError(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, KFSKeyConstants.PendingEntryLookupableImpl.FISCAL_YEAR_FOUR_DIGIT);
                 throw new ValidationException("errors in search criteria");
             }
@@ -409,10 +396,10 @@ public class CurrentAccountBalanceLookupableHelperServiceImpl extends AbstractGe
         String managerPrincipalName = (String) fieldValues.get(MANAGER_PRINCIPAL_NAME_KEY);
 
         if (StringUtils.isBlank(accountNumber)
-                && StringUtils.isBlank(organizationCode)
-                && StringUtils.isBlank(fiscalOfficerPrincipalName)
-                && StringUtils.isBlank(supervisorPrincipalName)
-                && StringUtils.isBlank(managerPrincipalName)) {
+            && StringUtils.isBlank(organizationCode)
+            && StringUtils.isBlank(fiscalOfficerPrincipalName)
+            && StringUtils.isBlank(supervisorPrincipalName)
+            && StringUtils.isBlank(managerPrincipalName)) {
             GlobalVariables.getMessageMap().putError(KFSPropertyConstants.ACCOUNT_NUMBER, KFSKeyConstants.ERROR_CURRBALANCE_LOOKUP_CRITERIA_REQD);
             throw new ValidationException("errors in search criteria");
         }
@@ -428,11 +415,11 @@ public class CurrentAccountBalanceLookupableHelperServiceImpl extends AbstractGe
 
     /**
      * This method accumulates a monthly amount up to the given period.
-     *
+     * <p>
      * For instance, if one provides "03", then the total from
      * monthOneBalance + monthTwoBalance + monthThreeBalance is returned.
      *
-     * @param balance The Balance object from which monthly amounts are pulled from.
+     * @param balance          The Balance object from which monthly amounts are pulled from.
      * @param fiscalPeriodCode The ending period to accumulate though to.
      * @return The accumulation of monthly balances up through the input fiscalPeriodCode.
      */

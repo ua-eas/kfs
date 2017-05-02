@@ -1,0 +1,681 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="kfs" id="2566" context="bootstrap,demo,unit">
+        <createTable tableName="CG_AGENCY_ADDR_T">
+            <column defaultValue="" name="CG_AGENCY_NBR" type="VARCHAR(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="CG_AGENCY_ADDR_ID" type="DECIMAL(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CG_AGENCY_ADDR_NM" type="VARCHAR(40)"/>
+            <column name="CG_AGENCY_LINE_1_ADDR" type="VARCHAR(30)"/>
+            <column name="CG_AGENCY_LINE_2_ADDR" type="VARCHAR(30)"/>
+            <column name="CG_AGENCY_LINE_3_ADDR" type="VARCHAR(30)"/>
+            <column name="CG_AGENCY_LINE_4_ADDR" type="VARCHAR(30)"/>
+            <column name="CG_AGENCY_CITY_NM" type="VARCHAR(25)"/>
+            <column name="CG_AGENCY_STATE_CD" type="VARCHAR(2)"/>
+            <column name="CG_AGENCY_ZIP_CD" type="VARCHAR(20)"/>
+            <column name="CG_AGENCY_CNTRY_CD" type="VARCHAR(2)"/>
+            <column name="CG_AGENCY_ADDR_INTL_PROV_NM" type="VARCHAR(45)"/>
+            <column name="CG_AGENCY_INTL_MAIL_CD" type="VARCHAR(20)"/>
+            <column name="CG_AGENCY_ADDR_TYPE_CD" type="VARCHAR(2)"/>
+            <column name="CG_AGENCY_ADDR_END_DT" type="DATE"/>
+            <column name="CNTCT_NM" type="VARCHAR(40)"/>
+            <column name="PHN_NBR" type="VARCHAR(40)"/>
+            <column name="FAX_NBR" type="VARCHAR(40)"/>
+            <column name="AGENCY_CNTCT_EMAIL_ADDR" type="VARCHAR(60)"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="kfs" id="2567" context="bootstrap,demo,unit">
+        <createTable tableName="CG_AGENCY_T">
+            <column defaultValue="" name="CG_AGENCY_NBR" type="VARCHAR(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CG_AGENCY_RPT_NM" type="VARCHAR(30)"/>
+            <column name="CG_AGENCY_FULL_NM" type="VARCHAR(50)"/>
+            <column name="CG_AGNCY_INDR_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CG_AGENCY_HIST_IND" type="VARCHAR(1)"/>
+            <column name="CG_AGNCY_IN_ST_IND" type="VARCHAR(1)"/>
+            <column name="CG_AGENCY_TYP_CD" type="VARCHAR(1)"/>
+            <column name="CG_RPTTO_AGNCY_NBR" type="VARCHAR(5)"/>
+            <column name="CAGE_NBR" type="VARCHAR(20)"/>
+            <column name="DODAC_NBR" type="VARCHAR(20)"/>
+            <column name="DUNS_NBR" type="VARCHAR(20)"/>
+            <column name="DUNS_PLUS_FOUR_NBR" type="VARCHAR(20)"/>
+            <column name="CUST_NBR" type="VARCHAR(9)"/>
+            <column name="CUST_TYP_CD" type="VARCHAR(2)"/>
+            <column name="CUST_CRTN_OPTN_CD" type="VARCHAR(1)"/>
+            <column name="CMPGN_ID" type="VARCHAR(4)"/>
+            <column defaultValue="N" name="STATE_AGENCY_IND" type="VARCHAR(1)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2568" context="bootstrap,demo,unit">
+        <createTable tableName="CG_AGENCY_TYP_T">
+            <column defaultValue="" name="CG_AGENCY_TYP_CD" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CG_AGENCY_TYP_DESC" type="VARCHAR(30)"/>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2569" context="bootstrap,demo,unit">
+        <createTable tableName="CG_AWD_ACCT_T">
+            <column defaultValueNumeric="0" name="CGPRPSL_NBR" type="DECIMAL(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ACCOUNT_NBR" type="VARCHAR(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PERSON_UNVL_ID" type="VARCHAR(40)"/>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FNL_BILLED_IND" type="VARCHAR(1)"/>
+            <column name="CURR_LST_BILLED_DT" type="DATE"/>
+            <column name="PREV_LST_BILLED_DT" type="DATE"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="kfs" id="2570" context="bootstrap,demo,unit">
+        <createTable tableName="CG_AWD_FNDMGR_T">
+            <column defaultValue="" name="PERSON_UNVL_ID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="CGPRPSL_NBR" type="DECIMAL(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRI_FNDMGR_IND" type="VARCHAR(1)"/>
+            <column name="PROJECT_TTL" type="VARCHAR(100)"/>
+            <column name="ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2571" context="bootstrap,demo,unit">
+        <createTable tableName="CG_AWD_ORG_T">
+            <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ORG_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="CGPRPSL_NBR" type="DECIMAL(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CGAWD_PRM_ORG_IND" type="VARCHAR(1)"/>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2572" context="bootstrap,demo,unit">
+        <createTable tableName="CG_AWD_PRJDR_T">
+            <column defaultValue="" name="PERSON_UNVL_ID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="CGPRPSL_NBR" type="DECIMAL(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CGAWD_PRMPRJDR_IND" type="VARCHAR(1)"/>
+            <column name="CGAWD_PRJDRPRJ_TTL" type="VARCHAR(100)"/>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2573" context="bootstrap,demo,unit">
+        <createTable tableName="CG_AWD_STAT_T">
+            <column defaultValue="" name="CGAWD_STAT_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CGAWD_STAT_DESC" type="VARCHAR(15)"/>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2574" context="bootstrap,demo,unit">
+        <createTable tableName="CG_AWD_SUBCN_T">
+            <column defaultValue="" name="AWD_SUBCN_AMND_NBR" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="CGAWD_SUBCN_NBR" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="CG_SUBCNR_NBR" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="CGPRPSL_NBR" type="DECIMAL(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CG_SUBCN_AMT" type="DECIMAL(19, 2)"/>
+            <column name="SUBCNR_CNTCT_F_NM" type="VARCHAR(20)"/>
+            <column name="SUBCNR_CNTCT_L_NM" type="VARCHAR(25)"/>
+            <column name="SUBCN_AUDTHIST_TXT" type="VARCHAR(2000)"/>
+            <column name="CGAWD_SUBCN_DESC" type="VARCHAR(30)"/>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2575" context="bootstrap,demo,unit">
+        <createTable tableName="CG_AWD_T">
+            <column defaultValueNumeric="0" name="CGPRPSL_NBR" type="DECIMAL(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CGAWD_BEG_DT" type="DATE"/>
+            <column name="CGAWD_END_DT" type="DATE"/>
+            <column name="CGAWD_TOT_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CGAWD_ADDENDUM_NBR" type="VARCHAR(7)"/>
+            <column name="CGAWD_ALOC_UCS_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CG_AGENCY_AWD_NBR" type="VARCHAR(27)"/>
+            <column name="CG_FEDPT_FND_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CGAWD_ENTRY_DT" type="DATE"/>
+            <column name="CG_AGENCY_FUT1_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CG_AGENCY_FUT2_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CG_AGENCY_FUT3_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CGAWD_DOC_NBR" type="VARCHAR(12)"/>
+            <column name="CGAWD_LST_UPDT_DT" type="DATE"/>
+            <column name="CG_FEDPT_IND" type="VARCHAR(1)"/>
+            <column name="CG_OLD_PRPSL_NBR" type="VARCHAR(8)"/>
+            <column name="CGAWD_DRCT_CST_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CGAWD_INDR_CST_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CG_FED_FNDED_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CGAWD_CREATE_TS" type="DATE"/>
+            <column name="CGAWD_CLOSING_DT" type="DATE"/>
+            <column name="CGPRPSL_AWD_TYP_CD" type="VARCHAR(1)"/>
+            <column name="CGAWD_STAT_CD" type="VARCHAR(2)"/>
+            <column name="CG_LTRCR_FNDGRP_CD" type="VARCHAR(4)"/>
+            <column name="CG_GRANT_DESC_CD" type="VARCHAR(3)"/>
+            <column name="CG_AGENCY_NBR" type="VARCHAR(6)"/>
+            <column name="CG_FEDPT_AGNCY_NBR" type="VARCHAR(5)"/>
+            <column name="CG_AGNCY_ANALST_NM" type="VARCHAR(123)"/>
+            <column name="CG_ANALYST_PHN_NBR" type="VARCHAR(10)"/>
+            <column name="CGAWD_PROJ_TTL" type="VARCHAR(250)"/>
+            <column name="CGAWD_PURPOSE_CD" type="VARCHAR(1)"/>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="BILL_FREQ_CD" type="VARCHAR(4)"/>
+            <column name="EXCL_FRM_INV_IND" type="VARCHAR(1)"/>
+            <column name="ADDL_FRMS_REQ_IND" type="VARCHAR(1)"/>
+            <column name="ADDL_FRMS_DESC" type="VARCHAR(255)"/>
+            <column name="INSTRMNT_TYP_CD" type="VARCHAR(4)"/>
+            <column name="MIN_INV_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CG_LTRCR_FND_CD" type="VARCHAR(15)"/>
+            <column name="AUTO_APPROVE_IND" type="VARCHAR(1)"/>
+            <column name="FUNDING_EXP_DT" type="DATE"/>
+            <column name="INV_OPT_CD" type="VARCHAR(1)"/>
+            <column name="EXCL_FRM_INV_REASON_TXT" type="VARCHAR(255)"/>
+            <column name="STATE_TRNSFR_IND" type="VARCHAR(1)"/>
+            <column name="CMPGN_ID" type="VARCHAR(4)"/>
+            <column defaultValue="N" name="STOP_WRK_IND" type="VARCHAR(1)"/>
+            <column name="STOP_WRK_REASON_TXT" type="VARCHAR(120)"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="kfs" id="2576" context="bootstrap,demo,unit">
+        <createTable tableName="CG_BILL_FREQ_T">
+            <column defaultValue="" name="BILL_FREQ_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="BILL_FREQ_DESC" type="VARCHAR(45)"/>
+            <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="GRACE_PERIOD" type="DECIMAL(3)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2577" context="bootstrap,demo,unit">
+        <createTable tableName="CG_CFDA_REF_T">
+            <column defaultValue="" name="CG_CFDA_NBR" type="VARCHAR(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CG_CFDA_PGM_TTL_NM" type="VARCHAR(300)"/>
+            <column name="CG_CFDA_MAINT_TYP_ID" type="VARCHAR(10)"/>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2578" context="bootstrap,demo,unit">
+        <createTable tableName="CG_GRANT_DESC_T">
+            <column defaultValue="" name="CG_GRANT_DESC_CD" type="VARCHAR(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CG_GRANT_DESC" type="VARCHAR(25)"/>
+            <column name="CG_GRNT_DESC_ACTV_CD" type="VARCHAR(1)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2579" context="bootstrap,demo,unit">
+        <createTable tableName="CG_INSTRMNT_TYP_T">
+            <column defaultValue="" name="INSTRMNT_TYP_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="INSTRMNT_TYP_DESC" type="VARCHAR(45)"/>
+            <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2580" context="bootstrap,demo,unit">
+        <createTable tableName="CG_LTRCR_FNDGRP_T">
+            <column defaultValue="" name="CG_LTRCR_FNDGRP_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LTRCR_FNDGRP_DESC" type="VARCHAR(40)"/>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2581" context="bootstrap,demo,unit">
+        <createTable tableName="CG_LTRCR_FND_T">
+            <column defaultValue="" name="CG_LTRCR_FND_CD" type="VARCHAR(15)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CG_LTRCR_FND_DESC" type="VARCHAR(60)"/>
+            <column name="CG_LTRCR_FNDGRP_CD" type="VARCHAR(4)"/>
+            <column name="CG_LTRCR_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CG_LTRCR_START_DT" type="DATE"/>
+            <column name="CG_LTRCR_EXPIRATION_DT" type="DATE"/>
+            <column name="ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="kfs" id="2582" context="bootstrap,demo,unit">
+        <createTable tableName="CG_PRPSL_AWD_TYP_T">
+            <column defaultValue="" name="CGPRPSL_AWD_TYP_CD" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRPSL_AWD_TYP_DESC" type="VARCHAR(20)"/>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2583" context="bootstrap,demo,unit">
+        <createTable tableName="CG_PRPSL_CLOSE_T">
+            <column defaultValue="" name="CG_PRPSL_CLOSE_NBR" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CG_LAST_CLOSED_DT" type="DATE"/>
+            <column name="CGAWD_CLOSED_CNT" type="DECIMAL(12)"/>
+            <column name="CGPRPSL_CLOSED_CNT" type="DECIMAL(12)"/>
+            <column name="PERSON_USER_ID" type="VARCHAR(40)"/>
+            <column name="CG_USR_INITIATE_DT" type="DATE"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="kfs" id="2584" context="bootstrap,demo,unit">
+        <createTable tableName="CG_PRPSL_ORG_T">
+            <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ORG_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="CGPRPSL_NBR" type="DECIMAL(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CGPRPSL_PRMORG_IND" type="VARCHAR(1)"/>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2585" context="bootstrap,demo,unit">
+        <createTable tableName="CG_PRPSL_PRJDR_T">
+            <column defaultValue="" name="PERSON_UNVL_ID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="CGPRPSL_NBR" type="DECIMAL(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRPSL_PRMPRJDR_IND" type="VARCHAR(1)"/>
+            <column name="PRPSL_PRJDRPRJ_TTL" type="VARCHAR(100)"/>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2586" context="bootstrap,demo,unit">
+        <createTable tableName="CG_PRPSL_PURPOSE_T">
+            <column defaultValue="" name="CGPRPSL_PURPOSE_CD" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRPSL_PURPOSE_DESC" type="VARCHAR(26)"/>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2587" context="bootstrap,demo,unit">
+        <createTable tableName="CG_PRPSL_RSRCH_RSK_T">
+            <column defaultValueNumeric="0" name="CGPRPSL_NBR" type="DECIMAL(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="RSRCH_RSK_TYP_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="RSRCH_RSK_TYP_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2588" context="bootstrap,demo,unit">
+        <createTable tableName="CG_PRPSL_STAT_T">
+            <column defaultValue="" name="CGPRPSL_STAT_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CGPRPSL_STAT_DESC" type="VARCHAR(15)"/>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2589" context="bootstrap,demo,unit">
+        <createTable tableName="CG_PRPSL_SUBCN_T">
+            <column defaultValue="" name="CGPRPSL_SUBCN_NBR" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="CGPRPSL_NBR" type="DECIMAL(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="CG_SUBCNR_NBR" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CGPRPSL_SUBCN_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CGPRPSL_SUBCN_DESC" type="VARCHAR(30)"/>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2590" context="bootstrap,demo,unit">
+        <createTable tableName="CG_PRPSL_T">
+            <column defaultValueNumeric="0" name="CGPRPSL_NBR" type="DECIMAL(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CGPRPSL_BEG_DT" type="DATE"/>
+            <column name="CGPRPSL_END_DT" type="DATE"/>
+            <column name="CGPRPSL_TOT_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CGPRPSL_DRCTCS_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CGPRPSL_INDRCS_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CGPRPSL_REJECTD_DT" type="DATE"/>
+            <column name="CGPRPSL_LSTUPDT_DT" type="DATE"/>
+            <column name="CGPRPSL_DUE_DT" type="DATE"/>
+            <column name="CGPRPSL_TOTPRJ_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CGPRPSL_SUBMSSN_DT" type="DATE"/>
+            <column name="CGPRPSL_FEDPT_IND" type="VARCHAR(1)"/>
+            <column name="CG_OLD_PRPSL_NBR" type="VARCHAR(8)"/>
+            <column name="CG_GRANT_NBR" type="VARCHAR(27)"/>
+            <column name="CGPRPSL_CLOSING_DT" type="DATE"/>
+            <column name="CGPRPSL_AWD_TYP_CD" type="VARCHAR(1)"/>
+            <column name="CG_AGENCY_NBR" type="VARCHAR(6)"/>
+            <column name="CGPRPSL_STAT_CD" type="VARCHAR(2)"/>
+            <column name="CG_FEDPT_AGNCY_NBR" type="VARCHAR(5)"/>
+            <column name="CG_CFDA_NBR" type="VARCHAR(6)"/>
+            <column name="CGPRPSL_FELLOW_NM" type="VARCHAR(123)"/>
+            <column name="CGPRPSL_PURPOSE_CD" type="VARCHAR(1)"/>
+            <column name="CGPRPSL_PROJ_TTL" type="VARCHAR(250)"/>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="kfs" id="2591" context="bootstrap,demo,unit">
+        <createTable tableName="CG_SUBCNR_T">
+            <column defaultValue="" name="CG_SUBCNR_NBR" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CG_SUBCNR_NM" type="VARCHAR(123)"/>
+            <column name="CG_SUBCNR_LN1_ADDR" type="VARCHAR(25)"/>
+            <column name="CG_SUBCNR_LN2_ADDR" type="VARCHAR(20)"/>
+            <column name="CG_SUBCNR_CITY_NM" type="VARCHAR(20)"/>
+            <column name="CG_SUBCNR_ST_CD" type="VARCHAR(2)"/>
+            <column name="CG_SUBCNR_ZIP_CD" type="VARCHAR(20)"/>
+            <column name="CGSUBCNR_CNTRY_CD" type="VARCHAR(2)"/>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2592" context="bootstrap,demo,unit">
+        <createTable tableName="ER_CTRL_ATTRIB_TYP_T">
+            <column defaultValue="" name="CTRL_ATTRIB_TYP_CD" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DOBJ_MAINT_CD_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REQD_IND" type="VARCHAR(1)"/>
+            <column name="CTRL_ATTRIB_TYP_DESC" type="VARCHAR(100)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2593" context="bootstrap,demo,unit">
+        <createTable tableName="ER_RSRCH_RSK_TYP_T">
+            <column defaultValue="" name="RSRCH_RSK_TYP_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DOBJ_MAINT_CD_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CTRL_ATTRIB_TYP_CD" type="VARCHAR(1)"/>
+            <column name="RSRCH_RSK_TYP_DESC" type="VARCHAR(30)"/>
+            <column name="RSRCH_RSK_TYP_SORT_NBR" type="DECIMAL(2)"/>
+            <column name="RSRCH_RSK_TYP_NTFCTN_VAL" type="VARCHAR(8)"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

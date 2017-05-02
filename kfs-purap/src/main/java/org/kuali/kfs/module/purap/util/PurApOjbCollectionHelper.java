@@ -1,32 +1,32 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.util;
 
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.OjbCollectionAware;
+import org.springframework.orm.ObjectRetrievalFailureException;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.util.ObjectUtils;
-import org.kuali.rice.krad.util.OjbCollectionAware;
-import org.springframework.orm.ObjectRetrievalFailureException;
 
 /**
  * Helper object to deal with persisting collections.
@@ -37,7 +37,7 @@ public class PurApOjbCollectionHelper {
     /**
      * OJB RemovalAwareLists do not survive through the response/request lifecycle. This method is a work-around to forcibly remove
      * business objects that are found in Collections stored in the database but not in memory.
-     * 
+     *
      * @param orig
      * @param id
      * @param template
@@ -48,7 +48,7 @@ public class PurApOjbCollectionHelper {
 
     /**
      * This method processes collections recursively up to the depth level specified
-     * 
+     *
      * @param template
      * @param orig
      * @param copy
@@ -80,8 +80,7 @@ public class PurApOjbCollectionHelper {
                     cleanse(template, origSource, list);
 
                 }
-            }
-            catch (ObjectRetrievalFailureException orfe) {
+            } catch (ObjectRetrievalFailureException orfe) {
                 // object wasn't found, must be pre-save
             }
         }
@@ -90,7 +89,7 @@ public class PurApOjbCollectionHelper {
     /**
      * OJB RemovalAwareLists do not survive through the response/request lifecycle. This method is a work-around to forcibly remove
      * business objects that are found in Collections stored in the database but not in memory.
-     * 
+     *
      * @param orig
      * @param id
      * @param template
@@ -123,8 +122,7 @@ public class PurApOjbCollectionHelper {
                     cleanse(template, origSource, list);
 
                 }
-            }
-            catch (ObjectRetrievalFailureException orfe) {
+            } catch (ObjectRetrievalFailureException orfe) {
                 // object wasn't found, must be pre-save
             }
         }
@@ -132,8 +130,8 @@ public class PurApOjbCollectionHelper {
 
     /**
      * This method deletes unwanted objects from the database as well as from the given input List
-     * 
-     * @param origSource - list containing unwanted business objects
+     *
+     * @param origSource    - list containing unwanted business objects
      * @param unwantedItems - business objects to be permanently removed
      * @param template
      */
@@ -150,8 +148,8 @@ public class PurApOjbCollectionHelper {
     /**
      * This method identifies items in the first List that are not contained in the second List. It is similar to the (optional)
      * java.util.List retainAll method.
-     * 
-     * @param fromList list from the database
+     *
+     * @param fromList    list from the database
      * @param controlList list from the object
      * @return true iff one or more items were removed
      */
@@ -161,12 +159,11 @@ public class PurApOjbCollectionHelper {
         Iterator iter = fromList.iterator();
         while (iter.hasNext()) {
             PersistableBusinessObject copyLine = (PersistableBusinessObject) iter.next();
-            
+
             PersistableBusinessObject line = (PersistableBusinessObject) PurApObjectUtils.retrieveObjectWithIdentitcalKey(controlList, copyLine);
             if (ObjectUtils.isNull(line)) {
                 toRemove.add(copyLine);
-            }
-            else { // since we're not deleting try to recurse on this element
+            } else { // since we're not deleting try to recurse on this element
                 processCollectionsRecurse(template, line, copyLine, depth);
             }
         }

@@ -1,31 +1,27 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.report;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.web.format.BigDecimalFormatter;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
@@ -34,14 +30,18 @@ import org.kuali.rice.core.web.format.IntegerFormatter;
 import org.kuali.rice.core.web.format.KualiIntegerCurrencyFormatter;
 import org.kuali.rice.core.web.format.LongFormatter;
 import org.kuali.rice.core.web.format.PercentageFormatter;
-import org.kuali.rice.kns.service.DataDictionaryService;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Helper class for business objects to assist formatting them for error reporting. Utilizes spring injection for modularization and
  * configurability
- * 
+ *
  * @see org.kuali.kfs.sys.service.impl.ReportWriterTextServiceImpl
  */
 public class BusinessObjectReportHelper {
@@ -55,21 +55,21 @@ public class BusinessObjectReportHelper {
 
     private int columnCount = 0;
     private Map<String, Integer> columnSpanDefinition;
-    
-    public final static String LEFT_ALIGNMENT = "LEFT"; 
-    public final static String RIGHT_ALIGNMENT = "RIGHT"; 
+
+    public final static String LEFT_ALIGNMENT = "LEFT";
+    public final static String RIGHT_ALIGNMENT = "RIGHT";
     public final static String LINE_BREAK = "\n";
 
     /**
      * Returns the values in a list of the passed in business object in order of the spring definition.
-     * 
+     *
      * @param businessObject for which to return the values
      * @return the values
      */
     public List<Object> getValues(BusinessObject businessObject) {
         List<Object> keys = new ArrayList<Object>();
 
-        for (Iterator<String> propertyNames = orderedPropertyNameToHeaderLabelMap.keySet().iterator(); propertyNames.hasNext();) {
+        for (Iterator<String> propertyNames = orderedPropertyNameToHeaderLabelMap.keySet().iterator(); propertyNames.hasNext(); ) {
             String propertyName = propertyNames.next();
             keys.add(retrievePropertyValue(businessObject, propertyName));
         }
@@ -79,7 +79,7 @@ public class BusinessObjectReportHelper {
 
     /**
      * Returns a value for a given property, can be overridden to allow for pseudo-properties
-     * 
+     *
      * @param businessObject
      * @param propertyName
      * @return
@@ -87,15 +87,14 @@ public class BusinessObjectReportHelper {
     protected Object retrievePropertyValue(BusinessObject businessObject, String propertyName) {
         try {
             return PropertyUtils.getProperty(businessObject, propertyName);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException("Failed getting propertyName=" + propertyName + " from businessObjecName=" + businessObject.getClass().getName(), e);
         }
     }
 
     /**
      * Returns the maximum length of a value for a given propery, can be overridden to allow for pseudo-properties
-     * 
+     *
      * @param businessObjectClass
      * @param propertyName
      * @return
@@ -103,10 +102,10 @@ public class BusinessObjectReportHelper {
     protected int retrievePropertyValueMaximumLength(Class<? extends BusinessObject> businessObjectClass, String propertyName) {
         return dataDictionaryService.getAttributeMaxLength(businessObjectClass, propertyName);
     }
-    
+
     /**
      * Returns the maximum length of a value for a given propery, can be overridden to allow for pseudo-properties
-     * 
+     *
      * @param businessObjectClass
      * @param propertyName
      * @return
@@ -118,14 +117,14 @@ public class BusinessObjectReportHelper {
     /**
      * Same as getValues except that it actually doesn't retrieve the values from the BO but instead returns a blank linke. This is
      * useful if indentation for message printing is necessary.
-     * 
+     *
      * @param businessObject for which to return the values
      * @return spaces in the length of values
      */
     public List<Object> getBlankValues(BusinessObject businessObject) {
         List<Object> keys = new ArrayList<Object>();
 
-        for (Iterator<String> propertyNames = orderedPropertyNameToHeaderLabelMap.keySet().iterator(); propertyNames.hasNext();) {
+        for (Iterator<String> propertyNames = orderedPropertyNameToHeaderLabelMap.keySet().iterator(); propertyNames.hasNext(); ) {
             String propertyName = propertyNames.next();
 
             keys.add("");
@@ -136,10 +135,10 @@ public class BusinessObjectReportHelper {
 
     /**
      * Returns multiple lines of what represent a table header. The last line in this list is the format of the table cells.
-     * 
+     *
      * @param maximumPageWidth maximum before line is out of bounds. Used to fill message to the end of this range. Note that if
-     *        there isn't at least maximumPageWidth characters available it will go minimumMessageLength out of bounds. It is up to
-     *        the calling class to handle that
+     *                         there isn't at least maximumPageWidth characters available it will go minimumMessageLength out of bounds. It is up to
+     *                         the calling class to handle that
      * @return table header. Last element is the format of the table cells.
      */
     public List<String> getTableHeader(int maximumPageWidth) {
@@ -147,14 +146,13 @@ public class BusinessObjectReportHelper {
         String messageFormat = StringUtils.EMPTY;
 
         // Construct the header based on orderedPropertyNameToHeaderLabelMap. It will pick the longest of label or DD size
-        for (Iterator<Map.Entry<String, String>> entries = orderedPropertyNameToHeaderLabelMap.entrySet().iterator(); entries.hasNext();) {
+        for (Iterator<Map.Entry<String, String>> entries = orderedPropertyNameToHeaderLabelMap.entrySet().iterator(); entries.hasNext(); ) {
             Map.Entry<String, String> entry = entries.next();
 
             int longest;
             try {
                 longest = retrievePropertyValueMaximumLength(dataDictionaryBusinessObjectClass, entry.getKey());
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 throw new RuntimeException("Failed getting propertyName=" + entry.getKey() + " from businessObjecName=" + dataDictionaryBusinessObjectClass.getName(), e);
             }
             if (entry.getValue().length() > longest) {
@@ -190,13 +188,13 @@ public class BusinessObjectReportHelper {
 
     /**
      * get the primary information that can define a table structure
-     * 
+     *
      * @return the primary information that can define a table structure
      */
-    public Map<String, String> getTableDefinition() {       
+    public Map<String, String> getTableDefinition() {
         List<Integer> cellWidthList = this.getTableCellWidth();
-        
-        String separatorLine = this.getSepartorLine(cellWidthList);       
+
+        String separatorLine = this.getSepartorLine(cellWidthList);
         String tableCellFormat = this.getTableCellFormat(false, true, null);
         String tableHeaderLineFormat = this.getTableCellFormat(false, false, separatorLine);
 
@@ -218,9 +216,9 @@ public class BusinessObjectReportHelper {
     /**
      * Returns the values in a list of the passed in business object in order of the spring definition. The value for the
      * "EMPTY_CELL" entry is an empty string.
-     * 
+     *
      * @param businessObject for which to return the values
-     * @param allowColspan indicate whether colspan definition can be applied
+     * @param allowColspan   indicate whether colspan definition can be applied
      * @return the values being put into the table cells
      */
     public List<String> getTableCellValues(BusinessObject businessObject, boolean allowColspan) {
@@ -231,32 +229,29 @@ public class BusinessObjectReportHelper {
 
             if (attributeName.startsWith(KFSConstants.ReportConstants.EMPTY_CELL_ENTRY_KEY_PREFIX)) {
                 tableCellValues.add(StringUtils.EMPTY);
-            }
-            else {
+            } else {
                 try {
                     Object propertyValue = retrievePropertyValue(businessObject, attributeName);
-                    
+
                     if (ObjectUtils.isNotNull(propertyValue)) {
                         Formatter formatter = Formatter.getFormatter(propertyValue.getClass());
-                        if(ObjectUtils.isNotNull(formatter) && ObjectUtils.isNotNull(propertyValue)) {
+                        if (ObjectUtils.isNotNull(formatter) && ObjectUtils.isNotNull(propertyValue)) {
                             propertyValue = formatter.format(propertyValue);
-                        }
-                        else {
+                        } else {
                             propertyValue = StringUtils.EMPTY;
                         }
                     } else {
                         propertyValue = StringUtils.EMPTY;
                     }
-                    
+
                     tableCellValues.add(propertyValue.toString());
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     throw new RuntimeException("Failed getting propertyName=" + entry.getKey() + " from businessObjecName=" + dataDictionaryBusinessObjectClass.getName(), e);
                 }
             }
         }
-        
-        if(allowColspan) {
+
+        if (allowColspan) {
             this.applyColspanOnCellValues(tableCellValues);
         }
 
@@ -264,19 +259,18 @@ public class BusinessObjectReportHelper {
     }
 
     /**
-     * get the format string for all cells in a table row. Colspan definition will be applied if allowColspan is true 
-     * 
-     * @param allowColspan indicate whether colspan definition can be applied
+     * get the format string for all cells in a table row. Colspan definition will be applied if allowColspan is true
+     *
+     * @param allowColspan        indicate whether colspan definition can be applied
      * @param allowRightAlignment indicate whether the right alignment can be applied
-     * @param separatorLine the separation line for better look
-     * 
+     * @param separatorLine       the separation line for better look
      * @return the format string for all cells in a table row
      */
     public String getTableCellFormat(boolean allowColspan, boolean allowRightAlignment, String separatorLine) {
         List<Integer> cellWidthList = this.getTableCellWidth();
         List<String> cellAlignmentList = this.getTableCellAlignment();
-        
-        if(allowColspan) {
+
+        if (allowColspan) {
             this.applyColspanOnCellWidth(cellWidthList);
         }
 
@@ -286,57 +280,58 @@ public class BusinessObjectReportHelper {
         StringBuffer tableCellFormat = new StringBuffer();
         for (int rowIndex = 0; rowIndex < rowCount; rowIndex++) {
             StringBuffer singleRowFormat = new StringBuffer();
-            
+
             for (int columnIndex = 0; columnIndex < this.columnCount; columnIndex++) {
-                int index = columnCount * rowIndex + columnIndex; 
-                
-                if(index >= numberOfCell) {
+                int index = columnCount * rowIndex + columnIndex;
+
+                if (index >= numberOfCell) {
                     break;
                 }
-                
+
                 int width = cellWidthList.get(index);
                 String alignment = (allowRightAlignment && cellAlignmentList.get(index).equals(RIGHT_ALIGNMENT)) ? StringUtils.EMPTY : "-";
-                if(width > 0) {
+                if (width > 0) {
                     // following translates to %<alignment><width>.<precision>s where the precision for Strings forces a maxLength
                     singleRowFormat = singleRowFormat.append("%").append(alignment).append(width).append("." + width).append("s ");
                 }
             }
-            
+
             tableCellFormat = tableCellFormat.append(singleRowFormat).append(LINE_BREAK);
-            if(StringUtils.isNotBlank(separatorLine)) {
+            if (StringUtils.isNotBlank(separatorLine)) {
                 tableCellFormat = tableCellFormat.append(separatorLine).append(LINE_BREAK);
             }
         }
 
         return tableCellFormat.toString();
     }
-    
+
     /**
      * get the separator line
+     *
      * @param cellWidthList the given cell width list
      * @return the separator line
      */
     public String getSepartorLine(List<Integer> cellWidthList) {
         StringBuffer separatorLine = new StringBuffer();
-        
+
         for (int index = 0; index < this.columnCount; index++) {
             Integer cellWidth = cellWidthList.get(index);
             separatorLine = separatorLine.append(StringUtils.rightPad(StringUtils.EMPTY, cellWidth, KFSConstants.DASH)).append(" ");
         }
-        
+
         return separatorLine.toString();
     }
 
     /**
      * apply the colspan definition on the default width of the table cells
-     * 
+     *
      * @param the default width of the table cells
      */
     public void applyColspanOnCellWidth(List<Integer> cellWidthList) {
-        if(ObjectUtils.isNull(columnSpanDefinition)) {
+        if (ObjectUtils.isNull(columnSpanDefinition)) {
             return;
         }
-        
+
         int indexOfCurrentCell = 0;
         for (Map.Entry<String, String> entry : orderedPropertyNameToHeaderLabelMap.entrySet()) {
             String attributeName = entry.getKey();
@@ -355,19 +350,19 @@ public class BusinessObjectReportHelper {
             indexOfCurrentCell++;
         }
     }
-    
+
     /**
      * apply the colspan definition on the default values of the table cells. The values will be removed if their positions are taken by others.
-     * 
+     *
      * @param the default values of the table cells
      */
     public void applyColspanOnCellValues(List<String> cellValues) {
-        if(ObjectUtils.isNull(columnSpanDefinition)) {
+        if (ObjectUtils.isNull(columnSpanDefinition)) {
             return;
         }
-        
+
         String REMOVE_ME = "REMOVE-ME-!";
-        
+
         int indexOfCurrentCell = 0;
         for (Map.Entry<String, String> entry : orderedPropertyNameToHeaderLabelMap.entrySet()) {
             String attributeName = entry.getKey();
@@ -382,10 +377,10 @@ public class BusinessObjectReportHelper {
 
             indexOfCurrentCell++;
         }
-        
+
         int originalLength = cellValues.size();
-        for(int index = originalLength -1; index>=0; index-- ) {
-            if(StringUtils.equals(cellValues.get(index), REMOVE_ME)) {
+        for (int index = originalLength - 1; index >= 0; index--) {
+            if (StringUtils.equals(cellValues.get(index), REMOVE_ME)) {
                 cellValues.remove(index);
             }
         }
@@ -393,9 +388,9 @@ public class BusinessObjectReportHelper {
 
     /**
      * get the values that can be fed into a predefined table. If the values are not enought to occupy the table cells, a number of empty values are provided.
-     * 
-     * @param businessObject the given business object whose property values will be collected 
-     * @param allowColspan indicate whether colspan definition can be applied
+     *
+     * @param businessObject the given business object whose property values will be collected
+     * @param allowColspan   indicate whether colspan definition can be applied
      * @return
      */
     public List<String> getTableCellValuesPaddingWithEmptyCell(BusinessObject businessObject, boolean allowColspan) {
@@ -409,7 +404,7 @@ public class BusinessObjectReportHelper {
 
     /**
      * get the width of all table cells according to the definition
-     * 
+     *
      * @return the width of all table cells. The width is in the order defined as the orderedPropertyNameToHeaderLabelMap
      */
     public List<Integer> getTableCellWidth() {
@@ -422,8 +417,7 @@ public class BusinessObjectReportHelper {
             if (!attributeName.startsWith(KFSConstants.ReportConstants.EMPTY_CELL_ENTRY_KEY_PREFIX)) {
                 try {
                     cellWidth = retrievePropertyValueMaximumLength(dataDictionaryBusinessObjectClass, attributeName);
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     throw new RuntimeException("Failed getting propertyName=" + attributeName + " from businessObjecName=" + dataDictionaryBusinessObjectClass.getName(), e);
                 }
             }
@@ -468,34 +462,33 @@ public class BusinessObjectReportHelper {
 
         return cellWidthList;
     }
-    
+
     /**
      * get the alignment definitions of all table cells in one row according to the property's formatter class
-     * 
+     *
      * @return the alignment definitions of all table cells in one row according to the property's formatter class
      */
     public List<String> getTableCellAlignment() {
         List<String> cellWidthList = new ArrayList<String>();
         List<Class<? extends Formatter>> numberFormatters = this.getNumberFormatters();
-        
+
         for (Map.Entry<String, String> entry : orderedPropertyNameToHeaderLabelMap.entrySet()) {
             String attributeName = entry.getKey();
-            
+
             boolean isNumber = false;
             if (!attributeName.startsWith(KFSConstants.ReportConstants.EMPTY_CELL_ENTRY_KEY_PREFIX)) {
                 try {
                     Class<? extends Formatter> formatterClass = this.retrievePropertyFormatterClass(dataDictionaryBusinessObjectClass, attributeName);
-                    
+
                     isNumber = numberFormatters.contains(formatterClass);
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     throw new RuntimeException("Failed getting propertyName=" + attributeName + " from businessObjecName=" + dataDictionaryBusinessObjectClass.getName(), e);
                 }
             }
 
             cellWidthList.add(isNumber ? RIGHT_ALIGNMENT : LEFT_ALIGNMENT);
         }
-        
+
         return cellWidthList;
     }
 
@@ -511,28 +504,28 @@ public class BusinessObjectReportHelper {
             tableCellValues.addAll(paddingObject);
         }
     }
-    
+
     /**
      * get formatter classes defined for numbers
-     * 
+     *
      * @return the formatter classes defined for numbers
      */
-    protected List<Class<? extends Formatter>> getNumberFormatters(){
+    protected List<Class<? extends Formatter>> getNumberFormatters() {
         List<Class<? extends Formatter>> numberFormatters = new ArrayList<Class<? extends Formatter>>();
-        
+
         numberFormatters.add(BigDecimalFormatter.class);
-        numberFormatters.add(CurrencyFormatter.class); 
+        numberFormatters.add(CurrencyFormatter.class);
         numberFormatters.add(KualiIntegerCurrencyFormatter.class);
         numberFormatters.add(PercentageFormatter.class);
         numberFormatters.add(IntegerFormatter.class);
         numberFormatters.add(LongFormatter.class);
-        
+
         return numberFormatters;
     }
 
     /**
      * Sets the minimumMessageLength
-     * 
+     *
      * @param minimumMessageLength The minimumMessageLength to set.
      */
     public void setMinimumMessageLength(int minimumMessageLength) {
@@ -541,7 +534,7 @@ public class BusinessObjectReportHelper {
 
     /**
      * Sets the messageLabel
-     * 
+     *
      * @param messageLabel The messageLabel to set.
      */
     public void setMessageLabel(String messageLabel) {
@@ -550,7 +543,7 @@ public class BusinessObjectReportHelper {
 
     /**
      * Sets the dataDictionaryBusinessObjectClass
-     * 
+     *
      * @param dataDictionaryBusinessObjectClass The dataDictionaryBusinessObjectClass to set.
      */
     public void setDataDictionaryBusinessObjectClass(Class<? extends BusinessObject> dataDictionaryBusinessObjectClass) {
@@ -559,7 +552,7 @@ public class BusinessObjectReportHelper {
 
     /**
      * Sets the orderedPropertyNameToHeaderLabelMap
-     * 
+     *
      * @param orderedPropertyNameToHeaderLabelMap The orderedPropertyNameToHeaderLabelMap to set.
      */
     public void setOrderedPropertyNameToHeaderLabelMap(Map<String, String> orderedPropertyNameToHeaderLabelMap) {
@@ -568,7 +561,7 @@ public class BusinessObjectReportHelper {
 
     /**
      * Sets the dataDictionaryService
-     * 
+     *
      * @param dataDictionaryService The dataDictionaryService to set.
      */
     public void setDataDictionaryService(DataDictionaryService dataDictionaryService) {
@@ -577,7 +570,7 @@ public class BusinessObjectReportHelper {
 
     /**
      * Sets the columnCount attribute value.
-     * 
+     *
      * @param columnCount The columnCount to set.
      */
     public void setColumnCount(int columnCount) {
@@ -586,7 +579,7 @@ public class BusinessObjectReportHelper {
 
     /**
      * Sets the columnSpanDefinition attribute value.
-     * 
+     *
      * @param columnSpanDefinition The columnSpanDefinition to set.
      */
     public void setColumnSpanDefinition(Map<String, Integer> columnSpanDefinition) {

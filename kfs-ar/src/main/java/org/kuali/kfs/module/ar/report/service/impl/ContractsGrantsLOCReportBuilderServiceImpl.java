@@ -1,28 +1,24 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.report.service.impl;
 
-import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.ContractsGrantsLOCReport;
 import org.kuali.kfs.module.ar.report.ContractsGrantsLOCReportDetailDataHolder;
@@ -32,7 +28,11 @@ import org.kuali.kfs.module.ar.report.service.ContractsGrantsReportHelperService
 import org.kuali.kfs.sys.report.ReportInfo;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Implementation of ContractsGrantsReportDataBuilderService to build the Contracts & Grants LOC Draw Details Report
@@ -43,6 +43,7 @@ public class ContractsGrantsLOCReportBuilderServiceImpl implements ContractsGran
 
     /**
      * Builds the report
+     *
      * @see org.kuali.kfs.module.ar.report.service.ContractsGrantsReportDataBuilderService#buildReportDataHolder(java.util.List, java.lang.String)
      */
     @Override
@@ -52,13 +53,13 @@ public class ContractsGrantsLOCReportBuilderServiceImpl implements ContractsGran
         Map<String, KualiDecimal> subTotalMap = new HashMap<String, KualiDecimal>();
 
         if (isFieldSubtotalRequired) {
-            subTotalMap = buildSubTotalMap((List<ContractsGrantsLOCReport>)displayList, sortPropertyName);
+            subTotalMap = buildSubTotalMap((List<ContractsGrantsLOCReport>) displayList, sortPropertyName);
         }
 
         ContractsGrantsReportDataHolder cgLOCDrawDetailsReportDataHolder = new ContractsGrantsReportDataHolder();
         List<ContractsGrantsLOCReportDetailDataHolder> details = cgLOCDrawDetailsReportDataHolder.getDetails();
 
-        for (ContractsGrantsLOCReport cgLOCDrawDetailsReportEntry : (List<ContractsGrantsLOCReport>)displayList) {
+        for (ContractsGrantsLOCReport cgLOCDrawDetailsReportEntry : (List<ContractsGrantsLOCReport>) displayList) {
             ContractsGrantsLOCReportDetailDataHolder reportDetail = new ContractsGrantsLOCReportDetailDataHolder();
             // set report data
             setReportDate(cgLOCDrawDetailsReportEntry, reportDetail);
@@ -69,8 +70,7 @@ public class ContractsGrantsLOCReportBuilderServiceImpl implements ContractsGran
                 reportDetail.setDisplaySubtotal(true);
                 // set subTotal from subTotalMap
                 reportDetail.setSubTotal(subTotalMap.get(getContractsGrantsReportHelperService().getPropertyValue(cgLOCDrawDetailsReportEntry, sortPropertyName)).bigDecimalValue());
-            }
-            else {
+            } else {
                 // set this to empty string for not displaying subtotal
                 reportDetail.setDisplaySubtotal(false);
             }
@@ -82,6 +82,7 @@ public class ContractsGrantsLOCReportBuilderServiceImpl implements ContractsGran
 
     /**
      * Returns the class of ContractsGrantsLOCReport
+     *
      * @see org.kuali.kfs.module.ar.report.service.ContractsGrantsReportDataBuilderService#getDetailsClass()
      */
     @Override

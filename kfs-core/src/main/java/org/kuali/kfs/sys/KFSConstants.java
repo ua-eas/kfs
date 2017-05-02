@@ -1,30 +1,30 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Layout;
 import org.apache.log4j.PatternLayout;
 import org.kuali.kfs.gl.businessobject.OriginEntryFull;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.sys.KfsAuthorizationConstants.DisbursementVoucherEditMode;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.Config;
@@ -32,9 +32,9 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kim.api.KimConstants.PermissionTemplateNames;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.bo.DocumentHeader;
-import org.kuali.rice.krad.util.KRADConstants;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is used to define global constants.
@@ -78,7 +78,6 @@ public class KFSConstants {
         public static final String LABOR_DISTRIBUTION = "KFS-LD";
         public static final String PURCHASING_ACCOUNTS_PAYABLE = "KFS-PURAP";
         public static final String CAPITAL_ASSET = "KFS-CAM";
-        public static final String CAPITAL_ASSET_BUILDER = "KFS-CAB";
         public static final String ACCOUNTS_RECEIVABLE = "KFS-AR";
         public static final String EFFORT_COMMITTMENT = "KFS-EC";
         public static final String BUDGET_CONSTRUCTION = "KFS-BC";
@@ -95,18 +94,22 @@ public class KFSConstants {
     public static final String LOG4J_SETTINGS_FILE_KEY = "log4j.settings.file";
     public static final String LOG4J_RELOAD_MINUTES_KEY = "log4j.reload.minutes";
     public static final String APPLICATION_URL_KEY = "application.url";
+    public static final String BASE_URL_KEY = "base.url";
     public static final String TEMPLATES_DIRECTORY_KEY = "templates.directory";
     public static final String TEMP_DIRECTORY_KEY = "temp.directory";
     public static final String EXTERNALIZABLE_HELP_URL_KEY = KRADConstants.EXTERNALIZABLE_HELP_URL_KEY;
     public static final String EXTERNALIZABLE_IMAGES_URL_KEY = "externalizable.images.url";
     public static final String RICE_EXTERNALIZABLE_IMAGES_URL_KEY = KRADConstants.EXTERNALIZABLE_IMAGES_URL_KEY;
+    public static final String RICE_SERVER_URL_KEY = "rice.server.url";
     public static final String KC_APPLICATION_URL_KEY = "kc.application.url";
+    public static final String REPORTS_URL = "reports.url";
     public static final String REPORTS_DIRECTORY_KEY = "reports.directory";
     public static final String WORKFLOW_URL_KEY = Config.KEW_URL;
     public static final String PROD_ENVIRONMENT_CODE_KEY = Config.PROD_ENVIRONMENT_CODE;
     public static final String BATCH_FILE_LOOKUP_ROOT_DIRECTORIES = "batch.file.lookup.root.directories";
     public static final String BATCH_UPLOAD_HELP_SYS_PARAM_NAME = "BATCH_UPLOAD_HELP_URL";
     public static final String CONTRACTS_GRANTS_BILLING_ENABLED = "contracts.grants.billing.enabled";
+    public static final String MODULE_EXTERNAL_KUALI_COEUS_ENABLED = "module.external.kuali.coeus.enabled";
 
     public static final String LOOKUP_RESULTS_LIMIT_URL_KEY = "RESULTS_LIMIT";
 
@@ -181,7 +184,7 @@ public class KFSConstants {
     public static final String CHANGE_JOURNAL_VOUCHER_BALANCE_TYPE_METHOD = "changeBalanceType";
     @Deprecated
     public static final String CHART_OF_ACCOUNTS_CODE_PROPERTY_NAME = KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE;
-    public static final String CONFIRMATION_QUESTION = "confirmationQuestion";
+    public static final String CONFIRMATION_QUESTION = "cf.confirmationQuestion";
     public static final String CONVERSION_FIELDS_PARAMETER = "conversionFields";
     public static final String LOOKUP_READ_ONLY_FIELDS = "readOnlyFields";
     public static final String LOOKUP_AUTO_SEARCH = "autoSearch";
@@ -376,7 +379,7 @@ public class KFSConstants {
     public static final String LOOKUP_ANCHOR = "lookupAnchor";
     public static final String LOOKUPABLE_IMPL_ATTRIBUTE_NAME = "lookupableImplServiceName";
     public static final String LOOKUPABLE_SUFFIX = "Lookupable";
-    public static final String KUALI_LOOKUPABLE_IMPL = "kualiLookupable";
+    public static final String KUALI_LOOKUPABLE_IMPL = "cf.kualiLookupable";
     public static final String KUALI_DISBURSEMENT_PAYEE_LOOKUPABLE_IMPL = "disbursementPayeeLookupable";
     public static final String KUALI_VENDOR_ADDRESS_LOOKUPABLE_IMPL = "vendorAddressLookupable";
     public static final String DOC_HANDLER_ACTION = "DocHandler.do";
@@ -467,10 +470,12 @@ public class KFSConstants {
     public static final String SUB_ACCOUNT_NUMBER_PROPERTY_NAME = KFSPropertyConstants.SUB_ACCOUNT_NUMBER;
     public static final String TARGET = "Target";
     public static final String TO = "To";
-    public static final String USER_SESSION_KEY = "UserSession";
     public static final String VERSION_NUMBER = "versionNumber";
 
     public static final String SEARCH_LIST_REQUEST_KEY = "searchResultKey";
+
+    public static final String REPORT_CODE = "reportCode";
+    public static final String IS_AUTHORIZED = "isAuthorized";
 
     public static final int CORRECTION_RECENT_GROUPS_DAY = 10;
 
@@ -808,7 +813,7 @@ public class KFSConstants {
          */
         public static final String PURGE_PENDING_ATTACHMENTS_STEP_MAX_AGE = "MAX_AGE";
 
-        public static final String NUMBER_OF_DAYS_SINCE_LAST_UPDATE  = "NUMBER_OF_DAYS_SINCE_LAST_UPDATE";
+        public static final String NUMBER_OF_DAYS_SINCE_LAST_UPDATE = "NUMBER_OF_DAYS_SINCE_LAST_UPDATE";
 
         public static final String ACCOUNTS_CAN_CROSS_CHARTS_IND = "ACCOUNTS_CAN_CROSS_CHARTS_IND";
 
@@ -938,6 +943,17 @@ public class KFSConstants {
         public static final String VIEWED_PAGE_NUMBER = "viewedPageNumber";
     }
 
+    public static class Search {
+        public static final String LIMIT = "limit";
+        public static final String QUERY = "query";
+        public static final String RESULTS = "results";
+        public static final String SKIP = "skip";
+        public static final String SORT = "sort";
+        public static final String TOTAL_COUNT = "totalCount";
+        public static final String UPDATED_AFTER = "updatedAfter";
+        public static final String UPDATED_BEFORE = "updatedBefore";
+    }
+
     public static final String PCDO_FILE_TYPE_INDENTIFIER = "procurementCardInputFileType";
     public static final String COLLECTOR_XML_FILE_TYPE_INDENTIFIER = "collectorXmlInputFileType";
     public static final String COLLECTOR_FLAT_FILE_TYPE_INDENTIFIER = "collectorFlatFileInputFileType";
@@ -1042,7 +1058,7 @@ public class KFSConstants {
     @Deprecated
     public static final String CUSTOMER_INVOICE_WRITEOFF_LOOKUP_RESULT_ERRORS = "customerInvoiceWriteoffLookupResults";
 
-    public static final class ReportGeneration{
+    public static final class ReportGeneration {
         public final static String PARAMETER_NAME_SUBREPORT_DIR = "SUBREPORT_DIR";
         public final static String PARAMETER_NAME_SUBREPORT_TEMPLATE_NAME = "SUBREPORT_TEMPLATE_NAMES";
         public final static String DESIGN_FILE_EXTENSION = ".jrxml";
@@ -1069,6 +1085,8 @@ public class KFSConstants {
         public static final String NOT_OPEN = "N";
         public static final String OPEN = "O";
     }
+
+    public static final String ACCOUNT_DISTRIBUTION_SRC_LINES = "accountDistributionsourceAccountingLines";
 
     @Deprecated
     public static final class CustomerParameter {
@@ -1177,7 +1195,7 @@ public class KFSConstants {
 
         public static final List<String> ELIGIBLE_SUB_ACCOUNT_TYPE_CODES = getEligibleSubAccountTypeCodes();
 
-        private static final List<String> getEligibleSubAccountTypeCodes(){
+        private static final List<String> getEligibleSubAccountTypeCodes() {
             List<String> subAccountTypeCodesList = new ArrayList<String>();
             subAccountTypeCodesList.add(KFSConstants.SubAccountType.COST_SHARE);
             subAccountTypeCodesList.add(KFSConstants.SubAccountType.EXPENSE);
@@ -1230,6 +1248,7 @@ public class KFSConstants {
 
     @Deprecated
     public static final String PAYMENT_APPLICATION_DOCUMENT_ERRORS = "document";
+
     @Deprecated
     public static class PaymentApplicationTabErrorCodes {
         public static final String NON_AR_TAB = "nonInvoicedAddLine*";
@@ -1238,7 +1257,7 @@ public class KFSConstants {
     }
 
     // define a set of indicators related to payments, including payee types, tax review requirements and others
-    public static class AdHocPaymentIndicator{
+    public static class AdHocPaymentIndicator {
         public static final String EMPLOYEE_VENDOR = "E";
         public static final String ALIEN_VENDOR = "A";
         public static final String EMPLOYEE_PAYEE = "E";
@@ -1248,7 +1267,7 @@ public class KFSConstants {
         public static final String OTHER = "N";
     }
 
-    public static class SysKimApiConstants{
+    public static class SysKimApiConstants {
         public static final String ACCOUNT_SUPERVISOR_KIM_ROLE_NAME = "Account Supervisor";
         public static final String CONTRACTS_AND_GRANTS_PROJECT_DIRECTOR = "Contracts & Grants Project Director";
         public static final String FISCAL_OFFICER_KIM_ROLE_NAME = "Fiscal Officer";
@@ -1281,8 +1300,8 @@ public class KFSConstants {
     }
 
     public enum PermissionTemplate {
-        DEFAULT( KRADConstants.DEFAULT_NAMESPACE, "Default"),
-        ERROR_CORRECT_DOCUMENT( KFSConstants.CoreModuleNamespaces.KFS, "Error Correct Document"),
+        DEFAULT(KRADConstants.DEFAULT_NAMESPACE, "Default"),
+        ERROR_CORRECT_DOCUMENT(KFSConstants.CoreModuleNamespaces.KFS, "Error Correct Document"),
         MODIFY_ACCOUNTING_LINES(KFSConstants.CoreModuleNamespaces.KFS, "Modify Accounting Lines"),
         CLAIM_ELECTRONIC_PAYMENT(KFSConstants.CoreModuleNamespaces.KFS, "Claim Electronic Payment"),
         MODIFY_BATCH_JOB(KFSConstants.CoreModuleNamespaces.KFS, "Modify Batch Job"),
@@ -1290,10 +1309,12 @@ public class KFSConstants {
         ADMINISTER_ROUTING_FOR_DOCUMENT(KRADConstants.KUALI_RICE_WORKFLOW_NAMESPACE, "Administer Routing for Document"),
         VIEW_BATCH_FILES(KFSConstants.CoreModuleNamespaces.KFS, "Administer Batch File"),
         UPLOAD_BATCH_INPUT_FILES(KFSConstants.CoreModuleNamespaces.KFS, "Upload Batch Input File(s)"),
-        VIEW_RECORD(KFSConstants.CoreModuleNamespaces.KFS, "View Record");
+        VIEW_RECORD(KFSConstants.CoreModuleNamespaces.KFS, "View Record"),
+        VIEW_REPORT(KFSConstants.CoreModuleNamespaces.KFS, "View Report");
 
         public final String name;
         public final String namespace;
+
         private PermissionTemplate(String namespace, String name) {
             this.namespace = namespace;
             this.name = name;
@@ -1301,14 +1322,15 @@ public class KFSConstants {
     }
 
     public enum PermissionNames {
-        EDIT_INACTIVE_ACCOUNT( KFSConstants.CoreModuleNamespaces.CHART, "Edit Inactive Account" ),
-        SERVE_AS_ACCOUNT_MANAGER( KFSConstants.CoreModuleNamespaces.CHART, "Serve As Account Manager" ),
-        SERVE_AS_ACCOUNT_SUPERVISOR( KFSConstants.CoreModuleNamespaces.CHART, "Serve As Account Supervisor" ),
-        SERVE_AS_FISCAL_OFFICER( KFSConstants.CoreModuleNamespaces.CHART, "Serve As Fiscal Officer" ),
-        SERVE_AS_FISCAL_OFFICER_DELEGATE( KFSConstants.CoreModuleNamespaces.CHART, "Serve As Fiscal Officer Delegate" );
+        EDIT_INACTIVE_ACCOUNT(KFSConstants.CoreModuleNamespaces.CHART, "Edit Inactive Account"),
+        SERVE_AS_ACCOUNT_MANAGER(KFSConstants.CoreModuleNamespaces.CHART, "Serve As Account Manager"),
+        SERVE_AS_ACCOUNT_SUPERVISOR(KFSConstants.CoreModuleNamespaces.CHART, "Serve As Account Supervisor"),
+        SERVE_AS_FISCAL_OFFICER(KFSConstants.CoreModuleNamespaces.CHART, "Serve As Fiscal Officer"),
+        SERVE_AS_FISCAL_OFFICER_DELEGATE(KFSConstants.CoreModuleNamespaces.CHART, "Serve As Fiscal Officer Delegate");
 
         public final String name;
         public final String namespace;
+
         private PermissionNames(String namespace, String name) {
             this.namespace = namespace;
             this.name = name;
@@ -1338,7 +1360,7 @@ public class KFSConstants {
     public static final String FINANCIAL_SYSTEM_SIMPLE_MAINTENANCE_DOCUMENT = "FSSM";
     public static final String FINANCIAL_SYSTEM_LEDGER_ONLY_ROOT_DOCUMENT_TYPE = "FSLO";
 
-    public static class COAConstants{
+    public static class COAConstants {
         public static final String ORG_REVIEW_ROLE_ORG_ACC_ONLY_CODE = "A";
         public static final String ORG_REVIEW_ROLE_ORG_ACC_ONLY_TEXT = "Organization Accounting Only";
         public static final String ORG_REVIEW_ROLE_ORG_ONLY_CODE = "O";
@@ -1353,7 +1375,7 @@ public class KFSConstants {
 
     }
 
-    public static class ReportConstants{
+    public static class ReportConstants {
         public static final String EMPTY_CELL_ENTRY_KEY_PREFIX = "EMPTY_CELL";
 
         public static final String TABLE_HEADER_LINE_KEY = "tableHeaderLine";
@@ -1373,7 +1395,7 @@ public class KFSConstants {
     // System Parameters
     public static final String RESULT_SUMMARY_TO_EMAIL_ADDRESSES = "RESULT_SUMMARY_TO_EMAIL_ADDRESSES";
     public static final String SOURCE_URL_PARAMETER = "SOURCE_URL";
-    
+
     public static final String REPORT_WRITER_SERVICE_PAGE_NUMBER_PLACEHOLDER = "${pageNumber}";
 
     @Deprecated
@@ -1417,13 +1439,14 @@ public class KFSConstants {
 
     public static final String OVERRIDE_ACCOUNT_FOR_EXPIRED_QUESTION_ID = "OverrideAccountForExpiredQuestion";
 
-	public static final String NOTIFICATION_TEXT_KEY = "notificationText";
+    public static final String NOTIFICATION_TEXT_KEY = "notificationText";
     public static final int NOTIFICATION_TEXT_LINE_LENGTH = 80;
 
     public static final String PROCUREMENT_CARD_DEFAULT_SEQUENCE_NAME = "FP_PRCRMNT_CARD_DFLT_SEQ";
     public static final String W8_OWNERSHIP_SEQUENCE_NAME = "PUR_VNDR_W8_OWNRSHP_ID_SEQ";
 
     private static Integer MAX_LENGTH_OF_DOCUMENT_DESCRIPTION = null;
+
     public static Integer getMaxLengthOfDocumentDescription() {
         if (MAX_LENGTH_OF_DOCUMENT_DESCRIPTION == null) {
             MAX_LENGTH_OF_DOCUMENT_DESCRIPTION = SpringContext.getBean(DataDictionaryService.class).getAttributeMaxLength(DocumentHeader.class, KFSPropertyConstants.DOCUMENT_DESCRIPTION);
@@ -1452,12 +1475,13 @@ public class KFSConstants {
         public static final String BATCH_SUMMARY_RUNNING_TIMESTAMP_FORMAT = "BATCH_SUMMARY_RUNNING_TIMESTAMP_FORMAT";
         public static final String BATCH_SUMMARY_POSTING_DATE_FORMAT = "BATCH_SUMMARY_POSTING_DATE_FORMAT";
         public static final String PCARD_BATCH_LOAD_STEP = "ProcurementCardLoadStep";
-        public static final String PCARD_BATCH_CREATE_DOC_STEP="ProcurementCardCreateDocumentsStep";
+        public static final String PCARD_BATCH_CREATE_DOC_STEP = "ProcurementCardCreateDocumentsStep";
     }
+
     public static final String BATCH_LOGGER_DEFAULT_CONVERSION_PATTERN = "%d [%t] u:%X{user}/d:%X{docId} %-5p %c :: %m%n";
     public static final Layout BATCH_LOGGER_DEFAULT_PATTERN_LAYOUT = new PatternLayout(BATCH_LOGGER_DEFAULT_CONVERSION_PATTERN);
 
-	    public static final String MONTH_DAY_YEAR_DATE_FORMAT = "MM/dd/yyyy";
+    public static final String MONTH_DAY_YEAR_DATE_FORMAT = "MM/dd/yyyy";
 
     public static class PaymentSourceConstants {
         public static final String PAYMENT_METHOD_CHECK = "P";
@@ -1499,6 +1523,7 @@ public class KFSConstants {
             return String.format("%s - %s", this.code, this.name);
         }
     }
+
     public static class Booleans {
         public static final String TRUE = "true";
         public static final String FALSE = "false";
@@ -1517,9 +1542,9 @@ public class KFSConstants {
     }
 
     public static final String ZERO = "0";
-    public static final String DELIMITER = ".";
     public static final String YEP = "yep";
     public static final String CLAIM = "claim";
+    public static final String DELIMITER = ".";
 
     public static class BasicAccountingCategoryCodes {
         public static final String ASSETS = "AS";
@@ -1530,5 +1555,19 @@ public class KFSConstants {
     }
 
     public static final String PCARD_DEFAULT_ID_FIELD = "id";
+    public static class ReactComponents {
+        public static final String INSTITUTION_CONFIG = "InstitutionConfig";
+    }
 
+    public static class NavigationLinkTypes {
+        public static final String KFS = "kfs";
+        public static final String RICE = "rice";
+        public static final String REPORT = "report";
+    }
+
+    public static class NavigationLinkCategories {
+        public static final String ACTVITIES = "activities";
+        public static final String REFERENCE = "reference";
+        public static final String ADMINISTRATION = "administration";
+    }
 }

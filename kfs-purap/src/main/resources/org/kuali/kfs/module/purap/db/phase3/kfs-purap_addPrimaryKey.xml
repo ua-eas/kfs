@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="kfs" id="176" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FIN_COA_CD, ACCOUNT_NBR" constraintName="PKAP_AUTO_APRV_EXCL_T" tableName="AP_AUTO_APRV_EXCL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="177" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CRDT_MEMO_ACCT_CHG_ID" constraintName="PKAP_CRDT_MEMO_ACCT_CHG_T" tableName="AP_CRDT_MEMO_ACCT_CHG_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="178" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CRDT_MEMO_ACCT_ID" constraintName="PKAP_CRDT_MEMO_ACCT_T" tableName="AP_CRDT_MEMO_ACCT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="179" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CRDT_MEMO_ITM_ID" constraintName="PKAP_CRDT_MEMO_ITM_T" tableName="AP_CRDT_MEMO_ITM_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="180" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CRDT_MEMO_ITM_USE_TAX_ID" constraintName="PKAP_CRDT_MEMO_ITM_USE_TAX_T" tableName="AP_CRDT_MEMO_ITM_USE_TAX_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="181" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CRDT_MEMO_ID" constraintName="PKAP_CRDT_MEMO_T" tableName="AP_CRDT_MEMO_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="182" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="INV_LOAD_SUM_ID, VNDR_DUNS_NBR" constraintName="PKAP_ELCTRNC_INV_LOAD_SUM_T" tableName="AP_ELCTRNC_INV_LOAD_SUM_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="183" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="AP_ELCTRNC_INV_MAP_ID" constraintName="PKAP_ELCTRNC_INV_MAP_T" tableName="AP_ELCTRNC_INV_MAP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="184" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="INV_RJT_ID" constraintName="PKAP_ELCTRNC_INV_RJT_DOC_T" tableName="AP_ELCTRNC_INV_RJT_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="185" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="INV_RJT_ITM_ID" constraintName="PKAP_ELCTRNC_INV_RJT_ITM_T" tableName="AP_ELCTRNC_INV_RJT_ITM_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="186" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="INV_RJT_REAS_ID" constraintName="PKAP_ELCTRNC_INV_RJT_REAS_T" tableName="AP_ELCTRNC_INV_RJT_REAS_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="187" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="INV_RJT_REAS_TYP_CD" constraintName="PKAP_ELCTRNC_INV_RJT_REAS_TYP" tableName="AP_ELCTRNC_INV_RJT_REAS_TYP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="188" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="AP_NEG_PMT_RQST_APRVL_LMT_ID" constraintName="PKAP_NEG_PMT_RQST_APRVL_LMT_T" tableName="AP_NEG_PMT_RQST_APRVL_LMT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="189" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="PMT_RQST_ACCT_CHG_ID" constraintName="PKAP_PMT_RQST_ACCT_CHG_T" tableName="AP_PMT_RQST_ACCT_CHG_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="190" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="PMT_RQST_ACCT_ID" constraintName="PKAP_PMT_RQST_ACCT_T" tableName="AP_PMT_RQST_ACCT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="191" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="PMT_RQST_ITM_ID" constraintName="PKAP_PMT_RQST_ITM_T" tableName="AP_PMT_RQST_ITM_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="192" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="PMT_RQST_ITM_USE_TAX_ID" constraintName="PKAP_PMT_RQST_ITM_USE_TAX_T" tableName="AP_PMT_RQST_ITM_USE_TAX_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="193" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="PMT_RQST_ID" constraintName="PKAP_PMT_RQST_T" tableName="AP_PMT_RQST_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="194" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SUM_ACCT_ID" constraintName="PKAP_SUM_ACCT_T" tableName="AP_SUM_ACCT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="200" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="ITM_TYP_CD" constraintName="PKPUR_AP_ITM_TYP_T" tableName="PUR_AP_ITM_TYP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="201" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FIN_COA_CD, ORG_CD" constraintName="PKPUR_AP_ORG_PARM_T" tableName="PUR_AP_ORG_PARM_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="202" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="RECUR_PMT_FREQ_CD" constraintName="PKPUR_AP_RECUR_PMT_FREQ_T" tableName="PUR_AP_RECUR_PMT_FREQ_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="203" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="RECUR_PMT_TYP_CD" constraintName="PKPUR_AP_RECUR_PMT_TYP_T" tableName="PUR_AP_RECUR_PMT_TYP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="204" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR, REQS_ID" constraintName="PKPUR_ASGN_CONTR_MGR_DTL_T" tableName="PUR_ASGN_CONTR_MGR_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="205" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKPUR_ASGN_CONTR_MGR_T" tableName="PUR_ASGN_CONTR_MGR_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="206" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="BILL_CMP_CD" constraintName="PKPUR_BILL_ADDR_T" tableName="PUR_BILL_ADDR_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="207" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKPUR_BLK_RCVNG_T" tableName="PUR_BLK_RCVNG_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="208" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CARI_CD" constraintName="PKPUR_CARI_T" tableName="PUR_CARI_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="209" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CPTL_AST_SYS_ST_CD" constraintName="PKPUR_CPTL_AST_SYS_ST_T" tableName="PUR_CPTL_AST_SYS_ST_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="210" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CPTL_AST_SYS_TYP_CD" constraintName="PKPUR_CPTL_AST_SYS_TYP_T" tableName="PUR_CPTL_AST_SYS_TYP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="211" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="PRNCPL_ID" constraintName="PKPUR_DFLT_PRNCPL_ADDR_T" tableName="PUR_DFLT_PRNCPL_ADDR_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="212" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="DLVY_REQ_DT_REAS_CD" constraintName="PKPUR_DLVY_REQ_DT_REAS_T" tableName="PUR_DLVY_REQ_DT_REAS_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="213" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FND_SRC_CD" constraintName="PKPUR_FND_SRC_T" tableName="PUR_FND_SRC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="214" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="ITM_REAS_ADD_CD" constraintName="PKPUR_ITM_REAS_ADD_T" tableName="PUR_ITM_REAS_ADD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="215" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR, PO_ACCT_ID" constraintName="PKPUR_PO_ACCT_T" tableName="PUR_PO_ACCT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="216" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="PO_CONTR_LANG_ID" constraintName="PKPUR_PO_CONTR_LANG_T" tableName="PUR_PO_CONTR_LANG_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="217" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="PO_ITM_CPTL_AST_ID" constraintName="PKPUR_PO_CPTL_AST_ITM_AST_T" tableName="PUR_PO_CPTL_AST_ITM_AST_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="218" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CPTL_AST_ITM_ID" constraintName="PKPUR_PO_CPTL_AST_ITM_T" tableName="PUR_PO_CPTL_AST_ITM_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="219" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CPTL_AST_LOC_ID" constraintName="PKPUR_PO_CPTL_AST_LOC_T" tableName="PUR_PO_CPTL_AST_LOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="220" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CPTL_AST_SYS_ID" constraintName="PKPUR_PO_CPTL_AST_SYS_T" tableName="PUR_PO_CPTL_AST_SYS_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="221" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR, PO_ITM_ID" constraintName="PKPUR_PO_ITM_T" tableName="PUR_PO_ITM_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="222" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR, PO_ITM_USE_TAX_ID" constraintName="PKPUR_PO_ITM_USE_TAX_T" tableName="PUR_PO_ITM_USE_TAX_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="223" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="PO_QT_LANG_ID" constraintName="PKPUR_PO_QT_LANG_T" tableName="PUR_PO_QT_LANG_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="224" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="PO_QT_LST_ID" constraintName="PKPUR_PO_QT_LST_T" tableName="PUR_PO_QT_LST_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="225" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="PO_QT_LST_ID, VNDR_HDR_GNRTD_ID, VNDR_DTL_ASND_ID" constraintName="PKPUR_PO_QT_LST_VNDR_T" tableName="PUR_PO_QT_LST_VNDR_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="226" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="PO_QT_STAT_CD" constraintName="PKPUR_PO_QT_STAT_T" tableName="PUR_PO_QT_STAT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="227" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="PO_ID, SNSTV_DTA_CD" constraintName="PKPUR_PO_SNSTV_DTA_T" tableName="PUR_PO_SNSTV_DTA_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="228" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKPUR_PO_T" tableName="PUR_PO_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="229" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="PO_TRNS_MTHD_CD" constraintName="PKPUR_PO_TRNS_MTHD_T" tableName="PUR_PO_TRNS_MTHD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="230" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="PO_VNDR_CHC_CD" constraintName="PKPUR_PO_VNDR_CHC_T" tableName="PUR_PO_VNDR_CHC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="231" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR, PO_VNDR_QT_ID" constraintName="PKPUR_PO_VNDR_QT_T" tableName="PUR_PO_VNDR_QT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="232" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR, PO_VNDR_STPLTN_ID" constraintName="PKPUR_PO_VNDR_STPLTN_T" tableName="PUR_PO_VNDR_STPLTN_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="233" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="PUR_RCVNG_ADDR_ID" constraintName="PKPUR_RCVNG_ADDR_T" tableName="PUR_RCVNG_ADDR_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="234" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="RCVNG_COR_ITM_ID" constraintName="PKPUR_RCVNG_COR_ITM_T" tableName="PUR_RCVNG_COR_ITM_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="235" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKPUR_RCVNG_COR_T" tableName="PUR_RCVNG_COR_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="236" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="RCVNG_LN_ITM_ID" constraintName="PKPUR_RCVNG_LN_ITM_T" tableName="PUR_RCVNG_LN_ITM_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="237" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKPUR_RCVNG_LN_T" tableName="PUR_RCVNG_LN_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="238" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="REQS_ACCT_ID" constraintName="PKPUR_REQS_ACCT_T" tableName="PUR_REQS_ACCT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="239" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="REQS_ITM_CPTL_AST_ID" constraintName="PKPUR_REQS_CPTL_AST_ITM_AST_T" tableName="PUR_REQS_CPTL_AST_ITM_AST_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="240" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CPTL_AST_ITM_ID" constraintName="PKPUR_REQS_CPTL_AST_ITM_T" tableName="PUR_REQS_CPTL_AST_ITM_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="241" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CPTL_AST_LOC_ID" constraintName="PKPUR_REQS_CPTL_AST_LOC_T" tableName="PUR_REQS_CPTL_AST_LOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="242" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CPTL_AST_SYS_ID" constraintName="PKPUR_REQS_CPTL_AST_SYS_T" tableName="PUR_REQS_CPTL_AST_SYS_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="243" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="REQS_ITM_ID" constraintName="PKPUR_REQS_ITM_T" tableName="PUR_REQS_ITM_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="244" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="REQS_ITM_USE_TAX_ID" constraintName="PKPUR_REQS_ITM_USE_TAX_T" tableName="PUR_REQS_ITM_USE_TAX_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="245" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="REQS_SRC_CD" constraintName="PKPUR_REQS_SRC_T" tableName="PUR_REQS_SRC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="246" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="REQS_ID" constraintName="PKPUR_REQS_T" tableName="PUR_REQS_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="247" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SNSTV_DTA_ASGN_ID, SNSTV_DTA_CD" constraintName="PKPUR_SNSTV_DTA_ASGN_DTL_T" tableName="PUR_SNSTV_DTA_ASGN_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="248" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SNSTV_DTA_ASGN_ID" constraintName="PKPUR_SNSTV_DTA_ASGN_T" tableName="PUR_SNSTV_DTA_ASGN_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="249" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SNSTV_DTA_CD" constraintName="PKPUR_SNSTV_DTA_T" tableName="PUR_SNSTV_DTA_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="250" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="PUR_THRSHLD_ID" constraintName="PKPUR_THRSHLD_T" tableName="PUR_THRSHLD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="251" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="VNDR_STPLTN_ID" constraintName="PKPUR_VNDR_STPLTN_T" tableName="PUR_VNDR_STPLTN_T"/>
+    </changeSet>
+</databaseChangeLog>

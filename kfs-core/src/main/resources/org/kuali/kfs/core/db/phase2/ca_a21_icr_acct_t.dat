@@ -1,0 +1,5 @@
+HEADER[~&~	~&~CA_A21_ICR_ACCT_GNRTD_ID::DECIMAL~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~FIN_COA_CD::VARCHAR~&~	~&~ACCOUNT_NBR::VARCHAR~&~	~&~SUB_ACCT_NBR::VARCHAR~&~	~&~ICR_FIN_COA_CD::VARCHAR~&~	~&~ICR_FIN_ACCT_NBR::VARCHAR~&~	~&~ACLN_PCT::VARCHAR~&~	~&~DOBJ_MAINT_CD_ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'10000'~&~	~&~'AF204E1BFABC9BC4E040007F0100096E'~&~	~&~'1'~&~	~&~'BL'~&~	~&~'4631640'~&~	~&~'ICR1'~&~	~&~'BL'~&~	~&~'1031400'~&~	~&~'100'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'10001'~&~	~&~'AF204E1BFABD9BC4E040007F0100096E'~&~	~&~'1'~&~	~&~'BL'~&~	~&~'4631640'~&~	~&~'ICR2'~&~	~&~'BL'~&~	~&~'1031400'~&~	~&~'100'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'10002'~&~	~&~'AF204E1BFABE9BC4E040007F0100096E'~&~	~&~'1'~&~	~&~'BL'~&~	~&~'4631640'~&~	~&~'ICR3'~&~	~&~'BL'~&~	~&~'1031400'~&~	~&~'100'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'10003'~&~	~&~'AF204E1BFABF9BC4E040007F0100096E'~&~	~&~'1'~&~	~&~'BL'~&~	~&~'4631640'~&~	~&~'ICR4'~&~	~&~'UA'~&~	~&~'2310050'~&~	~&~'100'~&~	~&~'Y'~&~	~&~]RECORD

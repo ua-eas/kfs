@@ -1,22 +1,50 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document.validation.impl;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.kuali.kfs.fp.businessobject.VoucherSourceAccountingLine;
+import org.kuali.kfs.fp.document.JournalVoucherDocument;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.KualiRuleService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.sys.ConfigureContext;
+import org.kuali.kfs.sys.DocumentTestUtils;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSKeyConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.businessobject.AccountingLine;
+import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
+import org.kuali.kfs.sys.businessobject.TargetAccountingLine;
+import org.kuali.kfs.sys.context.KualiTestBase;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.document.AccountingDocument;
+import org.kuali.kfs.sys.document.validation.Validation;
+import org.kuali.kfs.sys.document.validation.event.AddAccountingLineEvent;
+import org.kuali.kfs.sys.document.validation.impl.AccountingLineValueAllowedValidation;
+import org.kuali.kfs.sys.document.validation.impl.AccountingLineValuesAllowedValidationHutch;
+import org.kuali.kfs.sys.service.IsDebitTestUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.kuali.kfs.sys.KFSConstants.GL_CREDIT_CODE;
 import static org.kuali.kfs.sys.KFSConstants.GL_DEBIT_CODE;
@@ -38,34 +66,6 @@ import static org.kuali.kfs.sys.fixture.AccountingLineFixture.SOURCE_LINE;
 import static org.kuali.kfs.sys.fixture.GeneralLedgerPendingEntryFixture.EXPECTED_JV_EXPLICIT_SOURCE_PENDING_ENTRY;
 import static org.kuali.kfs.sys.fixture.GeneralLedgerPendingEntryFixture.EXPECTED_JV_EXPLICIT_SOURCE_PENDING_ENTRY_FOR_EXPENSE;
 import static org.kuali.kfs.sys.fixture.UserNameFixture.dfogle;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.kuali.kfs.fp.businessobject.VoucherSourceAccountingLine;
-import org.kuali.kfs.fp.document.JournalVoucherDocument;
-import org.kuali.kfs.sys.ConfigureContext;
-import org.kuali.kfs.sys.DocumentTestUtils;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSKeyConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.businessobject.AccountingLine;
-import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
-import org.kuali.kfs.sys.businessobject.TargetAccountingLine;
-import org.kuali.kfs.sys.context.KualiTestBase;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.document.AccountingDocument;
-import org.kuali.kfs.sys.document.validation.Validation;
-import org.kuali.kfs.sys.document.validation.event.AddAccountingLineEvent;
-import org.kuali.kfs.sys.document.validation.impl.AccountingLineValueAllowedValidation;
-import org.kuali.kfs.sys.document.validation.impl.AccountingLineValuesAllowedValidationHutch;
-import org.kuali.kfs.sys.service.IsDebitTestUtils;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.service.KualiRuleService;
-import org.kuali.rice.krad.util.GlobalVariables;
 
 @ConfigureContext(session = dfogle)
 public class JournalVoucherDocumentRuleTest extends KualiTestBase {
@@ -91,8 +91,8 @@ public class JournalVoucherDocumentRuleTest extends KualiTestBase {
         line.setReferenceNumber("");
         line.setReferenceTypeCode("");
         testProcessAddAccountingLineBusinessRules(line, KFSPropertyConstants.REFERENCE_ORIGIN_CODE, KFSKeyConstants.ERROR_REQUIRED);
-        assertGlobalMessageMapContains(KFSKeyConstants.ERROR_REQUIRED+"."+KFSPropertyConstants.REFERENCE_NUMBER, KFSKeyConstants.ERROR_REQUIRED);
-        assertGlobalMessageMapContains(KFSKeyConstants.ERROR_REQUIRED+"."+KFSPropertyConstants.REFERENCE_TYPE_CODE, KFSKeyConstants.ERROR_REQUIRED);
+        assertGlobalMessageMapContains(KFSKeyConstants.ERROR_REQUIRED + "." + KFSPropertyConstants.REFERENCE_NUMBER, KFSKeyConstants.ERROR_REQUIRED);
+        assertGlobalMessageMapContains(KFSKeyConstants.ERROR_REQUIRED + "." + KFSPropertyConstants.REFERENCE_TYPE_CODE, KFSKeyConstants.ERROR_REQUIRED);
     }
 
     public void testProcessAddAccountingLineBusinessRules_validReferences() throws Exception {
@@ -118,14 +118,13 @@ public class JournalVoucherDocumentRuleTest extends KualiTestBase {
         assertGlobalMessageMapEmpty();
         boolean wasValid = SpringContext.getBean(KualiRuleService.class).applyRules(new AddAccountingLineEvent(expectedErrorKey, createDocumentUnbalanced(), line));
         if (LOG.isDebugEnabled()) {
-            LOG.debug(StringUtils.join(GlobalVariables.getMessageMap().getAllPropertiesWithErrors(),", ")+"; "+StringUtils.join(GlobalVariables.getMessageMap().getPropertiesWithErrors(), ", "));
+            LOG.debug(StringUtils.join(GlobalVariables.getMessageMap().getAllPropertiesWithErrors(), ", ") + "; " + StringUtils.join(GlobalVariables.getMessageMap().getPropertiesWithErrors(), ", "));
         }
         if (expectedErrorFieldName == null) {
             assertGlobalMessageMapEmpty(line.toString()); // fail printing error map for debugging before failing on simple result
             assertEquals("wasValid " + line, true, wasValid);
-        }
-        else {
-            assertGlobalMessageMapContains(line.toString(), expectedErrorKey+"."+expectedErrorFieldName, expectedErrorKey);
+        } else {
+            assertGlobalMessageMapContains(line.toString(), expectedErrorKey + "." + expectedErrorFieldName, expectedErrorKey);
             assertEquals("wasValid " + line, false, wasValid);
         }
     }
@@ -201,7 +200,7 @@ public class JournalVoucherDocumentRuleTest extends KualiTestBase {
     public void testIsObjectSubTypeAllowed_ValidSubType() throws Exception {
         boolean result = true;
         JournalVoucherDocument document = buildDocument();
-        AccountingLineValueAllowedValidation validation = (AccountingLineValueAllowedValidation)SpringContext.getBean(Validation.class,"AccountingDocument-IsObjectSubTypeAllowed-DefaultValidation");
+        AccountingLineValueAllowedValidation validation = (AccountingLineValueAllowedValidation) SpringContext.getBean(Validation.class, "AccountingDocument-IsObjectSubTypeAllowed-DefaultValidation");
         if (validation == null) {
             throw new IllegalStateException("No object sub type value allowed validation");
         }
@@ -223,8 +222,7 @@ public class JournalVoucherDocumentRuleTest extends KualiTestBase {
         try {
             testSaveDocumentRule_ProcessSaveDocument(null, false);
             fail("validated null doc");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             assertTrue(true);
         }
     }
@@ -319,11 +317,11 @@ public class JournalVoucherDocumentRuleTest extends KualiTestBase {
         return buildDocument();
     }
 
-    private void testAddAccountingLineRule_IsObjectTypeAllowed(AccountingLine accountingLine, boolean expected) throws Exception  {
+    private void testAddAccountingLineRule_IsObjectTypeAllowed(AccountingLine accountingLine, boolean expected) throws Exception {
         boolean result = true;
         JournalVoucherDocument document = buildDocument();
-        AccountingLineValuesAllowedValidationHutch hutch = (AccountingLineValuesAllowedValidationHutch)SpringContext.getBean(Validation.class,"JournalVoucher-accountingLineValuesAllowedValidation");
-        AccountingLineValueAllowedValidation validation = (AccountingLineValueAllowedValidation)hutch.getObjectTypeAllowedValidation();
+        AccountingLineValuesAllowedValidationHutch hutch = (AccountingLineValuesAllowedValidationHutch) SpringContext.getBean(Validation.class, "JournalVoucher-accountingLineValuesAllowedValidation");
+        AccountingLineValueAllowedValidation validation = (AccountingLineValueAllowedValidation) hutch.getObjectTypeAllowedValidation();
         if (validation != null) {
             validation.setAccountingDocumentForValidation(document);
             validation.setAccountingLineForValidation(accountingLine);
@@ -337,8 +335,8 @@ public class JournalVoucherDocumentRuleTest extends KualiTestBase {
     private boolean testAddAccountingLineRule_IsObjectCodeAllowed(AccountingLine accountingLine, boolean expected) throws Exception {
         boolean result = true;
         JournalVoucherDocument document = buildDocument();
-        AccountingLineValuesAllowedValidationHutch hutch = (AccountingLineValuesAllowedValidationHutch)SpringContext.getBean(Validation.class,"JournalVoucher-accountingLineValuesAllowedValidation");
-        AccountingLineValueAllowedValidation validation = (AccountingLineValueAllowedValidation)hutch.getObjectCodeAllowedValidation();
+        AccountingLineValuesAllowedValidationHutch hutch = (AccountingLineValuesAllowedValidationHutch) SpringContext.getBean(Validation.class, "JournalVoucher-accountingLineValuesAllowedValidation");
+        AccountingLineValueAllowedValidation validation = (AccountingLineValueAllowedValidation) hutch.getObjectCodeAllowedValidation();
         if (validation != null) {
             validation.setAccountingDocumentForValidation(document);
             validation.setAccountingLineForValidation(accountingLine);

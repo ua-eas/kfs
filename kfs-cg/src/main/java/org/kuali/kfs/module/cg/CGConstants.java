@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,6 +18,8 @@
  */
 package org.kuali.kfs.module.cg;
 
+import org.kuali.kfs.integration.ar.ArIntegrationConstants;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -25,7 +27,7 @@ import java.util.List;
 /**
  * Constants specific to the Contracts & Grants module.
  */
-public class CGConstants{
+public class CGConstants {
 
     /**
      * The key for the document error map to grab errors for the close document.
@@ -72,10 +74,10 @@ public class CGConstants{
     public static final String CHAPTER13_CODE = "C13";
     public static final String JUDGMENT_OBTAINED_CODE = "JO";
 
-    public static final String CHAPTER7  = "Chapter 7";
+    public static final String CHAPTER7 = "Chapter 7";
     public static final String CHAPTER11 = "Chapter 11";
     public static final String CHAPTER13 = "Chapter 13";
-    public static final String JUDGMENT_OBTAINED= "Judgment Obtained";
+    public static final String JUDGMENT_OBTAINED = "Judgment Obtained";
 
     // Award
     public static final String AWARD_DETAIL_TYPE_CODE = "Award";
@@ -119,13 +121,13 @@ public class CGConstants{
 
     public static final String GLPE_RECEIVABLE_OFFSET_GENERATION_METHOD_FAU = "3";
 
-    public static final String PREDETERMINED_BILLING_SCHEDULE_CODE = "PDBS";
-    public static final String MILESTONE_BILLING_SCHEDULE_CODE = "MILE";
-    public static final String MONTHLY_BILLING_SCHEDULE_CODE = "MNTH";
-    public static final String QUATERLY_BILLING_SCHEDULE_CODE = "QUAR";
-    public static final String SEMI_ANNUALLY_BILLING_SCHEDULE_CODE = "SEMI";
-    public static final String ANNUALLY_BILLING_SCHEDULE_CODE = "ANNU";
-    public static final String LOC_BILLING_SCHEDULE_CODE = "LOCB";
+    public static final String PREDETERMINED_BILLING_SCHEDULE_CODE = ArIntegrationConstants.BillingFrequencyValues.PREDETERMINED_BILLING;
+    public static final String MILESTONE_BILLING_SCHEDULE_CODE = ArIntegrationConstants.BillingFrequencyValues.MILESTONE;
+    public static final String MONTHLY_BILLING_SCHEDULE_CODE = ArIntegrationConstants.BillingFrequencyValues.MONTHLY;
+    public static final String QUATERLY_BILLING_SCHEDULE_CODE = ArIntegrationConstants.BillingFrequencyValues.QUARTERLY;
+    public static final String SEMI_ANNUALLY_BILLING_SCHEDULE_CODE = ArIntegrationConstants.BillingFrequencyValues.SEMI_ANNUALLY;
+    public static final String ANNUALLY_BILLING_SCHEDULE_CODE = ArIntegrationConstants.BillingFrequencyValues.ANNUALLY;
+    public static final String LOC_BILLING_SCHEDULE_CODE = ArIntegrationConstants.BillingFrequencyValues.LETTER_OF_CREDIT;
 
     public static class TemplateUploadSystem {
         static final public String EXTENSION = ".pdf";

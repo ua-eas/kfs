@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -44,7 +44,7 @@ public class ContractsGrantsPaymentHistoryReportDetailDataHolder {
 
     /**
      * Gets the paymentNumber attribute.
-     * 
+     *
      * @return Returns the paymentNumber
      */
     public String getPaymentNumber() {
@@ -53,7 +53,7 @@ public class ContractsGrantsPaymentHistoryReportDetailDataHolder {
 
     /**
      * Sets the paymentNumber attribute value.
-     * 
+     *
      * @param paymentNumber The paymentNumber to set.
      */
     public void setPaymentNumber(String paymentNumber) {
@@ -62,7 +62,7 @@ public class ContractsGrantsPaymentHistoryReportDetailDataHolder {
 
     /**
      * Gets the paymentDate attribute.
-     * 
+     *
      * @return Returns the paymentDate
      */
     public Date getPaymentDate() {
@@ -71,7 +71,7 @@ public class ContractsGrantsPaymentHistoryReportDetailDataHolder {
 
     /**
      * Sets the paymentDate attribute value.
-     * 
+     *
      * @param paymentDate The paymentDate to set.
      */
     public void setPaymentDate(Date paymentDate) {
@@ -80,7 +80,7 @@ public class ContractsGrantsPaymentHistoryReportDetailDataHolder {
 
     /**
      * Gets the customerNumber attribute.
-     * 
+     *
      * @return Returns the customerNumber
      */
     public String getCustomerNumber() {
@@ -89,7 +89,7 @@ public class ContractsGrantsPaymentHistoryReportDetailDataHolder {
 
     /**
      * Sets the customerNumber attribute value.
-     * 
+     *
      * @param customerNumber The customerNumber to set.
      */
     public void setCustomerNumber(String customerNumber) {
@@ -98,7 +98,7 @@ public class ContractsGrantsPaymentHistoryReportDetailDataHolder {
 
     /**
      * Gets the customerName attribute.
-     * 
+     *
      * @return Returns the customerName
      */
     public String getCustomerName() {
@@ -107,7 +107,7 @@ public class ContractsGrantsPaymentHistoryReportDetailDataHolder {
 
     /**
      * Sets the customerName attribute value.
-     * 
+     *
      * @param customerName The customerName to set.
      */
     public void setCustomerName(String customerName) {
@@ -116,7 +116,7 @@ public class ContractsGrantsPaymentHistoryReportDetailDataHolder {
 
     /**
      * Gets the paymentAmount attribute.
-     * 
+     *
      * @return Returns the paymentAmount
      */
     public BigDecimal getPaymentAmount() {
@@ -125,7 +125,7 @@ public class ContractsGrantsPaymentHistoryReportDetailDataHolder {
 
     /**
      * Sets the paymentAmount attribute value.
-     * 
+     *
      * @param paymentAmount The paymentAmount to set.
      */
     public void setPaymentAmount(BigDecimal paymentAmount) {
@@ -134,7 +134,7 @@ public class ContractsGrantsPaymentHistoryReportDetailDataHolder {
 
     /**
      * Gets the invoiceNumber attribute.
-     * 
+     *
      * @return Returns the invoiceNumber
      */
     public String getInvoiceNumber() {
@@ -143,7 +143,7 @@ public class ContractsGrantsPaymentHistoryReportDetailDataHolder {
 
     /**
      * Sets the invoiceNumber attribute value.
-     * 
+     *
      * @param invoiceNumber The invoiceNumber to set.
      */
     public void setInvoiceNumber(String invoiceNumber) {
@@ -152,7 +152,7 @@ public class ContractsGrantsPaymentHistoryReportDetailDataHolder {
 
     /**
      * Gets the invoiceAmount attribute.
-     * 
+     *
      * @return Returns the invoiceAmount
      */
     public BigDecimal getInvoiceAmount() {
@@ -161,7 +161,7 @@ public class ContractsGrantsPaymentHistoryReportDetailDataHolder {
 
     /**
      * Sets the invoiceAmount attribute value.
-     * 
+     *
      * @param invoiceAmount The invoiceAmount to set.
      */
     public void setInvoiceAmount(BigDecimal invoiceAmount) {
@@ -170,7 +170,7 @@ public class ContractsGrantsPaymentHistoryReportDetailDataHolder {
 
     /**
      * Gets the awardNumber attribute.
-     * 
+     *
      * @return Returns the awardNumber
      */
     public String getAwardNumber() {
@@ -179,7 +179,7 @@ public class ContractsGrantsPaymentHistoryReportDetailDataHolder {
 
     /**
      * Sets the awardNumber attribute value.
-     * 
+     *
      * @param awardNumber The awardNumber to set.
      */
     public void setAwardNumber(String awardNumber) {
@@ -188,7 +188,7 @@ public class ContractsGrantsPaymentHistoryReportDetailDataHolder {
 
     /**
      * Gets the reversedIndicator attribute.
-     * 
+     *
      * @return Returns the reversedIndicator
      */
     public String getReversedIndicator() {
@@ -197,7 +197,7 @@ public class ContractsGrantsPaymentHistoryReportDetailDataHolder {
 
     /**
      * Sets the reversedIndicator attribute value.
-     * 
+     *
      * @param reversedIndicator The reversedIndicator to set.
      */
     public void setReversedIndicator(String reversedIndicator) {
@@ -206,7 +206,7 @@ public class ContractsGrantsPaymentHistoryReportDetailDataHolder {
 
     /**
      * Gets the appliedIndicator attribute.
-     * 
+     *
      * @return Returns the appliedIndicator
      */
     public String getAppliedIndicator() {
@@ -215,7 +215,7 @@ public class ContractsGrantsPaymentHistoryReportDetailDataHolder {
 
     /**
      * Sets the appliedIndicator attribute value.
-     * 
+     *
      * @param appliedIndicator The appliedIndicator to set.
      */
     public void setAppliedIndicator(String appliedIndicator) {
@@ -224,7 +224,7 @@ public class ContractsGrantsPaymentHistoryReportDetailDataHolder {
 
     /**
      * Gets the sortedFieldValue attribute.
-     * 
+     *
      * @return Returns the sortedFieldValue
      */
     public String getSortedFieldValue() {
@@ -233,7 +233,7 @@ public class ContractsGrantsPaymentHistoryReportDetailDataHolder {
 
     /**
      * Sets the sortedFieldValue attribute value.
-     * 
+     *
      * @param sortedFieldValue The sortedFieldValue to set.
      */
     public void setSortedFieldValue(String sortedFieldValue) {
@@ -242,7 +242,7 @@ public class ContractsGrantsPaymentHistoryReportDetailDataHolder {
 
     /**
      * Gets the invoiceSubTotal attribute.
-     * 
+     *
      * @return Returns the invoiceSubTotal
      */
     public BigDecimal getInvoiceSubTotal() {
@@ -251,7 +251,7 @@ public class ContractsGrantsPaymentHistoryReportDetailDataHolder {
 
     /**
      * Sets the invoiceSubTotal attribute value.
-     * 
+     *
      * @param invoiceSubTotal The invoiceSubTotal to set.
      */
     public void setInvoiceSubTotal(BigDecimal invoiceSubTotal) {
@@ -260,7 +260,7 @@ public class ContractsGrantsPaymentHistoryReportDetailDataHolder {
 
     /**
      * Gets the paymentSubTotal attribute.
-     * 
+     *
      * @return Returns the paymentSubTotal
      */
     public BigDecimal getPaymentSubTotal() {
@@ -269,7 +269,7 @@ public class ContractsGrantsPaymentHistoryReportDetailDataHolder {
 
     /**
      * Sets the paymentSubTotal attribute value.
-     * 
+     *
      * @param paymentSubTotal The paymentSubTotal to set.
      */
     public void setPaymentSubTotal(BigDecimal paymentSubTotal) {
@@ -278,7 +278,7 @@ public class ContractsGrantsPaymentHistoryReportDetailDataHolder {
 
     /**
      * Gets the displaySubtotal attribute.
-     * 
+     *
      * @return Returns the displaySubtotal
      */
     public boolean isDisplaySubtotal() {
@@ -287,7 +287,7 @@ public class ContractsGrantsPaymentHistoryReportDetailDataHolder {
 
     /**
      * Sets the displaySubtotal attribute value.
-     * 
+     *
      * @param displaySubtotal The displaySubtotal to set.
      */
     public void setDisplaySubtotal(boolean displaySubtotal) {

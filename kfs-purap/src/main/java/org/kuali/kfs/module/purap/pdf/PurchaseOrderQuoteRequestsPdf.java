@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -21,22 +21,6 @@
  *
  */
 package org.kuali.kfs.module.purap.pdf;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-
-import org.kuali.kfs.module.purap.PurapConstants;
-import org.kuali.kfs.module.purap.businessobject.PurchaseOrderVendorQuote;
-import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
-import org.kuali.kfs.module.purap.util.PurApDateFormatUtils;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.datetime.DateTimeService;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -53,10 +37,24 @@ import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfPageEventHelper;
 import com.lowagie.text.pdf.PdfTemplate;
 import com.lowagie.text.pdf.PdfWriter;
+import org.kuali.kfs.module.purap.PurapConstants;
+import org.kuali.kfs.module.purap.businessobject.PurchaseOrderVendorQuote;
+import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
+import org.kuali.kfs.module.purap.util.PurApDateFormatUtils;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Base class to handle pdf for purchase order quote request documents.
- * 
  */
 public class PurchaseOrderQuoteRequestsPdf extends PdfPageEventHelper {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PurchaseOrderQuoteRequestsPdf.class);
@@ -78,11 +76,11 @@ public class PurchaseOrderQuoteRequestsPdf extends PdfPageEventHelper {
     /**
      * Overrides the method in PdfPageEventHelper from itext to initialize the template and font for purchase
      * order quote request pdf documents.
-     * 
-     * @param writer    The PdfWriter for this document.
-     * @param document  The document.
+     *
+     * @param writer   The PdfWriter for this document.
+     * @param document The document.
      * @see com.lowagie.text.pdf.PdfPageEventHelper#onOpenDocument(com.lowagie.text.pdf.PdfWriter, com.lowagie.text.Document)
-     */    
+     */
     public void onOpenDocument(PdfWriter writer, Document document) {
         LOG.debug("onOpenDocument() started.");
         try {
@@ -90,8 +88,7 @@ public class PurchaseOrderQuoteRequestsPdf extends PdfPageEventHelper {
             tpl = writer.getDirectContent().createTemplate(100, 100);
             // initialization of the font
             helv = BaseFont.createFont("Helvetica", BaseFont.WINANSI, false);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ExceptionConverter(e);
         }
     }
@@ -100,8 +97,8 @@ public class PurchaseOrderQuoteRequestsPdf extends PdfPageEventHelper {
      * Overrides the method in PdfPageEventHelper from itext to compose the footer and show the
      * footer.
      *
-     * @param writer    The PdfWriter for this document.
-     * @param document  The document.
+     * @param writer   The PdfWriter for this document.
+     * @param document The document.
      * @see com.lowagie.text.pdf.PdfPageEventHelper#onEndPage(com.lowagie.text.pdf.PdfWriter, com.lowagie.text.Document)
      */
     public void onEndPage(PdfWriter writer, Document document) {
@@ -126,9 +123,9 @@ public class PurchaseOrderQuoteRequestsPdf extends PdfPageEventHelper {
 
     /**
      * Overrides the method in the PdfPageEventHelper from itext to put the total number of pages into the template.
-     * 
-     * @param writer    The PdfWriter for this document.
-     * @param document  The document.
+     *
+     * @param writer   The PdfWriter for this document.
+     * @param document The document.
      * @see com.lowagie.text.pdf.PdfPageEventHelper#onCloseDocument(com.lowagie.text.pdf.PdfWriter, com.lowagie.text.Document)
      */
     public void onCloseDocument(PdfWriter writer, Document document) {
@@ -142,7 +139,7 @@ public class PurchaseOrderQuoteRequestsPdf extends PdfPageEventHelper {
 
     /**
      * Gets a PageEvents object.
-     * 
+     *
      * @return a new PageEvents object
      */
     public PurchaseOrderPdf getPageEvents() {
@@ -152,8 +149,8 @@ public class PurchaseOrderQuoteRequestsPdf extends PdfPageEventHelper {
 
     /**
      * Creates an instance of a new Document and set its margins.
-     * 
-     * @return    The created Document object.
+     *
+     * @return The created Document object.
      */
     private Document getDocument() throws DocumentException {
         LOG.debug("getDocument() started");
@@ -165,13 +162,13 @@ public class PurchaseOrderQuoteRequestsPdf extends PdfPageEventHelper {
 
     /**
      * Generates the purchase order quote request list pdf document based on the data in the given input parameters
-     * by creating a pdf writer using the given byteArrayOutputStream then calls the createPOQuoteRequestsListPdf to 
+     * by creating a pdf writer using the given byteArrayOutputStream then calls the createPOQuoteRequestsListPdf to
      * write the pdf document into the writer.
-     * 
-     * @param po                     The PurchaseOrderDocument to be used to generate the pdf.
-     * @param byteArrayOutputStream  The ByteArrayOutputStream to print the pdf to.
-     * @param institutionName        The purchasing institution name.
-     * @return                       Collection of errors which are made of the messages from DocumentException.
+     *
+     * @param po                    The PurchaseOrderDocument to be used to generate the pdf.
+     * @param byteArrayOutputStream The ByteArrayOutputStream to print the pdf to.
+     * @param institutionName       The purchasing institution name.
+     * @return Collection of errors which are made of the messages from DocumentException.
      */
     public Collection generatePOQuoteRequestsListPdf(PurchaseOrderDocument po, ByteArrayOutputStream byteArrayOutputStream, String institutionName) {
         if (LOG.isDebugEnabled()) {
@@ -184,8 +181,7 @@ public class PurchaseOrderQuoteRequestsPdf extends PdfPageEventHelper {
             Document doc = this.getDocument();
             PdfWriter writer = PdfWriter.getInstance(doc, byteArrayOutputStream);
             this.createPOQuoteRequestsListPdf(po, doc, writer, institutionName);
-        }
-        catch (DocumentException de) {
+        } catch (DocumentException de) {
             LOG.error(de.getMessage(), de);
             errors.add(de.getMessage());
         }
@@ -193,14 +189,14 @@ public class PurchaseOrderQuoteRequestsPdf extends PdfPageEventHelper {
     }
 
     /**
-     * Invokes the createPOQuoteRequestsListPdf method to create a purchase order quote list request pdf document 
+     * Invokes the createPOQuoteRequestsListPdf method to create a purchase order quote list request pdf document
      * and saves it into a file which name and location are specified in the input parameters.
-     * 
-     * @param po               The PurchaseOrderDocument to be used to generate the pdf.
-     * @param pdfFileLocation  The location to save the pdf file.
-     * @param pdfFilename      The name for the pdf file.
-     * @param institutionName  The purchasing institution name.
-     * @return                 Collection of errors which are made of the messages from DocumentException.    
+     *
+     * @param po              The PurchaseOrderDocument to be used to generate the pdf.
+     * @param pdfFileLocation The location to save the pdf file.
+     * @param pdfFilename     The name for the pdf file.
+     * @param institutionName The purchasing institution name.
+     * @return Collection of errors which are made of the messages from DocumentException.
      */
     public Collection savePOQuoteRequestsListPdf(PurchaseOrderDocument po, String pdfFileLocation, String pdfFilename, String institutionName) {
         if (LOG.isDebugEnabled()) {
@@ -213,12 +209,10 @@ public class PurchaseOrderQuoteRequestsPdf extends PdfPageEventHelper {
             Document doc = this.getDocument();
             PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(pdfFileLocation + pdfFilename));
             this.createPOQuoteRequestsListPdf(po, doc, writer, institutionName);
-        }
-        catch (DocumentException de) {
+        } catch (DocumentException de) {
             LOG.error(de.getMessage(), de);
             errors.add(de.getMessage());
-        }
-        catch (FileNotFoundException f) {
+        } catch (FileNotFoundException f) {
             LOG.error(f.getMessage(), f);
             errors.add(f.getMessage());
         }
@@ -227,9 +221,9 @@ public class PurchaseOrderQuoteRequestsPdf extends PdfPageEventHelper {
 
     /**
      * Deletes an already created PDF.
-     * 
-     * @param pdfFileLocation  The location to save the pdf file.
-     * @param pdfFilename      The name for the pdf file.
+     *
+     * @param pdfFileLocation The location to save the pdf file.
+     * @param pdfFilename     The name for the pdf file.
      */
     public void deletePdf(String pdfFileLocation, String pdfFilename) {
         if (LOG.isDebugEnabled()) {
@@ -242,11 +236,11 @@ public class PurchaseOrderQuoteRequestsPdf extends PdfPageEventHelper {
 
     /**
      * Creates the pdf using given input parameters.
-     * 
-     * @param po        The PurchaseOrderDocument to be used to create the pdf.
-     * @param document  The pdf document whose margins have already been set.
-     * @param writer    The PdfWriter to write the pdf document into.
-     * @param instName  The purchasing institution name
+     *
+     * @param po       The PurchaseOrderDocument to be used to create the pdf.
+     * @param document The pdf document whose margins have already been set.
+     * @param writer   The PdfWriter to write the pdf document into.
+     * @param instName The purchasing institution name
      * @throws DocumentException
      */
     private void createPOQuoteRequestsListPdf(PurchaseOrderDocument po, Document document, PdfWriter writer, String instName) throws DocumentException {
@@ -266,7 +260,7 @@ public class PurchaseOrderQuoteRequestsPdf extends PdfPageEventHelper {
         PdfPCell cell;
         Paragraph p = new Paragraph();
 
-        float[] headerWidths = { 0.25f, 0.25f, 0.25f, 0.25f };
+        float[] headerWidths = {0.25f, 0.25f, 0.25f, 0.25f};
         headerTable = new PdfPTable(headerWidths);
         headerTable.setWidthPercentage(100);
         headerTable.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -304,8 +298,7 @@ public class PurchaseOrderQuoteRequestsPdf extends PdfPageEventHelper {
         if (po.getPurchaseOrderQuoteDueDate() != null) {
             Date dueDate = po.getPurchaseOrderQuoteDueDate();
             cell = new PdfPCell(new Paragraph("Due: " + sdf.format(dueDate) + "\n\n", cellTextFont));
-        }
-        else {
+        } else {
             cell = new PdfPCell(new Paragraph("Due: N/A\n\n", cellTextFont));
         }
         cell.setBorderWidth(0);
@@ -316,7 +309,7 @@ public class PurchaseOrderQuoteRequestsPdf extends PdfPageEventHelper {
 
         // ***** List table *****
         LOG.debug("createPOQuoteRequestsListPdf() list table started.");
-        float[] listWidths = { 0.20f, 0.20f, 0.20f, 0.20f, 0.20f };
+        float[] listWidths = {0.20f, 0.20f, 0.20f, 0.20f, 0.20f};
         PdfPTable listTable = new PdfPTable(listWidths);
         listTable.setWidthPercentage(100);
         listTable.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -355,11 +348,9 @@ public class PurchaseOrderQuoteRequestsPdf extends PdfPageEventHelper {
             listTable.addCell(cell);
             if (poqv.getVendorStateCode() != null) {
                 cell = new PdfPCell(new Paragraph(poqv.getVendorCityName() + ", " + poqv.getVendorStateCode(), cellTextFont));
-            }
-            else if (poqv.getVendorCountryCode() != null) {
+            } else if (poqv.getVendorCountryCode() != null) {
                 cell = new PdfPCell(new Paragraph(poqv.getVendorCityName() + ", " + poqv.getVendorCountryCode(), cellTextFont));
-            }
-            else {
+            } else {
                 cell = new PdfPCell(new Paragraph(poqv.getVendorCityName(), cellTextFont));
             }
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);

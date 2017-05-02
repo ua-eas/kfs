@@ -1,0 +1,255 @@
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="kfs" context="bootstrap,demo" id="FINP-435">
+        <insert tableName="krim_typ_t">
+            <column name="KIM_TYP_ID"><![CDATA[FINP435]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-435-TYP-001]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="NM"><![CDATA[View Reports]]></column>
+            <column name="SRVC_NM" value="{http://kfs.kuali.org/kfs/v5_0}reportPermissionTypeService"/>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+            <column name="NMSPC_CD"><![CDATA[KFS-SYS]]></column>
+        </insert>
+        <insert tableName="krim_perm_tmpl_t">
+            <column name="PERM_TMPL_ID"><![CDATA[FINP435]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-435-PERM-TMPL-001]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="NMSPC_CD"><![CDATA[KFS-SYS]]></column>
+            <column name="NM"><![CDATA[View Report]]></column>
+            <column name="DESC_TXT" value="null"/>
+            <column name="KIM_TYP_ID"><![CDATA[FINP435]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+        </insert>
+        <insert tableName="krim_attr_defn_t">
+            <column name="KIM_ATTR_DEFN_ID"><![CDATA[FINP435]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-435-ATTR-DEFN-001]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="NM"><![CDATA[reportCode]]></column>
+            <column name="LBL" value="null"/>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+            <column name="NMSPC_CD"><![CDATA[KFS-SYS]]></column>
+            <column name="CMPNT_NM"><![CDATA[org.kuali.kfs.sys.identity.KfsKimAttributes]]></column>
+        </insert>
+        <insert tableName="krim_typ_attr_t">
+            <column name="KIM_TYP_ATTR_ID"><![CDATA[FINP435]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-435-TYP-ATTR-001]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="SORT_CD"><![CDATA[a]]></column>
+            <column name="KIM_TYP_ID"><![CDATA[FINP435]]></column>
+            <column name="KIM_ATTR_DEFN_ID"><![CDATA[FINP435]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+        </insert>
+        <insert tableName="krim_perm_t">
+            <column name="PERM_ID"><![CDATA[FINP435ISBS]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-435-ISBS-PERM-001]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="PERM_TMPL_ID"><![CDATA[FINP435]]></column>
+            <column name="NMSPC_CD"><![CDATA[KFS-SYS]]></column>
+            <column name="NM"><![CDATA[View Report Income Statement/Balance Sheet]]></column>
+            <column name="DESC_TXT"><![CDATA[Allows access to view ISBS report.]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+        </insert>
+        <insert tableName="krim_perm_attr_data_t">
+            <column name="ATTR_DATA_ID"><![CDATA[FINP435ISBS]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-435-ISBS-PERM-ATTR-DATA-001]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="PERM_ID"><![CDATA[FINP435ISBS]]></column>
+            <column name="KIM_TYP_ID"><![CDATA[FINP435]]></column>
+            <column name="KIM_ATTR_DEFN_ID"><![CDATA[FINP435]]></column>
+            <column name="ATTR_VAL"><![CDATA[ISBS]]></column>
+        </insert>
+        <insert tableName="krim_perm_t">
+            <column name="PERM_ID"><![CDATA[FINP435TRAN]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-435-TRAN-PERM-001]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="PERM_TMPL_ID"><![CDATA[FINP435]]></column>
+            <column name="NMSPC_CD"><![CDATA[KFS-SYS]]></column>
+            <column name="NM"><![CDATA[View Report Detailed Transactions]]></column>
+            <column name="DESC_TXT"><![CDATA[Allows access to view TRAN report.]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+        </insert>
+        <insert tableName="krim_perm_attr_data_t">
+            <column name="ATTR_DATA_ID"><![CDATA[FINP435TRAN]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-435-TRAN-PERM-ATTR-DATA-001]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="PERM_ID"><![CDATA[FINP435TRAN]]></column>
+            <column name="KIM_TYP_ID"><![CDATA[FINP435]]></column>
+            <column name="KIM_ATTR_DEFN_ID"><![CDATA[FINP435]]></column>
+            <column name="ATTR_VAL"><![CDATA[TRAN]]></column>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" context="demo" id="FINP-435-ADD-PERM-TO-54">
+        <insert tableName="krim_role_perm_t">
+            <column name="ROLE_PERM_ID"><![CDATA[FINP435ISBS]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-435-ISBS-ROLE-PERM]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="ROLE_ID"><![CDATA[54]]></column>
+            <column name="PERM_ID"><![CDATA[FINP435ISBS]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+        </insert>
+        <insert tableName="krim_role_perm_t">
+            <column name="ROLE_PERM_ID"><![CDATA[FINP435TRAN]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-435-TRAN-ROLE-PERM]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="ROLE_ID"><![CDATA[54]]></column>
+            <column name="PERM_ID"><![CDATA[FINP435TRAN]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="FINI-1822_REMOVE_BILLING_FREQUENCY_DOCUMENT_TYPE" context="bootstrap,demo,unit">
+        <delete tableName="KREW_DOC_TYP_PLCY_RELN_T">
+            <where>doc_typ_id in (select doc_typ_id from krew_doc_typ_t where doc_typ_nm = 'BFM')</where>
+        </delete>
+        <delete tableName="KREW_DOC_TYP_APP_STAT_CAT_T">
+            <where>doc_typ_id in (select doc_typ_id from krew_doc_typ_t where doc_typ_nm = 'BFM')</where>
+        </delete>
+        <delete tableName="KREW_DOC_TYP_APP_DOC_STAT_T">
+            <where>doc_typ_id in (select doc_typ_id from krew_doc_typ_t where doc_typ_nm = 'BFM')</where>
+        </delete>
+        <delete tableName="KREW_RULE_EXT_VAL_T">
+            <where>rule_ext_id in (select rule_ext_id from KREW_RULE_EXT_T where RULE_TMPL_ATTR_ID in (select RULE_TMPL_ATTR_ID from KREW_RULE_TMPL_ATTR_T where rule_attr_id in (select rule_attr_id from KREW_DOC_TYP_ATTR_T where doc_typ_id in (select doc_typ_id from krew_doc_typ_t where doc_typ_nm = 'BFM'))))</where>
+        </delete>
+        <delete tableName="KREW_RULE_EXT_T">
+            <where>RULE_TMPL_ATTR_ID in (select RULE_TMPL_ATTR_ID from KREW_RULE_TMPL_ATTR_T where rule_attr_id in (select rule_attr_id from KREW_DOC_TYP_ATTR_T where doc_typ_id in (select doc_typ_id from krew_doc_typ_t where doc_typ_nm = 'BFM')))</where>
+        </delete>
+        <delete tableName="KREW_RULE_RSP_T">
+            <where>rule_id in (select rule_id from krew_rule_t where rule_tmpl_id in (select rule_tmpl_id from krew_rule_tmpl_t where rule_tmpl_id in (select rule_tmpl_id from KREW_RULE_TMPL_ATTR_T where rule_attr_id in (select rule_attr_id from KREW_DOC_TYP_ATTR_T where doc_typ_id in (select doc_typ_id from krew_doc_typ_t where doc_typ_nm = 'BFM')))))</where>
+        </delete>
+        <delete tableName="KREW_DLGN_RSP_T">
+            <where>DLGN_RULE_BASE_VAL_ID in (select rule_id from krew_rule_t where rule_tmpl_id in (select rule_tmpl_id from krew_rule_tmpl_t where rule_tmpl_id in (select rule_tmpl_id from KREW_RULE_TMPL_ATTR_T where rule_attr_id in (select rule_attr_id from KREW_DOC_TYP_ATTR_T where doc_typ_id in (select doc_typ_id from krew_doc_typ_t where doc_typ_nm = 'BFM')))))</where>
+        </delete>
+        <delete tableName="KREW_RULE_EXPR_T">
+            <where>rule_expr_id in (select rule_expr_id from krew_rule_t where rule_tmpl_id in (select rule_tmpl_id from KREW_RULE_TMPL_ATTR_T where rule_attr_id in (select rule_attr_id from KREW_DOC_TYP_ATTR_T where doc_typ_id in (select doc_typ_id from krew_doc_typ_t where doc_typ_nm = 'BFM'))))</where>
+        </delete>
+        <delete tableName="krew_rule_t">
+            <where>rule_tmpl_id in (select rule_tmpl_id from krew_rule_tmpl_t where rule_tmpl_id in (select rule_tmpl_id from KREW_RULE_TMPL_ATTR_T where rule_attr_id in (select rule_attr_id from KREW_DOC_TYP_ATTR_T where doc_typ_id in (select doc_typ_id from krew_doc_typ_t where doc_typ_nm = 'BFM'))))</where>
+        </delete>
+        <delete tableName="KREW_RULE_TMPL_OPTN_T">
+            <where>RULE_TMPL_ID in (select rule_tmpl_id from KREW_RULE_TMPL_ATTR_T where rule_attr_id in (select rule_attr_id from KREW_DOC_TYP_ATTR_T where doc_typ_id in (select doc_typ_id from krew_doc_typ_t where doc_typ_nm = 'BFM')))</where>
+        </delete>
+        <delete tableName="krew_rule_tmpl_t">
+            <where>rule_tmpl_id in (select rule_tmpl_id from KREW_RULE_TMPL_ATTR_T where rule_attr_id in (select rule_attr_id from KREW_DOC_TYP_ATTR_T where doc_typ_id in (select doc_typ_id from krew_doc_typ_t where doc_typ_nm = 'BFM')))</where>
+        </delete>
+        <delete tableName="KREW_RULE_TMPL_ATTR_T">
+            <where>rule_attr_id in (select rule_attr_id from KREW_DOC_TYP_ATTR_T where doc_typ_id in (select doc_typ_id from krew_doc_typ_t where doc_typ_nm = 'BFM'))</where>
+        </delete>
+        <delete tableName="KREW_RULE_ATTR_T">
+            <where>rule_attr_id in (select rule_attr_id from KREW_DOC_TYP_ATTR_T where doc_typ_id in (select doc_typ_id from krew_doc_typ_t where doc_typ_nm = 'BFM'))</where>
+        </delete>
+        <delete tableName="KREW_DOC_TYP_ATTR_T">
+            <where>doc_typ_id in (select doc_typ_id from krew_doc_typ_t where doc_typ_nm = 'BFM')</where>
+        </delete>
+        <delete tableName="KREW_RTE_NODE_INSTN_LNK_T">
+            <where>FROM_RTE_NODE_INSTN_ID in (select rte_node_id from KREW_RTE_NODE_T where doc_typ_id in (select doc_typ_id from krew_doc_typ_t where doc_typ_nm = 'BFM'))</where>
+        </delete>
+        <delete tableName="KREW_RTE_NODE_INSTN_LNK_T">
+            <where>TO_RTE_NODE_INSTN_ID in (select rte_node_id from KREW_RTE_NODE_T where doc_typ_id in (select doc_typ_id from krew_doc_typ_t where doc_typ_nm = 'BFM'))</where>
+        </delete>
+        <delete tableName="KREW_RTE_BRCH_PROTO_T">
+            <where>rte_brch_proto_id in (select brch_proto_id from krew_rte_node_t where doc_typ_id in (select doc_typ_id from krew_doc_typ_t where doc_typ_nm = 'BFM'))</where>
+        </delete>
+        <delete tableName="KREW_RTE_NODE_CFG_PARM_T">
+            <where>rte_node_id in (select rte_node_id from KREW_RTE_NODE_T where doc_typ_id in (select doc_typ_id from krew_doc_typ_t where doc_typ_nm = 'BFM'))</where>
+        </delete>
+        <delete tableName="KREW_RTE_NODE_T">
+            <where>doc_typ_Id in (select doc_typ_id from krew_doc_typ_t where doc_typ_nm = 'BFM')</where>
+        </delete>
+        <delete tableName="KREW_DOC_TYP_PROC_T">
+            <where>doc_typ_id in (select doc_typ_id from krew_doc_typ_t where doc_typ_nm = 'BFM')</where>
+        </delete>
+        <delete tableName="KREW_DOC_TYP_T">
+            <where>doc_typ_nm = 'BFM'</where>
+        </delete>
+    </changeSet>
+    <changeSet author="kfs" id="FINP-275_VENDOR_TAX_UNMASK_PERM" context="bootstrap,demo,unit">
+    	<insert tableName="krim_perm_t">
+            <column name="PERM_ID"><![CDATA[FINP275UNMASK]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-275-UNMASK-TAXID-PERM-001]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="PERM_TMPL_ID"><![CDATA[27]]></column>
+            <column name="NMSPC_CD"><![CDATA[KFS-VND]]></column>
+            <column name="NM"><![CDATA[Full Unmask Field VendorTaxDetail.vendorHeader.vendorTaxNumber]]></column>
+            <column name="DESC_TXT"><![CDATA[Authorizes users to view the entire Tax Number on the Vendor Tax Detail Lookup.]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+        </insert>
+        <insert tableName="krim_perm_attr_data_t">
+            <column name="ATTR_DATA_ID"><![CDATA[FINP275UNMASKCOMP]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-275-UNMASK-ATTR-DATA-001]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="PERM_ID"><![CDATA[FINP275UNMASK]]></column>
+            <column name="KIM_TYP_ID"><![CDATA[11]]></column>
+            <column name="KIM_ATTR_DEFN_ID"><![CDATA[5]]></column>
+            <column name="ATTR_VAL"><![CDATA[VendorTaxDetail]]></column>
+        </insert>
+        <insert tableName="krim_perm_attr_data_t">
+            <column name="ATTR_DATA_ID"><![CDATA[FINP275UNMASKPROP]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-275-UNMASK-ATTR-DATA-002]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="PERM_ID"><![CDATA[FINP275UNMASK]]></column>
+            <column name="KIM_TYP_ID"><![CDATA[11]]></column>
+            <column name="KIM_ATTR_DEFN_ID"><![CDATA[6]]></column>
+            <column name="ATTR_VAL"><![CDATA[vendorHeader.vendorTaxNumber]]></column>
+        </insert>
+        <insert tableName="krim_role_perm_t">
+            <column name="ROLE_PERM_ID"><![CDATA[FINP275UNMASK]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-275-UNMASK-TAXID-ROLE-PERM]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="ROLE_ID"><![CDATA[45]]></column>
+            <column name="PERM_ID"><![CDATA[FINP275UNMASK]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+        </insert>
+        <insert tableName="krim_perm_t">
+            <column name="PERM_ID"><![CDATA[FINP275LOOKUP]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-275-LOOKUP-VENDOR-TAX]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="PERM_TMPL_ID"><![CDATA[23]]></column>
+            <column name="NMSPC_CD"><![CDATA[KFS-VND]]></column>
+            <column name="NM"><![CDATA[Look Up Vendor Tax Detail]]></column>
+            <column name="DESC_TXT"><![CDATA[Authorizes users to perform a lookup on Vendor Tax Detail.]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+        </insert>
+        <insert tableName="krim_perm_attr_data_t">
+            <column name="ATTR_DATA_ID"><![CDATA[FINP275LOOKUPNS]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-275-LOOKUP-ATTR-DATA-001]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="PERM_ID"><![CDATA[FINP275LOOKUP]]></column>
+            <column name="KIM_TYP_ID"><![CDATA[10]]></column>
+            <column name="KIM_ATTR_DEFN_ID"><![CDATA[4]]></column>
+            <column name="ATTR_VAL"><![CDATA[KFS-VND]]></column>
+        </insert>
+        <insert tableName="krim_perm_attr_data_t">
+            <column name="ATTR_DATA_ID"><![CDATA[FINP275LOOKUPCOMP]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-275-LOOKUP-ATTR-DATA-002]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="PERM_ID"><![CDATA[FINP275LOOKUP]]></column>
+            <column name="KIM_TYP_ID"><![CDATA[10]]></column>
+            <column name="KIM_ATTR_DEFN_ID"><![CDATA[5]]></column>
+            <column name="ATTR_VAL"><![CDATA[VendorTaxDetail]]></column>
+        </insert>
+        <insert tableName="krim_role_perm_t">
+            <column name="ROLE_PERM_ID"><![CDATA[FINP275LOOKUP]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-275-LOOKUP-VENDOR-TAX-ROLE-PERM]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="ROLE_ID"><![CDATA[45]]></column>
+            <column name="PERM_ID"><![CDATA[FINP275LOOKUP]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

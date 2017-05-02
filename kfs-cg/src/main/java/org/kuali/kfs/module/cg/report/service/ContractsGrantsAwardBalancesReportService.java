@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.cg.report.service;
 
-import java.io.ByteArrayOutputStream;
-
 import org.kuali.kfs.module.cg.report.ContractsGrantsReportDataHolder;
 import org.kuali.kfs.sys.report.ReportInfo;
+
+import java.io.ByteArrayOutputStream;
 
 /**
  * This class defines the methods for Contracts & Grants Award Balances Reports.

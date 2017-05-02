@@ -1,36 +1,30 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.web.struts;
 
-import java.io.ByteArrayOutputStream;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.util.WebUtils;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
@@ -41,10 +35,15 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.kns.util.WebUtils;
-import org.kuali.rice.kns.web.struts.form.LookupForm;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.util.GlobalVariables;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Action class for Transmit Contracts & Grants Invoices.
@@ -97,10 +96,9 @@ public class TransmitContractsAndGrantsInvoicesLookupAction extends ContractsGra
                     } else {
                         GlobalVariables.getMessageMap().putInfoForSectionId(ArPropertyConstants.LOOKUP_SECTION_ID, ArKeyConstants.ERROR_SENDING_INVOICE_EMAILS);
                     }
-                }
-                else {
+                } else {
                     // this is so the message about no search results shows up in the same place as when doing a search
-                    request.setAttribute(KFSPropertyConstants.REQUEST_SEARCH_RESULTS_ACTUAL_SIZE, 0 );
+                    request.setAttribute(KFSPropertyConstants.REQUEST_SEARCH_RESULTS_ACTUAL_SIZE, 0);
                 }
             } else {
                 // Get all mail-able invoices
@@ -120,22 +118,20 @@ public class TransmitContractsAndGrantsInvoicesLookupAction extends ContractsGra
                         request.setAttribute(KFSPropertyConstants.REQUEST_SEARCH_RESULTS_ACTUAL_SIZE, mailSet.size());
 
                         return null;
-                    }
-                    else {
+                    } else {
                         GlobalVariables.getMessageMap().putInfoForSectionId(ArPropertyConstants.LOOKUP_SECTION_ID, ArKeyConstants.INVOICES_PRINT_UNSUCCESSFULL);
                     }
-                }
-                else {
+                } else {
                     // if no invoices to be mailed were found add status message
                     // this is so the message about no search results shows up in the same place as when doing a search
-                    request.setAttribute(KFSPropertyConstants.REQUEST_SEARCH_RESULTS_ACTUAL_SIZE, 0 );
+                    request.setAttribute(KFSPropertyConstants.REQUEST_SEARCH_RESULTS_ACTUAL_SIZE, 0);
                 }
             }
             return forward;
         }
         // Catch all
         // this is so the message about no search results shows up in the same place as when doing a search
-        request.setAttribute(KFSPropertyConstants.REQUEST_SEARCH_RESULTS_ACTUAL_SIZE, 0 );
+        request.setAttribute(KFSPropertyConstants.REQUEST_SEARCH_RESULTS_ACTUAL_SIZE, 0);
 
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
     }

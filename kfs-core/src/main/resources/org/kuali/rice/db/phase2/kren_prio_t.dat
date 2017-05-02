@@ -1,0 +1,4 @@
+HEADER[~&~	~&~PRIO_ID::DECIMAL~&~	~&~NM::VARCHAR~&~	~&~DESC_TXT::VARCHAR~&~	~&~PRIO_ORD::DECIMAL~&~	~&~VER_NBR::DECIMAL~&~	~&~OBJ_ID::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'1'~&~	~&~'Normal'~&~	~&~'Normal priority'~&~	~&~'2'~&~	~&~'1'~&~	~&~NULL~&~	~&~]RECORD
+RECORD[~&~	~&~'2'~&~	~&~'Low'~&~	~&~'A low priority'~&~	~&~'3'~&~	~&~'1'~&~	~&~NULL~&~	~&~]RECORD
+RECORD[~&~	~&~'3'~&~	~&~'High'~&~	~&~'A high priority'~&~	~&~'1'~&~	~&~'1'~&~	~&~NULL~&~	~&~]RECORD

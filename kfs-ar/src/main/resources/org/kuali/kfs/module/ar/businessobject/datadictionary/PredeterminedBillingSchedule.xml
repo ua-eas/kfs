@@ -1,305 +1,302 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-	<bean id="PredeterminedBillingSchedule" parent="PredeterminedBillingSchedule-parentBean" />
+    <bean id="PredeterminedBillingSchedule" parent="PredeterminedBillingSchedule-parentBean"/>
 
-	<bean id="PredeterminedBillingSchedule-parentBean" abstract="true"
-		parent="BusinessObjectEntry">
-		<property name="businessObjectClass"
-			value="org.kuali.kfs.module.ar.businessobject.PredeterminedBillingSchedule" />
-		<property name="inquiryDefinition">
-			<ref bean="PredeterminedBillingSchedule-inquiryDefinition" />
-		</property>
-		<property name="lookupDefinition">
-			<ref bean="PredeterminedBillingSchedule-lookupDefinition" />
-		</property>
-		<property name="titleAttribute" value="predeterminedBillingScheduleInquiryTitle" />
-		<property name="objectLabel" value="Predetermined Billing Schedule" />
-		<property name="attributes">
-			<list>
-				<ref bean="PredeterminedBillingSchedule-proposalNumber" />
-				<ref bean="PredeterminedBillingSchedule-award.agency.fullName" />
-				<ref bean="PredeterminedBillingSchedule-award.awardTotalAmount" />
-				<ref bean="PredeterminedBillingSchedule-totalAmountScheduled" />
-				<ref bean="PredeterminedBillingSchedule-totalAmountRemaining" />
-				<ref bean="PredeterminedBillingSchedule-predeterminedBillingScheduleInquiryTitle" />
-				<ref bean="PredeterminedBillingSchedule-award.awardEndingDate" />
-				<ref bean="PredeterminedBillingSchedule-bills.proposalNumber" />
-				<ref bean="PredeterminedBillingSchedule-bills.billNumber" />
-				<ref bean="PredeterminedBillingSchedule-bills.billIdentifier" />
-				<ref bean="PredeterminedBillingSchedule-bills.billDescription" />
-				<ref bean="PredeterminedBillingSchedule-bills.estimatedAmount" />
-				<ref bean="PredeterminedBillingSchedule-bills.billDate" />
-				<ref bean="PredeterminedBillingSchedule-bills.billed" />
-				<ref bean="PredeterminedBillingSchedule-bills.active" />
-			</list>
-		</property>
-		<property name="collections">
-			<list>
-				<bean parent="CollectionDefinition" p:name="bills"
-					p:label="Bills" p:shortLabel="Bills" p:elementLabel="Bills" />
-			</list>
-		</property>
-		<property name="relationships">
-			<list>
-				<bean parent="RelationshipDefinition" p:objectAttributeName="award"
-					p:targetClass="org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward">
-					<property name="primitiveAttributes">
-						<list>
-							<bean parent="PrimitiveAttributeDefinition" p:sourceName="proposalNumber"
-								p:targetName="proposalNumber" />
-						</list>
-					</property>
-				</bean>
-			</list>
-		</property>
-	</bean>
+    <bean id="PredeterminedBillingSchedule-parentBean" abstract="true"
+          parent="BusinessObjectEntry">
+        <property name="businessObjectClass"
+                  value="org.kuali.kfs.module.ar.businessobject.PredeterminedBillingSchedule"/>
+        <property name="inquiryDefinition">
+            <ref bean="PredeterminedBillingSchedule-inquiryDefinition"/>
+        </property>
+        <property name="lookupDefinition">
+            <ref bean="PredeterminedBillingSchedule-lookupDefinition"/>
+        </property>
+        <property name="titleAttribute" value="predeterminedBillingScheduleInquiryTitle"/>
+        <property name="objectLabel" value="Predetermined Billing Schedule"/>
+        <property name="attributes">
+            <list>
+                <ref bean="PredeterminedBillingSchedule-proposalNumber"/>
+                <ref bean="PredeterminedBillingSchedule-award.agency.fullName"/>
+                <ref bean="PredeterminedBillingSchedule-award.awardTotalAmount"/>
+                <ref bean="PredeterminedBillingSchedule-totalAmountScheduled"/>
+                <ref bean="PredeterminedBillingSchedule-totalAmountRemaining"/>
+                <ref bean="PredeterminedBillingSchedule-predeterminedBillingScheduleInquiryTitle"/>
+                <ref bean="PredeterminedBillingSchedule-award.awardEndingDate"/>
+                <ref bean="PredeterminedBillingSchedule-bills.proposalNumber"/>
+                <ref bean="PredeterminedBillingSchedule-bills.billNumber"/>
+                <ref bean="PredeterminedBillingSchedule-bills.billIdentifier"/>
+                <ref bean="PredeterminedBillingSchedule-bills.billDescription"/>
+                <ref bean="PredeterminedBillingSchedule-bills.estimatedAmount"/>
+                <ref bean="PredeterminedBillingSchedule-bills.billDate"/>
+                <ref bean="PredeterminedBillingSchedule-bills.billed"/>
+                <ref bean="PredeterminedBillingSchedule-bills.active"/>
+            </list>
+        </property>
+        <property name="collections">
+            <list>
+                <bean parent="CollectionDefinition" p:name="bills"
+                      p:label="Bills" p:shortLabel="Bills" p:elementLabel="Bills"/>
+            </list>
+        </property>
+        <property name="relationships">
+            <list>
+                <bean parent="RelationshipDefinition" p:objectAttributeName="award"
+                      p:targetClass="org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward">
+                    <property name="primitiveAttributes">
+                        <list>
+                            <bean parent="PrimitiveAttributeDefinition" p:sourceName="proposalNumber"
+                                  p:targetName="proposalNumber"/>
+                        </list>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
 
-	<!-- Attribute Definitions -->
+    <!-- Attribute Definitions -->
 
-	<bean id="PredeterminedBillingSchedule-proposalNumber" parent="PredeterminedBillingSchedule-proposalNumber-parentBean" />
+    <bean id="PredeterminedBillingSchedule-proposalNumber" parent="PredeterminedBillingSchedule-proposalNumber-parentBean"/>
 
-	<bean id="PredeterminedBillingSchedule-proposalNumber-parentBean" abstract="true"
-		parent="ExternalizableAttributeDefinitionProxy"
-		p:sourceExternalizableBusinessObjectInterface="org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward"
-		p:sourceAttributeName="proposalNumber">
-		<property name="name" value="proposalNumber" />
-	</bean>
+    <bean id="PredeterminedBillingSchedule-proposalNumber-parentBean" abstract="true"
+          parent="ExternalizableAttributeDefinitionProxy"
+          p:sourceExternalizableBusinessObjectInterface="org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward"
+          p:sourceAttributeName="proposalNumber">
+        <property name="name" value="proposalNumber"/>
+    </bean>
 
-	<bean id="PredeterminedBillingSchedule-award.agency.fullName" parent="PredeterminedBillingSchedule-award.agency.fullName-parentBean" />
+    <bean id="PredeterminedBillingSchedule-award.agency.fullName" parent="PredeterminedBillingSchedule-award.agency.fullName-parentBean"/>
 
-	<bean id="PredeterminedBillingSchedule-award.agency.fullName-parentBean"
-		abstract="true" parent="ExternalizableAttributeDefinitionProxy"
-		p:sourceExternalizableBusinessObjectInterface="org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAgency"
-		p:sourceAttributeName="fullName">
-		<property name="name" value="award.agency.fullName" />
-		<property name="label" value="Agency Name" />
-		<property name="shortLabel" value="Name" />
-	</bean>
+    <bean id="PredeterminedBillingSchedule-award.agency.fullName-parentBean"
+          abstract="true" parent="ExternalizableAttributeDefinitionProxy"
+          p:sourceExternalizableBusinessObjectInterface="org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAgency"
+          p:sourceAttributeName="fullName">
+        <property name="name" value="award.agency.fullName"/>
+        <property name="label" value="Agency Name"/>
+        <property name="shortLabel" value="Name"/>
+    </bean>
 
-	<bean id="PredeterminedBillingSchedule-award.awardTotalAmount" parent="PredeterminedBillingSchedule-award.awardTotalAmount-parentBean" />
+    <bean id="PredeterminedBillingSchedule-award.awardTotalAmount" parent="PredeterminedBillingSchedule-award.awardTotalAmount-parentBean"/>
 
-	<bean id="PredeterminedBillingSchedule-award.awardTotalAmount-parentBean"
-		abstract="true" parent="ExternalizableAttributeDefinitionProxy"
-		p:sourceExternalizableBusinessObjectInterface="org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward"
-		p:sourceAttributeName="awardTotalAmount">
-		<property name="name" value="award.awardTotalAmount" />
-		<property name="label" value="Total Award Amount" />
-		<property name="shortLabel" value="Total" />
-	</bean>
+    <bean id="PredeterminedBillingSchedule-award.awardTotalAmount-parentBean"
+          abstract="true" parent="ExternalizableAttributeDefinitionProxy"
+          p:sourceExternalizableBusinessObjectInterface="org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward"
+          p:sourceAttributeName="awardTotalAmount">
+        <property name="name" value="award.awardTotalAmount"/>
+        <property name="label" value="Total Award Amount"/>
+        <property name="shortLabel" value="Total"/>
+    </bean>
 
-	<bean id="PredeterminedBillingSchedule-totalAmountScheduled" parent="PredeterminedBillingSchedule-totalAmountScheduled-parentBean" />
+    <bean id="PredeterminedBillingSchedule-totalAmountScheduled" parent="PredeterminedBillingSchedule-totalAmountScheduled-parentBean"/>
 
-	<bean id="PredeterminedBillingSchedule-totalAmountScheduled-parentBean"
-		abstract="true" parent="GenericAttributes-genericAmount">
-		<property name="name" value="totalAmountScheduled" />
-		<property name="forceUppercase" value="true" />
-		<property name="label" value="Total Amount Scheduled" />
-		<property name="shortLabel" value="Total" />
-		<property name="maxLength" value="10" />
-		<property name="formatterClass"
-			value="org.kuali.rice.core.web.format.CurrencyFormatter" />
-	</bean>
+    <bean id="PredeterminedBillingSchedule-totalAmountScheduled-parentBean"
+          abstract="true" parent="GenericAttributes-genericAmount">
+        <property name="name" value="totalAmountScheduled"/>
+        <property name="forceUppercase" value="true"/>
+        <property name="label" value="Total Amount Scheduled"/>
+        <property name="shortLabel" value="Total"/>
+        <property name="maxLength" value="10"/>
+        <property name="formatterClass"
+                  value="org.kuali.rice.core.web.format.CurrencyFormatter"/>
+    </bean>
 
-	<bean id="PredeterminedBillingSchedule-totalAmountRemaining" parent="PredeterminedBillingSchedule-totalAmountRemaining-parentBean" />
+    <bean id="PredeterminedBillingSchedule-totalAmountRemaining" parent="PredeterminedBillingSchedule-totalAmountRemaining-parentBean"/>
 
-	<bean id="PredeterminedBillingSchedule-totalAmountRemaining-parentBean"
-		abstract="true" parent="GenericAttributes-genericAmount">
-		<property name="name" value="totalAmountRemaining" />
-		<property name="label" value="Total Amount Remaining" />
-		<property name="shortLabel" value="Total" />
-	</bean>
+    <bean id="PredeterminedBillingSchedule-totalAmountRemaining-parentBean"
+          abstract="true" parent="GenericAttributes-genericAmount">
+        <property name="name" value="totalAmountRemaining"/>
+        <property name="label" value="Total Amount Remaining"/>
+        <property name="shortLabel" value="Total"/>
+    </bean>
 
-	<bean id="PredeterminedBillingSchedule-predeterminedBillingScheduleInquiryTitle"
-		parent="PredeterminedBillingSchedule-predeterminedBillingScheduleInquiryTitle-parentBean" />
+    <bean id="PredeterminedBillingSchedule-predeterminedBillingScheduleInquiryTitle"
+          parent="PredeterminedBillingSchedule-predeterminedBillingScheduleInquiryTitle-parentBean"/>
 
-	<bean id="PredeterminedBillingSchedule-predeterminedBillingScheduleInquiryTitle-parentBean"
-		abstract="true" parent="CommonAttributes-predeterminedBillingScheduleInquiryTitle" />
+    <bean id="PredeterminedBillingSchedule-predeterminedBillingScheduleInquiryTitle-parentBean"
+          abstract="true" parent="CommonAttributes-predeterminedBillingScheduleInquiryTitle"/>
 
-	<bean id="PredeterminedBillingSchedule-award.awardEndingDate" parent="PredeterminedBillingSchedule-award.awardEndingDate-parentBean" />
+    <bean id="PredeterminedBillingSchedule-award.awardEndingDate" parent="PredeterminedBillingSchedule-award.awardEndingDate-parentBean"/>
 
-	<bean id="PredeterminedBillingSchedule-award.awardEndingDate-parentBean"
-		abstract="true" parent="ExternalizableAttributeDefinitionProxy"
-		p:sourceExternalizableBusinessObjectInterface="org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward"
-		p:sourceAttributeName="awardEndingDate">
-		<property name="name" value="award.awardEndingDate" />
-		<property name="label" value="Award Expiration Date" />
-		<property name="shortLabel" value="Date" />
-	</bean>
+    <bean id="PredeterminedBillingSchedule-award.awardEndingDate-parentBean"
+          abstract="true" parent="ExternalizableAttributeDefinitionProxy"
+          p:sourceExternalizableBusinessObjectInterface="org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward"
+          p:sourceAttributeName="awardEndingDate">
+        <property name="name" value="award.awardEndingDate"/>
+        <property name="label" value="Award Expiration Date"/>
+        <property name="shortLabel" value="Date"/>
+    </bean>
 
-	<bean id="PredeterminedBillingSchedule-bills.proposalNumber" parent="PredeterminedBillingSchedule-bills.proposalNumber-parentBean" />
+    <bean id="PredeterminedBillingSchedule-bills.proposalNumber" parent="PredeterminedBillingSchedule-bills.proposalNumber-parentBean"/>
 
-	<bean id="PredeterminedBillingSchedule-bills.proposalNumber-parentBean"
-		abstract="true" parent="Bill-proposalNumber">
-		<property name="name" value="bills.proposalNumber" />
-	</bean>
+    <bean id="PredeterminedBillingSchedule-bills.proposalNumber-parentBean"
+          abstract="true" parent="Bill-proposalNumber">
+        <property name="name" value="bills.proposalNumber"/>
+    </bean>
 
-	<bean id="PredeterminedBillingSchedule-bills.billNumber" parent="PredeterminedBillingSchedule-bills.billNumber-parentBean" />
+    <bean id="PredeterminedBillingSchedule-bills.billNumber" parent="PredeterminedBillingSchedule-bills.billNumber-parentBean"/>
 
-	<bean id="PredeterminedBillingSchedule-bills.billNumber-parentBean"
-		abstract="true" parent="Bill-billNumber">
-		<property name="name" value="bills.billNumber" />
-	</bean>
+    <bean id="PredeterminedBillingSchedule-bills.billNumber-parentBean"
+          abstract="true" parent="Bill-billNumber">
+        <property name="name" value="bills.billNumber"/>
+    </bean>
 
-	<bean id="PredeterminedBillingSchedule-bills.billIdentifier"
-		parent="PredeterminedBillingSchedule-bills.billIdentifier-parentBean" />
+    <bean id="PredeterminedBillingSchedule-bills.billIdentifier"
+          parent="PredeterminedBillingSchedule-bills.billIdentifier-parentBean"/>
 
-	<bean id="PredeterminedBillingSchedule-bills.billIdentifier-parentBean"
-		abstract="true" parent="Bill-billIdentifier">
-		<property name="name" value="bills.billIdentifier" />
-	</bean>
+    <bean id="PredeterminedBillingSchedule-bills.billIdentifier-parentBean"
+          abstract="true" parent="Bill-billIdentifier">
+        <property name="name" value="bills.billIdentifier"/>
+    </bean>
 
-	<bean id="PredeterminedBillingSchedule-bills.billDescription"
-		parent="PredeterminedBillingSchedule-bills.billDescription-parentBean" />
+    <bean id="PredeterminedBillingSchedule-bills.billDescription"
+          parent="PredeterminedBillingSchedule-bills.billDescription-parentBean"/>
 
-	<bean id="PredeterminedBillingSchedule-bills.billDescription-parentBean"
-		abstract="true" parent="Bill-billDescription">
-		<property name="name" value="bills.billDescription" />
-	</bean>
+    <bean id="PredeterminedBillingSchedule-bills.billDescription-parentBean"
+          abstract="true" parent="Bill-billDescription">
+        <property name="name" value="bills.billDescription"/>
+    </bean>
 
-	<bean id="PredeterminedBillingSchedule-bills.estimatedAmount" parent="PredeterminedBillingSchedule-bills.estimatedAmount-parentBean" />
+    <bean id="PredeterminedBillingSchedule-bills.estimatedAmount" parent="PredeterminedBillingSchedule-bills.estimatedAmount-parentBean"/>
 
-	<bean id="PredeterminedBillingSchedule-bills.estimatedAmount-parentBean"
-		abstract="true" parent="Bill-estimatedAmount">
-		<property name="name" value="bills.estimatedAmount" />
-	</bean>
+    <bean id="PredeterminedBillingSchedule-bills.estimatedAmount-parentBean"
+          abstract="true" parent="Bill-estimatedAmount">
+        <property name="name" value="bills.estimatedAmount"/>
+    </bean>
 
-	<bean id="PredeterminedBillingSchedule-bills.billDate"
-		parent="PredeterminedBillingSchedule-bills.billDate-parentBean" />
+    <bean id="PredeterminedBillingSchedule-bills.billDate"
+          parent="PredeterminedBillingSchedule-bills.billDate-parentBean"/>
 
-	<bean
-		id="PredeterminedBillingSchedule-bills.billDate-parentBean"
-		abstract="true" parent="Bill-billDate">
-		<property name="name" value="bills.billDate" />
-	</bean>
+    <bean
+            id="PredeterminedBillingSchedule-bills.billDate-parentBean"
+            abstract="true" parent="Bill-billDate">
+        <property name="name" value="bills.billDate"/>
+    </bean>
 
-	<bean id="PredeterminedBillingSchedule-bills.billed" parent="PredeterminedBillingSchedule-bills.billed-parentBean" />
+    <bean id="PredeterminedBillingSchedule-bills.billed" parent="PredeterminedBillingSchedule-bills.billed-parentBean"/>
 
-	<bean id="PredeterminedBillingSchedule-bills.billed-parentBean"
-		abstract="true" parent="Bill-billed">
-		<property name="name" value="bills.billed" />
-	</bean>
+    <bean id="PredeterminedBillingSchedule-bills.billed-parentBean"
+          abstract="true" parent="Bill-billed">
+        <property name="name" value="bills.billed"/>
+    </bean>
 
-	<bean id="PredeterminedBillingSchedule-bills.active" parent="PredeterminedBillingSchedule-bills.active-parentBean" />
+    <bean id="PredeterminedBillingSchedule-bills.active" parent="PredeterminedBillingSchedule-bills.active-parentBean"/>
 
-	<bean id="PredeterminedBillingSchedule-bills.active-parentBean"
-		abstract="true" parent="Bill-active">
-		<property name="name" value="bills.active" />
-	</bean>
+    <bean id="PredeterminedBillingSchedule-bills.active-parentBean"
+          abstract="true" parent="Bill-active">
+        <property name="name" value="bills.active"/>
+    </bean>
 
-	<!-- Business Object Inquiry Definition -->
+    <!-- Business Object Inquiry Definition -->
 
-	<bean id="PredeterminedBillingSchedule-inquiryDefinition" parent="PredeterminedBillingSchedule-inquiryDefinition-parentBean" />
+    <bean id="PredeterminedBillingSchedule-inquiryDefinition" parent="PredeterminedBillingSchedule-inquiryDefinition-parentBean"/>
 
-	<bean id="PredeterminedBillingSchedule-inquiryDefinition-parentBean"
-		abstract="true" parent="InquiryDefinition">
-		<property name="title" value="Predetermined Billing Schedule Inquiry" />
-		<property name="inquirySections">
-			<list>
-				<ref bean="PredeterminedBillingSchedule-inquiryDefinition-predeterminedBillingSchedule" />
-				<ref bean="PredeterminedBillingSchedule-inquiryDefinition-bills" />
-			</list>
-		</property>
-	</bean>
+    <bean id="PredeterminedBillingSchedule-inquiryDefinition-parentBean"
+          abstract="true" parent="InquiryDefinition">
+        <property name="title" value="Predetermined Billing Schedule Inquiry"/>
+        <property name="inquirySections">
+            <list>
+                <ref bean="PredeterminedBillingSchedule-inquiryDefinition-predeterminedBillingSchedule"/>
+                <ref bean="PredeterminedBillingSchedule-inquiryDefinition-bills"/>
+            </list>
+        </property>
+    </bean>
 
-	<bean id="PredeterminedBillingSchedule-inquiryDefinition-predeterminedBillingSchedule" parent="PredeterminedBillingSchedule-inquiryDefinition-predeterminedBillingSchedule-parentBean" />
-	<bean id="PredeterminedBillingSchedule-inquiryDefinition-predeterminedBillingSchedule-parentBean"
-		parent="InquirySectionDefinition" abstract="true">
-		<property name="title" value="Predetermined Billing Schedule" />
-		<property name="numberOfColumns" value="1" />
-		<property name="inquiryFields">
-			<list>
-				<bean parent="FieldDefinition" p:attributeName="proposalNumber" />
-				<bean parent="FieldDefinition" p:attributeName="award.agency.fullName" />
-				<bean parent="FieldDefinition" p:attributeName="award.awardTotalAmount"/>
-				<bean parent="FieldDefinition" p:attributeName="totalAmountScheduled" />
-				<bean parent="FieldDefinition" p:attributeName="totalAmountRemaining" />
-				<bean parent="FieldDefinition" p:attributeName="award.awardEndingDate" />
-			</list>
-		</property>
-	</bean>
+    <bean id="PredeterminedBillingSchedule-inquiryDefinition-predeterminedBillingSchedule" parent="PredeterminedBillingSchedule-inquiryDefinition-predeterminedBillingSchedule-parentBean"/>
+    <bean id="PredeterminedBillingSchedule-inquiryDefinition-predeterminedBillingSchedule-parentBean"
+          parent="InquirySectionDefinition" abstract="true">
+        <property name="title" value="Predetermined Billing Schedule"/>
+        <property name="inquiryFields">
+            <list>
+                <bean parent="FieldDefinition" p:attributeName="proposalNumber"/>
+                <bean parent="FieldDefinition" p:attributeName="award.agency.fullName"/>
+                <bean parent="FieldDefinition" p:attributeName="award.awardTotalAmount"/>
+                <bean parent="FieldDefinition" p:attributeName="totalAmountScheduled"/>
+                <bean parent="FieldDefinition" p:attributeName="totalAmountRemaining"/>
+                <bean parent="FieldDefinition" p:attributeName="award.awardEndingDate"/>
+            </list>
+        </property>
+    </bean>
 
-	<bean id="PredeterminedBillingSchedule-inquiryDefinition-bills" parent="PredeterminedBillingSchedule-inquiryDefinition-bills-parentBean" />
-	<bean id="PredeterminedBillingSchedule-inquiryDefinition-bills-parentBean"
-		parent="InquirySectionDefinition" abstract="true">
-		<property name="title" value="Bills" />
-		<property name="numberOfColumns" value="1" />
-		<property name="inquiryFields">
-			<list>
-				<bean parent="InquiryCollectionDefinition">
-					<property name="attributeName" value="bills" />
-					<property name="businessObjectClass"
-						value="org.kuali.kfs.module.ar.businessobject.Bill" />
-					<property name="numberOfColumns" value="1" />
-					<property name="inquiryFields">
-						<list>
-							<bean parent="FieldDefinition" p:attributeName="proposalNumber" />
-							<bean parent="FieldDefinition" p:attributeName="billNumber" />
-							<bean parent="FieldDefinition" p:attributeName="billIdentifier" />
-							<bean parent="FieldDefinition" p:attributeName="billDescription" />
-							<bean parent="FieldDefinition" p:attributeName="estimatedAmount" />
-							<bean parent="FieldDefinition" p:attributeName="billDate" />
-							<bean parent="FieldDefinition" p:attributeName="billed" />
-							<bean parent="FieldDefinition" p:attributeName="active" />
-						</list>
-					</property>
-				</bean>
-			</list>
-		</property>
-	</bean>
+    <bean id="PredeterminedBillingSchedule-inquiryDefinition-bills" parent="PredeterminedBillingSchedule-inquiryDefinition-bills-parentBean"/>
+    <bean id="PredeterminedBillingSchedule-inquiryDefinition-bills-parentBean"
+          parent="InquirySectionDefinition" abstract="true">
+        <property name="title" value="Bills"/>
+        <property name="inquiryFields">
+            <list>
+                <bean parent="InquiryCollectionDefinition">
+                    <property name="attributeName" value="bills"/>
+                    <property name="businessObjectClass"
+                              value="org.kuali.kfs.module.ar.businessobject.Bill"/>
+                    <property name="inquiryFields">
+                        <list>
+                            <bean parent="FieldDefinition" p:attributeName="proposalNumber"/>
+                            <bean parent="FieldDefinition" p:attributeName="billNumber"/>
+                            <bean parent="FieldDefinition" p:attributeName="billIdentifier"/>
+                            <bean parent="FieldDefinition" p:attributeName="billDescription"/>
+                            <bean parent="FieldDefinition" p:attributeName="estimatedAmount"/>
+                            <bean parent="FieldDefinition" p:attributeName="billDate"/>
+                            <bean parent="FieldDefinition" p:attributeName="billed"/>
+                            <bean parent="FieldDefinition" p:attributeName="active"/>
+                        </list>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
 
-	<!-- Business Object Lookup Definition -->
+    <!-- Business Object Lookup Definition -->
 
-	<bean id="PredeterminedBillingSchedule-lookupDefinition" parent="PredeterminedBillingSchedule-lookupDefinition-parentBean" />
+    <bean id="PredeterminedBillingSchedule-lookupDefinition" parent="PredeterminedBillingSchedule-lookupDefinition-parentBean"/>
 
-	<bean id="PredeterminedBillingSchedule-lookupDefinition-parentBean" abstract="true"
-		parent="LookupDefinition">
-		<property name="title" value="Predetermined Billing Schedule Lookup" />
+    <bean id="PredeterminedBillingSchedule-lookupDefinition-parentBean" abstract="true"
+          parent="LookupDefinition">
+        <property name="title" value="Predetermined Billing Schedule Lookup"/>
 
-		<property name="defaultSort">
-			<bean parent="SortDefinition">
-			</bean>
-		</property>
-		<property name="lookupFields">
-			<list>
-				<bean parent="FieldDefinition" p:attributeName="proposalNumber" />
-				<bean parent="FieldDefinition" p:attributeName="award.agency.fullName" p:noLookup="true" />
-				<bean parent="FieldDefinition" p:attributeName="award.awardTotalAmount" p:noLookup="true" />
-				<bean parent="FieldDefinition" p:attributeName="totalAmountScheduled" />
-				<bean parent="FieldDefinition" p:attributeName="totalAmountRemaining" />
-				<bean parent="FieldDefinition" p:attributeName="award.awardEndingDate" p:noLookup="true" />
-			</list>
-		</property>
-		<property name="resultFields">
-			<list>
-				<bean parent="FieldDefinition" p:attributeName="predeterminedBillingScheduleInquiryTitle" />
-				<bean parent="FieldDefinition" p:attributeName="proposalNumber" />
-				<bean parent="FieldDefinition" p:attributeName="award.agency.fullName" />
-				<bean parent="FieldDefinition" p:attributeName="award.awardTotalAmount" p:noInquiry="true"/>
-				<bean parent="FieldDefinition" p:attributeName="totalAmountScheduled" />
-				<bean parent="FieldDefinition" p:attributeName="totalAmountRemaining" />
-				<bean parent="FieldDefinition" p:attributeName="award.awardEndingDate" p:noInquiry="true"/>
-			</list>
-		</property>
-	</bean>
+        <property name="defaultSort">
+            <bean parent="SortDefinition">
+            </bean>
+        </property>
+        <property name="lookupFields">
+            <list>
+                <bean parent="FieldDefinition" p:attributeName="proposalNumber"/>
+                <bean parent="FieldDefinition" p:attributeName="award.agency.fullName" p:noLookup="true"/>
+                <bean parent="FieldDefinition" p:attributeName="award.awardTotalAmount" p:noLookup="true"/>
+                <bean parent="FieldDefinition" p:attributeName="totalAmountScheduled"/>
+                <bean parent="FieldDefinition" p:attributeName="totalAmountRemaining"/>
+                <bean parent="FieldDefinition" p:attributeName="award.awardEndingDate" p:noLookup="true"/>
+            </list>
+        </property>
+        <property name="resultFields">
+            <list>
+                <bean parent="FieldDefinition" p:attributeName="predeterminedBillingScheduleInquiryTitle"/>
+                <bean parent="FieldDefinition" p:attributeName="proposalNumber"/>
+                <bean parent="FieldDefinition" p:attributeName="award.agency.fullName"/>
+                <bean parent="FieldDefinition" p:attributeName="award.awardTotalAmount" p:noInquiry="true"/>
+                <bean parent="FieldDefinition" p:attributeName="totalAmountScheduled"/>
+                <bean parent="FieldDefinition" p:attributeName="totalAmountRemaining"/>
+                <bean parent="FieldDefinition" p:attributeName="award.awardEndingDate" p:noInquiry="true"/>
+            </list>
+        </property>
+    </bean>
 </beans>

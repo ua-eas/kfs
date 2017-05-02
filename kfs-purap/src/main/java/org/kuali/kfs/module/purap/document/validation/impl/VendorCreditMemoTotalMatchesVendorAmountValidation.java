@@ -1,36 +1,36 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.document.VendorCreditMemoDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.rice.kns.util.KNSGlobalVariables;
 
 public class VendorCreditMemoTotalMatchesVendorAmountValidation extends GenericValidation {
 
     public boolean validate(AttributedDocumentEvent event) {
         boolean valid = true;
-        VendorCreditMemoDocument cmDocument = (VendorCreditMemoDocument)event.getDocument();
-        
-        // If UseTax is included, then the invoiceInitialAmount should be compared against the 
+        VendorCreditMemoDocument cmDocument = (VendorCreditMemoDocument) event.getDocument();
+
+        // If UseTax is included, then the invoiceInitialAmount should be compared against the
         // total amount NOT INCLUDING tax.
         if (cmDocument.isUseTaxIndicator()) {
             if (cmDocument.getGrandPreTaxTotal().compareTo(cmDocument.getCreditMemoAmount()) != 0 && !cmDocument.isUnmatchedOverride()) {

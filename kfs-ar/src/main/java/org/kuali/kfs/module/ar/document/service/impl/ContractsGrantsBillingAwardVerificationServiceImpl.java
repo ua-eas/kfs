@@ -1,41 +1,43 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.document.service.impl;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
 import org.kuali.kfs.coa.service.AccountingPeriodService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
-import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingFrequency;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.batch.service.VerifyBillingFrequencyService;
-import org.kuali.kfs.module.ar.businessobject.*;
+import org.kuali.kfs.module.ar.businessobject.Bill;
+import org.kuali.kfs.module.ar.businessobject.BillingFrequency;
+import org.kuali.kfs.module.ar.businessobject.BillingPeriod;
+import org.kuali.kfs.module.ar.businessobject.Customer;
+import org.kuali.kfs.module.ar.businessobject.Milestone;
+import org.kuali.kfs.module.ar.businessobject.OrganizationAccountingDefault;
+import org.kuali.kfs.module.ar.businessobject.SystemInformation;
 import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
 import org.kuali.kfs.module.ar.document.service.ContractsGrantsBillingAwardVerificationService;
 import org.kuali.kfs.module.ar.document.service.ContractsGrantsInvoiceDocumentService;
@@ -45,10 +47,12 @@ import org.kuali.kfs.sys.document.service.FinancialSystemDocumentService;
 import org.kuali.kfs.sys.service.OptionsService;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.KualiModuleService;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ContractsGrantsBillingAwardVerificationServiceImpl implements ContractsGrantsBillingAwardVerificationService {
     protected AccountingPeriodService accountingPeriodService;
@@ -67,12 +71,12 @@ public class ContractsGrantsBillingAwardVerificationServiceImpl implements Contr
      *
      * @param award
      * @return False if billing frequency code is blank, or set as predetermined billing schedule or milestone billing schedule
-     *         and award has no award account or more than 1 award accounts assigned.
+     * and award has no award account or more than 1 award accounts assigned.
      */
     @Override
     public boolean isBillingFrequencySetCorrectly(ContractsAndGrantsBillingAward award) {
 
-        if (StringUtils.isBlank(award.getBillingFrequencyCode()) || ((award.getBillingFrequencyCode().equalsIgnoreCase(ArConstants.PREDETERMINED_BILLING_SCHEDULE_CODE) || award.getBillingFrequencyCode().equalsIgnoreCase(ArConstants.MILESTONE_BILLING_SCHEDULE_CODE)) && award.getActiveAwardAccounts().size() != 1)) {
+        if (StringUtils.isBlank(award.getBillingFrequencyCode()) || ((ArConstants.BillingFrequencyValues.isPredeterminedBilling(award) || ArConstants.BillingFrequencyValues.isMilestone(award)) && award.getActiveAwardAccounts().size() != 1)) {
             return false;
         }
         return true;
@@ -91,16 +95,13 @@ public class ContractsGrantsBillingAwardVerificationServiceImpl implements Contr
             Map<String, Object> criteria = new HashMap<String, Object>();
             criteria.put(KFSPropertyConstants.FREQUENCY, award.getBillingFrequencyCode());
             criteria.put(KFSPropertyConstants.ACTIVE, true);
-            Collection<ContractsAndGrantsBillingFrequency> matchingBillingFrequencies = kualiModuleService.getResponsibleModuleService(ContractsAndGrantsBillingFrequency.class).getExternalizableBusinessObjectsList(ContractsAndGrantsBillingFrequency.class, criteria);
+            final int billingFrequencyCount = businessObjectService.countMatching(BillingFrequency.class, criteria);
 
-            if (matchingBillingFrequencies != null && matchingBillingFrequencies.size() > 0) {
-                return true;
-            }
+            return (billingFrequencyCount > 0);
         }
 
         return false;
     }
-
 
 
     /**
@@ -119,6 +120,7 @@ public class ContractsGrantsBillingAwardVerificationServiceImpl implements Contr
 
     /**
      * this method checks If all accounts of award has invoices in progress.
+     *
      * @param award
      * @return
      */
@@ -126,7 +128,7 @@ public class ContractsGrantsBillingAwardVerificationServiceImpl implements Contr
     public boolean isInvoiceInProgress(ContractsAndGrantsBillingAward award) {
         Map<String, Object> fieldValues = new HashMap<>();
         fieldValues.put(ArPropertyConstants.ContractsGrantsInvoiceDocumentFields.PROPOSAL_NUMBER, award.getProposalNumber());
-        fieldValues.put(KFSPropertyConstants.DOCUMENT_HEADER+"."+KFSPropertyConstants.WORKFLOW_DOCUMENT_STATUS_CODE, getFinancialSystemDocumentService().getPendingDocumentStatuses());
+        fieldValues.put(KFSPropertyConstants.DOCUMENT_HEADER + "." + KFSPropertyConstants.WORKFLOW_DOCUMENT_STATUS_CODE, getFinancialSystemDocumentService().getPendingDocumentStatuses());
 
         return getBusinessObjectService().countMatching(ContractsGrantsInvoiceDocument.class, fieldValues) > 0;
     }
@@ -137,7 +139,7 @@ public class ContractsGrantsBillingAwardVerificationServiceImpl implements Contr
     @Override
     public boolean hasMilestonesToInvoice(ContractsAndGrantsBillingAward award) {
         boolean hasMilestonesToInvoice = true;
-        if (award.getBillingFrequencyCode().equalsIgnoreCase(ArConstants.MILESTONE_BILLING_SCHEDULE_CODE)) {
+        if (ArConstants.BillingFrequencyValues.isMilestone(award)) {
             List<Milestone> milestones = new ArrayList<Milestone>();
             List<Milestone> validMilestones = new ArrayList<Milestone>();
 
@@ -173,7 +175,7 @@ public class ContractsGrantsBillingAwardVerificationServiceImpl implements Contr
     @Override
     public boolean hasBillsToInvoice(ContractsAndGrantsBillingAward award) {
         boolean hasBillsToInvoice = true;
-        if (award.getBillingFrequencyCode().equalsIgnoreCase(ArConstants.PREDETERMINED_BILLING_SCHEDULE_CODE)) {
+        if (ArConstants.BillingFrequencyValues.isPredeterminedBilling(award)) {
 
             List<Bill> bills = new ArrayList<Bill>();
             List<Bill> validBills = new ArrayList<Bill>();
@@ -225,9 +227,11 @@ public class ContractsGrantsBillingAwardVerificationServiceImpl implements Contr
      */
     @Override
     public boolean isChartAndOrgSetupForInvoicing(ContractsAndGrantsBillingAward award) {
+        if (award.getPrimaryAwardOrganization() == null) {
+            return false;
+        }
         String coaCode = award.getPrimaryAwardOrganization().getChartOfAccountsCode();
         String orgCode = award.getPrimaryAwardOrganization().getOrganizationCode();
-        String procCoaCode = null, procOrgCode = null;
         Integer currentYear = universityDateService.getCurrentFiscalYear();
 
         Map<String, Object> criteria = new HashMap<String, Object>();

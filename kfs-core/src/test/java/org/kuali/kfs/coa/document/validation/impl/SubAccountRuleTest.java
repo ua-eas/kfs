@@ -1,35 +1,35 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.coa.document.validation.impl;
 
-import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapEmpty;
-import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapSize;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
 import org.kuali.kfs.coa.businessobject.A21SubAccount;
 import org.kuali.kfs.coa.businessobject.SubAccount;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.fixture.SubAccountFixture;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.krad.util.GlobalVariables;
+
+import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapEmpty;
+import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapSize;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class SubAccountRuleTest extends ChartRuleTestBase {
@@ -55,7 +55,7 @@ public class SubAccountRuleTest extends ChartRuleTestBase {
      * populated, if the keys match any records in the corresponding tables. This method does not populate anything in the contained
      * A21SubAccount, though it does create a new A21SubAccount. So the A21SubAccount instance will be valid (ie, non-null), but all
      * of its fields will be default or null.
-     * 
+     *
      * @param chartOfAccountsCode
      * @param accountNumber
      * @param subAccountNumber
@@ -80,17 +80,17 @@ public class SubAccountRuleTest extends ChartRuleTestBase {
         subAccount.setFinancialReportingCode(finReportingCode);
         subAccount.refresh();
         addA21SubAccount(subAccount);
-        
+
         return subAccount;
     }
-    
+
     /**
      * add a dummy object for a21SubAccount
-     * 
+     *
      * @param sub
      */
-    private void addA21SubAccount(SubAccount sub){
-        A21SubAccount a21 =  new A21SubAccount();
+    private void addA21SubAccount(SubAccount sub) {
+        A21SubAccount a21 = new A21SubAccount();
         a21.setChartOfAccountsCode(sub.getChartOfAccountsCode());
         a21.setAccountNumber(sub.getAccountNumber());
         a21.refresh();
@@ -217,7 +217,7 @@ public class SubAccountRuleTest extends ChartRuleTestBase {
         // confirm that there are no errors to begin with
         assertGlobalMessageMapEmpty();
         assertEquals(true, rule.checkCgRules(maintDoc));
-        
+
         //System.out.println( GlobalVariables.getMessageMap().entrySet() );
     }
 

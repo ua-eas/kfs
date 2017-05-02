@@ -1,32 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ec.service;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.kfs;
-
-import java.util.List;
-import java.util.Properties;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.ld.LaborLedgerBalance;
 import org.kuali.kfs.integration.ld.LaborLedgerEntry;
 import org.kuali.kfs.integration.ld.LaborModuleService;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ec.EffortPropertyConstants;
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationDetailBuild;
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationDocumentBuild;
@@ -41,10 +40,11 @@ import org.kuali.kfs.sys.ObjectUtil;
 import org.kuali.kfs.sys.TestDataPreparator;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.krad.exception.ValidationException;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.KualiModuleService;
-import org.kuali.rice.krad.util.GlobalVariables;
+
+import java.util.List;
+import java.util.Properties;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.kfs;
 
 @ConfigureContext(session = kfs)
 public class EffortCertificationDocumentServiceTest extends KualiTestBase {
@@ -97,7 +97,7 @@ public class EffortCertificationDocumentServiceTest extends KualiTestBase {
 
     /**
      * check if the service can approperiately create and route effort certification document
-     * 
+     *
      * @see effortCertificationDocumentService.createEffortCertificationDocument(EffortCertificationDocumentBuild)
      */
     public void testCreateEffortCertificationDocument() throws Exception {
@@ -117,8 +117,8 @@ public class EffortCertificationDocumentServiceTest extends KualiTestBase {
         try {
             boolean isCreated = effortCertificationDocumentService.createAndRouteEffortCertificationDocument(documentBuild);
             assertTrue(isCreated);
-        } catch ( ValidationException ex ) {            
-            fail( "Business Rule Failure: " + GlobalVariables.getMessageMap() );
+        } catch (ValidationException ex) {
+            fail("Business Rule Failure: " + GlobalVariables.getMessageMap());
         }
 
         List<EffortCertificationDocument> documentList = TestDataPreparator.findMatching(EffortCertificationDocument.class, properties, EffortTestDataPropertyConstants.DOCUMENT_CLEANUP, documentFieldNames, deliminator);
@@ -139,7 +139,7 @@ public class EffortCertificationDocumentServiceTest extends KualiTestBase {
 
     /**
      * check if the service can appropriately create and route SET document
-     * 
+     *
      * @see effortCertificationDocumentService.generateSalaryExpenseTransferDocument(EffortCertificationDocument)
      */
     public void testGenerateSalaryExpenseTransferDocument() throws Exception {
@@ -161,8 +161,8 @@ public class EffortCertificationDocumentServiceTest extends KualiTestBase {
         try {
             boolean isCreated = effortCertificationDocumentService.createAndRouteEffortCertificationDocument(documentBuild);
             assertTrue(isCreated);
-        } catch ( ValidationException ex ) {            
-            fail( "Business Rule Failure: " + GlobalVariables.getMessageMap() );
+        } catch (ValidationException ex) {
+            fail("Business Rule Failure: " + GlobalVariables.getMessageMap());
         }
 
         List<EffortCertificationDocument> documentList = TestDataPreparator.findMatching(EffortCertificationDocument.class, properties, EffortTestDataPropertyConstants.DOCUMENT_CLEANUP, documentFieldNames, deliminator);
@@ -177,7 +177,7 @@ public class EffortCertificationDocumentServiceTest extends KualiTestBase {
 
     /**
      * build a report defintion object from the given test target
-     * 
+     *
      * @param testTarget the given test target that specifies the test data being used
      * @return a report defintion object
      */
@@ -199,7 +199,7 @@ public class EffortCertificationDocumentServiceTest extends KualiTestBase {
 
     /**
      * load test data into database before a test case starts
-     * 
+     *
      * @param testTarget the target test case
      */
     private void loadLaborTestData(String testTarget) throws Exception {

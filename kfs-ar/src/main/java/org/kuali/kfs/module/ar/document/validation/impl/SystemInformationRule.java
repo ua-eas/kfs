@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -22,18 +22,18 @@ import org.apache.log4j.Logger;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.service.AccountService;
 import org.kuali.kfs.coa.service.ObjectTypeService;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.SystemInformation;
 import org.kuali.kfs.module.ar.document.service.SystemInformationService;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase;
-import org.kuali.rice.krad.util.ObjectUtils;
 
 public class SystemInformationRule extends MaintenanceDocumentRuleBase {
     protected static Logger LOG = org.apache.log4j.Logger.getLogger(SystemInformationRule.class);
-    
+
     protected ObjectTypeService objectTypeService;
     protected AccountService accountService;
     protected SystemInformation newSystemInformation;
@@ -60,6 +60,7 @@ public class SystemInformationRule extends MaintenanceDocumentRuleBase {
      * <li>{@link SystemInformationRule#checkClearingAccountIsActive()}</li>
      * </ul>
      * This rule fails on rule failure
+     *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomApproveDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
@@ -84,6 +85,7 @@ public class SystemInformationRule extends MaintenanceDocumentRuleBase {
      * </ul>
      * </ul>
      * This rule fails on rule failure
+     *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomRouteDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
@@ -108,6 +110,7 @@ public class SystemInformationRule extends MaintenanceDocumentRuleBase {
      * </ul>
      * </ul>
      * This rule does not fail on rule failure
+     *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomSaveDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
@@ -126,9 +129,9 @@ public class SystemInformationRule extends MaintenanceDocumentRuleBase {
         // TODO method never shows any errors even if returning false; just says 'Document was successfully saved'
     }
 
-     /**
-     *
+    /**
      * This checks to see if the account is active
+     *
      * @return true if the account is active or false otherwise
      */
     protected boolean checkClearingAccountIsActive() {
@@ -136,44 +139,44 @@ public class SystemInformationRule extends MaintenanceDocumentRuleBase {
         LOG.debug("Entering checkClearingAccountIsActive()");
         boolean success = true;
 
-       AccountService accountService = SpringContext.getBean(AccountService.class);
-       Account clearingAccount = accountService.getByPrimaryId(newSystemInformation.getUniversityClearingChartOfAccountsCode(), newSystemInformation.getUniversityClearingAccountNumber());
+        AccountService accountService = SpringContext.getBean(AccountService.class);
+        Account clearingAccount = accountService.getByPrimaryId(newSystemInformation.getUniversityClearingChartOfAccountsCode(), newSystemInformation.getUniversityClearingAccountNumber());
 
         // check clearing account is not in-active
-         if (ObjectUtils.isNull(clearingAccount)) {         
-         return false;
-         }
-         if (!clearingAccount.isActive()) {
+        if (ObjectUtils.isNull(clearingAccount)) {
+            return false;
+        }
+        if (!clearingAccount.isActive()) {
             success &= false;
             putGlobalError(ArKeyConstants.SystemInformation.ERROR_CLEARING_ACCOUNT_INACTIVE);
         }
 
         return success;
     }
-    
+
     /**
-    *
-    * This checks to see if the lockbox number is unique
-    * @return true if the lockbox number is active or false otherwise
-    */
-   protected boolean checkLockboxNumberIsUnique() {
+     * This checks to see if the lockbox number is unique
+     *
+     * @return true if the lockbox number is active or false otherwise
+     */
+    protected boolean checkLockboxNumberIsUnique() {
 
-       LOG.debug("Entering checkLockboxNumberIsUnique()");
-       boolean success = true;
+        LOG.debug("Entering checkLockboxNumberIsUnique()");
+        boolean success = true;
 
-      SystemInformationService systemInformationService = SpringContext.getBean(SystemInformationService.class);
-      int recordNumber = systemInformationService.getCountByChartOrgAndLockboxNumber(newSystemInformation.getProcessingChartOfAccountCode(),
-                                                                                     newSystemInformation.getProcessingOrganizationCode(),
-                                                                                     newSystemInformation.getLockboxNumber());
-      // if not unique
-      if (recordNumber > 0) {
-          success = false;
-          putFieldError(ArPropertyConstants.SystemInformationFields.LOCKBOX_NUMBER, ArKeyConstants.SystemInformation.ERROR_LOCKBOX_NUMBER_NOT_UNIQUE);
-      }
+        SystemInformationService systemInformationService = SpringContext.getBean(SystemInformationService.class);
+        int recordNumber = systemInformationService.getCountByChartOrgAndLockboxNumber(newSystemInformation.getProcessingChartOfAccountCode(),
+            newSystemInformation.getProcessingOrganizationCode(),
+            newSystemInformation.getLockboxNumber());
+        // if not unique
+        if (recordNumber > 0) {
+            success = false;
+            putFieldError(ArPropertyConstants.SystemInformationFields.LOCKBOX_NUMBER, ArKeyConstants.SystemInformation.ERROR_LOCKBOX_NUMBER_NOT_UNIQUE);
+        }
 
-      return success;
-   }
-    
+        return success;
+    }
+
     public ObjectTypeService getObjectTypeService() {
         return objectTypeService;
     }

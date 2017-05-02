@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -19,29 +19,25 @@
 package org.kuali.kfs.module.ar.batch.service.impl;
 
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
 import org.kuali.kfs.coa.service.AccountingPeriodService;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.batch.service.VerifyBillingFrequencyService;
-import org.kuali.kfs.module.ar.businessobject.Bill;
+import org.kuali.kfs.module.ar.businessobject.BillingFrequency;
 import org.kuali.kfs.module.ar.businessobject.BillingPeriod;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.service.UniversityDateService;
+import org.kuali.kfs.sys.util.KfsDateUtils;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.krad.service.BusinessObjectService;
+
+import java.sql.Date;
+import java.util.Calendar;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class VerifyBillingFrequencyServiceImpl implements VerifyBillingFrequencyService {
     protected BusinessObjectService businessObjectService;
@@ -80,93 +76,31 @@ public class VerifyBillingFrequencyServiceImpl implements VerifyBillingFrequency
         if (billingPeriod.getStartDate().after(billingPeriod.getEndDate())) {
             return false;
         }
-        return calculateIfWithinGracePeriod(today, billingPeriod.getEndDate(), billingPeriod.getStartDate(), lastBilledDate, award.getBillingFrequency().getGracePeriodDays());
+        return calculateIfWithinGracePeriod(today, billingPeriod, lastBilledDate, (BillingFrequency) award.getBillingFrequency());
     }
 
-    /**
-     * This method checks if a given moment of time is within an accounting period, or its billing frequency grace period.
-     *
-     * @param today         a date to check if it is within the period
-     * @param previousAccountingPeriodEndDate the end of the accounting period
-     * @param previousAccountingPeriodStartDate the start of the accounting period
-     * @return true if a given moment in time is within an accounting period or an billing frequency grace period
-     */
-    @Override
-    public boolean calculateIfWithinGracePeriod(Date today, Date previousAccountingPeriodEndDate, Date previousAccountingPeriodStartDate, Date lastBilledDate, int gracePeriodDays) {
-
-        if (previousAccountingPeriodEndDate == null || previousAccountingPeriodStartDate == null) {
-            throw new IllegalArgumentException("invalid (null) previousAccountingPeriodEndDate or previousAccountingPeriodStartDate");
-        }
-
-        final int todayAsComparableDate = comparableDateForm(today);
-        final int previousPeriodClose = comparableDateForm(previousAccountingPeriodEndDate);
-        final int previousPeriodBegin = comparableDateForm(previousAccountingPeriodStartDate);
-        int lastBilled = -1;
+    public boolean calculateIfWithinGracePeriod(Date today, BillingPeriod billingPeriod, Date lastBilledDate, BillingFrequency billingFrequency) {
+        Date gracePeriodEnd = calculateDaysBeyond(billingPeriod.getEndDate(), billingFrequency.getGracePeriodDays());
+        Date gracePeriodAfterLastBilled = null;
         if (lastBilledDate != null) {
-            lastBilled = comparableDateForm(lastBilledDate);
+            gracePeriodAfterLastBilled = calculateDaysBeyond(lastBilledDate, billingFrequency.getGracePeriodDays());
         }
-        final int gracePeriodClose = previousPeriodClose + gracePeriodDays;
-        final int gracePeriodAfterLastBilled = lastBilled + gracePeriodDays;
-        return (todayAsComparableDate >= previousPeriodBegin && gracePeriodClose <= todayAsComparableDate && (lastBilledDate == null || todayAsComparableDate > gracePeriodAfterLastBilled));
+        boolean beforeGracePeriodEnd = KfsDateUtils.isSameDayOrEarlier(gracePeriodEnd, today);
+        boolean afterBillingStart = KfsDateUtils.isSameDayOrLater(today, billingPeriod.getStartDate());
+        boolean haveNotBilledYet = lastBilledDate == null || KfsDateUtils.isEarlierDay(gracePeriodAfterLastBilled, today);
 
+        return afterBillingStart && beforeGracePeriodEnd && haveNotBilledYet;
     }
 
     @Override
     public BillingPeriod getStartDateAndEndDateOfPreviousBillingPeriod(ContractsAndGrantsBillingAward award, AccountingPeriod currPeriod) {
-        return BillingPeriod.determineBillingPeriodPriorTo(award.getAwardBeginningDate(), this.dateTimeService.getCurrentSqlDate(), award.getLastBilledDate(), award.getBillingFrequencyCode(), this.accountingPeriodService);
+        return BillingPeriod.determineBillingPeriodPriorTo(award.getAwardBeginningDate(), this.dateTimeService.getCurrentSqlDate(), award.getLastBilledDate(), ArConstants.BillingFrequencyValues.fromCode(award.getBillingFrequencyCode()), this.accountingPeriodService);
     }
 
-
-    @Override
-    public ArrayList<Date> getSortedListOfPeriodEndDatesOfCurrentFiscalYear(AccountingPeriod currPeriod) {
-        ArrayList<Date> acctPeriodEndDateList = new ArrayList<>();
-        Map<String, Object> fieldValues = new HashMap<>();
-        fieldValues.put(KFSConstants.ACCOUNTING_PERIOD_ACTIVE_INDICATOR_FIELD, Boolean.TRUE);
-        fieldValues.put(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, currPeriod.getUniversityFiscalYear());
-
-        Collection<AccountingPeriod> acctPeriodList = businessObjectService.findMatching(AccountingPeriod.class, fieldValues);
-        if (acctPeriodList != null) {
-            for (AccountingPeriod acctPeriod : acctPeriodList) {
-                if (!isInvalidPeriodCode(acctPeriod)) {
-                    acctPeriodEndDateList.add(acctPeriod.getUniversityFiscalPeriodEndDate());
-                }
-
-            }
-            if (acctPeriodEndDateList == null || acctPeriodEndDateList.size() != 12) {
-                String fiscalYear = "; fiscalYear: " + currPeriod.getUniversityFiscalYear();
-                String size = "; size = " + ((acctPeriodEndDateList == null) ? "null" : acctPeriodEndDateList.size());
-                throw new IllegalArgumentException("invalid (null) Accounting-Period-End-Date List" + fiscalYear + size);
-            }
-            java.util.Collections.sort(acctPeriodEndDateList);
-            return acctPeriodEndDateList;
-
-        } else {
-            throw new IllegalArgumentException("invalid (null) Accounting-Period-End-Date List");
-        }
-    }
-
-    /**
-     * This method returns a date as an approximate count of days since the BCE epoch.
-     *
-     * @param d the date to convert
-     * @return an integer count of days, very approximate
-     */
-    public int comparableDateForm(Date d) {
-        java.util.Calendar cal = new java.util.GregorianCalendar();
-        cal.setTime(d);
-        return cal.get(java.util.Calendar.YEAR) * 365 + cal.get(java.util.Calendar.DAY_OF_YEAR);
-    }
-
-    /**
-     * Given a day, this method calculates the next day of that day was.
-     *
-     * @param d date to find the next day for
-     * @return date of the next day of the given day
-     */
-    public Date calculateNextDay(Date d) {
-        java.util.Calendar cal = new java.util.GregorianCalendar();
-        cal.setTime(d);
-        cal.add(java.util.Calendar.DAY_OF_YEAR, 1);
+    protected Date calculateDaysBeyond(Date date, int daysBeyond) {
+        Calendar cal = new java.util.GregorianCalendar();
+        cal.setTime(date);
+        cal.add(Calendar.DAY_OF_YEAR, daysBeyond);
         return new Date(cal.getTimeInMillis());
     }
 

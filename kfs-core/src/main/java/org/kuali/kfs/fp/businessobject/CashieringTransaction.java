@@ -1,22 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.businessobject;
+
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,12 +30,6 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.bo.TransientBusinessObjectBase;
 
 /**
  * This class represents a cashiering-related transaction used in the cash management document
@@ -86,7 +86,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * Gets the moneyInChecks attribute.
-     * 
+     *
      * @return Returns the moneyInChecks.
      */
     public List<Check> getMoneyInChecks() {
@@ -95,7 +95,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * Sets the moneyInChecks attribute value.
-     * 
+     *
      * @param moneyInChecks The moneyInChecks to set.
      */
     public void setMoneyInChecks(List<Check> moneyInChecks) {
@@ -104,7 +104,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * Retrieves a specific check from the list, by array index
-     * 
+     *
      * @param index the index of the checks array to retrieve the check from
      * @return a Check
      */
@@ -119,7 +119,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * Gets the moneyInCoin attribute.
-     * 
+     *
      * @return Returns the moneyInCoin.
      */
     public CoinDetail getMoneyInCoin() {
@@ -128,7 +128,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * Sets the moneyInCoin attribute value.
-     * 
+     *
      * @param moneyInCoin The moneyInCoin to set.
      */
     public void setMoneyInCoin(CoinDetail moneyInCoin) {
@@ -137,7 +137,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * Gets the moneyInCurrency attribute.
-     * 
+     *
      * @return Returns the moneyInCurrency.
      */
     public CurrencyDetail getMoneyInCurrency() {
@@ -146,7 +146,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * Sets the moneyInCurrency attribute value.
-     * 
+     *
      * @param moneyInCurrency The moneyInCurrency to set.
      */
     public void setMoneyInCurrency(CurrencyDetail moneyInCurrency) {
@@ -155,7 +155,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * Gets the moneyOutCoin attribute.
-     * 
+     *
      * @return Returns the moneyOutCoin.
      */
     public CoinDetail getMoneyOutCoin() {
@@ -164,7 +164,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * Sets the moneyOutCoin attribute value.
-     * 
+     *
      * @param moneyOutCoin The moneyOutCoin to set.
      */
     public void setMoneyOutCoin(CoinDetail moneyOutCoin) {
@@ -173,7 +173,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * Gets the transactionEnded attribute.
-     * 
+     *
      * @return Returns the transactionEnded.
      */
     public java.util.Date getTransactionEnded() {
@@ -182,7 +182,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * Sets the transactionEnded attribute value.
-     * 
+     *
      * @param transactionEnded The transactionEnded to set.
      */
     public void setTransactionEnded(java.util.Date transactionEnded) {
@@ -191,7 +191,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * Gets the transactionStarted attribute.
-     * 
+     *
      * @return Returns the transactionStarted.
      */
     public java.util.Date getTransactionStarted() {
@@ -200,7 +200,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * Sets the transactionStarted attribute value.
-     * 
+     *
      * @param transactionStarted The transactionStarted to set.
      */
     public void setTransactionStarted(java.util.Date transactionStarted) {
@@ -209,7 +209,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * Gets the campusCode attribute.
-     * 
+     *
      * @return Returns the campusCode.
      */
     public String getCampusCode() {
@@ -218,7 +218,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * Sets the campusCode attribute value.
-     * 
+     *
      * @param campusCode The campusCode to set.
      */
     public void setCampusCode(String campusCode) {
@@ -227,7 +227,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * Sets the moneyOutCurrency attribute value.
-     * 
+     *
      * @param moneyOutCurrency The moneyOutCurrency to set.
      */
     public void setMoneyOutCurrency(CurrencyDetail moneyOutCurrency) {
@@ -236,7 +236,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * Gets the referenceFinancialDocumentNumber attribute.
-     * 
+     *
      * @return Returns the referenceFinancialDocumentNumber.
      */
     public String getReferenceFinancialDocumentNumber() {
@@ -245,7 +245,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * Sets the referenceFinancialDocumentNumber attribute value.
-     * 
+     *
      * @param referenceFinancialDocumentNumber The referenceFinancialDocumentNumber to set.
      */
     public void setReferenceFinancialDocumentNumber(String referenceFinancialDocumentNumber) {
@@ -254,7 +254,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * Gets the moneyOutCurrency attribute.
-     * 
+     *
      * @return Returns the moneyOutCurrency.
      */
     public CurrencyDetail getMoneyOutCurrency() {
@@ -263,7 +263,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * Gets the newItemInProcess attribute.
-     * 
+     *
      * @return Returns the newItemInProcess.
      */
     public CashieringItemInProcess getNewItemInProcess() {
@@ -272,7 +272,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * Sets the newItemInProcess attribute value.
-     * 
+     *
      * @param newItemInProcess The newItemInProcess to set.
      */
     public void setNewItemInProcess(CashieringItemInProcess newItemInProcess) {
@@ -281,7 +281,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * Gets the openItemsInProcess attribute.
-     * 
+     *
      * @return Returns the openItemsInProcess.
      */
     public List<CashieringItemInProcess> getOpenItemsInProcess() {
@@ -290,7 +290,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * Sets the openItemsInProcess attribute value.
-     * 
+     *
      * @param openItemsInProcess The openItemsInProcess to set.
      */
     public void setOpenItemsInProcess(List<CashieringItemInProcess> openItemsInProcess) {
@@ -299,7 +299,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * This method returns a single open item in process
-     * 
+     *
      * @return a cashiering item in process
      */
     public CashieringItemInProcess getOpenItemInProcess(int index) {
@@ -309,7 +309,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * make the open items in process list bigger, so it doesn't return a null value
-     * 
+     *
      * @param minSize the minsize to make the list
      */
     private void extendOpenItemsList(int minSize) {
@@ -320,7 +320,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * Gets the newCheck attribute.
-     * 
+     *
      * @return Returns the newCheck.
      */
     public Check getNewCheck() {
@@ -329,7 +329,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * Sets the newCheck attribute value.
-     * 
+     *
      * @param newCheck The newCheck to set.
      */
     public void setNewCheck(Check newCheck) {
@@ -363,7 +363,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
     /**
      * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
      */
-    
+
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
         LinkedHashMap pkMap = new LinkedHashMap();
         pkMap.put("campusCode", this.campusCode);
@@ -374,7 +374,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * Gets the checks attribute.
-     * 
+     *
      * @return Returns the checks.
      */
     public List getChecks() {
@@ -383,7 +383,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * Sets the checks attribute value.
-     * 
+     *
      * @param checks The checks to set.
      */
     public void setChecks(List checks) {
@@ -395,7 +395,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * Gets the number of checks, since Sun doesn't have a direct getter for collection size
-     * 
+     *
      * @return the number of checks
      */
     public int getCheckCount() {
@@ -409,7 +409,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * Adds a new check to the list.
-     * 
+     *
      * @param check
      */
     public void addCheck(Check check) {
@@ -422,7 +422,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * Retrieve a particular check at a given index in the list of checks.
-     * 
+     *
      * @param index
      * @return Check
      */
@@ -440,7 +440,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
     private Map buildCheckMap(List checks) {
         Map checkMap = new HashMap();
 
-        for (Iterator i = checks.iterator(); i.hasNext();) {
+        for (Iterator i = checks.iterator(); i.hasNext(); ) {
             Check check = (Check) i.next();
             Integer sequenceId = check.getSequenceId();
 
@@ -457,7 +457,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * This method removes a check from the list and updates the total appropriately.
-     * 
+     *
      * @param index
      */
     public void removeCheck(int index) {
@@ -481,7 +481,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * Gets the nextCheckSequenceId attribute.
-     * 
+     *
      * @return Returns the nextCheckSequenceId.
      */
     public Integer getNextCheckSequenceId() {
@@ -490,7 +490,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * Sets the nextCheckSequenceId attribute value.
-     * 
+     *
      * @param nextCheckSequenceId The nextCheckSequenceId to set.
      */
     public void setNextCheckSequenceId(Integer nextCheckSequenceId) {
@@ -506,7 +506,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * This method calculates how much money has been paid back in all items in process
-     * 
+     *
      * @return the calculated amount
      */
     public KualiDecimal getPaidBackItemsInProcessAmount() {
@@ -530,7 +530,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * Sets the current List of baseline checks to the given List
-     * 
+     *
      * @param baselineChecks
      */
     public void setBaselineChecks(List baselineChecks) {
@@ -554,7 +554,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
     /**
      * Implementation creates empty Checks as a side-effect, so that Struts' efforts to set fields of lines which haven't been
      * created will succeed rather than causing a NullPointerException.
-     * 
+     *
      * @param index
      * @return baseline Check at the given index
      */
@@ -567,7 +567,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * This method calcuates how much money has come in to the "Money In" side of the transaction
-     * 
+     *
      * @return the amount calculated
      */
     public KualiDecimal getMoneyInTotal() {
@@ -583,7 +583,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
 
     /**
      * This method calculates how much money has gone out through the "Money Out" side of the transaction
-     * 
+     *
      * @return the amount calculated
      */
     public KualiDecimal getMoneyOutTotal() {

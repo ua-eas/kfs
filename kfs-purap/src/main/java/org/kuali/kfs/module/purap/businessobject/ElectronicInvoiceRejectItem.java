@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -22,11 +22,11 @@
  */
 package org.kuali.kfs.module.purap.businessobject;
 
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.module.purap.document.ElectronicInvoiceRejectDocument;
+
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;
-
-import org.kuali.kfs.module.purap.document.ElectronicInvoiceRejectDocument;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 
 
 public class ElectronicInvoiceRejectItem extends PersistableBusinessObjectBase {
@@ -76,24 +76,18 @@ public class ElectronicInvoiceRejectItem extends PersistableBusinessObjectBase {
     private ElectronicInvoiceRejectDocument electronicInvoiceRejectDocument;
 
 
-    /**
-   * 
-   */
     public ElectronicInvoiceRejectItem() {
         super();
     }
 
-    /**
-   * 
-   */
+
     public ElectronicInvoiceRejectItem(ElectronicInvoiceRejectDocument electronicInvoiceRejectDocument, ElectronicInvoiceItem eii) {
         super();
 
         this.electronicInvoiceRejectDocument = electronicInvoiceRejectDocument;
         try {
             this.invoiceItemLineNumber = new Integer(Integer.parseInt(eii.getInvoiceLineNumber()));
-        }
-        catch (NumberFormatException n) {
+        } catch (NumberFormatException n) {
             this.invoiceItemLineNumber = null;
         }
         this.invoiceItemCatalogNumber = eii.getCatalogNumber();
@@ -135,16 +129,13 @@ public class ElectronicInvoiceRejectItem extends PersistableBusinessObjectBase {
             if (((this.invoiceItemQuantity != null) && ((BigDecimal.ZERO.compareTo(this.invoiceItemQuantity)) != 0)) && ((this.invoiceItemUnitPrice != null) && ((BigDecimal.ZERO.compareTo(this.invoiceItemUnitPrice)) != 0))) {
                 // unit price and quantity are valid... calculate subtotal
                 this.invoiceItemSubTotalAmount = this.invoiceItemQuantity.multiply(this.invoiceItemUnitPrice);
-            }
-            else if (((this.invoiceItemQuantity == null) || ("".equals(this.invoiceItemQuantity))) && ((this.invoiceItemUnitPrice != null) && ((BigDecimal.ZERO.compareTo(this.invoiceItemUnitPrice)) != 0))) {
+            } else if (((this.invoiceItemQuantity == null) || ("".equals(this.invoiceItemQuantity))) && ((this.invoiceItemUnitPrice != null) && ((BigDecimal.ZERO.compareTo(this.invoiceItemUnitPrice)) != 0))) {
                 // quantity is empty but unit cost exists... use it
                 this.invoiceItemSubTotalAmount = this.invoiceItemUnitPrice;
-            }
-            else {
+            } else {
                 this.invoiceItemSubTotalAmount = null;
             }
-        }
-        else {
+        } else {
             this.invoiceItemSubTotalAmount = eii.getInvoiceLineSubTotalAmountBigDecimal();
         }
     }
@@ -310,8 +301,7 @@ public class ElectronicInvoiceRejectItem extends PersistableBusinessObjectBase {
             }
             returnValue = returnValue.setScale(4, BigDecimal.ROUND_HALF_UP);
 
-        }
-        else {
+        } else {
             returnValue = null;
         }
 
@@ -420,19 +410,16 @@ public class ElectronicInvoiceRejectItem extends PersistableBusinessObjectBase {
         if (((this.invoiceItemQuantity != null) && ((BigDecimal.ZERO.compareTo(this.invoiceItemQuantity)) != 0)) && ((this.invoiceItemUnitPrice != null) && ((BigDecimal.ZERO.compareTo(this.invoiceItemUnitPrice)) != 0))) {
             // unit price and quantity are valid... calculate subtotal
             returnValue = this.invoiceItemQuantity.multiply(this.invoiceItemUnitPrice);
-        }
-        else if (((this.invoiceItemQuantity == null) || ("".equals(this.invoiceItemQuantity))) && ((this.invoiceItemUnitPrice != null) && ((BigDecimal.ZERO.compareTo(this.invoiceItemUnitPrice)) != 0))) {
+        } else if (((this.invoiceItemQuantity == null) || ("".equals(this.invoiceItemQuantity))) && ((this.invoiceItemUnitPrice != null) && ((BigDecimal.ZERO.compareTo(this.invoiceItemUnitPrice)) != 0))) {
             // quantity is empty but unit cost exists... use it
             returnValue = this.invoiceItemUnitPrice;
-        }
-        else {
+        } else {
             returnValue = null;
         }
 
         if (returnValue != null) {
             invoiceItemSubTotalAmount = returnValue.setScale(4, BigDecimal.ROUND_HALF_UP);
-        }
-        else {
+        } else {
             invoiceItemSubTotalAmount = null;
         }
 

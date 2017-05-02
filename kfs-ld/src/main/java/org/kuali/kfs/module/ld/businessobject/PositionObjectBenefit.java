@@ -1,32 +1,32 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.module.ld.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.integration.ld.LaborLedgerBenefitsCalculation;
 import org.kuali.kfs.integration.ld.LaborLedgerPositionObjectBenefit;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.module.ld.LaborConstants;
 import org.kuali.kfs.module.ld.service.LaborBenefitsCalculationService;
 import org.kuali.kfs.sys.businessobject.FiscalYearBasedBusinessObject;
@@ -34,8 +34,8 @@ import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.core.api.util.type.KualiPercent;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 /**
  * Labor business object for Modeling of Position Object Benefit
@@ -47,13 +47,14 @@ public class PositionObjectBenefit extends PersistableBusinessObjectBase impleme
     protected String financialObjectBenefitsTypeCode;
     protected Chart chartOfAccounts;
     protected boolean active;
-  
+
     protected ObjectCode financialObject;
     protected transient SystemOptions universityFiscal;
     protected BenefitsCalculation benefitsCalculation;
     protected BenefitsType financialObjectBenefitsType;
     protected LaborObject laborObject;
     private String laborBenefitRateCategoryCode;
+
     /**
      * Default constructor.
      */
@@ -63,7 +64,7 @@ public class PositionObjectBenefit extends PersistableBusinessObjectBase impleme
 
     /**
      * Gets the universityFiscalYear
-     * 
+     *
      * @return Returns the universityFiscalYear
      */
     public Integer getUniversityFiscalYear() {
@@ -72,7 +73,7 @@ public class PositionObjectBenefit extends PersistableBusinessObjectBase impleme
 
     /**
      * Sets the universityFiscalYear
-     * 
+     *
      * @param universityFiscalYear The universityFiscalYear to set.
      */
     public void setUniversityFiscalYear(Integer universityFiscalYear) {
@@ -81,7 +82,7 @@ public class PositionObjectBenefit extends PersistableBusinessObjectBase impleme
 
     /**
      * Gets the chartOfAccountsCode
-     * 
+     *
      * @return Returns the chartOfAccountsCode
      */
     public String getChartOfAccountsCode() {
@@ -90,7 +91,7 @@ public class PositionObjectBenefit extends PersistableBusinessObjectBase impleme
 
     /**
      * Sets the chartOfAccountsCode
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -99,7 +100,7 @@ public class PositionObjectBenefit extends PersistableBusinessObjectBase impleme
 
     /**
      * Gets the financialObjectCode
-     * 
+     *
      * @return Returns the financialObjectCode
      */
     public String getFinancialObjectCode() {
@@ -108,7 +109,7 @@ public class PositionObjectBenefit extends PersistableBusinessObjectBase impleme
 
     /**
      * Sets the financialObjectCode
-     * 
+     *
      * @param financialObjectCode The financialObjectCode to set.
      */
     public void setFinancialObjectCode(String financialObjectCode) {
@@ -117,7 +118,7 @@ public class PositionObjectBenefit extends PersistableBusinessObjectBase impleme
 
     /**
      * Gets the financialObjectBenefitsTypeCode
-     * 
+     *
      * @return Returns the financialObjectBenefitsTypeCode
      */
     public String getFinancialObjectBenefitsTypeCode() {
@@ -126,7 +127,7 @@ public class PositionObjectBenefit extends PersistableBusinessObjectBase impleme
 
     /**
      * Sets the financialObjectBenefitsTypeCode
-     * 
+     *
      * @param financialObjectBenefitsTypeCode The financialObjectBenefitsTypeCode to set.
      */
     public void setFinancialObjectBenefitsTypeCode(String financialObjectBenefitsTypeCode) {
@@ -135,7 +136,7 @@ public class PositionObjectBenefit extends PersistableBusinessObjectBase impleme
 
     /**
      * Gets the financialObject
-     * 
+     *
      * @return Returns the financialObject
      */
     public ObjectCode getFinancialObject() {
@@ -144,7 +145,7 @@ public class PositionObjectBenefit extends PersistableBusinessObjectBase impleme
 
     /**
      * Sets the financialObject
-     * 
+     *
      * @param financialObject The financialObject to set.
      */
     @Deprecated
@@ -154,7 +155,7 @@ public class PositionObjectBenefit extends PersistableBusinessObjectBase impleme
 
     /**
      * Gets the chartOfAccounts
-     * 
+     *
      * @return Returns the chartOfAccounts
      */
     public Chart getChartOfAccounts() {
@@ -163,7 +164,7 @@ public class PositionObjectBenefit extends PersistableBusinessObjectBase impleme
 
     /**
      * Sets the chartOfAccounts
-     * 
+     *
      * @param chartOfAccounts The chartOfAccounts to set.
      */
     @Deprecated
@@ -173,7 +174,7 @@ public class PositionObjectBenefit extends PersistableBusinessObjectBase impleme
 
     /**
      * Gets the universityFiscal
-     * 
+     *
      * @return Returns the universityFiscal.
      */
     public SystemOptions getUniversityFiscal() {
@@ -182,7 +183,7 @@ public class PositionObjectBenefit extends PersistableBusinessObjectBase impleme
 
     /**
      * Sets the universityFiscal
-     * 
+     *
      * @param universityFiscal The universityFiscal to set.
      */
     @Deprecated
@@ -192,26 +193,26 @@ public class PositionObjectBenefit extends PersistableBusinessObjectBase impleme
 
     /**
      * Gets the benefitsCalculation
-     * 
+     *
      * @return Returns the benefitsCalculation.
      */
     public BenefitsCalculation getBenefitsCalculation(String laborBenefitRateCategoryCode) {
         BenefitsCalculation bc = SpringContext.getBean(LaborBenefitsCalculationService.class).getBenefitsCalculation(universityFiscalYear, chartOfAccountsCode, financialObjectBenefitsTypeCode, laborBenefitRateCategoryCode);
         //if we can't find a match, create a new benefit calculation with a 0.00 benefit percent
-        if(bc == null){
+        if (bc == null) {
             bc = new BenefitsCalculation();
             bc.setPositionFringeBenefitPercent(new KualiPercent(0));
         }
         return bc;
     }
-    
+
     /**
      * Gets the benefitsCalculation
-     * 
+     *
      * @return Returns the benefitsCalculation.
      */
     public BenefitsCalculation getBenefitsCalculation() {
-        if(benefitsCalculation == null){
+        if (benefitsCalculation == null) {
             benefitsCalculation = this.getBenefitsCalculation(this.getLaborBenefitRateCategoryCode());
         }
         return benefitsCalculation;
@@ -219,7 +220,7 @@ public class PositionObjectBenefit extends PersistableBusinessObjectBase impleme
 
     /**
      * Sets the benefitsCalculation
-     * 
+     *
      * @param benefitsCalculation The benefitsCalculation to set.
      */
     @Deprecated
@@ -229,7 +230,7 @@ public class PositionObjectBenefit extends PersistableBusinessObjectBase impleme
 
     /**
      * Gets the financialObjectBenefitsType
-     * 
+     *
      * @return financialObjectBenefitsType
      */
     public BenefitsType getFinancialObjectBenefitsType() {
@@ -238,7 +239,7 @@ public class PositionObjectBenefit extends PersistableBusinessObjectBase impleme
 
     /**
      * Sets financialObjectBenefitsType
-     * 
+     *
      * @param financialObjectBenefitsType The financialObjectBenefitsType to be set
      */
     @Deprecated
@@ -248,7 +249,7 @@ public class PositionObjectBenefit extends PersistableBusinessObjectBase impleme
 
     /**
      * Gets the laborObject
-     * 
+     *
      * @return Returns the laborObject.
      */
     public LaborObject getLaborObject() {
@@ -257,17 +258,17 @@ public class PositionObjectBenefit extends PersistableBusinessObjectBase impleme
 
     /**
      * Sets the laborObject
-     * 
+     *
      * @param laborObject The laborObject to set.
      */
     @Deprecated
     public void setLaborObject(LaborObject laborObject) {
         this.laborObject = laborObject;
     }
-    
+
     /**
      * Gets the active attribute.
-     * 
+     *
      * @return Returns the active.
      */
     public boolean isActive() {
@@ -276,7 +277,7 @@ public class PositionObjectBenefit extends PersistableBusinessObjectBase impleme
 
     /**
      * Sets the active attribute value.
-     * 
+     *
      * @param active The active to set.
      */
     public void setActive(boolean active) {
@@ -286,16 +287,16 @@ public class PositionObjectBenefit extends PersistableBusinessObjectBase impleme
     /**
      * This method (a hack by any other name...) returns a string so that an Labor Object Code Benefits can have a link to view its own
      * inquiry page after a look up
-     * 
+     *
      * @return the String "View Labor Object Code Benefits"
      */
     public String getLaborObjectCodeBenefitsViewer() {
         return "View Labor Object Code Benefits";
     }
-    
+
     /**
      * construct the key list of the business object.
-     * 
+     *
      * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
      */
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
@@ -316,28 +317,29 @@ public class PositionObjectBenefit extends PersistableBusinessObjectBase impleme
     public LaborLedgerBenefitsCalculation getLaborLedgerBenefitsCalculation() {
         return SpringContext.getBean(LaborBenefitsCalculationService.class).getBenefitsCalculation(universityFiscalYear, chartOfAccountsCode, financialObjectBenefitsTypeCode);
     }
-    
+
     /**
      * @see org.kuali.kfs.integration.businessobject.LaborLedgerPositionObjectBenefit#getLaborLedgerBenefitsCalculation()
      */
     public LaborLedgerBenefitsCalculation getLaborLedgerBenefitsCalculation(String laborBenefitRateCategoryCode) {
-        return SpringContext.getBean(LaborBenefitsCalculationService.class).getBenefitsCalculation(universityFiscalYear, chartOfAccountsCode, financialObjectBenefitsTypeCode,laborBenefitRateCategoryCode);
+        return SpringContext.getBean(LaborBenefitsCalculationService.class).getBenefitsCalculation(universityFiscalYear, chartOfAccountsCode, financialObjectBenefitsTypeCode, laborBenefitRateCategoryCode);
     }
-   
+
 
     /**
      * @see org.kuali.kfs.integration.businessobject.LaborLedgerPositionObjectBenefit#setLaborLedgerBenefitsCalculation(org.kuali.kfs.integration.businessobject.LaborLedgerBenefitsCalculation)
      */
     public void setLaborLedgerBenefitsCalculation(LaborLedgerBenefitsCalculation laborLedgerBenefitsCalculation) {
-        benefitsCalculation = (BenefitsCalculation)laborLedgerBenefitsCalculation;
+        benefitsCalculation = (BenefitsCalculation) laborLedgerBenefitsCalculation;
     }
 
     /**
-     * Gets the laborBenefitRateCategoryCode attribute. 
+     * Gets the laborBenefitRateCategoryCode attribute.
+     *
      * @return Returns the laborBenefitRateCategoryCode.
      */
     public String getLaborBenefitRateCategoryCode() {
-        if(StringUtils.isEmpty(laborBenefitRateCategoryCode)){
+        if (StringUtils.isEmpty(laborBenefitRateCategoryCode)) {
             ParameterService parameterService = SpringContext.getBean(ParameterService.class);
             laborBenefitRateCategoryCode = StringUtils.defaultString(parameterService.getParameterValueAsString(Account.class, LaborConstants.BenefitCalculation.DEFAULT_BENEFIT_RATE_CATEGORY_CODE_PARAMETER));
         }
@@ -346,6 +348,7 @@ public class PositionObjectBenefit extends PersistableBusinessObjectBase impleme
 
     /**
      * Sets the laborBenefitRateCategoryCode attribute value.
+     *
      * @param laborBenefitRateCategoryCode The laborBenefitRateCategoryCode to set.
      */
     public void setLaborBenefitRateCategoryCode(String laborBenefitRateCategoryCode) {

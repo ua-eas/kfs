@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -22,14 +22,14 @@
               description="The DataDictionary entry containing attributes for this row's fields." %>
 <%@ attribute name="itemAttributes" required="true" type="java.util.Map"
               description="The DataDictionary entry containing attributes for item's fields." %>
-              
+
 <c:set var="additionalChargesExist" value="${KualiForm.document.additionalChargesExist}" />
 
 <kul:tabTop tabTitle="Split a PO" defaultOpen="true" tabErrorKey="${PurapConstants.SPLIT_PURCHASE_ORDER_TAB_ERRORS}">
 
     <div class="tab-container" align=center>
             <h3>Split a PO</h3>
-        
+
         <table cellpadding="0" cellspacing="0" class="datatable" summary="Preliminaries">
 
             <tr>
@@ -40,7 +40,7 @@
                     <kul:htmlControlAttribute attributeEntry="${documentAttributes.copyingNotesWhenSplitting}" property="document.copyingNotesWhenSplitting" />
                 </td>
             </tr>
-            
+
             <c:if test="${additionalChargesExist}">
 	            <tr>
 	            	<th align=right valign=middle class="bord-l-b" width="50%">
@@ -79,9 +79,9 @@
 	            </tr>
 	        </c:if>
         </table>
-        
+
         	<h3>Splitting Item Selection</h3>
-        
+
         <table cellpadding="0" cellspacing="0" class="datatable" summary="Splitting Item Selection">
         	<tr>
         		<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.movingToSplit}" />
@@ -133,8 +133,8 @@
 							    property="document.item[${ctr}].itemCatalogNumber" readOnly="true" />
 					    </td>
 					    <td class="datacell">
-					    	<kul:htmlControlAttribute 
-	                            attributeEntry="${itemAttributes.purchasingCommodityCode}" 
+					    	<kul:htmlControlAttribute
+	                            attributeEntry="${itemAttributes.purchasingCommodityCode}"
 	                            property="document.item[${ctr}].purchasingCommodityCode" readOnly="true"/>
 	                    </td>
 						<td class="datacell">
@@ -163,10 +163,10 @@
 							        property="document.item[${ctr}].itemAssignedToTradeInIndicator" readOnly="true" />
 						    </div>
 						</td>
-					</tr>					 			        	
+					</tr>
 				</c:if>
 	        </logic:iterate>
         </table>
     </div>
-    
+
 </kul:tabTop>

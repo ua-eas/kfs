@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  * 
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,15 +18,12 @@
  */
 package org.kuali.kfs.module.cam.businessobject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.module.cab.CabConstants;
-import org.kuali.kfs.module.cab.CabPropertyConstants;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.cam.CamsConstants;
+import org.kuali.kfs.module.cam.CamsPropertyConstants;
 import org.kuali.kfs.module.purap.document.PaymentRequestDocument;
 import org.kuali.kfs.module.purap.document.VendorCreditMemoDocument;
 import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
@@ -34,13 +31,13 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kew.api.KewApiServiceLocator;
 import org.kuali.rice.kew.api.doctype.DocumentType;
 import org.kuali.rice.kew.doctype.bo.DocumentTypeEBO;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.util.ObjectUtils;
 
-/**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
- */
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 public class PurchasingAccountsPayableDocument extends PersistableBusinessObjectBase {
 
     private String documentNumber;
@@ -68,6 +65,7 @@ public class PurchasingAccountsPayableDocument extends PersistableBusinessObject
 
     /**
      * Gets the capitalAssetSystemTypeCodeFromPurAp attribute.
+     *
      * @return Returns the capitalAssetSystemTypeCodeFromPurAp.
      */
     public String getCapitalAssetSystemTypeCodeFromPurAp() {
@@ -77,6 +75,7 @@ public class PurchasingAccountsPayableDocument extends PersistableBusinessObject
 
     /**
      * Sets the capitalAssetSystemTypeCodeFromPurAp attribute value.
+     *
      * @param capitalAssetSystemTypeCodeFromPurAp The capitalAssetSystemTypeCodeFromPurAp to set.
      */
     public void setCapitalAssetSystemTypeCodeFromPurAp(String capitalAssetSystemTypeCodeFromPurAp) {
@@ -170,7 +169,7 @@ public class PurchasingAccountsPayableDocument extends PersistableBusinessObject
      * @return Returns the active.
      */
     public boolean isActive() {
-        return CabConstants.ActivityStatusCode.NEW.equalsIgnoreCase(this.getActivityStatusCode()) || CabConstants.ActivityStatusCode.MODIFIED.equalsIgnoreCase(this.getActivityStatusCode());
+        return CamsConstants.ActivityStatusCode.NEW.equalsIgnoreCase(this.getActivityStatusCode()) || CamsConstants.ActivityStatusCode.MODIFIED.equalsIgnoreCase(this.getActivityStatusCode());
     }
 
 
@@ -302,19 +301,17 @@ public class PurchasingAccountsPayableDocument extends PersistableBusinessObject
 
         if (StringUtils.isNotBlank(this.statusDescription)) {
             return this.statusDescription;
-        }
-        else {
+        } else {
             Map objectKeys = new HashMap();
-            objectKeys.put(CabPropertyConstants.PurchasingAccountsPayableDocument.PURAP_DOCUMENT_IDENTIFIER, this.getPurapDocumentIdentifier());
+            objectKeys.put(CamsPropertyConstants.PurchasingAccountsPayableDocument.PURAP_DOCUMENT_IDENTIFIER, this.getPurapDocumentIdentifier());
 
-            if (CabConstants.PREQ.equals(this.documentTypeCode)) {
+            if (CamsConstants.PREQ.equals(this.documentTypeCode)) {
 
                 PaymentRequestDocument paymentRequestDocument = (PaymentRequestDocument) SpringContext.getBean(BusinessObjectService.class).findByPrimaryKey(PaymentRequestDocument.class, objectKeys);
                 if (ObjectUtils.isNotNull(paymentRequestDocument)) {
                     statusDescription = paymentRequestDocument.getApplicationDocumentStatus();
                 }
-            }
-            else {
+            } else {
                 VendorCreditMemoDocument vendorCreditMemoDocument = (VendorCreditMemoDocument) SpringContext.getBean(BusinessObjectService.class).findByPrimaryKey(VendorCreditMemoDocument.class, objectKeys);
                 if (ObjectUtils.isNotNull(vendorCreditMemoDocument)) {
                     statusDescription = vendorCreditMemoDocument.getApplicationDocumentStatus();

@@ -1,0 +1,46 @@
+/*
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+package org.kuali.kfs.sys.batch.dataaccess;
+
+import org.kuali.kfs.sys.businessobject.DocumentHeaderData;
+
+import java.util.List;
+import java.util.Optional;
+
+/**
+ * Interface for data access objects which will find all of the general ledger documents without pending entries
+ */
+public interface DetectDocumentsMissingPendingEntriesDao {
+    /**
+     * Find all of the general ledger documents without pending entries which have gone to final since the given start time
+     *
+     * @param startTime             the start time to start searching through documents which may not have pending ledger entries
+     * @param documentTypesToSearch the list of document types to search within
+     * @return a List of FinancialSystemDocumentHeaders for documents missing pending ledger entries or an empty List if nothing is found
+     */
+    List<DocumentHeaderData> discoverLedgerDocumentsWithoutPendingEntries(java.util.Date startTime, List<String> documentTypesToSearch);
+
+    /**
+     * Get the payment medium code from a cash control document
+     *
+     * @param documentNumber document number
+     * @return optional payment medium code
+     */
+    Optional<String> getCustomerPaymentMediumCodeFromCashControlDocument(String documentNumber);
+}

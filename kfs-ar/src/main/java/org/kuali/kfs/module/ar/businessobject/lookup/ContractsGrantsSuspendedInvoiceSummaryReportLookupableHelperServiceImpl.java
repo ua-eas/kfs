@@ -1,22 +1,35 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.businessobject.lookup;
+
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.ar.ArKeyConstants;
+import org.kuali.kfs.module.ar.ArPropertyConstants;
+import org.kuali.kfs.module.ar.businessobject.ContractsGrantsSuspendedInvoiceSummaryReport;
+import org.kuali.kfs.module.ar.businessobject.InvoiceSuspensionCategory;
+import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -25,19 +38,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.regex.Pattern;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.module.ar.ArKeyConstants;
-import org.kuali.kfs.module.ar.ArPropertyConstants;
-import org.kuali.kfs.module.ar.businessobject.ContractsGrantsSuspendedInvoiceSummaryReport;
-import org.kuali.kfs.module.ar.businessobject.InvoiceSuspensionCategory;
-import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.kns.web.struts.form.LookupForm;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.ObjectUtils;
 
 /**
  * Defines a custom lookup for the Suspense Activity Report.
@@ -70,13 +70,13 @@ public class ContractsGrantsSuspendedInvoiceSummaryReportLookupableHelperService
         Map<String, String> lookupFields = new HashMap<>();
         Map<String, String> suspensionCategoryDescriptions = new HashMap<String, String>();
 
-        final String suspensionCategoryCodeFromLookup = (String)lookupFormFields.get(ArPropertyConstants.SuspensionCategoryReportFields.SUSPENSION_CATEGORY_CODE);
+        final String suspensionCategoryCodeFromLookup = (String) lookupFormFields.get(ArPropertyConstants.SuspensionCategoryReportFields.SUSPENSION_CATEGORY_CODE);
         if (StringUtils.isNotBlank(suspensionCategoryCodeFromLookup)) {
             lookupFields.put(ArPropertyConstants.SuspensionCategoryReportFields.CONTRACTS_GRANTS_INVOICE_DOCUMENT_SUSPENSION_CATEGORY_CODE, suspensionCategoryCodeFromLookup);
         }
 
         final String processingDocumentStatuses = buildProcessingDocumentStatusesForLookup();
-        lookupFields.put(KFSPropertyConstants.DOCUMENT_HEADER+"."+KFSPropertyConstants.WORKFLOW_DOCUMENT_STATUS_CODE, processingDocumentStatuses);
+        lookupFields.put(KFSPropertyConstants.DOCUMENT_HEADER + "." + KFSPropertyConstants.WORKFLOW_DOCUMENT_STATUS_CODE, processingDocumentStatuses);
         Collection<ContractsGrantsInvoiceDocument> cgInvoiceDocuments = getLookupService().findCollectionBySearchHelper(ContractsGrantsInvoiceDocument.class, lookupFields, true);
 
         for (ContractsGrantsInvoiceDocument cgInvoiceDoc : cgInvoiceDocuments) {
@@ -90,7 +90,7 @@ public class ContractsGrantsSuspendedInvoiceSummaryReportLookupableHelperService
                     }
 
                     if (StringUtils.isBlank(suspensionCategoryCodeFromLookup) ||
-                            (suspensionCategoryCodePattern != null && suspensionCategoryCodePattern.matcher(suspensionCategoryCode).matches())) {
+                        (suspensionCategoryCodePattern != null && suspensionCategoryCodePattern.matcher(suspensionCategoryCode).matches())) {
                         if (!suspensionCategoryDescriptions.containsKey(suspensionCategoryCode)) {
                             suspensionCategoryDescriptions.put(suspensionCategoryCode, configurationService.getPropertyValueAsString(ArKeyConstants.INVOICE_DOCUMENT_SUSPENSION_CATEGORY + suspensionCategoryCode));
                         }
@@ -99,8 +99,7 @@ public class ContractsGrantsSuspendedInvoiceSummaryReportLookupableHelperService
                             List<String> documentNumbers = new ArrayList<String>();
                             documentNumbers.add(invoiceSuspensionCategory.getDocumentNumber());
                             documentNumbersByCategory.put(suspensionCategoryCode, documentNumbers);
-                        }
-                        else {
+                        } else {
                             documentNumbersByCategory.get(suspensionCategoryCode).add(invoiceSuspensionCategory.getDocumentNumber());
                         }
                     }

@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.module.ar.document.service;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.wklykins;
-
 import org.apache.log4j.Logger;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.module.ar.fixture.ARAwardFixture;
 import org.kuali.kfs.module.cg.businessobject.Award;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.krad.service.DocumentService;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.wklykins;
 
 /**
  * Test file for Collection Activity Document Service.
@@ -75,7 +75,7 @@ public class ContractsGrantsCollectionActivityDocumentServiceTest extends KualiT
         // To create AWard as fixture.
         ContractsAndGrantsBillingAward award = ARAwardFixture.CG_AWARD1.createAward();
         ARAwardFixture.CG_AWARD1.setAgencyFromFixture((Award) award);
-        ContractsAndGrantsBillingAward awd = contractsGrantsCollectionActivityDocumentService.retrieveAwardByProposalNumber(new Long(11));
+        ContractsAndGrantsBillingAward awd = contractsGrantsCollectionActivityDocumentService.retrieveAwardByProposalNumber("11");
         assertNotNull(awd);
         assertEquals(new String("11505"), award.getAgencyNumber());
     }

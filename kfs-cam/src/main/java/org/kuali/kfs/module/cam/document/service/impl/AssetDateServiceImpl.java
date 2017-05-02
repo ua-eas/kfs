@@ -1,29 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cam.document.service.impl;
 
-import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
 import org.kuali.kfs.module.cam.businessobject.Asset;
@@ -38,10 +37,11 @@ import org.kuali.kfs.sys.businessobject.UniversityDate;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.krad.exception.ValidationException;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class AssetDateServiceImpl implements AssetDateService {
@@ -55,7 +55,7 @@ public class AssetDateServiceImpl implements AssetDateService {
 
     /**
      * @see org.kuali.kfs.module.cam.document.service.AssetDateService#checkAndUpdateFiscalYearAndPeriod(org.kuali.kfs.module.cam.businessobject.Asset,
-     *      org.kuali.kfs.module.cam.businessobject.Asset)
+     * org.kuali.kfs.module.cam.businessobject.Asset)
      */
     @Override
     public void checkAndUpdateFiscalYearAndPeriod(Asset oldAsset, Asset newAsset) {
@@ -81,23 +81,23 @@ public class AssetDateServiceImpl implements AssetDateService {
 
     /**
      * @see org.kuali.module.cams.service.AssetDetailInformationService#checkAndUpdateLastInventoryDate(org.kuali.kfs.module.cam.businessobject.Asset,
-     *      org.kuali.kfs.module.cam.businessobject.Asset)
+     * org.kuali.kfs.module.cam.businessobject.Asset)
      */
     @Override
     public void checkAndUpdateLastInventoryDate(Asset oldAsset, Asset newAsset) {
         AssetLocation oldOffCampusLocation = oldAsset.getOffCampusLocation();
         AssetLocation newOffCampusLocation = newAsset.getOffCampusLocation();
-        if(ObjectUtils.isNull(oldOffCampusLocation) || ObjectUtils.isNull(newOffCampusLocation)){
+        if (ObjectUtils.isNull(oldOffCampusLocation) || ObjectUtils.isNull(newOffCampusLocation)) {
             return;
         }
-        if (!StringUtils.equalsIgnoreCase(oldAsset.getCampusCode(), newAsset.getCampusCode()) || !StringUtils.equalsIgnoreCase(oldAsset.getBuildingCode(), newAsset.getBuildingCode()) || 
-                !StringUtils.equalsIgnoreCase(oldAsset.getBuildingRoomNumber(), newAsset.getBuildingRoomNumber()) || !StringUtils.equalsIgnoreCase(oldAsset.getBuildingSubRoomNumber(), newAsset.getBuildingSubRoomNumber()) || 
-                !StringUtils.equalsIgnoreCase(oldAsset.getCampusTagNumber(), newAsset.getCampusTagNumber()) || !StringUtils.equalsIgnoreCase(oldOffCampusLocation.getAssetLocationContactName(), newOffCampusLocation.getAssetLocationContactName()) || 
-                !StringUtils.equalsIgnoreCase(oldOffCampusLocation.getAssetLocationStreetAddress(), newOffCampusLocation.getAssetLocationStreetAddress()) || 
-                !StringUtils.equalsIgnoreCase(oldOffCampusLocation.getAssetLocationCityName(), newOffCampusLocation.getAssetLocationCityName()) || 
-                !StringUtils.equalsIgnoreCase(oldOffCampusLocation.getAssetLocationStateCode(), newOffCampusLocation.getAssetLocationStateCode()) || 
-                !StringUtils.equalsIgnoreCase(oldOffCampusLocation.getAssetLocationZipCode(), newOffCampusLocation.getAssetLocationZipCode()) || 
-                !StringUtils.equalsIgnoreCase(oldOffCampusLocation.getAssetLocationCountryCode(), newOffCampusLocation.getAssetLocationCountryCode()) ) {
+        if (!StringUtils.equalsIgnoreCase(oldAsset.getCampusCode(), newAsset.getCampusCode()) || !StringUtils.equalsIgnoreCase(oldAsset.getBuildingCode(), newAsset.getBuildingCode()) ||
+            !StringUtils.equalsIgnoreCase(oldAsset.getBuildingRoomNumber(), newAsset.getBuildingRoomNumber()) || !StringUtils.equalsIgnoreCase(oldAsset.getBuildingSubRoomNumber(), newAsset.getBuildingSubRoomNumber()) ||
+            !StringUtils.equalsIgnoreCase(oldAsset.getCampusTagNumber(), newAsset.getCampusTagNumber()) || !StringUtils.equalsIgnoreCase(oldOffCampusLocation.getAssetLocationContactName(), newOffCampusLocation.getAssetLocationContactName()) ||
+            !StringUtils.equalsIgnoreCase(oldOffCampusLocation.getAssetLocationStreetAddress(), newOffCampusLocation.getAssetLocationStreetAddress()) ||
+            !StringUtils.equalsIgnoreCase(oldOffCampusLocation.getAssetLocationCityName(), newOffCampusLocation.getAssetLocationCityName()) ||
+            !StringUtils.equalsIgnoreCase(oldOffCampusLocation.getAssetLocationStateCode(), newOffCampusLocation.getAssetLocationStateCode()) ||
+            !StringUtils.equalsIgnoreCase(oldOffCampusLocation.getAssetLocationZipCode(), newOffCampusLocation.getAssetLocationZipCode()) ||
+            !StringUtils.equalsIgnoreCase(oldOffCampusLocation.getAssetLocationCountryCode(), newOffCampusLocation.getAssetLocationCountryCode())) {
             Timestamp timestamp = new Timestamp(dateTimeService.getCurrentDate().getTime());
             newAsset.setLastInventoryDate(timestamp);
         }
@@ -105,7 +105,7 @@ public class AssetDateServiceImpl implements AssetDateService {
 
     /**
      * @see org.kuali.module.cams.service.AssetDetailInformationService#checkAndUpdateDepreciationDate(org.kuali.kfs.module.cam.businessobject.Asset,
-     *      org.kuali.kfs.module.cam.businessobject.Asset)
+     * org.kuali.kfs.module.cam.businessobject.Asset)
      */
     @Override
     public void checkAndUpdateDepreciationDate(Asset oldAsset, Asset newAsset) {
@@ -113,8 +113,7 @@ public class AssetDateServiceImpl implements AssetDateService {
             // If Asset Type changed to Depreciable Life Limit to "0", set both In-service Date and Depreciation Date to NULL.
             newAsset.setDepreciationDate(null);
             newAsset.setCapitalAssetInServiceDate(null);
-        }
-        else if (assetService.isInServiceDateChanged(oldAsset, newAsset) || assetService.isFinancialObjectSubTypeCodeChanged(oldAsset, newAsset)) {
+        } else if (assetService.isInServiceDateChanged(oldAsset, newAsset) || assetService.isFinancialObjectSubTypeCodeChanged(oldAsset, newAsset)) {
             Map<String, String> primaryKeys = new HashMap<String, String>();
             primaryKeys.put(CamsPropertyConstants.AssetDepreciationConvention.FINANCIAL_OBJECT_SUB_TYPE_CODE, newAsset.getFinancialObjectSubTypeCode());
             AssetDepreciationConvention depreciationConvention = SpringContext.getBean(BusinessObjectService.class).findByPrimaryKey(AssetDepreciationConvention.class, primaryKeys);
@@ -125,7 +124,7 @@ public class AssetDateServiceImpl implements AssetDateService {
 
     /**
      * @see org.kuali.kfs.module.cam.document.service.AssetDateService#computeDepreciationDate(org.kuali.kfs.module.cam.businessobject.AssetType,
-     *      org.kuali.kfs.module.cam.businessobject.AssetDepreciationConvention, java.sql.Date)
+     * org.kuali.kfs.module.cam.businessobject.AssetDepreciationConvention, java.sql.Date)
      */
     @Override
     public java.sql.Date computeDepreciationDate(AssetType assetType, AssetDepreciationConvention depreciationConvention, java.sql.Date inServiceDate) {
@@ -133,8 +132,7 @@ public class AssetDateServiceImpl implements AssetDateService {
         if (assetType.getDepreciableLifeLimit() != null && assetType.getDepreciableLifeLimit().intValue() != 0) {
             if (depreciationConvention == null || CamsConstants.DepreciationConvention.CREATE_DATE.equalsIgnoreCase(depreciationConvention.getDepreciationConventionCode())) {
                 depreciationDate = inServiceDate;
-            }
-            else {
+            } else {
                 Integer fiscalYear = universityDateService.getFiscalYear(inServiceDate);
                 if (fiscalYear == null) {
                     throw new ValidationException("University Fiscal year is not defined for date - " + inServiceDate);
@@ -144,11 +142,11 @@ public class AssetDateServiceImpl implements AssetDateService {
                 String newInServiceAssetDepreciationStartMMDD = SpringContext.getBean(ParameterService.class).getParameterValueAsString(AssetGlobal.class, CamsConstants.Parameters.NEW_IN_SERVICE_ASSET_DEPRECIATION_START_DATE);
                 java.sql.Date newInServiceFiscalYearStartDate = null;
                 try {
-                    newInServiceFiscalYearStartDate= getDateTimeService().convertToSqlDate(newInServiceAssetDepreciationStartMMDD + "/" + fiscalYear);
-                } catch( Exception e ){
+                    newInServiceFiscalYearStartDate = getDateTimeService().convertToSqlDate(newInServiceAssetDepreciationStartMMDD + "/" + fiscalYear);
+                } catch (Exception e) {
                     //issue to construct the new in service fiscal year start date
                     String error = "Unable to construct new in service fiscal year start date - param value: [ " + newInServiceAssetDepreciationStartMMDD + "]";
-                    LOG.error(error, e );
+                    LOG.error(error, e);
                     throw new IllegalArgumentException(error, e);
                 }
                 String conventionCode = depreciationConvention.getDepreciationConventionCode();
@@ -162,19 +160,19 @@ public class AssetDateServiceImpl implements AssetDateService {
                     calendar.add(Calendar.YEAR, -1);
                     depreciationDate = new java.sql.Date(calendar.getTimeInMillis());
 
-                  //  depreciationDate = newInServiceFiscalYearStartDate;
+                    //  depreciationDate = newInServiceFiscalYearStartDate;
                 }
-              //when depreciationConventionCode = HY
+                //when depreciationConventionCode = HY
                 else if (CamsConstants.DepreciationConvention.HALF_YEAR.equalsIgnoreCase(conventionCode)) {
                     // Half year depreciation convention
                     //start the month and date as "01/01" and concat the fiscal year...
                     java.sql.Date newInServiceFiscalYearStartDateForHalfYear = null;
                     try {
-                        newInServiceFiscalYearStartDateForHalfYear= getDateTimeService().convertToSqlDate("01/01/" + fiscalYear);
-                    } catch( Exception e ){
+                        newInServiceFiscalYearStartDateForHalfYear = getDateTimeService().convertToSqlDate("01/01/" + fiscalYear);
+                    } catch (Exception e) {
                         //issue to construct the new in service fiscal year start date
                         String error = "Unable to construct new in service fiscal year start date";
-                        LOG.error(error, e );
+                        LOG.error(error, e);
                         throw new IllegalArgumentException(error, e);
                     }
 
@@ -247,11 +245,9 @@ public class AssetDateServiceImpl implements AssetDateService {
 
         if (CamsConstants.DepreciationConvention.CREATE_DATE.equals(depreciationConventionCode)) {
             depreciationDate = inServiceDate;
-        }
-        else if (CamsConstants.DepreciationConvention.FULL_YEAR.equals(depreciationConventionCode)) {
+        } else if (CamsConstants.DepreciationConvention.FULL_YEAR.equals(depreciationConventionCode)) {
             depreciationDate = fiscalYearStartDate;
-        }
-        else if (CamsConstants.DepreciationConvention.HALF_YEAR.equals(depreciationConventionCode)) {
+        } else if (CamsConstants.DepreciationConvention.HALF_YEAR.equals(depreciationConventionCode)) {
             // Half year depreciation convention
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(fiscalYearStartDate);

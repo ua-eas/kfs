@@ -1,33 +1,33 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sec.document.validation.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.sec.SecKeyConstants;
 import org.kuali.kfs.sec.businessobject.SecurityDefinition;
 import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -107,7 +107,7 @@ public class SecurityDefinitionRule extends MaintenanceDocumentRuleBase {
      * For new or copy action verifies the name given for the definition is not being used by another definition
      *
      * @param securityDefinition SecurityDefinition with name to check
-     * @param errorKeyPrefix String errorPrefix to use if any errors are found
+     * @param errorKeyPrefix     String errorPrefix to use if any errors are found
      * @return boolean true if name exists, false if not
      */
     protected boolean verifyDefinitionNameIsUnique(SecurityDefinition securityDefinition, String errorKeyPrefix) {

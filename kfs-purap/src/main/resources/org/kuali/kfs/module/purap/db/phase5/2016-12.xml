@@ -1,0 +1,797 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!-- "org.kuali.kfs.module.purap.businessobject.VendorStipulation" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_PUR_VNDR_STPLTN_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="PUR_VNDR_STPLTN_T"/></not>
+        </preConditions>
+        <addColumn tableName="PUR_VNDR_STPLTN_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_PUR_VNDR_STPLTN_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="PUR_VNDR_STPLTN_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="PUR_VNDR_STPLTN_T" indexName="PUR_VNDR_STPLTN_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.ItemType" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_PUR_AP_ITM_TYP_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="PUR_AP_ITM_TYP_T"/></not>
+        </preConditions>
+        <addColumn tableName="PUR_AP_ITM_TYP_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_PUR_AP_ITM_TYP_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="PUR_AP_ITM_TYP_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="PUR_AP_ITM_TYP_T" indexName="PUR_AP_ITM_TYP_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.Carrier" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_PUR_CARI_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="PUR_CARI_T"/></not>
+        </preConditions>
+        <addColumn tableName="PUR_CARI_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_PUR_CARI_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="PUR_CARI_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="PUR_CARI_T" indexName="PUR_CARI_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.FundingSource" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_PUR_FND_SRC_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="PUR_FND_SRC_T"/></not>
+        </preConditions>
+        <addColumn tableName="PUR_FND_SRC_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_PUR_FND_SRC_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="PUR_FND_SRC_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="PUR_FND_SRC_T" indexName="PUR_FND_SRC_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.RequisitionSource" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_PUR_REQS_SRC_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="PUR_REQS_SRC_T"/></not>
+        </preConditions>
+        <addColumn tableName="PUR_REQS_SRC_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_PUR_REQS_SRC_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="PUR_REQS_SRC_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="PUR_REQS_SRC_T" indexName="PUR_REQS_SRC_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.DeliveryRequiredDateReason" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_PUR_DLVY_REQ_DT_REAS_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="PUR_DLVY_REQ_DT_REAS_T"/></not>
+        </preConditions>
+        <addColumn tableName="PUR_DLVY_REQ_DT_REAS_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_PUR_DLVY_REQ_DT_REAS_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="PUR_DLVY_REQ_DT_REAS_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="PUR_DLVY_REQ_DT_REAS_T" indexName="PUR_DLVY_REQ_DT_REAS_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.PurchaseOrderTransmissionMethod" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_PUR_PO_TRNS_MTHD_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="PUR_PO_TRNS_MTHD_T"/></not>
+        </preConditions>
+        <addColumn tableName="PUR_PO_TRNS_MTHD_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_PUR_PO_TRNS_MTHD_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="PUR_PO_TRNS_MTHD_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="PUR_PO_TRNS_MTHD_T" indexName="PUR_PO_TRNS_MTHD_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.RecurringPaymentType" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_PUR_AP_RECUR_PMT_TYP_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="PUR_AP_RECUR_PMT_TYP_T"/></not>
+        </preConditions>
+        <addColumn tableName="PUR_AP_RECUR_PMT_TYP_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_PUR_AP_RECUR_PMT_TYP_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="PUR_AP_RECUR_PMT_TYP_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="PUR_AP_RECUR_PMT_TYP_T" indexName="PUR_AP_RECUR_PMT_TYP_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.PurchaseOrderVendorChoice" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_PUR_PO_VNDR_CHC_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="PUR_PO_VNDR_CHC_T"/></not>
+        </preConditions>
+        <addColumn tableName="PUR_PO_VNDR_CHC_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_PUR_PO_VNDR_CHC_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="PUR_PO_VNDR_CHC_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="PUR_PO_VNDR_CHC_T" indexName="PUR_PO_VNDR_CHC_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.RecurringPaymentFrequency" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_PUR_AP_RECUR_PMT_FREQ_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="PUR_AP_RECUR_PMT_FREQ_T"/></not>
+        </preConditions>
+        <addColumn tableName="PUR_AP_RECUR_PMT_FREQ_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_PUR_AP_RECUR_PMT_FREQ_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="PUR_AP_RECUR_PMT_FREQ_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="PUR_AP_RECUR_PMT_FREQ_T" indexName="PUR_AP_RECUR_PMT_FREQ_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.AutoApproveExclude" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_AP_AUTO_APRV_EXCL_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="AP_AUTO_APRV_EXCL_T"/></not>
+        </preConditions>
+        <addColumn tableName="AP_AUTO_APRV_EXCL_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_AP_AUTO_APRV_EXCL_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="AP_AUTO_APRV_EXCL_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="AP_AUTO_APRV_EXCL_T" indexName="AP_AUTO_APRV_EXCL_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.BillingAddress" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_PUR_BILL_ADDR_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="PUR_BILL_ADDR_T"/></not>
+        </preConditions>
+        <addColumn tableName="PUR_BILL_ADDR_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_PUR_BILL_ADDR_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="PUR_BILL_ADDR_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="PUR_BILL_ADDR_T" indexName="PUR_BILL_ADDR_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.ReceivingAddress" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_PUR_RCVNG_ADDR_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="PUR_RCVNG_ADDR_T"/></not>
+        </preConditions>
+        <addColumn tableName="PUR_RCVNG_ADDR_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_PUR_RCVNG_ADDR_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="PUR_RCVNG_ADDR_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="PUR_RCVNG_ADDR_T" indexName="PUR_RCVNG_ADDR_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.PurchaseOrderContractLanguage" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_PUR_PO_CONTR_LANG_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="PUR_PO_CONTR_LANG_T"/></not>
+        </preConditions>
+        <addColumn tableName="PUR_PO_CONTR_LANG_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_PUR_PO_CONTR_LANG_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="PUR_PO_CONTR_LANG_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="PUR_PO_CONTR_LANG_T" indexName="PUR_PO_CONTR_LANG_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.NegativePaymentRequestApprovalLimit" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_AP_NEG_PMT_RQST_APRVL_LMT_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="AP_NEG_PMT_RQST_APRVL_LMT_T"/></not>
+        </preConditions>
+        <addColumn tableName="AP_NEG_PMT_RQST_APRVL_LMT_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_AP_NEG_PMT_RQST_APRVL_LMT_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="AP_NEG_PMT_RQST_APRVL_LMT_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="AP_NEG_PMT_RQST_APRVL_LMT_T" indexName="AP_NEG_PMT_RQST_APRVL_LMT_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.SensitiveData" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_PUR_SNSTV_DTA_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="PUR_SNSTV_DTA_T"/></not>
+        </preConditions>
+        <addColumn tableName="PUR_SNSTV_DTA_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_PUR_SNSTV_DTA_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="PUR_SNSTV_DTA_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="PUR_SNSTV_DTA_T" indexName="PUR_SNSTV_DTA_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.PurchaseOrderQuoteList" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_PUR_PO_QT_LST_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="PUR_PO_QT_LST_T"/></not>
+        </preConditions>
+        <addColumn tableName="PUR_PO_QT_LST_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_PUR_PO_QT_LST_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="PUR_PO_QT_LST_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="PUR_PO_QT_LST_T" indexName="PUR_PO_QT_LST_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.PurchaseOrderQuoteStatus" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_PUR_PO_QT_STAT_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="PUR_PO_QT_STAT_T"/></not>
+        </preConditions>
+        <addColumn tableName="PUR_PO_QT_STAT_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_PUR_PO_QT_STAT_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="PUR_PO_QT_STAT_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="PUR_PO_QT_STAT_T" indexName="PUR_PO_QT_STAT_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.ElectronicInvoiceItemMapping" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_AP_ELCTRNC_INV_MAP_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="AP_ELCTRNC_INV_MAP_T"/></not>
+        </preConditions>
+        <addColumn tableName="AP_ELCTRNC_INV_MAP_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_AP_ELCTRNC_INV_MAP_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="AP_ELCTRNC_INV_MAP_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="AP_ELCTRNC_INV_MAP_T" indexName="AP_ELCTRNC_INV_MAP_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.OrganizationParameter" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_PUR_AP_ORG_PARM_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="PUR_AP_ORG_PARM_T"/></not>
+        </preConditions>
+        <addColumn tableName="PUR_AP_ORG_PARM_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_PUR_AP_ORG_PARM_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="PUR_AP_ORG_PARM_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="PUR_AP_ORG_PARM_T" indexName="PUR_AP_ORG_PARM_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.PurchaseOrderQuoteLanguage" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_PUR_PO_QT_LANG_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="PUR_PO_QT_LANG_T"/></not>
+        </preConditions>
+        <addColumn tableName="PUR_PO_QT_LANG_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_PUR_PO_QT_LANG_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="PUR_PO_QT_LANG_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="PUR_PO_QT_LANG_T" indexName="PUR_PO_QT_LANG_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.ItemReasonAdded" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_PUR_ITM_REAS_ADD_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="PUR_ITM_REAS_ADD_T"/></not>
+        </preConditions>
+        <addColumn tableName="PUR_ITM_REAS_ADD_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_PUR_ITM_REAS_ADD_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="PUR_ITM_REAS_ADD_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="PUR_ITM_REAS_ADD_T" indexName="PUR_ITM_REAS_ADD_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.CapitalAssetSystemType" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_PUR_CPTL_AST_SYS_TYP_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="PUR_CPTL_AST_SYS_TYP_T"/></not>
+        </preConditions>
+        <addColumn tableName="PUR_CPTL_AST_SYS_TYP_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_PUR_CPTL_AST_SYS_TYP_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="PUR_CPTL_AST_SYS_TYP_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="PUR_CPTL_AST_SYS_TYP_T" indexName="PUR_CPTL_AST_SYS_TYP_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.CapitalAssetSystemState" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_PUR_CPTL_AST_SYS_ST_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="PUR_CPTL_AST_SYS_ST_T"/></not>
+        </preConditions>
+        <addColumn tableName="PUR_CPTL_AST_SYS_ST_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_PUR_CPTL_AST_SYS_ST_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="PUR_CPTL_AST_SYS_ST_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="PUR_CPTL_AST_SYS_ST_T" indexName="PUR_CPTL_AST_SYS_ST_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.ReceivingThreshold" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_PUR_THRSHLD_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="PUR_THRSHLD_T"/></not>
+        </preConditions>
+        <addColumn tableName="PUR_THRSHLD_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_PUR_THRSHLD_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="PUR_THRSHLD_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="PUR_THRSHLD_T" indexName="PUR_THRSHLD_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.VendorStipulation" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_PUR_VNDR_STPLTN_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="PUR_VNDR_STPLTN_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="PUR_VNDR_STPLTN_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.ItemType" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_PUR_AP_ITM_TYP_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="PUR_AP_ITM_TYP_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="PUR_AP_ITM_TYP_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.Carrier" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_PUR_CARI_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="PUR_CARI_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="PUR_CARI_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.FundingSource" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_PUR_FND_SRC_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="PUR_FND_SRC_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="PUR_FND_SRC_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.RequisitionSource" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_PUR_REQS_SRC_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="PUR_REQS_SRC_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="PUR_REQS_SRC_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.DeliveryRequiredDateReason" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_PUR_DLVY_REQ_DT_REAS_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="PUR_DLVY_REQ_DT_REAS_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="PUR_DLVY_REQ_DT_REAS_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.PurchaseOrderTransmissionMethod" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_PUR_PO_TRNS_MTHD_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="PUR_PO_TRNS_MTHD_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="PUR_PO_TRNS_MTHD_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.RecurringPaymentType" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_PUR_AP_RECUR_PMT_TYP_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="PUR_AP_RECUR_PMT_TYP_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="PUR_AP_RECUR_PMT_TYP_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.PurchaseOrderVendorChoice" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_PUR_PO_VNDR_CHC_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="PUR_PO_VNDR_CHC_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="PUR_PO_VNDR_CHC_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.RecurringPaymentFrequency" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_PUR_AP_RECUR_PMT_FREQ_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="PUR_AP_RECUR_PMT_FREQ_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="PUR_AP_RECUR_PMT_FREQ_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.AutoApproveExclude" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_AP_AUTO_APRV_EXCL_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="AP_AUTO_APRV_EXCL_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="AP_AUTO_APRV_EXCL_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.BillingAddress" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_PUR_BILL_ADDR_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="PUR_BILL_ADDR_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="PUR_BILL_ADDR_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.ReceivingAddress" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_PUR_RCVNG_ADDR_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="PUR_RCVNG_ADDR_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="PUR_RCVNG_ADDR_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.PurchaseOrderContractLanguage" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_PUR_PO_CONTR_LANG_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="PUR_PO_CONTR_LANG_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="PUR_PO_CONTR_LANG_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.NegativePaymentRequestApprovalLimit" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_AP_NEG_PMT_RQST_APRVL_LMT_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="AP_NEG_PMT_RQST_APRVL_LMT_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="AP_NEG_PMT_RQST_APRVL_LMT_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.SensitiveData" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_PUR_SNSTV_DTA_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="PUR_SNSTV_DTA_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="PUR_SNSTV_DTA_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.PurchaseOrderQuoteList" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_PUR_PO_QT_LST_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="PUR_PO_QT_LST_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="PUR_PO_QT_LST_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.PurchaseOrderQuoteStatus" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_PUR_PO_QT_STAT_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="PUR_PO_QT_STAT_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="PUR_PO_QT_STAT_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.ElectronicInvoiceItemMapping" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_AP_ELCTRNC_INV_MAP_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="AP_ELCTRNC_INV_MAP_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="AP_ELCTRNC_INV_MAP_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.OrganizationParameter" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_PUR_AP_ORG_PARM_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="PUR_AP_ORG_PARM_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="PUR_AP_ORG_PARM_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.PurchaseOrderQuoteLanguage" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_PUR_PO_QT_LANG_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="PUR_PO_QT_LANG_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="PUR_PO_QT_LANG_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.ItemReasonAdded" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_PUR_ITM_REAS_ADD_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="PUR_ITM_REAS_ADD_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="PUR_ITM_REAS_ADD_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.CapitalAssetSystemType" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_PUR_CPTL_AST_SYS_TYP_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="PUR_CPTL_AST_SYS_TYP_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="PUR_CPTL_AST_SYS_TYP_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.CapitalAssetSystemState" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_PUR_CPTL_AST_SYS_ST_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="PUR_CPTL_AST_SYS_ST_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="PUR_CPTL_AST_SYS_ST_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.purap.businessobject.ReceivingThreshold" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_PUR_THRSHLD_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="PUR_THRSHLD_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="PUR_THRSHLD_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+</databaseChangeLog>

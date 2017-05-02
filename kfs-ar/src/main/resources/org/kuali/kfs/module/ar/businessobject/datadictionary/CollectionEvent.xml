@@ -1,288 +1,287 @@
-<?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+    <bean id="CollectionEvent" parent="CollectionEvent-parentBean"/>
 
-  <bean id="CollectionEvent" parent="CollectionEvent-parentBean"/>
-
-  <bean id="CollectionEvent-parentBean" abstract="true" parent="BusinessObjectEntry">
-    <property name="businessObjectClass" value="org.kuali.kfs.module.ar.businessobject.CollectionEvent"/>
-    <property name="inquiryDefinition">
-			<ref bean="CollectionEvent-inquiryDefinition" />
-		</property>
-		<property name="lookupDefinition">
-			<ref bean="CollectionEvent-lookupDefinition" />
-		</property>
-    <property name="titleAttribute" value="id"/>
-    <property name="objectLabel" value="CollectionEvent"/>
-    <property name="attributes">
-      <list>
-        <ref bean="CollectionEvent-id"/>
-        <ref bean="CollectionEvent-collectionEventCode"/>
-        <ref bean="CollectionEvent-invoiceNumber"/>
-        <ref bean="CollectionEvent-activityCode"/>
-        <ref bean="CollectionEvent-activityType.activityDescription"/>
-        <ref bean="CollectionEvent-activityDate"/>
-        <ref bean="CollectionEvent-activityText"/>
-        <ref bean="CollectionEvent-followupDate"/>
-        <ref bean="CollectionEvent-completedDate"/>
-        <ref bean="CollectionEvent-postedDate"/>
-        <ref bean="CollectionEvent-user.principalName"/>
-        <ref bean="CollectionEvent-userPrincipalId"/>
-      </list>
-    </property>
-
-    <property name="relationships">
-      <list>
-        <bean parent="RelationshipDefinition" p:objectAttributeName="user">
-          <property name="primitiveAttributes">
+    <bean id="CollectionEvent-parentBean" abstract="true" parent="BusinessObjectEntry">
+        <property name="businessObjectClass" value="org.kuali.kfs.module.ar.businessobject.CollectionEvent"/>
+        <property name="inquiryDefinition">
+            <ref bean="CollectionEvent-inquiryDefinition"/>
+        </property>
+        <property name="lookupDefinition">
+            <ref bean="CollectionEvent-lookupDefinition"/>
+        </property>
+        <property name="titleAttribute" value="id"/>
+        <property name="objectLabel" value="CollectionEvent"/>
+        <property name="attributes">
             <list>
-              <bean parent="PrimitiveAttributeDefinition" p:sourceName="userPrincipalId" p:targetName="principalId" />
+                <ref bean="CollectionEvent-id"/>
+                <ref bean="CollectionEvent-collectionEventCode"/>
+                <ref bean="CollectionEvent-invoiceNumber"/>
+                <ref bean="CollectionEvent-activityCode"/>
+                <ref bean="CollectionEvent-activityType.activityDescription"/>
+                <ref bean="CollectionEvent-activityDate"/>
+                <ref bean="CollectionEvent-activityText"/>
+                <ref bean="CollectionEvent-followupDate"/>
+                <ref bean="CollectionEvent-completedDate"/>
+                <ref bean="CollectionEvent-postedDate"/>
+                <ref bean="CollectionEvent-user.principalName"/>
+                <ref bean="CollectionEvent-userPrincipalId"/>
             </list>
-          </property>
-          <property name="supportAttributes">
+        </property>
+
+        <property name="relationships">
             <list>
-              <bean parent="SupportAttributeDefinition" p:identifier="true" p:sourceName="user.principalName" p:targetName="principalName" />
-              <bean parent="SupportAttributeDefinition" p:sourceName="user.name" p:targetName="name" />
+                <bean parent="RelationshipDefinition" p:objectAttributeName="user">
+                    <property name="primitiveAttributes">
+                        <list>
+                            <bean parent="PrimitiveAttributeDefinition" p:sourceName="userPrincipalId" p:targetName="principalId"/>
+                        </list>
+                    </property>
+                    <property name="supportAttributes">
+                        <list>
+                            <bean parent="SupportAttributeDefinition" p:identifier="true" p:sourceName="user.principalName" p:targetName="principalName"/>
+                            <bean parent="SupportAttributeDefinition" p:sourceName="user.name" p:targetName="name"/>
+                        </list>
+                    </property>
+                </bean>
             </list>
-          </property>
-        </bean>
-      </list>
-    </property>
-  </bean>
+        </property>
+    </bean>
 
-  <!-- Attribute Definitions -->
+    <!-- Attribute Definitions -->
 
-  <bean id="CollectionEvent-id" parent="CollectionEvent-id-parentBean"/>
+    <bean id="CollectionEvent-id" parent="CollectionEvent-id-parentBean"/>
 
-  <bean id="CollectionEvent-id-parentBean" abstract="true" parent="AttributeDefinition">
-    <property name="name" value="id"/>
-    <property name="forceUppercase" value="true"/>
-    <property name="label" value="Collection Event Identifier"/>
-    <property name="shortLabel" value="CollEvntId"/>
-    <property name="maxLength" value="7"/>
-    <property name="validationPattern">
-      <ref bean="NumericValidation" />
-    </property>
-    <property name="control">
-      <ref bean="HiddenControl" />
-    </property>
-  </bean>
+    <bean id="CollectionEvent-id-parentBean" abstract="true" parent="AttributeDefinition">
+        <property name="name" value="id"/>
+        <property name="forceUppercase" value="true"/>
+        <property name="label" value="Collection Event Identifier"/>
+        <property name="shortLabel" value="CollEvntId"/>
+        <property name="maxLength" value="7"/>
+        <property name="validationPattern">
+            <ref bean="NumericValidation"/>
+        </property>
+        <property name="control">
+            <ref bean="HiddenControl"/>
+        </property>
+    </bean>
 
-  <bean id="CollectionEvent-collectionEventCode" parent="CollectionEvent-collectionEventCode-parentBean"/>
+    <bean id="CollectionEvent-collectionEventCode" parent="CollectionEvent-collectionEventCode-parentBean"/>
 
-  <bean id="CollectionEvent-collectionEventCode-parentBean" abstract="true" parent="AttributeDefinition">
-    <property name="name" value="collectionEventCode"/>
-    <property name="forceUppercase" value="true"/>
-    <property name="label" value="Collection Event Code"/>
-    <property name="shortLabel" value="Collection Event Code"/>
-    <property name="maxLength" value="10"/>
-    <property name="validationPattern">
-      <ref bean="AnyCharacterValidation" />
-    </property>
-    <property name="control">
-      	<bean parent="TextControlDefinition" p:size="12"/>
-    </property>
-  </bean>
+    <bean id="CollectionEvent-collectionEventCode-parentBean" abstract="true" parent="AttributeDefinition">
+        <property name="name" value="collectionEventCode"/>
+        <property name="forceUppercase" value="true"/>
+        <property name="label" value="Collection Event Code"/>
+        <property name="shortLabel" value="Collection Event Code"/>
+        <property name="maxLength" value="10"/>
+        <property name="validationPattern">
+            <ref bean="AnyCharacterValidation"/>
+        </property>
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="12"/>
+        </property>
+    </bean>
 
-  <bean id="CollectionEvent-invoiceNumber" parent="CollectionEvent-invoiceNumber-parentBean"/>
+    <bean id="CollectionEvent-invoiceNumber" parent="CollectionEvent-invoiceNumber-parentBean"/>
 
-  <bean id="CollectionEvent-invoiceNumber-parentBean" abstract="true" parent="AttributeDefinition">
-    <property name="name" value="invoiceNumber"/>
-    <property name="forceUppercase" value="true"/>
-    <property name="label" value="Invoice"/>
-    <property name="shortLabel" value="Invoice"/>
-    <property name="maxLength" value="9"/>
-    <property name="validationPattern">
-      <ref bean="AnyCharacterValidation" />
-    </property>
-    <property name="control">
-      <ref bean="HiddenControl" />
-    </property>
-  </bean>
+    <bean id="CollectionEvent-invoiceNumber-parentBean" abstract="true" parent="AttributeDefinition">
+        <property name="name" value="invoiceNumber"/>
+        <property name="forceUppercase" value="true"/>
+        <property name="label" value="Invoice"/>
+        <property name="shortLabel" value="Invoice"/>
+        <property name="maxLength" value="9"/>
+        <property name="validationPattern">
+            <ref bean="AnyCharacterValidation"/>
+        </property>
+        <property name="control">
+            <ref bean="HiddenControl"/>
+        </property>
+    </bean>
 
-  <bean id="CollectionEvent-activityType.activityDescription"
-        parent="CollectionEvent-activityType.activityDescription-parentBean" />
+    <bean id="CollectionEvent-activityType.activityDescription"
+          parent="CollectionEvent-activityType.activityDescription-parentBean"/>
 
-  <bean id="CollectionEvent-activityType.activityDescription-parentBean"
-        abstract="true" parent="CollectionActivityType-activityDescription">
-    <property name="name" value="collectionActivityType.activityDescription" />
-  </bean>
+    <bean id="CollectionEvent-activityType.activityDescription-parentBean"
+          abstract="true" parent="CollectionActivityType-activityDescription">
+        <property name="name" value="collectionActivityType.activityDescription"/>
+    </bean>
 
-  <bean id="CollectionEvent-activityCode" parent="CollectionEvent-activityCode-parentBean"/>
+    <bean id="CollectionEvent-activityCode" parent="CollectionEvent-activityCode-parentBean"/>
 
-  <bean id="CollectionEvent-activityCode-parentBean" abstract="true" parent="AttributeDefinition">
-    <property name="name" value="activityCode"/>
-    <property name="forceUppercase" value="true"/>
-    <property name="label" value="Collection Activity Type"/>
-    <property name="shortLabel" value="Collection Activity Type"/>
-    <property name="maxLength" value="6"/>
-    <property name="validationPattern">
-      <ref bean="AnyCharacterValidation" />
-    </property>
-    <property name="required" value="true"/>
-    <property name="control">
-		<bean parent="SelectControlDefinition"
-			p:valuesFinderClass="org.kuali.kfs.module.ar.businessobject.options.CollectionActivityTypeValuesFinder"
-			p:includeKeyInLabel="false" />
-	</property>
-  </bean>
+    <bean id="CollectionEvent-activityCode-parentBean" abstract="true" parent="AttributeDefinition">
+        <property name="name" value="activityCode"/>
+        <property name="forceUppercase" value="true"/>
+        <property name="label" value="Collection Activity Type"/>
+        <property name="shortLabel" value="Collection Activity Type"/>
+        <property name="maxLength" value="6"/>
+        <property name="validationPattern">
+            <ref bean="AnyCharacterValidation"/>
+        </property>
+        <property name="required" value="true"/>
+        <property name="control">
+            <bean parent="SelectControlDefinition"
+                  p:valuesFinderClass="org.kuali.kfs.module.ar.businessobject.options.CollectionActivityTypeValuesFinder"
+                  p:includeKeyInLabel="false"/>
+        </property>
+    </bean>
 
-  <bean id="CollectionEvent-activityDate" parent="CollectionEvent-activityDate-parentBean"/>
+    <bean id="CollectionEvent-activityDate" parent="CollectionEvent-activityDate-parentBean"/>
 
-  <bean id="CollectionEvent-activityDate-parentBean" abstract="true" parent="GenericAttributes-genericDate">
-    <property name="shortLabel" value="Collection Activity Date"/>
-    <property name="name" value="activityDate"/>
-    <property name="label" value="Collection Activity Date"/>
-    <property name="required" value="true"/>
-    <property name="description" value="A free-form text field that identifies the activity date."/>
-  </bean>
+    <bean id="CollectionEvent-activityDate-parentBean" abstract="true" parent="GenericAttributes-genericDate">
+        <property name="shortLabel" value="Collection Activity Date"/>
+        <property name="name" value="activityDate"/>
+        <property name="label" value="Collection Activity Date"/>
+        <property name="required" value="true"/>
+        <property name="description" value="A free-form text field that identifies the activity date."/>
+    </bean>
 
-  <bean id="CollectionEvent-activityText" parent="CollectionEvent-activityText-parentBean"/>
+    <bean id="CollectionEvent-activityText" parent="CollectionEvent-activityText-parentBean"/>
 
-  <bean id="CollectionEvent-activityText-parentBean" abstract="true" parent="AttributeDefinition">
-    <property name="name" value="activityText"/>
-    <property name="label" value="Collection Activity Comment"/>
-    <property name="shortLabel" value="Collection Activity Comment"/>
-    <property name="maxLength" value="120"/>
-    <property name="validationPattern">
-      <ref bean="AnyCharacterWithWhitespaceValidation" />
-    </property>
-    <property name="required" value="true"/>
-    <property name="control">
-      <bean parent="TextareaControlDefinition" p:rows="1" p:cols="32" p:expandedTextArea="true"/>
-    </property>
-  </bean>
+    <bean id="CollectionEvent-activityText-parentBean" abstract="true" parent="AttributeDefinition">
+        <property name="name" value="activityText"/>
+        <property name="label" value="Collection Activity Comment"/>
+        <property name="shortLabel" value="Collection Activity Comment"/>
+        <property name="maxLength" value="120"/>
+        <property name="validationPattern">
+            <ref bean="AnyCharacterWithWhitespaceValidation"/>
+        </property>
+        <property name="required" value="true"/>
+        <property name="control">
+            <bean parent="TextareaControlDefinition" p:rows="1" p:cols="32" p:expandedTextArea="true"/>
+        </property>
+    </bean>
 
-  <bean id="CollectionEvent-followupDate" parent="CollectionEvent-followupDate-parentBean"/>
+    <bean id="CollectionEvent-followupDate" parent="CollectionEvent-followupDate-parentBean"/>
 
-  <bean id="CollectionEvent-followupDate-parentBean" abstract="true" parent="GenericAttributes-genericDate">
-    <property name="shortLabel" value="Follow-up Date"/>
-    <property name="name" value="followupDate"/>
-    <property name="label" value="Follow-up Date"/>
-    <property name="description" value="A free-form text field that identifies the next follow-up date."/>
-  </bean>
+    <bean id="CollectionEvent-followupDate-parentBean" abstract="true" parent="GenericAttributes-genericDate">
+        <property name="shortLabel" value="Follow-up Date"/>
+        <property name="name" value="followupDate"/>
+        <property name="label" value="Follow-up Date"/>
+        <property name="description" value="A free-form text field that identifies the next follow-up date."/>
+    </bean>
 
-  <bean id="CollectionEvent-completedDate" parent="CollectionEvent-completedDate-parentBean"/>
+    <bean id="CollectionEvent-completedDate" parent="CollectionEvent-completedDate-parentBean"/>
 
-  <bean id="CollectionEvent-completedDate-parentBean" abstract="true" parent="GenericAttributes-genericDate">
-    <property name="shortLabel" value="Completed Date"/>
-    <property name="name" value="completedDate"/>
-    <property name="label" value="Completed Date"/>
-    <property name="description" value="A free-form text field that identifies the completed date."/>
-  </bean>
+    <bean id="CollectionEvent-completedDate-parentBean" abstract="true" parent="GenericAttributes-genericDate">
+        <property name="shortLabel" value="Completed Date"/>
+        <property name="name" value="completedDate"/>
+        <property name="label" value="Completed Date"/>
+        <property name="description" value="A free-form text field that identifies the completed date."/>
+    </bean>
 
-  <bean id="CollectionEvent-postedDate" parent="CollectionEvent-postedDate-parentBean"/>
+    <bean id="CollectionEvent-postedDate" parent="CollectionEvent-postedDate-parentBean"/>
 
-  <bean id="CollectionEvent-postedDate-parentBean" abstract="true" parent="GenericAttributes-genericDate">
-    <property name="shortLabel" value="Posted Date"/>
-    <property name="maxLength" value="36"/>
-    <property name="summary" value="&amp;nbsp;"/>
-    <property name="name" value="postedDate"/>
-    <property name="label" value="Posted Date"/>
-    <property name="description" value="A free-form text field that identifies the date at which the event is added."/>
-  </bean>
-  
-  <bean id="CollectionEvent-userPrincipalId" parent="CollectionEvent-userPrincipalId-parentBean"/>
+    <bean id="CollectionEvent-postedDate-parentBean" abstract="true" parent="GenericAttributes-genericDate">
+        <property name="shortLabel" value="Posted Date"/>
+        <property name="maxLength" value="36"/>
+        <property name="summary" value="&amp;nbsp;"/>
+        <property name="name" value="postedDate"/>
+        <property name="label" value="Posted Date"/>
+        <property name="description" value="A free-form text field that identifies the date at which the event is added."/>
+    </bean>
 
-  <bean id="CollectionEvent-userPrincipalId-parentBean" abstract="true" parent="AttributeReferenceDummy-genericSystemId">
-    <property name="shortLabel" value="User"/>
-    <property name="name" value="userPrincipalId"/>
-    <property name="label" value="User Principal Id"/>
-    <property name="description" value="A free-form text field for the full name of the user, expressed as &quot;Lastname, Firstname Initial&quot;"/>
-    <property name="control">
-      	<bean parent="TextControlDefinition" p:size="6"/>
-    </property>
-  </bean>
+    <bean id="CollectionEvent-userPrincipalId" parent="CollectionEvent-userPrincipalId-parentBean"/>
 
-  <bean id="CollectionEvent-user.principalName" parent="CollectionEvent-user.principalName-parentBean" />
+    <bean id="CollectionEvent-userPrincipalId-parentBean" abstract="true" parent="AttributeReferenceDummy-genericSystemId">
+        <property name="shortLabel" value="User"/>
+        <property name="name" value="userPrincipalId"/>
+        <property name="label" value="User Principal Id"/>
+        <property name="description" value="A free-form text field for the full name of the user, expressed as &quot;Lastname, Firstname Initial&quot;"/>
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="6"/>
+        </property>
+    </bean>
 
-  <bean id="CollectionEvent-user.principalName-parentBean" parent="PersonImpl-principalName" abstract="true" >
-    <property name="name" value="user.principalName" />
-    <property name="label" value="Initiator"/>
-    <property name="shortLabel" value="Initiator" />
-  </bean>
+    <bean id="CollectionEvent-user.principalName" parent="CollectionEvent-user.principalName-parentBean"/>
 
-  <bean id="CollectionEvent-inquiryDefinition" parent="CollectionEvent-inquiryDefinition-parentBean" />
+    <bean id="CollectionEvent-user.principalName-parentBean" parent="PersonImpl-principalName" abstract="true">
+        <property name="name" value="user.principalName"/>
+        <property name="label" value="Initiator"/>
+        <property name="shortLabel" value="Initiator"/>
+    </bean>
 
-	<bean id="CollectionEvent-inquiryDefinition-parentBean" abstract="true"
-		parent="InquiryDefinition">
-		<property name="title" value="Collection Event Inquiry" />
-		<property name="inquirySections">
-			<list>
-				<ref bean="CollectionEvent-inquirySectionDefinition" />
-			</list>
-		</property>
-	</bean>
+    <bean id="CollectionEvent-inquiryDefinition" parent="CollectionEvent-inquiryDefinition-parentBean"/>
 
-	<bean id="CollectionEvent-inquirySectionDefinition" parent="CollectionEvent-inquirySectionDefinition-parentBean" />
-	<bean id="CollectionEvent-inquirySectionDefinition-parentBean"
-		parent="InquirySectionDefinition" abstract="true">
-		<property name="title" value="Collection Event" />
-		<property name="numberOfColumns" value="1" />
-		<property name="inquiryFields">
-			<list>
-				<bean parent="FieldDefinition" p:attributeName="collectionEventCode" />
-				<bean parent="FieldDefinition" p:attributeName="invoiceNumber" />
-				<bean parent="FieldDefinition" p:attributeName="activityCode" />
-				<bean parent="FieldDefinition" p:attributeName="activityDate" />
-				<bean parent="FieldDefinition" p:attributeName="followupDate" />
-				<bean parent="FieldDefinition" p:attributeName="completedDate" />
-				<bean parent="FieldDefinition" p:attributeName="postedDate" />
-				<bean parent="FieldDefinition" p:attributeName="userPrincipalId" />
-			</list>
-		</property>
-	</bean>
+    <bean id="CollectionEvent-inquiryDefinition-parentBean" abstract="true"
+          parent="InquiryDefinition">
+        <property name="title" value="Collection Event Inquiry"/>
+        <property name="inquirySections">
+            <list>
+                <ref bean="CollectionEvent-inquirySectionDefinition"/>
+            </list>
+        </property>
+    </bean>
 
-	<bean id="CollectionEvent-lookupDefinition" parent="CollectionEvent-lookupDefinition-parentBean" />
+    <bean id="CollectionEvent-inquirySectionDefinition" parent="CollectionEvent-inquirySectionDefinition-parentBean"/>
+    <bean id="CollectionEvent-inquirySectionDefinition-parentBean"
+          parent="InquirySectionDefinition" abstract="true">
+        <property name="title" value="Collection Event"/>
+        <property name="inquiryFields">
+            <list>
+                <bean parent="FieldDefinition" p:attributeName="collectionEventCode"/>
+                <bean parent="FieldDefinition" p:attributeName="invoiceNumber"/>
+                <bean parent="FieldDefinition" p:attributeName="activityCode"/>
+                <bean parent="FieldDefinition" p:attributeName="activityDate"/>
+                <bean parent="FieldDefinition" p:attributeName="followupDate"/>
+                <bean parent="FieldDefinition" p:attributeName="completedDate"/>
+                <bean parent="FieldDefinition" p:attributeName="postedDate"/>
+                <bean parent="FieldDefinition" p:attributeName="userPrincipalId"/>
+            </list>
+        </property>
+    </bean>
 
-	<bean id="CollectionEvent-lookupDefinition-parentBean" abstract="true"
-		parent="LookupDefinition">
-		<property name="title" value="Collection Event Lookup" />
+    <bean id="CollectionEvent-lookupDefinition" parent="CollectionEvent-lookupDefinition-parentBean"/>
 
-		<property name="defaultSort">
-			<bean parent="SortDefinition">
-			</bean>
-		</property>
-		<property name="lookupFields">
-			<list>
-				<bean parent="FieldDefinition" p:attributeName="collectionEventCode" />
-				<bean parent="FieldDefinition" p:attributeName="invoiceNumber" />
-				<bean parent="FieldDefinition" p:attributeName="activityCode" />
-				<bean parent="FieldDefinition" p:attributeName="activityDate" />
-				<bean parent="FieldDefinition" p:attributeName="followupDate" />
-				<bean parent="FieldDefinition" p:attributeName="completedDate" />
-				<bean parent="FieldDefinition" p:attributeName="postedDate" />
-				<bean parent="FieldDefinition" p:attributeName="user.principalName" />
+    <bean id="CollectionEvent-lookupDefinition-parentBean" abstract="true"
+          parent="LookupDefinition">
+        <property name="title" value="Collection Event Lookup"/>
 
-      </list>
-		</property>
-		<property name="resultFields">
-			<list>
-				<bean parent="FieldDefinition" p:attributeName="collectionEventCode" />
-				<bean parent="FieldDefinition" p:attributeName="invoiceNumber" />
-				<bean parent="FieldDefinition" p:attributeName="collectionActivityType.activityDescription" />
-				<bean parent="FieldDefinition" p:attributeName="activityDate" />
-				<bean parent="FieldDefinition" p:attributeName="followupDate" />
-				<bean parent="FieldDefinition" p:attributeName="completedDate" />
-				<bean parent="FieldDefinition" p:attributeName="postedDate" />
-			</list>	
-		</property>
-	</bean>
+        <property name="defaultSort">
+            <bean parent="SortDefinition">
+            </bean>
+        </property>
+        <property name="lookupFields">
+            <list>
+                <bean parent="FieldDefinition" p:attributeName="collectionEventCode"/>
+                <bean parent="FieldDefinition" p:attributeName="invoiceNumber"/>
+                <bean parent="FieldDefinition" p:attributeName="activityCode"/>
+                <bean parent="FieldDefinition" p:attributeName="activityDate"/>
+                <bean parent="FieldDefinition" p:attributeName="followupDate"/>
+                <bean parent="FieldDefinition" p:attributeName="completedDate"/>
+                <bean parent="FieldDefinition" p:attributeName="postedDate"/>
+                <bean parent="FieldDefinition" p:attributeName="user.principalName"/>
+
+            </list>
+        </property>
+        <property name="resultFields">
+            <list>
+                <bean parent="FieldDefinition" p:attributeName="collectionEventCode"/>
+                <bean parent="FieldDefinition" p:attributeName="invoiceNumber"/>
+                <bean parent="FieldDefinition" p:attributeName="collectionActivityType.activityDescription"/>
+                <bean parent="FieldDefinition" p:attributeName="activityDate"/>
+                <bean parent="FieldDefinition" p:attributeName="followupDate"/>
+                <bean parent="FieldDefinition" p:attributeName="completedDate"/>
+                <bean parent="FieldDefinition" p:attributeName="postedDate"/>
+            </list>
+        </property>
+    </bean>
 
 </beans>

@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,13 +18,16 @@
  */
 package org.kuali.kfs.module.ar.document.web.struts;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.question.ConfirmationQuestion;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
@@ -38,23 +41,20 @@ import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.kew.api.document.DocumentStatus;
 import org.kuali.rice.kew.api.document.DocumentStatusCategory;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.kns.question.ConfirmationQuestion;
-import org.kuali.rice.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Action class for ContractsGrantsInvoiceDocument
  */
-public class ContractsGrantsInvoiceDocumentAction extends CustomerInvoiceDocumentAction {
+public class ContractsGrantsInvoiceDocumentAction extends CustomerInvoiceAction {
     protected static volatile ContractsGrantsInvoiceDocumentService contractsGrantsInvoiceDocumentService;
     protected static volatile FinancialSystemDocumentService financialSystemDocumentService;
 
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        final ContractsGrantsInvoiceDocumentForm cinvForm = (ContractsGrantsInvoiceDocumentForm)form;
+        final ContractsGrantsInvoiceDocumentForm cinvForm = (ContractsGrantsInvoiceDocumentForm) form;
         if (!ObjectUtils.isNull(cinvForm.getContractsGrantsInvoiceDocument())) {
             final ContractsGrantsInvoiceDocument contractsGrantsInvoiceDocument = cinvForm.getContractsGrantsInvoiceDocument();
             if (getFinancialSystemDocumentService().getPendingDocumentStatuses().contains(contractsGrantsInvoiceDocument.getFinancialSystemDocumentHeader().getWorkflowDocumentStatusCode())) {
@@ -66,15 +66,16 @@ public class ContractsGrantsInvoiceDocumentAction extends CustomerInvoiceDocumen
 
     /**
      * Overridden to recheck the suspension categories when the document is opened
-     * @see org.kuali.kfs.module.ar.document.web.struts.CustomerInvoiceDocumentAction#loadDocument(org.kuali.rice.kns.web.struts.form.KualiDocumentFormBase)
+     *
+     * @see CustomerInvoiceAction#loadDocument(org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase)
      */
     @Override
     protected void loadDocument(KualiDocumentFormBase kualiDocumentFormBase) throws WorkflowException {
         super.loadDocument(kualiDocumentFormBase);
-        ContractsGrantsInvoiceDocumentForm cgInvoiceForm = (ContractsGrantsInvoiceDocumentForm)kualiDocumentFormBase;
+        ContractsGrantsInvoiceDocumentForm cgInvoiceForm = (ContractsGrantsInvoiceDocumentForm) kualiDocumentFormBase;
         final ContractsGrantsInvoiceDocument cgInvoice = cgInvoiceForm.getContractsGrantsInvoiceDocument();
         if (shouldUpdateSuspensionCategoriesAndRecalculateTotalAmountBilledToDate(cgInvoice)) {
-            if (!StringUtils.equalsIgnoreCase(cgInvoice.getInvoiceGeneralDetail().getBillingFrequencyCode(), ArConstants.MILESTONE_BILLING_SCHEDULE_CODE) && !StringUtils.equalsIgnoreCase(cgInvoice.getInvoiceGeneralDetail().getBillingFrequencyCode(), ArConstants.PREDETERMINED_BILLING_SCHEDULE_CODE)) {
+            if (!ArConstants.BillingFrequencyValues.isMilestone(cgInvoice.getInvoiceGeneralDetail()) && !ArConstants.BillingFrequencyValues.isPredeterminedBilling(cgInvoice.getInvoiceGeneralDetail())) {
                 ContractsGrantsInvoiceDocumentService contractsGrantsInvoiceDocumentService = SpringContext.getBean(ContractsGrantsInvoiceDocumentService.class);
                 contractsGrantsInvoiceDocumentService.recalculateTotalAmountBilledToDate(cgInvoice);
             }
@@ -85,6 +86,7 @@ public class ContractsGrantsInvoiceDocumentAction extends CustomerInvoiceDocumen
     /**
      * Determines if the given c&g invoice should have its suspension categories updated and new total billed
      * recalculated or not
+     *
      * @param cgInvoice the invoice to determine the suspension category updatability of
      * @return true if suspension categories should be updated and new total bill should be recalculated, false otherwise
      */
@@ -178,7 +180,7 @@ public class ContractsGrantsInvoiceDocumentAction extends CustomerInvoiceDocumen
 
     /**
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#route(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward approve(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -194,7 +196,8 @@ public class ContractsGrantsInvoiceDocumentAction extends CustomerInvoiceDocumen
 
     /**
      * Save the document prior to canceling in case the amounts on the General Tab need to be recalculated.
-     * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#cancel(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     *
+     * @see org.kuali.kfs.kns.web.struts.action.KualiDocumentActionBase#cancel(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward cancel(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -212,7 +215,7 @@ public class ContractsGrantsInvoiceDocumentAction extends CustomerInvoiceDocumen
 
     /**
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#route(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward route(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -229,7 +232,7 @@ public class ContractsGrantsInvoiceDocumentAction extends CustomerInvoiceDocumen
 
     /**
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#save(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward save(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -273,7 +276,7 @@ public class ContractsGrantsInvoiceDocumentAction extends CustomerInvoiceDocumen
     protected ActionForward promptForSuspensionCategories(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response, ContractsGrantsInvoiceDocument contractsGrantsInvoiceDocument, String caller) throws Exception {
         ActionForward forward = null;
 
-        if(contractsGrantsInvoiceDocument.getInvoiceSuspensionCategories().size() > 0){
+        if (contractsGrantsInvoiceDocument.getInvoiceSuspensionCategories().size() > 0) {
             Object question = request.getParameter(KFSConstants.QUESTION_INST_ATTRIBUTE_NAME);
             if (question == null) {
                 String questionText = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(ArKeyConstants.WARNING_SUSPENSION_CATEGORIES_PRESENT);

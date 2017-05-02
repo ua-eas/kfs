@@ -1,31 +1,27 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.businessobject.lookup;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.ContractsGrantsLOCReport;
@@ -36,9 +32,13 @@ import org.kuali.kfs.sys.document.service.FinancialSystemDocumentService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.search.SearchOperator;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.kns.web.struts.form.LookupForm;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Defines a custom lookup for LOC Draw Details Report.
@@ -55,8 +55,8 @@ public class ContractsGrantsLOCReportLookupableHelperServiceImpl extends Contrac
         validateSearchParametersForOperatorAndValue(fieldValues, ArPropertyConstants.AMOUNT_TO_DRAW);
         validateSearchParametersForOperatorAndValue(fieldValues, ArPropertyConstants.FUNDS_NOT_DRAWN);
 
-        final String lowerBoundLetterOfCreditReviewCreateDate = fieldValues.get(KRADConstants.LOOKUP_RANGE_LOWER_BOUND_PROPERTY_PREFIX+ArPropertyConstants.LETTER_OF_CREDIT_REVIEW_CREATE_DATE);
-        validateTimestampField(lowerBoundLetterOfCreditReviewCreateDate, KRADConstants.LOOKUP_RANGE_LOWER_BOUND_PROPERTY_PREFIX+ArPropertyConstants.LETTER_OF_CREDIT_REVIEW_CREATE_DATE, getDateTimeService());
+        final String lowerBoundLetterOfCreditReviewCreateDate = fieldValues.get(KRADConstants.LOOKUP_RANGE_LOWER_BOUND_PROPERTY_PREFIX + ArPropertyConstants.LETTER_OF_CREDIT_REVIEW_CREATE_DATE);
+        validateTimestampField(lowerBoundLetterOfCreditReviewCreateDate, KRADConstants.LOOKUP_RANGE_LOWER_BOUND_PROPERTY_PREFIX + ArPropertyConstants.LETTER_OF_CREDIT_REVIEW_CREATE_DATE, getDateTimeService());
         final String upperBoundLetterOfCreditReviewCreateDate = fieldValues.get(ArPropertyConstants.LETTER_OF_CREDIT_REVIEW_CREATE_DATE);
         validateTimestampField(upperBoundLetterOfCreditReviewCreateDate, ArPropertyConstants.LETTER_OF_CREDIT_REVIEW_CREATE_DATE, getDateTimeService());
     }
@@ -65,7 +65,7 @@ public class ContractsGrantsLOCReportLookupableHelperServiceImpl extends Contrac
     public Collection performLookup(LookupForm lookupForm, Collection resultTable, boolean bounded) {
         Map lookupFormFields = lookupForm.getFieldsForLookup();
 
-        final String reportType = (String)lookupFormFields.get("reportType");
+        final String reportType = (String) lookupFormFields.get("reportType");
 
         setBackLocation((String) lookupForm.getFieldsForLookup().get(KRADConstants.BACK_LOCATION));
         setDocFormKey((String) lookupForm.getFieldsForLookup().get(KRADConstants.DOC_FORM_KEY));
@@ -78,7 +78,7 @@ public class ContractsGrantsLOCReportLookupableHelperServiceImpl extends Contrac
         Collection<ContractsGrantsLOCReport> displayList = new ArrayList<ContractsGrantsLOCReport>();
 
         Map<String, String> locLookupFields = buildCriteriaForLetterOfCreditLookup(lookupFormFields);
-        locLookupFields.put(KFSPropertyConstants.DOCUMENT_HEADER+"."+KFSPropertyConstants.WORKFLOW_DOCUMENT_STATUS_CODE, StringUtils.join(getFinancialSystemDocumentService().getSuccessfulDocumentStatuses(),SearchOperator.OR.op()));
+        locLookupFields.put(KFSPropertyConstants.DOCUMENT_HEADER + "." + KFSPropertyConstants.WORKFLOW_DOCUMENT_STATUS_CODE, StringUtils.join(getFinancialSystemDocumentService().getSuccessfulDocumentStatuses(), SearchOperator.OR.op()));
         Collection<ContractsGrantsLetterOfCreditReviewDocument> cgLOCReviewDocs = getLookupService().findCollectionBySearchHelper(ContractsGrantsLetterOfCreditReviewDocument.class, locLookupFields, true);
 
         for (ContractsGrantsLetterOfCreditReviewDocument cgLOCReviewDoc : cgLOCReviewDocs) {
@@ -153,32 +153,33 @@ public class ContractsGrantsLOCReportLookupableHelperServiceImpl extends Contrac
 
     /**
      * Pulls criteria from lookup form criteria which can be directly applied to finding letter of credit documents
+     *
      * @param lookupFormFields the lookup form's fields
      * @return the smaller set of fields to perform the document lookup
      */
     protected Map<String, String> buildCriteriaForLetterOfCreditLookup(Map lookupFormFields) {
         Map<String, String> lookupFields = new HashMap<String, String>();
 
-        final String documentNumber = (String)lookupFormFields.get(KFSPropertyConstants.DOCUMENT_NUMBER);
+        final String documentNumber = (String) lookupFormFields.get(KFSPropertyConstants.DOCUMENT_NUMBER);
         if (!StringUtils.isBlank(documentNumber)) {
             lookupFields.put(KFSPropertyConstants.DOCUMENT_NUMBER, documentNumber);
         }
 
-        final String letterOfCreditFundCode = (String)lookupFormFields.get(ArPropertyConstants.LETTER_OF_CREDIT_FUND_CODE);
+        final String letterOfCreditFundCode = (String) lookupFormFields.get(ArPropertyConstants.LETTER_OF_CREDIT_FUND_CODE);
         if (!StringUtils.isBlank(letterOfCreditFundCode)) {
             lookupFields.put(ArPropertyConstants.LETTER_OF_CREDIT_FUND_CODE, letterOfCreditFundCode);
         }
 
-        final String letterOfCreditFundGroupCode = (String)lookupFormFields.get(ArPropertyConstants.LETTER_OF_CREDIT_FUND_GROUP_CODE);
+        final String letterOfCreditFundGroupCode = (String) lookupFormFields.get(ArPropertyConstants.LETTER_OF_CREDIT_FUND_GROUP_CODE);
         if (!StringUtils.isBlank(letterOfCreditFundGroupCode)) {
             lookupFields.put(ArPropertyConstants.LETTER_OF_CREDIT_FUND_GROUP_CODE, letterOfCreditFundGroupCode);
         }
 
-        final String lowerBoundLetterOfCreditReviewCreateDate = (String)lookupFormFields.get(KRADConstants.LOOKUP_RANGE_LOWER_BOUND_PROPERTY_PREFIX+ArPropertyConstants.LETTER_OF_CREDIT_REVIEW_CREATE_DATE);
-        final String upperBoundLetterOfCreditReviewCreateDate = (String)lookupFormFields.get(ArPropertyConstants.LETTER_OF_CREDIT_REVIEW_CREATE_DATE);
+        final String lowerBoundLetterOfCreditReviewCreateDate = (String) lookupFormFields.get(KRADConstants.LOOKUP_RANGE_LOWER_BOUND_PROPERTY_PREFIX + ArPropertyConstants.LETTER_OF_CREDIT_REVIEW_CREATE_DATE);
+        final String upperBoundLetterOfCreditReviewCreateDate = (String) lookupFormFields.get(ArPropertyConstants.LETTER_OF_CREDIT_REVIEW_CREATE_DATE);
         final String letterOfCreditReviewCreateDateCriteria = getContractsGrantsReportHelperService().fixDateCriteria(lowerBoundLetterOfCreditReviewCreateDate, upperBoundLetterOfCreditReviewCreateDate, true);
         if (!StringUtils.isBlank(letterOfCreditReviewCreateDateCriteria)) {
-            lookupFields.put(KFSPropertyConstants.DOCUMENT_HEADER+"."+KFSPropertyConstants.WORKFLOW_CREATE_DATE, letterOfCreditReviewCreateDateCriteria);
+            lookupFields.put(KFSPropertyConstants.DOCUMENT_HEADER + "." + KFSPropertyConstants.WORKFLOW_CREATE_DATE, letterOfCreditReviewCreateDateCriteria);
         }
 
         return lookupFields;

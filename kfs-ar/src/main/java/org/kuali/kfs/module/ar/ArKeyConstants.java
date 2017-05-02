@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -75,7 +75,7 @@ public class ArKeyConstants {
     public static final String ERROR_INVOICE_RECURRENCE_ACTIVE_MUST_BE_TRUE = "error.document.invoiceRecurrenceMaintenance.activeIndicatorMustBeTrue";
 
     // CostomerInvoiceDocument constants:
-    public static final String INVOICE_CLOSE_NOTE_TEXT= "note.document.customerInvoiceDocument.closeInvoiceNote";
+    public static final String INVOICE_CLOSE_NOTE_TEXT = "note.document.customerInvoiceDocument.closeInvoiceNote";
 
     //Batch File System
     static final public String CGINVOICE_CREATION_AWARD_START_DATE_MISSING_ERROR = "error.cginvoice.award.startDate.missing";
@@ -96,6 +96,8 @@ public class ArKeyConstants {
     static final public String CGINVOICE_CREATION_AWARD_AGENCY_NO_CUSTOMER_RECORD = "error.cginvoice.award.not.valid.customer";
     static final public String CGINVOICE_CREATION_SYS_INFO_OADF_NOT_SETUP = "error.cginvoice.sys.info.not.setup";
     static final public String CGINVOICE_CREATION_AWARD_OFFSET_DEF_NOT_SETUP = "error.cginvoice.award.offset.not.setup";
+    static final public String CGINVOICE_CREATION_ACCOUNT_AUTO_CREATION_DEFAULTS_NOT_SETUP = "error.cginvoice.account.auto.creation.not.setup";
+    static final public String CGINVOICE_CREATION_ACCOUNT_ON_MULTIPLE_AWARDS = "error.cginvoice.account.on.multiple.awards";
 
     // Organization Accounting Defaults errors
     public static final class OrganizationAccountingDefaultErrors {
@@ -338,98 +340,98 @@ public class ArKeyConstants {
         public static final String MESSAGE_BATCH_UPLOAD_TITLE_LOCKBOX = "message.batchUpload.title.lockboxLoad";
     }
 
-     public static class ContractsGrantsCategoryConstants {
-         public static final String ERROR_ANY_ONE_REQUIRED = "error.any.one.required";
-     }
+    public static class ContractsGrantsCategoryConstants {
+        public static final String ERROR_ANY_ONE_REQUIRED = "error.any.one.required";
+    }
 
-     public static final String MESSAGE_CG_UPCOMING_MILESTONES_EMAIL_LINE_1 = "message.cg.upcoming.milestones.email.line1";
-     public static final String MESSAGE_CG_UPCOMING_MILESTONES_EMAIL_LINE_2 = "message.cg.upcoming.milestones.email.line2";
+    public static final String MESSAGE_CG_UPCOMING_MILESTONES_EMAIL_LINE_1 = "message.cg.upcoming.milestones.email.line1";
+    public static final String MESSAGE_CG_UPCOMING_MILESTONES_EMAIL_LINE_2 = "message.cg.upcoming.milestones.email.line2";
 
-     // Kim Type Services error messages
-     public static final String ERROR_BILLINGCHART_OR_BILLINGORG_NOTEMPTY_ALL_REQUIRED = "error.billingchart.or.billingorg.notempty.all.required";
-     public static final String ERROR_EITHER_BILLINGCHART_OR_PROCESSCHART_REQUIRED_NOT_BOTH = "error.either.billingchart.or.processchart.required.not.both";
-     public static final String ERROR_PROCESSCHART_OR_PROCESSORG_NOTEMPTY_ALL_REQUIRED = "error.processchart.or.processorg.notempty.all.required";
-     public static final String ERROR_STARTLETTER_AFTER_ENDLETTER = "error.startletter.after.endletter";
-     public static final String ERROR_STARTLETTER_OR_ENDLETTER_NOTEMPTY_ALL_REQUIRED = "error.startletter.or.endletter.notempty.all.required";
+    // Kim Type Services error messages
+    public static final String ERROR_BILLINGCHART_OR_BILLINGORG_NOTEMPTY_ALL_REQUIRED = "error.billingchart.or.billingorg.notempty.all.required";
+    public static final String ERROR_EITHER_BILLINGCHART_OR_PROCESSCHART_REQUIRED_NOT_BOTH = "error.either.billingchart.or.processchart.required.not.both";
+    public static final String ERROR_PROCESSCHART_OR_PROCESSORG_NOTEMPTY_ALL_REQUIRED = "error.processchart.or.processorg.notempty.all.required";
+    public static final String ERROR_STARTLETTER_AFTER_ENDLETTER = "error.startletter.after.endletter";
+    public static final String ERROR_STARTLETTER_OR_ENDLETTER_NOTEMPTY_ALL_REQUIRED = "error.startletter.or.endletter.notempty.all.required";
 
-     // Award Constants and errors
-     public static class AwardConstants {
-         public static final String ERROR_NO_CTRL_ACCT = "error.cg.no.control.account";
-         public static final String ERROR_MULTIPLE_CTRL_ACCT = "error.cg.multiple.control.account";
-     }
+    // Award Constants and errors
+    public static class AwardConstants {
+        public static final String ERROR_NO_CTRL_ACCT = "error.cg.no.control.account";
+        public static final String ERROR_MULTIPLE_CTRL_ACCT = "error.cg.multiple.control.account";
+    }
 
-     public static final String ERROR_AWARD_MILESTONE_SCHEDULE_EXISTS = "error.cg.award.milestone.schedule.exists";
-     public static final String ERROR_AWARD_MILESTONE_SCHEDULE_INCORRECT_BILLING_FREQUENCY = "error.cg.award.milestone.schedule.incorrect.billing.frequency";
-     public static final String ERROR_AWARD_PREDETERMINED_BILLING_SCHEDULE_EXISTS = "error.cg.award.predetermined.billing.schedule.exists";
-     public static final String ERROR_AWARD_PREDETERMINED_BILLING_SCHEDULE_INCORRECT_BILLING_FREQUENCY = "error.cg.award.predetermined.billing.schedule.incorrect.billing.frequency";
-     public static final String ERROR_DUPLICATE_BILL_NUMBER = "error.duplicate.bill.number";
-     public static final String ERROR_DUPLICATE_MILESTONE_NUMBER = "error.duplicate.milestone.number";
+    public static final String ERROR_AWARD_MILESTONE_SCHEDULE_EXISTS = "error.cg.award.milestone.schedule.exists";
+    public static final String ERROR_AWARD_MILESTONE_SCHEDULE_INCORRECT_BILLING_FREQUENCY = "error.cg.award.milestone.schedule.incorrect.billing.frequency";
+    public static final String ERROR_AWARD_PREDETERMINED_BILLING_SCHEDULE_EXISTS = "error.cg.award.predetermined.billing.schedule.exists";
+    public static final String ERROR_AWARD_PREDETERMINED_BILLING_SCHEDULE_INCORRECT_BILLING_FREQUENCY = "error.cg.award.predetermined.billing.schedule.incorrect.billing.frequency";
+    public static final String ERROR_DUPLICATE_BILL_NUMBER = "error.duplicate.bill.number";
+    public static final String ERROR_DUPLICATE_MILESTONE_NUMBER = "error.duplicate.milestone.number";
 
-     public static final String ERROR_REPORT_INVALID_CALCULATED_PATTERN = "error.report.invalid.calculated.pattern";
+    public static final String ERROR_REPORT_INVALID_CALCULATED_PATTERN = "error.report.invalid.calculated.pattern";
 
-     public static class TemplateUploadErrors {
-         public static final String ERROR_TEMPLATE_UPLOAD_NO_TEMPLATE = "error.template.upload.no.template";
-         public static final String ERROR_TEMPLATE_UPLOAD_NO_TEMPLATE_TYPE = "error.template.upload.no.template.type";
-         public static final String ERROR_TEMPLATE_UPLOAD_USER_NOT_AUTHORIZED = "error.template.upload.user.not.authorized";
-         public static final String ERROR_TEMPLATE_UPLOAD_TEMPLATE_NOT_AVAILABLE = "error.template.upload.template.not.available";
-         public static final String ERROR_TEMPLATE_UPLOAD_INVALID_FILE_TYPE = "error.template.upload.invalid.file.type";
-     }
+    public static class TemplateUploadErrors {
+        public static final String ERROR_TEMPLATE_UPLOAD_NO_TEMPLATE = "error.template.upload.no.template";
+        public static final String ERROR_TEMPLATE_UPLOAD_NO_TEMPLATE_TYPE = "error.template.upload.no.template.type";
+        public static final String ERROR_TEMPLATE_UPLOAD_USER_NOT_AUTHORIZED = "error.template.upload.user.not.authorized";
+        public static final String ERROR_TEMPLATE_UPLOAD_TEMPLATE_NOT_AVAILABLE = "error.template.upload.template.not.available";
+        public static final String ERROR_TEMPLATE_UPLOAD_INVALID_FILE_TYPE = "error.template.upload.invalid.file.type";
+    }
 
-     // messages for Transmit Contracts & Grants Invoices
-     public static final String NO_DELIVERY_TYPE_SELECTED = "error.no.delivery.type.selected";
-     public static final String NO_PRINCIPAL_NAME_FOUND = "error.no.principal.name.found";
-     public static final String NO_MATCHING_INVOICE = "error.no.matching.invoice";
-     public static final String INVOICE_EMAILS_SENT = "message.invoice.emails.sent";
-     public static final String ERROR_SENDING_INVOICE_EMAILS = "error.sending.invoice.emails";
-     public static final String INVOICES_PRINT_SUCCESSFULL = "message.invoices.print.successfull";
-     public static final String INVOICES_PRINT_UNSUCCESSFULL = "error.invoices.print.unsuccessful";
+    // messages for Transmit Contracts & Grants Invoices
+    public static final String NO_DELIVERY_TYPE_SELECTED = "error.no.delivery.type.selected";
+    public static final String NO_PRINCIPAL_NAME_FOUND = "error.no.principal.name.found";
+    public static final String NO_MATCHING_INVOICE = "error.no.matching.invoice";
+    public static final String INVOICE_EMAILS_SENT = "message.invoice.emails.sent";
+    public static final String ERROR_SENDING_INVOICE_EMAILS = "error.sending.invoice.emails";
+    public static final String INVOICES_PRINT_SUCCESSFULL = "message.invoices.print.successfull";
+    public static final String INVOICES_PRINT_UNSUCCESSFULL = "error.invoices.print.unsuccessful";
 
-     public static final String CONTRACTS_REPORTS_AGING_REPORT_TITLE = "contracts.grants.aging.report.title";
+    public static final String CONTRACTS_REPORTS_AGING_REPORT_TITLE = "contracts.grants.aging.report.title";
 
-     public static final String CGINVOICE_EMAIL_SUBJECT = "cginvoice.email.subject";
-     public static final String CGINVOICE_EMAIL_BODY = "cginvoice.email.body";
+    public static final String CGINVOICE_EMAIL_SUBJECT = "cginvoice.email.subject";
+    public static final String CGINVOICE_EMAIL_BODY = "cginvoice.email.body";
 
-     // messages for LOC pdf
-     public static final String LOC_REVIEW_PDF_TITLE = "locreview.pdf.title";
-     public static final String LOC_REVIEW_PDF_HEADER_FUND_GROUP_CODE = "locreview.pdf.header.fund.group.code";
-     public static final String LOC_REVIEW_PDF_HEADER_FUND_CODE = "locreview.pdf.header.fund.code";
-     public static final String LOC_REVIEW_PDF_HEADER_DOCUMENT_NUMBER = "locreview.pdf.header.document.number";
-     public static final String LOC_REVIEW_PDF_HEADER_APP_DOC_STATUS = "locreview.pdf.header.application.document.status";
-     public static final String LOC_REVIEW_PDF_HEADER_DOCUMENT_INITIATOR = "locreview.pdf.header.initiator.principal.name";
-     public static final String LOC_REVIEW_PDF_HEADER_DOCUMENT_CREATE_DATE = "locreview.pdf.header.create.date";
-     public static final String LOC_REVIEW_PDF_SUBHEADER_AWARDS = "locreview.pdf.subheader.awards";
+    // messages for LOC pdf
+    public static final String LOC_REVIEW_PDF_TITLE = "locreview.pdf.title";
+    public static final String LOC_REVIEW_PDF_HEADER_FUND_GROUP_CODE = "locreview.pdf.header.fund.group.code";
+    public static final String LOC_REVIEW_PDF_HEADER_FUND_CODE = "locreview.pdf.header.fund.code";
+    public static final String LOC_REVIEW_PDF_HEADER_DOCUMENT_NUMBER = "locreview.pdf.header.document.number";
+    public static final String LOC_REVIEW_PDF_HEADER_APP_DOC_STATUS = "locreview.pdf.header.application.document.status";
+    public static final String LOC_REVIEW_PDF_HEADER_DOCUMENT_INITIATOR = "locreview.pdf.header.initiator.principal.name";
+    public static final String LOC_REVIEW_PDF_HEADER_DOCUMENT_CREATE_DATE = "locreview.pdf.header.create.date";
+    public static final String LOC_REVIEW_PDF_SUBHEADER_AWARDS = "locreview.pdf.subheader.awards";
 
-     public static final String LOC_REVIEW_CREATION_TYPE = "message.locreview.creation.type";
+    public static final String LOC_REVIEW_CREATION_TYPE = "message.locreview.creation.type";
 
-     public static final String ERROR_LOC_REVIEW_FUND_OR_FUND_GROUP_REQUIRED = "error.locreview.fund.or.fund.group.required";
-     public static final String ERROR_LOC_REVIEW_ONLY_ONE_FUND_OR_FUND_GROUP = "error.locreview.only.one.fund.or.fund.group";
+    public static final String ERROR_LOC_REVIEW_FUND_OR_FUND_GROUP_REQUIRED = "error.locreview.fund.or.fund.group.required";
+    public static final String ERROR_LOC_REVIEW_ONLY_ONE_FUND_OR_FUND_GROUP = "error.locreview.only.one.fund.or.fund.group";
 
-     // Final Billed Indicator Validation error messages
-     public static final String ERROR_FINAL_BILLED_INDICATOR_INVOICE_NOT_FINAL = "error.final.billed.indicator.invoice.not.final";
-     public static final String ERROR_FINAL_BILLED_INDICATOR_INVOICE_NOT_MARKED_FINAL_BILL = "error.final.billed.indicator.invoice.not.marked.final.bill";
-     public static final String ERROR_FINAL_BILLED_INDICATOR_INVALID_INVOICE = "error.final.billed.indicator.invalid.invoice";
-     public static final String ERROR_FINAL_BILLED_INDICATOR_NO_INVOICE = "error.final.billed.indicator.no.invoice";
+    // Final Billed Indicator Validation error messages
+    public static final String ERROR_FINAL_BILLED_INDICATOR_INVOICE_NOT_FINAL = "error.final.billed.indicator.invoice.not.final";
+    public static final String ERROR_FINAL_BILLED_INDICATOR_INVOICE_NOT_MARKED_FINAL_BILL = "error.final.billed.indicator.invoice.not.marked.final.bill";
+    public static final String ERROR_FINAL_BILLED_INDICATOR_INVALID_INVOICE = "error.final.billed.indicator.invalid.invoice";
+    public static final String ERROR_FINAL_BILLED_INDICATOR_NO_INVOICE = "error.final.billed.indicator.no.invoice";
 
-     public static final String INVOICE_ADDRESS_PDF_WATERMARK_COPY = "invoice.address.pdf.copy.watermark";
-     public static final String INVOICE_ADDRESS_PDF_WATERMARK_FINAL = "invoice.address.pdf.final.watermark";
-     public static final String INVOICE_ADDRESS_PDF_COPY_FILENAME_SUFFIX = "invoice.address.pdf.copy.filename.suffix";
-     public static final String INVOICE_ADDRESS_PDF_FINAL_NOTE = "invoice.address.pdf.final.note";
-     public static final String INVOICE_ADDRESS_PDF_COPY_NOTE = "invoice.address.pdf.copy.note";
+    public static final String INVOICE_ADDRESS_PDF_WATERMARK_COPY = "invoice.address.pdf.copy.watermark";
+    public static final String INVOICE_ADDRESS_PDF_WATERMARK_FINAL = "invoice.address.pdf.final.watermark";
+    public static final String INVOICE_ADDRESS_PDF_COPY_FILENAME_SUFFIX = "invoice.address.pdf.copy.filename.suffix";
+    public static final String INVOICE_ADDRESS_PDF_FINAL_NOTE = "invoice.address.pdf.final.note";
+    public static final String INVOICE_ADDRESS_PDF_COPY_NOTE = "invoice.address.pdf.copy.note";
 
-     public static final String CONTRACTS_GRANTS_INVOICE_DETAILS_INDIRECT_SUBTOTAL_LABEL = "contracts.grants.invoice.details.indirect.subtotal.label";
-     public static final String CONTRACTS_GRANTS_INVOICE_DETAILS_DIRECT_SUBTOTAL_LABEL = "contracts.grants.invoice.details.direct.subtotal.label";
-     public static final String CONTRACTS_GRANTS_INVOICE_DETAILS_TOTAL_LABEL = "contracts.grants.invoice.details.total.label";
+    public static final String CONTRACTS_GRANTS_INVOICE_DETAILS_INDIRECT_SUBTOTAL_LABEL = "contracts.grants.invoice.details.indirect.subtotal.label";
+    public static final String CONTRACTS_GRANTS_INVOICE_DETAILS_DIRECT_SUBTOTAL_LABEL = "contracts.grants.invoice.details.direct.subtotal.label";
+    public static final String CONTRACTS_GRANTS_INVOICE_DETAILS_TOTAL_LABEL = "contracts.grants.invoice.details.total.label";
 
-     // Suspension Category Description Prefix
-     public static final String INVOICE_DOCUMENT_SUSPENSION_CATEGORY = "invoice.document.suspension.category.";
+    // Suspension Category Description Prefix
+    public static final String INVOICE_DOCUMENT_SUSPENSION_CATEGORY = "invoice.document.suspension.category.";
 
-     public static final String WARNING_SUSPENSION_CATEGORIES_PRESENT = "warning.suspension.categories.present";
+    public static final String WARNING_SUSPENSION_CATEGORIES_PRESENT = "warning.suspension.categories.present";
 
-     public static final String ERROR_DOCUMENT_COST_CATEGORY_NO_DETAILS = "error.document.cost.category.no.details";
-     public static final String ERROR_DOCUMENT_COST_CATEGORY_OBJECT_CODE_NOT_UNIQUE = "error.document.cost.category.object.code.not.unique";
-     public static final String ERROR_DOCUMENT_COST_CATEGORY_OBJECT_LEVEL_NOT_UNIQUE = "error.document.cost.category.object.level.not.unique";
-     public static final String ERROR_DOCUMENT_COST_CATEGORY_OBJECT_CONSOLIDATION_NOT_UNIQUE= "error.document.cost.category.object.consolidation.not.unique";
+    public static final String ERROR_DOCUMENT_COST_CATEGORY_NO_DETAILS = "error.document.cost.category.no.details";
+    public static final String ERROR_DOCUMENT_COST_CATEGORY_OBJECT_CODE_NOT_UNIQUE = "error.document.cost.category.object.code.not.unique";
+    public static final String ERROR_DOCUMENT_COST_CATEGORY_OBJECT_LEVEL_NOT_UNIQUE = "error.document.cost.category.object.level.not.unique";
+    public static final String ERROR_DOCUMENT_COST_CATEGORY_OBJECT_CONSOLIDATION_NOT_UNIQUE = "error.document.cost.category.object.consolidation.not.unique";
 
-     public static final String ERROR_DOCUMENT_COLLECTION_ACTIVITY_NO_INVOICE_SELECTED = "error.document.collectionActvity.noInvoiceSelected";
+    public static final String ERROR_DOCUMENT_COLLECTION_ACTIVITY_NO_INVOICE_SELECTED = "error.document.collectionActvity.noInvoiceSelected";
 
 }

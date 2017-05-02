@@ -1,35 +1,34 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.module.purap.document;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.document.Copyable;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.PersistenceService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapConstants.RequisitionStatuses;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
@@ -64,9 +63,6 @@ import org.kuali.kfs.vnd.service.PhoneNumberService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.core.web.format.DateViewDateObjectFormatter;
-import org.kuali.rice.core.web.format.Formatter;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.action.ActionTaken;
 import org.kuali.rice.kew.api.exception.WorkflowException;
@@ -75,13 +71,15 @@ import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.rice.krad.document.Copyable;
-import org.kuali.rice.krad.exception.ValidationException;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.PersistenceService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
-import org.kuali.rice.krad.workflow.service.WorkflowDocumentService;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Document class for the Requisition.
@@ -102,7 +100,7 @@ public class RequisitionDocument extends PurchasingDocumentBase implements Copya
 
     // non-persistent property used for controlling validation for accounting lines when doc is request for blanket approve.
     protected boolean isBlanketApproveRequest = false;
-    private static final int ALLOW_REQS_UNLIMITED_COPY_DAYS=9999;
+    private static final int ALLOW_REQS_UNLIMITED_COPY_DAYS = 9999;
 
 
     /**
@@ -141,7 +139,7 @@ public class RequisitionDocument extends PurchasingDocumentBase implements Copya
 
     public List<RequisitionItem> getListOfItemsMissingAccountingLines() {
         List<RequisitionItem> itemsWithMissingAccountingLines = new ArrayList<RequisitionItem>();
-        for (Iterator iterator = getItems().iterator(); iterator.hasNext();) {
+        for (Iterator iterator = getItems().iterator(); iterator.hasNext(); ) {
             RequisitionItem item = (RequisitionItem) iterator.next();
             if (item.isConsideredEntered() && item.isAccountListEmpty()) {
                 itemsWithMissingAccountingLines.add(item);
@@ -153,43 +151,43 @@ public class RequisitionDocument extends PurchasingDocumentBase implements Copya
 
     protected boolean isSeparationOfDutiesReviewRequired() {
         try {
-                Set<Person> priorApprovers = this.getAllPriorApprovers();
+            Set<Person> priorApprovers = this.getAllPriorApprovers();
 
-                // If there are more than 1 prior approvers there is no need for SOD.
-                // If 1 approver exists, check that approver is not the initiator.
-                if (priorApprovers.size() > 0) {
-                    if (priorApprovers.size() > 1) {
-                        return false;
-                    } else {
-                        for (Person priorApprover : priorApprovers) {
-                            String initiatorPrincipalId = this.getDocumentHeader().getWorkflowDocument().getInitiatorPrincipalId();
-                            if (!initiatorPrincipalId.equals(priorApprover.getPrincipalId())) {
-                                return false;
-                            }
+            // If there are more than 1 prior approvers there is no need for SOD.
+            // If 1 approver exists, check that approver is not the initiator.
+            if (priorApprovers.size() > 0) {
+                if (priorApprovers.size() > 1) {
+                    return false;
+                } else {
+                    for (Person priorApprover : priorApprovers) {
+                        String initiatorPrincipalId = this.getDocumentHeader().getWorkflowDocument().getInitiatorPrincipalId();
+                        if (!initiatorPrincipalId.equals(priorApprover.getPrincipalId())) {
+                            return false;
                         }
                     }
                 }
-
-                // If there was no prior approver or if the initiator and the approver are the same person,
-                // then we have to check the amounts to determine whether to route to separation of duties.
-                ParameterService parameterService = SpringContext.getBean(ParameterService.class);
-                KualiDecimal maxAllowedAmount = new KualiDecimal(parameterService.getParameterValueAsString(RequisitionDocument.class, PurapParameterConstants.SEPARATION_OF_DUTIES_DOLLAR_AMOUNT));
-                // if app param amount is greater than or equal to documentTotalAmount... no need for separation of duties
-                KualiDecimal totalAmount = getFinancialSystemDocumentHeader().getFinancialDocumentTotalAmount();
-                if (ObjectUtils.isNotNull(maxAllowedAmount) && ObjectUtils.isNotNull(totalAmount) && (maxAllowedAmount.compareTo(totalAmount) >= 0)) {
-                    return false;
-                } else {
-                    return true;
-                }
-            } catch (WorkflowException we) {
-                LOG.error("Exception while attempting to retrieve all prior approvers from workflow: ", we);
             }
-            return false;
+
+            // If there was no prior approver or if the initiator and the approver are the same person,
+            // then we have to check the amounts to determine whether to route to separation of duties.
+            ParameterService parameterService = SpringContext.getBean(ParameterService.class);
+            KualiDecimal maxAllowedAmount = new KualiDecimal(parameterService.getParameterValueAsString(RequisitionDocument.class, PurapParameterConstants.SEPARATION_OF_DUTIES_DOLLAR_AMOUNT));
+            // if app param amount is greater than or equal to documentTotalAmount... no need for separation of duties
+            KualiDecimal totalAmount = getFinancialSystemDocumentHeader().getFinancialDocumentTotalAmount();
+            if (ObjectUtils.isNotNull(maxAllowedAmount) && ObjectUtils.isNotNull(totalAmount) && (maxAllowedAmount.compareTo(totalAmount) >= 0)) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (WorkflowException we) {
+            LOG.error("Exception while attempting to retrieve all prior approvers from workflow: ", we);
+        }
+        return false;
     }
 
     public Set<Person> getAllPriorApprovers() throws WorkflowException {
         PersonService personService = KimApiServiceLocator.getPersonService();
-         List<ActionTaken> actionsTaken = this.getFinancialSystemDocumentHeader().getWorkflowDocument().getActionsTaken();
+        List<ActionTaken> actionsTaken = this.getFinancialSystemDocumentHeader().getWorkflowDocument().getActionsTaken();
         Set<String> principalIds = new HashSet<String>();
         Set<Person> persons = new HashSet<Person>();
 
@@ -213,12 +211,11 @@ public class RequisitionDocument extends PurchasingDocumentBase implements Copya
      */
     @Override
     public boolean isInquiryRendered() {
-        if ( isPostingYearPrior() &&
-             ( getApplicationDocumentStatus().equals(PurapConstants.RequisitionStatuses.APPDOC_CLOSED) ||
-                     getApplicationDocumentStatus().equals(PurapConstants.RequisitionStatuses.APPDOC_CANCELLED) ) )  {
-               return false;
-        }
-        else {
+        if (isPostingYearPrior() &&
+            (getApplicationDocumentStatus().equals(PurapConstants.RequisitionStatuses.APPDOC_CLOSED) ||
+                getApplicationDocumentStatus().equals(PurapConstants.RequisitionStatuses.APPDOC_CANCELLED))) {
+            return false;
+        } else {
             return true;
         }
     }
@@ -257,8 +254,7 @@ public class RequisitionDocument extends PurchasingDocumentBase implements Copya
                 this.setDeliveryCampusCode(defaultPrincipalAddress.getCampusCode());
                 this.templateBuildingToDeliveryAddress(defaultPrincipalAddress.getBuilding());
                 this.setDeliveryBuildingRoomNumber(defaultPrincipalAddress.getBuildingRoomNumber());
-            }
-            else {
+            } else {
                 //since building is now inactive, delete default building record
                 SpringContext.getBean(BusinessObjectService.class).delete(defaultPrincipalAddress);
             }
@@ -315,19 +311,19 @@ public class RequisitionDocument extends PurchasingDocumentBase implements Copya
     @Override
     public boolean getAllowsCopy() {
         boolean allowsCopy = super.getAllowsCopy();
-        Integer allowedCopyDays=getRequisitionSource().getAllowCopyDays();
+        Integer allowedCopyDays = getRequisitionSource().getAllowCopyDays();
 
-         if(allowedCopyDays.intValue()==0){
+        if (allowedCopyDays.intValue() == 0) {
             return false;
-         }else if(allowedCopyDays.intValue() >= ALLOW_REQS_UNLIMITED_COPY_DAYS){
+        } else if (allowedCopyDays.intValue() >= ALLOW_REQS_UNLIMITED_COPY_DAYS) {
             return true;
-         }else if(allowedCopyDays.intValue() > 0){
+        } else if (allowedCopyDays.intValue() > 0) {
             DateTimeService dateTimeService = SpringContext.getBean(DateTimeService.class);
             Calendar c = Calendar.getInstance();
             // The allowed copy date is the document creation date plus a set number of days.
             DateTime createDate = this.getFinancialSystemDocumentHeader().getWorkflowDocument().getDateCreated();
             c.setTime(createDate.toDate());
-            c.add(Calendar.DATE,(allowedCopyDays.intValue()));
+            c.add(Calendar.DATE, (allowedCopyDays.intValue()));
             Date allowedCopyDate = c.getTime();
             Date currentDate = dateTimeService.getCurrentDate();
             // Return true if the current time is before the allowed copy date.
@@ -360,8 +356,8 @@ public class RequisitionDocument extends PurchasingDocumentBase implements Copya
 
         // Set fields from the user.
         if (ObjectUtils.isNotNull(purapChartOrg)) {
-        this.setChartOfAccountsCode(purapChartOrg.getChartOfAccountsCode());
-        this.setOrganizationCode(purapChartOrg.getOrganizationCode());
+            this.setChartOfAccountsCode(purapChartOrg.getChartOfAccountsCode());
+            this.setOrganizationCode(purapChartOrg.getOrganizationCode());
         }
         this.setPostingYear(SpringContext.getBean(UniversityDateService.class).getCurrentFiscalYear());
 
@@ -402,12 +398,12 @@ public class RequisitionDocument extends PurchasingDocumentBase implements Copya
         this.setOrganizationAutomaticPurchaseOrderLimit(null);
         this.setPurchaseOrderAutomaticIndicator(false);
 
-        for (Iterator iter = this.getItems().iterator(); iter.hasNext();) {
+        for (Iterator iter = this.getItems().iterator(); iter.hasNext(); ) {
             RequisitionItem item = (RequisitionItem) iter.next();
             item.setPurapDocumentIdentifier(null);
             item.setItemIdentifier(null);
 
-            for (Iterator acctIter = item.getSourceAccountingLines().iterator(); acctIter.hasNext();) {
+            for (Iterator acctIter = item.getSourceAccountingLines().iterator(); acctIter.hasNext(); ) {
                 RequisitionAccount account = (RequisitionAccount) acctIter.next();
                 account.setAccountIdentifier(null);
                 account.setItemIdentifier(null);
@@ -456,30 +452,33 @@ public class RequisitionDocument extends PurchasingDocumentBase implements Copya
                     SpringContext.getBean(PurchaseOrderService.class).createAutomaticPurchaseOrderDocument(this);
                 }
                 // for app doc status
-                String reqStatus = PurapConstants.RequisitionStatuses.getRequistionAppDocStatuses().get(newRequisitionStatus);
+                String reqStatus = getRequisitionAppDocStatus(newRequisitionStatus);
                 updateAndSaveAppDocStatus(reqStatus);
             }
             // DOCUMENT DISAPPROVED
             else if (this.getFinancialSystemDocumentHeader().getWorkflowDocument().isDisapproved()) {
                 String nodeName = SpringContext.getBean(WorkflowDocumentService.class).getCurrentRouteLevelName(this.getFinancialSystemDocumentHeader().getWorkflowDocument());
-                String disapprovalStatus = RequisitionStatuses.getRequistionAppDocStatuses().get(nodeName);
+                String disapprovalStatus = getRequisitionAppDocStatus(nodeName);
 
                 if (StringUtils.isNotBlank(disapprovalStatus)) {
                     updateAndSaveAppDocStatus(disapprovalStatus);
-                }else{
+                } else {
                     logAndThrowRuntimeException("No status found to set for document being disapproved in node '" + nodeName + "'");
                 }
             }
             // DOCUMENT CANCELED
             else if (this.getFinancialSystemDocumentHeader().getWorkflowDocument().isCanceled()) {
-                String reqStatus = RequisitionStatuses.getRequistionAppDocStatuses().get(RequisitionStatuses.APPDOC_CANCELLED);
+                String reqStatus = getRequisitionAppDocStatus(RequisitionStatuses.APPDOC_CANCELLED);
                 updateAndSaveAppDocStatus(reqStatus);
             }
-        }
-        catch (WorkflowException e) {
+        } catch (WorkflowException e) {
             logAndThrowRuntimeException("Error saving routing data while saving document with id " + getDocumentNumber(), e);
         }
         LOG.debug("doRouteStatusChange() ending");
+    }
+
+    protected String getRequisitionAppDocStatus(String nodeName) {
+        return RequisitionStatuses.getRequistionAppDocStatuses().get(nodeName);
     }
 
     /**
@@ -523,7 +522,7 @@ public class RequisitionDocument extends PurchasingDocumentBase implements Copya
      */
     @Override
     public Class getSourceAccountingLineClass() {
-      //NOTE: do not do anything with this method as it is used by routing etc!
+        //NOTE: do not do anything with this method as it is used by routing etc!
         return super.getSourceAccountingLineClass();
     }
 
@@ -646,8 +645,7 @@ public class RequisitionDocument extends PurchasingDocumentBase implements Copya
             String chartAcct = this.getFirstChartAccount();
             String chartAcctStr = (chartAcct == null ? "" : " - Account Number:  " + chartAcct);
             title = docIdStr + chartAcctStr;
-        }
-        else {
+        } else {
             title = super.getDocumentTitle();
         }
         return title;
@@ -663,9 +661,9 @@ public class RequisitionDocument extends PurchasingDocumentBase implements Copya
         RequisitionItem item = (RequisitionItem) this.getItem(0);
         if (ObjectUtils.isNotNull(item)) {
             if (item.getSourceAccountingLines().size() > 0) {
-            PurApAccountingLine accountLine = item.getSourceAccountingLine(0);
-            if (ObjectUtils.isNotNull(accountLine) && ObjectUtils.isNotNull(accountLine.getChartOfAccountsCode()) && ObjectUtils.isNotNull(accountLine.getAccountNumber())) {
-                chartAcct = accountLine.getChartOfAccountsCode() + "-" + accountLine.getAccountNumber();
+                PurApAccountingLine accountLine = item.getSourceAccountingLine(0);
+                if (ObjectUtils.isNotNull(accountLine) && ObjectUtils.isNotNull(accountLine.getChartOfAccountsCode()) && ObjectUtils.isNotNull(accountLine.getAccountNumber())) {
+                    chartAcct = accountLine.getChartOfAccountsCode() + "-" + accountLine.getAccountNumber();
                 }
             }
         }
@@ -682,6 +680,7 @@ public class RequisitionDocument extends PurchasingDocumentBase implements Copya
 
     /**
      * This is a "do nothing" version of the method - it just won't create GLPEs
+     *
      * @see org.kuali.kfs.sys.document.AccountingDocumentBase#generateGeneralLedgerPendingEntries(org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail, org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper)
      */
     @Override
@@ -705,19 +704,19 @@ public class RequisitionDocument extends PurchasingDocumentBase implements Copya
         //for app doc status
         //remove   isDocumentStoppedInRouteNode(NodeDetailEnum.CONTENT_REVIEW) kfsmi - 4592
         if (isDocumentStoppedInRouteNode(RequisitionStatuses.NODE_CONTENT_REVIEW) ||
-                getApplicationDocumentStatus().equals(PurapConstants.RequisitionStatuses.APPDOC_IN_PROCESS)) {
+            getApplicationDocumentStatus().equals(PurapConstants.RequisitionStatuses.APPDOC_IN_PROCESS)) {
             return false;
         }
         return true;
     }
 
     public Date getCreateDateForResult() {
-        Formatter formatter = new DateViewDateObjectFormatter();
-        return (Date)formatter.format(this.getFinancialSystemDocumentHeader().getWorkflowDocument().getDateCreated().toDate());
+        return getCreateDate();
     }
 
     /**
      * Gets the isBlanketApproveRequest attribute.
+     *
      * @return Returns the isBlanketApproveRequest.
      */
     public boolean isBlanketApproveRequest() {
@@ -726,6 +725,7 @@ public class RequisitionDocument extends PurchasingDocumentBase implements Copya
 
     /**
      * Sets the isBlanketApproveRequest attribute value.
+     *
      * @param isBlanketApproveRequest The isBlanketApproveRequest to set.
      */
     public void setBlanketApproveRequest(boolean isBlanketApproveRequest) {
@@ -743,17 +743,14 @@ public class RequisitionDocument extends PurchasingDocumentBase implements Copya
 
         if (PurapConstants.AccountDistributionMethodCodes.PROPORTIONAL_CODE.equalsIgnoreCase(defaultDistributionMethod) || PurapConstants.AccountDistributionMethodCodes.SEQUENTIAL_CODE.equalsIgnoreCase(defaultDistributionMethod)) {
             defaultDistributionMethodCode = defaultDistributionMethod;
-        }
-        else {
+        } else {
             if (PurapConstants.AccountDistributionMethodCodes.BOTH_WITH_DEFAULT_PROPORTIONAL_CODE.equalsIgnoreCase(defaultDistributionMethod)) {
                 defaultDistributionMethodCode = PurapConstants.AccountDistributionMethodCodes.PROPORTIONAL_CODE;
-            }
-            else if (PurapConstants.AccountDistributionMethodCodes.BOTH_WITH_DEFAULT_SEQUENTIAL_CODE.equalsIgnoreCase(defaultDistributionMethod)){
+            } else if (PurapConstants.AccountDistributionMethodCodes.BOTH_WITH_DEFAULT_SEQUENTIAL_CODE.equalsIgnoreCase(defaultDistributionMethod)) {
                 defaultDistributionMethodCode = PurapConstants.AccountDistributionMethodCodes.SEQUENTIAL_CODE;
-                }
-                else {
-                    new RuntimeException("Error in reading system parameter values for DISTRIBUTION_METHOD_FOR_ACCOUNTING_LINES");
-                }
+            } else {
+                new RuntimeException("Error in reading system parameter values for DISTRIBUTION_METHOD_FOR_ACCOUNTING_LINES");
+            }
         }
         setAccountDistributionMethod(defaultDistributionMethodCode);
     }

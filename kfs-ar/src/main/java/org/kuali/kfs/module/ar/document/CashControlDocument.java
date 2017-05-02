@@ -1,33 +1,32 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.document;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.service.EntryService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.AccountsReceivableDocumentHeader;
 import org.kuali.kfs.module.ar.businessobject.CashControlDetail;
@@ -54,22 +53,21 @@ import org.kuali.kfs.sys.service.ElectronicPaymentClaimingService;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.DocumentService;
 
-/**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
- */
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+
 public class CashControlDocument extends GeneralLedgerPostingDocumentBase implements AmountTotaling, GeneralLedgerPendingEntrySource, ElectronicPaymentClaiming, GeneralLedgerPostingDocument {
     protected static final String NODE_ASSOCIATED_WITH_ELECTRONIC_PAYMENT = "AssociatedWithElectronicPayment";
     protected static Logger LOG = org.apache.log4j.Logger.getLogger(CashControlDocument.class);
 
     protected String referenceFinancialDocumentNumber;
-    protected Long proposalNumber;// When LOC Type = Award
+    protected String proposalNumber;// When LOC Type = Award
     protected Integer universityFiscalYear;
     protected String universityFiscalPeriodCode;
     protected String customerPaymentMediumCode;
@@ -107,13 +105,12 @@ public class CashControlDocument extends GeneralLedgerPostingDocumentBase implem
         // retrieve value from param table and set to default
         try {
             DataDictionaryService ddService = SpringContext.getBean(DataDictionaryService.class);
-            org.kuali.rice.krad.datadictionary.DocumentEntry docEntry = ddService.getDataDictionary().getDocumentEntry(ddService.getValidDocumentClassByTypeName(KFSConstants.FinancialDocumentTypeCodes.CASH_CONTROL).getCanonicalName());
+            org.kuali.kfs.krad.datadictionary.DocumentEntry docEntry = ddService.getDataDictionary().getDocumentEntry(ddService.getValidDocumentClassByTypeName(KFSConstants.FinancialDocumentTypeCodes.CASH_CONTROL).getCanonicalName());
             String documentTypeCode = docEntry.getDocumentTypeName();
             if (SpringContext.getBean(BankService.class).isBankSpecificationEnabled()) {
                 bankCode = SpringContext.getBean(ParameterService.class).getSubParameterValueAsString(Bank.class, KFSParameterKeyConstants.DEFAULT_BANK_BY_DOCUMENT_TYPE, documentTypeCode);
             }
-        }
-        catch (Exception x) {
+        } catch (Exception x) {
             LOG.error("Problem occurred setting default bank code for cash control document", x);
         }
     }
@@ -400,7 +397,7 @@ public class CashControlDocument extends GeneralLedgerPostingDocumentBase implem
 
     /**
      * @see org.kuali.kfs.sys.document.GeneralLedgerPendingEntrySource#customizeExplicitGeneralLedgerPendingEntry(org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail,
-     *      org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry)
+     * org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry)
      */
     public void customizeExplicitGeneralLedgerPendingEntry(GeneralLedgerPendingEntrySourceDetail postable, GeneralLedgerPendingEntry explicitEntry) {
         if (explicitEntry.getFinancialDocumentTypeCode().equalsIgnoreCase(KFSConstants.FinancialDocumentTypeCodes.GENERAL_ERROR_CORRECTION)) {
@@ -420,7 +417,7 @@ public class CashControlDocument extends GeneralLedgerPostingDocumentBase implem
      * Builds an appropriately formatted string to be used for the <code>transactionLedgerEntryDescription</code>. It is built using
      * information from the <code>{@link AccountingLine}</code>. Format is "01-12345: blah blah blah".
      *
-     * @param line accounting line
+     * @param line                  accounting line
      * @param transactionalDocument submitted accounting document
      * @return String formatted string to be used for transaction ledger entry description
      */
@@ -430,8 +427,7 @@ public class CashControlDocument extends GeneralLedgerPostingDocumentBase implem
 
         if (StringUtils.isNotBlank(line.getFinancialDocumentLineDescription())) {
             description += ": " + line.getFinancialDocumentLineDescription();
-        }
-        else {
+        } else {
             description += ": " + getDocumentHeader().getDocumentDescription();
         }
 
@@ -457,11 +453,9 @@ public class CashControlDocument extends GeneralLedgerPostingDocumentBase implem
         if (this.getCustomerPaymentMediumCode().equalsIgnoreCase(ArConstants.PaymentMediumCode.CHECK)) {
             success &= cashControlDocumentService.createCashReceiptGLPEs(this, sequenceHelper);
             success &= cashControlDocumentService.createBankOffsetGLPEs(this, sequenceHelper);
-        }
-        else if (this.getCustomerPaymentMediumCode().equalsIgnoreCase(ArConstants.PaymentMediumCode.WIRE_TRANSFER) ) {
+        } else if (this.getCustomerPaymentMediumCode().equalsIgnoreCase(ArConstants.PaymentMediumCode.WIRE_TRANSFER)) {
             success &= cashControlDocumentService.createDistributionOfIncomeAndExpenseGLPEs(this, sequenceHelper);
-        }
-        else if (this.getCustomerPaymentMediumCode().equalsIgnoreCase(ArConstants.PaymentMediumCode.CREDIT_CARD)) {
+        } else if (this.getCustomerPaymentMediumCode().equalsIgnoreCase(ArConstants.PaymentMediumCode.CREDIT_CARD)) {
             success &= cashControlDocumentService.createGeneralErrorCorrectionGLPEs(this, sequenceHelper);
         }
 
@@ -489,7 +483,7 @@ public class CashControlDocument extends GeneralLedgerPostingDocumentBase implem
      * The Cash Control document doesn't generate general ledger pending entries based off of the accounting lines on the document
      *
      * @see org.kuali.kfs.sys.document.GeneralLedgerPendingEntrySource#generateGeneralLedgerPendingEntries(org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail,
-     *      org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper)
+     * org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper)
      */
     @Override
     public boolean generateGeneralLedgerPendingEntries(GeneralLedgerPendingEntrySourceDetail glpeSourceDetail, GeneralLedgerPendingEntrySequenceHelper sequenceHelper) {
@@ -616,9 +610,8 @@ public class CashControlDocument extends GeneralLedgerPostingDocumentBase implem
         Document document = null;
         try {
             document = documentService.getByDocumentHeaderId(getReferenceFinancialDocumentNumber());
-        }
-        catch (WorkflowException we) {
-            LOG.warn( "Unable to retreive reference financial document: " + getReferenceFinancialDocumentNumber(), we);
+        } catch (WorkflowException we) {
+            LOG.warn("Unable to retreive reference financial document: " + getReferenceFinancialDocumentNumber(), we);
         }
         return document;
     }
@@ -652,8 +645,7 @@ public class CashControlDocument extends GeneralLedgerPostingDocumentBase implem
         if (NODE_ASSOCIATED_WITH_ELECTRONIC_PAYMENT.equals(nodeName)) {
             if (ArConstants.PaymentMediumCode.WIRE_TRANSFER.equals(getCustomerPaymentMediumCode())) {
                 return true;
-            }
-            else {
+            } else {
                 return false;
             }
         }
@@ -700,9 +692,7 @@ public class CashControlDocument extends GeneralLedgerPostingDocumentBase implem
         this.bank = bank;
     }
 
-    /**
-     *
-     */
+
     public void recalculateTotals() {
         KualiDecimal total = KualiDecimal.ZERO;
         for (CashControlDetail cashControlDetail : getCashControlDetails()) {
@@ -727,9 +717,7 @@ public class CashControlDocument extends GeneralLedgerPostingDocumentBase implem
         recalculateTotals();
     }
 
-    /**
-     *
-     */
+
     protected void deleteCashControlDetailsFromDB() {
         BusinessObjectService boService = SpringContext.getBean(BusinessObjectService.class);
         Map<String, String> pkMap = new HashMap<String, String>();
@@ -759,7 +747,7 @@ public class CashControlDocument extends GeneralLedgerPostingDocumentBase implem
      *
      * @return Returns the proposalNumber.
      */
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -768,7 +756,7 @@ public class CashControlDocument extends GeneralLedgerPostingDocumentBase implem
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="kfs" id="2836" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_BENEFITS_CALC_TC0" tableName="LD_BENEFITS_CALC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2837" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_BENEFITS_TYPE_TC0" tableName="LD_BENEFITS_TYPE_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2838" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_CSF_TRACKER_TC0" tableName="LD_CSF_TRACKER_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2839" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_ERROR_CERT_TC0" tableName="LD_ERROR_CERT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2840" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_EXP_TRNFR_DOC_TC0" tableName="LD_EXP_TRNFR_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2841" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_EXP_TRNFR_FRM_TC0" tableName="LD_EXP_TRNFR_FRM_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2842" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_EXP_TRNFR_TO_TC0" tableName="LD_EXP_TRNFR_TO_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2843" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_JRNL_VCHR_DOC_TC0" tableName="LD_JRNL_VCHR_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2844" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_JRNL_VCHR_DTL_TC0" tableName="LD_JRNL_VCHR_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2845" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_JULY1_POS_FND_TC0" tableName="LD_JULY1_POS_FND_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2846" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_LABOR_OBJ_TC0" tableName="LD_LABOR_OBJ_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2847" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_LBR_BFT_RT_CAT_TC0" tableName="LD_LBR_BFT_RT_CAT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2848" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_LBR_GL_ENTRY_TC0" tableName="LD_LBR_GL_ENTRY_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2849" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_LBR_OBJ_BENE_TC0" tableName="LD_LBR_OBJ_BENE_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2850" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_LDGR_BAL_TC0" tableName="LD_LDGR_BAL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2851" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_LDGR_ENTR_TC0" tableName="LD_LDGR_ENTR_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2852" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_PND_LDGR_ENTR_TC0" tableName="LD_PND_LDGR_ENTR_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2853" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_POS_OBJ_GRP_TC0" tableName="LD_POS_OBJ_GRP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2854" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="PS_POSITION_DATAC0" tableName="PS_POSITION_DATA"/>
+    </changeSet>
+</databaseChangeLog>

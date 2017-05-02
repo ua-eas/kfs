@@ -1,0 +1,3 @@
+HEADER[~&~	~&~PO_QT_LST_ID::DECIMAL~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~PO_QT_LST_NM::VARCHAR~&~	~&~CONTR_MGR_CD::DECIMAL~&~	~&~ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'1002'~&~	~&~'EAB77861-54EC-051D-1E3E-3DA166439DEE'~&~	~&~'1'~&~	~&~'Electrical Supplies'~&~	~&~'60'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'1003'~&~	~&~'636024D36C838EC6E0404F8189D80405'~&~	~&~'1'~&~	~&~'Computer Supplies'~&~	~&~'63'~&~	~&~'Y'~&~	~&~]RECORD

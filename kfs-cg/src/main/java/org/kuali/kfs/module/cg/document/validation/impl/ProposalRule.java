@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -20,15 +20,15 @@ package org.kuali.kfs.module.cg.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.cg.businessobject.Proposal;
 import org.kuali.kfs.module.cg.businessobject.ProposalOrganization;
 import org.kuali.kfs.module.cg.businessobject.ProposalProjectDirector;
 import org.kuali.kfs.module.cg.businessobject.ProposalSubcontractor;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.util.GlobalVariables;
 
 /**
  * Rules for the Proposal maintenance document.
@@ -82,7 +82,7 @@ public class ProposalRule extends CGMaintenanceDocumentRuleBase {
      * This method takes a look at the new line being added and applies appropriate validation checks if the line is a new line for
      * the {@link Subcontractor} collection. If the validation checks fail, an appropriate error message will be added to the global
      * error map and the method will return a value of false.
-     * 
+     *
      * @param addLine New business object values being added.
      * @return True is the value being added passed all applicable validation rules.
      */
@@ -104,7 +104,7 @@ public class ProposalRule extends CGMaintenanceDocumentRuleBase {
      * Performs convenience cast for Maintenance framework. Note that the {@link MaintenanceDocumentRule} events provide only a deep
      * copy of the document (from KualiDocumentEventBase), so these BOs are a copy too. The framework does this to prevent these
      * rules from changing any data.
-     * 
+     *
      * @see org.kuali.rice.kns.rules.MaintenanceDocumentRule#setupConvenienceObjects()
      */
     @Override
@@ -112,6 +112,6 @@ public class ProposalRule extends CGMaintenanceDocumentRuleBase {
         // oldProposalCopy = (Proposal) super.getOldBo();
         newProposalCopy = (Proposal) super.getNewBo();
     }
-    
-    
+
+
 }

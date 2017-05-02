@@ -1,36 +1,29 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.pdp.service.impl;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.mail.MessagingException;
-
 import org.apache.commons.lang.StringUtils;
+import org.apache.velocity.tools.generic.NumberTool;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.pdp.PdpConstants;
 import org.kuali.kfs.pdp.PdpKeyConstants;
 import org.kuali.kfs.pdp.PdpParameterConstants;
@@ -51,6 +44,7 @@ import org.kuali.kfs.pdp.businessobject.PaymentGroup;
 import org.kuali.kfs.pdp.businessobject.PaymentGroupHistory;
 import org.kuali.kfs.pdp.businessobject.PaymentProcess;
 import org.kuali.kfs.pdp.businessobject.PaymentStatus;
+import org.kuali.kfs.pdp.businessobject.ProcessSummary;
 import org.kuali.kfs.pdp.dataaccess.FormatPaymentDao;
 import org.kuali.kfs.pdp.dataaccess.PaymentDetailDao;
 import org.kuali.kfs.pdp.dataaccess.PaymentGroupDao;
@@ -65,21 +59,31 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.batch.service.SchedulerService;
 import org.kuali.kfs.sys.businessobject.Bank;
-import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.mail.BodyMailMessage;
+import org.kuali.kfs.sys.mail.VelocityMailMessage;
+import org.kuali.kfs.sys.service.EmailService;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.kfs.sys.util.GlobalVariablesUtils;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.core.api.mail.MailMessage;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.kuali.rice.core.web.format.DateFormatter;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.rice.krad.exception.InvalidAddressException;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.MailService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Timestamp;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 @Transactional
 public class FormatServiceImpl implements FormatService {
@@ -98,21 +102,23 @@ public class FormatServiceImpl implements FormatService {
     protected DateTimeService dateTimeService;
     protected ExtractPaymentService extractPaymentService;
     protected PersonService personService;
+    protected ConfigurationService kualiConfigurationService;
+    protected EmailService emailService;
+    protected String emailTemplateUrl;
 
-    /**
-     * Constructs a FormatServiceImpl.java.
-     */
     public FormatServiceImpl() {
         super();
     }
 
-    /**
-     * @see org.kuali.kfs.pdp.service.FormatProcessService#getDataForFormat(org.kuali.rice.kim.bo.Person)
-     */
     @Override
     public FormatSelection getDataForFormat(Person user) {
-
         String campusCode = user.getCampusCode();
+
+        return getDataForFormat(campusCode);
+    }
+
+    @Override
+    public FormatSelection getDataForFormat(String campusCode) {
         Date formatStartDate = getFormatProcessStartDate(campusCode);
 
         // create new FormatSelection object an set the campus code and the start date
@@ -129,9 +135,6 @@ public class FormatServiceImpl implements FormatService {
         return formatSelection;
     }
 
-    /**
-     * @see org.kuali.kfs.pdp.service.FormatService#getFormatProcessStartDate(java.lang.String)
-     */
     @Override
     @SuppressWarnings("rawtypes")
     public Date getFormatProcessStartDate(String campus) {
@@ -144,25 +147,18 @@ public class FormatServiceImpl implements FormatService {
         if (formatProcess != null) {
             LOG.debug("getFormatProcessStartDate() found");
             return new Date(formatProcess.getBeginFormat().getTime());
-        }
-        else {
+        } else {
             LOG.debug("getFormatProcessStartDate() not found");
             return null;
         }
     }
 
-    /**
-     * @see org.kuali.kfs.pdp.service.FormatService#startFormatProcess(org.kuali.rice.kim.bo.Person, java.lang.String,
-     *      java.util.List, java.util.Date, java.lang.String)
-     */
     @Override
     public FormatProcessSummary startFormatProcess(Person user, String campus, List<CustomerProfile> customers, Date paydate, String paymentTypes) {
         LOG.debug("startFormatProcess() started");
 
         for (CustomerProfile element : customers) {
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("startFormatProcess() Customer: " + element);
-            }
+            LOG.debug("startFormatProcess() Customer: " + element);
         }
 
         // Create the process
@@ -195,15 +191,14 @@ public class FormatServiceImpl implements FormatService {
         c.set(Calendar.AM_PM, Calendar.PM);
         Timestamp paydateTs = new Timestamp(c.getTime().getTime());
 
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("startFormatProcess() last update = " + now);
-            LOG.debug("startFormatProcess() entered paydate = " + paydate);
-            LOG.debug("startFormatProcess() actual paydate = " + paydateTs);
-        }
+        LOG.debug("startFormatProcess() last update = " + now);
+        LOG.debug("startFormatProcess() entered paydate = " + paydate);
+        LOG.debug("startFormatProcess() actual paydate = " + paydateTs);
+
         PaymentStatus format = this.businessObjectService.findBySinglePrimaryKey(PaymentStatus.class, PdpConstants.PaymentStatusCodes.FORMAT);
 
         List customerIds = new ArrayList();
-        for (Iterator iter = customers.iterator(); iter.hasNext();) {
+        for (Iterator iter = customers.iterator(); iter.hasNext(); ) {
             CustomerProfile element = (CustomerProfile) iter.next();
             customerIds.add(element.getId());
         }
@@ -253,9 +248,6 @@ public class FormatServiceImpl implements FormatService {
         return Integer.parseInt(maxLines);
     }
 
-    /**
-     * @see org.kuali.kfs.pdp.service.FormatService#performFormat(java.lang.Integer)
-     */
     @Override
     public void performFormat(Integer processId) throws FormatException {
         LOG.debug("performFormat() started");
@@ -300,7 +292,6 @@ public class FormatServiceImpl implements FormatService {
         // step 2 assign disbursement numbers and combine checks into one if possible
         boolean disbursementNumbersAssigned = assignDisbursementNumbersAndCombineChecks(paymentProcess, postFormatProcessSummary);
         if (!disbursementNumbersAssigned) {
-            LOG.info("Sending failure email to " + user.getEmailAddress());
             sendFailureEmail(user.getEmailAddress(), processId);
             throw new FormatException("Error encountered during format");
         }
@@ -321,9 +312,104 @@ public class FormatServiceImpl implements FormatService {
         LOG.debug("performFormat() Start extract");
         extractChecks();
 
-        LOG.info("Sending email to " + user.getEmailAddress());
-        sendEmail(user.getEmailAddress(), processId);
+        LOG.info("Send summary email for processId: " + processId);
+        sendSummaryEmail(postFormatProcessSummary);
 
+    }
+
+    /**
+     * Send format summary in email
+     *
+     * @param postFormatProcessSummary
+     */
+    protected void sendSummaryEmail(FormatProcessSummary postFormatProcessSummary) {
+        HashMap<CustomerProfile, List<KualiDecimal>> achSummaryMap = new HashMap<>();
+        HashMap<CustomerProfile, List<KualiDecimal>> checkSummaryMap = new HashMap<>();
+
+        KualiInteger formatTotalCount = KualiInteger.ZERO;
+        KualiDecimal formatTotalAmount = KualiDecimal.ZERO;
+        for (ProcessSummary procSum : postFormatProcessSummary.getProcessSummaryList()) {
+            if (PdpConstants.DisbursementTypeCodes.ACH.equals(procSum.getDisbursementType().getCode())) {
+                addSummaryToCustomerProfileMap(achSummaryMap, procSum);
+            } else if (PdpConstants.DisbursementTypeCodes.CHECK.equals(procSum.getDisbursementType().getCode())) {
+                addSummaryToCustomerProfileMap(checkSummaryMap, procSum);
+            }
+
+            formatTotalCount = formatTotalCount.add(procSum.getProcessTotalCount());
+            formatTotalAmount = formatTotalAmount.add(procSum.getProcessTotalAmount());
+        }
+
+        final Map<String, Object> templateVariables = new HashMap<>();
+
+        DateFormatter dateFormatter = new DateFormatter();
+        templateVariables.put(KFSConstants.ProcurementCardEmailVariableTemplate.DOC_CREATE_DATE, dateFormatter.formatForPresentation(new Date()));
+
+        // set email subject message
+        String processId = postFormatProcessSummary.getProcessId().toString();
+
+        String emailSubject = MessageFormat.format(kualiConfigurationService.getPropertyValueAsString(PdpKeyConstants.Format.MESSAGE_PDP_FORMAT_BATCH_EMAIL_SUBJECT), new Object[]{processId});
+
+        templateVariables.put("emailSubject", emailSubject);
+        templateVariables.put("achSummaryMap", achSummaryMap);
+        templateVariables.put("checkSummaryMap", checkSummaryMap);
+        templateVariables.put("formatTotalCount", formatTotalCount);
+        templateVariables.put("formatTotalAmount", formatTotalAmount);
+        templateVariables.put("numberTool", new NumberTool());
+
+        VelocityMailMessage mailMessage = new VelocityMailMessage();
+        mailMessage.setSubject(emailSubject);
+        mailMessage.setTemplateUrl(emailTemplateUrl);
+        mailMessage.setTemplateVariables(templateVariables);
+        getSummaryEmailReceivers().stream().forEach(r -> mailMessage.addToAddress(r));
+        if ( mailMessage.getToAddresses().size() == 0 ) {
+            mailMessage.addToAddress(emailService.getDefaultToAddress());
+        }
+        mailMessage.setFromAddress(emailService.getDefaultFromAddress());
+
+        emailService.sendMessage(mailMessage,true);
+    }
+
+    protected Collection<String> getSummaryEmailReceivers() {
+        return parameterService.getParameterValuesAsString(KFSConstants.CoreModuleNamespaces.PDP, PdpConstants.FormatCheckACHParameters.PDP_FORMAT_CHECK_ACH_STEP, PdpConstants.FormatCheckACHParameters.FORMAT_SUMMARY_TO_EMAIL_ADDRESSES);
+    }
+
+    /**
+     * Add summary totals to customer profiles map
+     *
+     * @param summaryByCustomerProfile
+     * @param procSum
+     * @return
+     */
+    protected void addSummaryToCustomerProfileMap(Map<CustomerProfile, List<KualiDecimal>> summaryByCustomerProfile, ProcessSummary procSum) {
+        // Gate Keeper 1
+        if (ObjectUtils.isNull(summaryByCustomerProfile))
+            summaryByCustomerProfile = new HashMap<>();
+
+        // Gate Keeper 2
+        if (ObjectUtils.isNull(procSum) || ObjectUtils.isNull(procSum.getCustomer())) return;
+
+        CustomerProfile customerProfile = procSum.getCustomer();
+
+        List<KualiDecimal> summary = new ArrayList<>();
+
+        // check if customer profile already exists in the map
+        if (summaryByCustomerProfile.containsKey(customerProfile)) {
+            summary = summaryByCustomerProfile.get(customerProfile);
+
+            KualiDecimal totCount = summary.get(0).add(procSum.getProcessTotalCount().kualiDecimalValue());
+            KualiDecimal totAmount = summary.get(1).add(procSum.getProcessTotalAmount());
+
+            summary.set(0, totCount);
+            summary.set(1, totAmount);
+
+            // if no key exists
+        } else {
+            summary.add(procSum.getProcessTotalCount().kualiDecimalValue());
+            summary.add(procSum.getProcessTotalAmount());
+        }
+
+        // add summary to customer profile
+        summaryByCustomerProfile.put(customerProfile, summary);
     }
 
     /**
@@ -375,8 +461,7 @@ public class FormatServiceImpl implements FormatService {
 
             disbursementType = businessObjectService.findBySinglePrimaryKey(DisbursementType.class, PdpConstants.DisbursementTypeCodes.CHECK);
             paymentGroup.setDisbursementType(disbursementType);
-        }
-        else {
+        } else {
             PaymentStatus paymentStatus = businessObjectService.findBySinglePrimaryKey(PaymentStatus.class, PdpConstants.PaymentStatusCodes.PENDING_ACH);
             paymentGroup.setPaymentStatus(paymentStatus);
 
@@ -406,9 +491,9 @@ public class FormatServiceImpl implements FormatService {
      * bank is inactive then its continuation bank is used. If not valid bank to use is found an error is added to the global
      * message map.
      *
-     * @param paymentGroup group to set bank on
+     * @param paymentGroup     group to set bank on
      * @param disbursementType type of disbursement for given payment group
-     * @param customer customer profile for payment group
+     * @param customer         customer profile for payment group
      * @return boolean true if a valid bank is set on the payment group, false otherwise
      */
     protected boolean validateAndUpdatePaymentGroupBankCode(PaymentGroup paymentGroup, DisbursementType disbursementType, CustomerProfile customer) {
@@ -420,8 +505,7 @@ public class FormatServiceImpl implements FormatService {
             if (ObjectUtils.isNotNull(customerBank) && customerBank.isActive() && ObjectUtils.isNotNull(customerBank.getBank()) && customerBank.getBank().isActive()) {
                 paymentGroup.setBankCode(customerBank.getBankCode());
                 paymentGroup.setBank(customerBank.getBank());
-            }
-            else if (ObjectUtils.isNotNull(customerBank) && ObjectUtils.isNotNull(customerBank.getBank()) && ObjectUtils.isNotNull(customerBank.getBank().getContinuationBank()) && customerBank.getBank().getContinuationBank().isActive()) {
+            } else if (ObjectUtils.isNotNull(customerBank) && ObjectUtils.isNotNull(customerBank.getBank()) && ObjectUtils.isNotNull(customerBank.getBank().getContinuationBank()) && customerBank.getBank().getContinuationBank().isActive()) {
                 paymentGroup.setBankCode(customerBank.getBank().getContinuationBank().getBankCode());
                 paymentGroup.setBank(customerBank.getBank().getContinuationBank());
             }
@@ -447,7 +531,7 @@ public class FormatServiceImpl implements FormatService {
             paymentGroupHistory.setBank(originalBank);
             paymentGroupHistory.setOrigPaymentStatus(paymentGroup.getPaymentStatus());
 
-            Person changeUser = getPersonService().getPersonByPrincipalName(KFSConstants.SYSTEM_USER);
+            Person changeUser = personService.getPersonByPrincipalName(KFSConstants.SYSTEM_USER);
             paymentGroupHistory.setChangeUser(changeUser);
             paymentGroupHistory.setPaymentGroup(paymentGroup);
             paymentGroupHistory.setChangeTime(new Timestamp(new Date().getTime()));
@@ -469,7 +553,7 @@ public class FormatServiceImpl implements FormatService {
         boolean successful = true;
 
         // keep a map with paymentGroupKey and PaymentInfo (disbursementNumber, noteLines)
-        Map<String, PaymentInfo> combinedChecksMap = new HashMap<String, PaymentInfo>();
+        Map<String, PaymentInfo> combinedChecksMap = new HashMap<>();
 
         Iterator<PaymentGroup> paymentGroupIterator = this.paymentGroupService.getByProcess(paymentProcess);
         int maxNoteLines = getMaxNoteLines();
@@ -493,11 +577,9 @@ public class FormatServiceImpl implements FormatService {
             }
 
             if (PdpConstants.DisbursementTypeCodes.CHECK.equals(paymentGroup.getDisbursementType().getCode())) {
-
                 if (paymentGroup.getPymtAttachment().booleanValue() || paymentGroup.getProcessImmediate().booleanValue() || paymentGroup.getPymtSpecialHandling().booleanValue() || (!paymentGroup.getCombineGroups())) {
                     assignDisbursementNumber(campus, range, paymentGroup, postFormatProcessSummary);
-                }
-                else {
+                } else {
                     String paymentGroupKey = paymentGroup.toStringKey();
                     // check if there was another paymentGroup we can combine with
                     if (combinedChecksMap.containsKey(paymentGroupKey)) {
@@ -542,11 +624,9 @@ public class FormatServiceImpl implements FormatService {
                         combinedChecksMap.put(paymentGroupKey, paymentInfo);
                     }
                 }
-            }
-            else if (PdpConstants.DisbursementTypeCodes.ACH.equals(paymentGroup.getDisbursementType().getCode())) {
+            } else if (PdpConstants.DisbursementTypeCodes.ACH.equals(paymentGroup.getDisbursementType().getCode())) {
                 assignDisbursementNumber(campus, range, paymentGroup, postFormatProcessSummary);
-            }
-            else {
+            } else {
                 // if it isn't check or ach, we're in trouble
                 LOG.error("assignDisbursementNumbers() Payment group " + paymentGroup.getId() + " must be CHCK or ACH.  It is: " + paymentGroup.getDisbursementType());
                 GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, "assignDisbursementNumbers() Payment group " + paymentGroup.getId() + " must be CHCK or ACH.  It is: " + paymentGroup.getDisbursementType());
@@ -604,9 +684,6 @@ public class FormatServiceImpl implements FormatService {
         extractPaymentService.extractChecks();
     }
 
-    /**
-     * @see org.kuali.kfs.pdp.service.FormatService#clearUnfinishedFormat(java.lang.Integer)
-     */
     @Override
     @SuppressWarnings("rawtypes")
     public void clearUnfinishedFormat(Integer processId) {
@@ -635,18 +712,12 @@ public class FormatServiceImpl implements FormatService {
         endFormatProcess(paymentProcess.getCampusCode());
     }
 
-    /**
-     * @see org.kuali.kfs.pdp.service.FormatService#resetFormatPayments(java.lang.Integer)
-     */
     @Override
     public void resetFormatPayments(Integer processId) {
         LOG.debug("resetFormatPayments() started");
         clearUnfinishedFormat(processId);
     }
 
-    /**
-     * @see org.kuali.kfs.pdp.service.FormatService#endFormatProcess(java.lang.String)
-     */
     @Override
     @SuppressWarnings("rawtypes")
     public void endFormatProcess(String campus) {
@@ -655,39 +726,31 @@ public class FormatServiceImpl implements FormatService {
         Map primaryKeys = new HashMap();
         primaryKeys.put(PdpPropertyConstants.PHYS_CAMPUS_PROCESS_CODE, campus);
 
-        this.businessObjectService.deleteMatching(FormatProcess.class, primaryKeys);
+        businessObjectService.deleteMatching(FormatProcess.class, primaryKeys);
     }
 
-    /**
-     * @see org.kuali.kfs.pdp.service.FormatService#getAllCustomerProfiles()
-     */
     @Override
     public List<CustomerProfile> getAllCustomerProfiles() {
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("getAllCustomerProfiles() started");
-        }
-        Map<String, Object> criteria = new HashMap<String, Object>();
+        LOG.debug("getAllCustomerProfiles() started");
+
+        Map<String, Object> criteria = new HashMap<>();
         criteria.put(KFSPropertyConstants.ACTIVE, Boolean.TRUE);
 
-        List<CustomerProfile> customerProfileList = (List<CustomerProfile>) getBusinessObjectService().findMatching(CustomerProfile.class, criteria);
+        List<CustomerProfile> customerProfileList = (List<CustomerProfile>) businessObjectService.findMatching(CustomerProfile.class, criteria);
 
         DynamicCollectionComparator.sort(customerProfileList, PdpPropertyConstants.CustomerProfile.CUSTOMER_PROFILE_CHART_CODE, PdpPropertyConstants.CustomerProfile.CUSTOMER_PROFILE_UNIT_CODE, PdpPropertyConstants.CustomerProfile.CUSTOMER_PROFILE_SUB_UNIT_CODE);
 
         return customerProfileList;
     }
 
-    /**
-     * @see org.kuali.kfs.pdp.service.FormatService#getAllDisbursementNumberRanges()
-     */
     @Override
     public List<DisbursementNumberRange> getAllDisbursementNumberRanges() {
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("getAllDisbursementNumberRanges() started");
-        }
-        Map<String, Object> criteria = new HashMap<String, Object>();
+        LOG.debug("getAllDisbursementNumberRanges() started");
+
+        Map<String, Object> criteria = new HashMap<>();
         criteria.put(KFSPropertyConstants.ACTIVE, Boolean.TRUE);
 
-        List<DisbursementNumberRange> disbursementNumberRangeList = (List<DisbursementNumberRange>) getBusinessObjectService().findMatching(DisbursementNumberRange.class, criteria);
+        List<DisbursementNumberRange> disbursementNumberRangeList = (List<DisbursementNumberRange>)businessObjectService.findMatching(DisbursementNumberRange.class, criteria);
         DynamicCollectionComparator.sort(disbursementNumberRangeList, PdpPropertyConstants.DisbursementNumberRange.DISBURSEMENT_NUMBER_RANGE_PHYS_CAMPUS_PROC_CODE, PdpPropertyConstants.DisbursementNumberRange.DISBURSEMENT_NUMBER_RANGE_TYPE_CODE);
 
         return disbursementNumberRangeList;
@@ -697,18 +760,16 @@ public class FormatServiceImpl implements FormatService {
      * Given the List of disbursement number ranges for the processing campus, finds matches for the bank code and disbursement type
      * code. If more than one match is found, the range with the latest start date (before or equal to today) will be returned.
      *
-     * @param ranges List of disbursement ranges to search (already filtered to processing campus, active, and start date before or
-     *        equal to today)
-     * @param bank bank code to find range for
+     * @param ranges               List of disbursement ranges to search (already filtered to processing campus, active, and start date before or
+     *                             equal to today)
+     * @param bank                 bank code to find range for
      * @param disbursementTypeCode disbursement type code to find range for
      * @return found <code>DisbursementNumberRange</code or null if one was not found
      */
     protected DisbursementNumberRange getRange(List<DisbursementNumberRange> ranges, Bank bank, String disbursementTypeCode) {
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("getRange() Looking for bank = " + bank.getBankCode() + " and disbursement type " + disbursementTypeCode);
-        }
+        LOG.debug("getRange() Looking for bank = " + bank.getBankCode() + " and disbursement type " + disbursementTypeCode);
 
-        List<DisbursementNumberRange> rangeMatches = new ArrayList<DisbursementNumberRange>();
+        List<DisbursementNumberRange> rangeMatches = new ArrayList<>();
         for (DisbursementNumberRange range : ranges) {
             if (range.getBank().getBankCode().equals(bank.getBankCode()) && range.getDisbursementTypeCode().equals(disbursementTypeCode)) {
                 rangeMatches.add(range);
@@ -730,140 +791,27 @@ public class FormatServiceImpl implements FormatService {
         return null;
     }
 
-    /**
-     * This method sets the formatPaymentDao
-     *
-     * @param fpd
-     */
-    public void setFormatPaymentDao(FormatPaymentDao fpd) {
-        formatPaymentDao = fpd;
-    }
+    protected void sendFailureEmail(String toAddress, int processId) {
+        LOG.debug("sendFailureEmail() started");
 
-    /**
-     * This method sets the glPendingTransactionService
-     *
-     * @param gs
-     */
-    public void setGlPendingTransactionService(PendingTransactionService gs) {
-        glPendingTransactionService = gs;
-    }
-
-    /**
-     * This method sets the achService
-     *
-     * @param as
-     */
-    public void setAchService(AchService as) {
-        achService = as;
-    }
-
-    /**
-     * This method sets the processDao
-     *
-     * @param pd
-     */
-    public void setProcessDao(ProcessDao pd) {
-        processDao = pd;
-    }
-
-    /**
-     * This method sets the paymentGroupDao
-     *
-     * @param pgd
-     */
-    public void setPaymentGroupDao(PaymentGroupDao pgd) {
-        paymentGroupDao = pgd;
-    }
-
-    /**
-     * This method sets the paymentDetailDao
-     *
-     * @param pdd
-     */
-    public void setPaymentDetailDao(PaymentDetailDao pdd) {
-        paymentDetailDao = pdd;
-    }
-
-    /**
-     * This method sets the schedulerService
-     *
-     * @param ss
-     */
-    public void setSchedulerService(SchedulerService ss) {
-        schedulerService = ss;
-    }
-
-    /**
-     * This method sets the parameterService
-     *
-     * @param parameterService
-     */
-    public void setParameterService(ParameterService parameterService) {
-        this.parameterService = parameterService;
-    }
-
-    /**
-     * Gets the businessObjectService attribute.
-     *
-     * @return Returns the businessObjectService.
-     */
-    public BusinessObjectService getBusinessObjectService() {
-        return businessObjectService;
-    }
-
-    /**
-     * This method sets the businessObjectService
-     *
-     * @param bos
-     */
-    public void setBusinessObjectService(BusinessObjectService bos) {
-        this.businessObjectService = bos;
-    }
-
-    /**
-     * This method sets the paymentGroupService
-     *
-     * @param paymentGroupService
-     */
-    public void setPaymentGroupService(PaymentGroupService paymentGroupService) {
-        this.paymentGroupService = paymentGroupService;
-    }
-
-    /**
-     * This method sets the dateTimeService
-     *
-     * @param dateTimeService
-     */
-    public void setDateTimeService(DateTimeService dateTimeService) {
-        this.dateTimeService = dateTimeService;
-    }
-
-    /**
-     * Gets the extractPaymentService attribute.
-     *
-     * @return Returns the extractPaymentService.
-     */
-    protected ExtractPaymentService getExtractPaymentService() {
-        return extractPaymentService;
-    }
-
-    /**
-     * Sets the extractPaymentService attribute value.
-     *
-     * @param extractPaymentService The extractPaymentService to set.
-     */
-    public void setExtractPaymentService(ExtractPaymentService extractPaymentService) {
-        this.extractPaymentService = extractPaymentService;
-    }
-
-    /**
-     * @return Returns the personService.
-     */
-    protected PersonService getPersonService() {
-        if (personService == null) {
-            personService = SpringContext.getBean(PersonService.class);
+        BodyMailMessage message = new BodyMailMessage();
+        message.setFromAddress(parameterService.getParameterValueAsString(KFSConstants.CoreModuleNamespaces.PDP, KfsParameterConstants.BATCH_COMPONENT, KFSConstants.FROM_EMAIL_ADDRESS_PARM_NM));
+        message.setSubject("PDP Format Failed for Process ID " + processId);
+        if (StringUtils.isBlank(toAddress)) {
+            LOG.warn("sendFailureEmail() Reverting to using default to address: "+ emailService.getDefaultToAddress());
+            toAddress = emailService.getDefaultToAddress();
         }
-        return personService;
+        message.setToAddresses(new HashSet());
+        message.addToAddress(toAddress);
+        StringBuilder msg = new StringBuilder("The PDP format for Process ID " + processId + " has failed. It returned following errors.\n\n");
+        List<String> errList = GlobalVariablesUtils.extractGlobalVariableErrors();
+        for (String err : errList) {
+            msg.append(err + "\n");
+        }
+        message.setMessage(msg.toString());
+
+        LOG.info("sendFailureEmail)_ Sending failure email to " + toAddress);
+        emailService.sendMessage(message,false);
     }
 
     /**
@@ -872,52 +820,73 @@ public class FormatServiceImpl implements FormatService {
     protected class PaymentInfo {
         public KualiInteger disbursementNumber;
         public KualiInteger noteLines;
-
         public PaymentInfo(KualiInteger disbursementNumber, KualiInteger noteLines) {
             this.disbursementNumber = disbursementNumber;
             this.noteLines = noteLines;
         }
     }
 
-    protected void sendEmail(String toAddress, int processId) {
-        MailMessage message = new MailMessage();
-        message.setFromAddress(SpringContext.getBean(ParameterService.class).getParameterValueAsString(KFSConstants.CoreModuleNamespaces.PDP, KfsParameterConstants.BATCH_COMPONENT, KFSConstants.FROM_EMAIL_ADDRESS_PARM_NM));
-        message.setSubject("PDP Format Completed for Process ID " + processId);
-        message.setToAddresses(new HashSet());
-        message.addToAddress(toAddress);
-        message.setMessage("The PDP format for Process ID " + processId + " is complete. Please access the PDP Format Summary lookup for the final disbursement numbers and amounts");
-        try {
-            SpringContext.getBean(MailService.class).sendMessage(message);
-        }
-        catch (InvalidAddressException e) {
-            LOG.error("sendErrorEmail() Invalid email address. Message not sent", e);
-        }
-        catch (MessagingException me) {
-            throw new RuntimeException("Could not send mail", me);
-        }
+    public void setFormatPaymentDao(FormatPaymentDao fpd) {
+        formatPaymentDao = fpd;
     }
 
-    protected void sendFailureEmail(String toAddress, int processId) {
-        MailMessage message = new MailMessage();
-        message.setFromAddress(SpringContext.getBean(ParameterService.class).getParameterValueAsString(KFSConstants.CoreModuleNamespaces.PDP, KfsParameterConstants.BATCH_COMPONENT, KFSConstants.FROM_EMAIL_ADDRESS_PARM_NM));
-        message.setSubject("PDP Format Failed for Process ID " + processId);
-        message.setToAddresses(new HashSet());
-        message.addToAddress(toAddress);
-        StringBuffer msg = new StringBuffer("The PDP format for Process ID " + processId + " has failed. It returned following errors.\n\n");
-        List<String> errList = GlobalVariablesUtils.extractGlobalVariableErrors();
-        for (String err : errList) {
-            msg.append(err + "\n");
-        }
-        message.setMessage(msg.toString());
-        try {
-            SpringContext.getBean(MailService.class).sendMessage(message);
-        }
-        catch (InvalidAddressException e) {
-            LOG.error("sendErrorEmail() Invalid email address. Message not sent", e);
-        }
-        catch (MessagingException me) {
-            throw new RuntimeException("Could not send mail", me);
-        }
+    public void setGlPendingTransactionService(PendingTransactionService gs) {
+        glPendingTransactionService = gs;
     }
 
+    public void setAchService(AchService as) {
+        achService = as;
+    }
+
+    public void setProcessDao(ProcessDao pd) {
+        processDao = pd;
+    }
+
+    public void setPaymentGroupDao(PaymentGroupDao pgd) {
+        paymentGroupDao = pgd;
+    }
+
+    public void setPaymentDetailDao(PaymentDetailDao pdd) {
+        paymentDetailDao = pdd;
+    }
+
+    public void setSchedulerService(SchedulerService ss) {
+        schedulerService = ss;
+    }
+
+    public void setParameterService(ParameterService parameterService) {
+        this.parameterService = parameterService;
+    }
+
+    public void setBusinessObjectService(BusinessObjectService bos) {
+        this.businessObjectService = bos;
+    }
+
+    public void setPaymentGroupService(PaymentGroupService paymentGroupService) {
+        this.paymentGroupService = paymentGroupService;
+    }
+
+    public void setDateTimeService(DateTimeService dateTimeService) {
+        this.dateTimeService = dateTimeService;
+    }
+
+    public void setExtractPaymentService(ExtractPaymentService extractPaymentService) {
+        this.extractPaymentService = extractPaymentService;
+    }
+
+    public void setKualiConfigurationService(ConfigurationService kualiConfigurationService) {
+        this.kualiConfigurationService = kualiConfigurationService;
+    }
+
+    public void setPersonService(PersonService personService) {
+        this.personService = personService;
+    }
+
+    public void setEmailService(EmailService emailService) {
+        this.emailService = emailService;
+    }
+
+    public void setEmailTemplateUrl(String emailTemplateUrl) {
+        this.emailTemplateUrl = emailTemplateUrl;
+    }
 }

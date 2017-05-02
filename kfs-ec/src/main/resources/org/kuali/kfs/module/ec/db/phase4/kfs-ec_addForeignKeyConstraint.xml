@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+<changeSet author="kfs" id="4022" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_POST_YR,FIN_COA_CD,FIN_OBJECT_CD" baseTableName="LD_A21_DETAIL_LN_T" constraintName="LD_A21_DETAIL_LN_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="UNIV_FISCAL_YR,FIN_COA_CD,FIN_OBJECT_CD" referencedTableName="CA_OBJECT_CODE_T"/>
+    </changeSet>
+<changeSet author="kfs" id="4023" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD" baseTableName="LD_A21_DETAIL_LN_T" constraintName="LD_A21_DETAIL_LN_TR3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD" referencedTableName="CA_CHART_T"/>
+    </changeSet>
+<changeSet author="kfs" id="4024" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,ACCOUNT_NBR" baseTableName="LD_A21_DETAIL_LN_T" constraintName="LD_A21_DETAIL_LN_TR4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR" referencedTableName="CA_ACCOUNT_T"/>
+    </changeSet>
+<changeSet author="kfs" id="4025" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_NBR" baseTableName="LD_A21_DETAIL_LN_T" constraintName="LD_A21_DETAIL_LN_TR8" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FDOC_NBR" referencedTableName="LD_A21_DETAIL_T"/>
+    </changeSet>
+<changeSet author="kfs" id="4026" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="A21_LBR_RPT_NBR,A21_LBR_FSCL_YR" baseTableName="LD_A21_DETAIL_T" constraintName="LD_A21_DETAIL_TR3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="A21_LBR_RPT_NBR,UNIV_FISCAL_YR" referencedTableName="LD_A21_REPORT_T"/>
+    </changeSet>
+<changeSet author="kfs" id="4027" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="A21_LBR_RPT_NBR,A21_LBR_FSCL_YR" baseTableName="LD_A21_DTL_BLD_T" constraintName="LD_A21_DTL_BLD_TR4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="A21_LBR_RPT_NBR,UNIV_FISCAL_YR" referencedTableName="LD_A21_REPORT_T"/>
+    </changeSet>
+<changeSet author="kfs" id="4028" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD" baseTableName="LD_A21_DTL_LN_BLD_T" constraintName="LD_A21_DTL_LN_BLD_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD" referencedTableName="CA_CHART_T"/>
+    </changeSet>
+<changeSet author="kfs" id="4029" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_POST_YR,FIN_COA_CD,FIN_OBJECT_CD" baseTableName="LD_A21_DTL_LN_BLD_T" constraintName="LD_A21_DTL_LN_BLD_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="UNIV_FISCAL_YR,FIN_COA_CD,FIN_OBJECT_CD" referencedTableName="CA_OBJECT_CODE_T"/>
+    </changeSet>
+<changeSet author="kfs" id="4030" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,ACCOUNT_NBR" baseTableName="LD_A21_DTL_LN_BLD_T" constraintName="LD_A21_DTL_LN_BLD_TR3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR" referencedTableName="CA_ACCOUNT_T"/>
+    </changeSet>
+<changeSet author="kfs" id="4031" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="SOURCE_FIN_COA_CD,SOURCE_ACCT_NBR,CST_SRCSUBACCT_NBR" baseTableName="LD_A21_DTL_LN_BLD_T" constraintName="LD_A21_DTL_LN_BLD_TR7" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR,SUB_ACCT_NBR" referencedTableName="CA_SUB_ACCT_T"/>
+    </changeSet>
+<changeSet author="kfs" id="4032" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="A21_LBR_BLD_NBR" baseTableName="LD_A21_DTL_LN_BLD_T" constraintName="LD_A21_DTL_LN_BLD_TR9" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="A21_LBR_BLD_NBR" referencedTableName="LD_A21_DTL_BLD_T"/>
+    </changeSet>
+<changeSet author="kfs" id="4033" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="LBR_ET_FSCL_YR,LBR_ET_FSCL_PRD_CD" baseTableName="LD_A21_REPORT_T" constraintName="LD_A21_REPORT_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="UNIV_FISCAL_YR,UNIV_FISCAL_PRD_CD" referencedTableName="SH_ACCT_PERIOD_T"/>
+    </changeSet>
+<changeSet author="kfs" id="4034" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="LBR_RPT_PRDSTAT_CD" baseTableName="LD_A21_REPORT_T" constraintName="LD_A21_REPORT_TR3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="LBR_RPT_PRDSTAT_CD" referencedTableName="LD_A21_PRD_STAT_T"/>
+    </changeSet>
+<changeSet author="kfs" id="4035" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="A21_LBR_RPT_TYP_CD" baseTableName="LD_A21_REPORT_T" constraintName="LD_A21_REPORT_TR4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="A21_LBR_RPT_TYP_CD" referencedTableName="LD_A21_RPT_TYP_T"/>
+    </changeSet>
+<changeSet author="kfs" id="4036" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="LBR_RPT_BEG_FSCL_YR,LBR_RPT_BEG_FSCL_PRD_CD" baseTableName="LD_A21_REPORT_T" constraintName="LD_A21_REPORT_T_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="UNIV_FISCAL_YR,UNIV_FISCAL_PRD_CD" referencedTableName="SH_ACCT_PERIOD_T"/>
+    </changeSet>
+<changeSet author="kfs" id="4037" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="LBR_RPT_END_FSCL_YR,LBR_RPT_END_FSCL_PRD_CD" baseTableName="LD_A21_REPORT_T" constraintName="LD_A21_REPORT_T_TR5" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="UNIV_FISCAL_YR,UNIV_FISCAL_PRD_CD" referencedTableName="SH_ACCT_PERIOD_T"/>
+    </changeSet>
+<changeSet author="kfs" id="4038" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="A21_LBR_RPT_TYP_CD" baseTableName="LD_A21_RPT_EARN_PAY_T" constraintName="LD_A21_RPT_EARN_PAY_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="A21_LBR_RPT_TYP_CD" referencedTableName="LD_A21_RPT_TYP_T"/>
+    </changeSet>
+<changeSet author="kfs" id="4039" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="A21_LBR_RPT_NBR,UNIV_FISCAL_YR" baseTableName="LD_A21_RPT_POS_T" constraintName="LD_A21_RPT_POS_T_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="A21_LBR_RPT_NBR,UNIV_FISCAL_YR" referencedTableName="LD_A21_REPORT_T"/>
+    </changeSet>
+</databaseChangeLog>

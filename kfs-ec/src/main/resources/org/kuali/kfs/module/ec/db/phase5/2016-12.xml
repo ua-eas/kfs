@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!-- "org.kuali.kfs.module.ec.businessobject.EffortCertificationReportType" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_LD_A21_RPT_TYP_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="LD_A21_RPT_TYP_T"/></not>
+        </preConditions>
+        <addColumn tableName="LD_A21_RPT_TYP_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_LD_A21_RPT_TYP_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="LD_A21_RPT_TYP_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="LD_A21_RPT_TYP_T" indexName="LD_A21_RPT_TYP_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ec.businessobject.EffortCertificationPeriodStatusCode" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_LD_A21_PRD_STAT_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="LD_A21_PRD_STAT_T"/></not>
+        </preConditions>
+        <addColumn tableName="LD_A21_PRD_STAT_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_LD_A21_PRD_STAT_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="LD_A21_PRD_STAT_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="LD_A21_PRD_STAT_T" indexName="LD_A21_PRD_STAT_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_LD_A21_REPORT_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="LD_A21_REPORT_T"/></not>
+        </preConditions>
+        <addColumn tableName="LD_A21_REPORT_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_LD_A21_REPORT_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="LD_A21_REPORT_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="LD_A21_REPORT_T" indexName="LD_A21_REPORT_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ec.businessobject.EffortCertificationReportEarnPaygroup" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_LD_A21_RPT_EARN_PAY_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="LD_A21_RPT_EARN_PAY_T"/></not>
+        </preConditions>
+        <addColumn tableName="LD_A21_RPT_EARN_PAY_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_LD_A21_RPT_EARN_PAY_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="LD_A21_RPT_EARN_PAY_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="LD_A21_RPT_EARN_PAY_T" indexName="LD_A21_RPT_EARN_PAY_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ec.businessobject.EffortCertificationReportType" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_LD_A21_RPT_TYP_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="LD_A21_RPT_TYP_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="LD_A21_RPT_TYP_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ec.businessobject.EffortCertificationPeriodStatusCode" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_LD_A21_PRD_STAT_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="LD_A21_PRD_STAT_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="LD_A21_PRD_STAT_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_LD_A21_REPORT_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="LD_A21_REPORT_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="LD_A21_REPORT_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ec.businessobject.EffortCertificationReportEarnPaygroup" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_LD_A21_RPT_EARN_PAY_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="LD_A21_RPT_EARN_PAY_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="LD_A21_RPT_EARN_PAY_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+</databaseChangeLog>

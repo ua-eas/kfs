@@ -1,38 +1,37 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.report.service.impl;
 
-import java.io.File;
-import java.util.Date;
-import java.util.Map;
-import java.util.ResourceBundle;
-
 import net.sf.jasperreports.engine.JRParameter;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.report.service.CustomerCreditMemoReportService;
 import org.kuali.kfs.module.ar.report.util.CustomerCreditMemoReportDataHolder;
 import org.kuali.kfs.sys.KFSConstants.ReportGeneration;
 import org.kuali.kfs.sys.report.ReportInfo;
 import org.kuali.kfs.sys.service.ReportGenerationService;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.File;
+import java.util.Date;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 /**
  * To generate the working progress reports for the effort certification
@@ -56,8 +55,8 @@ public class CustomerCreditMemoReportServiceImpl implements CustomerCreditMemoRe
         String reportTemplateName;
         ResourceBundle resourceBundle;
         String subReportTemplateClassPath;
-        Map<String, String> subReports; 
-        
+        Map<String, String> subReports;
+
         if (parameterService.getParameterValueAsBoolean("KFS-AR", "Document", ArConstants.ENABLE_SALES_TAX_IND)) {
             reportFileName = customerCreditMemoReportInfo.getReportFileName();
             reportDirectory = customerCreditMemoReportInfo.getReportsDirectory();
@@ -74,9 +73,9 @@ public class CustomerCreditMemoReportServiceImpl implements CustomerCreditMemoRe
             resourceBundle = customerCreditMemoReportInfoNoTax.getResourceBundle();
             subReportTemplateClassPath = customerCreditMemoReportInfoNoTax.getSubReportTemplateClassPath();
             subReports = customerCreditMemoReportInfoNoTax.getSubReports();
-            
+
         }
-        
+
 
         Map<String, Object> reportData = reportDataHolder.getReportData();
         reportData.put(JRParameter.REPORT_RESOURCE_BUNDLE, resourceBundle);
@@ -86,13 +85,13 @@ public class CustomerCreditMemoReportServiceImpl implements CustomerCreditMemoRe
         String template = reportTemplateClassPath + reportTemplateName;
         String fullReportFileName = reportGenerationService.buildFullFileName(runDate, reportDirectory, reportFileName, "");
         reportGenerationService.generateReportToPdfFile(reportData, template, fullReportFileName);
-        File report = new File(fullReportFileName+".pdf");
+        File report = new File(fullReportFileName + ".pdf");
         return report;
     }
-    
+
     /**
      * Sets the effortExtractProcessReportInfo attribute value.
-     * 
+     *
      * @param effortExtractProcessReportInfo The effortExtractProcessReportInfo to set.
      */
     public void setCustomerCreditMemoReportInfo(ReportInfo customerCreditMemoReportInfo) {
@@ -101,7 +100,7 @@ public class CustomerCreditMemoReportServiceImpl implements CustomerCreditMemoRe
 
     /**
      * Sets the reportGenerationService attribute value.
-     * 
+     *
      * @param reportGenerationService The reportGenerationService to set.
      */
     public void setReportGenerationService(ReportGenerationService reportGenerationService) {
@@ -109,7 +108,8 @@ public class CustomerCreditMemoReportServiceImpl implements CustomerCreditMemoRe
     }
 
     /**
-     * Gets the customerCreditMemoReportInfoNoTax attribute. 
+     * Gets the customerCreditMemoReportInfoNoTax attribute.
+     *
      * @return Returns the customerCreditMemoReportInfoNoTax.
      */
     public ReportInfo getCustomerCreditMemoReportInfoNoTax() {
@@ -118,6 +118,7 @@ public class CustomerCreditMemoReportServiceImpl implements CustomerCreditMemoRe
 
     /**
      * Sets the customerCreditMemoReportInfoNoTax attribute value.
+     *
      * @param customerCreditMemoReportInfoNoTax The customerCreditMemoReportInfoNoTax to set.
      */
     public void setCustomerCreditMemoReportInfoNoTax(ReportInfo customerCreditMemoReportInfoNoTax) {
@@ -126,12 +127,12 @@ public class CustomerCreditMemoReportServiceImpl implements CustomerCreditMemoRe
 
     /**
      * Sets the parameterService attribute value.
+     *
      * @param parameterService The parameterService to set.
      */
     public void setParameterService(ParameterService parameterService) {
         this.parameterService = parameterService;
     }
-    
-    
-    
+
+
 }

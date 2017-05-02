@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  * 
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.module.cam.businessobject;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.log4j.Logger;
-import org.kuali.kfs.module.cab.CabPropertyConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.cam.CamsPropertyConstants;
 import org.kuali.kfs.module.purap.businessobject.AccountsPayableItem;
 import org.kuali.kfs.module.purap.businessobject.CreditMemoAccountRevision;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLineBase;
 import org.kuali.kfs.module.purap.document.AccountsPayableDocumentBase;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Accounting line grouped data for GL Line
@@ -47,17 +47,16 @@ public class PurApAccountLineGroup extends AccountLineGroup {
     }
 
     public PurApAccountLineGroup(PurApAccountingLineBase entry) {
-        entry.refreshReferenceObject(CabPropertyConstants.PURAP_ITEM);
+        entry.refreshReferenceObject(CamsPropertyConstants.PURAP_ITEM);
         AccountsPayableItem purapItem = (AccountsPayableItem) entry.getPurapItem();
         if (ObjectUtils.isNotNull(purapItem)) {
-            purapItem.refreshReferenceObject(CabPropertyConstants.PURAP_DOCUMENT);
+            purapItem.refreshReferenceObject(CamsPropertyConstants.PURAP_DOCUMENT);
             AccountsPayableDocumentBase purapDocument = ((AccountsPayableItem) entry.getPurapItem()).getPurapDocument();
             if (ObjectUtils.isNotNull(purapDocument)) {
                 setReferenceFinancialDocumentNumber(purapDocument.getPurchaseOrderIdentifier() != null ? purapDocument.getPurchaseOrderIdentifier().toString() : "");
                 setDocumentNumber(purapDocument.getDocumentNumber());
             }
-        }
-        else {
+        } else {
             LOG.error("Could not load PurAP document details for " + entry.toString());
         }
         setUniversityFiscalYear(entry.getPostingYear());
@@ -72,8 +71,7 @@ public class PurApAccountLineGroup extends AccountLineGroup {
         this.sourceEntries.add(entry);
         if (CreditMemoAccountRevision.class.isAssignableFrom(entry.getClass())) {
             setAmount(entry.getAmount().negated());
-        }
-        else {
+        } else {
             setAmount(entry.getAmount());
         }
     }
@@ -98,8 +96,7 @@ public class PurApAccountLineGroup extends AccountLineGroup {
         this.sourceEntries.add(newEntry);
         if (CreditMemoAccountRevision.class.isAssignableFrom(newEntry.getClass())) {
             this.amount = this.amount.add(newEntry.getAmount().negated());
-        }
-        else {
+        } else {
             this.amount = this.amount.add(newEntry.getAmount());
         }
     }

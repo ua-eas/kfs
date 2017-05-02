@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -25,9 +25,9 @@
 		<div class="tab-container" align="center">
 			<fp:cashieringTransaction />
       <p style="padding: 10px">
-        <html:image src="${ConfigProperties.externalizable.images.url}buttonsmall_applytrans.gif" style="border: none" property="methodToCall.applyCashieringTransaction" title="Apply Cashiering Transaction" alt="Apply Cashiering Transaction" />
+        <html:submit value="Apply Transaction" styleClass="btn btn-default" property="methodToCall.applyCashieringTransaction" title="Apply Cashiering Transaction" alt="Apply Cashiering Transaction" />
         &nbsp;&nbsp;&nbsp;&nbsp;
-        <html:image src="${ConfigProperties.externalizable.images.url}buttonsmall_calculate.gif" style="border: none" title="Calculate Cashiering Transaction" alt="Calculate Cashiering Transaction" />
+        <html:submit value="Calculate" styleClass="btn btn-default" title="Calculate Cashiering Transaction" alt="Calculate Cashiering Transaction" />
       </p>
 		</div>
 	</kul:tab>

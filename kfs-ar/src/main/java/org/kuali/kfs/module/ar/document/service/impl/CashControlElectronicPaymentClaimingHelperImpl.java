@@ -1,26 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.document.service.impl;
 
-import java.util.List;
-import java.util.Properties;
-
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.businessobject.AccountsReceivableDocumentHeader;
@@ -40,11 +42,9 @@ import org.kuali.rice.kew.api.KewApiServiceLocator;
 import org.kuali.rice.kew.api.doctype.DocumentTypeService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.bo.Note;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.UrlFactory;
+
+import java.util.List;
+import java.util.Properties;
 
 public class CashControlElectronicPaymentClaimingHelperImpl implements ElectronicPaymentClaimingDocumentGenerationStrategy {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CashControlElectronicPaymentClaimingHelperImpl.class);
@@ -60,7 +60,7 @@ public class CashControlElectronicPaymentClaimingHelperImpl implements Electroni
 
     /**
      * @see org.kuali.kfs.sys.service.ElectronicPaymentClaimingDocumentGenerationStrategy#createDocumentFromElectronicPayments(java.util.List,
-     *      org.kuali.rice.kim.api.identity.Person)
+     * org.kuali.rice.kim.api.identity.Person)
      */
     @Override
     public String createDocumentFromElectronicPayments(List<ElectronicPaymentClaim> electronicPayments, Person user) {
@@ -80,8 +80,7 @@ public class CashControlElectronicPaymentClaimingHelperImpl implements Electroni
             addCashControlDetailsToDocument(document, electronicPayments);
             documentService.saveDocument(document);
             electronicPaymentClaimingService.claimElectronicPayments(electronicPayments, document.getDocumentNumber());
-        }
-        catch (WorkflowException we) {
+        } catch (WorkflowException we) {
             throw new RuntimeException("WorkflowException while creating a CashControlDocument to claim ElectronicPaymentClaim records.", we);
         }
 
@@ -101,8 +100,8 @@ public class CashControlElectronicPaymentClaimingHelperImpl implements Electroni
      * This method adds notes to the cash control document
      *
      * @param claimingDoc the cash control document
-     * @param claims the list of electronic payments being claimed
-     * @param user the current user
+     * @param claims      the list of electronic payments being claimed
+     * @param user        the current user
      */
     protected void addNotesToDocument(CashControlDocument claimingDoc, List<ElectronicPaymentClaim> claims, Person user) {
         for (String noteText : electronicPaymentClaimingService.constructNoteTextsForClaims(claims)) {
@@ -115,7 +114,7 @@ public class CashControlElectronicPaymentClaimingHelperImpl implements Electroni
     /**
      * This method adds new cash control details to the cash control document based on the list of electronic payments.
      *
-     * @param document cash control document
+     * @param document           cash control document
      * @param electronicPayments the electronic payments to be claimed
      * @throws WorkflowException workflow exception
      */
@@ -140,16 +139,15 @@ public class CashControlElectronicPaymentClaimingHelperImpl implements Electroni
     protected String getURLForDocument(CashControlDocument doc) {
         Properties parameters = new Properties();
         parameters.put(KFSConstants.DISPATCH_REQUEST_PARAMETER, KFSConstants.DOC_HANDLER_METHOD);
-        parameters.put(KFSConstants.PARAMETER_COMMAND, KewApiConstants.ACTIONLIST_COMMAND);
+        parameters.put(KFSConstants.PARAMETER_COMMAND, KewApiConstants.DOCSEARCH_COMMAND);
         parameters.put(KFSConstants.PARAMETER_DOC_ID, doc.getDocumentNumber());
 
         return UrlFactory.parameterizeUrl(ArConstants.UrlActions.CASH_CONTROL_DOCUMENT, parameters);
     }
 
     /**
-     * @see org.kuali.kfs.sys.service.ElectronicPaymentClaimingDocumentGenerationStrategy#getClaimingDocumentWorkflowDocumentType()
-     *
      * @return the name CashControlDocument workflow document type
+     * @see org.kuali.kfs.sys.service.ElectronicPaymentClaimingDocumentGenerationStrategy#getClaimingDocumentWorkflowDocumentType()
      */
     @Override
     public String getClaimingDocumentWorkflowDocumentType() {
@@ -175,8 +173,7 @@ public class CashControlElectronicPaymentClaimingHelperImpl implements Electroni
             if (docNumberAsLong > 0L) {
                 isValid = documentService.documentExists(referenceDocumentNumber);
             }
-        }
-        catch (NumberFormatException nfe) {
+        } catch (NumberFormatException nfe) {
             isValid = false;
         }
         return isValid;

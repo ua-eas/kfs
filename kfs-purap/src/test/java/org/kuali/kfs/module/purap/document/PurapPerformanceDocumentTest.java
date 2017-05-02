@@ -1,52 +1,51 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.butt;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.rorenfro;
-
-import java.util.List;
-
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.businessobject.ContractManagerAssignmentDetail;
 import org.kuali.kfs.module.purap.fixture.ContractManagerAssignmentDocumentFixture;
 import org.kuali.kfs.module.purap.fixture.RequisitionDocumentFixture;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.context.KFSConfigurer;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocumentTestUtils;
 import org.kuali.kfs.sys.document.workflow.WorkflowTestUtils;
 import org.kuali.rice.kew.api.document.DocumentStatus;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.exception.ValidationException;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.util.GlobalVariables;
+
+import java.util.List;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.butt;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.rorenfro;
 
 /**
  * Sets up documents optionally to be used by the following PurAp JMeter performance tests:
- *
+ * <p>
  * purapComplexSearch.jmx (needs Closed RequisitionDocument)
  * purapPaymentRequestDocument.jmx (needs Open PurchaseOrderDocument)
- *
+ * <p>
  * To run, change the value of SETUP_PERFORMANCE_TESTS to true.
  */
 public class PurapPerformanceDocumentTest extends KualiTestBase {
@@ -70,10 +69,9 @@ public class PurapPerformanceDocumentTest extends KualiTestBase {
 
     @ConfigureContext(session = parke, shouldCommitTransactions = true)
     public final void testFullRoutePerformanceDocuments() throws Exception {
-        if( !SETUP_PERFORMANCE_TESTS ) {
+        if (!SETUP_PERFORMANCE_TESTS) {
             assertTrue(true);
-        }
-        else {
+        } else {
             requisitionDocument = RequisitionDocumentFixture.REQ_PERFORMANCE.createRequisitionDocument();
             requisitionDocument.getDocumentHeader().setDocumentDescription("Load Testing");
             final String docId = requisitionDocument.getDocumentNumber();
@@ -81,7 +79,7 @@ public class PurapPerformanceDocumentTest extends KualiTestBase {
             WorkflowTestUtils.waitForNodeChange(requisitionDocument.getDocumentHeader().getWorkflowDocument(), KFSConstants.RouteLevelNames.ACCOUNT);
 
             changeCurrentUser(rorenfro);  //Approving as Fiscal Officer.
-            requisitionDocument = (RequisitionDocument)documentService.getByDocumentHeaderId(docId);
+            requisitionDocument = (RequisitionDocument) documentService.getByDocumentHeaderId(docId);
             assertTrue("At incorrect node.", WorkflowTestUtils.isAtNode(requisitionDocument, KFSConstants.RouteLevelNames.ACCOUNT));
             assertTrue("Document should be enroute.", requisitionDocument.getDocumentHeader().getWorkflowDocument().isEnroute());
             assertTrue("Fiscal Officer should have an approve request.", requisitionDocument.getDocumentHeader().getWorkflowDocument().isApprovalRequested());
@@ -90,7 +88,7 @@ public class PurapPerformanceDocumentTest extends KualiTestBase {
             WorkflowTestUtils.waitForDocumentApproval(requisitionDocument.getDocumentNumber());
 
             changeCurrentUser(parke);  //Switch back to original User.
-            requisitionDocument = (RequisitionDocument)documentService.getByDocumentHeaderId(docId);
+            requisitionDocument = (RequisitionDocument) documentService.getByDocumentHeaderId(docId);
             assertTrue("Document should now be final.", requisitionDocument.getDocumentHeader().getWorkflowDocument().isFinal());
 
             ContractManagerAssignmentDocument cmaDocument = buildContractManagerAssignmentDocument();
@@ -100,7 +98,7 @@ public class PurapPerformanceDocumentTest extends KualiTestBase {
             routeDocument(cmaDocument, "saving copy source document", documentService);
 
             WorkflowTestUtils.waitForDocumentApproval(cmaDocument.getDocumentNumber());
-            cmaDocument = (ContractManagerAssignmentDocument)documentService.getByDocumentHeaderId(cmaDocument.getDocumentNumber());
+            cmaDocument = (ContractManagerAssignmentDocument) documentService.getByDocumentHeaderId(cmaDocument.getDocumentNumber());
             assertTrue("Document should now be final.", cmaDocument.getDocumentHeader().getWorkflowDocument().isFinal());
 
             String poNumber = requisitionDocument.getRelatedViews().getRelatedPurchaseOrderViews().get(0).getDocumentNumber();
@@ -120,7 +118,7 @@ public class PurapPerformanceDocumentTest extends KualiTestBase {
             routeDocument(poDoc, "Test routing as parke", documentService);
 
             changeCurrentUser(butt);  //Approving at the Budget Level
-            poDoc = (PurchaseOrderDocument)documentService.getByDocumentHeaderId(poNumber);
+            poDoc = (PurchaseOrderDocument) documentService.getByDocumentHeaderId(poNumber);
             assertTrue("Document should be enroute.", poDoc.getDocumentHeader().getWorkflowDocument().isEnroute());
             assertTrue("Budget Approver should have an approve request.", poDoc.getDocumentHeader().getWorkflowDocument().isApprovalRequested());
             SpringContext.getBean(DocumentService.class).approveDocument(poDoc, "Test approving as Budget Approver.", null);
@@ -128,7 +126,7 @@ public class PurapPerformanceDocumentTest extends KualiTestBase {
             WorkflowTestUtils.waitForDocumentApproval(poDoc.getDocumentNumber());
 
             changeCurrentUser(parke);  //Switch back to original User.
-            poDoc = (PurchaseOrderDocument)documentService.getByDocumentHeaderId(poNumber);
+            poDoc = (PurchaseOrderDocument) documentService.getByDocumentHeaderId(poNumber);
             assertTrue("Document should now be final.", poDoc.getDocumentHeader().getWorkflowDocument().isFinal());
         }
     }
@@ -151,8 +149,7 @@ public class PurapPerformanceDocumentTest extends KualiTestBase {
     private void routeDocument(Document document, String annotation, DocumentService documentService) throws WorkflowException {
         try {
             documentService.routeDocument(document, annotation, null);
-        }
-        catch (ValidationException e) {
+        } catch (ValidationException e) {
             // If the business rule evaluation fails then give us more info for debugging this test.
             fail(e.getMessage() + ", " + GlobalVariables.getMessageMap());
         }

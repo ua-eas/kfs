@@ -1,37 +1,37 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.businessobject.options;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
 import org.kuali.kfs.coa.service.AccountingPeriodService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.krad.keyvalues.KeyValuesBase;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * returns list of accounting period value pairs valid for year end posting
@@ -48,8 +48,8 @@ public class YearEndAccountingPeriodValuesFinder extends KeyValuesBase {
         AccountingPeriod currentAccountingPeriod = SpringContext.getBean(AccountingPeriodService.class).getByDate(date);
 
         if (currentAccountingPeriod.isOpen()) {
-            // add the current period with blank value, so scrubber will set entries when posting
-            accountingPeriodCodes.add(new ConcreteKeyValue("", currentAccountingPeriod.getUniversityFiscalPeriodName()));
+            // A key value is required for the drop down.  Otherwise, the setAccountingPeriodCompositeString() will ignore it on a submit or re-save.
+            accountingPeriodCodes.add(new ConcreteKeyValue(currentAccountingPeriod.getUniversityFiscalPeriodCode() + currentAccountingPeriod.getUniversityFiscalYear(), currentAccountingPeriod.getUniversityFiscalPeriodName()));
         }
 
         String numberOfPostbackPeriodsParmVal = SpringContext.getBean(ParameterService.class).getParameterValueAsString(KFSConstants.CoreModuleNamespaces.KFS, KfsParameterConstants.YEAR_END_ACCOUNTING_PERIOD_PARAMETER_NAMES.DETAIL_PARAMETER_TYPE, KfsParameterConstants.YEAR_END_ACCOUNTING_PERIOD_PARAMETER_NAMES.NUMBER_OF_POSTBACK_PERIODS);

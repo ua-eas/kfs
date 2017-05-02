@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  * 
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,20 +18,20 @@
  */
 package org.kuali.kfs.module.cam.document.web.struts;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.ojb.broker.OptimisticLockException;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.kuali.kfs.module.cab.CabKeyConstants;
+import org.kuali.kfs.kns.web.struts.action.KualiAction;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.module.cam.CamsKeyConstants;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.api.util.RiceConstants;
 import org.kuali.rice.kew.api.KewApiServiceLocator;
-import org.kuali.rice.kns.web.struts.action.KualiAction;
-import org.kuali.rice.krad.util.GlobalVariables;
 import org.springmodules.orm.ojb.OjbOperationException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class CabActionBase extends KualiAction {
     @Override
@@ -41,17 +41,15 @@ public class CabActionBase extends KualiAction {
         // if found methodToCall, pass control to that method
         try {
             returnForward = super.execute(mapping, form, request, response);
-        }
-        catch (OjbOperationException e) {
+        } catch (OjbOperationException e) {
             // special handling for OptimisticLockExceptions
             OjbOperationException ooe = (OjbOperationException) e;
 
             Throwable cause = ooe.getCause();
             if (cause instanceof OptimisticLockException) {
                 OptimisticLockException ole = (OptimisticLockException) cause;
-                GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, CabKeyConstants.DATA_EDIT_LOCK_ERROR);
-            }
-            else {
+                GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, CamsKeyConstants.DATA_EDIT_LOCK_ERROR);
+            } else {
                 // if exceptions are from 'save'
                 throw e;
             }
@@ -76,8 +74,7 @@ public class CabActionBase extends KualiAction {
         String docHandlerUrl = KewApiServiceLocator.getWorkflowDocumentService().getDocument(documentId).getDocumentHandlerUrl();
         if (docHandlerUrl.indexOf("?") == -1) {
             docHandlerUrl += "?";
-        }
-        else {
+        } else {
             docHandlerUrl += "&";
         }
 

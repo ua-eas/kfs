@@ -1,37 +1,37 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.integration.ar;
 
-import java.sql.Date;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.log4j.Logger;
 import org.kuali.kfs.coa.businessobject.Organization;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAgency;
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.sys.businessobject.ElectronicPaymentClaim;
 import org.kuali.kfs.sys.service.ElectronicPaymentClaimingDocumentGenerationStrategy;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.krad.document.Document;
+
+import java.sql.Date;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 public class AccountsReceivableModuleServiceNoOp implements AccountsReceivableModuleService {
 
@@ -39,24 +39,28 @@ public class AccountsReceivableModuleServiceNoOp implements AccountsReceivableMo
 
     @Override
     public ElectronicPaymentClaimingDocumentGenerationStrategy getAccountsReceivablePaymentClaimingStrategy() {
-        LOG.warn( "Using No-Op " + getClass().getSimpleName() + " service." );
+        LOG.warn("Using No-Op " + getClass().getSimpleName() + " service.");
         return new ElectronicPaymentClaimingDocumentGenerationStrategy() {
             @Override
             public boolean userMayUseToClaim(Person claimingUser) {
                 return false;
             }
+
             @Override
             public String createDocumentFromElectronicPayments(List<ElectronicPaymentClaim> electronicPayments, Person user) {
                 return null;
             }
+
             @Override
             public String getClaimingDocumentWorkflowDocumentType() {
                 return null;
             }
+
             @Override
             public String getDocumentLabel() {
                 return "AR NoOp Module Service";
             }
+
             @Override
             public boolean isDocumentReferenceValid(String referenceDocumentNumber) {
                 return false;
@@ -104,7 +108,7 @@ public class AccountsReceivableModuleServiceNoOp implements AccountsReceivableMo
      */
     @Override
     public AccountsReceivableCustomerInvoice getOpenCustomerInvoice(String customerInvoiceDocumentNumber) {
-        LOG.warn( "Using No-Op " + getClass().getSimpleName() + " service." );
+        LOG.warn("Using No-Op " + getClass().getSimpleName() + " service.");
         return null;
     }
 
@@ -113,7 +117,7 @@ public class AccountsReceivableModuleServiceNoOp implements AccountsReceivableMo
      */
     @Override
     public Map<String, KualiDecimal> getCustomerInvoiceOpenAmount(List<String> customerTypeCodes, Integer customerInvoiceAge, Date invoiceBillingDateFrom) {
-        LOG.warn( "Using No-Op " + getClass().getSimpleName() + " service." );
+        LOG.warn("Using No-Op " + getClass().getSimpleName() + " service.");
         return null;
     }
 
@@ -122,7 +126,7 @@ public class AccountsReceivableModuleServiceNoOp implements AccountsReceivableMo
      */
     @Override
     public Collection<? extends AccountsReceivableCustomerInvoice> getOpenCustomerInvoices(List<String> customerTypeCodes, Integer customerInvoiceAge, Date invoiceBillingDateFrom) {
-        LOG.warn( "Using No-Op " + getClass().getSimpleName() + " service." );
+        LOG.warn("Using No-Op " + getClass().getSimpleName() + " service.");
         return null;
     }
 

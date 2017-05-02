@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,18 +18,14 @@
  */
 package org.kuali.kfs.module.ar.document;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.OffsetDefinition;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.businessobject.Bill;
 import org.kuali.kfs.module.ar.businessobject.InvoiceAddressDetail;
 import org.kuali.kfs.module.ar.businessobject.InvoiceBill;
@@ -50,15 +46,19 @@ import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.util.ErrorMessage;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 /**
  * Basic setup to create Invoice Document
  */
-public class CGInvoiceDocumentTestBase extends KualiTestBase {
+public abstract class CGInvoiceDocumentTestBase extends KualiTestBase {
 
     BusinessObjectService boService;
     DocumentService documentService;
@@ -96,7 +96,7 @@ public class CGInvoiceDocumentTestBase extends KualiTestBase {
                     list.clear();
                     // only one account is added into the list to create CINV
                     list.add(awardAccount);
-                    Map<String, Object> criteria = new HashMap<String,Object>();
+                    Map<String, Object> criteria = new HashMap<String, Object>();
                     criteria.put("accountNumber", awardAccount.getAccountNumber());
                     criteria.put("chartOfAccountsCode", awardAccount.getChartOfAccountsCode());
 
@@ -164,7 +164,7 @@ public class CGInvoiceDocumentTestBase extends KualiTestBase {
         this.document = document;
     }
 
-    protected void setupBills(String documentNumber, Long proposalNumber, boolean billed) {
+    protected void setupBills(String documentNumber, String proposalNumber, boolean billed) {
         List<InvoiceBill> invoiceBills = new ArrayList<InvoiceBill>();
         InvoiceBill invBill_1 = InvoiceBillFixture.INV_BILL_1.createInvoiceBill();
         invBill_1.setDocumentNumber(documentNumber);
@@ -191,7 +191,7 @@ public class CGInvoiceDocumentTestBase extends KualiTestBase {
         boService.save(bill);
     }
 
-    protected void setupMilestones(String documentNumber, Long proposalNumber, boolean billed) {
+    protected void setupMilestones(String documentNumber, String proposalNumber, boolean billed) {
         List<InvoiceMilestone> invoiceMilestones = new ArrayList<InvoiceMilestone>();
         InvoiceMilestone invMilestone_1 = InvoiceMilestoneFixture.INV_MLSTN_1.createInvoiceMilestone();
         invMilestone_1.setDocumentNumber(documentNumber);

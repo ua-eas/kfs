@@ -1,22 +1,54 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sec.businessobject.lookup;
+
+import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.integration.ld.SegmentedBusinessObject;
+import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
+import org.kuali.kfs.kns.document.authorization.FieldRestriction;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.LookupableHelperService;
+import org.kuali.kfs.kns.service.BusinessObjectAuthorizationService;
+import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
+import org.kuali.kfs.kns.service.BusinessObjectMetaDataService;
+import org.kuali.kfs.kns.web.comparator.CellComparatorHelper;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.kns.web.ui.Column;
+import org.kuali.kfs.kns.web.ui.Field;
+import org.kuali.kfs.kns.web.ui.ResultRow;
+import org.kuali.kfs.kns.web.ui.Row;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.kfs.krad.service.PersistenceStructureService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sec.SecKeyConstants;
+import org.kuali.kfs.sec.service.AccessSecurityService;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.rice.core.web.format.BooleanFormatter;
+import org.kuali.rice.core.web.format.CollectionFormatter;
+import org.kuali.rice.core.web.format.DateFormatter;
+import org.kuali.rice.core.web.format.Formatter;
+import org.kuali.rice.kim.api.identity.Person;
+import org.kuali.rice.krad.bo.BusinessObject;
 
 import java.beans.PropertyDescriptor;
 import java.sql.Date;
@@ -26,39 +58,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.integration.ld.SegmentedBusinessObject;
-import org.kuali.kfs.sec.SecKeyConstants;
-import org.kuali.kfs.sec.service.AccessSecurityService;
-import org.kuali.kfs.sec.util.SecUtil;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.rice.core.web.format.BooleanFormatter;
-import org.kuali.rice.core.web.format.CollectionFormatter;
-import org.kuali.rice.core.web.format.DateFormatter;
-import org.kuali.rice.core.web.format.Formatter;
-import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kns.document.authorization.BusinessObjectRestrictions;
-import org.kuali.rice.kns.document.authorization.FieldRestriction;
-import org.kuali.rice.kns.lookup.HtmlData;
-import org.kuali.rice.kns.lookup.LookupableHelperService;
-import org.kuali.rice.kns.service.BusinessObjectAuthorizationService;
-import org.kuali.rice.kns.service.BusinessObjectDictionaryService;
-import org.kuali.rice.kns.service.BusinessObjectMetaDataService;
-import org.kuali.rice.kns.web.comparator.CellComparatorHelper;
-import org.kuali.rice.kns.web.struts.form.LookupForm;
-import org.kuali.rice.kns.web.ui.Column;
-import org.kuali.rice.kns.web.ui.Field;
-import org.kuali.rice.kns.web.ui.ResultRow;
-import org.kuali.rice.kns.web.ui.Row;
-import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.service.DataDictionaryService;
-import org.kuali.rice.krad.service.PersistenceStructureService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.ObjectUtils;
 
 
 /**
@@ -209,7 +208,7 @@ public class AccessSecurityBalanceLookupableHelperServiceImpl implements Lookupa
     /**
      * Gets search results and passes to access security service to apply access restrictions
      *
-     * @see org.kuali.rice.kns.lookup.LookupableHelperService#getSearchResults(java.util.Map)
+     * @see org.kuali.kfs.kns.lookup.LookupableHelperService#getSearchResults(java.util.Map)
      */
     @Override
     public List getSearchResults(Map<String, String> fieldValues) {
@@ -232,7 +231,7 @@ public class AccessSecurityBalanceLookupableHelperServiceImpl implements Lookupa
     /**
      * Gets search results and passes to access security service to apply access restrictions
      *
-     * @see org.kuali.rice.kns.lookup.LookupableHelperService#getSearchResultsUnbounded(java.util.Map)
+     * @see org.kuali.kfs.kns.lookup.LookupableHelperService#getSearchResultsUnbounded(java.util.Map)
      */
     @Override
     public List getSearchResultsUnbounded(Map<String, String> fieldValues) {
@@ -284,7 +283,7 @@ public class AccessSecurityBalanceLookupableHelperServiceImpl implements Lookupa
     /**
      * Need to duplicate the logic of performLookup so that getSearchResults will be called on this class and not the nested lookup helper service
      *
-     * @see org.kuali.rice.kns.lookup.LookupableHelperService#performLookup(org.kuali.rice.kns.web.struts.form.LookupForm, java.util.Collection, boolean)
+     * @see org.kuali.kfs.kns.lookup.LookupableHelperService#performLookup(org.kuali.kfs.kns.web.struts.form.LookupForm, java.util.Collection, boolean)
      */
     @Override
     public Collection performLookup(LookupForm lookupForm, Collection resultTable, boolean bounded) {
@@ -301,8 +300,7 @@ public class AccessSecurityBalanceLookupableHelperServiceImpl implements Lookupa
         // call search method to get results
         if (bounded) {
             displayList = getSearchResults(lookupForm.getFieldsForLookup());
-        }
-        else {
+        } else {
             displayList = getSearchResultsUnbounded(lookupForm.getFieldsForLookup());
         }
 
@@ -315,7 +313,7 @@ public class AccessSecurityBalanceLookupableHelperServiceImpl implements Lookupa
         Person user = GlobalVariables.getUserSession().getPerson();
 
         // iterate through result list and wrap rows with return url and action urls
-        for (Iterator iter = displayList.iterator(); iter.hasNext();) {
+        for (Iterator iter = displayList.iterator(); iter.hasNext(); ) {
             BusinessObject element = (BusinessObject) iter.next();
             if (element instanceof PersistableBusinessObject) {
                 lookupForm.setLookupObjectId(((PersistableBusinessObject) element).getObjectId());
@@ -332,7 +330,7 @@ public class AccessSecurityBalanceLookupableHelperServiceImpl implements Lookupa
             }
 
             List<Column> columns = getColumns();
-            for (Iterator iterator = columns.iterator(); iterator.hasNext();) {
+            for (Iterator iterator = columns.iterator(); iterator.hasNext(); ) {
 
                 Column col = (Column) iterator.next();
                 Formatter formatter = col.getFormatter();
@@ -347,8 +345,7 @@ public class AccessSecurityBalanceLookupableHelperServiceImpl implements Lookupa
                     try {
                         propClass = ObjectUtils.getPropertyType(element, col.getPropertyName(), persistenceStructureService);
                         propertyTypes.put(col.getPropertyName(), propClass);
-                    }
-                    catch (Exception e) {
+                    } catch (Exception e) {
                         throw new RuntimeException("Cannot access PropertyType for property " + "'" + col.getPropertyName() + "' " + " on an instance of '" + element.getClass().getName() + "'.", e);
                     }
                 }
@@ -372,8 +369,7 @@ public class AccessSecurityBalanceLookupableHelperServiceImpl implements Lookupa
 
                     if (formatter != null) {
                         propValue = (String) formatter.format(prop);
-                    }
-                    else {
+                    } else {
                         propValue = prop.toString();
                     }
                 }
@@ -401,7 +397,7 @@ public class AccessSecurityBalanceLookupableHelperServiceImpl implements Lookupa
                 row.setBusinessObject(element);
             }
 
-            if(element instanceof SegmentedBusinessObject) {
+            if (element instanceof SegmentedBusinessObject) {
                 for (String propertyName : ((SegmentedBusinessObject) element).getSegmentedPropertyNames()) {
                     columns.add(setupResultsColumn(element, propertyName, businessObjectRestrictions));
                 }
@@ -448,11 +444,9 @@ public class AccessSecurityBalanceLookupableHelperServiceImpl implements Lookupa
             try {
                 formatter = (Formatter) formatterClass.newInstance();
                 col.setFormatter(formatter);
-            }
-            catch (InstantiationException e) {
+            } catch (InstantiationException e) {
                 throw new RuntimeException("Unable to get new instance of formatter class: " + formatterClass.getName());
-            }
-            catch (IllegalAccessException e) {
+            } catch (IllegalAccessException e) {
                 throw new RuntimeException("Unable to get new instance of formatter class: " + formatterClass.getName());
             }
         }
@@ -468,8 +462,7 @@ public class AccessSecurityBalanceLookupableHelperServiceImpl implements Lookupa
             if (propDescriptor != null) {
                 propClass = propDescriptor.getPropertyType();
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException("Cannot access PropertyType for property " + "'" + col.getPropertyName() + "' " + " on an instance of '" + element.getClass().getName() + "'.", e);
         }
 
@@ -482,8 +475,7 @@ public class AccessSecurityBalanceLookupableHelperServiceImpl implements Lookupa
 
             if (formatter != null) {
                 propValue = (String) formatter.format(prop);
-            }
-            else {
+            } else {
                 propValue = prop.toString();
             }
         }
@@ -519,11 +511,9 @@ public class AccessSecurityBalanceLookupableHelperServiceImpl implements Lookupa
                 String newPropValue = dateValue;// maybe clean above with ObjectUtils.clean(propertyValue)
                 if (StringUtils.isNotEmpty(fromDateValue) && StringUtils.isNotEmpty(dateValue)) {
                     newPropValue = fromDateValue + ".." + dateValue;
-                }
-                else if (StringUtils.isNotEmpty(fromDateValue) && StringUtils.isEmpty(dateValue)) {
+                } else if (StringUtils.isNotEmpty(fromDateValue) && StringUtils.isEmpty(dateValue)) {
                     newPropValue = ">=" + fromDateValue;
-                }
-                else if (StringUtils.isNotEmpty(dateValue) && StringUtils.isEmpty(fromDateValue)) {
+                } else if (StringUtils.isNotEmpty(dateValue) && StringUtils.isEmpty(fromDateValue)) {
                     newPropValue = "<=" + dateValue;
                 } // could optionally continue on else here
 

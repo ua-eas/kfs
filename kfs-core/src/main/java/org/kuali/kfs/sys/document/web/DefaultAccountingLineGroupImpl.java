@@ -1,32 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.document.web;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.tagext.JspFragment;
-import javax.servlet.jsp.tagext.Tag;
-
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.datadictionary.AccountingLineGroupDefinition;
 import org.kuali.kfs.sys.document.datadictionary.TotalDefinition;
@@ -36,8 +30,16 @@ import org.kuali.kfs.sys.document.web.renderers.GroupErrorsRenderer;
 import org.kuali.kfs.sys.document.web.renderers.GroupTitleLineRenderer;
 import org.kuali.kfs.sys.document.web.renderers.Renderer;
 import org.kuali.kfs.sys.document.web.renderers.RepresentedCellCurious;
-import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase;
+import org.kuali.rice.kew.api.document.DocumentStatus;
+
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.PageContext;
+import javax.servlet.jsp.tagext.JspFragment;
+import javax.servlet.jsp.tagext.Tag;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This represents an accounting line group in renderable state
@@ -60,18 +62,19 @@ public class DefaultAccountingLineGroupImpl implements AccountingLineGroup {
     /**
      * Constructs a DefaultAccountingLineGroupImpl
      */
-    public DefaultAccountingLineGroupImpl() {}
+    public DefaultAccountingLineGroupImpl() {
+    }
 
     /**
      * Initializes the DefaultAccountingLineGroupImpl
      *
-     * @param groupDefinition the data dictionary group definition for this accounting line group
-     * @param accountingDocument the document which owns or will own the accounting line being rendered
-     * @param containers the containers within this group
+     * @param groupDefinition        the data dictionary group definition for this accounting line group
+     * @param accountingDocument     the document which owns or will own the accounting line being rendered
+     * @param containers             the containers within this group
      * @param collectionPropertyName the property name of the collection of accounting lines owned by this group
-     * @param errors a List of errors keys for errors on the page
-     * @param displayedErrors a Map of errors that have already been displayed
-     * @param canEdit determines if the page can be edited or not
+     * @param errors                 a List of errors keys for errors on the page
+     * @param displayedErrors        a Map of errors that have already been displayed
+     * @param canEdit                determines if the page can be edited or not
      */
     public void initialize(AccountingLineGroupDefinition groupDefinition, AccountingDocument accountingDocument, List<RenderableAccountingLineContainer> containers, String collectionPropertyName, String collectionItemPropertyName, Map<String, Object> displayedErrors, Map<String, Object> displayedWarnings, Map<String, Object> displayedInfo, boolean canEdit) {
         this.groupDefinition = groupDefinition;
@@ -89,12 +92,12 @@ public class DefaultAccountingLineGroupImpl implements AccountingLineGroup {
      * Renders the whole of this accounting line group
      *
      * @param pageContext the page context to render to
-     * @param parentTag the AccountingLinesTag that is requesting this rendering
+     * @param parentTag   the AccountingLinesTag that is requesting this rendering
      */
     @Override
-    public void renderEverything(PageContext pageContext, Tag parentTag) throws JspException {
+    public void renderEverything(PageContext pageContext, Tag parentTag, KualiDocumentFormBase form) throws JspException {
         if (groupDefinition.isHeaderRendering()) {
-            renderGroupHeader(pageContext, parentTag);
+            renderGroupHeader(pageContext, parentTag, form);
         }
         renderAccountingLineContainers(pageContext, parentTag);
 
@@ -105,6 +108,7 @@ public class DefaultAccountingLineGroupImpl implements AccountingLineGroup {
 
     /**
      * Checks that there are either source or target accounting lines available and that at least one totals definition has been set up for this accounting line group
+     *
      * @see org.kuali.kfs.sys.document.web.AccountingLineGroup#shouldRenderTotals()
      */
     @Override
@@ -144,25 +148,25 @@ public class DefaultAccountingLineGroupImpl implements AccountingLineGroup {
      * ImportLineRenderer to do its dirty work
      *
      * @param accountingLineGroupDefinition the accounting line group definition
-     * @param rows the rows to render
+     * @param rows                          the rows to render
      * @throws JspException thrown if something goes wrong in rendering the header
      */
-    protected void renderGroupHeader(PageContext pageContext, Tag parentTag) throws JspException {
+    protected void renderGroupHeader(PageContext pageContext, Tag parentTag, KualiDocumentFormBase form) throws JspException {
         if (importLineOverride != null) {
             try {
                 importLineOverride.invoke(pageContext.getOut());
-            }
-            catch (IOException ioe) {
+            } catch (IOException ioe) {
                 throw new JspException("Could not render import line override fragment", ioe);
             }
-        }
-        else {
+        } else {
             GroupTitleLineRenderer groupTitleLineRenderer = new GroupTitleLineRenderer();
             groupTitleLineRenderer.setAccountingLineGroupDefinition(groupDefinition);
             groupTitleLineRenderer.setCellCount(getWidthInCells());
             groupTitleLineRenderer.setLineCollectionProperty(collectionPropertyName);
             groupTitleLineRenderer.setAccountingDocument(accountingDocument);
             groupTitleLineRenderer.setCanEdit(canEdit);
+
+            groupTitleLineRenderer.setHideDetails(((KualiAccountingDocumentFormBase) form).getHideDetails());
 
             boolean isGroupEditable = groupDefinition.getAccountingLineAuthorizer().isGroupEditable(accountingDocument, containers, GlobalVariables.getUserSession().getPerson());
             groupTitleLineRenderer.overrideCanUpload(groupDefinition.isImportingAllowed() && isGroupEditable);
@@ -177,8 +181,9 @@ public class DefaultAccountingLineGroupImpl implements AccountingLineGroup {
 
     /**
      * Renders any errors for the group
+     *
      * @param pageContext the page context where the errors will be rendered on
-     * @param parentTag the parent tag requesting the rendering
+     * @param parentTag   the parent tag requesting the rendering
      */
     protected void renderErrors(PageContext pageContext, Tag parentTag) throws JspException {
         GroupErrorsRenderer errorRenderer = getErrorRenderer();
@@ -195,8 +200,9 @@ public class DefaultAccountingLineGroupImpl implements AccountingLineGroup {
 
     /**
      * Moves all of the members of theList into theMap as a key with the value always being the String "true"
+     *
      * @param theList the List of Strings to be keys
-     * @param theMap the Map of keys and values
+     * @param theMap  the Map of keys and values
      */
     protected void moveListToMap(List<String> theList, Map theMap) {
         for (String s : theList) {
@@ -229,7 +235,7 @@ public class DefaultAccountingLineGroupImpl implements AccountingLineGroup {
      * Renders all of the totals required by the group total definition
      *
      * @param groupDefinition the accounting line view group definition
-     * @param lines the lines that will be rendered - so we can count how many cells we're rendering
+     * @param lines           the lines that will be rendered - so we can count how many cells we're rendering
      * @throws JspException thrown if something goes wrong
      */
     protected void renderTotals(PageContext pageContext, Tag parentTag) throws JspException {
@@ -260,8 +266,8 @@ public class DefaultAccountingLineGroupImpl implements AccountingLineGroup {
             }
 
             if (renderer instanceof CollectionPropertiesCurious) {
-                ((CollectionPropertiesCurious)renderer).setCollectionProperty(this.collectionPropertyName);
-                ((CollectionPropertiesCurious)renderer).setCollectionItemProperty(this.collectionItemPropertyName);
+                ((CollectionPropertiesCurious) renderer).setCollectionProperty(this.collectionPropertyName);
+                ((CollectionPropertiesCurious) renderer).setCollectionItemProperty(this.collectionItemPropertyName);
             }
 
             renderer.render(pageContext, parentTag);
@@ -335,6 +341,7 @@ public class DefaultAccountingLineGroupImpl implements AccountingLineGroup {
 
     /**
      * Gets the displayedWarnings attribute.
+     *
      * @return Returns the displayedWarnings.
      */
     public Map getDisplayedWarnings() {
@@ -343,6 +350,7 @@ public class DefaultAccountingLineGroupImpl implements AccountingLineGroup {
 
     /**
      * Gets the displayedInfo attribute.
+     *
      * @return Returns the displayedInfo.
      */
     public Map getDisplayedInfo() {
@@ -351,6 +359,7 @@ public class DefaultAccountingLineGroupImpl implements AccountingLineGroup {
 
     /**
      * Gets the errorKeys attribute.
+     *
      * @return Returns the errorKeys.
      */
     @Override
@@ -360,6 +369,7 @@ public class DefaultAccountingLineGroupImpl implements AccountingLineGroup {
 
     /**
      * Sets the errorKeys attribute value.
+     *
      * @param errorKeys The errorKeys to set.
      */
     @Override
@@ -371,9 +381,9 @@ public class DefaultAccountingLineGroupImpl implements AccountingLineGroup {
      * Determines if the current document is enrouted
      */
     private boolean isDocumentEnrouted() {
-        WorkflowDocument workflowDocument = accountingDocument.getDocumentHeader().getWorkflowDocument();
-
-        return !workflowDocument.isInitiated() && !workflowDocument.isSaved();
+        FinancialSystemDocumentHeader header = (FinancialSystemDocumentHeader) accountingDocument.getDocumentHeader();
+        String workflowStatus = header.getWorkflowDocumentStatusCode();
+        return (workflowStatus != null && !DocumentStatus.INITIATED.getCode().equals(workflowStatus) && !DocumentStatus.SAVED.getCode().equals(workflowStatus));
     }
 
     /**
@@ -399,6 +409,7 @@ public class DefaultAccountingLineGroupImpl implements AccountingLineGroup {
 
     /**
      * Determines if there are enough accounting lines in this group for delete buttons to be present
+     *
      * @return true if there are enough accounting lines for a delete, false otherwise
      */
     protected boolean hasEnoughAccountingLinesForDelete() {
@@ -408,8 +419,7 @@ public class DefaultAccountingLineGroupImpl implements AccountingLineGroup {
             if (!accountingLineRenderingContext.isNewLine() && accountingLineRenderingContext.isEditableLine()) {
                 editableLineCount += 1;
             }
-            if (editableLineCount == 2)
-             {
+            if (editableLineCount == 2) {
                 return true; // we know we're good...skip out early
             }
         }
@@ -418,6 +428,7 @@ public class DefaultAccountingLineGroupImpl implements AccountingLineGroup {
 
     /**
      * Gets the collectionItemPropertyName attribute.
+     *
      * @return Returns the collectionItemPropertyName.
      */
     @Override
@@ -427,6 +438,7 @@ public class DefaultAccountingLineGroupImpl implements AccountingLineGroup {
 
     /**
      * Gets the groupDefinition attribute.
+     *
      * @return Returns the groupDefinition.
      */
     public AccountingLineGroupDefinition getGroupDefinition() {
@@ -435,6 +447,7 @@ public class DefaultAccountingLineGroupImpl implements AccountingLineGroup {
 
     /**
      * Sets the groupDefinition attribute value.
+     *
      * @param groupDefinition The groupDefinition to set.
      */
     public void setGroupDefinition(AccountingLineGroupDefinition groupDefinition) {
@@ -443,6 +456,7 @@ public class DefaultAccountingLineGroupImpl implements AccountingLineGroup {
 
     /**
      * Gets the displayedErrors attribute.
+     *
      * @return Returns the displayedErrors.
      */
     public Map getDisplayedErrors() {
@@ -451,6 +465,7 @@ public class DefaultAccountingLineGroupImpl implements AccountingLineGroup {
 
     /**
      * Sets the displayedErrors attribute value.
+     *
      * @param displayedErrors The displayedErrors to set.
      */
     public void setDisplayedErrors(Map displayedErrors) {
@@ -459,6 +474,7 @@ public class DefaultAccountingLineGroupImpl implements AccountingLineGroup {
 
     /**
      * Gets the collectionPropertyName attribute.
+     *
      * @return Returns the collectionPropertyName.
      */
     public String getCollectionPropertyName() {
@@ -467,6 +483,7 @@ public class DefaultAccountingLineGroupImpl implements AccountingLineGroup {
 
     /**
      * Sets the collectionPropertyName attribute value.
+     *
      * @param collectionPropertyName The collectionPropertyName to set.
      */
     public void setCollectionPropertyName(String collectionPropertyName) {
@@ -475,6 +492,7 @@ public class DefaultAccountingLineGroupImpl implements AccountingLineGroup {
 
     /**
      * Sets the collectionItemPropertyName attribute value.
+     *
      * @param collectionItemPropertyName The collectionItemPropertyName to set.
      */
     public void setCollectionItemPropertyName(String collectionItemPropertyName) {

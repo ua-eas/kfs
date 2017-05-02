@@ -1,33 +1,29 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.external.kc.service.impl;
-
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import org.kuali.kfs.fp.businessobject.FiscalYearFunctionControl;
 import org.kuali.kfs.fp.document.BudgetAdjustmentDocument;
 import org.kuali.kfs.fp.service.FiscalYearFunctionControlService;
 import org.kuali.kfs.integration.cg.dto.BudgetAdjustmentCreationStatusDTO;
 import org.kuali.kfs.integration.cg.dto.BudgetAdjustmentParametersDTO;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.external.kc.KcConstants;
 import org.kuali.kfs.module.external.kc.fixture.BudgetAdjustmentParameterDTOFixture;
 import org.kuali.kfs.module.external.kc.fixture.BudgetAdjustmentParameterDTOLineFixture;
@@ -38,7 +34,11 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.TestUtils;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.krad.service.BusinessObjectService;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class BudgetAdjustmentServiceImplTest extends BudgetAdjustmentServiceTest {
@@ -57,7 +57,7 @@ public class BudgetAdjustmentServiceImplTest extends BudgetAdjustmentServiceTest
         FiscalYearFunctionControlService fiscalYearFunctionControlService = SpringContext.getBean(FiscalYearFunctionControlService.class);
         System.out.println("BA Allowed Years: " + fiscalYearFunctionControlService.getBudgetAdjustmentAllowedYears());
         fiscalYear = TestUtils.getFiscalYearForTesting();
-  
+
         System.out.println("Testing FY: " + fiscalYear);
         // ensure we have an active BA document for the given year
         FiscalYearFunctionControl fyfc = new FiscalYearFunctionControl();
@@ -68,7 +68,7 @@ public class BudgetAdjustmentServiceImplTest extends BudgetAdjustmentServiceTest
             fyfc = existingFyfc;
             fyfc.setFinancialSystemFunctionActiveIndicator(true);
         }
-         //
+        //
 
         SpringContext.getBean(BusinessObjectService.class).save(fyfc);
         System.out.println("BA Allowed Years (after update): " + fiscalYearFunctionControlService.getBudgetAdjustmentAllowedYears());
@@ -76,7 +76,7 @@ public class BudgetAdjustmentServiceImplTest extends BudgetAdjustmentServiceTest
 
     /**
      * This method will create AccountsParameters with test values...
-     * 
+     *
      * @return accountParameters
      */
     public List<BudgetAdjustmentParametersDTO> getBudgetAdjustmentParameters() {
@@ -86,7 +86,7 @@ public class BudgetAdjustmentServiceImplTest extends BudgetAdjustmentServiceTest
         budgetAdjustmentParametersDTO1.getDetails().add(BudgetAdjustmentParameterDTOLineFixture.DETAIL_F_LINE1.createBudgetAdjustmentParameterDTO());
         //budgetAdjustmentParametersDTO1.getDetails().add(BudgetAdjustmentParameterDTOLineFixture.DETAIL_T_LINE1.createBudgetAdjustmentParameterDTO());
         list.add(budgetAdjustmentParametersDTO1);
-        
+
         BudgetAdjustmentParametersDTO budgetAdjustmentParametersDTO2 = BudgetAdjustmentParameterDTOFixture.CONTROL_2.createBudgetAdjustmentParameters();
         budgetAdjustmentParametersDTO2.getDetails().add(BudgetAdjustmentParameterDTOLineFixture.DETAIL_F_LINE2.createBudgetAdjustmentParameterDTO());
         budgetAdjustmentParametersDTO2.getDetails().add(BudgetAdjustmentParameterDTOLineFixture.DETAIL_T_LINE2.createBudgetAdjustmentParameterDTO());
@@ -101,8 +101,8 @@ public class BudgetAdjustmentServiceImplTest extends BudgetAdjustmentServiceTest
         budgetAdjustmentParametersDTO.getDetails().add(BudgetAdjustmentParameterDTOLineFixture.DETAIL_LINE4.createBudgetAdjustmentParameterDTO());
         budgetAdjustmentParametersDTO.getDetails().add(BudgetAdjustmentParameterDTOLineFixture.DETAIL_LINE5.createBudgetAdjustmentParameterDTO());
         budgetAdjustmentParametersDTO.getDetails().add(BudgetAdjustmentParameterDTOLineFixture.DETAIL_LINE6.createBudgetAdjustmentParameterDTO());
-        
- 
+
+
         budgetAdjustmentParametersDTO.getDetails().add(BudgetAdjustmentParameterDTOLineFixture.DETAIL_LINE7.createBudgetAdjustmentParameterDTO());
         budgetAdjustmentParametersDTO.getDetails().add(BudgetAdjustmentParameterDTOLineFixture.DETAIL_LINE8.createBudgetAdjustmentParameterDTO());
         budgetAdjustmentParametersDTO.getDetails().add(BudgetAdjustmentParameterDTOLineFixture.DETAIL_LINE9.createBudgetAdjustmentParameterDTO());
@@ -188,17 +188,17 @@ public class BudgetAdjustmentServiceImplTest extends BudgetAdjustmentServiceTest
     // // BudgetAdjustmentService budgetAdjustService = (BudgetAdjustmentService) GlobalResourceLoader.getService(new
     // QName(KFSConstants.Reserch.KC_NAMESPACE_URI, KFSConstants.Reserch.KC_UNIT_SERVICE));
     //
-    //            
+    //
     // URL url = new URL("http://localhost:8080/remoting/budgetAdjustmentServiceSOAP");
     // QName qName = new QName("KFS", "budgetAdjustmentServiceSoap");
-    // 
+    //
     // Service service = Service.create(url, qName);
     // BudgetAdjustmentService budgetAdjustService = (BudgetAdjustmentService) service.getPort(BudgetAdjustmentService.class);
     // BudgetAdjustmentCreationStatusDTO creationStatus = budgetAdjustService.createBudgetAdjustment(budgetAdjustmentParametersDTO);
-    //                    
+    //
     // System.out.println("doc number: " + creationStatus.getDocumentNumber());
     // assertTrue(creationStatus.getStatus().equals("success"));
-    //            
+    //
     // } catch (Exception e) {
     // System.out.println("error: " + e.getMessage());
     // }

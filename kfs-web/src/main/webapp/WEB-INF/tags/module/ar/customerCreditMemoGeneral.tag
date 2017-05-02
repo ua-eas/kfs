@@ -1,26 +1,26 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 
 <script language="JavaScript" type="text/javascript" src="scripts/module/ar/customerObjectInfo.js"></script>
- 
-<c:set var="documentAttributes" value="${DataDictionary.CustomerCreditMemoDocument.attributes}" />             
+
+<c:set var="documentAttributes" value="${DataDictionary.CustomerCreditMemoDocument.attributes}" />
 <c:set var="customerAttributes" value="${DataDictionary.Customer.attributes}" />
 
 <kul:tab tabTitle="General" defaultOpen="true" >
@@ -38,7 +38,7 @@
 					<a href="${ConfigProperties.workflow.url}/DocHandler.do?docId=${KualiForm.document.financialDocumentReferenceInvoiceNumber}&command=displayDocSearchView" target="blank">
         			<kul:htmlControlAttribute attributeEntry="${documentAttributes.financialDocumentReferenceInvoiceNumber}"
                       	  property="document.financialDocumentReferenceInvoiceNumber"
-                          readOnly="true" />	
+                          readOnly="true" />
 					</a>
         		</td>
         	</tr>
@@ -54,7 +54,7 @@
                           readOnly="true" />
         		</td>
         	</tr>
-        	
+
         	<tr>
         		<th align=right valign=middle class="bord-l-b">
         			<div align="right">
@@ -67,7 +67,7 @@
                       	readOnly="true" />
         		</td>
         	</tr>
-        	
+
 			<tr>
 				<th align=right valign=middle class="bord-l-b">
 					<div align="right">
@@ -80,7 +80,7 @@
                        	readOnly="true" />
 				</td>
 			</tr>
-			
+
             <tr>
 				<th align=right valign=middle class="bord-l-b">
 					<div align="right">

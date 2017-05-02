@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.module.ar.document.service;
 
-import java.util.List;
-
 import org.kuali.kfs.module.ar.businessobject.CashControlDetail;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
 import org.kuali.kfs.module.ar.businessobject.InvoicePaidApplied;
@@ -27,6 +25,8 @@ import org.kuali.kfs.module.ar.document.CashControlDocument;
 import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
 import org.kuali.kfs.module.ar.document.PaymentApplicationDocument;
 import org.kuali.rice.kew.api.exception.WorkflowException;
+
+import java.util.List;
 
 /**
  * Service methods for Payment Application Document.
@@ -82,11 +82,11 @@ public interface PaymentApplicationDocumentService {
      * This method creates an invoice paid applied for the given customer invoice detail. This method assumes that no existing
      * paidApplieds are already on the document.
      *
-     * @param customerInvoiceDetail the customer invoice detail for which we want to create the invoice paid applied
-     * @param applicationDocNbr the payment application document number
-     * @param universityFiscalYear the university fiscal year
+     * @param customerInvoiceDetail      the customer invoice detail for which we want to create the invoice paid applied
+     * @param applicationDocNbr          the payment application document number
+     * @param universityFiscalYear       the university fiscal year
      * @param universityFiscalPeriodCode the university fiscal period code
-     * @param amount the amount to be applied
+     * @param amount                     the amount to be applied
      * @return the created invoice paid applied if it did not exist, null otherwise
      */
     public InvoicePaidApplied createInvoicePaidAppliedForInvoiceDetail(CustomerInvoiceDetail customerInvoiceDetail, PaymentApplicationDocument paymentApplicationDocument, Integer paidAppliedItemNumber);
@@ -104,8 +104,8 @@ public interface PaymentApplicationDocumentService {
      * This method creates, saves and approves a PaymentApplication document for a given invoice with the
      * given approval annotation and adhoc recipients.
      *
-     * @param customerInvoiceDocument invoice to create PaymentApplication from
-     * @param approvalAnnotation annotation for approval action
+     * @param customerInvoiceDocument        invoice to create PaymentApplication from
+     * @param approvalAnnotation             annotation for approval action
      * @param workflowNotificationRecipients adhoc notification recipients
      * @return PaymentApplicationDocument that was created
      * @throws WorkflowException if there's a problem

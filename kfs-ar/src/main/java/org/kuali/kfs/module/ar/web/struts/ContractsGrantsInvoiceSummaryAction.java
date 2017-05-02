@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,22 +18,21 @@
  */
 package org.kuali.kfs.module.ar.web.struts;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.kns.web.ui.Column;
+import org.kuali.kfs.kns.web.ui.ResultRow;
+import org.kuali.kfs.krad.bo.ModuleConfiguration;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.businessobject.ContractsGrantsInvoiceDocumentErrorLog;
@@ -47,15 +46,15 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.SegmentedLookupResultsService;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kns.util.KNSGlobalVariables;
-import org.kuali.rice.kns.web.ui.Column;
-import org.kuali.rice.kns.web.ui.ResultRow;
-import org.kuali.rice.krad.bo.ModuleConfiguration;
-import org.kuali.rice.krad.service.KualiModuleService;
-import org.kuali.rice.krad.util.ErrorMessage;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Action class for Contracts & Grants Invoice Summary.
@@ -117,7 +116,7 @@ public class ContractsGrantsInvoiceSummaryAction extends ContractsGrantsBillingS
         String destinationFolderPath = StringUtils.EMPTY;
         List<String> batchFileDirectories = ((FinancialSystemModuleConfiguration) systemConfiguration).getBatchFileDirectories();
 
-        if ( CollectionUtils.isNotEmpty(batchFileDirectories)){
+        if (CollectionUtils.isNotEmpty(batchFileDirectories)) {
             destinationFolderPath = ((FinancialSystemModuleConfiguration) systemConfiguration).getBatchFileDirectories().get(0);
         }
 
@@ -154,7 +153,6 @@ public class ContractsGrantsInvoiceSummaryAction extends ContractsGrantsBillingS
     }
 
     /**
-     *
      * @param lookupResultsSequenceNumber
      * @param personId
      * @return
@@ -168,7 +166,7 @@ public class ContractsGrantsInvoiceSummaryAction extends ContractsGrantsBillingS
      * Get the Awards based on what the user selected in the lookup results.
      *
      * @param lookupResultsSequenceNumber sequence number used to retrieve the lookup results
-     * @param personId person who performed the lookup
+     * @param personId                    person who performed the lookup
      * @return Collection of ContractsAndGrantsBillingAwards
      * @throws Exception if there was a problem getting the selected proposal numbers from the lookup results
      */
@@ -179,7 +177,7 @@ public class ContractsGrantsInvoiceSummaryAction extends ContractsGrantsBillingS
         List<String> selectedProposalNumbers = getSelectedProposalNumbersFromLookupResultsSequenceNumber(lookupResultsSequenceNumber, personId);
         ContractsAndGrantsBillingAward award = null;
 
-        for (String selectedProposalNumber: selectedProposalNumbers) {
+        for (String selectedProposalNumber : selectedProposalNumbers) {
             Map<String, Object> map = new HashMap<String, Object>();
             map.put(KFSPropertyConstants.PROPOSAL_NUMBER, selectedProposalNumber);
             award = kualiModuleService.getResponsibleModuleService(ContractsAndGrantsBillingAward.class).getExternalizableBusinessObject(ContractsAndGrantsBillingAward.class, map);
@@ -196,7 +194,7 @@ public class ContractsGrantsInvoiceSummaryAction extends ContractsGrantsBillingS
      * and then matching them against the results from the lookup.
      *
      * @param lookupResultsSequenceNumber sequence number used to retrieve the lookup results and selected object ids
-     * @param personId person who performed the lookup
+     * @param personId                    person who performed the lookup
      * @return List of proposalNumber Strings that the user selected
      * @throws Exception if there was a problem getting the selected object ids or the lookup results
      */
@@ -205,7 +203,7 @@ public class ContractsGrantsInvoiceSummaryAction extends ContractsGrantsBillingS
         Set<String> selectedIds = getSegmentedLookupResultsService().retrieveSetOfSelectedObjectIds(lookupResultsSequenceNumber, GlobalVariables.getUserSession().getPerson().getPrincipalId());
         if (CollectionUtils.isNotEmpty(selectedIds)) {
             List<ResultRow> results = getLookupResultsService().retrieveResultsTable(lookupResultsSequenceNumber, personId);
-            for (ResultRow result:results) {
+            for (ResultRow result : results) {
                 List<Column> columns = result.getColumns();
                 if (result instanceof ContractsGrantsLookupResultRow) {
                     for (ResultRow subResultRow : ((ContractsGrantsLookupResultRow) result).getSubResultRows()) {
@@ -214,7 +212,7 @@ public class ContractsGrantsInvoiceSummaryAction extends ContractsGrantsBillingS
                             // This is somewhat brittle - it depends on the fact that the Proposal Number is one of
                             // the columns in the sub result rows. If that changes, this will no longer work and will
                             // need to be changed.
-                            for (Column column: subResultRow.getColumns()) {
+                            for (Column column : subResultRow.getColumns()) {
                                 if (StringUtils.equals(column.getPropertyName(), KFSPropertyConstants.PROPOSAL_NUMBER)) {
                                     selectedProposalNumbers.add(subResultRow.getColumns().get(0).getPropertyValue());
                                     break;

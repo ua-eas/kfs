@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -21,10 +21,6 @@
  *
  */
 package org.kuali.kfs.gl.dataaccess.impl;
-
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.Iterator;
 
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
@@ -37,6 +33,10 @@ import org.kuali.kfs.gl.dataaccess.ReversalDao;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.util.TransactionalServiceUtils;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.Iterator;
 
 /**
  * An OJB implementation of the Reversal DAO
@@ -67,7 +67,7 @@ public class ReversalDaoOjb extends PlatformAwareDaoBaseOjb implements ReversalD
     /**
      * Find the maximum transactionLedgerEntrySequenceNumber in the entry table for a specific transaction. This is used to make
      * sure that rows added have a unique primary key.
-     * 
+     *
      * @param t a transaction to find the maximum sequence number for
      * @return the max sequence number for the given transaction
      */
@@ -89,7 +89,7 @@ public class ReversalDaoOjb extends PlatformAwareDaoBaseOjb implements ReversalD
         crit.addEqualTo(KFSPropertyConstants.DOCUMENT_NUMBER, t.getDocumentNumber());
 
         ReportQueryByCriteria q = QueryFactory.newReportQuery(Entry.class, crit);
-        q.setAttributes(new String[] { "max(transactionLedgerEntrySequenceNumber)" });
+        q.setAttributes(new String[]{"max(transactionLedgerEntrySequenceNumber)"});
 
         Iterator iter = getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(q);
         if (iter.hasNext()) {
@@ -98,19 +98,17 @@ public class ReversalDaoOjb extends PlatformAwareDaoBaseOjb implements ReversalD
 
             if (max == null) {
                 return 0;
-            }
-            else {
+            } else {
                 return max.intValue();
             }
-        }
-        else {
+        } else {
             return 0;
         }
     }
 
     /**
      * Fetches the reversal record that would affected by the posting of the given transaction
-     * 
+     *
      * @param t the transaction to find the related reversal for
      * @return the reversal affected by the given transaction
      * @see org.kuali.kfs.gl.dataaccess.ReversalDao#getByTransaction(org.kuali.kfs.gl.businessobject.Transaction)
@@ -141,7 +139,7 @@ public class ReversalDaoOjb extends PlatformAwareDaoBaseOjb implements ReversalD
     /**
      * Fetches all reversals that have been set to reverse on or before the given date - that is to say,
      * returns all the reversal records ready to be reversed!
-     * 
+     *
      * @param before the date that reversals must reverse on or before
      * @return an Iterator of reversal records to reverse
      * @see org.kuali.kfs.gl.dataaccess.ReversalDao#getByDate(java.util.Date)
@@ -158,7 +156,7 @@ public class ReversalDaoOjb extends PlatformAwareDaoBaseOjb implements ReversalD
 
     /**
      * Deletes a reversal record
-     * 
+     *
      * @param re reversal to delete
      * @see org.kuali.kfs.gl.dataaccess.ReversalDao#delete(org.kuali.kfs.gl.businessobject.Reversal)
      */

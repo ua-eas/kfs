@@ -1,34 +1,33 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.coa.businessobject.Account;
+import org.kuali.kfs.fp.service.AccountingDocumentPreRuleService;
+import org.kuali.kfs.kns.rule.event.PromptBeforeValidationEvent;
+import org.kuali.kfs.kns.rules.PromptBeforeValidationBase;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -44,19 +43,13 @@ import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kim.api.identity.Person;
 
-
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.kns.rule.event.PromptBeforeValidationEvent;
-import org.kuali.rice.kns.rules.PromptBeforeValidationBase;
-import org.kuali.rice.kns.service.DataDictionaryService;
-
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
-
-
-
-import org.kuali.kfs.fp.service.AccountingDocumentPreRuleService;
-
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -68,7 +61,7 @@ public class AccountingDocumentPreRuleServiceImpl implements AccountingDocumentP
 
     /**
      * Access the account override question for all accounting document
-     * 
+     *
      * @param document
      * @param preRule
      * @return
@@ -78,14 +71,14 @@ public class AccountingDocumentPreRuleServiceImpl implements AccountingDocumentP
         List<AccountingLine> accountLineList = getOverrideQuestionAccount(document);
         if (accountLineList != null && !accountLineList.isEmpty()) {
             String questionText = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KFSKeyConstants.QUESTION_NEED_OVERRIDE_ACCOUNT_FOR_EXPIRED);
-            
+
             StringBuffer expiredAccounts = new StringBuffer();
             for (AccountingLine accountingLine : accountLineList) {
                 expiredAccounts.append(accountingLine.getChartOfAccountsCode());
                 expiredAccounts.append("-");
                 expiredAccounts.append(accountingLine.getAccountNumber());
                 expiredAccounts.append(" ");
-                
+
             }
             questionText = StringUtils.replace(questionText, "{0}", expiredAccounts.toString());
 
@@ -97,8 +90,7 @@ public class AccountingDocumentPreRuleServiceImpl implements AccountingDocumentP
                 for (AccountingLine accountingLine : accountLineList) {
                     setAccountOverride(document, accountingLine.getAccount(), AccountingLineOverride.valueOf(overrideInputComponents).getCode());
                 }
-            }
-            else {
+            } else {
                 // return to document if the user selects No
                 event.setActionForwardName(KFSConstants.MAPPING_BASIC);
                 tabStatesOK = false;
@@ -109,7 +101,7 @@ public class AccountingDocumentPreRuleServiceImpl implements AccountingDocumentP
 
     /**
      * Set up override for all accounting line with the same account number
-     * 
+     *
      * @param document
      * @param accountLine
      * @param code
@@ -119,7 +111,7 @@ public class AccountingDocumentPreRuleServiceImpl implements AccountingDocumentP
         accountLinesFromDoc.addAll(document.getSourceAccountingLines());
         accountLinesFromDoc.addAll(document.getTargetAccountingLines());
 
-        for (Iterator iter = accountLinesFromDoc.iterator(); iter.hasNext();) {
+        for (Iterator iter = accountLinesFromDoc.iterator(); iter.hasNext(); ) {
             AccountingLine currentLine = (AccountingLine) iter.next();
 
             if (overrideAccount.getChartOfAccountsCode().equals(currentLine.getChartOfAccountsCode()) && overrideAccount.getAccountNumber().equals(currentLine.getAccountNumber())) {
@@ -131,7 +123,7 @@ public class AccountingDocumentPreRuleServiceImpl implements AccountingDocumentP
     /**
      * DTT-3163: Walk through all source and target accounting lines to identify if there is account which is expired and requires
      * approver to override but approver does not have the edit permission
-     * 
+     *
      * @param document
      * @return
      */
@@ -140,7 +132,7 @@ public class AccountingDocumentPreRuleServiceImpl implements AccountingDocumentP
         List<AccountingLine> questionAccounts = new ArrayList<AccountingLine>();
         HashMap questionAccountsMap = new HashMap<String, Object>();
         String accountKey = null;
-        
+
         // expiration warning should be triggered only when document is enrouting and waiting for approval; accounting
         // line changed from active to inactive due to expiration date; the current approval does not have the permission on editing
         // accounting line
@@ -156,14 +148,14 @@ public class AccountingDocumentPreRuleServiceImpl implements AccountingDocumentP
                 Map<String, AccountingLineAuthorizer> authorizerMap = new HashMap<String, AccountingLineAuthorizer>();
 
 
-                for (Iterator iter = accountLinesFromDoc.iterator(); iter.hasNext();) {
+                for (Iterator iter = accountLinesFromDoc.iterator(); iter.hasNext(); ) {
                     AccountingLine currentLine = (AccountingLine) iter.next();
                     accountKey = currentLine.getChartOfAccountsCode() + "-" + currentLine.getAccountNumber();
                     // if account is a known expired account, skip it.
                     if (questionAccountsMap.containsKey(accountKey)) {
                         continue;
                     }
-                    
+
                     AccountingLineOverride override = AccountingLineOverride.valueOf(currentLine.getOverrideCode());
 
                     if (AccountingLineOverride.needsExpiredAccountOverride(currentLine.getAccount()) && !override.hasComponent(AccountingLineOverride.COMPONENT.EXPIRED_ACCOUNT)) {
@@ -176,8 +168,9 @@ public class AccountingDocumentPreRuleServiceImpl implements AccountingDocumentP
                         }
 
                         if (accountingLineAuthorizer != null) {
-                            boolean lineIsAccessible = accountingLineAuthorizer.hasEditPermissionOnAccountingLine(acctDoc, currentLine, getAccountingLineCollectionProperty(currentLine), currentUser, true);
-                            boolean isAccessible = accountingLineAuthorizer.hasEditPermissionOnField(acctDoc, currentLine, getAccountingLineCollectionProperty(currentLine), KFSPropertyConstants.ACCOUNT_NUMBER, lineIsAccessible, true, currentUser);
+                            final Set<String> currentNodes = acctDoc.getDocumentHeader().getWorkflowDocument().getCurrentNodeNames();
+                            boolean lineIsAccessible = accountingLineAuthorizer.hasEditPermissionOnAccountingLine(acctDoc, currentLine, getAccountingLineCollectionProperty(currentLine), currentUser, true, currentNodes);
+                            boolean isAccessible = accountingLineAuthorizer.hasEditPermissionOnField(acctDoc, currentLine, getAccountingLineCollectionProperty(currentLine), KFSPropertyConstants.ACCOUNT_NUMBER, lineIsAccessible, true, currentUser, currentNodes);
 
                             if (!isAccessible) {
                                 questionAccounts.add(currentLine);
@@ -196,7 +189,7 @@ public class AccountingDocumentPreRuleServiceImpl implements AccountingDocumentP
 
     /**
      * Determines the property of the accounting line collection from the error prefixes
-     * 
+     *
      * @return the accounting line collection property
      */
     protected String getAccountingLineCollectionProperty(AccountingLine account) {
@@ -217,7 +210,7 @@ public class AccountingDocumentPreRuleServiceImpl implements AccountingDocumentP
     protected Map buildAccountingLineMap(List accountingLines) {
         Map lineMap = new HashMap();
 
-        for (Iterator i = accountingLines.iterator(); i.hasNext();) {
+        for (Iterator i = accountingLines.iterator(); i.hasNext(); ) {
             AccountingLine accountingLine = (AccountingLine) i.next();
             Integer sequenceNumber = accountingLine.getSequenceNumber();
 
@@ -247,7 +240,7 @@ public class AccountingDocumentPreRuleServiceImpl implements AccountingDocumentP
 
     /**
      * Returns the name of the accounting line group which holds the proper authorizer to do the KIM check
-     * 
+     *
      * @return the name of the accouting line group to get the authorizer from
      */
     protected String getGroupName(AccountingLine line) {

@@ -1,33 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cam.businessobject;
 
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
 import java.sql.Date;
 import java.util.LinkedHashMap;
 
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 
-/**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
- */
 public class AssetComponent extends PersistableBusinessObjectBase implements MutableInactivatable {
 
     private Long capitalAssetNumber;
@@ -67,7 +65,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Gets the capitalAssetNumber attribute.
      *
      * @return Returns the capitalAssetNumber
-     *
      */
     public Long getCapitalAssetNumber() {
         return capitalAssetNumber;
@@ -77,7 +74,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Sets the capitalAssetNumber attribute.
      *
      * @param capitalAssetNumber The capitalAssetNumber to set.
-     *
      */
     public void setCapitalAssetNumber(Long capitalAssetNumber) {
         this.capitalAssetNumber = capitalAssetNumber;
@@ -88,7 +84,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Gets the componentNumber attribute.
      *
      * @return Returns the componentNumber
-     *
      */
     public Integer getComponentNumber() {
         return componentNumber;
@@ -98,7 +93,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Sets the componentNumber attribute.
      *
      * @param componentNumber The componentNumber to set.
-     *
      */
     public void setComponentNumber(Integer componentNumber) {
         this.componentNumber = componentNumber;
@@ -109,7 +103,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Gets the componentDescription attribute.
      *
      * @return Returns the componentDescription
-     *
      */
     public String getComponentDescription() {
         return componentDescription;
@@ -119,7 +112,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Sets the componentDescription attribute.
      *
      * @param componentDescription The componentDescription to set.
-     *
      */
     public void setComponentDescription(String componentDescription) {
         this.componentDescription = componentDescription;
@@ -130,7 +122,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Gets the componentContactPhoneNumber attribute.
      *
      * @return Returns the componentContactPhoneNumber
-     *
      */
     public String getComponentContactPhoneNumber() {
         return componentContactPhoneNumber;
@@ -140,7 +131,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Sets the componentContactPhoneNumber attribute.
      *
      * @param componentContactPhoneNumber The componentContactPhoneNumber to set.
-     *
      */
     public void setComponentContactPhoneNumber(String componentContactPhoneNumber) {
         this.componentContactPhoneNumber = componentContactPhoneNumber;
@@ -151,7 +141,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Gets the componentConditionCode attribute.
      *
      * @return Returns the componentConditionCode
-     *
      */
     public String getComponentConditionCode() {
         return componentConditionCode;
@@ -161,7 +150,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Sets the componentConditionCode attribute.
      *
      * @param componentConditionCode The componentConditionCode to set.
-     *
      */
     public void setComponentConditionCode(String componentConditionCode) {
         this.componentConditionCode = componentConditionCode;
@@ -172,7 +160,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Gets the componentEstimatedLifetimeLimit attribute.
      *
      * @return Returns the componentEstimatedLifetimeLimit
-     *
      */
     public Integer getComponentEstimatedLifetimeLimit() {
         return componentEstimatedLifetimeLimit;
@@ -182,7 +169,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Sets the componentEstimatedLifetimeLimit attribute.
      *
      * @param componentEstimatedLifetimeLimit The componentEstimatedLifetimeLimit to set.
-     *
      */
     public void setComponentEstimatedLifetimeLimit(Integer componentEstimatedLifetimeLimit) {
         this.componentEstimatedLifetimeLimit = componentEstimatedLifetimeLimit;
@@ -193,7 +179,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Gets the componentManufacturerName attribute.
      *
      * @return Returns the componentManufacturerName
-     *
      */
     public String getComponentManufacturerName() {
         return componentManufacturerName;
@@ -203,7 +188,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Sets the componentManufacturerName attribute.
      *
      * @param componentManufacturerName The componentManufacturerName to set.
-     *
      */
     public void setComponentManufacturerName(String componentManufacturerName) {
         this.componentManufacturerName = componentManufacturerName;
@@ -214,7 +198,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Gets the componentManufacturerModelNumber attribute.
      *
      * @return Returns the componentManufacturerModelNumber
-     *
      */
     public String getComponentManufacturerModelNumber() {
         return componentManufacturerModelNumber;
@@ -224,7 +207,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Sets the componentManufacturerModelNumber attribute.
      *
      * @param componentManufacturerModelNumber The componentManufacturerModelNumber to set.
-     *
      */
     public void setComponentManufacturerModelNumber(String componentManufacturerModelNumber) {
         this.componentManufacturerModelNumber = componentManufacturerModelNumber;
@@ -235,7 +217,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Gets the componentSerialNumber attribute.
      *
      * @return Returns the componentSerialNumber
-     *
      */
     public String getComponentSerialNumber() {
         return componentSerialNumber;
@@ -245,7 +226,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Sets the componentSerialNumber attribute.
      *
      * @param componentSerialNumber The componentSerialNumber to set.
-     *
      */
     public void setComponentSerialNumber(String componentSerialNumber) {
         this.componentSerialNumber = componentSerialNumber;
@@ -256,7 +236,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Gets the componentOrganizationTagNumber attribute.
      *
      * @return Returns the componentOrganizationTagNumber
-     *
      */
     public String getComponentOrganizationTagNumber() {
         return componentOrganizationTagNumber;
@@ -266,7 +245,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Sets the componentOrganizationTagNumber attribute.
      *
      * @param componentOrganizationTagNumber The componentOrganizationTagNumber to set.
-     *
      */
     public void setComponentOrganizationTagNumber(String componentOrganizationTagNumber) {
         this.componentOrganizationTagNumber = componentOrganizationTagNumber;
@@ -277,7 +255,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Gets the componentOrganizationText attribute.
      *
      * @return Returns the componentOrganizationText
-     *
      */
     public String getComponentOrganizationText() {
         return componentOrganizationText;
@@ -287,7 +264,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Sets the componentOrganizationText attribute.
      *
      * @param componentOrganizationText The componentOrganizationText to set.
-     *
      */
     public void setComponentOrganizationText(String componentOrganizationText) {
         this.componentOrganizationText = componentOrganizationText;
@@ -298,7 +274,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Gets the componentReplacementAmount attribute.
      *
      * @return Returns the componentReplacementAmount
-     *
      */
     public KualiDecimal getComponentReplacementAmount() {
         return componentReplacementAmount;
@@ -308,7 +283,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Sets the componentReplacementAmount attribute.
      *
      * @param componentReplacementAmount The componentReplacementAmount to set.
-     *
      */
     public void setComponentReplacementAmount(KualiDecimal componentReplacementAmount) {
         this.componentReplacementAmount = componentReplacementAmount;
@@ -319,7 +293,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Gets the componentVendorName attribute.
      *
      * @return Returns the componentVendorName
-     *
      */
     public String getComponentVendorName() {
         return componentVendorName;
@@ -329,7 +302,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Sets the componentVendorName attribute.
      *
      * @param componentVendorName The componentVendorName to set.
-     *
      */
     public void setComponentVendorName(String componentVendorName) {
         this.componentVendorName = componentVendorName;
@@ -340,7 +312,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Gets the componentWarrantyNumber attribute.
      *
      * @return Returns the componentWarrantyNumber
-     *
      */
     public String getComponentWarrantyNumber() {
         return componentWarrantyNumber;
@@ -350,7 +321,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Sets the componentWarrantyNumber attribute.
      *
      * @param componentWarrantyNumber The componentWarrantyNumber to set.
-     *
      */
     public void setComponentWarrantyNumber(String componentWarrantyNumber) {
         this.componentWarrantyNumber = componentWarrantyNumber;
@@ -361,7 +331,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Gets the componentWarrantyPhoneNumber attribute.
      *
      * @return Returns the componentWarrantyPhoneNumber
-     *
      */
     public String getComponentWarrantyPhoneNumber() {
         return componentWarrantyPhoneNumber;
@@ -371,7 +340,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Sets the componentWarrantyPhoneNumber attribute.
      *
      * @param componentWarrantyPhoneNumber The componentWarrantyPhoneNumber to set.
-     *
      */
     public void setComponentWarrantyPhoneNumber(String componentWarrantyPhoneNumber) {
         this.componentWarrantyPhoneNumber = componentWarrantyPhoneNumber;
@@ -382,7 +350,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Gets the componentWarrantyContactName attribute.
      *
      * @return Returns the componentWarrantyContactName
-     *
      */
     public String getComponentWarrantyContactName() {
         return componentWarrantyContactName;
@@ -392,7 +359,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Sets the componentWarrantyContactName attribute.
      *
      * @param componentWarrantyContactName The componentWarrantyContactName to set.
-     *
      */
     public void setComponentWarrantyContactName(String componentWarrantyContactName) {
         this.componentWarrantyContactName = componentWarrantyContactName;
@@ -403,7 +369,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Gets the componentWarrantyPurchaseOrderNumber attribute.
      *
      * @return Returns the componentWarrantyPurchaseOrderNumber
-     *
      */
     public String getComponentWarrantyPurchaseOrderNumber() {
         return componentWarrantyPurchaseOrderNumber;
@@ -413,7 +378,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Sets the componentWarrantyPurchaseOrderNumber attribute.
      *
      * @param componentWarrantyPurchaseOrderNumber The componentWarrantyPurchaseOrderNumber to set.
-     *
      */
     public void setComponentWarrantyPurchaseOrderNumber(String componentWarrantyPurchaseOrderNumber) {
         this.componentWarrantyPurchaseOrderNumber = componentWarrantyPurchaseOrderNumber;
@@ -424,7 +388,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Gets the componentWarrantyBeginningDate attribute.
      *
      * @return Returns the componentWarrantyBeginningDate
-     *
      */
     public Date getComponentWarrantyBeginningDate() {
         return componentWarrantyBeginningDate;
@@ -434,7 +397,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Sets the componentWarrantyBeginningDate attribute.
      *
      * @param componentWarrantyBeginningDate The componentWarrantyBeginningDate to set.
-     *
      */
     public void setComponentWarrantyBeginningDate(Date componentWarrantyBeginningDate) {
         this.componentWarrantyBeginningDate = componentWarrantyBeginningDate;
@@ -445,7 +407,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Gets the componentWarrantyEndingDate attribute.
      *
      * @return Returns the componentWarrantyEndingDate
-     *
      */
     public Date getComponentWarrantyEndingDate() {
         return componentWarrantyEndingDate;
@@ -455,7 +416,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Sets the componentWarrantyEndingDate attribute.
      *
      * @param componentWarrantyEndingDate The componentWarrantyEndingDate to set.
-     *
      */
     public void setComponentWarrantyEndingDate(Date componentWarrantyEndingDate) {
         this.componentWarrantyEndingDate = componentWarrantyEndingDate;
@@ -466,7 +426,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Gets the componentWarrantyText attribute.
      *
      * @return Returns the componentWarrantyText
-     *
      */
     public String getComponentWarrantyText() {
         return componentWarrantyText;
@@ -476,7 +435,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Sets the componentWarrantyText attribute.
      *
      * @param componentWarrantyText The componentWarrantyText to set.
-     *
      */
     public void setComponentWarrantyText(String componentWarrantyText) {
         this.componentWarrantyText = componentWarrantyText;
@@ -522,7 +480,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Gets the asset attribute.
      *
      * @return Returns the asset
-     *
      */
     public Asset getAsset() {
         return asset;
@@ -542,7 +499,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
      * Gets the componentCondition attribute.
      *
      * @return Returns the componentCondition
-     *
      */
     public AssetCondition getComponentCondition() {
         return componentCondition;
@@ -578,7 +534,6 @@ public class AssetComponent extends PersistableBusinessObjectBase implements Mut
     public void setActive(boolean active) {
         this.active = active;
     }
-
 
 
     /**

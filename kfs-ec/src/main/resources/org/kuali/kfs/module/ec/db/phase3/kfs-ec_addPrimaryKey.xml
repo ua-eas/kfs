@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="kfs" id="3988" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR, POSITION_NBR, FIN_OBJECT_CD, SOURCE_FIN_COA_CD, SOURCE_ACCT_NBR" constraintName="PKLD_A21_DETAIL_LN_T" tableName="LD_A21_DETAIL_LN_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="3989" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKLD_A21_DETAIL_T" tableName="LD_A21_DETAIL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="3990" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="A21_LBR_BLD_NBR" constraintName="PKLD_A21_DTL_BLD_T" tableName="LD_A21_DTL_BLD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="3991" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="A21_LBR_BLD_NBR, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR, POSITION_NBR, FIN_OBJECT_CD, SOURCE_FIN_COA_CD, SOURCE_ACCT_NBR" constraintName="PKLD_A21_DTL_LN_BLD_T" tableName="LD_A21_DTL_LN_BLD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="3992" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="LBR_RPT_PRDSTAT_CD" constraintName="PKLD_A21_PRD_STAT_T" tableName="LD_A21_PRD_STAT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="3993" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="A21_LBR_RPT_NBR, UNIV_FISCAL_YR" constraintName="PKLD_A21_REPORT_T" tableName="LD_A21_REPORT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="3994" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="UNIV_FISCAL_YR, A21_LBR_RPT_TYP_CD, ERNCD, PAYGROUP" constraintName="PKLD_A21_RPT_EARN_PAY_T" tableName="LD_A21_RPT_EARN_PAY_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="3995" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="UNIV_FISCAL_YR, A21_LBR_RPT_NBR, LBR_RPT_POSOBJ_CD" constraintName="PKLD_A21_RPT_POS_T" tableName="LD_A21_RPT_POS_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="3996" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="A21_LBR_RPT_TYP_CD" constraintName="PKLD_A21_RPT_TYP_T" tableName="LD_A21_RPT_TYP_T"/>
+    </changeSet>
+</databaseChangeLog>

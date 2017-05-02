@@ -1,29 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.coa.service;
 
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.ObjectType;
 
+import java.util.List;
+
 /**
- *
  * This service interface defines methods necessary for retrieving fully populated ObjectType business objects from the database
  * that are necessary for transaction processing in the application. It also defines methods to retrieve specific object type codes
  */
@@ -46,8 +45,8 @@ public interface ObjectTypeService {
     public List<String> getBasicExpenseObjectTypes(Integer universityFiscalYear);
 
     /**
-     *
      * Returns a list of all expense objects from options table for a given university fiscal year
+     *
      * @param universityFiscalYear
      * @return a list of all expense object types based on the fiscal year
      */
@@ -152,21 +151,21 @@ public interface ObjectTypeService {
      * @return list of cumulative forward balance object types associated with this fiscal year
      */
     public List<String> getCumulativeForwardBalanceObjectTypes(Integer fiscalYear);
-    
+
     /**
      * returns a list of expense object types that are used in determining whether the
      * amount on the accounting line is negated for using in payments.
-     * 
+     *
      * @return list of expense object types
      */
     public List<String> getExpenseAndTransferObjectTypesForPayments();
-    
+
     /**
      * returns a list of income object types that are used in determining whether the
      * amount on the accounting line is negated for using in payments.
-     * 
+     *
      * @return list of income object types
      */
     public List<String> getIncomeAndTransferObjectTypesForPayments();
-    
+
 }

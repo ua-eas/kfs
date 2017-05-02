@@ -1,34 +1,34 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ec.document.web.struts;
 
-import java.sql.Date;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
+import org.kuali.kfs.kns.lookup.HtmlData;
 import org.kuali.kfs.module.ec.EffortPropertyConstants;
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationDetail;
 import org.kuali.kfs.module.ec.document.EffortCertificationDocument;
 import org.kuali.kfs.sys.DynamicCollectionComparator.SortOrder;
-import org.kuali.rice.kns.lookup.HtmlData;
+
+import java.sql.Date;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Action form for Effort Certification Document.
@@ -40,7 +40,7 @@ public class CertificationReportForm extends EffortCertificationForm {
 
     /**
      * Gets the sortOrder attribute.
-     * 
+     *
      * @return Returns the sortOrder.
      */
     public String getSortOrder() {
@@ -49,7 +49,7 @@ public class CertificationReportForm extends EffortCertificationForm {
 
     /**
      * Sets the sortOrder attribute value.
-     * 
+     *
      * @param sortOrder The sortOrder to set.
      */
     public void setSortOrder(String sortOrder) {
@@ -58,7 +58,7 @@ public class CertificationReportForm extends EffortCertificationForm {
 
     /**
      * Gets the reportPeriodBeginDate attribute.
-     * 
+     *
      * @return Returns the reportPeriodBeginDate.
      */
     public Date getReportPeriodBeginDate() {
@@ -71,7 +71,7 @@ public class CertificationReportForm extends EffortCertificationForm {
 
     /**
      * Gets the reportPeriodEndDate attribute.
-     * 
+     *
      * @return Returns the reportPeriodEndDate.
      */
     public Date getReportPeriodEndDate() {
@@ -84,7 +84,7 @@ public class CertificationReportForm extends EffortCertificationForm {
 
     /**
      * Gets the universityFiscalPeriodBeginDate attribute. The begin date is the first date of the period month.
-     * 
+     *
      * @return Returns the universityFiscalPeriodBeginDate.
      */
     protected Date getUniversityFiscalPeriodBeginDate(AccountingPeriod accountingPeriod) {
@@ -97,17 +97,17 @@ public class CertificationReportForm extends EffortCertificationForm {
 
     /**
      * Gets the summarizedDetailLines attribute.
-     * 
+     *
      * @return Returns the summarizedDetailLines.
      */
     public List<EffortCertificationDetail> getSummarizedDetailLines() {
         EffortCertificationDocument effortCertificationDocument = (EffortCertificationDocument) this.getDocument();
         return effortCertificationDocument.getSummarizedDetailLines();
     }
-    
+
     /**
      * Gets the inquiryUrl attribute.
-     * 
+     *
      * @return Returns the inquiryUrl for the detail lines in the document.
      */
     public List<Map<String, HtmlData>> getSummarizedDetailLineFieldInquiryUrl() {
@@ -118,7 +118,7 @@ public class CertificationReportForm extends EffortCertificationForm {
 
     /**
      * Gets the fieldInfo attribute.
-     * 
+     *
      * @return Returns the fieldInfo.
      */
     public List<Map<String, String>> getSummarizedDetailLineFieldInfo() {

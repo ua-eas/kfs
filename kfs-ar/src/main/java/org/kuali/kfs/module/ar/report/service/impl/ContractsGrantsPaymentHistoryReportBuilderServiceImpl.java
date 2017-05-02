@@ -1,29 +1,24 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.report.service.impl;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.ContractsGrantsPaymentHistoryReport;
 import org.kuali.kfs.module.ar.report.ContractsGrantsPaymentHistoryReportDetailDataHolder;
@@ -33,7 +28,12 @@ import org.kuali.kfs.module.ar.report.service.ContractsGrantsReportHelperService
 import org.kuali.kfs.sys.report.ReportInfo;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * An implementation of ContractsGrantsReportDataBuilderService for the Contracts & Grants Payment History Report
@@ -44,22 +44,23 @@ public class ContractsGrantsPaymentHistoryReportBuilderServiceImpl implements Co
 
     /**
      * Builds the report
+     *
      * @see org.kuali.kfs.module.ar.report.service.ContractsGrantsReportDataBuilderService#buildReportDataHolder(java.util.List, java.lang.String)
      */
     @Override
     public ContractsGrantsReportDataHolder buildReportDataHolder(List<? extends BusinessObject> displayList, String sortPropertyName) {
-     // check field is valid for subtotal
+        // check field is valid for subtotal
         boolean isFieldSubtotalRequired = ArConstants.ReportsConstants.cgPaymentHistoryReportSubtotalFieldsList.contains(sortPropertyName);
         Map<String, List<KualiDecimal>> subTotalMap = new HashMap<String, List<KualiDecimal>>();
 
         if (isFieldSubtotalRequired) {
-            subTotalMap = buildSubTotalMap((List<ContractsGrantsPaymentHistoryReport>)displayList, sortPropertyName);
+            subTotalMap = buildSubTotalMap((List<ContractsGrantsPaymentHistoryReport>) displayList, sortPropertyName);
         }
 
         ContractsGrantsReportDataHolder cgPaymentHistoryReportDataHolder = new ContractsGrantsReportDataHolder();
         List<ContractsGrantsPaymentHistoryReportDetailDataHolder> details = cgPaymentHistoryReportDataHolder.getDetails();
 
-        for (ContractsGrantsPaymentHistoryReport cgPaymentHistoryReportEntry : (List<ContractsGrantsPaymentHistoryReport>)displayList) {
+        for (ContractsGrantsPaymentHistoryReport cgPaymentHistoryReportEntry : (List<ContractsGrantsPaymentHistoryReport>) displayList) {
             ContractsGrantsPaymentHistoryReportDetailDataHolder reportDetail = new ContractsGrantsPaymentHistoryReportDetailDataHolder();
             // set report data
             setReportDate(cgPaymentHistoryReportEntry, reportDetail);
@@ -71,8 +72,7 @@ public class ContractsGrantsPaymentHistoryReportBuilderServiceImpl implements Co
                 // set subTotal from subTotalMap
                 reportDetail.setInvoiceSubTotal(subTotalMap.get(getContractsGrantsReportHelperService().getPropertyValue(cgPaymentHistoryReportEntry, sortPropertyName)).get(0).bigDecimalValue());
                 reportDetail.setPaymentSubTotal(subTotalMap.get(getContractsGrantsReportHelperService().getPropertyValue(cgPaymentHistoryReportEntry, sortPropertyName)).get(1).bigDecimalValue());
-            }
-            else {
+            } else {
                 // set this to empty string for not displaying subtotal
                 reportDetail.setDisplaySubtotal(false);
             }
@@ -84,6 +84,7 @@ public class ContractsGrantsPaymentHistoryReportBuilderServiceImpl implements Co
 
     /**
      * Returns the class of ContractsGrantsPaymentHistoryReport
+     *
      * @see org.kuali.kfs.module.ar.report.service.ContractsGrantsReportDataBuilderService#getDetailsClass()
      */
     @Override

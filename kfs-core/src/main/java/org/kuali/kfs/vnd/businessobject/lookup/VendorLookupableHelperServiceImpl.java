@@ -1,33 +1,36 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.vnd.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.integration.purap.PurchasingAccountsPayableModuleService;
+import org.kuali.kfs.kns.lookup.AbstractLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.util.BeanPropertyComparator;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.vnd.VendorConstants;
@@ -37,18 +40,15 @@ import org.kuali.kfs.vnd.businessobject.VendorAddress;
 import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.kfs.vnd.document.service.VendorService;
 import org.kuali.rice.core.web.format.Formatter;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl;
-import org.kuali.rice.kns.lookup.HtmlData;
-import org.kuali.rice.kns.lookup.HtmlData.AnchorHtmlData;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.exception.ValidationException;
-import org.kuali.rice.krad.lookup.CollectionIncomplete;
-import org.kuali.rice.krad.util.BeanPropertyComparator;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.ObjectUtils;
-import org.kuali.rice.krad.util.UrlFactory;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 public class VendorLookupableHelperServiceImpl extends AbstractLookupableHelperServiceImpl {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(VendorLookupableHelperServiceImpl.class);
@@ -61,7 +61,7 @@ public class VendorLookupableHelperServiceImpl extends AbstractLookupableHelperS
      * create a link for B2B shopping if PURAP service has been setup to allow for that.
      *
      * @see org.kuali.rice.kns.lookup.LookupableHelperService#getCustomActionUrls(org.kuali.rice.krad.bo.BusinessObject,
-     *      java.util.List, java.util.List pkNames)
+     * java.util.List, java.util.List pkNames)
      */
     @Override
     public List<HtmlData> getCustomActionUrls(BusinessObject businessObject, List pkNames) {
@@ -82,7 +82,7 @@ public class VendorLookupableHelperServiceImpl extends AbstractLookupableHelperS
             theProperties.put("channelTitle", "Shop Catalogs");
             String backLocation = this.getBackLocation();
             int lastSlash = backLocation.lastIndexOf("/");
-            String returnUrlForShop = backLocation.substring(0, lastSlash+1) + "portal.do";
+            String returnUrlForShop = backLocation.substring(0, lastSlash + 1) + "portal.do";
             String href = UrlFactory.parameterizeUrl(returnUrlForShop, theProperties);
             anchorHtmlDataList.add(new AnchorHtmlData(href + b2bUrlString, null, "shop"));
         }
@@ -100,18 +100,18 @@ public class VendorLookupableHelperServiceImpl extends AbstractLookupableHelperS
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#getActionUrlHref(org.kuali.rice.krad.bo.BusinessObject, java.lang.String, java.util.List)
      */
     @Override
-    protected String getActionUrlHref(BusinessObject businessObject, String methodToCall, List pkNames){
+    protected String getActionUrlHref(BusinessObject businessObject, String methodToCall, List pkNames) {
         if (!methodToCall.equals(KFSConstants.COPY_METHOD)) {
             Properties parameters = new Properties();
             parameters.put(KFSConstants.DISPATCH_REQUEST_PARAMETER, methodToCall);
             parameters.put(KFSConstants.BUSINESS_OBJECT_CLASS_ATTRIBUTE, businessObject.getClass().getName());
 
-            for (Iterator<String> iter = pkNames.iterator(); iter.hasNext();) {
+            for (Iterator<String> iter = pkNames.iterator(); iter.hasNext(); ) {
                 String fieldNm = iter.next();
                 if (!fieldNm.equals(VendorPropertyConstants.VENDOR_DETAIL_ASSIGNED_ID) ||
-                        !((VendorDetail) businessObject).isVendorParentIndicator()
-                        || (((VendorDetail) businessObject).isVendorParentIndicator())
-                        && !methodToCall.equals(KFSConstants.MAINTENANCE_NEWWITHEXISTING_ACTION)) {
+                    !((VendorDetail) businessObject).isVendorParentIndicator()
+                    || (((VendorDetail) businessObject).isVendorParentIndicator())
+                    && !methodToCall.equals(KFSConstants.MAINTENANCE_NEWWITHEXISTING_ACTION)) {
                     Object fieldVal = ObjectUtils.getPropertyValue(businessObject, fieldNm);
                     if (fieldVal == null) {
                         fieldVal = KFSConstants.EMPTY_STRING;
@@ -241,8 +241,8 @@ public class VendorLookupableHelperServiceImpl extends AbstractLookupableHelperS
             if (ObjectUtils.isNotNull(defaultAddress.getVendorState())) {
                 vendor.setVendorStateForLookup(defaultAddress.getVendorState().getName());
             } else {
-                if ( LOG.isDebugEnabled() ) {
-                    LOG.debug( "Warning - unable to retrieve state for " + defaultAddress.getVendorCountryCode() + " / " + defaultAddress.getVendorStateCode() );
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug("Warning - unable to retrieve state for " + defaultAddress.getVendorCountryCode() + " / " + defaultAddress.getVendorStateCode());
                 }
                 vendor.setVendorStateForLookup("");
             }
@@ -255,8 +255,8 @@ public class VendorLookupableHelperServiceImpl extends AbstractLookupableHelperS
             vendor.setDefaultAddressCountryCode(defaultAddress.getVendorCountryCode());
             vendor.setDefaultFaxNumber(defaultAddress.getVendorFaxNumber());
         } else {
-            if ( LOG.isDebugEnabled() ) {
-                LOG.debug( "Warning - default vendor address was null for " + vendor.getVendorNumber() + " / " + vendor.getVendorHeader().getVendorType().getAddressType().getVendorAddressTypeCode() );
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Warning - default vendor address was null for " + vendor.getVendorNumber() + " / " + vendor.getVendorHeader().getVendorType().getAddressType().getVendorAddressTypeCode());
             }
             vendor.setVendorStateForLookup("");
         }
@@ -313,7 +313,7 @@ public class VendorLookupableHelperServiceImpl extends AbstractLookupableHelperS
      * method will add error message to the errorMap in GlobalVariables that the vendor number must be numeric or numerics separated
      * by a dash.
      *
-     * @param fieldValues a Map containing only those key-value pairs that have been filled in on the lookup
+     * @param fieldValues  a Map containing only those key-value pairs that have been filled in on the lookup
      * @param vendorNumber vendor number String
      */
     private void extractVendorNumberToVendorIds(Map fieldValues, String vendorNumber) {
@@ -322,8 +322,7 @@ public class VendorLookupableHelperServiceImpl extends AbstractLookupableHelperS
         int indexOfDash = vendorNumber.indexOf(VendorConstants.DASH);
         if (indexOfDash < 0) {
             vendorHeaderGeneratedIdentifier = vendorNumber;
-        }
-        else {
+        } else {
             vendorHeaderGeneratedIdentifier = vendorNumber.substring(0, indexOfDash);
             vendorDetailAssignedIdentifier = vendorNumber.substring(indexOfDash + 1, vendorNumber.length());
         }
@@ -339,8 +338,7 @@ public class VendorLookupableHelperServiceImpl extends AbstractLookupableHelperS
             if (StringUtils.isNotEmpty(vendorDetailAssignedIdentifier)) {
                 fieldValues.put(VendorPropertyConstants.VENDOR_DETAIL_ASSIGNED_ID, vendorDetailAssignedIdentifier);
             }
-        }
-        catch (NumberFormatException headerExc) {
+        } catch (NumberFormatException headerExc) {
             GlobalVariables.getMessageMap().putError(VendorPropertyConstants.VENDOR_NUMBER, VendorKeyConstants.ERROR_VENDOR_LOOKUP_VNDR_NUM_NUMERIC_DASH_SEPARATED);
         }
     }

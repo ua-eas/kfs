@@ -1,0 +1,865 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <import resource="classpath:org/kuali/rice/core/CommonSpringBeans.xml"/>
+    <import resource="classpath:org/kuali/rice/core/CommonOJBSpringBeans.xml"/>
+
+    <bean id="cf.dateTimeService" class="org.kuali.kfs.krad.config.GlobalResourceLoaderServiceFactoryBean">
+        <property name="serviceName" value="dateTimeService"/>
+    </bean>
+
+    <bean id="kradOjbConfigurer" class="org.kuali.rice.core.framework.persistence.ojb.BaseOjbConfigurer">
+        <property name="jcdAliases">
+            <list>
+                <value>kradApplicationDataSource</value>
+                <!--<value>kradServerDataSource</value>-->
+            </list>
+        </property>
+        <property name="metadataLocation" value="classpath:org/kuali/kfs/krad/config/OJB-repository-krad.xml"/>
+    </bean>
+
+    <bean id="kradApplicationDataSource"
+          class="org.kuali.rice.core.framework.persistence.jdbc.datasource.PrimaryDataSourceFactoryBean" lazy-init="true">
+        <property name="preferredDataSourceParams">
+            <list>
+                <value>kradClient.datasource</value>
+            </list>
+        </property>
+        <property name="preferredDataSourceJndiParams">
+            <list>
+                <value>kradClient.datasource.jndi.location</value>
+            </list>
+        </property>
+        <property name="serverDataSource" value="false"/>
+    </bean>
+
+    <bean id="kradApplicationModuleConfiguration" parent="kradApplicationModuleConfiguration-parentBean"/>
+
+    <bean id="kradApplicationModuleConfiguration-parentBean" class="org.kuali.kfs.krad.bo.ModuleConfiguration"
+          abstract="true">
+        <property name="namespaceCode" value="KR-NS"/>
+        <property name="dataSourceName" value="kradApplicationDataSource"/>
+        <property name="initializeDataDictionary" value="true"/>
+        <property name="dataDictionaryService" ref="cf.dataDictionaryService"/>
+        <property name="persistenceService" ref="cf.persistenceServiceOjb"/>
+        <property name="dataDictionaryPackages">
+            <list>
+                <!-- from krad -->
+                <value>classpath:org/kuali/kfs/krad/bo/datadictionary/AdHocRoutePerson.xml</value>
+                <value>classpath:org/kuali/kfs/krad/bo/datadictionary/AdHocRouteWorkgroup.xml</value>
+                <value>classpath:org/kuali/kfs/krad/bo/datadictionary/Attachment.xml</value>
+                <value>classpath:org/kuali/kfs/krad/bo/datadictionary/AttributeReferenceDummy.xml</value>
+                <value>classpath:org/kuali/kfs/krad/bo/datadictionary/AttributeReferenceElements.xml</value>
+                <value>classpath:org/kuali/kfs/krad/bo/datadictionary/BusinessObjectAttributeEntry.xml</value>
+                <value>classpath:org/kuali/kfs/krad/bo/datadictionary/DataDictionaryBaseTypes.xml</value>
+                <value>classpath:org/kuali/kfs/krad/bo/datadictionary/DocumentHeader.xml</value>
+                <value>classpath:org/kuali/kfs/krad/bo/datadictionary/Note.xml</value>
+                <value>classpath:org/kuali/kfs/krad/bo/datadictionary/NoteType.xml</value>
+                <value>classpath:org/kuali/kfs/krad/uif/UifViewPageDefinitions.xml</value>
+                <value>classpath:org/kuali/kfs/krad/uif/UifHeaderFooterDefinitions.xml</value>
+                <value>classpath:org/kuali/kfs/krad/uif/UifGroupDefinitions.xml</value>
+                <value>classpath:org/kuali/kfs/krad/uif/UifLayoutManagerDefinitions.xml</value>
+                <value>classpath:org/kuali/kfs/krad/uif/UifMaintenanceDefinitions.xml</value>
+                <value>classpath:org/kuali/kfs/krad/uif/UifDocumentDefinitions.xml</value>
+                <value>classpath:org/kuali/kfs/krad/uif/UifInquiryDefinitions.xml</value>
+                <value>classpath:org/kuali/kfs/krad/uif/UifLookupDefinitions.xml</value>
+                <value>classpath:org/kuali/kfs/krad/uif/UifIncidentReportDefinitions.xml</value>
+                <value>classpath:org/kuali/kfs/krad/uif/UifFieldDefinitions.xml</value>
+                <value>classpath:org/kuali/kfs/krad/uif/UifControlDefinitions.xml</value>
+                <value>classpath:org/kuali/kfs/krad/uif/UifWidgetDefinitions.xml</value>
+                <value>classpath:org/kuali/kfs/krad/uif/UifConfigurationDefinitions.xml</value>
+                <value>classpath:org/kuali/kfs/krad/uif/UifRiceDefinitions.xml</value>
+                <value>classpath:org/kuali/kfs/krad/uif/UifInitiateDocumentInfoDefinitions.xml</value>
+            </list>
+        </property>
+        <property name="packagePrefixes">
+            <list>
+                <value>org.kuali.kfs.krad.bo</value>
+                <value>org.kuali.kfs.krad.uif</value>
+                <!--<value>org.kuali.kfs.krad.bo</value>-->
+            </list>
+        </property>
+    </bean>
+
+    <bean id="kradApplicationModule" class="org.kuali.kfs.krad.service.impl.KRADModuleService">
+        <property name="moduleConfiguration" ref="kradApplicationModuleConfiguration"/>
+        <property name="kualiModuleService" ref="cf.kualiModuleService"/>
+        <property name="businessObjects">
+            <list>
+                <value>org.kuali.kfs.krad.maintenance.MaintenanceDocumentBase</value>
+                <value>org.kuali.kfs.krad.bo.DocumentAttachment</value>
+                <value>org.kuali.kfs.krad.maintenance.MaintenanceLock</value>
+                <value>org.kuali.kfs.krad.bo.DocumentHeader</value>
+                <value>org.kuali.kfs.krad.bo.Note</value>
+                <value>org.kuali.kfs.krad.bo.NoteType</value>
+                <value>org.kuali.kfs.krad.bo.Attachment</value>
+                <value>org.kuali.kfs.krad.bo.AdHocRouteRecipient</value>
+                <value>org.kuali.kfs.krad.bo.AdHocRoutePerson</value>
+                <value>org.kuali.kfs.krad.bo.AdHocRouteWorkgroup</value>
+                <value>org.kuali.kfs.krad.bo.LookupResults</value>
+                <value>org.kuali.kfs.krad.bo.SelectedObjectIds</value>
+                <value>org.kuali.kfs.krad.bo.SessionDocument</value>
+
+                <value>org.kuali.kfs.krad.bo.AttributeReferenceDummy</value>
+                <value>org.kuali.kfs.krad.bo.AttributeReferenceElements</value>
+                <value>org.kuali.kfs.krad.bo.BusinessObjectAttributeEntry</value>
+                <value>org.kuali.kfs.krad.bo.AttributeReferenceElements</value>
+
+            </list>
+        </property>
+    </bean>
+
+    <!--<bean id="kradServerModuleConfiguration" parent="kradServerModuleConfiguration-parentBean"/>
+
+    <bean id="kradServerModuleConfiguration-parentBean" class="ModuleConfiguration"
+          abstract="true">
+      <property name="namespaceCode" value="KR-NS"/>
+      <property name="dataSourceName" value="kradServerDataSource"/>
+      <property name="entityManager" ref="kradServerEntityManager"/>
+      <property name="initializeDataDictionary" value="true"/>
+      <property name="dataDictionaryService" ref="cf.dataDictionaryService"/>
+      <property name="persistenceService" ref="cf.persistenceServiceOjb"/>
+      <property name="dataDictionaryPackages">
+        <list>
+          <value>classpath:org/kuali/rice/krad/uif/UifControlDefinitions.xml</value>
+          <value>classpath:org/kuali/rice/krad/uif/UifFieldDefinitions.xml</value>
+          <value>classpath:org/kuali/rice/krad/uif/UifGroupDefinitions.xml</value>
+          <value>classpath:org/kuali/rice/krad/uif/UifHeaderFooterDefinitions.xml</value>
+          <value>classpath:org/kuali/rice/krad/uif/UifLayoutManagerDefinitions.xml</value>
+          <value>classpath:org/kuali/rice/krad/uif/UifWidgetDefinitions.xml</value>
+          <value>classpath:org/kuali/rice/krad/uif/UifViewPageDefinitions.xml</value>
+        </list>
+      </property>
+      <property name="packagePrefixes">
+        <list>
+          <value>org.kuali.rice.krad.</value>
+        </list>
+      </property>
+    </bean>-->
+
+    <bean id="platformAwareDao" abstract="true"
+          class="org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb">
+        <property name="jcdAlias" value="kradApplicationDataSource"/>
+        <property name="dbPlatform" ref="dbPlatform"/>
+    </bean>
+
+    <bean class="org.kuali.kfs.krad.util.spring.NamedOrderedListBean">
+        <property name="name" value="scriptConfigurationFilePaths"/>
+        <property name="listItem" value="classpath:org/kuali/rice/krad/dwr-core.xml"/>
+    </bean>
+
+    <bean id="cf.businessObjectService" class="org.kuali.kfs.krad.service.impl.BusinessObjectServiceImpl">
+        <property name="businessObjectDao">
+            <ref bean="businessObjectDao"/>
+        </property>
+        <property name="persistenceStructureService">
+            <ref bean="cf.persistenceStructureService"/>
+        </property>
+        <property name="persistenceService">
+            <ref bean="cf.persistenceService"/>
+        </property>
+        <property name="dataObjectMetaDataService">
+            <ref bean="cf.dataObjectMetaDataService"/>
+        </property>
+    </bean>
+
+    <bean id="cf.kualiConfigurationService" class="org.kuali.kfs.krad.service.impl.ConfigurationServiceImpl"/>
+
+    <bean id="cf.kualiModuleService" class="org.kuali.kfs.krad.service.impl.KualiModuleServiceImpl"/>
+
+    <bean id="cf.mailer" class="org.kuali.kfs.krad.config.GlobalResourceLoaderServiceFactoryBean">
+        <property name="serviceName" value="mailer"/>
+    </bean>
+
+    <bean id="cf.kradExceptionIncidentService" class="org.kuali.kfs.krad.service.impl.KualiExceptionIncidentServiceImpl">
+        <property name="mailer" ref="cf.mailer"/>
+        <property name="messageTemplate">
+            <bean class="org.kuali.rice.core.api.mail.MailMessage">
+                <!-- The property place holder below must be specified in          -->
+                <!-- common-config-default.xml or any other KNS configuration file -->
+                <property name="fromAddress">
+                    <value>${kr.incident.mailing.list}</value>
+                </property>
+            </bean>
+        </property>
+        <property name="incidentMailingList" value="${kr.incident.mailing.list}"/>
+    </bean>
+
+    <bean id="cf.xmlObjectSerializerService" class="org.kuali.kfs.krad.service.impl.XmlObjectSerializerServiceImpl"></bean>
+
+    <bean id="xmlObjectSerializerIgnoreMissingFieldsService" class="org.kuali.kfs.krad.service.impl.XmlObjectSerializerIgnoreMissingFieldsServiceImpl"></bean>
+
+    <bean id="cf.documentService" class="org.kuali.kfs.krad.service.impl.DocumentServiceImpl">
+        <property name="documentDao">
+            <ref bean="cf.documentDao"/>
+        </property>
+        <property name="dateTimeService">
+            <ref bean="cf.dateTimeService"/>
+        </property>
+        <property name="workflowDocumentService">
+            <ref bean="cf.workflowDocumentService"/>
+        </property>
+        <property name="documentHeaderService">
+            <ref bean="cf.documentHeaderService"/>
+        </property>
+        <property name="businessObjectService">
+            <ref bean="cf.businessObjectService"/>
+        </property>
+        <property name="noteService">
+            <ref bean="cf.noteService"/>
+        </property>
+        <property name="dataDictionaryService">
+            <ref bean="cf.dataDictionaryService"/>
+        </property>
+        <property name="kualiConfigurationService">
+            <ref bean="cf.kualiConfigurationService"/>
+        </property>
+    </bean>
+
+    <bean id="cf.documentHeaderService" class="org.kuali.kfs.krad.service.impl.DocumentHeaderServiceImpl">
+        <property name="documentHeaderDao">
+            <ref bean="cf.documentHeaderDao"/>
+        </property>
+    </bean>
+
+    <bean id="cf.kualiRuleService" class="org.kuali.kfs.krad.service.impl.KualiRuleServiceImpl">
+        <property name="documentDictionaryService">
+            <ref bean="cf.documentDictionaryService"/>
+        </property>
+        <property name="dataDictionaryService">
+            <ref bean="cf.dataDictionaryService"/>
+        </property>
+    </bean>
+
+    <bean id="cf.documentDictionaryService" class="org.kuali.kfs.krad.service.impl.DocumentDictionaryServiceImpl">
+        <property name="dataDictionaryService">
+            <ref bean="cf.dataDictionaryService"/>
+        </property>
+    </bean>
+
+    <bean id="cf.businessObjectDictionaryService"
+          class="org.kuali.kfs.kns.service.impl.BusinessObjectDictionaryServiceImpl">
+        <property name="dataDictionaryService">
+            <ref bean="cf.dataDictionaryService"/>
+        </property>
+        <property name="persistenceStructureService">
+            <ref bean="cf.persistenceStructureService"/>
+        </property>
+    </bean>
+
+    <bean id="cf.lookupService" class="org.kuali.kfs.krad.service.impl.LookupServiceImpl">
+        <property name="lookupDao">
+            <ref bean="cf.lookupDao"/>
+        </property>
+        <property name="kualiConfigurationService">
+            <ref bean="cf.kualiConfigurationService"/>
+        </property>
+    </bean>
+
+    <bean id="cf.criteriaLookupService" class="org.kuali.kfs.krad.criteria.CriteriaLookupServiceImpl">
+        <property name="criteriaLookupDao">
+            <ref bean="criterialookupDao"/>
+        </property>
+    </bean>
+
+    <!--<bean id="platformAwareDao" abstract="true" class="org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb">
+          <property name="jcdAlias" value="coreApplicationDataSource" />
+          <property name="dbPlatform" ref="dbPlatform" />
+      </bean>-->
+
+    <!-- this should go in the core spring beans once ojb is available-->
+
+    <bean id="cf.workflowDocumentService" class="org.kuali.kfs.krad.workflow.service.impl.WorkflowDocumentServiceImpl"/>
+
+    <bean id="cf.maintenanceDocumentService" class="org.kuali.kfs.krad.service.impl.MaintenanceDocumentServiceImpl">
+        <property name="maintenanceDocumentDao">
+            <ref bean="cf.maintenanceDocumentDao"/>
+        </property>
+        <property name="documentDictionaryService">
+            <ref bean="cf.documentDictionaryService"/>
+        </property>
+        <property name="dataObjectMetaDataService">
+            <ref bean="cf.dataObjectMetaDataService"/>
+        </property>
+        <property name="documentService">
+            <ref bean="cf.documentService"/>
+        </property>
+    </bean>
+
+    <bean id="cf.noteService" class="org.kuali.kfs.krad.service.impl.NoteServiceImpl">
+        <property name="noteDao">
+            <ref bean="noteDao"/>
+        </property>
+        <property name="attachmentService" ref="cf.attachmentService"/>
+    </bean>
+
+    <bean id="cf.attachmentService" class="org.kuali.kfs.krad.service.impl.AttachmentServiceImpl">
+        <property name="kualiConfigurationService">
+            <ref bean="cf.kualiConfigurationService"/>
+        </property>
+        <property name="attachmentDao">
+            <ref bean="attachmentDao"/>
+        </property>
+    </bean>
+
+    <bean id="cf.persistenceStructureServiceOjb"
+          class="org.kuali.kfs.krad.service.impl.PersistenceStructureServiceOjbImpl"/>
+
+    <bean id="cf.persistenceStructureService" class="org.kuali.kfs.krad.service.impl.PersistenceStructureServiceImpl">
+        <property name="persistenceStructureServiceOjb" ref="cf.persistenceStructureServiceOjb"/>
+    </bean>
+
+    <bean id="cf.persistenceService" class="org.kuali.kfs.krad.service.impl.PersistenceServiceImpl">
+        <property name="persistenceServiceOjb" ref="cf.persistenceServiceOjb"/>
+        <property name="kualiModuleService" ref="cf.kualiModuleService"/>
+    </bean>
+
+    <bean id="cf.persistenceServiceOjb" class="org.kuali.kfs.krad.service.impl.PersistenceServiceOjbImpl">
+        <property name="persistenceDao" ref="persistenceDao"/>
+    </bean>
+
+    <bean id="persistenceDao" parent="persistenceDaoOjb"/>
+
+    <bean id="platformAwareDaoJdbc" abstract="true"
+          class="org.kuali.rice.core.framework.persistence.jdbc.dao.PlatformAwareDaoBaseJdbc">
+        <property name="dataSource" ref="kradApplicationDataSource"/>
+        <property name="dbPlatform" ref="dbPlatform"/>
+    </bean>
+
+    <bean id="persistenceDaoOjb" parent="platformAwareDao" class="org.kuali.kfs.krad.dao.impl.PersistenceDaoOjb">
+        <property name="jcdAlias" value="kradApplicationDataSource"/>
+        <property name="dbPlatform" ref="dbPlatform"/>
+    </bean>
+
+    <bean id="dictionaryValidationDefinitionConstraintResolver"
+          class="org.kuali.kfs.krad.datadictionary.validation.constraint.resolver.DefinitionConstraintResolver"/>
+
+    <bean id="dictionaryValidationCaseConstraintResolver"
+          class="org.kuali.kfs.krad.datadictionary.validation.constraint.resolver.CaseConstraintResolver"/>
+
+    <bean id="dictionaryValidationSimpleConstraintResolver"
+          class="org.kuali.kfs.krad.datadictionary.validation.constraint.resolver.SimpleConstraintResolver"/>
+
+    <bean id="dictionaryValidationValidCharactersConstraintResolver"
+          class="org.kuali.kfs.krad.datadictionary.validation.constraint.resolver.ValidCharactersConstraintResolver"/>
+
+    <bean id="dictionaryValidationPrerequisiteConstraintsResolver"
+          class="org.kuali.kfs.krad.datadictionary.validation.constraint.resolver.PrerequisiteConstraintsResolver"/>
+
+    <bean id="dictionaryValidationMustOccurConstraintsResolver"
+          class="org.kuali.kfs.krad.datadictionary.validation.constraint.resolver.MustOccurConstraintsResolver"/>
+
+    <bean id="mandatoryElementConstraintProcessor"
+          class="org.kuali.kfs.krad.datadictionary.validation.processor.MandatoryElementConstraintProcessor"
+          abstract="true">
+        <property name="dataDictionaryService">
+            <ref bean="cf.dataDictionaryService"/>
+        </property>
+        <property name="dateTimeService">
+            <ref bean="cf.dateTimeService"/>
+        </property>
+    </bean>
+
+    <bean id="viewValidationService" class="org.kuali.kfs.krad.service.impl.ViewValidationServiceImpl">
+        <property name="dictionaryValidationService">
+            <ref bean="cf.dictionaryValidationService"/>
+        </property>
+    </bean>
+
+    <bean id="cf.dictionaryValidationService" class="org.kuali.kfs.krad.service.impl.DictionaryValidationServiceImpl">
+        <property name="dataDictionaryService">
+            <ref bean="cf.dataDictionaryService"/>
+        </property>
+        <property name="businessObjectService">
+            <ref bean="cf.businessObjectService"/>
+        </property>
+        <property name="documentDictionaryService">
+            <ref bean="cf.documentDictionaryService"/>
+        </property>
+        <property name="persistenceService">
+            <ref bean="cf.persistenceService"/>
+        </property>
+        <property name="persistenceStructureService">
+            <ref bean="cf.persistenceStructureService"/>
+        </property>
+        <!-- Collection constraint processors are classes that determine if a feature of a collection of objects satisfies some constraint -->
+        <property name="collectionConstraintProcessors">
+            <list>
+                <bean class="org.kuali.kfs.krad.datadictionary.validation.processor.CollectionSizeConstraintProcessor"/>
+            </list>
+        </property>
+        <!-- Element constraint processors are classes that determine if a passed value is valid for a specific constraint at the individual object or object attribute level
+         The order matters here because case adds additional constraints to the queue for other processors to pick up-->
+        <property name="elementConstraintProcessors">
+            <list>
+                <bean class="org.kuali.kfs.krad.datadictionary.validation.processor.CaseConstraintProcessor"
+                      parent="mandatoryElementConstraintProcessor"/>
+                <bean class="org.kuali.kfs.krad.datadictionary.validation.processor.SimpleConstraintProcessor"
+                      parent="mandatoryElementConstraintProcessor"/>
+                <bean class="org.kuali.kfs.krad.datadictionary.validation.processor.ExistenceConstraintProcessor"/>
+                <bean class="org.kuali.kfs.krad.datadictionary.validation.processor.DataTypeConstraintProcessor"
+                      parent="mandatoryElementConstraintProcessor"/>
+                <bean class="org.kuali.kfs.krad.datadictionary.validation.processor.RangeConstraintProcessor"
+                      parent="mandatoryElementConstraintProcessor"/>
+                <bean class="org.kuali.kfs.krad.datadictionary.validation.processor.LengthConstraintProcessor"
+                      parent="mandatoryElementConstraintProcessor"/>
+                <bean class="org.kuali.kfs.krad.datadictionary.validation.processor.ValidCharactersConstraintProcessor"
+                      parent="mandatoryElementConstraintProcessor"/>
+                <bean class="org.kuali.kfs.krad.datadictionary.validation.processor.PrerequisiteConstraintProcessor"
+                      parent="mandatoryElementConstraintProcessor"/>
+                <bean class="org.kuali.kfs.krad.datadictionary.validation.processor.MustOccurConstraintProcessor"
+                      parent="mandatoryElementConstraintProcessor"/>
+            </list>
+        </property>
+        <!-- Constraint providers are classes that map specific constraint types to a constraint resolver, which takes a constrainable definition -->
+        <property name="constraintProviders">
+            <list>
+                <bean class="org.kuali.kfs.krad.datadictionary.validation.constraint.provider.AttributeDefinitionConstraintProvider">
+                    <!--
+                                    individual constraint resolvers can be injected as a map keyed by constraint type as string, or the default
+                                    resolvers can be instantiated into the map by adding 'init-method="init"' to the bean declaration above
+                                -->
+                    <property name="resolverMap">
+                        <map>
+                            <entry key="org.kuali.kfs.krad.datadictionary.validation.constraint.SimpleConstraint">
+                                <ref bean="dictionaryValidationSimpleConstraintResolver"/>
+                            </entry>
+                            <entry key="org.kuali.kfs.krad.datadictionary.validation.constraint.CaseConstraint">
+                                <ref bean="dictionaryValidationCaseConstraintResolver"/>
+                            </entry>
+                            <entry key="org.kuali.kfs.krad.datadictionary.validation.constraint.ExistenceConstraint">
+                                <ref bean="dictionaryValidationDefinitionConstraintResolver"/>
+                            </entry>
+                            <entry key="org.kuali.kfs.krad.datadictionary.validation.constraint.DataTypeConstraint">
+                                <ref bean="dictionaryValidationDefinitionConstraintResolver"/>
+                            </entry>
+                            <entry key="org.kuali.kfs.krad.datadictionary.validation.constraint.LengthConstraint">
+                                <ref bean="dictionaryValidationDefinitionConstraintResolver"/>
+                            </entry>
+                            <entry key="org.kuali.kfs.krad.datadictionary.validation.constraint.ValidCharactersConstraint">
+                                <ref bean="dictionaryValidationValidCharactersConstraintResolver"/>
+                            </entry>
+                            <entry key="org.kuali.kfs.krad.datadictionary.validation.constraint.PrerequisiteConstraint">
+                                <ref bean="dictionaryValidationPrerequisiteConstraintsResolver"/>
+                            </entry>
+                            <entry key="org.kuali.kfs.krad.datadictionary.validation.constraint.MustOccurConstraint">
+                                <ref bean="dictionaryValidationMustOccurConstraintsResolver"/>
+                            </entry>
+                            <entry key="org.kuali.kfs.krad.datadictionary.validation.constraint.CollectionSizeConstraint">
+                                <ref bean="dictionaryValidationDefinitionConstraintResolver"/>
+                            </entry>
+                        </map>
+                    </property>
+                </bean>
+                <bean class="org.kuali.kfs.krad.datadictionary.validation.constraint.provider.ComplexAttributeDefinitionConstraintProvider"/>
+                <bean class="org.kuali.kfs.krad.datadictionary.validation.constraint.provider.DataObjectEntryConstraintProvider">
+                    <!--
+                                    individual constraint resolvers can be injected as a map keyed by constraint type as string, or the default
+                                    resolvers can be instantiated into the map by adding 'init-method="init"' to the bean declaration above
+                                -->
+                    <property name="resolverMap">
+                        <map>
+                            <entry key="org.kuali.kfs.krad.datadictionary.validation.constraint.MustOccurConstraint">
+                                <ref bean="dictionaryValidationMustOccurConstraintsResolver"/>
+                            </entry>
+                        </map>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="sequenceAccessorDao" parent="platformAwareDaoJdbc"
+          class="org.kuali.kfs.krad.dao.jdbc.SequenceAccessorDaoJdbc"/>
+
+    <bean id="cf.sequenceAccessorService" class="org.kuali.kfs.krad.service.impl.SequenceAccessorServiceImpl">
+        <property name="sequenceAccessorDao" ref="sequenceAccessorDao"/>
+    </bean>
+
+    <bean id="cf.keyValuesService" class="org.kuali.kfs.krad.service.impl.KeyValuesServiceImpl">
+        <property name="businessObjectDao">
+            <ref bean="businessObjectDao"/>
+        </property>
+        <property name="persistenceStructureService">
+            <ref bean="cf.persistenceStructureService"/>
+        </property>
+    </bean>
+
+    <bean id="cf.encryptionService" class="org.kuali.rice.core.impl.encryption.EncryptionServiceImpl">
+        <property name="secretKey">
+            <bean class="org.kuali.rice.core.impl.config.property.ConfigPropertyFactoryBean">
+                <property name="name" value="encryption.key"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="cf.postProcessorService" class="org.kuali.kfs.krad.service.impl.PostProcessorServiceImpl">
+        <property name="documentService">
+            <ref bean="cf.documentService"/>
+        </property>
+    </bean>
+
+    <bean id="cf.ojbCollectionHelper" class="org.kuali.kfs.krad.util.OjbCollectionHelper"/>
+
+    <bean id="persistedLookupMetadataDao" parent="persistedLookupMetadataDaoOjb"/>
+
+    <bean id="persistedLookupMetadataDaoOjb" parent="platformAwareDao"
+          class="org.kuali.kfs.krad.dao.impl.PersistedLookupMetadataDaoOjb"/>
+
+    <bean id="cf.dataObjectMetaDataService" class="org.kuali.kfs.krad.service.impl.DataObjectMetaDataServiceImpl">
+        <property name="dataDictionaryService">
+            <ref bean="cf.dataDictionaryService"/>
+        </property>
+        <property name="persistenceStructureService">
+            <ref bean="cf.persistenceStructureService"/>
+        </property>
+        <property name="kualiModuleService">
+            <ref bean="cf.kualiModuleService"/>
+        </property>
+        <property name="viewDictionaryService">
+            <ref bean="viewDictionaryService"/>
+        </property>
+    </bean>
+
+    <bean id="cf.sessionDocumentService" class="org.kuali.kfs.krad.service.impl.SessionDocumentServiceImpl">
+        <property name="businessObjectService">
+            <ref bean="cf.businessObjectService"/>
+        </property>
+        <property name="sessionDocumentDao">
+            <ref bean="sessionDocumentDao"/>
+        </property>
+    </bean>
+
+    <!-- Since these beans are not a singletons, Spring does not inject their static
+          members until the first one is created. This bean causes one to be created.
+      -->
+    <bean id="springStatefulStaticInitializer" class="java.util.ArrayList">
+        <constructor-arg>
+            <list>
+                <ref bean="cf.kualiLookupable"/>
+                <!-- <ref bean="workflowLookupable" />-->
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="cf.confirmationQuestion" class="org.kuali.kfs.kns.question.ConfirmationQuestion" scope="prototype"/>
+
+    <bean id="cf.recallQuestion" class="org.kuali.kfs.kns.question.RecallQuestion" scope="prototype"/>
+
+    <bean id="cf.documentAdHocService" class="org.kuali.kfs.krad.service.impl.DocumentAdHocServiceImpl"/>
+
+    <bean id="cf.documentDao" parent="documentDaoOjb"/>
+
+    <bean id="documentDaoOjb" parent="platformAwareDao" class="org.kuali.kfs.krad.dao.impl.DocumentDaoOjb">
+        <!-- Constructor injection only please to help enforce completeness of instances -->
+        <constructor-arg ref="businessObjectDao"/>
+        <constructor-arg ref="cf.documentAdHocService"/>
+    </bean>
+
+    <bean id="cf.documentHeaderDao" parent="cf.documentHeaderDaoOjb"/>
+
+    <bean id="cf.documentHeaderDaoOjb" parent="platformAwareDao" class="org.kuali.kfs.krad.dao.impl.DocumentHeaderDaoOjb"/>
+
+    <bean id="cf.lookupDao" parent="lookupDaoOjb"/>
+
+    <bean id="criterialookupDao" parent="criterialookupDaoOjb"/>
+
+    <bean id="cf.maintenanceDocumentDao" parent="maintenanceDocumentDaoOjb"/>
+
+    <bean id="maintenanceDocumentDaoOjb" parent="platformAwareDao"
+          class="org.kuali.kfs.krad.dao.impl.MaintenanceDocumentDaoOjb"/>
+
+    <bean id="noteDao" parent="noteDaoOjb"/>
+
+    <bean id="noteDaoOjb" parent="platformAwareDao" class="org.kuali.kfs.krad.dao.impl.NoteDaoOjb"/>
+
+    <bean id="attachmentDao" parent="attachmentDaoOjb"/>
+
+    <bean id="attachmentDaoOjb" parent="platformAwareDao" class="org.kuali.kfs.krad.dao.impl.AttachmentDaoOjb"/>
+
+    <bean id="businessObjectDao" parent="businessObjectDaoOjb"/>
+
+    <bean id="businessObjectDaoOjb" parent="platformAwareDao" class="org.kuali.kfs.krad.dao.impl.BusinessObjectDaoOjb">
+        <!-- Constructor injection only please to help enforce completeness of instances -->
+        <constructor-arg ref="cf.persistenceStructureService"/>
+    </bean>
+
+    <bean id="sessionDocumentDao" parent="sessionDocumentDaoOjb"/>
+
+    <bean id="sessionDocumentDaoOjb" parent="platformAwareDao"
+          class="org.kuali.kfs.krad.dao.impl.SessionDocumentDaoOjb"/>
+
+    <bean id="cf.inactivationBlockingDetectionService"
+          class="org.kuali.kfs.krad.service.impl.InactivationBlockingDetectionServiceImpl">
+        <property name="dataObjectMetaDataService">
+            <ref bean="cf.dataObjectMetaDataService"/>
+        </property>
+        <property name="businessObjectService">
+            <ref bean="cf.businessObjectService"/>
+        </property>
+    </bean>
+
+    <bean id="inactivationBlockingDisplayService"
+          class="org.kuali.kfs.krad.service.impl.InactivationBlockingDisplayServiceImpl">
+        <property name="persistenceService">
+            <ref bean="cf.persistenceService"/>
+        </property>
+        <property name="dataDictionaryService">
+            <ref bean="cf.dataDictionaryService"/>
+        </property>
+        <property name="persistenceStructureService">
+            <ref bean="cf.persistenceStructureService"/>
+        </property>
+    </bean>
+
+    <bean id="cf.documentSerializerService" class="org.kuali.kfs.krad.service.impl.DocumentSerializerServiceImpl">
+        <property name="persistenceService">
+            <ref bean="cf.persistenceService"/>
+        </property>
+        <property name="xmlObjectSerializerService">
+            <ref bean="cf.xmlObjectSerializerService"/>
+        </property>
+    </bean>
+
+    <bean id="cf.businessObjectSerializerService"
+          class="org.kuali.kfs.krad.service.impl.BusinessObjectSerializerServiceImpl">
+        <property name="persistenceService">
+            <ref bean="cf.persistenceService"/>
+        </property>
+        <property name="xmlObjectSerializerService">
+            <ref bean="cf.xmlObjectSerializerService"/>
+        </property>
+    </bean>
+
+
+    <bean id="documentTypePermissionTypeService"
+          class="org.kuali.kfs.krad.kim.DocumentTypePermissionTypeServiceImpl"/>
+
+    <bean id="documentTypeAndAttachmentTypePermissionTypeService"
+          class="org.kuali.kfs.krad.kim.DocumentTypeAndAttachmentTypePermissionTypeService"/>
+
+    <bean id="documentTypeAndRelationshipToNoteAuthorPermissionTypeService"
+          class="org.kuali.kfs.krad.kim.DocumentTypeAndRelationshipToNoteAuthorPermissionTypeService"/>
+
+    <bean id="documentTypeAndNodeOrStatePermissionTypeService"
+          class="org.kuali.kfs.krad.kim.DocumentTypeAndNodeOrStatePermissionTypeServiceImpl"/>
+
+    <bean id="namespacePermissionTypeService" class="org.kuali.kfs.krad.kim.NamespacePermissionTypeServiceImpl"/>
+
+    <bean id="documentTypeAndNodeAndRouteStatusPermissionTypeService"
+          class="org.kuali.kfs.krad.kim.DocumentTypeAndNodeAndRouteStatusPermissionTypeServiceImpl"/>
+
+    <bean id="namespaceOrComponentPermissionTypeService"
+          class="org.kuali.kfs.krad.kim.NamespaceWildcardAllowedAndOrStringExactMatchPermissionTypeServiceImpl">
+        <property name="exactMatchStringAttributeName" value="componentName"/>
+        <property name="namespaceRequiredOnStoredMap" value="false"/>
+    </bean>
+
+    <bean id="parameterPermissionTypeService" class="org.kuali.kfs.krad.kim.ParameterPermissionTypeServiceImpl">
+        <property name="exactMatchStringAttributeName" value="componentName"/>
+        <property name="namespaceRequiredOnStoredMap" value="false"/>
+    </bean>
+
+    <bean id="batchFeedOrJobPermissionTypeService"
+          class="org.kuali.kfs.krad.kim.NamespaceWildcardAllowedAndOrStringExactMatchPermissionTypeServiceImpl">
+        <property name="exactMatchStringAttributeName" value="beanName"/>
+        <property name="namespaceRequiredOnStoredMap" value="false"/>
+    </bean>
+
+    <bean id="actionRequestTypePermissionTypeService"
+          class="org.kuali.kfs.krad.kim.ActionRequestTypePermissionTypeServiceImpl"/>
+
+    <bean id="namespaceOrActionPermissionTypeService"
+          class="org.kuali.kfs.krad.kim.NamespaceWildcardAllowedAndOrStringExactMatchPermissionTypeServiceImpl">
+        <property name="exactMatchStringAttributeName" value="actionClass"/>
+        <property name="namespaceRequiredOnStoredMap" value="false"/>
+    </bean>
+
+    <bean id="documentTypeAndEditModePermissionTypeService"
+          class="org.kuali.kfs.krad.kim.DocumentTypeAndEditModePermissionTypeServiceImpl"/>
+
+    <bean id="documentTypeAndNodeAndFieldsPermissionTypeService"
+          class="org.kuali.kfs.krad.kim.DocumentTypeAndNodeAndFieldsPermissionTypeServiceImpl"/>
+
+    <bean id="documentTypeAndExistingRecordsOnlyPermissionTypeService"
+          class="org.kuali.kfs.krad.kim.DocumentTypeAndExistingRecordsOnlyPermissionTypeServiceImpl"/>
+
+    <bean id="viewPermissionTypeService" class="org.kuali.kfs.krad.kim.ViewPermissionTypeServiceImpl"/>
+
+    <bean id="viewEditModePermissionTypeService"
+          class="org.kuali.kfs.krad.kim.ViewEditModePermissionTypeServiceImpl"/>
+
+    <bean id="viewFieldPermissionTypeService"
+          class="org.kuali.kfs.krad.kim.ViewFieldPermissionTypeServiceImpl"/>
+
+    <bean id="viewGroupPermissionTypeService"
+          class="org.kuali.kfs.krad.kim.ViewGroupPermissionTypeServiceImpl"/>
+
+    <bean id="viewWidgetPermissionTypeService"
+          class="org.kuali.kfs.krad.kim.ViewWidgetPermissionTypeServiceImpl"/>
+
+    <bean id="viewActionPermissionTypeService"
+          class="org.kuali.kfs.krad.kim.ViewActionPermissionTypeServiceImpl"/>
+
+    <bean id="viewLineFieldPermissionTypeService"
+          class="org.kuali.kfs.krad.kim.ViewLineFieldPermissionTypeServiceImpl"/>
+
+    <bean id="viewLineActionPermissionTypeService"
+          class="org.kuali.kfs.krad.kim.ViewLineActionPermissionTypeServiceImpl"/>
+
+    <bean id="cf.dataObjectAuthorizationService"
+          class="org.kuali.kfs.krad.service.impl.DataObjectAuthorizationServiceImpl"/>
+
+    <bean id="cf.businessObjectAuthorizationService"
+          class="org.kuali.kfs.kns.service.impl.BusinessObjectAuthorizationServiceImpl"/>
+
+    <bean id="cf.workflowAttributePropertyResolutionService"
+          class="org.kuali.kfs.krad.workflow.service.impl.WorkflowAttributePropertyResolutionServiceImpl">
+        <property name="persistenceStructureService">
+            <ref bean="cf.persistenceStructureService"/>
+        </property>
+    </bean>
+
+    <bean id="inactivateableFromToService" class="org.kuali.kfs.krad.service.impl.InactivateableFromToServiceImpl">
+        <property name="dateTimeService">
+            <ref bean="cf.dateTimeService"/>
+        </property>
+        <property name="dataDictionaryService">
+            <ref bean="cf.dataDictionaryService"/>
+        </property>
+        <property name="lookupService">
+            <ref bean="cf.lookupService"/>
+        </property>
+    </bean>
+
+    <bean id="lookupDaoOjb" parent="platformAwareDao" class="org.kuali.kfs.krad.dao.impl.LookupDaoOjb">
+        <property name="persistenceStructureService" ref="cf.persistenceStructureService"/>
+        <property name="dateTimeService" ref="cf.dateTimeService"/>
+        <property name="dataDictionaryService" ref="cf.dataDictionaryService"/>
+    </bean>
+
+    <bean id="criterialookupDaoOjb" parent="platformAwareDao" class="org.kuali.kfs.krad.criteria.CriteriaLookupDaoOjb"/>
+
+    <bean id="KRADConstants" class="org.kuali.rice.core.api.util.collect.ConstantsMap">
+        <property name="constantClass" value="org.kuali.kfs.krad.util.KRADConstants"/>
+    </bean>
+
+    <bean id="RiceConstants" class="org.kuali.rice.core.api.util.collect.ConstantsMap">
+        <property name="constantClass" value="org.kuali.rice.core.api.util.RiceConstants"/>
+    </bean>
+
+    <bean id="KRADPropertyConstants" class="org.kuali.rice.core.api.util.collect.ConstantsMap">
+        <property name="constantClass" value="org.kuali.kfs.krad.util.KRADPropertyConstants"/>
+    </bean>
+
+    <bean id="AuthorizationConstants" class="org.kuali.rice.core.api.util.collect.ConstantsMap">
+        <property name="constantClass" value="org.kuali.kfs.kns.authorization.AuthorizationConstants"/>
+    </bean>
+
+    <bean id="UifConstants" class="org.kuali.rice.core.api.util.collect.ConstantsMap">
+        <property name="constantClass" value="org.kuali.kfs.krad.uif.UifConstants"/>
+    </bean>
+
+    <bean id="ConfigProperties" class="org.kuali.rice.core.api.util.collect.PropertiesMap">
+        <property name="properties" value="#{@'cf.kualiConfigurationService'.allProperties}"/>
+    </bean>
+
+    <bean class="org.springframework.web.context.support.ServletContextAttributeExporter">
+        <property name="attributes">
+            <map>
+                <entry key="KRADConstants" value-ref="KRADConstants"/>
+                <entry key="Constants" value-ref="KRADConstants"/>
+                <entry key="RiceConstants" value-ref="RiceConstants"/>
+                <entry key="PropertyConstants" value-ref="KRADPropertyConstants"/>
+                <entry key="AuthorizationConstants" value-ref="AuthorizationConstants"/>
+                <entry key="ConfigProperties" value-ref="ConfigProperties"/>
+                <entry key="UifConstants" value-ref="UifConstants"/>
+                <entry key="kualiModuleService" value-ref="cf.kualiModuleService"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="viewService" class="org.kuali.kfs.krad.uif.service.impl.ViewServiceImpl">
+        <property name="dataDictionaryService" ref="cf.dataDictionaryService"/>
+        <property name="viewTypeServices">
+            <list>
+                <ref bean="cf.inquiryViewTypeService"/>
+                <ref bean="cf.lookupViewTypeService"/>
+                <ref bean="maintenanceViewTypeService"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="expressionEvaluatorService" class="org.kuali.kfs.krad.uif.service.impl.ExpressionEvaluatorServiceImpl">
+    </bean>
+
+    <bean id="cf.inquiryViewTypeService" class="org.kuali.kfs.krad.uif.service.impl.InquiryViewTypeServiceImpl"/>
+
+    <bean id="cf.lookupViewTypeService" class="org.kuali.kfs.krad.uif.service.impl.LookupViewTypeServiceImpl"/>
+
+    <bean id="maintenanceViewTypeService" class="org.kuali.kfs.krad.uif.service.impl.MaintenanceViewTypeServiceImpl">
+        <property name="documentService">
+            <ref bean="cf.documentService"/>
+        </property>
+        <property name="documentDictionaryService">
+            <ref bean="cf.documentDictionaryService"/>
+        </property>
+    </bean>
+
+    <bean id="viewDictionaryService" class="org.kuali.kfs.krad.uif.service.impl.ViewDictionaryServiceImpl">
+        <property name="dataDictionaryService">
+            <ref bean="cf.dataDictionaryService"/>
+        </property>
+    </bean>
+
+    <bean id="attributeQueryService" class="org.kuali.kfs.krad.uif.service.impl.AttributeQueryServiceImpl">
+        <property name="lookupService">
+            <ref bean="cf.lookupService"/>
+        </property>
+    </bean>
+
+    <bean id="dataDictionaryRemoteFieldService" class="org.kuali.kfs.krad.service.impl.DataDictionaryRemoteFieldServiceImpl" lazy-init="true"/>
+
+    <bean id="cf.dataDictionaryComponentPublisherService" class="org.kuali.kfs.krad.service.impl.DataDictionaryComponentPublisherServiceImpl">
+        <property name="dataDictionaryService" ref="cf.dataDictionaryService"/>
+        <!--property name="kualiModuleService" ref="cf.kualiModuleService"/-->
+        <!--<property name="componentService" ref="rice.krad.import.componentService"/>-->
+        <property name="applicationId" value="${application.id}"/>
+    </bean>
+
+    <bean id="cf.maintainableXMLConversionService" parent="cf.maintainableXMLConversionService-parentBean"/>
+    <bean id="cf.maintainableXMLConversionService-parentBean" abstract="true" class="org.kuali.kfs.krad.service.impl.MaintainableXMLConversionServiceImpl">
+        <property name="conversionRuleFiles">
+            <list>
+                <value>classpath:org/kuali/kfs/krad/config/MaintainableXMLUpgradeRules.xml</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="cf.csrfService" class="org.kuali.kfs.krad.service.impl.CsrfServiceImpl">
+          <property name="configurationService" ref="cf.kualiConfigurationService"/>
+          <property name="parameterService" ref="cf.parameterService"/>
+    </bean>
+
+</beans>

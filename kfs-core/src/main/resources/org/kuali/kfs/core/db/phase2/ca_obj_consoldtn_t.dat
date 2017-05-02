@@ -1,0 +1,249 @@
+HEADER[~&~	~&~FIN_COA_CD::VARCHAR~&~	~&~FIN_CONS_OBJ_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~FIN_CONS_OBJ_NM::VARCHAR~&~	~&~FIN_CONOBJ_SHRT_NM::VARCHAR~&~	~&~FIN_CONOBJ_ACTV_CD::VARCHAR~&~	~&~FIN_REPORT_SORT_CD::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'BA'~&~	~&~'ASEX'~&~	~&~'014F3DAF7384A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSESSMENTS-EXPENDITURES'~&~	~&~'ASSESS-EXP'~&~	~&~'Y'~&~	~&~'13'~&~	~&~]RECORD
+RECORD[~&~	~&~'BA'~&~	~&~'ASRE'~&~	~&~'014F3DAF7385A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSESSMENTS-REVENUE'~&~	~&~'ASSESS-REV'~&~	~&~'Y'~&~	~&~'05'~&~	~&~]RECORD
+RECORD[~&~	~&~'BA'~&~	~&~'ASST'~&~	~&~'014F3DAF7386A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSETS'~&~	~&~'ASSETS'~&~	~&~'Y'~&~	~&~'16'~&~	~&~]RECORD
+RECORD[~&~	~&~'BA'~&~	~&~'CMPN'~&~	~&~'014F3DAF7387A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'COMPENSATION'~&~	~&~'COMPENS'~&~	~&~'Y'~&~	~&~'07'~&~	~&~]RECORD
+RECORD[~&~	~&~'BA'~&~	~&~'CPTL'~&~	~&~'014F3DAF7388A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'CAPITAL'~&~	~&~'CAPITAL'~&~	~&~'Y'~&~	~&~'11'~&~	~&~]RECORD
+RECORD[~&~	~&~'BA'~&~	~&~'FDBL'~&~	~&~'014F3DAF7389A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'FUND BALANCE'~&~	~&~'FUND BAL'~&~	~&~'Y'~&~	~&~'18'~&~	~&~]RECORD
+RECORD[~&~	~&~'BA'~&~	~&~'GENX'~&~	~&~'014F3DAF738AA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'GENERAL EXPENSE'~&~	~&~'GEN EXP'~&~	~&~'Y'~&~	~&~'09'~&~	~&~]RECORD
+RECORD[~&~	~&~'BA'~&~	~&~'IDEX'~&~	~&~'014F3DAF738BA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'INDIRECT COST RECOVERY EXPENSE'~&~	~&~'IND COST EXP'~&~	~&~'Y'~&~	~&~'12'~&~	~&~]RECORD
+RECORD[~&~	~&~'BA'~&~	~&~'IDIN'~&~	~&~'014F3DAF738CA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'INDIRECT COST RECOVERY INCOME'~&~	~&~'IND COST INC'~&~	~&~'Y'~&~	~&~'04'~&~	~&~]RECORD
+RECORD[~&~	~&~'BA'~&~	~&~'LIAB'~&~	~&~'014F3DAF738DA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'LIABILITIES'~&~	~&~'LIABILITIES'~&~	~&~'Y'~&~	~&~'17'~&~	~&~]RECORD
+RECORD[~&~	~&~'BA'~&~	~&~'OTRE'~&~	~&~'014F3DAF738EA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'OTHER REVENUE'~&~	~&~'OTH REVENUE'~&~	~&~'Y'~&~	~&~'03'~&~	~&~]RECORD
+RECORD[~&~	~&~'BA'~&~	~&~'RSRX'~&~	~&~'014F3DAF738FA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'RESERVES'~&~	~&~'RESERVES'~&~	~&~'Y'~&~	~&~'15'~&~	~&~]RECORD
+RECORD[~&~	~&~'BA'~&~	~&~'SAPR'~&~	~&~'014F3DAF7390A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'STATE APPROPRIATION'~&~	~&~'STATE APPROP'~&~	~&~'Y'~&~	~&~'02'~&~	~&~]RECORD
+RECORD[~&~	~&~'BA'~&~	~&~'SCHL'~&~	~&~'014F3DAF7391A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'FINANCIAL AID'~&~	~&~'FIN AID'~&~	~&~'Y'~&~	~&~'08'~&~	~&~]RECORD
+RECORD[~&~	~&~'BA'~&~	~&~'STFE'~&~	~&~'014F3DAF7392A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'STUDENT FEES'~&~	~&~'STUDENT FEES'~&~	~&~'Y'~&~	~&~'01'~&~	~&~]RECORD
+RECORD[~&~	~&~'BA'~&~	~&~'TFEX'~&~	~&~'014F3DAF7393A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER - EXPENSE'~&~	~&~'TRANSFER-EXP'~&~	~&~'N'~&~	~&~'14'~&~	~&~]RECORD
+RECORD[~&~	~&~'BA'~&~	~&~'TFIN'~&~	~&~'014F3DAF7394A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER - INCOME'~&~	~&~'TRANSFER-INC'~&~	~&~'N'~&~	~&~'06'~&~	~&~]RECORD
+RECORD[~&~	~&~'BA'~&~	~&~'TRSF'~&~	~&~'014F3DAF7395A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER OF FUNDS'~&~	~&~'TRANSFER'~&~	~&~'Y'~&~	~&~'19'~&~	~&~]RECORD
+RECORD[~&~	~&~'BA'~&~	~&~'TRVL'~&~	~&~'014F3DAF7396A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRAVEL'~&~	~&~'TRAVEL'~&~	~&~'Y'~&~	~&~'10'~&~	~&~]RECORD
+RECORD[~&~	~&~'BL'~&~	~&~'ASEX'~&~	~&~'014F3DAF7397A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSESSMENTS-EXPENDITURES'~&~	~&~'ASSESS-EXP'~&~	~&~'Y'~&~	~&~'13'~&~	~&~]RECORD
+RECORD[~&~	~&~'BL'~&~	~&~'ASRE'~&~	~&~'014F3DAF7398A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSESSMENTS-REVENUE'~&~	~&~'ASSESS-REV'~&~	~&~'Y'~&~	~&~'05'~&~	~&~]RECORD
+RECORD[~&~	~&~'BL'~&~	~&~'ASST'~&~	~&~'014F3DAF7399A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSETS'~&~	~&~'ASSETS'~&~	~&~'Y'~&~	~&~'16'~&~	~&~]RECORD
+RECORD[~&~	~&~'BL'~&~	~&~'CMPN'~&~	~&~'014F3DAF739AA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'COMPENSATION'~&~	~&~'COMPENS'~&~	~&~'Y'~&~	~&~'07'~&~	~&~]RECORD
+RECORD[~&~	~&~'BL'~&~	~&~'CPTL'~&~	~&~'014F3DAF739BA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'CAPITAL'~&~	~&~'CAPITAL'~&~	~&~'Y'~&~	~&~'11'~&~	~&~]RECORD
+RECORD[~&~	~&~'BL'~&~	~&~'FDBL'~&~	~&~'014F3DAF739CA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'FUND BALANCE'~&~	~&~'FUND BAL'~&~	~&~'Y'~&~	~&~'18'~&~	~&~]RECORD
+RECORD[~&~	~&~'BL'~&~	~&~'GENX'~&~	~&~'014F3DAF739DA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'GENERAL EXPENSE'~&~	~&~'GEN EXP'~&~	~&~'Y'~&~	~&~'09'~&~	~&~]RECORD
+RECORD[~&~	~&~'BL'~&~	~&~'IDEX'~&~	~&~'014F3DAF739EA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'INDIRECT COST RECOVERY EXPENSE'~&~	~&~'IND COST EXP'~&~	~&~'Y'~&~	~&~'12'~&~	~&~]RECORD
+RECORD[~&~	~&~'BL'~&~	~&~'IDIN'~&~	~&~'014F3DAF739FA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'INDIRECT COST RECOVERY INCOME'~&~	~&~'IND COST INC'~&~	~&~'Y'~&~	~&~'04'~&~	~&~]RECORD
+RECORD[~&~	~&~'BL'~&~	~&~'LIAB'~&~	~&~'014F3DAF73A0A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'LIABILITIES'~&~	~&~'LIABILITIES'~&~	~&~'Y'~&~	~&~'17'~&~	~&~]RECORD
+RECORD[~&~	~&~'BL'~&~	~&~'OTRE'~&~	~&~'014F3DAF73A1A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'OTHER REVENUE'~&~	~&~'OTH REVENUE'~&~	~&~'Y'~&~	~&~'03'~&~	~&~]RECORD
+RECORD[~&~	~&~'BL'~&~	~&~'RSRX'~&~	~&~'014F3DAF73A2A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'RESERVES'~&~	~&~'RESERVES'~&~	~&~'Y'~&~	~&~'15'~&~	~&~]RECORD
+RECORD[~&~	~&~'BL'~&~	~&~'SAPR'~&~	~&~'014F3DAF73A3A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'STATE APPROPRIATIONS'~&~	~&~'STATE APPROP'~&~	~&~'Y'~&~	~&~'02'~&~	~&~]RECORD
+RECORD[~&~	~&~'BL'~&~	~&~'SCHL'~&~	~&~'014F3DAF73A4A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'FINANCIAL AID'~&~	~&~'FIN AID'~&~	~&~'Y'~&~	~&~'08'~&~	~&~]RECORD
+RECORD[~&~	~&~'BL'~&~	~&~'STFE'~&~	~&~'014F3DAF73A5A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'STUDENT FEES'~&~	~&~'STUDENT FEES'~&~	~&~'Y'~&~	~&~'01'~&~	~&~]RECORD
+RECORD[~&~	~&~'BL'~&~	~&~'TFEX'~&~	~&~'014F3DAF73A6A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER - EXPENSE'~&~	~&~'TRANSFER-EXP'~&~	~&~'N'~&~	~&~'14'~&~	~&~]RECORD
+RECORD[~&~	~&~'BL'~&~	~&~'TFIN'~&~	~&~'014F3DAF73A7A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER - INCOME'~&~	~&~'TRANSFER-INC'~&~	~&~'N'~&~	~&~'06'~&~	~&~]RECORD
+RECORD[~&~	~&~'BL'~&~	~&~'TRSF'~&~	~&~'014F3DAF73A8A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER OF FUNDS'~&~	~&~'TRANSFER'~&~	~&~'Y'~&~	~&~'19'~&~	~&~]RECORD
+RECORD[~&~	~&~'BL'~&~	~&~'TRVL'~&~	~&~'014F3DAF73A9A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRAVEL'~&~	~&~'TRAVEL'~&~	~&~'Y'~&~	~&~'10'~&~	~&~]RECORD
+RECORD[~&~	~&~'EA'~&~	~&~'ASEX'~&~	~&~'014F3DAF73AAA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSESSMENTS-EXPENDITURES'~&~	~&~'ASSESS-EXP'~&~	~&~'Y'~&~	~&~'13'~&~	~&~]RECORD
+RECORD[~&~	~&~'EA'~&~	~&~'ASRE'~&~	~&~'014F3DAF73ABA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSESSMENTS-REVENUE'~&~	~&~'ASSESS-REV'~&~	~&~'Y'~&~	~&~'05'~&~	~&~]RECORD
+RECORD[~&~	~&~'EA'~&~	~&~'ASST'~&~	~&~'014F3DAF73ACA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSETS'~&~	~&~'ASSETS'~&~	~&~'Y'~&~	~&~'16'~&~	~&~]RECORD
+RECORD[~&~	~&~'EA'~&~	~&~'CMPN'~&~	~&~'014F3DAF73ADA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'COMPENSATION'~&~	~&~'COMPENS'~&~	~&~'Y'~&~	~&~'07'~&~	~&~]RECORD
+RECORD[~&~	~&~'EA'~&~	~&~'CPTL'~&~	~&~'014F3DAF73AEA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'CAPITAL'~&~	~&~'CAPITAL'~&~	~&~'Y'~&~	~&~'11'~&~	~&~]RECORD
+RECORD[~&~	~&~'EA'~&~	~&~'FDBL'~&~	~&~'014F3DAF73AFA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'FUND BALANCE'~&~	~&~'FUND BAL'~&~	~&~'Y'~&~	~&~'18'~&~	~&~]RECORD
+RECORD[~&~	~&~'EA'~&~	~&~'GENX'~&~	~&~'014F3DAF73B0A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'GENERAL EXPENSE'~&~	~&~'GEN EXP'~&~	~&~'Y'~&~	~&~'09'~&~	~&~]RECORD
+RECORD[~&~	~&~'EA'~&~	~&~'IDEX'~&~	~&~'014F3DAF73B1A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'INDIRECT COST RECOVERY EXPENSE'~&~	~&~'IND COST EXP'~&~	~&~'Y'~&~	~&~'12'~&~	~&~]RECORD
+RECORD[~&~	~&~'EA'~&~	~&~'IDIN'~&~	~&~'014F3DAF73B2A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'INDIRECT COST RECOVERY INCOME'~&~	~&~'IND COST INC'~&~	~&~'Y'~&~	~&~'04'~&~	~&~]RECORD
+RECORD[~&~	~&~'EA'~&~	~&~'LIAB'~&~	~&~'014F3DAF73B3A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'LIABILITIES'~&~	~&~'LIABILITIES'~&~	~&~'Y'~&~	~&~'17'~&~	~&~]RECORD
+RECORD[~&~	~&~'EA'~&~	~&~'OTRE'~&~	~&~'014F3DAF73B4A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'OTHER REVENUE'~&~	~&~'OTH REVENUE'~&~	~&~'Y'~&~	~&~'03'~&~	~&~]RECORD
+RECORD[~&~	~&~'EA'~&~	~&~'RSRX'~&~	~&~'014F3DAF73B5A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'RESERVES'~&~	~&~'RESERVES'~&~	~&~'Y'~&~	~&~'15'~&~	~&~]RECORD
+RECORD[~&~	~&~'EA'~&~	~&~'SAPR'~&~	~&~'014F3DAF73B6A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'STATE APPROPRIATIONS'~&~	~&~'STATE APPROP'~&~	~&~'Y'~&~	~&~'02'~&~	~&~]RECORD
+RECORD[~&~	~&~'EA'~&~	~&~'SCHL'~&~	~&~'014F3DAF73B7A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'FINANCIAL AID'~&~	~&~'FIN AID'~&~	~&~'Y'~&~	~&~'08'~&~	~&~]RECORD
+RECORD[~&~	~&~'EA'~&~	~&~'STFE'~&~	~&~'014F3DAF73B8A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'STUDENT FEES'~&~	~&~'STUDENT FEES'~&~	~&~'Y'~&~	~&~'01'~&~	~&~]RECORD
+RECORD[~&~	~&~'EA'~&~	~&~'TFEX'~&~	~&~'014F3DAF73B9A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER - EXPENSE'~&~	~&~'TRANSFER-EXP'~&~	~&~'N'~&~	~&~'14'~&~	~&~]RECORD
+RECORD[~&~	~&~'EA'~&~	~&~'TFIN'~&~	~&~'014F3DAF73BAA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER - INCOME'~&~	~&~'TRANSFER-INC'~&~	~&~'N'~&~	~&~'06'~&~	~&~]RECORD
+RECORD[~&~	~&~'EA'~&~	~&~'TRSF'~&~	~&~'014F3DAF73BBA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER OF FUNDS'~&~	~&~'TRANSFER'~&~	~&~'Y'~&~	~&~'19'~&~	~&~]RECORD
+RECORD[~&~	~&~'EA'~&~	~&~'TRVL'~&~	~&~'014F3DAF73BCA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRAVEL'~&~	~&~'TRAVEL'~&~	~&~'Y'~&~	~&~'10'~&~	~&~]RECORD
+RECORD[~&~	~&~'FW'~&~	~&~'ASEX'~&~	~&~'014F3DAF73BDA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSESSMENTS-EXPENDITURES'~&~	~&~'ASSESS-EXP'~&~	~&~'Y'~&~	~&~'13'~&~	~&~]RECORD
+RECORD[~&~	~&~'FW'~&~	~&~'ASRE'~&~	~&~'014F3DAF73BEA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSESSMENTS-REVENUE'~&~	~&~'ASSESS-REV'~&~	~&~'Y'~&~	~&~'05'~&~	~&~]RECORD
+RECORD[~&~	~&~'FW'~&~	~&~'ASST'~&~	~&~'014F3DAF73BFA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSETS'~&~	~&~'ASSETS'~&~	~&~'Y'~&~	~&~'16'~&~	~&~]RECORD
+RECORD[~&~	~&~'FW'~&~	~&~'CMPN'~&~	~&~'014F3DAF73C0A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'COMPENSATION'~&~	~&~'COMPENS'~&~	~&~'Y'~&~	~&~'07'~&~	~&~]RECORD
+RECORD[~&~	~&~'FW'~&~	~&~'CPTL'~&~	~&~'014F3DAF73C1A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'CAPITAL'~&~	~&~'CAPITAL'~&~	~&~'Y'~&~	~&~'11'~&~	~&~]RECORD
+RECORD[~&~	~&~'FW'~&~	~&~'FDBL'~&~	~&~'014F3DAF73C2A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'FUND BALANCE'~&~	~&~'FUND BAL'~&~	~&~'Y'~&~	~&~'18'~&~	~&~]RECORD
+RECORD[~&~	~&~'FW'~&~	~&~'GENX'~&~	~&~'014F3DAF73C3A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'GENERAL EXPENSE'~&~	~&~'GEN EXP'~&~	~&~'Y'~&~	~&~'09'~&~	~&~]RECORD
+RECORD[~&~	~&~'FW'~&~	~&~'IDEX'~&~	~&~'014F3DAF73C4A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'INDIRECT COST RECOVERY EXPENSE'~&~	~&~'IND COST EXP'~&~	~&~'Y'~&~	~&~'12'~&~	~&~]RECORD
+RECORD[~&~	~&~'FW'~&~	~&~'IDIN'~&~	~&~'014F3DAF73C5A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'INDIRECT COST RECOVERY INCOME'~&~	~&~'IND COST INC'~&~	~&~'Y'~&~	~&~'04'~&~	~&~]RECORD
+RECORD[~&~	~&~'FW'~&~	~&~'LIAB'~&~	~&~'014F3DAF73C6A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'LIABILITIES'~&~	~&~'LIABILITIES'~&~	~&~'Y'~&~	~&~'17'~&~	~&~]RECORD
+RECORD[~&~	~&~'FW'~&~	~&~'OTRE'~&~	~&~'014F3DAF73C7A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'OTHER REVENUE'~&~	~&~'OTH REVENUE'~&~	~&~'Y'~&~	~&~'03'~&~	~&~]RECORD
+RECORD[~&~	~&~'FW'~&~	~&~'RSRX'~&~	~&~'014F3DAF73C8A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'RESERVES'~&~	~&~'RESERVES'~&~	~&~'Y'~&~	~&~'15'~&~	~&~]RECORD
+RECORD[~&~	~&~'FW'~&~	~&~'SAPR'~&~	~&~'014F3DAF73C9A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'STATE APPROPRIATIONS'~&~	~&~'STATE APPROP'~&~	~&~'Y'~&~	~&~'02'~&~	~&~]RECORD
+RECORD[~&~	~&~'FW'~&~	~&~'SCHL'~&~	~&~'014F3DAF73CAA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'FINANCIAL AID'~&~	~&~'FIN AID'~&~	~&~'Y'~&~	~&~'08'~&~	~&~]RECORD
+RECORD[~&~	~&~'FW'~&~	~&~'STFE'~&~	~&~'014F3DAF73CBA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'STUDENT FEES'~&~	~&~'STUDENT FEES'~&~	~&~'Y'~&~	~&~'01'~&~	~&~]RECORD
+RECORD[~&~	~&~'FW'~&~	~&~'TFEX'~&~	~&~'014F3DAF73CCA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER - EXPENSE'~&~	~&~'TRANSFER-EXP'~&~	~&~'N'~&~	~&~'14'~&~	~&~]RECORD
+RECORD[~&~	~&~'FW'~&~	~&~'TFIN'~&~	~&~'014F3DAF73CDA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER - INCOME'~&~	~&~'TRANSFER-INC'~&~	~&~'N'~&~	~&~'06'~&~	~&~]RECORD
+RECORD[~&~	~&~'FW'~&~	~&~'TRSF'~&~	~&~'014F3DAF73CEA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER OF FUNDS'~&~	~&~'TRANSFER'~&~	~&~'Y'~&~	~&~'19'~&~	~&~]RECORD
+RECORD[~&~	~&~'FW'~&~	~&~'TRVL'~&~	~&~'014F3DAF73CFA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRAVEL'~&~	~&~'TRAVEL'~&~	~&~'Y'~&~	~&~'10'~&~	~&~]RECORD
+RECORD[~&~	~&~'HO'~&~	~&~'ASEX'~&~	~&~'014F3DAF73D0A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSESSMENTS-EXPENDITURES'~&~	~&~'ASSESS-EXP'~&~	~&~'Y'~&~	~&~'13'~&~	~&~]RECORD
+RECORD[~&~	~&~'HO'~&~	~&~'ASRE'~&~	~&~'014F3DAF73D1A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSESSMENTS-REVENUE'~&~	~&~'ASSESS-REV'~&~	~&~'Y'~&~	~&~'05'~&~	~&~]RECORD
+RECORD[~&~	~&~'HO'~&~	~&~'ASST'~&~	~&~'014F3DAF73D2A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSETS'~&~	~&~'ASSETS'~&~	~&~'Y'~&~	~&~'16'~&~	~&~]RECORD
+RECORD[~&~	~&~'HO'~&~	~&~'CMPN'~&~	~&~'014F3DAF73D3A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'COMPENSATION'~&~	~&~'COMPENS'~&~	~&~'Y'~&~	~&~'07'~&~	~&~]RECORD
+RECORD[~&~	~&~'HO'~&~	~&~'CPTL'~&~	~&~'014F3DAF73D4A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'CAPITAL'~&~	~&~'CAPITAL'~&~	~&~'Y'~&~	~&~'11'~&~	~&~]RECORD
+RECORD[~&~	~&~'HO'~&~	~&~'FDBL'~&~	~&~'014F3DAF73D5A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'FUND BALANCE'~&~	~&~'FUND BAL'~&~	~&~'Y'~&~	~&~'18'~&~	~&~]RECORD
+RECORD[~&~	~&~'HO'~&~	~&~'GENX'~&~	~&~'014F3DAF73D6A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'GENERAL EXPENSE'~&~	~&~'GEN EXP'~&~	~&~'Y'~&~	~&~'09'~&~	~&~]RECORD
+RECORD[~&~	~&~'HO'~&~	~&~'IDEX'~&~	~&~'014F3DAF73D7A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'INDIRECT COST RECOVERY EXPENSE'~&~	~&~'IND COST EXP'~&~	~&~'Y'~&~	~&~'12'~&~	~&~]RECORD
+RECORD[~&~	~&~'HO'~&~	~&~'IDIN'~&~	~&~'014F3DAF73D8A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'INDIRECT COST RECOVERY INCOME'~&~	~&~'IND COST INC'~&~	~&~'Y'~&~	~&~'04'~&~	~&~]RECORD
+RECORD[~&~	~&~'HO'~&~	~&~'LIAB'~&~	~&~'014F3DAF73D9A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'LIABILITIES'~&~	~&~'LIABILITIES'~&~	~&~'Y'~&~	~&~'17'~&~	~&~]RECORD
+RECORD[~&~	~&~'HO'~&~	~&~'OTRE'~&~	~&~'014F3DAF73DAA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'OTHER REVENUE'~&~	~&~'OTH REVENUE'~&~	~&~'Y'~&~	~&~'03'~&~	~&~]RECORD
+RECORD[~&~	~&~'HO'~&~	~&~'RSRX'~&~	~&~'014F3DAF73DBA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'RESERVES'~&~	~&~'RESERVES'~&~	~&~'Y'~&~	~&~'15'~&~	~&~]RECORD
+RECORD[~&~	~&~'HO'~&~	~&~'SAPR'~&~	~&~'014F3DAF73DCA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'STATE APPROPRIATIONS'~&~	~&~'STATE APPROP'~&~	~&~'Y'~&~	~&~'02'~&~	~&~]RECORD
+RECORD[~&~	~&~'HO'~&~	~&~'SCHL'~&~	~&~'014F3DAF73DDA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'FINANCIAL AID'~&~	~&~'FIN AID'~&~	~&~'Y'~&~	~&~'08'~&~	~&~]RECORD
+RECORD[~&~	~&~'HO'~&~	~&~'STFE'~&~	~&~'014F3DAF73DEA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'STUDENT FEES'~&~	~&~'STUDENT FEES'~&~	~&~'Y'~&~	~&~'01'~&~	~&~]RECORD
+RECORD[~&~	~&~'HO'~&~	~&~'TFEX'~&~	~&~'014F3DAF73DFA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER - EXPENSE'~&~	~&~'TRANSFER-EXP'~&~	~&~'N'~&~	~&~'14'~&~	~&~]RECORD
+RECORD[~&~	~&~'HO'~&~	~&~'TFIN'~&~	~&~'014F3DAF73E0A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER - INCOME'~&~	~&~'TRANSFER-INC'~&~	~&~'N'~&~	~&~'06'~&~	~&~]RECORD
+RECORD[~&~	~&~'HO'~&~	~&~'TRSF'~&~	~&~'014F3DAF73E1A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER OF FUNDS'~&~	~&~'TRANSFER'~&~	~&~'Y'~&~	~&~'19'~&~	~&~]RECORD
+RECORD[~&~	~&~'HO'~&~	~&~'TRVL'~&~	~&~'014F3DAF73E2A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRAVEL'~&~	~&~'TRAVEL'~&~	~&~'Y'~&~	~&~'10'~&~	~&~]RECORD
+RECORD[~&~	~&~'IA'~&~	~&~'ASEX'~&~	~&~'014F3DAF73E3A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSESSMENTS-EXPENDITURES'~&~	~&~'ASSESS-EXP'~&~	~&~'Y'~&~	~&~'13'~&~	~&~]RECORD
+RECORD[~&~	~&~'IA'~&~	~&~'ASRE'~&~	~&~'014F3DAF73E4A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSESSMENTS-REVENUE'~&~	~&~'ASSESS-REV'~&~	~&~'Y'~&~	~&~'05'~&~	~&~]RECORD
+RECORD[~&~	~&~'IA'~&~	~&~'ASST'~&~	~&~'014F3DAF73E5A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSETS'~&~	~&~'ASSETS'~&~	~&~'Y'~&~	~&~'16'~&~	~&~]RECORD
+RECORD[~&~	~&~'IA'~&~	~&~'CMPN'~&~	~&~'014F3DAF73E6A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'COMPENSATION'~&~	~&~'COMPENS'~&~	~&~'Y'~&~	~&~'07'~&~	~&~]RECORD
+RECORD[~&~	~&~'IA'~&~	~&~'CPTL'~&~	~&~'014F3DAF73E7A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'CAPITAL'~&~	~&~'CAPITAL'~&~	~&~'Y'~&~	~&~'11'~&~	~&~]RECORD
+RECORD[~&~	~&~'IA'~&~	~&~'FDBL'~&~	~&~'014F3DAF73E8A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'FUND BALANCE'~&~	~&~'FUND BAL'~&~	~&~'Y'~&~	~&~'18'~&~	~&~]RECORD
+RECORD[~&~	~&~'IA'~&~	~&~'GENX'~&~	~&~'014F3DAF73E9A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'GENERAL EXPENSE'~&~	~&~'GEN EXP'~&~	~&~'Y'~&~	~&~'09'~&~	~&~]RECORD
+RECORD[~&~	~&~'IA'~&~	~&~'IDEX'~&~	~&~'014F3DAF73EAA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'INDIRECT COST RECOVERY EXPENSE'~&~	~&~'IND COST EXP'~&~	~&~'Y'~&~	~&~'12'~&~	~&~]RECORD
+RECORD[~&~	~&~'IA'~&~	~&~'IDIN'~&~	~&~'014F3DAF73EBA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'INDIRECT COST RECOVERY INCOME'~&~	~&~'IND COST INC'~&~	~&~'Y'~&~	~&~'04'~&~	~&~]RECORD
+RECORD[~&~	~&~'IA'~&~	~&~'LIAB'~&~	~&~'014F3DAF73ECA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'LIABILITIES'~&~	~&~'LIABILITIES'~&~	~&~'Y'~&~	~&~'17'~&~	~&~]RECORD
+RECORD[~&~	~&~'IA'~&~	~&~'OTRE'~&~	~&~'014F3DAF73EDA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'OTHER REVENUE'~&~	~&~'OTH REVENUE'~&~	~&~'Y'~&~	~&~'03'~&~	~&~]RECORD
+RECORD[~&~	~&~'IA'~&~	~&~'RSRX'~&~	~&~'014F3DAF73EEA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'RESERVES'~&~	~&~'RESERVES'~&~	~&~'Y'~&~	~&~'15'~&~	~&~]RECORD
+RECORD[~&~	~&~'IA'~&~	~&~'SAPR'~&~	~&~'014F3DAF73EFA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'STATE APPROPRIATIONS'~&~	~&~'STATE APPROP'~&~	~&~'Y'~&~	~&~'02'~&~	~&~]RECORD
+RECORD[~&~	~&~'IA'~&~	~&~'SCHL'~&~	~&~'014F3DAF73F0A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'FINANCIAL AID'~&~	~&~'FIN AID'~&~	~&~'Y'~&~	~&~'08'~&~	~&~]RECORD
+RECORD[~&~	~&~'IA'~&~	~&~'STFE'~&~	~&~'014F3DAF73F1A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'STUDENT FEES'~&~	~&~'STUDENT FEES'~&~	~&~'Y'~&~	~&~'01'~&~	~&~]RECORD
+RECORD[~&~	~&~'IA'~&~	~&~'TFEX'~&~	~&~'014F3DAF73F2A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER - EXPENSE'~&~	~&~'TRANSFER-EXP'~&~	~&~'N'~&~	~&~'14'~&~	~&~]RECORD
+RECORD[~&~	~&~'IA'~&~	~&~'TFIN'~&~	~&~'014F3DAF73F3A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER - INCOME'~&~	~&~'TRANSFER-INC'~&~	~&~'N'~&~	~&~'06'~&~	~&~]RECORD
+RECORD[~&~	~&~'IA'~&~	~&~'TRSF'~&~	~&~'014F3DAF73F4A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER OF FUNDS'~&~	~&~'TRANSFER'~&~	~&~'Y'~&~	~&~'19'~&~	~&~]RECORD
+RECORD[~&~	~&~'IA'~&~	~&~'TRVL'~&~	~&~'014F3DAF73F5A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRAVEL'~&~	~&~'TRAVEL'~&~	~&~'Y'~&~	~&~'10'~&~	~&~]RECORD
+RECORD[~&~	~&~'IN'~&~	~&~'ASEX'~&~	~&~'014F3DAF73F6A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSESSMENTS-EXPENDITURES'~&~	~&~'ASSESS-EXP'~&~	~&~'Y'~&~	~&~'13'~&~	~&~]RECORD
+RECORD[~&~	~&~'IN'~&~	~&~'ASRE'~&~	~&~'014F3DAF73F7A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSESSMENTS-REVENUE'~&~	~&~'ASSESS-REV'~&~	~&~'Y'~&~	~&~'05'~&~	~&~]RECORD
+RECORD[~&~	~&~'IN'~&~	~&~'ASST'~&~	~&~'014F3DAF73F8A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSETS'~&~	~&~'ASSETS'~&~	~&~'Y'~&~	~&~'16'~&~	~&~]RECORD
+RECORD[~&~	~&~'IN'~&~	~&~'CMPN'~&~	~&~'014F3DAF73F9A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'COMPENSATION'~&~	~&~'COMPENS'~&~	~&~'Y'~&~	~&~'07'~&~	~&~]RECORD
+RECORD[~&~	~&~'IN'~&~	~&~'CPTL'~&~	~&~'014F3DAF73FAA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'CAPITAL'~&~	~&~'CAPITAL'~&~	~&~'Y'~&~	~&~'11'~&~	~&~]RECORD
+RECORD[~&~	~&~'IN'~&~	~&~'FDBL'~&~	~&~'014F3DAF73FBA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'FUND BALANCE'~&~	~&~'FUND BAL'~&~	~&~'Y'~&~	~&~'18'~&~	~&~]RECORD
+RECORD[~&~	~&~'IN'~&~	~&~'GENX'~&~	~&~'014F3DAF73FCA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'GENERAL EXPENSE'~&~	~&~'GEN EXP'~&~	~&~'Y'~&~	~&~'09'~&~	~&~]RECORD
+RECORD[~&~	~&~'IN'~&~	~&~'IDEX'~&~	~&~'014F3DAF73FDA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'INDIRECT COST RECOVERY EXPENSE'~&~	~&~'IND COST EXP'~&~	~&~'Y'~&~	~&~'12'~&~	~&~]RECORD
+RECORD[~&~	~&~'IN'~&~	~&~'IDIN'~&~	~&~'014F3DAF73FEA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'INDIRECT COST RECOVERY INCOME'~&~	~&~'IND COST INC'~&~	~&~'Y'~&~	~&~'04'~&~	~&~]RECORD
+RECORD[~&~	~&~'IN'~&~	~&~'LIAB'~&~	~&~'014F3DAF73FFA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'LIABILITIES'~&~	~&~'LIABILITIES'~&~	~&~'Y'~&~	~&~'17'~&~	~&~]RECORD
+RECORD[~&~	~&~'IN'~&~	~&~'OTRE'~&~	~&~'014F3DAF7400A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'OTHER REVENUE'~&~	~&~'OTH REVENUE'~&~	~&~'Y'~&~	~&~'03'~&~	~&~]RECORD
+RECORD[~&~	~&~'IN'~&~	~&~'RSRX'~&~	~&~'014F3DAF7401A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'RESERVES'~&~	~&~'RESERVES'~&~	~&~'Y'~&~	~&~'15'~&~	~&~]RECORD
+RECORD[~&~	~&~'IN'~&~	~&~'SAPR'~&~	~&~'014F3DAF7402A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'STATE APPROPRIATIONS'~&~	~&~'STATE APPROP'~&~	~&~'Y'~&~	~&~'02'~&~	~&~]RECORD
+RECORD[~&~	~&~'IN'~&~	~&~'SCHL'~&~	~&~'014F3DAF7403A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'FINANCIAL AID'~&~	~&~'FIN AID'~&~	~&~'Y'~&~	~&~'08'~&~	~&~]RECORD
+RECORD[~&~	~&~'IN'~&~	~&~'STFE'~&~	~&~'014F3DAF7404A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'STUDENT FEES'~&~	~&~'STUDENT FEES'~&~	~&~'Y'~&~	~&~'01'~&~	~&~]RECORD
+RECORD[~&~	~&~'IN'~&~	~&~'TFEX'~&~	~&~'014F3DAF7405A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER - EXPENSE'~&~	~&~'TRANSFER-EXP'~&~	~&~'N'~&~	~&~'14'~&~	~&~]RECORD
+RECORD[~&~	~&~'IN'~&~	~&~'TFIN'~&~	~&~'014F3DAF7406A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER - INCOME'~&~	~&~'TRANSFER-INC'~&~	~&~'N'~&~	~&~'06'~&~	~&~]RECORD
+RECORD[~&~	~&~'IN'~&~	~&~'TRSF'~&~	~&~'014F3DAF7407A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER OF FUNDS'~&~	~&~'TRANSFER'~&~	~&~'Y'~&~	~&~'19'~&~	~&~]RECORD
+RECORD[~&~	~&~'IN'~&~	~&~'TRVL'~&~	~&~'014F3DAF7408A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRAVEL'~&~	~&~'TRAVEL'~&~	~&~'Y'~&~	~&~'10'~&~	~&~]RECORD
+RECORD[~&~	~&~'IU'~&~	~&~'ASEX'~&~	~&~'014F3DAF7409A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSESSMENTS-EXPENDITURES'~&~	~&~'ASSESS-EXP'~&~	~&~'Y'~&~	~&~'13'~&~	~&~]RECORD
+RECORD[~&~	~&~'IU'~&~	~&~'ASRE'~&~	~&~'014F3DAF740AA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSESSMENTS-REVENUE'~&~	~&~'ASSESS-REV'~&~	~&~'Y'~&~	~&~'05'~&~	~&~]RECORD
+RECORD[~&~	~&~'IU'~&~	~&~'ASST'~&~	~&~'014F3DAF740BA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSETS'~&~	~&~'ASSETS'~&~	~&~'Y'~&~	~&~'16'~&~	~&~]RECORD
+RECORD[~&~	~&~'IU'~&~	~&~'AUXE'~&~	~&~'014F3DAF747BA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'AUXILIARY ENTERPRISES'~&~	~&~'AUX ENT'~&~	~&~'N'~&~	~&~'18'~&~	~&~]RECORD
+RECORD[~&~	~&~'IU'~&~	~&~'CMPN'~&~	~&~'014F3DAF740CA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'COMPENSATION'~&~	~&~'COMPENS'~&~	~&~'Y'~&~	~&~'07'~&~	~&~]RECORD
+RECORD[~&~	~&~'IU'~&~	~&~'CPTL'~&~	~&~'014F3DAF740DA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'CAPITAL'~&~	~&~'CAPITAL'~&~	~&~'Y'~&~	~&~'11'~&~	~&~]RECORD
+RECORD[~&~	~&~'IU'~&~	~&~'FDBL'~&~	~&~'014F3DAF740EA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'FUND BALANCE'~&~	~&~'FUND BAL'~&~	~&~'Y'~&~	~&~'18'~&~	~&~]RECORD
+RECORD[~&~	~&~'IU'~&~	~&~'GENX'~&~	~&~'014F3DAF740FA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'GENERAL EXPENSE'~&~	~&~'GEN EXP'~&~	~&~'Y'~&~	~&~'09'~&~	~&~]RECORD
+RECORD[~&~	~&~'IU'~&~	~&~'IDEX'~&~	~&~'014F3DAF7410A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'INDIRECT COST RECOVERY EXPENSE'~&~	~&~'IND COST EXP'~&~	~&~'Y'~&~	~&~'12'~&~	~&~]RECORD
+RECORD[~&~	~&~'IU'~&~	~&~'IDIN'~&~	~&~'014F3DAF7411A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'INDIRECT COST RECOVERY INCOME'~&~	~&~'IND COST INC'~&~	~&~'Y'~&~	~&~'04'~&~	~&~]RECORD
+RECORD[~&~	~&~'IU'~&~	~&~'LIAB'~&~	~&~'014F3DAF7412A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'LIABILITIES'~&~	~&~'LIABILITIES'~&~	~&~'Y'~&~	~&~'17'~&~	~&~]RECORD
+RECORD[~&~	~&~'IU'~&~	~&~'OTRE'~&~	~&~'014F3DAF7413A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'OTHER REVENUE'~&~	~&~'OTH REVENUE'~&~	~&~'Y'~&~	~&~'03'~&~	~&~]RECORD
+RECORD[~&~	~&~'IU'~&~	~&~'RSRX'~&~	~&~'014F3DAF7414A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'RESERVES'~&~	~&~'RESERVES'~&~	~&~'Y'~&~	~&~'15'~&~	~&~]RECORD
+RECORD[~&~	~&~'IU'~&~	~&~'SAPR'~&~	~&~'014F3DAF7415A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'STATE APPROPRIATIONS'~&~	~&~'STATE APPROP'~&~	~&~'Y'~&~	~&~'02'~&~	~&~]RECORD
+RECORD[~&~	~&~'IU'~&~	~&~'SCHL'~&~	~&~'014F3DAF7416A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'FINANCIAL AID'~&~	~&~'FIN AID'~&~	~&~'Y'~&~	~&~'08'~&~	~&~]RECORD
+RECORD[~&~	~&~'IU'~&~	~&~'STFE'~&~	~&~'014F3DAF7417A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'STUDENT FEES'~&~	~&~'STUDENT FEES'~&~	~&~'Y'~&~	~&~'01'~&~	~&~]RECORD
+RECORD[~&~	~&~'IU'~&~	~&~'TFEX'~&~	~&~'014F3DAF7418A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER - EXPENSE'~&~	~&~'TRANSFER-EXP'~&~	~&~'N'~&~	~&~'14'~&~	~&~]RECORD
+RECORD[~&~	~&~'IU'~&~	~&~'TFIN'~&~	~&~'014F3DAF7419A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER - INCOME'~&~	~&~'TRANSFER-INC'~&~	~&~'N'~&~	~&~'06'~&~	~&~]RECORD
+RECORD[~&~	~&~'IU'~&~	~&~'TRSF'~&~	~&~'014F3DAF741AA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER OF FUNDS'~&~	~&~'TRANSFER'~&~	~&~'Y'~&~	~&~'19'~&~	~&~]RECORD
+RECORD[~&~	~&~'IU'~&~	~&~'TRVL'~&~	~&~'014F3DAF741BA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRAVEL'~&~	~&~'TRAVEL'~&~	~&~'Y'~&~	~&~'10'~&~	~&~]RECORD
+RECORD[~&~	~&~'KO'~&~	~&~'ASEX'~&~	~&~'014F3DAF741CA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSESSMENTS-EXPENDITURES'~&~	~&~'ASSESS-EXP'~&~	~&~'Y'~&~	~&~'13'~&~	~&~]RECORD
+RECORD[~&~	~&~'KO'~&~	~&~'ASRE'~&~	~&~'014F3DAF741DA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSESSMENTS-REVENUE'~&~	~&~'ASSESS-REV'~&~	~&~'Y'~&~	~&~'05'~&~	~&~]RECORD
+RECORD[~&~	~&~'KO'~&~	~&~'ASST'~&~	~&~'014F3DAF741EA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSETS'~&~	~&~'ASSETS'~&~	~&~'Y'~&~	~&~'16'~&~	~&~]RECORD
+RECORD[~&~	~&~'KO'~&~	~&~'CMPN'~&~	~&~'014F3DAF741FA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'COMPENSATION'~&~	~&~'COMPENS'~&~	~&~'Y'~&~	~&~'07'~&~	~&~]RECORD
+RECORD[~&~	~&~'KO'~&~	~&~'CPTL'~&~	~&~'014F3DAF7420A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'CAPITAL'~&~	~&~'CAPITAL'~&~	~&~'Y'~&~	~&~'11'~&~	~&~]RECORD
+RECORD[~&~	~&~'KO'~&~	~&~'FDBL'~&~	~&~'014F3DAF7421A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'FUND BALANCE'~&~	~&~'FUND BAL'~&~	~&~'Y'~&~	~&~'18'~&~	~&~]RECORD
+RECORD[~&~	~&~'KO'~&~	~&~'GENX'~&~	~&~'014F3DAF7422A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'GENERAL EXPENSE'~&~	~&~'GEN EXP'~&~	~&~'Y'~&~	~&~'09'~&~	~&~]RECORD
+RECORD[~&~	~&~'KO'~&~	~&~'IDEX'~&~	~&~'014F3DAF7423A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'INDIRECT COST RECOVERY EXPENSE'~&~	~&~'IND COST EXP'~&~	~&~'Y'~&~	~&~'12'~&~	~&~]RECORD
+RECORD[~&~	~&~'KO'~&~	~&~'IDIN'~&~	~&~'014F3DAF7424A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'INDIRECT COST RECOVERY INCOME'~&~	~&~'IND COST INC'~&~	~&~'Y'~&~	~&~'04'~&~	~&~]RECORD
+RECORD[~&~	~&~'KO'~&~	~&~'LIAB'~&~	~&~'014F3DAF7425A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'LIABILITIES'~&~	~&~'LIABILITIES'~&~	~&~'Y'~&~	~&~'17'~&~	~&~]RECORD
+RECORD[~&~	~&~'KO'~&~	~&~'OTRE'~&~	~&~'014F3DAF7426A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'OTHER REVENUE'~&~	~&~'OTH REVENUE'~&~	~&~'Y'~&~	~&~'03'~&~	~&~]RECORD
+RECORD[~&~	~&~'KO'~&~	~&~'RSRX'~&~	~&~'014F3DAF7427A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'RESERVES'~&~	~&~'RESERVES'~&~	~&~'Y'~&~	~&~'15'~&~	~&~]RECORD
+RECORD[~&~	~&~'KO'~&~	~&~'SAPR'~&~	~&~'014F3DAF7428A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'STATE APPROPRIATIONS'~&~	~&~'STATE APPROP'~&~	~&~'Y'~&~	~&~'02'~&~	~&~]RECORD
+RECORD[~&~	~&~'KO'~&~	~&~'SCHL'~&~	~&~'014F3DAF7429A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'FINANCIAL AID'~&~	~&~'FIN AID'~&~	~&~'Y'~&~	~&~'08'~&~	~&~]RECORD
+RECORD[~&~	~&~'KO'~&~	~&~'STFE'~&~	~&~'014F3DAF742AA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'STUDENT FEES'~&~	~&~'STUDENT FEES'~&~	~&~'Y'~&~	~&~'01'~&~	~&~]RECORD
+RECORD[~&~	~&~'KO'~&~	~&~'TFEX'~&~	~&~'014F3DAF742BA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER - EXPENSE'~&~	~&~'TRANSFER-EXP'~&~	~&~'N'~&~	~&~'14'~&~	~&~]RECORD
+RECORD[~&~	~&~'KO'~&~	~&~'TFIN'~&~	~&~'014F3DAF742CA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER - INCOME'~&~	~&~'TRANSFER-INC'~&~	~&~'N'~&~	~&~'06'~&~	~&~]RECORD
+RECORD[~&~	~&~'KO'~&~	~&~'TRSF'~&~	~&~'014F3DAF742DA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER OF FUNDS'~&~	~&~'TRANSFER'~&~	~&~'Y'~&~	~&~'19'~&~	~&~]RECORD
+RECORD[~&~	~&~'KO'~&~	~&~'TRVL'~&~	~&~'014F3DAF742EA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRAVEL'~&~	~&~'TRAVEL'~&~	~&~'Y'~&~	~&~'10'~&~	~&~]RECORD
+RECORD[~&~	~&~'NW'~&~	~&~'ASEX'~&~	~&~'014F3DAF742FA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSESSMENTS-EXPENDITURES'~&~	~&~'ASSESS-EXP'~&~	~&~'Y'~&~	~&~'13'~&~	~&~]RECORD
+RECORD[~&~	~&~'NW'~&~	~&~'ASRE'~&~	~&~'014F3DAF7430A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSESSMENTS-REVENUE'~&~	~&~'ASSESS-REV'~&~	~&~'Y'~&~	~&~'05'~&~	~&~]RECORD
+RECORD[~&~	~&~'NW'~&~	~&~'ASST'~&~	~&~'014F3DAF7431A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSETS'~&~	~&~'ASSETS'~&~	~&~'Y'~&~	~&~'16'~&~	~&~]RECORD
+RECORD[~&~	~&~'NW'~&~	~&~'CMPN'~&~	~&~'014F3DAF7432A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'COMPENSATION'~&~	~&~'COMPENS'~&~	~&~'Y'~&~	~&~'07'~&~	~&~]RECORD
+RECORD[~&~	~&~'NW'~&~	~&~'CPTL'~&~	~&~'014F3DAF7433A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'CAPITAL'~&~	~&~'CAPITAL'~&~	~&~'Y'~&~	~&~'11'~&~	~&~]RECORD
+RECORD[~&~	~&~'NW'~&~	~&~'FDBL'~&~	~&~'014F3DAF7434A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'FUND BALANCE'~&~	~&~'FUND BAL'~&~	~&~'Y'~&~	~&~'18'~&~	~&~]RECORD
+RECORD[~&~	~&~'NW'~&~	~&~'GENX'~&~	~&~'014F3DAF7435A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'GENERAL EXPENSE'~&~	~&~'GEN EXP'~&~	~&~'Y'~&~	~&~'09'~&~	~&~]RECORD
+RECORD[~&~	~&~'NW'~&~	~&~'IDEX'~&~	~&~'014F3DAF7436A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'INDIRECT COST RECOVERY EXPENSE'~&~	~&~'IND COST EXP'~&~	~&~'Y'~&~	~&~'12'~&~	~&~]RECORD
+RECORD[~&~	~&~'NW'~&~	~&~'IDIN'~&~	~&~'014F3DAF7437A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'INDIRECT COST RECOVERY INCOME'~&~	~&~'IND COST INC'~&~	~&~'Y'~&~	~&~'04'~&~	~&~]RECORD
+RECORD[~&~	~&~'NW'~&~	~&~'LIAB'~&~	~&~'014F3DAF7438A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'LIABILITIES'~&~	~&~'LIABILITIES'~&~	~&~'Y'~&~	~&~'17'~&~	~&~]RECORD
+RECORD[~&~	~&~'NW'~&~	~&~'OTRE'~&~	~&~'014F3DAF7439A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'OTHER REVENUE'~&~	~&~'OTH REVENUE'~&~	~&~'Y'~&~	~&~'03'~&~	~&~]RECORD
+RECORD[~&~	~&~'NW'~&~	~&~'RSRX'~&~	~&~'014F3DAF743AA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'RESERVES'~&~	~&~'RESERVES'~&~	~&~'Y'~&~	~&~'15'~&~	~&~]RECORD
+RECORD[~&~	~&~'NW'~&~	~&~'SAPR'~&~	~&~'014F3DAF743BA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'STATE APPROPRIATIONS'~&~	~&~'STATE APPROP'~&~	~&~'Y'~&~	~&~'02'~&~	~&~]RECORD
+RECORD[~&~	~&~'NW'~&~	~&~'SCHL'~&~	~&~'014F3DAF743CA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'FINANCIAL AID'~&~	~&~'FIN AID'~&~	~&~'Y'~&~	~&~'08'~&~	~&~]RECORD
+RECORD[~&~	~&~'NW'~&~	~&~'STFE'~&~	~&~'014F3DAF743DA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'STUDENT FEES'~&~	~&~'STUDENT FEES'~&~	~&~'Y'~&~	~&~'01'~&~	~&~]RECORD
+RECORD[~&~	~&~'NW'~&~	~&~'TFEX'~&~	~&~'014F3DAF743EA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER - EXPENSE'~&~	~&~'TRANSFER-EXP'~&~	~&~'N'~&~	~&~'14'~&~	~&~]RECORD
+RECORD[~&~	~&~'NW'~&~	~&~'TFIN'~&~	~&~'014F3DAF743FA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER - INCOME'~&~	~&~'TRANSFER-INC'~&~	~&~'N'~&~	~&~'06'~&~	~&~]RECORD
+RECORD[~&~	~&~'NW'~&~	~&~'TRSF'~&~	~&~'014F3DAF7440A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER OF FUNDS'~&~	~&~'TRANSFER'~&~	~&~'Y'~&~	~&~'19'~&~	~&~]RECORD
+RECORD[~&~	~&~'NW'~&~	~&~'TRVL'~&~	~&~'014F3DAF7441A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRAVEL'~&~	~&~'TRAVEL'~&~	~&~'Y'~&~	~&~'10'~&~	~&~]RECORD
+RECORD[~&~	~&~'SB'~&~	~&~'ASEX'~&~	~&~'014F3DAF7442A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSESSMENTS-EXPENDITURES'~&~	~&~'ASSESS-EXP'~&~	~&~'Y'~&~	~&~'13'~&~	~&~]RECORD
+RECORD[~&~	~&~'SB'~&~	~&~'ASRE'~&~	~&~'014F3DAF7443A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSESSMENTS-REVENUE'~&~	~&~'ASSESS-REV'~&~	~&~'Y'~&~	~&~'05'~&~	~&~]RECORD
+RECORD[~&~	~&~'SB'~&~	~&~'ASST'~&~	~&~'014F3DAF7444A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSETS'~&~	~&~'ASSETS'~&~	~&~'Y'~&~	~&~'16'~&~	~&~]RECORD
+RECORD[~&~	~&~'SB'~&~	~&~'CMPN'~&~	~&~'014F3DAF7445A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'COMPENSATION'~&~	~&~'COMPENS'~&~	~&~'Y'~&~	~&~'07'~&~	~&~]RECORD
+RECORD[~&~	~&~'SB'~&~	~&~'CPTL'~&~	~&~'014F3DAF7446A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'CAPITAL'~&~	~&~'CAPITAL'~&~	~&~'Y'~&~	~&~'11'~&~	~&~]RECORD
+RECORD[~&~	~&~'SB'~&~	~&~'FDBL'~&~	~&~'014F3DAF7447A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'FUND BALANCE'~&~	~&~'FUND BAL'~&~	~&~'Y'~&~	~&~'18'~&~	~&~]RECORD
+RECORD[~&~	~&~'SB'~&~	~&~'GENX'~&~	~&~'014F3DAF7448A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'GENERAL EXPENSE'~&~	~&~'GEN EXP'~&~	~&~'Y'~&~	~&~'09'~&~	~&~]RECORD
+RECORD[~&~	~&~'SB'~&~	~&~'IDEX'~&~	~&~'014F3DAF7449A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'INDIRECT COST RECOVERY EXPENSE'~&~	~&~'IND COST EXP'~&~	~&~'Y'~&~	~&~'12'~&~	~&~]RECORD
+RECORD[~&~	~&~'SB'~&~	~&~'IDIN'~&~	~&~'014F3DAF744AA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'INDIRECT COST RECOVERY INCOME'~&~	~&~'IND COST INC'~&~	~&~'Y'~&~	~&~'04'~&~	~&~]RECORD
+RECORD[~&~	~&~'SB'~&~	~&~'LIAB'~&~	~&~'014F3DAF744BA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'LIABILITIES'~&~	~&~'LIABILITIES'~&~	~&~'Y'~&~	~&~'17'~&~	~&~]RECORD
+RECORD[~&~	~&~'SB'~&~	~&~'OTRE'~&~	~&~'014F3DAF744CA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'OTHER REVENUE'~&~	~&~'OTH REVENUE'~&~	~&~'Y'~&~	~&~'03'~&~	~&~]RECORD
+RECORD[~&~	~&~'SB'~&~	~&~'RSRX'~&~	~&~'014F3DAF744DA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'RESERVES'~&~	~&~'RESERVES'~&~	~&~'Y'~&~	~&~'15'~&~	~&~]RECORD
+RECORD[~&~	~&~'SB'~&~	~&~'SAPR'~&~	~&~'014F3DAF744EA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'STATE APPROPRIATIONS'~&~	~&~'STATE APPROP'~&~	~&~'Y'~&~	~&~'02'~&~	~&~]RECORD
+RECORD[~&~	~&~'SB'~&~	~&~'SCHL'~&~	~&~'014F3DAF744FA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'FINANCIAL AID'~&~	~&~'FIN AID'~&~	~&~'Y'~&~	~&~'08'~&~	~&~]RECORD
+RECORD[~&~	~&~'SB'~&~	~&~'STFE'~&~	~&~'014F3DAF7450A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'STUDENT FEES'~&~	~&~'STUDENT FEES'~&~	~&~'Y'~&~	~&~'01'~&~	~&~]RECORD
+RECORD[~&~	~&~'SB'~&~	~&~'TFEX'~&~	~&~'014F3DAF7451A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER - EXPENSE'~&~	~&~'TRANSFER-EXP'~&~	~&~'N'~&~	~&~'14'~&~	~&~]RECORD
+RECORD[~&~	~&~'SB'~&~	~&~'TFIN'~&~	~&~'014F3DAF7452A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER - INCOME'~&~	~&~'TRANSFER-INC'~&~	~&~'N'~&~	~&~'06'~&~	~&~]RECORD
+RECORD[~&~	~&~'SB'~&~	~&~'TRSF'~&~	~&~'014F3DAF7453A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER OF FUNDS'~&~	~&~'TRANSFER'~&~	~&~'Y'~&~	~&~'19'~&~	~&~]RECORD
+RECORD[~&~	~&~'SB'~&~	~&~'TRVL'~&~	~&~'014F3DAF7454A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRAVEL'~&~	~&~'TRAVEL'~&~	~&~'Y'~&~	~&~'10'~&~	~&~]RECORD
+RECORD[~&~	~&~'SE'~&~	~&~'ASEX'~&~	~&~'014F3DAF7455A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSESSMENTS-EXPENDITURES'~&~	~&~'ASSESS-EXP'~&~	~&~'Y'~&~	~&~'13'~&~	~&~]RECORD
+RECORD[~&~	~&~'SE'~&~	~&~'ASRE'~&~	~&~'014F3DAF7456A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSESSMENTS-REVENUE'~&~	~&~'ASSESS-REV'~&~	~&~'Y'~&~	~&~'05'~&~	~&~]RECORD
+RECORD[~&~	~&~'SE'~&~	~&~'ASST'~&~	~&~'014F3DAF7457A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSETS'~&~	~&~'ASSETS'~&~	~&~'Y'~&~	~&~'16'~&~	~&~]RECORD
+RECORD[~&~	~&~'SE'~&~	~&~'CMPN'~&~	~&~'014F3DAF7458A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'COMPENSATION'~&~	~&~'COMPENS'~&~	~&~'Y'~&~	~&~'07'~&~	~&~]RECORD
+RECORD[~&~	~&~'SE'~&~	~&~'CPTL'~&~	~&~'014F3DAF7459A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'CAPITAL'~&~	~&~'CAPITAL'~&~	~&~'Y'~&~	~&~'11'~&~	~&~]RECORD
+RECORD[~&~	~&~'SE'~&~	~&~'FDBL'~&~	~&~'014F3DAF745AA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'FUND BALANCE'~&~	~&~'FUND BAL'~&~	~&~'Y'~&~	~&~'18'~&~	~&~]RECORD
+RECORD[~&~	~&~'SE'~&~	~&~'GENX'~&~	~&~'014F3DAF745BA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'GENERAL EXPENSE'~&~	~&~'GEN EXP'~&~	~&~'Y'~&~	~&~'09'~&~	~&~]RECORD
+RECORD[~&~	~&~'SE'~&~	~&~'IDEX'~&~	~&~'014F3DAF745CA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'INDIRECT COST RECOVERY EXPENSE'~&~	~&~'IND COST EXP'~&~	~&~'Y'~&~	~&~'12'~&~	~&~]RECORD
+RECORD[~&~	~&~'SE'~&~	~&~'IDIN'~&~	~&~'014F3DAF745DA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'INDIRECT COST RECOVERY INCOME'~&~	~&~'IND COST INC'~&~	~&~'Y'~&~	~&~'04'~&~	~&~]RECORD
+RECORD[~&~	~&~'SE'~&~	~&~'LIAB'~&~	~&~'014F3DAF745EA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'LIABILITIES'~&~	~&~'LIABILITIES'~&~	~&~'Y'~&~	~&~'17'~&~	~&~]RECORD
+RECORD[~&~	~&~'SE'~&~	~&~'OTRE'~&~	~&~'014F3DAF745FA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'OTHER REVENUE'~&~	~&~'OTH REVENUE'~&~	~&~'Y'~&~	~&~'03'~&~	~&~]RECORD
+RECORD[~&~	~&~'SE'~&~	~&~'RSRX'~&~	~&~'014F3DAF7460A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'RESERVES'~&~	~&~'RESERVES'~&~	~&~'Y'~&~	~&~'15'~&~	~&~]RECORD
+RECORD[~&~	~&~'SE'~&~	~&~'SAPR'~&~	~&~'014F3DAF7461A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'STATE APPROPRIATIONS'~&~	~&~'STATE APPROP'~&~	~&~'Y'~&~	~&~'02'~&~	~&~]RECORD
+RECORD[~&~	~&~'SE'~&~	~&~'SCHL'~&~	~&~'014F3DAF7462A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'FINANCIAL AID'~&~	~&~'FIN AID'~&~	~&~'Y'~&~	~&~'08'~&~	~&~]RECORD
+RECORD[~&~	~&~'SE'~&~	~&~'STFE'~&~	~&~'014F3DAF7463A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'STUDENT FEES'~&~	~&~'STUDENT FEES'~&~	~&~'Y'~&~	~&~'01'~&~	~&~]RECORD
+RECORD[~&~	~&~'SE'~&~	~&~'TFEX'~&~	~&~'014F3DAF7464A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER - EXPENSE'~&~	~&~'TRANSFER-EXP'~&~	~&~'N'~&~	~&~'14'~&~	~&~]RECORD
+RECORD[~&~	~&~'SE'~&~	~&~'TFIN'~&~	~&~'014F3DAF7465A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER - INCOME'~&~	~&~'TRANSFER-INC'~&~	~&~'N'~&~	~&~'06'~&~	~&~]RECORD
+RECORD[~&~	~&~'SE'~&~	~&~'TRSF'~&~	~&~'014F3DAF7466A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER OF FUNDS'~&~	~&~'TRANSFER'~&~	~&~'Y'~&~	~&~'19'~&~	~&~]RECORD
+RECORD[~&~	~&~'SE'~&~	~&~'TRVL'~&~	~&~'014F3DAF7467A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRAVEL'~&~	~&~'TRAVEL'~&~	~&~'Y'~&~	~&~'10'~&~	~&~]RECORD
+RECORD[~&~	~&~'UA'~&~	~&~'ASEX'~&~	~&~'014F3DAF7468A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSESSMENTS-EXPENDITURES'~&~	~&~'ASSESS-EXP'~&~	~&~'Y'~&~	~&~'13'~&~	~&~]RECORD
+RECORD[~&~	~&~'UA'~&~	~&~'ASRE'~&~	~&~'014F3DAF7469A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSESSMENTS-REVENUE'~&~	~&~'ASSESS-REV'~&~	~&~'Y'~&~	~&~'05'~&~	~&~]RECORD
+RECORD[~&~	~&~'UA'~&~	~&~'ASST'~&~	~&~'014F3DAF746AA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSETS'~&~	~&~'ASSETS'~&~	~&~'Y'~&~	~&~'16'~&~	~&~]RECORD
+RECORD[~&~	~&~'UA'~&~	~&~'CMPN'~&~	~&~'014F3DAF746BA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'COMPENSATION'~&~	~&~'COMPENS'~&~	~&~'Y'~&~	~&~'07'~&~	~&~]RECORD
+RECORD[~&~	~&~'UA'~&~	~&~'CPTL'~&~	~&~'014F3DAF746CA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'CAPITAL'~&~	~&~'CAPITAL'~&~	~&~'Y'~&~	~&~'11'~&~	~&~]RECORD
+RECORD[~&~	~&~'UA'~&~	~&~'FDBL'~&~	~&~'014F3DAF746DA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'FUND BALANCE'~&~	~&~'FUND BAL'~&~	~&~'Y'~&~	~&~'18'~&~	~&~]RECORD
+RECORD[~&~	~&~'UA'~&~	~&~'GENX'~&~	~&~'014F3DAF746EA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'GENERAL EXPENSE'~&~	~&~'GEN EXP'~&~	~&~'Y'~&~	~&~'09'~&~	~&~]RECORD
+RECORD[~&~	~&~'UA'~&~	~&~'IDEX'~&~	~&~'014F3DAF746FA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'INDIRECT COST RECOVERY EXPENSE'~&~	~&~'IND COST EXP'~&~	~&~'Y'~&~	~&~'12'~&~	~&~]RECORD
+RECORD[~&~	~&~'UA'~&~	~&~'IDIN'~&~	~&~'014F3DAF7470A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'INDIRECT COST RECOVERY INCOME'~&~	~&~'IND COST INC'~&~	~&~'Y'~&~	~&~'04'~&~	~&~]RECORD
+RECORD[~&~	~&~'UA'~&~	~&~'LIAB'~&~	~&~'014F3DAF7471A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'LIABILITIES'~&~	~&~'LIABILITIES'~&~	~&~'Y'~&~	~&~'17'~&~	~&~]RECORD
+RECORD[~&~	~&~'UA'~&~	~&~'OTRE'~&~	~&~'014F3DAF7472A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'OTHER REVENUE'~&~	~&~'OTH REVENUE'~&~	~&~'Y'~&~	~&~'03'~&~	~&~]RECORD
+RECORD[~&~	~&~'UA'~&~	~&~'RSRX'~&~	~&~'014F3DAF7473A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'RESERVES'~&~	~&~'RESERVES'~&~	~&~'Y'~&~	~&~'15'~&~	~&~]RECORD
+RECORD[~&~	~&~'UA'~&~	~&~'SAPR'~&~	~&~'014F3DAF7474A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'STATE APPROPRIATIONS'~&~	~&~'STATE APPROP'~&~	~&~'Y'~&~	~&~'02'~&~	~&~]RECORD
+RECORD[~&~	~&~'UA'~&~	~&~'SCHL'~&~	~&~'014F3DAF7475A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'FINANCIAL AID'~&~	~&~'FIN AID'~&~	~&~'Y'~&~	~&~'08'~&~	~&~]RECORD
+RECORD[~&~	~&~'UA'~&~	~&~'STFE'~&~	~&~'014F3DAF7476A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'STUDENT FEES'~&~	~&~'STUDENT FEES'~&~	~&~'Y'~&~	~&~'01'~&~	~&~]RECORD
+RECORD[~&~	~&~'UA'~&~	~&~'TFEX'~&~	~&~'014F3DAF7477A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER - EXPENSE'~&~	~&~'TRANSFER-EXP'~&~	~&~'N'~&~	~&~'14'~&~	~&~]RECORD
+RECORD[~&~	~&~'UA'~&~	~&~'TFIN'~&~	~&~'014F3DAF7478A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER - INCOME'~&~	~&~'TRANSFER-INC'~&~	~&~'N'~&~	~&~'06'~&~	~&~]RECORD
+RECORD[~&~	~&~'UA'~&~	~&~'TRSF'~&~	~&~'014F3DAF7479A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER OF FUNDS'~&~	~&~'TRANSFER'~&~	~&~'Y'~&~	~&~'19'~&~	~&~]RECORD
+RECORD[~&~	~&~'UA'~&~	~&~'TRVL'~&~	~&~'014F3DAF747AA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRAVEL'~&~	~&~'TRAVEL'~&~	~&~'Y'~&~	~&~'10'~&~	~&~]RECORD

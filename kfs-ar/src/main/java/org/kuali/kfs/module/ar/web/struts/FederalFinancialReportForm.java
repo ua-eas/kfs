@@ -1,33 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.web.struts;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.kuali.kfs.module.ar.document.service.ContractsGrantsInvoiceDocumentService;
+import org.kuali.kfs.kns.web.struts.form.KualiForm;
+import org.kuali.kfs.kns.web.ui.ExtraButton;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kns.web.struts.form.KualiForm;
-import org.kuali.rice.kns.web.ui.ExtraButton;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Form class for Federal Financial Report service.
@@ -43,7 +41,7 @@ public class FederalFinancialReportForm extends KualiForm {
 
     /**
      * Gets the proposalNumber attribute.
-     * 
+     *
      * @return Returns the proposalNumber.
      */
     public String getProposalNumber() {
@@ -52,7 +50,7 @@ public class FederalFinancialReportForm extends KualiForm {
 
     /**
      * Gets the federalForm attribute.
-     * 
+     *
      * @return Returns the federalForm.
      */
     public String getFederalForm() {
@@ -61,7 +59,7 @@ public class FederalFinancialReportForm extends KualiForm {
 
     /**
      * Sets the federalForm attribute value.
-     * 
+     *
      * @param federalForm The federalForm to set.
      */
     public void setFederalForm(String federalForm) {
@@ -70,7 +68,7 @@ public class FederalFinancialReportForm extends KualiForm {
 
     /**
      * Gets the error attribute.
-     * 
+     *
      * @return Returns the error.
      */
     public String getError() {
@@ -79,7 +77,7 @@ public class FederalFinancialReportForm extends KualiForm {
 
     /**
      * Sets the error attribute value.
-     * 
+     *
      * @param error The error to set.
      */
     public void setError(String error) {
@@ -88,7 +86,7 @@ public class FederalFinancialReportForm extends KualiForm {
 
     /**
      * Gets the agency attribute.
-     * 
+     *
      * @return Returns the agency.
      */
     public String getAgencyNumber() {
@@ -97,7 +95,7 @@ public class FederalFinancialReportForm extends KualiForm {
 
     /**
      * Sets the agency attribute value.
-     * 
+     *
      * @param agency The agency to set.
      */
     public void setAgencyNumber(String agencyNumber) {
@@ -106,7 +104,7 @@ public class FederalFinancialReportForm extends KualiForm {
 
     /**
      * Sets the proposalNumber attribute value.
-     * 
+     *
      * @param proposalNumber The proposalNumber to set.
      */
     public void setProposalNumber(String proposalNumber) {
@@ -115,7 +113,7 @@ public class FederalFinancialReportForm extends KualiForm {
 
     /**
      * Gets the fiscalYear attribute.
-     * 
+     *
      * @return Returns the fiscalYear.
      */
     public String getFiscalYear() {
@@ -124,7 +122,7 @@ public class FederalFinancialReportForm extends KualiForm {
 
     /**
      * Sets the fiscalYear attribute value.
-     * 
+     *
      * @param fiscalYear The fiscalYear to set.
      */
     public void setFiscalYear(String fiscalYear) {
@@ -133,7 +131,7 @@ public class FederalFinancialReportForm extends KualiForm {
 
     /**
      * Gets the reportingPeriod attribute.
-     * 
+     *
      * @return Returns the reportingPeriod.
      */
     public String getReportingPeriod() {
@@ -142,7 +140,7 @@ public class FederalFinancialReportForm extends KualiForm {
 
     /**
      * Sets the reportingPeriod attribute value.
-     * 
+     *
      * @param reportingPeriod The reportingPeriod to set.
      */
     public void setReportingPeriod(String reportingPeriod) {

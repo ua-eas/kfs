@@ -1,29 +1,29 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.document.validation.impl;
 
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.rice.kew.api.WorkflowDocument;
+
 import java.util.List;
 import java.util.Set;
-
-import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.rice.krad.bo.DocumentHeader;
-import org.kuali.rice.krad.document.Document;
 
 /**
  * The opposite of org.kuali.kfs.sys.document.validation.impl.NodeSpecificValidation, this validation will run the child validation
@@ -41,6 +41,7 @@ public class NodeSkippingValidation extends NodeAwareValidation {
 
     /**
      * Sets a List of route node names where this validation should be skipped
+     *
      * @param validationSkipNodes the List of node names to skip
      */
     public void setValidationSkipNodes(List<String> validationSkipNodes) {
@@ -49,6 +50,7 @@ public class NodeSkippingValidation extends NodeAwareValidation {
 
     /**
      * There's less harm here if no validation nodes are set, because the validation will just run everywhere - so this is always true
+     *
      * @see org.kuali.kfs.sys.document.validation.impl.NodeAwareValidation#isNodesPropertyValid()
      */
     @Override
@@ -58,6 +60,7 @@ public class NodeSkippingValidation extends NodeAwareValidation {
 
     /**
      * Determines if this validation should be run at this node
+     *
      * @param document the document which is being validated
      * @return true if one of the validation nodes is within the current nodes and the validation should run; false otherwise
      */

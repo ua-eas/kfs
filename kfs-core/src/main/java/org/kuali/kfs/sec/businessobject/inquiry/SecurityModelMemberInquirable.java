@@ -1,51 +1,51 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sec.businessobject.inquiry;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.inquiry.KualiInquirableImpl;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.sec.SecPropertyConstants;
 import org.kuali.kfs.sec.businessobject.SecurityModelDefinition;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.businessobject.inquiry.KfsInquirableImpl;
 import org.kuali.rice.core.api.membership.MemberType;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.framework.group.GroupEbo;
 import org.kuali.rice.kim.framework.role.RoleEbo;
-import org.kuali.rice.kns.lookup.HtmlData;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.ObjectUtils;
-import org.kuali.rice.krad.util.UrlFactory;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 
 /**
  * Sets inquiry for member name based on type
  */
-public class SecurityModelMemberInquirable extends KfsInquirableImpl {
+public class SecurityModelMemberInquirable extends KualiInquirableImpl {
 
     /**
-     * @see org.kuali.kfs.sys.businessobject.inquiry.KfsInquirableImpl#getInquiryUrl(org.kuali.rice.krad.bo.BusinessObject, java.lang.String, boolean)
+     * @see org.kuali.kfs.kns.inquiry.KualiInquirableImpl#getInquiryUrl(org.kuali.rice.krad.bo.BusinessObject, java.lang.String, boolean)
      */
     @Override
     public HtmlData getInquiryUrl(BusinessObject businessObject, String attributeName, boolean forceInquiry) {
@@ -63,13 +63,11 @@ public class SecurityModelMemberInquirable extends KfsInquirableImpl {
                     parameters.put(KRADConstants.BUSINESS_OBJECT_CLASS_ATTRIBUTE, RoleEbo.class.getName());
                     parameters.put(KimConstants.PrimaryKeyConstants.ROLE_ID, memberId);
                     fieldList.put(KimConstants.PrimaryKeyConstants.ROLE_ID, memberId.toString());
-                }
-                else if (MemberType.GROUP.getCode().equals(memberTypeCode)) {
+                } else if (MemberType.GROUP.getCode().equals(memberTypeCode)) {
                     parameters.put(KRADConstants.BUSINESS_OBJECT_CLASS_ATTRIBUTE, GroupEbo.class.getName());
                     parameters.put(KimConstants.PrimaryKeyConstants.GROUP_ID, memberId);
                     fieldList.put(KimConstants.PrimaryKeyConstants.GROUP_ID, memberId.toString());
-                }
-                else {
+                } else {
                     parameters.put(KRADConstants.BUSINESS_OBJECT_CLASS_ATTRIBUTE, Person.class.getName());
                     parameters.put(KimConstants.PrimaryKeyConstants.PRINCIPAL_ID, memberId);
                     fieldList.put(KimConstants.PrimaryKeyConstants.PRINCIPAL_ID, memberId.toString());

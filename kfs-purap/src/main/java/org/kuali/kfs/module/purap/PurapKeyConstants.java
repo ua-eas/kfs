@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -72,7 +72,7 @@ public class PurapKeyConstants {
     public static final String PUR_COMMODITY_CODE_DISTRIBUTED = "message.document.pur.commodityCodeDistributed";
     public static final String PUR_COMMODITY_CODE_INVALID = "error.commodity.code.invalid";
     public static final String PUR_ITEM_UNIT_OF_MEASURE_CODE_INVALID = "error.item.unitOfMeasureCode.invalid";
-    public static final String PUR_COMMODITY_CODE_INACTIVE= "error.commodity.code.inactive";
+    public static final String PUR_COMMODITY_CODE_INACTIVE = "error.commodity.code.inactive";
     public static final String ERROR_RCVNG_ADDR_UNSET_DFLT = "error.rcvng.addr.unset.dflt";
     public static final String ERROR_RCVNG_ADDR_DEACTIVATE_DFLT = "error.rcvng.addr.deactivate.dflt";
     public static final String PUR_CAPITAL_ASSET_SYSTEM_TYPE_SWITCHED = "message.document.pur.systemTypeSwitched";
@@ -83,8 +83,8 @@ public class PurapKeyConstants {
     public static final String ERROR_CAPITAL_ASSET_ASSET_NUMBERS_NOT_ALLOWED_TRANS_TYPE = "error.capitalAsset.asset.numbers.not.allowed.trans.type";
     public static final String ERROR_CAPITAL_ASSET_LOCATIONS_QUANTITY_MUST_EQUAL_ITEM_QUANTITY = "error.capitalAsset.locations.quantity.must.equal.item.quantity";
     public static final String ERROR_CAPITAL_ASSET_TRANS_TYPE_NOT_ALLOWING_NON_QUANTITY_ITEMS = "error.capitalAsset.trans.type.not.allowing.non.quantity.items";
-    public static final String ERROR_CAPITAL_ASSET_ASSET_NUMBER_MUST_BE_LONG_NOT_NULL="errors.item.capitalAsset.assetNumber.must.be.longValue.notNull";
-    public static final String ERROR_CAPITAL_ASSET_ITEM_NOT_CAMS_ELIGIBLE="error.capitalAsset.item.not.cams.eligible";
+    public static final String ERROR_CAPITAL_ASSET_ASSET_NUMBER_MUST_BE_LONG_NOT_NULL = "errors.item.capitalAsset.assetNumber.must.be.longValue.notNull";
+    public static final String ERROR_CAPITAL_ASSET_ITEM_NOT_CAMS_ELIGIBLE = "error.capitalAsset.item.not.cams.eligible";
     public static final String ERROR_CAPITAL_ASSET_TRANSACTION_TYPE_MUST_BE_ASSET_GIVEN_TRADE_IN = "error.capitalAsset.trans.type.must.be.asset.given.tradein";
     public static final String ERROR_CAPITAL_ASSET_NO_VENDOR = "error.capitalAsset.no.vendor";
     public static final String ERROR_CAPITAL_ASSET_INCOMPLETE_ADDRESS = "error.capitalAsset.incomplete.address";
@@ -92,21 +92,21 @@ public class PurapKeyConstants {
 
     // Requisition APO Ineligibility reasons
     public static final String NON_APO_REQUISITION_TOTAL_GREATER_THAN_APO_LIMIT = "requisition.nonAPO.requisitionTotal.greaterThan.APOLimit";
-    public static final String NON_APO_REQUISITION_TOTAL_NOT_GREATER_THAN_ZERO="requisition.nonAPO.requisitionTotal.notGreaterThan.zero";
-    public static final String NON_APO_REQUISITION_CONTAINS_RESTRICTED_ITEM="requisition.nonAPO.requisition.contains.restricted.item";
-    public static final String NON_APO_VENDOR_NOT_SELECTED_FROM_VENDOR_DATABASE="requisition.nonAPO.vendor.not.selected.from.vendor.database";
-    public static final String NON_APO_ERROR_RETRIEVING_VENDOR_FROM_DATABASE="requisition.nonAPO.error.retrieving.vendor.from.database";
-    public static final String NON_APO_SELECTED_VENDOR_IS_RESTRICTED="requisition.nonAPO.selected.vendor.is.restricted";
-    public static final String NON_APO_PAYMENT_TYPE_IS_RECURRING="requisition.nonAPO.paymentType.is.recurring";
-    public static final String NON_APO_PO_TOTAL_LIMIT_IS_NOT_EMPTY="requisition.nonAPO.po.total.limit.is.not.empty";
-    public static final String NON_APO_REQUISITION_CONTAINS_ALTERNATE_VENDOR_NAMES="requisition.nonAPO.requisition.contains.alternate.vendor.names";
-    public static final String NON_APO_REQUISITION_CONTAINS_INACTIVE_COMMODITY_CODE="requisition.nonAPO.requisition.contains.inactive.commodity.code";
-    public static final String NON_APO_REQUISITION_MISSING_COMMODITY_CODE="requisition.nonAPO.requisition.missing.commodity.code";
-    public static final String NON_APO_REQUISITION_CONTAINS_RESTRICTED_COMMODITY_CODE="requisition.nonAPO.requisition.contains.restricted.commodity.code";
-    public static final String NON_APO_REQUISITION_MISSING_SOME_VENDOR_ADDRESS_FIELDS="requisition.nonAPO.missing.some.vendor.address.fields";
-    public static final String NON_APO_REQUISITION_FAILS_CAPITAL_ASSET_RULES="requisition.nonAPO.capital.asset.rules";
+    public static final String NON_APO_REQUISITION_TOTAL_NOT_GREATER_THAN_ZERO = "requisition.nonAPO.requisitionTotal.notGreaterThan.zero";
+    public static final String NON_APO_REQUISITION_CONTAINS_RESTRICTED_ITEM = "requisition.nonAPO.requisition.contains.restricted.item";
+    public static final String NON_APO_VENDOR_NOT_SELECTED_FROM_VENDOR_DATABASE = "requisition.nonAPO.vendor.not.selected.from.vendor.database";
+    public static final String NON_APO_ERROR_RETRIEVING_VENDOR_FROM_DATABASE = "requisition.nonAPO.error.retrieving.vendor.from.database";
+    public static final String NON_APO_SELECTED_VENDOR_IS_RESTRICTED = "requisition.nonAPO.selected.vendor.is.restricted";
+    public static final String NON_APO_PAYMENT_TYPE_IS_RECURRING = "requisition.nonAPO.paymentType.is.recurring";
+    public static final String NON_APO_PO_TOTAL_LIMIT_IS_NOT_EMPTY = "requisition.nonAPO.po.total.limit.is.not.empty";
+    public static final String NON_APO_REQUISITION_CONTAINS_ALTERNATE_VENDOR_NAMES = "requisition.nonAPO.requisition.contains.alternate.vendor.names";
+    public static final String NON_APO_REQUISITION_CONTAINS_INACTIVE_COMMODITY_CODE = "requisition.nonAPO.requisition.contains.inactive.commodity.code";
+    public static final String NON_APO_REQUISITION_MISSING_COMMODITY_CODE = "requisition.nonAPO.requisition.missing.commodity.code";
+    public static final String NON_APO_REQUISITION_CONTAINS_RESTRICTED_COMMODITY_CODE = "requisition.nonAPO.requisition.contains.restricted.commodity.code";
+    public static final String NON_APO_REQUISITION_MISSING_SOME_VENDOR_ADDRESS_FIELDS = "requisition.nonAPO.missing.some.vendor.address.fields";
+    public static final String NON_APO_REQUISITION_FAILS_CAPITAL_ASSET_RULES = "requisition.nonAPO.capital.asset.rules";
     public static final String NON_APO_REQUISITION_ACCT_LINE_CAPITAL_OBJ_LEVEL = "requisition.nonAPO.accounting.line.capital.object.level";
-    public static final String NON_APO_REQUISITION_OUTSIDE_NEXT_FY_APPROVAL_RANGE="requisition.nonAPO.outside.nextFY.approval.range";
+    public static final String NON_APO_REQUISITION_OUTSIDE_NEXT_FY_APPROVAL_RANGE = "requisition.nonAPO.outside.nextFY.approval.range";
     // Purchase Order
     public static final String PURCHASE_ORDER_QUESTION_DOCUMENT = "purchaseOrder.question.text";
     public static final String PURCHASE_ORDER_SPLIT_QUESTION_TEXT = "purchaseOrder.split.question.text";
@@ -214,7 +214,7 @@ public class PurapKeyConstants {
     public static final String MESSAGE_PAYMENT_REQUEST_PAYDATE_OVER_THRESHOLD_DAYS = "message.paymentRequest.payDate.over.threshold.days";
     public static final String WARNING_PAYMENT_REQUEST_VENDOR_INVOICE_AMOUNT_INVALID = "warning.paymentRequest.vendorInvoiceAmount.invalid";
     public static final String WARNING_PAYMENT_REQUEST_ITEM_TOTAL_NOT_EQUAL = "warning.paymentRequest.item.TotalInvoice.notEqual";
-    
+
     public static final String ERROR_PAYMENT_REQUEST_TAX_FIELD_REQUIRED = "errors.paymentRequest.tax.field.required";
     public static final String ERROR_PAYMENT_REQUEST_TAX_FIELD_REQUIRED_IF = "errors.paymentRequest.tax.field.required.if";
     public static final String ERROR_PAYMENT_REQUEST_TAX_FIELD_DISALLOWED_IF = "errors.paymentRequest.tax.field.disallowed.if";
@@ -363,12 +363,12 @@ public class PurapKeyConstants {
     public static final String B2B_PO_RETRANSMIT_SUCCESS = "message.b2b.po.retransmit.success";
     public static final String B2B_PO_RETRANSMIT_FAILED = "message.b2b.po.retransmit.failed";
 
-    public static final String ERROR_INACTIVE_BUILDING ="error.inactive.building";
-    public static final String ERROR_INACTIVE_ROOM ="error.inactive.room";
+    public static final String ERROR_INACTIVE_BUILDING = "error.inactive.building";
+    public static final String ERROR_INACTIVE_ROOM = "error.inactive.room";
     public static final String ERROR_INVALID_ROOM_NUMBER = "error.asset.location.invalid.room.code";
     public static final String ERROR_INVALID_ROOM_NUMBER_FOR_CAMPUS = "error.asset.location.invalid.room.code.for.campus";
 
-    public static final String ERROR_INACTIVE_ORG ="error.inactive.organization";
+    public static final String ERROR_INACTIVE_ORG = "error.inactive.organization";
 
     public static final String ERROR_ITEM_ACCOUNTING_ZERO = "errors.item.accounting.zero";
 
@@ -378,9 +378,9 @@ public class PurapKeyConstants {
     public static final String ERROR_PAYMENT_REQUEST_CANNOT_BE_CANCELLED = "error.paymentRequest.cannot.be.cancelled";
 
     public static final String ERROR_PURCHASE_ORDER_RETRANSMIT_SELECT = "error.purchaseOrder.retransmit.select";
-    
+
     public static final String ERROR_INACTIVE_VENDORADDRESS = "error.inactive.vendoraddress";
-            
+
     public static final String KEY_ACCT_EXPIRED_NOTE = "note.acct.expired.using.continuation.acct";
 
 }

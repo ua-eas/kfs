@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  * 
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.cam.service.impl;
 
+import org.kuali.kfs.module.cam.dataaccess.PurchasingAccountsPayableReportDao;
+import org.kuali.kfs.module.cam.service.PurchasingAccountsPayableReportService;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
-
-import org.kuali.kfs.module.cab.dataaccess.PurchasingAccountsPayableReportDao;
-import org.kuali.kfs.module.cab.service.PurchasingAccountsPayableReportService;
-import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 public class PurchasingAccountsPayableReportServiceImpl implements PurchasingAccountsPayableReportService {
@@ -32,7 +32,7 @@ public class PurchasingAccountsPayableReportServiceImpl implements PurchasingAcc
     protected PurchasingAccountsPayableReportDao purApReportDao;
 
     /**
-     * @see org.kuali.kfs.module.cab.service.PurchasingAccountsPayableReportService#findGeneralLedgers(java.util.Map)
+     * @see PurchasingAccountsPayableReportService#findGeneralLedgers(Map)
      */
     public Iterator findGeneralLedgers(Map<String, String> fieldValues) {
         LOG.debug("findGeneralLedgers() started");
@@ -41,7 +41,7 @@ public class PurchasingAccountsPayableReportServiceImpl implements PurchasingAcc
     }
 
     /**
-     * @see org.kuali.kfs.module.cab.service.PurchasingAccountsPayableReportService#findPurchasingAccountsPayableDocuments(java.util.Map)
+     * @see PurchasingAccountsPayableReportService#findPurchasingAccountsPayableDocuments(Map)
      */
     public Collection findPurchasingAccountsPayableDocuments(Map<String, String> fieldValues) {
         LOG.debug("findPurchasingAccountsPayableDocuments() started");

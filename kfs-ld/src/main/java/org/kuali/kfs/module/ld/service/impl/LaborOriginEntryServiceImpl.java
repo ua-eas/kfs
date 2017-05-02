@@ -1,34 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ld.service.impl;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.businessobject.OriginEntryStatistics;
@@ -44,6 +32,18 @@ import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Service implementation of LaborOriginEntryService.
  */
@@ -53,9 +53,9 @@ public class LaborOriginEntryServiceImpl extends OriginEntryGroupServiceImpl imp
 
     private OriginEntryGroupService originEntryGroupService;
     private DateTimeService dateTimeService;
-    
+
     private String batchFileDirectoryName;
-    
+
     public OriginEntryStatistics getStatistics(String fileName) {
         LOG.debug("getStatistics() started");
         OriginEntryStatistics oes = new OriginEntryStatistics();
@@ -66,8 +66,7 @@ public class LaborOriginEntryServiceImpl extends OriginEntryGroupServiceImpl imp
         BufferedReader INPUT_FILE_br;
         try {
             INPUT_FILE = new FileReader(fileName);
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
         Collection<LaborOriginEntry> entryCollection = new ArrayList();
@@ -83,26 +82,22 @@ public class LaborOriginEntryServiceImpl extends OriginEntryGroupServiceImpl imp
 
                         // TODO:- Check with FIS (Row count should be all rows?)
                         rowCount++;
+                    } catch (NumberFormatException e) {
                     }
-                    catch (NumberFormatException e) {
-                    }
-                }
-                else {
+                } else {
                     amount = KualiDecimal.ZERO;
                 }
                 String debitOrCreditCode = currentLine.substring(126, 127);
 
                 if (debitOrCreditCode.equals(KFSConstants.GL_CREDIT_CODE)) {
                     totalCredit.add(amount);
-                }
-                else if (debitOrCreditCode.equals(KFSConstants.GL_DEBIT_CODE)) {
+                } else if (debitOrCreditCode.equals(KFSConstants.GL_DEBIT_CODE)) {
                     totalDebit.add(amount);
                 }
                 currentLine = INPUT_FILE_br.readLine();
             }
             INPUT_FILE_br.close();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             // FIXME: do whatever should be done here
             throw new RuntimeException(e);
         }
@@ -326,8 +321,7 @@ public class LaborOriginEntryServiceImpl extends OriginEntryGroupServiceImpl imp
 //            return new ArrayList<LaborOriginEntry>(searchResultAsCollection);
 //        }
 //    }
-    
-    public  Map getEntriesByGroupIdWithPath(String fileNameWithPath, List<LaborOriginEntry> originEntryList) {
+    public Map getEntriesByGroupIdWithPath(String fileNameWithPath, List<LaborOriginEntry> originEntryList) {
 
         FileReader INPUT_GLE_FILE = null;
         BufferedReader INPUT_GLE_FILE_br;
@@ -337,34 +331,34 @@ public class LaborOriginEntryServiceImpl extends OriginEntryGroupServiceImpl imp
             throw new RuntimeException(e);
         }
         INPUT_GLE_FILE_br = new BufferedReader(INPUT_GLE_FILE);
-        
+
         boolean loadError = false;
         //returnErrorList is list of List<Message>
         Map returnMessageMap = getEntriesByBufferedReader(INPUT_GLE_FILE_br, originEntryList);
 
-        try{
+        try {
             INPUT_GLE_FILE_br.close();
             INPUT_GLE_FILE.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        
-        
+
+
         return returnMessageMap;
     }
-    
+
     public Map getEntriesByBufferedReader(BufferedReader inputBufferedReader, List<LaborOriginEntry> originEntryList) {
         String line;
         int lineNumber = 0;
         Map returnMessageMap = new HashMap();
         try {
-            List<Message> tmperrors = new ArrayList();    
+            List<Message> tmperrors = new ArrayList();
             while ((line = inputBufferedReader.readLine()) != null) {
                 lineNumber++;
                 LaborOriginEntry laborOriginEntry = new LaborOriginEntry();
                 tmperrors = laborOriginEntry.setFromTextFileForBatch(line, lineNumber);
                 laborOriginEntry.setEntryId(lineNumber);
-                if (tmperrors.size() > 0){
+                if (tmperrors.size() > 0) {
                     returnMessageMap.put(new Integer(lineNumber), tmperrors);
                 } else {
                     originEntryList.add(laborOriginEntry);
@@ -373,10 +367,9 @@ public class LaborOriginEntryServiceImpl extends OriginEntryGroupServiceImpl imp
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-            
+
         return returnMessageMap;
     }
-
 
 
 //    public LedgerEntryHolder getSummaryByGroupId(Collection groupIdList) {
@@ -554,7 +547,7 @@ public class LaborOriginEntryServiceImpl extends OriginEntryGroupServiceImpl imp
 
     /**
      * Returns all labor origin entry groups created on the given date to back them up
-     * 
+     *
      * @param backupDate the date to find labor origin entry groups created on
      * @see org.kuali.kfs.module.ld.service.LaborOriginEntryService#getLaborBackupGroups(java.sql.Date)
      * @see org.kuali.kfs.module.ld.dataaccess.LaborOriginEntryDao#getLaborBackupGroups(java.sql.Date)
@@ -571,13 +564,12 @@ public class LaborOriginEntryServiceImpl extends OriginEntryGroupServiceImpl imp
 //    public Integer getGroupCount(Integer groupId) {
 //        return laborOriginEntryDao.getGroupCount(groupId);
 //    }
-    
-    public Integer getGroupCount(String fileNameWithPath){
+    public Integer getGroupCount(String fileNameWithPath) {
         File file = new File(fileNameWithPath);
         Iterator<LaborOriginEntry> fileIterator = new LaborOriginEntryFileIterator(file);
         int count = 0;
-        
-        while(fileIterator.hasNext()){
+
+        while (fileIterator.hasNext()) {
             count++;
             fileIterator.next();
         }
@@ -586,7 +578,7 @@ public class LaborOriginEntryServiceImpl extends OriginEntryGroupServiceImpl imp
 
     /**
      * Sets the dateTimeService attribute value.
-     * 
+     *
      * @param dateTimeService The dateTimeService to set.
      */
     public void setDateTimeService(DateTimeService dateTimeService) {
@@ -595,7 +587,7 @@ public class LaborOriginEntryServiceImpl extends OriginEntryGroupServiceImpl imp
 
     /**
      * Sets the originEntryGroupService attribute value.
-     * 
+     *
      * @param originEntryGroupService The originEntryGroupService to set.
      */
     public void setOriginEntryGroupService(OriginEntryGroupService originEntryGroupService) {

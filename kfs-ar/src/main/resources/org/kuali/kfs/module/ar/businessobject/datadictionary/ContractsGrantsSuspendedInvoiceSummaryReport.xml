@@ -1,104 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-	<bean id="ContractsGrantsSuspendedInvoiceSummaryReport" parent="ContractsGrantsSuspendedInvoiceSummaryReport-parentBean" />
+    <bean id="ContractsGrantsSuspendedInvoiceSummaryReport" parent="ContractsGrantsSuspendedInvoiceSummaryReport-parentBean"/>
 
-	<bean id="ContractsGrantsSuspendedInvoiceSummaryReport-parentBean" abstract="true" parent="BusinessObjectEntry">
+    <bean id="ContractsGrantsSuspendedInvoiceSummaryReport-parentBean" abstract="true" parent="BusinessObjectEntry">
 
-		<property name="businessObjectClass" value="org.kuali.kfs.module.ar.businessobject.ContractsGrantsSuspendedInvoiceSummaryReport" />
+        <property name="businessObjectClass" value="org.kuali.kfs.module.ar.businessobject.ContractsGrantsSuspendedInvoiceSummaryReport"/>
 
-		<property name="lookupDefinition">
-			<ref bean="ContractsGrantsSuspendedInvoiceSummaryReport-lookupDefinition" />
-		</property>
-		<property name="objectLabel" value="Suspended Invoice Summary Report" />
+        <property name="lookupDefinition">
+            <ref bean="ContractsGrantsSuspendedInvoiceSummaryReport-lookupDefinition"/>
+        </property>
+        <property name="objectLabel" value="Suspended Invoice Summary Report"/>
 
-		<property name="attributes">
-			<list>
-				<ref bean="ContractsGrantsSuspendedInvoiceSummaryReport-fundManager" />
-				<ref bean="ContractsGrantsSuspendedInvoiceSummaryReport-suspensionCategoryCode" />
-				<ref bean="ContractsGrantsSuspendedInvoiceSummaryReport-suspensionCategoryDescription" />
-				<ref bean="ContractsGrantsSuspendedInvoiceSummaryReport-totalInvoicesSuspended" />
-			</list>
-		</property>
-	</bean>
+        <property name="attributes">
+            <list>
+                <ref bean="ContractsGrantsSuspendedInvoiceSummaryReport-fundManager"/>
+                <ref bean="ContractsGrantsSuspendedInvoiceSummaryReport-suspensionCategoryCode"/>
+                <ref bean="ContractsGrantsSuspendedInvoiceSummaryReport-suspensionCategoryDescription"/>
+                <ref bean="ContractsGrantsSuspendedInvoiceSummaryReport-totalInvoicesSuspended"/>
+            </list>
+        </property>
+    </bean>
 
-	<bean id="ContractsGrantsSuspendedInvoiceSummaryReport-fundManager" parent="ContractsGrantsSuspendedInvoiceSummaryReport-fundManager-parentBean" />
-	<bean id="ContractsGrantsSuspendedInvoiceSummaryReport-fundManager-parentBean" abstract="true" parent="PersonImpl-name">
-		<property name="name" value="fundManager" />
-		<property name="label" value="Primary Fund Manager Name" />
-		<property name="shortLabel" value="Primary Fund Manager" />
-		<property name="maxLength"><null/></property>
-		<property name="control">
-			<ref bean="StandardNameTextControl" />
-		</property>
-	</bean>
+    <bean id="ContractsGrantsSuspendedInvoiceSummaryReport-fundManager" parent="ContractsGrantsSuspendedInvoiceSummaryReport-fundManager-parentBean"/>
+    <bean id="ContractsGrantsSuspendedInvoiceSummaryReport-fundManager-parentBean" abstract="true" parent="PersonImpl-name">
+        <property name="name" value="fundManager"/>
+        <property name="label" value="Primary Fund Manager Name"/>
+        <property name="shortLabel" value="Primary Fund Manager"/>
+        <property name="maxLength">
+            <null/>
+        </property>
+        <property name="control">
+            <ref bean="StandardNameTextControl"/>
+        </property>
+    </bean>
 
-	<bean id="ContractsGrantsSuspendedInvoiceSummaryReport-suspensionCategoryCode" parent="ContractsGrantsSuspendedInvoiceSummaryReport-suspensionCategoryCode-parentBean" />
-	<bean id="ContractsGrantsSuspendedInvoiceSummaryReport-suspensionCategoryCode-parentBean" abstract="true" parent="InvoiceSuspensionCategory-suspensionCategoryCode"/>
+    <bean id="ContractsGrantsSuspendedInvoiceSummaryReport-suspensionCategoryCode" parent="ContractsGrantsSuspendedInvoiceSummaryReport-suspensionCategoryCode-parentBean"/>
+    <bean id="ContractsGrantsSuspendedInvoiceSummaryReport-suspensionCategoryCode-parentBean" abstract="true" parent="InvoiceSuspensionCategory-suspensionCategoryCode"/>
 
-	<bean id="ContractsGrantsSuspendedInvoiceSummaryReport-suspensionCategoryDescription" parent="ContractsGrantsSuspendedInvoiceSummaryReport-suspensionCategoryDescription-parentBean" />
-	<bean id="ContractsGrantsSuspendedInvoiceSummaryReport-suspensionCategoryDescription-parentBean" abstract="true" parent="InvoiceSuspensionCategory-suspensionCategoryDescription"/>
+    <bean id="ContractsGrantsSuspendedInvoiceSummaryReport-suspensionCategoryDescription" parent="ContractsGrantsSuspendedInvoiceSummaryReport-suspensionCategoryDescription-parentBean"/>
+    <bean id="ContractsGrantsSuspendedInvoiceSummaryReport-suspensionCategoryDescription-parentBean" abstract="true" parent="InvoiceSuspensionCategory-suspensionCategoryDescription"/>
 
-	<bean id="ContractsGrantsSuspendedInvoiceSummaryReport-totalInvoicesSuspended" parent="ContractsGrantsSuspendedInvoiceSummaryReport-totalInvoicesSuspended-parentBean" />
-	<bean id="ContractsGrantsSuspendedInvoiceSummaryReport-totalInvoicesSuspended-parentBean" abstract="true" parent="AttributeDefinition">
-		<property name="name" value="totalInvoicesSuspended" />
-		<property name="forceUppercase" value="true" />
-		<property name="label" value="Total Suspended" />
-		<property name="shortLabel" value="Suspended" />
-		<property name="maxLength" value="3" />
-		<property name="validationPattern">
-			<ref bean="NumericValidation" />
-		</property>
-		<property name="control">
-			<bean parent="TextControlDefinition" p:size="5" />
-		</property>
-	</bean>
+    <bean id="ContractsGrantsSuspendedInvoiceSummaryReport-totalInvoicesSuspended" parent="ContractsGrantsSuspendedInvoiceSummaryReport-totalInvoicesSuspended-parentBean"/>
+    <bean id="ContractsGrantsSuspendedInvoiceSummaryReport-totalInvoicesSuspended-parentBean" abstract="true" parent="AttributeDefinition">
+        <property name="name" value="totalInvoicesSuspended"/>
+        <property name="forceUppercase" value="true"/>
+        <property name="label" value="Total Suspended"/>
+        <property name="shortLabel" value="Suspended"/>
+        <property name="maxLength" value="3"/>
+        <property name="validationPattern">
+            <ref bean="NumericValidation"/>
+        </property>
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="5"/>
+        </property>
+    </bean>
 
-	<!-- Business Object Lookup Definition -->
+    <!-- Business Object Lookup Definition -->
 
-	<bean id="ContractsGrantsSuspendedInvoiceSummaryReport-lookupDefinition" parent="ContractsGrantsSuspendedInvoiceSummaryReport-lookupDefinition-parentBean" />
+    <bean id="ContractsGrantsSuspendedInvoiceSummaryReport-lookupDefinition" parent="ContractsGrantsSuspendedInvoiceSummaryReport-lookupDefinition-parentBean"/>
 
-	<bean id="ContractsGrantsSuspendedInvoiceSummaryReport-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
-		<property name="title" value="Suspended Invoice Summary Report" />
-		<property name="lookupableID" value="contractsGrantsSuspendedInvoiceSummaryReportLookupResultLookupable" />
+    <bean id="ContractsGrantsSuspendedInvoiceSummaryReport-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
+        <property name="title" value="Suspended Invoice Summary Report"/>
+        <property name="lookupableID" value="contractsGrantsSuspendedInvoiceSummaryReportLookupResultLookupable"/>
 
-		<property name="defaultSort">
-			<bean parent="SortDefinition">
-			</bean>
-		</property>
-		<property name="lookupFields">
-			<list>
-				<bean parent="FieldDefinition" p:attributeName="suspensionCategoryCode" />
-			</list>
-		</property>
-		<property name="resultFields">
-			<list>
-				<bean parent="FieldDefinition" p:attributeName="suspensionCategoryCode" />
-				<bean parent="FieldDefinition" p:attributeName="suspensionCategoryDescription" />
-				<bean parent="FieldDefinition" p:attributeName="totalInvoicesSuspended" />
-			</list>
-		</property>
-	</bean>
+        <property name="defaultSort">
+            <bean parent="SortDefinition">
+            </bean>
+        </property>
+        <property name="lookupFields">
+            <list>
+                <bean parent="FieldDefinition" p:attributeName="suspensionCategoryCode"/>
+            </list>
+        </property>
+        <property name="resultFields">
+            <list>
+                <bean parent="FieldDefinition" p:attributeName="suspensionCategoryCode"/>
+                <bean parent="FieldDefinition" p:attributeName="suspensionCategoryDescription"/>
+                <bean parent="FieldDefinition" p:attributeName="totalInvoicesSuspended"/>
+            </list>
+        </property>
+    </bean>
 
 </beans>
 

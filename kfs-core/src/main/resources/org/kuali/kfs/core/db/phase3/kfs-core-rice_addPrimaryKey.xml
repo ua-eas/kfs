@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="kfs" id="rice00629" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="DOC_HDR_ID" constraintName="PKkrns_maint_doc_t" tableName="krns_maint_doc_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00622" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="RECIP_TYP_CD, ACTN_RQST_CD, ACTN_RQST_RECIP_ID, DOC_HDR_ID" constraintName="PKkrns_adhoc_rte_actn_recip_t" tableName="krns_adhoc_rte_actn_recip_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00623" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="NTE_ID" constraintName="PKkrns_att_t" tableName="krns_att_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00624" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="DOC_HDR_ID" constraintName="PKkrns_doc_hdr_t" tableName="krns_doc_hdr_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00625" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="LOOKUP_RSLT_ID" constraintName="PKkrns_lookup_rslt_t" tableName="krns_lookup_rslt_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00626" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="LOOKUP_RSLT_ID" constraintName="PKkrns_lookup_sel_t" tableName="krns_lookup_sel_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00627" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="ATT_ID" constraintName="PKkrns_maint_doc_att_lst_t" tableName="krns_maint_doc_att_lst_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00628" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="DOC_HDR_ID" constraintName="PKkrns_maint_doc_att_t" tableName="krns_maint_doc_att_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00630" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="MAINT_LOCK_ID" constraintName="PKkrns_maint_lock_t" tableName="krns_maint_lock_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00631" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="NTE_ID" constraintName="PKkrns_nte_t" tableName="krns_nte_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00632" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="NTE_TYP_CD" constraintName="PKkrns_nte_typ_t" tableName="krns_nte_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00633" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="PESSIMISTIC_LOCK_ID" constraintName="PKkrns_pessimistic_lock_t" tableName="krns_pessimistic_lock_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00634" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SESN_DOC_ID, DOC_HDR_ID, PRNCPL_ID, IP_ADDR" constraintName="PKkrns_sesn_doc_t" tableName="krns_sesn_doc_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00635" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="BAM_PARM_ID" constraintName="PKkrsb_bam_parm_t" tableName="krsb_bam_parm_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00636" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="BAM_ID" constraintName="PKkrsb_bam_t" tableName="krsb_bam_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00637" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="MSG_QUE_ID" constraintName="PKkrsb_msg_pyld_t" tableName="krsb_msg_pyld_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00638" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="MSG_QUE_ID" constraintName="PKkrsb_msg_que_t" tableName="krsb_msg_que_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00639" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="TRIGGER_NAME, TRIGGER_GROUP" constraintName="PKkrsb_qrtz_blob_triggers" tableName="krsb_qrtz_blob_triggers"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00640" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CALENDAR_NAME" constraintName="PKkrsb_qrtz_calendars" tableName="krsb_qrtz_calendars"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00641" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="TRIGGER_NAME, TRIGGER_GROUP" constraintName="PKkrsb_qrtz_cron_triggers" tableName="krsb_qrtz_cron_triggers"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00642" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="ENTRY_ID" constraintName="PKkrsb_qrtz_fired_triggers" tableName="krsb_qrtz_fired_triggers"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00643" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="JOB_NAME, JOB_GROUP" constraintName="PKkrsb_qrtz_job_details" tableName="krsb_qrtz_job_details"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00644" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="JOB_NAME, JOB_GROUP, JOB_LISTENER" constraintName="PKkrsb_qrtz_job_listeners" tableName="krsb_qrtz_job_listeners"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00645" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="LOCK_NAME" constraintName="PKkrsb_qrtz_locks" tableName="krsb_qrtz_locks"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00646" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="TRIGGER_GROUP" constraintName="PKkrsb_qrtz_paused_trigger_gr" tableName="krsb_qrtz_paused_trigger_grps"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00647" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="INSTANCE_NAME" constraintName="PKkrsb_qrtz_scheduler_state" tableName="krsb_qrtz_scheduler_state"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00648" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="TRIGGER_NAME, TRIGGER_GROUP" constraintName="PKkrsb_qrtz_simple_triggers" tableName="krsb_qrtz_simple_triggers"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00650" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="TRIGGER_NAME, TRIGGER_GROUP" constraintName="PKkrsb_qrtz_triggers" tableName="krsb_qrtz_triggers"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00649" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="TRIGGER_NAME, TRIGGER_GROUP, TRIGGER_LISTENER" constraintName="PKkrsb_qrtz_trigger_listeners" tableName="krsb_qrtz_trigger_listeners"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00651" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SVC_DEF_ID" constraintName="PKkrsb_svc_def_t" tableName="krsb_svc_def_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00652" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SVC_DSCRPTR_ID" constraintName="PKkrsb_svc_dscrptr_t" tableName="krsb_svc_dscrptr_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00432" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CMPNT_SET_ID" constraintName="PKkrcr_cmpnt_set_t" tableName="krcr_cmpnt_set_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00433" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="NMSPC_CD, CMPNT_CD" constraintName="PKkrcr_cmpnt_t" tableName="krcr_cmpnt_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00434" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="NMSPC_CD, CMPNT_CD" constraintName="PKkrcr_drvd_cmpnt_t" tableName="krcr_drvd_cmpnt_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00435" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="NMSPC_CD" constraintName="PKkrcr_nmspc_t" tableName="krcr_nmspc_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00436" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="NMSPC_CD, CMPNT_CD, PARM_NM, APPL_ID" constraintName="PKkrcr_parm_t" tableName="krcr_parm_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00437" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="PARM_TYP_CD" constraintName="PKkrcr_parm_typ_t" tableName="krcr_parm_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00438" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="STYLE_ID" constraintName="PKkrcr_style_t" tableName="krcr_style_t"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,35 +1,35 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.coa.document;
 
+import org.kuali.kfs.coa.businessobject.IndirectCostRecoveryExclusionType;
+import org.kuali.kfs.kns.datadictionary.MaintainableSectionDefinition;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.util.MaintenanceUtils;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.kfs.coa.businessobject.IndirectCostRecoveryExclusionType;
-import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
-import org.kuali.rice.kns.datadictionary.MaintainableSectionDefinition;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.kns.util.MaintenanceUtils;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
 
 public class IndirectCostRecoveryTypeMaintainableImpl extends FinancialSystemMaintainable {
 
@@ -43,11 +43,11 @@ public class IndirectCostRecoveryTypeMaintainableImpl extends FinancialSystemMai
         // PersistableBusinessObject bo = document.getNewMaintainableObject().getBusinessObject();
         Collection maintCollection = (Collection) ObjectUtils.getPropertyValue(bo, collectionName);
         String docTypeName = document.getDocumentHeader().getWorkflowDocument().getDocumentTypeName();
-        
+
         List<String> duplicateIdentifierFieldsFromDataDictionary = getDuplicateIdentifierFieldsFromDataDictionary(docTypeName, collectionName);
-        
+
         List<String> existingIdentifierList = getMultiValueIdentifierList(maintCollection, duplicateIdentifierFieldsFromDataDictionary);
-        
+
         Class collectionClass = getMaintenanceDocumentDictionaryService().getCollectionBusinessObjectClass(docTypeName, collectionName);
 
         List<MaintainableSectionDefinition> sections = getMaintenanceDocumentDictionaryService().getMaintainableSections(docTypeName);
@@ -60,7 +60,7 @@ public class IndirectCostRecoveryTypeMaintainableImpl extends FinancialSystemMai
                 IndirectCostRecoveryExclusionType templatedBo = (IndirectCostRecoveryExclusionType) ObjectUtils.createHybridBusinessObject(collectionClass, nextBo, template);
                 templatedBo.setNewCollectionRecord(true);
                 prepareBusinessObjectForAdditionFromMultipleValueLookup(collectionName, templatedBo);
-                if(!hasBusinessObjectExisted(templatedBo, existingIdentifierList, duplicateIdentifierFieldsFromDataDictionary)) {
+                if (!hasBusinessObjectExisted(templatedBo, existingIdentifierList, duplicateIdentifierFieldsFromDataDictionary)) {
                     maintCollection.add(templatedBo);
                 }
                 collectionItemNumber++;
@@ -68,11 +68,10 @@ public class IndirectCostRecoveryTypeMaintainableImpl extends FinancialSystemMai
             }
             GlobalVariables.getMessageMap().removeFromErrorPath(DETAIL_ERROR_PATH);
             // putGlobalError(KFSKeyConstants.ERROR_DOCUMENT_ACCTDELEGATEMAINT_PRIMARY_ROUTE_ALREADY_EXISTS_FOR_DOCTYPE);
-        } 
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("Unable to add multiple value lookup results " + e.getMessage());
             throw new RuntimeException("Unable to add multiple value lookup results " + e.getMessage());
         }
     }
-    
+
 }

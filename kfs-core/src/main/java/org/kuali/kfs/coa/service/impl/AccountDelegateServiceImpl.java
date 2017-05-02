@@ -1,27 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.coa.service.impl;
-
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.AccountDelegate;
@@ -30,6 +25,11 @@ import org.kuali.kfs.coa.dataaccess.AccountDelegateGlobalDao;
 import org.kuali.kfs.coa.document.AccountDelegateGlobalMaintainableImpl;
 import org.kuali.kfs.coa.document.AccountDelegateMaintainableImpl;
 import org.kuali.kfs.coa.service.AccountDelegateService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.maintenance.MaintenanceLock;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
 import org.kuali.kfs.sys.service.NonTransactional;
@@ -38,13 +38,13 @@ import org.kuali.rice.kew.service.KEWServiceLocator;
 import org.kuali.rice.kim.api.role.RoleResponsibility;
 import org.kuali.rice.kim.api.role.RoleService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.maintenance.MaintenanceLock;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 /**
  * The default implementation of AccountDelegateService.
@@ -59,7 +59,7 @@ public class AccountDelegateServiceImpl implements AccountDelegateService {
 
     /**
      * @see org.kuali.kfs.coa.service.AccountDelegateService#getLockingDocumentId(org.kuali.kfs.coa.document.AccountDelegateGlobalMaintainableImpl,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Override
     @NonTransactional
@@ -77,7 +77,7 @@ public class AccountDelegateServiceImpl implements AccountDelegateService {
 
     /**
      * @see org.kuali.kfs.coa.service.AccountDelegateService#getLockingDocumentId(org.kuali.kfs.coa.document.AccountDelegateMaintainableImpl,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Override
     @NonTransactional
@@ -123,8 +123,7 @@ public class AccountDelegateServiceImpl implements AccountDelegateService {
         final FinancialSystemMaintainable maintainable;
         try {
             maintainable = (FinancialSystemMaintainable) maintainableClazz.newInstance();
-        }
-        catch (Exception ie) {
+        } catch (Exception ie) {
             throw new RuntimeException("Could not instantiate maintainable for AccountDelegate maintenance document", ie);
         }
         return maintainable;
@@ -207,10 +206,11 @@ public class AccountDelegateServiceImpl implements AccountDelegateService {
             KEWServiceLocator.getActionRequestService().updateActionRequestsForResponsibilityChange(getChangedRoleResponsibilityIds(newRoleResp));
         }
     }
-    protected Set<String> getChangedRoleResponsibilityIds( List<RoleResponsibility> newRoleResp){
+
+    protected Set<String> getChangedRoleResponsibilityIds(List<RoleResponsibility> newRoleResp) {
         Set<String> lRet = new HashSet<String>();
-          if(ObjectUtils.isNotNull(newRoleResp)){
-            for(RoleResponsibility roleResp: newRoleResp){
+        if (ObjectUtils.isNotNull(newRoleResp)) {
+            for (RoleResponsibility roleResp : newRoleResp) {
                 lRet.add(roleResp.getResponsibilityId());
             }
         }

@@ -1,28 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
 import org.kuali.kfs.module.ar.document.service.SystemInformationService;
 import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
@@ -30,12 +28,12 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.rice.krad.service.DocumentService;
 
-/**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
- */
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.List;
+
+
 public class InvoicePaidApplied extends PersistableBusinessObjectBase {
 
     private String documentNumber; // document the payment is being applied FROM
@@ -105,8 +103,7 @@ public class InvoicePaidApplied extends PersistableBusinessObjectBase {
         CustomerInvoiceDocument customerInvoiceDocument = null;
         try {
             customerInvoiceDocument = (CustomerInvoiceDocument) getDocumentService().getByDocumentHeaderId(getFinancialDocumentReferenceInvoiceNumber());
-        }
-        catch (WorkflowException e) {
+        } catch (WorkflowException e) {
             throw new RuntimeException("WorkflowException thrown when trying to retrieve Invoice document [" + getFinancialDocumentReferenceInvoiceNumber() + "]", e);
         }
         return customerInvoiceDocument;

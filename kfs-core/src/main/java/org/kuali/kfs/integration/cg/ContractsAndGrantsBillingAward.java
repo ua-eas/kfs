@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,25 +18,21 @@
  */
 package org.kuali.kfs.integration.cg;
 
+import org.kuali.kfs.integration.ar.AccountsReceivableBillingFrequency;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+import org.kuali.rice.kim.api.identity.Person;
+
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
-
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.kim.api.identity.Person;
 
 /**
  * Integration interface for Award (specific to CGB functionality)
  */
 public interface ContractsAndGrantsBillingAward extends ContractsAndGrantsAward {
 
-    /**
-     * Gets the proposalNumber attribute.
-     *
-     * @return Returns the proposalNumber.
-     */
     @Override
-    public Long getProposalNumber();
+    public String getProposalNumber();
 
     /**
      * Gets the proposal attribute.
@@ -45,6 +41,8 @@ public interface ContractsAndGrantsBillingAward extends ContractsAndGrantsAward 
      */
     @Override
     public ContractAndGrantsProposal getProposal();
+
+    public String getObjectId();
 
     /**
      * Gets the awardInquiryTitle attribute.
@@ -428,11 +426,10 @@ public interface ContractsAndGrantsBillingAward extends ContractsAndGrantsAward 
 
     /**
      * Sets the letterOfCreditFund attribute.
-     *
+     * <p>
      * We normally wouldn't put a setter in an interface, but we are struggling with an NPE
      * when doing an Award inquiry related to the fact that the code can't find a setter
      * for this attribute.
-     *
      */
     public void setLetterOfCreditFund(ContractsAndGrantsLetterOfCreditFund letterOfCreditFund);
 
@@ -455,7 +452,7 @@ public interface ContractsAndGrantsBillingAward extends ContractsAndGrantsAward 
      *
      * @return Returns the billingFrequency.
      */
-    public ContractsAndGrantsBillingFrequency getBillingFrequency();
+    public AccountsReceivableBillingFrequency getBillingFrequency();
 
     /**
      * Gets the awardPrimaryProjectDirector attribute.

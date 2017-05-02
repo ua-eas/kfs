@@ -1,134 +1,134 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.fixture;
-
-import java.sql.Timestamp;
 
 import org.kuali.kfs.module.purap.document.AccountsPayableDocument;
 import org.kuali.kfs.module.purap.document.PaymentRequestDocument;
 import org.kuali.kfs.module.purap.document.VendorCreditMemoDocument;
 import org.kuali.kfs.sys.KFSConstants;
 
+import java.sql.Timestamp;
+
 
 public enum AccountsPayableDocumentFixture {
 
     // PAYMENT REQUEST FIXTURES
     PREQ_ONLY_REQUIRED_FIELDS(null,  // accountsPayableApprovalDate
-            null,  // lastActionPerformedByPersonId
-            null,  // accountsPayableProcessorIdentifier
-            false, // holdIndicator
-            null,  // extractedTimestamp
-            1000,  // purchaseOrderIdentifier
-            null,  // processingCampusCode
-            null,  // noteLine1Text
-            null,  // noteLine2Text
-            null,  // noteLine3Text
-            false, // continuationAccountIndicator
-            false, // closePurchaseOrderIndicator
-            false  // reopenPurchaseOrderIndicator
-            ),
-     PREQ_FOR_PO_CLOSE_DOC(null,  // accountsPayableApprovalDate
-            null,  // lastActionPerformedByPersonId
-            KFSConstants.SYSTEM_USER,    // accountsPayableProcessorIdentifier
-            false, // holdIndicator
-            null,  // extractedTimestamp
-            1000,  // purchaseOrderIdentifier
-            null,  // processingCampusCode
-            null,  // noteLine1Text
-            null,  // noteLine2Text
-            null,  // noteLine3Text
-            false, // continuationAccountIndicator
-            false, // closePurchaseOrderIndicator
-            false  // reopenPurchaseOrderIndicator
-            ),
+        null,  // lastActionPerformedByPersonId
+        null,  // accountsPayableProcessorIdentifier
+        false, // holdIndicator
+        null,  // extractedTimestamp
+        1000,  // purchaseOrderIdentifier
+        null,  // processingCampusCode
+        null,  // noteLine1Text
+        null,  // noteLine2Text
+        null,  // noteLine3Text
+        false, // continuationAccountIndicator
+        false, // closePurchaseOrderIndicator
+        false  // reopenPurchaseOrderIndicator
+    ),
+    PREQ_FOR_PO_CLOSE_DOC(null,  // accountsPayableApprovalDate
+        null,  // lastActionPerformedByPersonId
+        KFSConstants.SYSTEM_USER,    // accountsPayableProcessorIdentifier
+        false, // holdIndicator
+        null,  // extractedTimestamp
+        1000,  // purchaseOrderIdentifier
+        null,  // processingCampusCode
+        null,  // noteLine1Text
+        null,  // noteLine2Text
+        null,  // noteLine3Text
+        false, // continuationAccountIndicator
+        false, // closePurchaseOrderIndicator
+        false  // reopenPurchaseOrderIndicator
+    ),
     CLOSE_PO_WITH_PREQ(null,  // accountsPayableApprovalDate
-            null,  // lastActionPerformedByPersonId
-            null,  // accountsPayableProcessorIdentifier
-            false, // holdIndicator
-            null,  // extractedTimestamp
-            1000,  // purchaseOrderIdentifier
-            null,  // processingCampusCode
-            null,  // noteLine1Text
-            null,  // noteLine2Text
-            null,  // noteLine3Text
-            false, // continuationAccountIndicator
-            true, // closePurchaseOrderIndicator
-            false  // reopenPurchaseOrderIndicator
-            ),
+        null,  // lastActionPerformedByPersonId
+        null,  // accountsPayableProcessorIdentifier
+        false, // holdIndicator
+        null,  // extractedTimestamp
+        1000,  // purchaseOrderIdentifier
+        null,  // processingCampusCode
+        null,  // noteLine1Text
+        null,  // noteLine2Text
+        null,  // noteLine3Text
+        false, // continuationAccountIndicator
+        true, // closePurchaseOrderIndicator
+        false  // reopenPurchaseOrderIndicator
+    ),
     REOPEN_PO_WITH_PREQ(null,  // accountsPayableApprovalDate
-            null,  // lastActionPerformedByPersonId
-            null,  // accountsPayableProcessorIdentifier
-            false, // holdIndicator
-            null,  // extractedTimestamp
-            1000,  // purchaseOrderIdentifier
-            null,  // processingCampusCode
-            null,  // noteLine1Text
-            null,  // noteLine2Text
-            null,  // noteLine3Text
-            false, // continuationAccountIndicator
-            false, // closePurchaseOrderIndicator
-            true  // reopenPurchaseOrderIndicator
-            ),
+        null,  // lastActionPerformedByPersonId
+        null,  // accountsPayableProcessorIdentifier
+        false, // holdIndicator
+        null,  // extractedTimestamp
+        1000,  // purchaseOrderIdentifier
+        null,  // processingCampusCode
+        null,  // noteLine1Text
+        null,  // noteLine2Text
+        null,  // noteLine3Text
+        false, // continuationAccountIndicator
+        false, // closePurchaseOrderIndicator
+        true  // reopenPurchaseOrderIndicator
+    ),
     REQUEST_CANCEL_PREQ(null,  // accountsPayableApprovalDate
-            null,  // lastActionPerformedByPersonId
-            null,  // accountsPayableProcessorIdentifier
-            false, // holdIndicator
-            null,  // extractedTimestamp
-            1000,  // purchaseOrderIdentifier
-            null,  // processingCampusCode
-            null,  // noteLine1Text
-            null,  // noteLine2Text
-            null,  // noteLine3Text
-            false, // continuationAccountIndicator
-            false, // closePurchaseOrderIndicator
-            false  // reopenPurchaseOrderIndicator
-            ),
+        null,  // lastActionPerformedByPersonId
+        null,  // accountsPayableProcessorIdentifier
+        false, // holdIndicator
+        null,  // extractedTimestamp
+        1000,  // purchaseOrderIdentifier
+        null,  // processingCampusCode
+        null,  // noteLine1Text
+        null,  // noteLine2Text
+        null,  // noteLine3Text
+        false, // continuationAccountIndicator
+        false, // closePurchaseOrderIndicator
+        false  // reopenPurchaseOrderIndicator
+    ),
     REQUEST_HOLD_PREQ(null,  // accountsPayableApprovalDate
-            null,  // lastActionPerformedByPersonId
-            null,  // accountsPayableProcessorIdentifier
-            true, // holdIndicator
-            null,  // extractedTimestamp
-            1000,  // purchaseOrderIdentifier
-            null,  // processingCampusCode
-            null,  // noteLine1Text
-            null,  // noteLine2Text
-            null,  // noteLine3Text
-            false, // continuationAccountIndicator
-            false, // closePurchaseOrderIndicator
-            false  // reopenPurchaseOrderIndicator
-            ),
+        null,  // lastActionPerformedByPersonId
+        null,  // accountsPayableProcessorIdentifier
+        true, // holdIndicator
+        null,  // extractedTimestamp
+        1000,  // purchaseOrderIdentifier
+        null,  // processingCampusCode
+        null,  // noteLine1Text
+        null,  // noteLine2Text
+        null,  // noteLine3Text
+        false, // continuationAccountIndicator
+        false, // closePurchaseOrderIndicator
+        false  // reopenPurchaseOrderIndicator
+    ),
 
     // Credit Memo FIXTURES
     CM_ONLY_REQUIRED_FIELDS(null, // accountsPayableApprovalDate
-            null, // lastActionPerformedByPersonId
-            null, // accountsPayableProcessorIdentifier
-            false, // holdIndicator
-            null, // extractedTimestamp
-            null, // purchaseOrderIdentifier
-            "BL", // processingCampusCode
-            null, // noteLine1Text
-            null, // noteLine2Text
-            null, // noteLine3Text
-            false, // continuationAccountIndicator
-            false, // closePurchaseOrderIndicator
-            false // reopenPurchaseOrderIndicator
-	);
+        null, // lastActionPerformedByPersonId
+        null, // accountsPayableProcessorIdentifier
+        false, // holdIndicator
+        null, // extractedTimestamp
+        null, // purchaseOrderIdentifier
+        "BL", // processingCampusCode
+        null, // noteLine1Text
+        null, // noteLine2Text
+        null, // noteLine3Text
+        false, // continuationAccountIndicator
+        false, // closePurchaseOrderIndicator
+        false // reopenPurchaseOrderIndicator
+    );
 
     // SHARED FIELDS BETWEEN PAYMENT REQUEST AND CREDIT MEMO
     public final Timestamp accountsPayableApprovalDate;

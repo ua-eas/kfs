@@ -1,30 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.service;
 
-import static org.kuali.kfs.sys.fixture.AccountingLineFixture.LINE2_TOF;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.util.Iterator;
-import java.util.List;
-
 import org.kuali.kfs.fp.document.TransferOfFundsDocument;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.DocumentTestUtils;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
@@ -33,8 +29,12 @@ import org.kuali.kfs.sys.businessobject.TargetAccountingLine;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocument;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.DocumentService;
+
+import java.util.Iterator;
+import java.util.List;
+
+import static org.kuali.kfs.sys.fixture.AccountingLineFixture.LINE2_TOF;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 /**
  * This class tests the AccountingLine service.
@@ -60,7 +60,7 @@ public class AccountingLineServiceTest extends KualiTestBase {
 
     /**
      * Tests an accounting line is correctly persisted when the primitives of the line are set.
-     * 
+     *
      * @throws Exception
      */
     public void testPersistence() throws Exception {
@@ -129,12 +129,12 @@ public class AccountingLineServiceTest extends KualiTestBase {
         assertTrue(targetLines.size() > 0);
         // delete 'em
         if (sourceLines != null) {
-            for (Iterator i = sourceLines.iterator(); i.hasNext();) {
+            for (Iterator i = sourceLines.iterator(); i.hasNext(); ) {
                 SpringContext.getBean(BusinessObjectService.class).delete((AccountingLine) i.next());
             }
         }
         if (targetLines != null) {
-            for (Iterator i = targetLines.iterator(); i.hasNext();) {
+            for (Iterator i = targetLines.iterator(); i.hasNext(); ) {
                 SpringContext.getBean(BusinessObjectService.class).delete((AccountingLine) i.next());
             }
         }

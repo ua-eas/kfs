@@ -1,30 +1,29 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.document;
 
-import java.sql.Date;
-import java.util.List;
-
 import org.kuali.kfs.sys.businessobject.AccountingLineParser;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.kfs.sys.businessobject.TargetAccountingLine;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.List;
 
 /**
  * This is the FinancialDocument interface. The TransactionalDocument interface should extend this. It represents any document that
@@ -174,8 +173,9 @@ public interface AccountingDocument extends GeneralLedgerPostingDocument, Genera
     public Class<? extends AccountingDocument> getDocumentClassForAccountingLineValueAllowedValidation();
 
     /**
-     *This method check the document status to determine whether the document is final/processed or not.
-     *@return true if documentFinalOrProcessed otherwise false
+     * This method check the document status to determine whether the document is final/processed or not.
+     *
+     * @return true if documentFinalOrProcessed otherwise false
      */
     public boolean isDocumentFinalOrProcessed();
 }

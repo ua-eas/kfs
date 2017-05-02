@@ -1,22 +1,37 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ld.dataaccess.impl;
+
+import org.apache.ojb.broker.query.Criteria;
+import org.apache.ojb.broker.query.QueryByCriteria;
+import org.apache.ojb.broker.query.QueryFactory;
+import org.apache.ojb.broker.query.ReportQueryByCriteria;
+import org.kuali.kfs.gl.OJBUtility;
+import org.kuali.kfs.gl.dataaccess.LedgerEntryBalancingDao;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.ld.businessobject.LedgerEntry;
+import org.kuali.kfs.module.ld.dataaccess.LaborLedgerEntryDao;
+import org.kuali.kfs.module.ld.util.ConsolidationUtil;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.util.TransactionalServiceUtils;
+import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -26,24 +41,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.ojb.broker.query.Criteria;
-import org.apache.ojb.broker.query.QueryByCriteria;
-import org.apache.ojb.broker.query.QueryFactory;
-import org.apache.ojb.broker.query.ReportQueryByCriteria;
-import org.kuali.kfs.gl.OJBUtility;
-import org.kuali.kfs.gl.dataaccess.LedgerEntryBalancingDao;
-import org.kuali.kfs.module.ld.businessobject.LedgerEntry;
-import org.kuali.kfs.module.ld.dataaccess.LaborLedgerEntryDao;
-import org.kuali.kfs.module.ld.util.ConsolidationUtil;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.util.TransactionalServiceUtils;
-import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
-import org.kuali.rice.krad.util.ObjectUtils;
-
 /**
  * This is the data access object for ledger entry.
- * 
+ *
  * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry
  */
 public class LaborLedgerEntryDaoOjb extends PlatformAwareDaoBaseOjb implements LaborLedgerEntryDao, LedgerEntryBalancingDao {
@@ -69,7 +69,7 @@ public class LaborLedgerEntryDaoOjb extends PlatformAwareDaoBaseOjb implements L
         criteria.addEqualTo(KFSPropertyConstants.DOCUMENT_NUMBER, ledgerEntry.getDocumentNumber());
 
         ReportQueryByCriteria query = QueryFactory.newReportQuery(this.getEntryClass(), criteria);
-        query.setAttributes(new String[] { "max(" + KFSPropertyConstants.TRANSACTION_ENTRY_SEQUENCE_NUMBER + ")" });
+        query.setAttributes(new String[]{"max(" + KFSPropertyConstants.TRANSACTION_ENTRY_SEQUENCE_NUMBER + ")"});
 
         Iterator iterator = getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(query);
         Integer maxSequenceNumber = Integer.valueOf(0);
@@ -100,7 +100,7 @@ public class LaborLedgerEntryDaoOjb extends PlatformAwareDaoBaseOjb implements L
         Criteria criteria = this.buildPayTypeCriteria(payPeriods, balanceTypes, earnCodePayGroupMap);
 
         ReportQueryByCriteria query = QueryFactory.newReportQuery(this.getEntryClass(), criteria);
-        query.setAttributes(new String[] { KFSPropertyConstants.EMPLID });
+        query.setAttributes(new String[]{KFSPropertyConstants.EMPLID});
         query.setDistinct(true);
 
         Iterator<Object[]> employees = getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(query);
@@ -116,7 +116,7 @@ public class LaborLedgerEntryDaoOjb extends PlatformAwareDaoBaseOjb implements L
 
     /**
      * @see org.kuali.kfs.module.ld.dataaccess.LaborLedgerEntryDao#getLedgerEntriesForEmployeeWithPayType(java.lang.String, java.util.Map,
-     *      java.util.List, java.util.Map)
+     * java.util.List, java.util.Map)
      */
     public Collection<LedgerEntry> getLedgerEntriesForEmployeeWithPayType(String emplid, Map<Integer, Set<String>> payPeriods, List<String> balanceTypes, Map<String, Set<String>> earnCodePayGroupMap) {
         Criteria criteria = this.buildPayTypeCriteria(payPeriods, balanceTypes, earnCodePayGroupMap);
@@ -128,7 +128,7 @@ public class LaborLedgerEntryDaoOjb extends PlatformAwareDaoBaseOjb implements L
 
     /**
      * @see org.kuali.kfs.module.ld.dataaccess.LaborLedgerEntryDao#isEmployeeWithPayType(java.lang.String, java.util.Map, java.util.List,
-     *      java.util.Map)
+     * java.util.Map)
      */
     public boolean isEmployeeWithPayType(String emplid, Map<Integer, Set<String>> payPeriods, List<String> balanceTypes, Map<String, Set<String>> earnCodePayGroupMap) {
         Criteria criteria = this.buildPayTypeCriteria(payPeriods, balanceTypes, earnCodePayGroupMap);
@@ -166,24 +166,23 @@ public class LaborLedgerEntryDaoOjb extends PlatformAwareDaoBaseOjb implements L
         criteria.addEqualTo(KFSConstants.TRANSACTION_DEBIT_CREDIT_CODE, transactionDebitCreditCode);
 
         ReportQueryByCriteria reportQuery = QueryFactory.newReportQuery(this.getEntryClass(), criteria);
-        reportQuery.setAttributes(new String[] { "count(*)", ConsolidationUtil.sum(KFSConstants.TRANSACTION_LEDGER_ENTRY_AMOUNT)});
-        reportQuery.addGroupBy(new String[] { KFSConstants.UNIVERSITY_FISCAL_YEAR_PROPERTY_NAME, KFSConstants.CHART_OF_ACCOUNTS_CODE_PROPERTY_NAME, KFSConstants.FINANCIAL_OBJECT_CODE_PROPERTY_NAME, KFSConstants.FINANCIAL_BALANCE_TYPE_CODE_PROPERTY_NAME, KFSConstants.UNIVERSITY_FISCAL_PERIOD_CODE_PROPERTY_NAME, KFSConstants.TRANSACTION_DEBIT_CREDIT_CODE});
-        
+        reportQuery.setAttributes(new String[]{"count(*)", ConsolidationUtil.sum(KFSConstants.TRANSACTION_LEDGER_ENTRY_AMOUNT)});
+        reportQuery.addGroupBy(new String[]{KFSConstants.UNIVERSITY_FISCAL_YEAR_PROPERTY_NAME, KFSConstants.CHART_OF_ACCOUNTS_CODE_PROPERTY_NAME, KFSConstants.FINANCIAL_OBJECT_CODE_PROPERTY_NAME, KFSConstants.FINANCIAL_BALANCE_TYPE_CODE_PROPERTY_NAME, KFSConstants.UNIVERSITY_FISCAL_PERIOD_CODE_PROPERTY_NAME, KFSConstants.TRANSACTION_DEBIT_CREDIT_CODE});
+
         Iterator<Object[]> iterator = getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(reportQuery);
         Object[] returnResult = TransactionalServiceUtils.retrieveFirstAndExhaustIterator(iterator);
-        
+
         if (ObjectUtils.isNull(returnResult)) {
             // Do nothing, we'll return null. Data wasn't found.
         } else if (returnResult[0] instanceof BigDecimal) {
             returnResult[0] = ((BigDecimal) returnResult[0]).intValue();
-        }
-        else {
+        } else {
             returnResult[0] = ((Long) returnResult[0]).intValue();
         }
-        
+
         return returnResult;
     }
-    
+
     // build the pay type criteria
     protected Criteria buildPayTypeCriteria(Map<Integer, Set<String>> payPeriods, List<String> balanceTypes, Map<String, Set<String>> earnCodePayGroupMap) {
         Criteria criteria = new Criteria();
@@ -224,12 +223,12 @@ public class LaborLedgerEntryDaoOjb extends PlatformAwareDaoBaseOjb implements L
     public Integer findCountGreaterOrEqualThan(Integer year) {
         Criteria criteria = new Criteria();
         criteria.addGreaterOrEqualThan(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, year);
-        
+
         ReportQueryByCriteria query = QueryFactory.newReportQuery(getEntryClass(), criteria);
-        
+
         return getPersistenceBrokerTemplate().getCount(query);
     }
-    
+
     /**
      * @return the Class type of the business object accessed and managed
      */

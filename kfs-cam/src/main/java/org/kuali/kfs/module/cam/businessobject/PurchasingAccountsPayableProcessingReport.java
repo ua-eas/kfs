@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  * 
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -28,6 +28,7 @@ public class PurchasingAccountsPayableProcessingReport extends GeneralLedgerEntr
 
     /**
      * Gets the purapDocumentIdentifier attribute. 
+     *
      * @return Returns the purapDocumentIdentifier.
      */
     public Integer getPurapDocumentIdentifier() {
@@ -36,6 +37,7 @@ public class PurchasingAccountsPayableProcessingReport extends GeneralLedgerEntr
 
     /**
      * Sets the purapDocumentIdentifier attribute value.
+     *
      * @param purapDocumentIdentifier The purapDocumentIdentifier to set.
      */
     public void setPurapDocumentIdentifier(Integer purapDocumentIdentifier) {
@@ -44,6 +46,7 @@ public class PurchasingAccountsPayableProcessingReport extends GeneralLedgerEntr
 
     /**
      * Gets the reportAmount attribute. 
+     *
      * @return Returns the reportAmount.
      */
     public KualiDecimal getReportAmount() {
@@ -52,6 +55,7 @@ public class PurchasingAccountsPayableProcessingReport extends GeneralLedgerEntr
 
     /**
      * Sets the reportAmount attribute value.
+     *
      * @param reportAmount The reportAmount to set.
      */
     public void setReportAmount(KualiDecimal reportAmount) {

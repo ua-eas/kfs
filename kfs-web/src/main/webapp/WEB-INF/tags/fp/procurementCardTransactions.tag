@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -28,15 +28,16 @@
 <c:set var="columnCount" value="${columnCountUntilAmount + 1 + (KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT] ? 1 : 0)}" />
 <c:set var="accountingLineAttributes" value="${DataDictionary['TargetAccountingLine'].attributes}" />
 
-<kul:tab tabTitle="Accounting Lines" defaultOpen="true" tabErrorKey="${KFSConstants.TARGET_ACCOUNTING_LINE_ERROR_PATTERN},document.transactionEntries*">
+<kul:tab tabTitle="Accounting Lines" defaultOpen="true" tabErrorKey="${KFSConstants.TARGET_ACCOUNTING_LINE_ERROR_PATTERN},document.transactionEntries*"
+         helpUrl="${KualiForm.accountingLineImportInstructionsUrl}" helpLabel="Import Templates">
   <c:set var="transactionAttributes" value="${DataDictionary.ProcurementCardTransactionDetail.attributes}" />
   <c:set var="vendorAttributes" value="${DataDictionary.ProcurementCardVendor.attributes}" />
   <c:set var="cardAttributes" value="${DataDictionary.ProcurementCardHolder.attributes}" />
-	
+
   <div class="tab-container" align="center">
   <logic:iterate indexId="ctr" name="KualiForm" property="document.transactionEntries" id="currentTransaction">
     <table cellpadding="0" class="datatable" summary="Transaction Details">
-                                                                                           
+
        <fp:subheadingWithDetailToggleRow columnCount="4" subheading="Transaction #${currentTransaction.transactionReferenceNumber}"/>
          <tr>
            <th scope="row"><div align="right"><kul:htmlAttributeLabel attributeEntry="${cardAttributes.transactionCreditCardNumber}" readOnly="true"/></div></th>
@@ -123,9 +124,9 @@
 			<sys-java:accountingLineGroup newLinePropertyName="newTargetLines[${ctr}]" collectionPropertyName="document.transactionEntries[${ctr}].targetAccountingLines" collectionItemPropertyName="document.transactionEntries[${ctr}].targetAccountingLines" attributeGroupName="target" />
 		</sys-java:accountingLines>
 	</kul:subtab>
-    
+
     <br/>
-   </logic:iterate> 
+   </logic:iterate>
   </div>
   <SCRIPT type="text/javascript">
     var kualiForm = document.forms['KualiForm'];

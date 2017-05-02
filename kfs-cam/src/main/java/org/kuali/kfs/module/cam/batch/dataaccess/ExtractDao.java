@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  * 
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.cam.batch.dataaccess;
 
-import java.util.Collection;
-import java.util.List;
-
 import org.kuali.kfs.gl.businessobject.Entry;
-import org.kuali.kfs.module.cab.businessobject.BatchParameters;
+import org.kuali.kfs.module.cam.businessobject.BatchParameters;
 import org.kuali.kfs.module.purap.businessobject.CreditMemoAccountRevision;
 import org.kuali.kfs.module.purap.businessobject.PaymentRequestAccountRevision;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderAccount;
+
+import java.util.Collection;
+import java.util.List;
 
 public interface ExtractDao {
     /**

@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  * 
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,6 +18,30 @@
  */
 package org.kuali.kfs.module.cam.businessobject.lookup;
 
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.lookup.LookupUtils;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.UrlFactory;
+import org.kuali.kfs.module.cam.CamsConstants;
+import org.kuali.kfs.module.cam.CamsPropertyConstants;
+import org.kuali.kfs.module.cam.businessobject.GeneralLedgerEntry;
+import org.kuali.kfs.module.cam.businessobject.PurchasingAccountsPayableDocument;
+import org.kuali.kfs.module.cam.businessobject.PurchasingAccountsPayableProcessingReport;
+import org.kuali.kfs.module.cam.service.PurchasingAccountsPayableReportService;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+import org.kuali.rice.kim.api.KimConstants;
+import org.kuali.rice.kim.api.services.IdentityManagementService;
+import org.kuali.rice.krad.bo.BusinessObject;
+
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -27,30 +51,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.module.cab.CabConstants;
-import org.kuali.kfs.module.cab.CabPropertyConstants;
-import org.kuali.kfs.module.cab.businessobject.GeneralLedgerEntry;
-import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableDocument;
-import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableProcessingReport;
-import org.kuali.kfs.module.cab.service.PurchasingAccountsPayableReportService;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.kim.api.KimConstants;
-import org.kuali.rice.kim.api.services.IdentityManagementService;
-import org.kuali.rice.kns.lookup.HtmlData;
-import org.kuali.rice.kns.lookup.HtmlData.AnchorHtmlData;
-import org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.rice.kns.lookup.LookupUtils;
-import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.lookup.CollectionIncomplete;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.ObjectUtils;
-import org.kuali.rice.krad.util.UrlFactory;
 
 /**
  * This class overrids the base getActionUrls method
@@ -63,14 +63,14 @@ public class PurApReportLookupableHelperServiceImpl extends KualiLookupableHelpe
     /**
      * Custom action urls for CAB PurAp lines.
      *
-     * @see org.kuali.rice.kns.lookup.LookupableHelperService#getCustomActionUrls(org.kuali.rice.krad.bo.BusinessObject,
-     *      java.util.List, java.util.List pkNames)
+     * @see org.kuali.rice.kns.lookup.LookupableHelperService#getCustomActionUrls(BusinessObject,
+     * List, List pkNames)
      */
     @Override
     public List<HtmlData> getCustomActionUrls(BusinessObject bo, List pkNames) {
         Map<String,String> permissionDetails = new HashMap<String,String>();
-        permissionDetails.put(KimConstants.AttributeConstants.NAMESPACE_CODE, "KFS-CAB");
-        permissionDetails.put(KimConstants.AttributeConstants.ACTION_CLASS, "PurApLineAction");
+        permissionDetails.put(KimConstants.AttributeConstants.NAMESPACE_CODE, "KFS-CAM");
+        permissionDetails.put(KimConstants.AttributeConstants.ACTION_CLASS, "org.kuali.kfs.module.cam.web.struts.PurApLineAction");
 
         if (!SpringContext.getBean(IdentityManagementService.class).isAuthorizedByTemplateName(GlobalVariables.getUserSession().getPrincipalId(), KRADConstants.KNS_NAMESPACE, KimConstants.PermissionTemplateNames.USE_SCREEN, permissionDetails, null)) {
             return super.getEmptyActionUrls();
@@ -79,21 +79,21 @@ public class PurApReportLookupableHelperServiceImpl extends KualiLookupableHelpe
         GeneralLedgerEntry glEntry = (GeneralLedgerEntry) bo;
 
         Properties parameters = new Properties();
-        parameters.put(KFSConstants.DISPATCH_REQUEST_PARAMETER, CabConstants.Actions.START);
+        parameters.put(KFSConstants.DISPATCH_REQUEST_PARAMETER, CamsConstants.Actions.START);
         if (glEntry.getReferenceFinancialDocumentNumber() != null) {
-            parameters.put(CabPropertyConstants.PurchasingAccountsPayableDocument.PURCHASE_ORDER_IDENTIFIER, glEntry.getReferenceFinancialDocumentNumber());
+            parameters.put(CamsPropertyConstants.PurchasingAccountsPayableDocument.PURCHASE_ORDER_IDENTIFIER, glEntry.getReferenceFinancialDocumentNumber());
         }
 
-        String href = UrlFactory.parameterizeUrl(CabConstants.CB_INVOICE_LINE_ACTION_URL, parameters);
+        String href = UrlFactory.parameterizeUrl(CamsConstants.CB_INVOICE_LINE_ACTION_URL, parameters);
         List<HtmlData> anchorHtmlDataList = new ArrayList<HtmlData>();
-        AnchorHtmlData anchorHtmlData = new AnchorHtmlData(href, CabConstants.Actions.START, CabConstants.ActivityStatusCode.PROCESSED_IN_CAMS.equalsIgnoreCase(glEntry.getActivityStatusCode()) ? CabConstants.Actions.VIEW : CabConstants.Actions.PROCESS);
+        AnchorHtmlData anchorHtmlData = new AnchorHtmlData(href, CamsConstants.Actions.START, CamsConstants.ActivityStatusCode.PROCESSED_IN_CAMS.equalsIgnoreCase(glEntry.getActivityStatusCode()) ? CamsConstants.Actions.VIEW : CamsConstants.Actions.PROCESS);
         anchorHtmlData.setTarget(KFSConstants.NEW_WINDOW_URL_TARGET);
         anchorHtmlDataList.add(anchorHtmlData);
         return anchorHtmlDataList;
     }
 
     /**
-     * @see org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl#getSearchResults(java.util.Map)
+     * @see org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl#getSearchResults(Map)
      */
     @Override
     public List<? extends BusinessObject> getSearchResults(Map<String, String> fieldValues) {
@@ -101,14 +101,14 @@ public class PurApReportLookupableHelperServiceImpl extends KualiLookupableHelpe
         setDocFormKey(fieldValues.get(KFSConstants.DOC_FORM_KEY));
 
         // purapDocumentIdentifier should query PurchasingAccountsPayableDocument
-        String purapDocumentIdentifier = getSelectedField(fieldValues, CabPropertyConstants.PurchasingAccountsPayableProcessingReport.PURAP_DOCUMENT_IDENTIFIER);
+        String purapDocumentIdentifier = getSelectedField(fieldValues, CamsPropertyConstants.PurchasingAccountsPayableProcessingReport.PURAP_DOCUMENT_IDENTIFIER);
 
         // Get the user selects 'Y' for "processed by CAMs". We will search for all status GL lines. This is because of the partial
         // submitted GL lines when GL is 'N'(new) or 'M'(modified), partial GL lines could submit to CAMs. we should include these
         // lines into the search result.
-        String active = getSelectedField(fieldValues, CabPropertyConstants.GeneralLedgerEntry.ACTIVITY_STATUS_CODE);
+        String active = getSelectedField(fieldValues, CamsPropertyConstants.GeneralLedgerEntry.ACTIVITY_STATUS_CODE);
         if (KFSConstants.ACTIVE_INDICATOR.equalsIgnoreCase(active)) {
-            fieldValues.remove(CabPropertyConstants.GeneralLedgerEntry.ACTIVITY_STATUS_CODE);
+            fieldValues.remove(CamsPropertyConstants.GeneralLedgerEntry.ACTIVITY_STATUS_CODE);
         }
         // search for GeneralLedgerEntry BO.
         Iterator searchResultIterator = purApReportService.findGeneralLedgers(fieldValues);
@@ -126,8 +126,7 @@ public class PurApReportLookupableHelperServiceImpl extends KualiLookupableHelpe
             Map<String, Integer> purApDocNumberMap = buildDocumentNumberMap(purApDocs);
 
             purApReportList = updatePurApReportListByPurApDocs(purApReportList, purApDocNumberMap);
-        }
-        else {
+        } else {
             purApReportList = updateResultList(purApReportList);
         }
 
@@ -146,7 +145,7 @@ public class PurApReportLookupableHelperServiceImpl extends KualiLookupableHelpe
         Map pKeys = new HashMap<String, String>();
 
         for (PurchasingAccountsPayableProcessingReport report : purApReportList) {
-            pKeys.put(CabPropertyConstants.PurchasingAccountsPayableDocument.DOCUMENT_NUMBER, report.getDocumentNumber());
+            pKeys.put(CamsPropertyConstants.PurchasingAccountsPayableDocument.DOCUMENT_NUMBER, report.getDocumentNumber());
             PurchasingAccountsPayableDocument purApDocument = boService.findByPrimaryKey(PurchasingAccountsPayableDocument.class, pKeys);
             if (ObjectUtils.isNotNull(purApDocument)) {
                 report.setPurapDocumentIdentifier(purApDocument.getPurapDocumentIdentifier());
@@ -204,9 +203,9 @@ public class PurApReportLookupableHelperServiceImpl extends KualiLookupableHelpe
      */
     protected Map<String, String> getPurApDocumentLookupFields(Map<String, String> fieldValues, String purapDocumentIdentifier) {
         Map<String, String> purapDocumentLookupFields = new HashMap<String, String>();
-        purapDocumentLookupFields.put(CabPropertyConstants.PurchasingAccountsPayableDocument.PURAP_DOCUMENT_IDENTIFIER, purapDocumentIdentifier);
-        purapDocumentLookupFields.put(CabPropertyConstants.PurchasingAccountsPayableDocument.DOCUMENT_NUMBER, fieldValues.get(CabPropertyConstants.GeneralLedgerEntry.DOCUMENT_NUMBER));
-        purapDocumentLookupFields.put(CabPropertyConstants.PurchasingAccountsPayableDocument.PURCHASE_ORDER_IDENTIFIER, fieldValues.get(CabPropertyConstants.GeneralLedgerEntry.REFERENCE_FINANCIAL_DOCUMENT_NUMBER));
+        purapDocumentLookupFields.put(CamsPropertyConstants.PurchasingAccountsPayableDocument.PURAP_DOCUMENT_IDENTIFIER, purapDocumentIdentifier);
+        purapDocumentLookupFields.put(CamsPropertyConstants.PurchasingAccountsPayableDocument.DOCUMENT_NUMBER, fieldValues.get(CamsPropertyConstants.GeneralLedgerEntry.DOCUMENT_NUMBER));
+        purapDocumentLookupFields.put(CamsPropertyConstants.PurchasingAccountsPayableDocument.PURCHASE_ORDER_IDENTIFIER, fieldValues.get(CamsPropertyConstants.GeneralLedgerEntry.REFERENCE_FINANCIAL_DOCUMENT_NUMBER));
         return purapDocumentLookupFields;
     }
 
@@ -272,8 +271,7 @@ public class PurApReportLookupableHelperServiceImpl extends KualiLookupableHelpe
                         if (newReport.getTransactionLedgerEntryAmount() != null) {
                             setReportAmount(activeSelection, newReport);
                         }
-                    }
-                    else {
+                    } else {
                         // set report amount by transactional Amount
                         newReport.setReportAmount(newReport.getAmount());
                     }
@@ -294,12 +292,10 @@ public class PurApReportLookupableHelperServiceImpl extends KualiLookupableHelpe
     protected Date getDate(Object obj) {
         if (obj instanceof Date) {
             return (Date) obj;
-        }
-        else if (obj instanceof Timestamp) {
+        } else if (obj instanceof Timestamp) {
             Timestamp tsp = (Timestamp) obj;
             return new Date(tsp.getTime());
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -329,18 +325,15 @@ public class PurApReportLookupableHelperServiceImpl extends KualiLookupableHelpe
         if (KFSConstants.ACTIVE_INDICATOR.equalsIgnoreCase(active)) {
             // Processed in CAMS: set report amount as submitted amount
             newReport.setReportAmount(newReport.getTransactionLedgerSubmitAmount());
-        }
-        else if ((KFSConstants.NON_ACTIVE_INDICATOR.equalsIgnoreCase(active))) {
+        } else if ((KFSConstants.NON_ACTIVE_INDICATOR.equalsIgnoreCase(active))) {
             // Not Processed in CAMS: set report amount by transactionLedgerEntryAmount excluding submitted amount
             KualiDecimal reportAmount = newReport.getAmount();
             if (reportAmount != null && newReport.getTransactionLedgerSubmitAmount() != null) {
                 newReport.setReportAmount(reportAmount.subtract(newReport.getTransactionLedgerSubmitAmount()));
-            }
-            else {
+            } else {
                 newReport.setReportAmount(reportAmount);
             }
-        }
-        else {
+        } else {
             // both processed/non processed: set report amount by transactional amount
             newReport.setReportAmount(newReport.getAmount());
         }

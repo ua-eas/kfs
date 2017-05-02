@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="kfs" id="2394" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CPTL_AST_TRN_TYP_CD" constraintName="PKCB_AST_TRN_TYP_T" tableName="CB_AST_TRN_TYP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2395" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CB_GL_ACCT_ID, CB_LN_NBR" constraintName="PKCB_GL_ENTRY_AST_T" tableName="CB_GL_ENTRY_AST_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2396" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CB_GL_ACCT_ID" constraintName="PKCB_GL_ENTRY_T" tableName="CB_GL_ENTRY_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2397" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="PO_NUMBER, ITM_LN_NBR, CPTLAST_TAG_NBR" constraintName="PKCB_PRTG_DTL_T" tableName="CB_PRTG_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2398" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="PO_NUMBER, ITM_LN_NBR" constraintName="PKCB_PRTG_T" tableName="CB_PRTG_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2399" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="ACTN_ID" constraintName="PKCB_PUR_ACTN_HIST_T" tableName="CB_PUR_ACTN_HIST_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2400" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKCB_PUR_DOC_T" tableName="CB_PUR_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2401" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR, PUR_ITM_ID, CB_LN_NBR" constraintName="PKCB_PUR_ITM_AST_T" tableName="CB_PUR_ITM_AST_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2402" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR, PUR_ITM_ID, CB_LN_NBR, CB_GL_ACCT_ID" constraintName="PKCB_PUR_LN_AST_ACCT_T" tableName="CB_PUR_LN_AST_ACCT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2403" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CPTLAST_ACQ_TYP_CD" constraintName="PKCM_ACQ_TYPE_T" tableName="CM_ACQ_TYPE_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2404" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CPTLAST_TYP_CD" constraintName="PKCM_ASSET_TYPE_T" tableName="CM_ASSET_TYPE_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2405" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CPTLAST_NBR, CACMP_NBR" constraintName="PKCM_AST_COMPONENT_T" tableName="CM_AST_COMPONENT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2406" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CPTLAST_COND_CD" constraintName="PKCM_AST_CONDITION_T" tableName="CM_AST_CONDITION_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2407" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FIN_OBJ_SUB_TYPE_CD" constraintName="PKCM_AST_DEPR_CNVNTN_T" tableName="CM_AST_DEPR_CNVNTN_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2408" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="AST_DEPR_METHOD_CD" constraintName="PKCM_AST_DEPR_MTHD_T" tableName="CM_AST_DEPR_MTHD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2409" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKCM_AST_LOC_DOC_T" tableName="CM_AST_LOC_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2410" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR, CPTLAST_NBR" constraintName="PKCM_AST_LOC_DTL_T" tableName="CM_AST_LOC_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2411" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CPTLAST_NBR, AST_LOC_TYP_CD" constraintName="PKCM_AST_LOC_T" tableName="CM_AST_LOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2412" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CPTLAST_LOC_TYP_CD" constraintName="PKCM_AST_LOC_TYP_T" tableName="CM_AST_LOC_TYP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2413" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CPTLAST_NBR" constraintName="PKCM_AST_ORG_T" tableName="CM_AST_ORG_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2414" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CPTLAST_NBR, AST_PMT_SEQ_NBR" constraintName="PKCM_AST_PAYMENT_T" tableName="CM_AST_PAYMENT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2415" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR, CPTLAST_NBR" constraintName="PKCM_AST_PMT_AST_DTL_T" tableName="CM_AST_PMT_AST_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2416" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKCM_AST_PMT_DOC_T" tableName="CM_AST_PMT_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2417" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="DOC_TYP_ID" constraintName="PKCM_AST_PMT_DOC_TYP_T" tableName="CM_AST_PMT_DOC_TYP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2418" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="AST_PMT_DST_CD" constraintName="PKCM_AST_PMT_DST_CD_T" tableName="CM_AST_PMT_DST_CD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2419" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR, FDOC_LINE_NBR" constraintName="PKCM_AST_PMT_DTL_T" tableName="CM_AST_PMT_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2420" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKCM_AST_RETIRE_DOC_T" tableName="CM_AST_RETIRE_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2421" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR, CPTLAST_NBR" constraintName="PKCM_AST_RETIRE_DTL_T" tableName="CM_AST_RETIRE_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2422" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CPTLAST_NBR, CPTLAST_INCIDNT_DT" constraintName="PKCM_AST_RPR_HIST_T" tableName="CM_AST_RPR_HIST_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2423" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="AST_INVN_STAT_CD" constraintName="PKCM_AST_STATUS_T" tableName="CM_AST_STATUS_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2424" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKCM_AST_TRNFR_DOC_T" tableName="CM_AST_TRNFR_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2425" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CPTLAST_NBR" constraintName="PKCM_AST_WRNTY_T" tableName="CM_AST_WRNTY_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="1253" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CPTLAST_NBR" constraintName="PKCM_CPTLAST_T" tableName="CM_CPTLAST_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2426" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKCM_CPTLAST_DOC_T" tableName="CM_CPTLAST_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2427" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR, CPTLAST_NBR" constraintName="PKCM_CPTLAST_DTL_T" tableName="CM_CPTLAST_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2428" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="DOC_HDR_ID, CPTLAST_NBR, LOCK_INFO_TXT" constraintName="PKCM_CPTLAST_LOCK_T" tableName="CM_CPTLAST_LOCK_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2429" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="UNIV_FISCAL_YR, FIN_COA_CD, FIN_OBJ_SUB_TYPE_CD" constraintName="PKCM_CPTLAST_OBJ_T" tableName="CM_CPTLAST_OBJ_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2430" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKCM_EQPLNRTRN_DOC_T" tableName="CM_EQPLNRTRN_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2431" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="UNIV_FISCAL_YR, CPTLAST_NBR" constraintName="PKCM_FSCL_YR_END_DEPR_DTL_T" tableName="CM_FSCL_YR_END_DEPR_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2432" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="UNIV_FISCAL_YR" constraintName="PKCM_FSCL_YR_END_DEPR_HDR_T" tableName="CM_FSCL_YR_END_DEPR_HDR_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2433" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKCM_INVN_ERR_DOC_T" tableName="CM_INVN_ERR_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2434" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR, AST_UPLD_ROW_NBR" constraintName="PKCM_INVN_ERR_DTL_T" tableName="CM_INVN_ERR_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2435" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="AST_RETIRE_REAS_CD" constraintName="PKCM_RETIRE_REAS_T" tableName="CM_RETIRE_REAS_T"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,40 +1,36 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cam.document.service.impl;
 
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Pattern;
-
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.service.ObjectCodeService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsKeyConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
+import org.kuali.kfs.module.cam.batch.AssetDepreciationStep;
 import org.kuali.kfs.module.cam.businessobject.Asset;
 import org.kuali.kfs.module.cam.businessobject.AssetGlobal;
 import org.kuali.kfs.module.cam.businessobject.AssetPayment;
@@ -52,14 +48,18 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.UniversityDate;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
 
 @Transactional
 public class AssetPaymentServiceImpl implements AssetPaymentService {
@@ -149,7 +149,7 @@ public class AssetPaymentServiceImpl implements AssetPaymentService {
 
     /**
      * Creates a new asset payment record for each new asset payment detail record and then save them
-     * 
+     *
      * @param document
      */
     protected void processPayments(AssetPaymentDocument document) {
@@ -160,7 +160,7 @@ public class AssetPaymentServiceImpl implements AssetPaymentService {
 
         //instantiate asset payment distributor
         AssetDistribution paymentDistributor = document.getAssetPaymentDistributor();
-        
+
         // Calculating the asset payments distributions for each individual asset on the list
         Map<String, Map<AssetPaymentAssetDetail, KualiDecimal>> assetPaymentDistributionMap = paymentDistributor.getAssetPaymentDistributions();
 
@@ -210,11 +210,11 @@ public class AssetPaymentServiceImpl implements AssetPaymentService {
                 keys.put(CamsPropertyConstants.Asset.CAPITAL_ASSET_NUMBER, assetPaymentAssetDetail.getCapitalAssetNumber());
                 Asset asset = (Asset) getBusinessObjectService().findByPrimaryKey(Asset.class, keys);
 
-                // Set previous total cost 
+                // Set previous total cost
                 if (assetPaymentAssetDetail.getPreviousTotalCostAmount() == null) {
                     assetPaymentAssetDetail.setPreviousTotalCostAmount(new KualiDecimal(0));
                 }
-                
+
                 // Setting the asset's new cost.
                 asset.setTotalCostAmount(assetPaymentAssetDetail.getPreviousTotalCostAmount().add(totalAmount));
 
@@ -226,18 +226,17 @@ public class AssetPaymentServiceImpl implements AssetPaymentService {
                 getBusinessObjectService().save(asset);
                 // *********************END - Updating Asset ***********************************************************
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
         // Finally, saving all the asset payment records.
         this.getBusinessObjectService().save(assetPayments);
     }
 
-    
+
     /**
      * @see org.kuali.kfs.module.cam.document.service.AssetPaymentService#adjustPaymentAmounts(org.kuali.kfs.module.cam.businessobject.AssetPayment,
-     *      boolean, boolean)
+     * boolean, boolean)
      */
     public void adjustPaymentAmounts(AssetPayment assetPayment, boolean reverseAmount, boolean nullPeriodDepreciation) throws IllegalAccessException, InvocationTargetException {
         LOG.debug("Starting - adjustAmounts() ");
@@ -250,10 +249,9 @@ public class AssetPaymentServiceImpl implements AssetPaymentService {
                 if (writeMethod != null && amount != null) {
                     // Reset periodic depreciation expenses
                     if (nullPeriodDepreciation && Pattern.matches(CamsConstants.SET_PERIOD_DEPRECIATION_AMOUNT_REGEX, writeMethod.getName().toLowerCase())) {
-                        Object[] nullVal = new Object[] { null };
+                        Object[] nullVal = new Object[]{null};
                         writeMethod.invoke(assetPayment, nullVal);
-                    }
-                    else if (reverseAmount) {
+                    } else if (reverseAmount) {
                         // reverse the amounts
                         writeMethod.invoke(assetPayment, (amount.negated()));
                     }
@@ -280,14 +278,14 @@ public class AssetPaymentServiceImpl implements AssetPaymentService {
 
     /**
      * Checks if object sub type is a non-depreciable federally owned object sub type
-     * 
+     *
      * @param string objectSubType2
      * @return true if is NON_DEPRECIABLE_FEDERALLY_OWNED_OBJECT_SUB_TYPES
      */
     public boolean isNonDepreciableFederallyOwnedObjSubType(String objectSubType) {
-        List<String> federallyOwnedObjectSubTypes = new ArrayList<String>();
-        if (this.getParameterService().parameterExists(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.NON_DEPRECIABLE_FEDERALLY_OWNED_OBJECT_SUB_TYPES)) {
-            federallyOwnedObjectSubTypes = new ArrayList<String>( this.getParameterService().getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.NON_DEPRECIABLE_FEDERALLY_OWNED_OBJECT_SUB_TYPES) );
+        List<String> federallyOwnedObjectSubTypes = new ArrayList<>();
+        if (this.getParameterService().parameterExists(AssetDepreciationStep.class, CamsConstants.Parameters.NON_DEPRECIABLE_FEDERALLY_OWNED_OBJECT_SUB_TYPES)) {
+            federallyOwnedObjectSubTypes = new ArrayList<>(this.getParameterService().getParameterValuesAsString(AssetDepreciationStep.class, CamsConstants.Parameters.NON_DEPRECIABLE_FEDERALLY_OWNED_OBJECT_SUB_TYPES));
         }
         return federallyOwnedObjectSubTypes.contains(objectSubType);
     }
@@ -296,16 +294,14 @@ public class AssetPaymentServiceImpl implements AssetPaymentService {
      * @see org.kuali.kfs.module.cam.document.service.AssetPaymentService#extractPostedDatePeriod(org.kuali.kfs.module.cam.businessobject.AssetPaymentDetail)
      */
     public boolean extractPostedDatePeriod(AssetPaymentDetail assetPaymentDetail) {
-        boolean valid = true;
-        Map<String, Object> primaryKeys = new HashMap<String, Object>();
+        Map<String, Object> primaryKeys = new HashMap<>();
         primaryKeys.put(KFSPropertyConstants.UNIVERSITY_DATE, assetPaymentDetail.getExpenditureFinancialDocumentPostedDate());
-        UniversityDate universityDate = (UniversityDate) businessObjectService.findByPrimaryKey(UniversityDate.class, primaryKeys);
+        UniversityDate universityDate = businessObjectService.findByPrimaryKey(UniversityDate.class, primaryKeys);
         if (universityDate != null) {
             assetPaymentDetail.setPostingYear(universityDate.getUniversityFiscalYear());
             assetPaymentDetail.setPostingPeriodCode(universityDate.getUniversityFiscalAccountingPeriod());
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -324,7 +320,7 @@ public class AssetPaymentServiceImpl implements AssetPaymentService {
 
     /**
      * @see org.kuali.kfs.module.cam.document.service.AssetPaymentService#validateAssets(java.lang.String,
-     *      org.kuali.kfs.module.cam.businessobject.Asset)
+     * org.kuali.kfs.module.cam.businessobject.Asset)
      */
     public boolean validateAssets(String errorPath, Asset asset) {
         boolean valid = true;
@@ -346,12 +342,12 @@ public class AssetPaymentServiceImpl implements AssetPaymentService {
 
     /**
      * This method determines whether or not an asset has different object sub type codes in its documents.
-     * 
+     *
      * @return true when the asset has payments with object codes that point to different object sub type codes
      */
     public boolean hasDifferentObjectSubTypes(AssetPaymentDocument document) {
         List<String> subTypes = new ArrayList<String>();
-        subTypes = new ArrayList<String>( SpringContext.getBean(ParameterService.class).getParameterValuesAsString(Asset.class, CamsConstants.Parameters.OBJECT_SUB_TYPE_GROUPS) );
+        subTypes = new ArrayList<String>(SpringContext.getBean(ParameterService.class).getParameterValuesAsString(Asset.class, CamsConstants.Parameters.OBJECT_SUB_TYPE_GROUPS));
 
         List<AssetPaymentDetail> assetPaymentDetails = document.getSourceAccountingLines();
         List<String> validObjectSubTypes = new ArrayList<String>();
@@ -470,14 +466,14 @@ public class AssetPaymentServiceImpl implements AssetPaymentService {
         this.assetService = assetService;
     }
 
-	/**
-	 * @see org.kuali.kfs.module.cam.document.service.AssetPaymentService#getAssetDistributionTypeColumnName(java.lang.String)
-	 */
-	public AssetPaymentAllocationType getAssetDistributionType(String distributionCode) {
-		HashMap<String, String> keys = new HashMap<String, String>();
-		keys.put("distributionCode", distributionCode);
-		AssetPaymentAllocationType d = (AssetPaymentAllocationType) getBusinessObjectService().findByPrimaryKey(AssetPaymentAllocationType.class, keys);
-		return d;
-	}
-	
+    /**
+     * @see org.kuali.kfs.module.cam.document.service.AssetPaymentService#getAssetDistributionTypeColumnName(java.lang.String)
+     */
+    public AssetPaymentAllocationType getAssetDistributionType(String distributionCode) {
+        HashMap<String, String> keys = new HashMap<String, String>();
+        keys.put("distributionCode", distributionCode);
+        AssetPaymentAllocationType d = (AssetPaymentAllocationType) getBusinessObjectService().findByPrimaryKey(AssetPaymentAllocationType.class, keys);
+        return d;
+    }
+
 }

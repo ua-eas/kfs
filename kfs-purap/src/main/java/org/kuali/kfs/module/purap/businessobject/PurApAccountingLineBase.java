@@ -1,34 +1,34 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.businessobject;
 
-import java.math.BigDecimal;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Purap Accounting Line Base Business Object.
@@ -78,8 +78,7 @@ public abstract class PurApAccountingLineBase extends SourceAccountingLine imple
         if (accountLinePercent != null) {
             accountLinePercent = accountLinePercent.setScale(2, BigDecimal.ROUND_HALF_UP);
             return accountLinePercent;
-        }
-        else {
+        } else {
             return BigDecimal.ZERO.setScale(2, 2);
         }
     }
@@ -103,8 +102,8 @@ public abstract class PurApAccountingLineBase extends SourceAccountingLine imple
     @Override
     public PurApAccountingLine createBlankAmountsCopy() {
         PurApAccountingLine newAccount = (PurApAccountingLine) ObjectUtils.deepCopy(this);
-     //   newAccount.setAccountLinePercent(BigDecimal.ZERO);
-     //   newAccount.setAmount(KualiDecimal.ZERO);
+        //   newAccount.setAccountLinePercent(BigDecimal.ZERO);
+        //   newAccount.setAmount(KualiDecimal.ZERO);
         newAccount.setSequenceNumber(0);
         newAccount.setAccountLinePercent(null);
         newAccount.setAmount(null);
@@ -121,7 +120,7 @@ public abstract class PurApAccountingLineBase extends SourceAccountingLine imple
             return false;
         }
         return new EqualsBuilder().append(getChartOfAccountsCode(), accountingLine.getChartOfAccountsCode()).append(getAccountNumber(), accountingLine.getAccountNumber()).append(getSubAccountNumber(), accountingLine.getSubAccountNumber()).append(getFinancialObjectCode(), accountingLine.getFinancialObjectCode()).append(getFinancialSubObjectCode(), accountingLine.getFinancialSubObjectCode()).append(getProjectCode(), accountingLine.getProjectCode()).append(getOrganizationReferenceId(), accountingLine.getOrganizationReferenceId())
-                .isEquals();
+            .isEquals();
     }
 
     @Override
@@ -207,7 +206,7 @@ public abstract class PurApAccountingLineBase extends SourceAccountingLine imple
         super.copyFrom(other);
 
         if (other instanceof PurApAccountingLine) {
-            PurApAccountingLine purapOther = (PurApAccountingLine)other;
+            PurApAccountingLine purapOther = (PurApAccountingLine) other;
 
             // Need to fix accountIdentifier and sequenceNumber since they are crossed in the getter in purap
             // i.e. getSequenceNumber() actually returns accountIdentifier, while getPurApSequenceNumber() returns the original sequenceNumber.
@@ -227,12 +226,12 @@ public abstract class PurApAccountingLineBase extends SourceAccountingLine imple
         //hold onto item reference if there without itemId
         PurApItem item = null;
         PurApItem tempItem = getPurapItem();
-        if(tempItem != null &&
-           tempItem.getItemIdentifier() != null) {
+        if (tempItem != null &&
+            tempItem.getItemIdentifier() != null) {
             item = tempItem;
         }
         super.refreshNonUpdateableReferences();
-        if(ObjectUtils.isNotNull(item)) {
+        if (ObjectUtils.isNotNull(item)) {
             this.setPurapItem(item);
         }
     }
@@ -244,8 +243,9 @@ public abstract class PurApAccountingLineBase extends SourceAccountingLine imple
 
     /**
      * Sets the requisitionItem attribute.
-     * @deprecated
+     *
      * @param item
+     * @deprecated
      */
     @Override
     public void setPurapItem(PurApItem item) {
@@ -264,6 +264,7 @@ public abstract class PurApAccountingLineBase extends SourceAccountingLine imple
 
     /**
      * Overridden to use purap doc identifier, rather than document number
+     *
      * @see org.kuali.kfs.sys.businessobject.AccountingLineBase#getValuesMap()
      */
     @Override

@@ -1,31 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.report.util;
 
-import java.math.BigDecimal;
-
 import org.kuali.kfs.module.ar.businessobject.CustomerCreditMemoDetail;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
+import java.math.BigDecimal;
+
 public class CustomerCreditMemoDetailReportDataHolder {
-    
+
     private BigDecimal creditMemoItemQuantity;
     private String creditMemoItemUnitOfMeasureCode;
     private String creditMemoItemDescription;
@@ -33,19 +33,20 @@ public class CustomerCreditMemoDetailReportDataHolder {
     private KualiDecimal creditMemoItemUnitPrice;
     private KualiDecimal creditMemoItemTaxAmount;
     private KualiDecimal creditMemoItemTotalAmount;
-    
+
     public CustomerCreditMemoDetailReportDataHolder(CustomerCreditMemoDetail cmDetail, CustomerInvoiceDetail iDetail) {
-       creditMemoItemQuantity = cmDetail.getCreditMemoItemQuantity();
-       creditMemoItemUnitOfMeasureCode = iDetail.getInvoiceItemUnitOfMeasureCode();
-       creditMemoItemDescription = iDetail.getInvoiceItemDescription();
-       creditMemoItemCode = iDetail.getInvoiceItemCode();
-       creditMemoItemUnitPrice = new KualiDecimal(iDetail.getInvoiceItemUnitPrice());
-       creditMemoItemTaxAmount = cmDetail.getCreditMemoItemTaxAmount();
-       creditMemoItemTotalAmount = cmDetail.getCreditMemoLineTotalAmount();
+        creditMemoItemQuantity = cmDetail.getCreditMemoItemQuantity();
+        creditMemoItemUnitOfMeasureCode = iDetail.getInvoiceItemUnitOfMeasureCode();
+        creditMemoItemDescription = iDetail.getInvoiceItemDescription();
+        creditMemoItemCode = iDetail.getInvoiceItemCode();
+        creditMemoItemUnitPrice = new KualiDecimal(iDetail.getInvoiceItemUnitPrice());
+        creditMemoItemTaxAmount = cmDetail.getCreditMemoItemTaxAmount();
+        creditMemoItemTotalAmount = cmDetail.getCreditMemoLineTotalAmount();
     }
 
     /**
-     * Gets the creditMemoItemQuantity attribute. 
+     * Gets the creditMemoItemQuantity attribute.
+     *
      * @return Returns the creditMemoItemQuantity.
      */
     public BigDecimal getCreditMemoItemQuantity() {
@@ -54,6 +55,7 @@ public class CustomerCreditMemoDetailReportDataHolder {
 
     /**
      * Sets the creditMemoItemQuantity attribute value.
+     *
      * @param creditMemoItemQuantity The creditMemoItemQuantity to set.
      */
     public void setCreditMemoItemQuantity(BigDecimal creditMemoItemQuantity) {
@@ -61,7 +63,8 @@ public class CustomerCreditMemoDetailReportDataHolder {
     }
 
     /**
-     * Gets the creditMemoItemUnitOfMeasureCode attribute. 
+     * Gets the creditMemoItemUnitOfMeasureCode attribute.
+     *
      * @return Returns the creditMemoItemUnitOfMeasureCode.
      */
     public String getCreditMemoItemUnitOfMeasureCode() {
@@ -70,6 +73,7 @@ public class CustomerCreditMemoDetailReportDataHolder {
 
     /**
      * Sets the creditMemoItemUnitOfMeasureCode attribute value.
+     *
      * @param creditMemoItemUnitOfMeasureCode The creditMemoItemUnitOfMeasureCode to set.
      */
     public void setCreditMemoItemUnitOfMeasureCode(String creditMemoItemUnitOfMeasureCode) {
@@ -77,7 +81,8 @@ public class CustomerCreditMemoDetailReportDataHolder {
     }
 
     /**
-     * Gets the creditMemoItemDescription attribute. 
+     * Gets the creditMemoItemDescription attribute.
+     *
      * @return Returns the creditMemoItemDescription.
      */
     public String getCreditMemoItemDescription() {
@@ -86,6 +91,7 @@ public class CustomerCreditMemoDetailReportDataHolder {
 
     /**
      * Sets the creditMemoItemDescription attribute value.
+     *
      * @param creditMemoItemDescription The creditMemoItemDescription to set.
      */
     public void setCreditMemoItemDescription(String creditMemoItemDescription) {
@@ -93,7 +99,8 @@ public class CustomerCreditMemoDetailReportDataHolder {
     }
 
     /**
-     * Gets the creditMemoItemCode attribute. 
+     * Gets the creditMemoItemCode attribute.
+     *
      * @return Returns the creditMemoItemCode.
      */
     public String getCreditMemoItemCode() {
@@ -102,6 +109,7 @@ public class CustomerCreditMemoDetailReportDataHolder {
 
     /**
      * Sets the creditMemoItemCode attribute value.
+     *
      * @param creditMemoItemCode The creditMemoItemCode to set.
      */
     public void setCreditMemoItemCode(String creditMemoItemCode) {
@@ -109,7 +117,8 @@ public class CustomerCreditMemoDetailReportDataHolder {
     }
 
     /**
-     * Gets the creditMemoItemUnitPrice attribute. 
+     * Gets the creditMemoItemUnitPrice attribute.
+     *
      * @return Returns the creditMemoItemUnitPrice.
      */
     public KualiDecimal getCreditMemoItemUnitPrice() {
@@ -118,6 +127,7 @@ public class CustomerCreditMemoDetailReportDataHolder {
 
     /**
      * Sets the creditMemoItemUnitPrice attribute value.
+     *
      * @param creditMemoItemUnitPrice The creditMemoItemUnitPrice to set.
      */
     public void setCreditMemoItemUnitPrice(KualiDecimal creditMemoItemUnitPrice) {
@@ -125,7 +135,8 @@ public class CustomerCreditMemoDetailReportDataHolder {
     }
 
     /**
-     * Gets the creditMemoItemTaxAmount attribute. 
+     * Gets the creditMemoItemTaxAmount attribute.
+     *
      * @return Returns the creditMemoItemTaxAmount.
      */
     public KualiDecimal getCreditMemoItemTaxAmount() {
@@ -134,6 +145,7 @@ public class CustomerCreditMemoDetailReportDataHolder {
 
     /**
      * Sets the creditMemoItemTaxAmount attribute value.
+     *
      * @param creditMemoItemTaxAmount The creditMemoItemTaxAmount to set.
      */
     public void setCreditMemoItemTaxAmount(KualiDecimal creditMemoItemTaxAmount) {
@@ -141,7 +153,8 @@ public class CustomerCreditMemoDetailReportDataHolder {
     }
 
     /**
-     * Gets the creditMemoItemTotalAmount attribute. 
+     * Gets the creditMemoItemTotalAmount attribute.
+     *
      * @return Returns the creditMemoItemTotalAmount.
      */
     public KualiDecimal getCreditMemoItemTotalAmount() {
@@ -150,6 +163,7 @@ public class CustomerCreditMemoDetailReportDataHolder {
 
     /**
      * Sets the creditMemoItemTotalAmount attribute value.
+     *
      * @param creditMemoItemTotalAmount The creditMemoItemTotalAmount to set.
      */
     public void setCreditMemoItemTotalAmount(KualiDecimal creditMemoItemTotalAmount) {

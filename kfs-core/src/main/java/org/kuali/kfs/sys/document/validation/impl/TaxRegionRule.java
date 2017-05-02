@@ -1,26 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.document.validation.impl;
 
-import java.util.Date;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.businessobject.TaxRegion;
@@ -30,16 +32,14 @@ import org.kuali.kfs.sys.businessobject.TaxRegionRate;
 import org.kuali.kfs.sys.businessobject.TaxRegionState;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
 import org.kuali.rice.location.api.county.County;
 import org.kuali.rice.location.api.county.CountyService;
 import org.kuali.rice.location.api.postalcode.PostalCode;
 import org.kuali.rice.location.api.postalcode.PostalCodeService;
 import org.kuali.rice.location.api.state.State;
 import org.kuali.rice.location.api.state.StateService;
+
+import java.util.Date;
 
 /**
  * This class implements add collection line business rule for tax district rate.
@@ -48,7 +48,7 @@ public class TaxRegionRule extends KfsMaintenanceDocumentRuleBase {
 
     /**
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomAddCollectionLineBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument,
-     *      java.lang.String, org.kuali.rice.krad.bo.PersistableBusinessObject)
+     * java.lang.String, org.kuali.rice.krad.bo.PersistableBusinessObject)
      */
     @Override
     public boolean processCustomAddCollectionLineBusinessRules(MaintenanceDocument document, String collectionName, PersistableBusinessObject bo) {
@@ -56,14 +56,11 @@ public class TaxRegionRule extends KfsMaintenanceDocumentRuleBase {
         boolean success = true;
         if (KFSConstants.TaxRegionConstants.TAX_REGION_RATES.equals(collectionName)) {
             success &= isValidTaxRegionRate((TaxRegionRate) bo, null);
-        }
-        else if (KFSConstants.TaxRegionConstants.TAX_REGION_STATES.equals(collectionName)) {
+        } else if (KFSConstants.TaxRegionConstants.TAX_REGION_STATES.equals(collectionName)) {
             success &= isValidTaxRegionState((TaxRegionState) bo);
-        }
-        else if (KFSConstants.TaxRegionConstants.TAX_REGION_COUNTIES.equals(collectionName)) {
+        } else if (KFSConstants.TaxRegionConstants.TAX_REGION_COUNTIES.equals(collectionName)) {
             success &= isValidTaxRegionCounty((TaxRegionCounty) bo);
-        }
-        else if (KFSConstants.TaxRegionConstants.TAX_REGION_POSTAL_CODES.equals(collectionName)) {
+        } else if (KFSConstants.TaxRegionConstants.TAX_REGION_POSTAL_CODES.equals(collectionName)) {
             success &= isValidTaxRegionPostalCode((TaxRegionPostalCode) bo);
         }
 
@@ -72,7 +69,7 @@ public class TaxRegionRule extends KfsMaintenanceDocumentRuleBase {
 
     /**
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomAddCollectionLineBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument,
-     *      java.lang.String, org.kuali.rice.krad.bo.PersistableBusinessObject)
+     * java.lang.String, org.kuali.rice.krad.bo.PersistableBusinessObject)
      */
     protected boolean isValidTaxRegionRate(TaxRegionRate taxRegionRate, TaxRegion taxRegion) {
 
@@ -132,8 +129,8 @@ public class TaxRegionRule extends KfsMaintenanceDocumentRuleBase {
     protected boolean isValidTaxRegionState(TaxRegionState taxRegionState) {
         boolean success = true;
 
-        if ( StringUtils.isNotBlank(taxRegionState.getPostalCountryCode()) && StringUtils.isNotBlank(taxRegionState.getStateCode()) ) {
-            State state = SpringContext.getBean(StateService.class).getState(taxRegionState.getPostalCountryCode(),taxRegionState.getStateCode());
+        if (StringUtils.isNotBlank(taxRegionState.getPostalCountryCode()) && StringUtils.isNotBlank(taxRegionState.getStateCode())) {
+            State state = SpringContext.getBean(StateService.class).getState(taxRegionState.getPostalCountryCode(), taxRegionState.getStateCode());
             if (ObjectUtils.isNull(state) || !state.isActive()) {
                 GlobalVariables.getMessageMap().putError(KFSConstants.TaxRegionConstants.TAX_REGION_STATE_CODE, KFSKeyConstants.ERROR_DOCUMENT_TAX_REGION_INVALID_STATE, taxRegionState.getStateCode());
                 success = false;
@@ -152,10 +149,10 @@ public class TaxRegionRule extends KfsMaintenanceDocumentRuleBase {
     protected boolean isValidTaxRegionCounty(TaxRegionCounty taxRegionCounty) {
         boolean success = true;
 
-        if ( StringUtils.isNotBlank(taxRegionCounty.getPostalCountryCode()) && StringUtils.isNotBlank(taxRegionCounty.getStateCode()) && StringUtils.isNotBlank(taxRegionCounty.getCountyCode()) ) {
-            County county = SpringContext.getBean(CountyService.class).getCounty(taxRegionCounty.getPostalCountryCode(),taxRegionCounty.getStateCode(), taxRegionCounty.getCountyCode());
+        if (StringUtils.isNotBlank(taxRegionCounty.getPostalCountryCode()) && StringUtils.isNotBlank(taxRegionCounty.getStateCode()) && StringUtils.isNotBlank(taxRegionCounty.getCountyCode())) {
+            County county = SpringContext.getBean(CountyService.class).getCounty(taxRegionCounty.getPostalCountryCode(), taxRegionCounty.getStateCode(), taxRegionCounty.getCountyCode());
             if (ObjectUtils.isNull(county) || !county.isActive()) {
-                GlobalVariables.getMessageMap().putError(KFSConstants.TaxRegionConstants.TAX_REGION_COUNTY_CODE, KFSKeyConstants.ERROR_DOCUMENT_TAX_REGION_INVALID_COUNTY, new String[] { taxRegionCounty.getCountyCode(), taxRegionCounty.getStateCode() });
+                GlobalVariables.getMessageMap().putError(KFSConstants.TaxRegionConstants.TAX_REGION_COUNTY_CODE, KFSKeyConstants.ERROR_DOCUMENT_TAX_REGION_INVALID_COUNTY, new String[]{taxRegionCounty.getCountyCode(), taxRegionCounty.getStateCode()});
                 success = false;
             }
         }
@@ -172,9 +169,9 @@ public class TaxRegionRule extends KfsMaintenanceDocumentRuleBase {
     protected boolean isValidTaxRegionPostalCode(TaxRegionPostalCode taxRegionPostalCode) {
         boolean success = true;
 
-        if ( StringUtils.isNotBlank(taxRegionPostalCode.getPostalCountryCode()) && StringUtils.isNotBlank(taxRegionPostalCode.getPostalCode()) ) {
+        if (StringUtils.isNotBlank(taxRegionPostalCode.getPostalCountryCode()) && StringUtils.isNotBlank(taxRegionPostalCode.getPostalCode())) {
 
-            PostalCode postalZipCode = SpringContext.getBean(PostalCodeService.class).getPostalCode( taxRegionPostalCode.getPostalCountryCode(), taxRegionPostalCode.getPostalCode() );
+            PostalCode postalZipCode = SpringContext.getBean(PostalCodeService.class).getPostalCode(taxRegionPostalCode.getPostalCountryCode(), taxRegionPostalCode.getPostalCode());
             if (ObjectUtils.isNull(postalZipCode) || !postalZipCode.isActive()) {
                 GlobalVariables.getMessageMap().putError(KFSConstants.TaxRegionConstants.TAX_REGION_POSTAL_CODE, KFSKeyConstants.ERROR_DOCUMENT_TAX_REGION_INVALID_POSTAL_CODE, taxRegionPostalCode.getPostalCode());
                 success = false;

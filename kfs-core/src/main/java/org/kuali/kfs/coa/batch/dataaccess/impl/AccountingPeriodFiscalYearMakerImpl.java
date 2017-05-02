@@ -1,22 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.coa.batch.dataaccess.impl;
+
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coa.businessobject.AccountingPeriod;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.batch.dataaccess.impl.FiscalYearMakerImpl;
+import org.kuali.kfs.sys.businessobject.FiscalYearBasedBusinessObject;
 
 import java.sql.Date;
 import java.util.Collection;
@@ -25,28 +31,22 @@ import java.util.GregorianCalendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.coa.businessobject.AccountingPeriod;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.batch.dataaccess.impl.FiscalYearMakerImpl;
-import org.kuali.kfs.sys.businessobject.FiscalYearBasedBusinessObject;
-
 /**
  * Performs custom population of accounting periods records for a new year being created in the fiscal year maker process
  */
 public class AccountingPeriodFiscalYearMakerImpl extends FiscalYearMakerImpl {
-    
+
     public AccountingPeriodFiscalYearMakerImpl() {
         super();
-        
+
         super.setAllowOverrideTargetYear(false);
     }
 
     /**
      * Updates the year on the fiscal period name and sets status to open for next year records
-     * 
+     *
      * @see org.kuali.kfs.coa.batch.dataaccess.impl.FiscalYearMakerHelperImpl#changeForNewYear(java.lang.Integer,
-     *      org.kuali.rice.krad.bo.PersistableBusinessObject)
+     * org.kuali.rice.krad.bo.PersistableBusinessObject)
      */
     @Override
     public void changeForNewYear(Integer baseFiscalYear, FiscalYearBasedBusinessObject currentRecord) {
@@ -66,11 +66,9 @@ public class AccountingPeriodFiscalYearMakerImpl extends FiscalYearMakerImpl {
         // replace 4 digit year in name if found, else replace 2 digit
         if (StringUtils.contains(fiscalPeriodName, oldCalendarEndYear)) {
             fiscalPeriodName = StringUtils.replace(fiscalPeriodName, oldCalendarEndYear, newCalendarEndYear);
-        }
-        else if (StringUtils.contains(fiscalPeriodName, oldCalendarStartYear)) {
+        } else if (StringUtils.contains(fiscalPeriodName, oldCalendarStartYear)) {
             fiscalPeriodName = StringUtils.replace(fiscalPeriodName, oldCalendarStartYear, newCalendarStartYear);
-        }
-        else {
+        } else {
             fiscalPeriodName = updateTwoDigitYear(newCalendarEndYear.substring(2, 4), oldCalendarEndYear.substring(2, 4), fiscalPeriodName);
             fiscalPeriodName = updateTwoDigitYear(newCalendarStartYear.substring(2, 4), oldCalendarStartYear.substring(2, 4), fiscalPeriodName);
         }
@@ -86,7 +84,7 @@ public class AccountingPeriodFiscalYearMakerImpl extends FiscalYearMakerImpl {
 
     /**
      * Retrieves all Accounting Period records for the first copied fiscal year and make active
-     * 
+     *
      * @see org.kuali.kfs.coa.batch.dataaccess.impl.FiscalYearMakerHelperImpl#performCustomProcessing(java.lang.Integer)
      */
     @Override
@@ -94,7 +92,7 @@ public class AccountingPeriodFiscalYearMakerImpl extends FiscalYearMakerImpl {
         if (!firstCopyYear) {
             return;
         }
-        Collection<AccountingPeriod> accountingPeriods = businessObjectService.findMatching(AccountingPeriod.class,Collections.singletonMap(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, baseFiscalYear + 1));
+        Collection<AccountingPeriod> accountingPeriods = businessObjectService.findMatching(AccountingPeriod.class, Collections.singletonMap(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, baseFiscalYear + 1));
         for (AccountingPeriod accountingPeriod : accountingPeriods) {
             accountingPeriod.setActive(true);
             businessObjectService.save(accountingPeriod);
@@ -103,7 +101,7 @@ public class AccountingPeriodFiscalYearMakerImpl extends FiscalYearMakerImpl {
 
     /**
      * Adds one year to the given date
-     * 
+     *
      * @param inDate date to increment
      * @return Date incoming date plus one year
      */
@@ -120,7 +118,7 @@ public class AccountingPeriodFiscalYearMakerImpl extends FiscalYearMakerImpl {
     /**
      * this routine is provided to update string fields which contain two-digit years that need to be updated for display. it is
      * very specific, but it's necessary. "two-digit year" means the two numeric characters preceded by a non-numeric character.
-     * 
+     *
      * @param newYear
      * @param oldYear
      * @param currentString

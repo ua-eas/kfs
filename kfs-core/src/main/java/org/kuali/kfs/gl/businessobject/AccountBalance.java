@@ -1,27 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.businessobject;
-
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 import org.kuali.kfs.coa.businessobject.A21SubAccount;
 import org.kuali.kfs.coa.businessobject.Account;
@@ -29,21 +24,26 @@ import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.ReportBusinessObject;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Just as Balance is a summarization of Entry, so AccountBalance is a summarization of Balance.
  * Specifically, it stores the current budget, actual, and encumbrance totals in one record.
  */
-public class AccountBalance extends PersistableBusinessObjectBase implements ReportBusinessObject{
+public class AccountBalance extends PersistableBusinessObjectBase implements ReportBusinessObject {
     static final long serialVersionUID = 6873573726961704771L;
 
     private Integer universityFiscalYear;
@@ -108,11 +108,10 @@ public class AccountBalance extends PersistableBusinessObjectBase implements Rep
         if (TYPE_CONSOLIDATION.equals(type)) {
             financialObject.getFinancialObjectType().setFinancialReportingSortCode((String) data.get(GeneralLedgerConstants.ColumnNames.REPORT_SORT_CODE));
             financialObject.getFinancialObjectLevel().getFinancialConsolidationObject().setFinancialReportingSortCode((String) data.get(GeneralLedgerConstants.ColumnNames.CONSOLIDATION_REPORT_SORT_CODE));
-            
+
             financialObject.getFinancialObjectType().setBasicAccountingCategoryCode((String) data.get(GeneralLedgerConstants.ColumnNames.ACCTG_CTGRY_CD));
             fixVariance();
-        }
-        else if (TYPE_LEVEL.equals(type)) {
+        } else if (TYPE_LEVEL.equals(type)) {
             financialObject.getFinancialObjectLevel().setFinancialReportingSortCode((String) data.get(GeneralLedgerConstants.ColumnNames.REPORT_SORT_CODE));
             financialObject.setFinancialObjectLevelCode((String) data.get(GeneralLedgerConstants.ColumnNames.OBJECT_LEVEL_CODE2));
             financialObject.getFinancialObjectLevel().setFinancialObjectLevelCode((String) data.get(GeneralLedgerConstants.ColumnNames.OBJECT_LEVEL_CODE2));
@@ -120,8 +119,7 @@ public class AccountBalance extends PersistableBusinessObjectBase implements Rep
             // tricking it so getVariance() works
             financialObject.getFinancialObjectType().setBasicAccountingCategoryCode((String) data.get(GeneralLedgerConstants.ColumnNames.ACCTG_CTGRY_CD));
             fixVariance();
-        }
-        else if (TYPE_OBJECT.equals(type)) {
+        } else if (TYPE_OBJECT.equals(type)) {
             objectCode = (String) data.get(GeneralLedgerConstants.ColumnNames.OBJECT_CODE);
             financialObject.setFinancialObjectLevelCode((String) data.get(GeneralLedgerConstants.ColumnNames.OBJECT_LEVEL_CODE));
             financialObject.getFinancialObjectLevel().setFinancialObjectLevelCode((String) data.get(GeneralLedgerConstants.ColumnNames.OBJECT_LEVEL_CODE));
@@ -129,17 +127,16 @@ public class AccountBalance extends PersistableBusinessObjectBase implements Rep
             // tricking it so getVariance() works
             financialObject.getFinancialObjectType().setBasicAccountingCategoryCode((String) data.get(GeneralLedgerConstants.ColumnNames.ACCTG_CTGRY_CD));
             fixVariance();
-        }
-        else {
+        } else {
             throw new RuntimeException("Unknown type: " + type);
         }
     }
-              
+
     /**
      * Perform the refresh non-updateable method but do an additional check on the following  objects
      * within financialObject if either the object is null or the primary key returned null.  If that is true,
      * re-use the original object/values.
-     * 
+     * <p>
      * 1. FinancialObjectLevel
      * 2. FinancialObjectType
      *
@@ -150,31 +147,31 @@ public class AccountBalance extends PersistableBusinessObjectBase implements Rep
         //store the orignal financial object
         ObjectCode origfinancialObject = getFinancialObject();
         super.refreshNonUpdateableReferences();
-        
-        if (ObjectUtils.isNull(financialObject)){
+
+        if (ObjectUtils.isNull(financialObject)) {
             //entire financial object is  null, simply replace with the original
             setFinancialObject(origfinancialObject);
-        }else{
+        } else {
             //check individual subobjects
-            
+
             //check financial object level - if the object is null or primary key value is null, this object needs to be updated
-            if (ObjectUtils.isNull(financialObject.getFinancialObjectLevel()) || ObjectUtils.isNull(financialObject.getFinancialObjectLevel().getFinancialObjectLevelCode())){
+            if (ObjectUtils.isNull(financialObject.getFinancialObjectLevel()) || ObjectUtils.isNull(financialObject.getFinancialObjectLevel().getFinancialObjectLevelCode())) {
                 financialObject.setFinancialObjectLevel(origfinancialObject.getFinancialObjectLevel());
                 financialObject.setFinancialObjectLevelCode(origfinancialObject.getFinancialObjectCode());
             }
             //check financial object type - if the object is null or primary key value is null, this object needs to be updated
-            if (ObjectUtils.isNull(financialObject.getFinancialObjectType().getCode()) || ObjectUtils.isNull(financialObject.getFinancialObjectType())){
+            if (ObjectUtils.isNull(financialObject.getFinancialObjectType().getCode()) || ObjectUtils.isNull(financialObject.getFinancialObjectType())) {
                 financialObject.setFinancialObjectType(origfinancialObject.getFinancialObjectType());
             }
         }
     }
 
     /**
-     * Retrieve from parameter the Accounting Category Expense Code 
-     * 
+     * Retrieve from parameter the Accounting Category Expense Code
+     *
      * @return
      */
-    public String getAccountingCategoryExpenseCode(){
+    public String getAccountingCategoryExpenseCode() {
         ParameterService parameterService = SpringContext.getBean(ParameterService.class);
         String accountingCategoryExpenseCode = parameterService.getParameterValueAsString(AccountBalanceByConsolidation.class, GeneralLedgerConstants.BASIC_ACCOUNTING_CATEGORY_REPRESENTING_EXPENSES);
         return accountingCategoryExpenseCode;
@@ -188,9 +185,10 @@ public class AccountBalance extends PersistableBusinessObjectBase implements Rep
         accountLineActualsBalanceAmount = KualiDecimal.ZERO;
         accountLineEncumbranceBalanceAmount = KualiDecimal.ZERO;
     }
-    
+
     /**
      * Constructs a AccountBalance.java per the primary keys only of the passed in accountBalanceHistory
+     *
      * @param accountBalanceHistory
      */
     public AccountBalance(AccountBalanceHistory accountBalanceHistory) {
@@ -214,8 +212,7 @@ public class AccountBalance extends PersistableBusinessObjectBase implements Rep
         if (getAccountingCategoryExpenseCode().equals(financialObject.getFinancialObjectType().getBasicAccountingCategoryCode())) {
             variance = currentBudgetLineBalanceAmount.subtract(accountLineActualsBalanceAmount);
             variance = variance.subtract(accountLineEncumbranceBalanceAmount);
-        }
-        else {
+        } else {
             variance = accountLineActualsBalanceAmount.subtract(currentBudgetLineBalanceAmount);
         }
         return variance;
@@ -229,7 +226,7 @@ public class AccountBalance extends PersistableBusinessObjectBase implements Rep
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
      */
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
@@ -346,7 +343,7 @@ public class AccountBalance extends PersistableBusinessObjectBase implements Rep
 
     /**
      * Gets the account attribute.
-     * 
+     *
      * @return Returns the account.
      */
     public Account getAccount() {
@@ -355,7 +352,7 @@ public class AccountBalance extends PersistableBusinessObjectBase implements Rep
 
     /**
      * Sets the account attribute value.
-     * 
+     *
      * @param account The account to set.
      */
     public void setAccount(Account account) {
@@ -364,7 +361,7 @@ public class AccountBalance extends PersistableBusinessObjectBase implements Rep
 
     /**
      * Gets the chart attribute.
-     * 
+     *
      * @return Returns the chart.
      */
     public Chart getChart() {
@@ -373,7 +370,7 @@ public class AccountBalance extends PersistableBusinessObjectBase implements Rep
 
     /**
      * Sets the chart attribute value.
-     * 
+     *
      * @param chart The chart to set.
      */
     public void setChart(Chart chart) {
@@ -382,7 +379,7 @@ public class AccountBalance extends PersistableBusinessObjectBase implements Rep
 
     /**
      * Gets the financialObject attribute.
-     * 
+     *
      * @return Returns the financialObject.
      */
     public ObjectCode getFinancialObject() {
@@ -391,7 +388,7 @@ public class AccountBalance extends PersistableBusinessObjectBase implements Rep
 
     /**
      * Sets the financialObject attribute value.
-     * 
+     *
      * @param financialObject The financialObject to set.
      */
     public void setFinancialObject(ObjectCode financialObject) {
@@ -400,7 +397,7 @@ public class AccountBalance extends PersistableBusinessObjectBase implements Rep
 
     /**
      * Gets the dummyBusinessObject attribute.
-     * 
+     *
      * @return Returns the dummyBusinessObject.
      */
     public TransientBalanceInquiryAttributes getDummyBusinessObject() {
@@ -409,7 +406,7 @@ public class AccountBalance extends PersistableBusinessObjectBase implements Rep
 
     /**
      * Sets the dummyBusinessObject attribute value.
-     * 
+     *
      * @param dummyBusinessObject The dummyBusinessObject to set.
      */
     public void setDummyBusinessObject(TransientBalanceInquiryAttributes dummyBusinessObject) {
@@ -418,7 +415,7 @@ public class AccountBalance extends PersistableBusinessObjectBase implements Rep
 
     /**
      * Gets the subAccount attribute.
-     * 
+     *
      * @return Returns the subAccount.
      */
     public SubAccount getSubAccount() {
@@ -427,7 +424,7 @@ public class AccountBalance extends PersistableBusinessObjectBase implements Rep
 
     /**
      * Sets the subAccount attribute value.
-     * 
+     *
      * @param subAccount The subAccount to set.
      */
     public void setSubAccount(SubAccount subAccount) {
@@ -436,7 +433,7 @@ public class AccountBalance extends PersistableBusinessObjectBase implements Rep
 
     /**
      * Gets the subObject
-     * 
+     *
      * @return
      */
     public SubObjectCode getFinancialSubObject() {
@@ -445,7 +442,7 @@ public class AccountBalance extends PersistableBusinessObjectBase implements Rep
 
     /**
      * Sets the subObject.
-     * 
+     *
      * @param financialSubObject
      */
     public void setFinancialSubObject(SubObjectCode financialSubObject) {

@@ -1,33 +1,32 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ec.batch.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.coreservice.impl.parameter.ParameterBo;
 import org.kuali.kfs.integration.ld.LaborLedgerBalance;
 import org.kuali.kfs.integration.ld.LaborLedgerEntry;
 import org.kuali.kfs.integration.ld.LaborModuleService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.PersistenceService;
 import org.kuali.kfs.module.ec.batch.EffortCertificationExtractStep;
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationDetailBuild;
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationDocumentBuild;
@@ -45,11 +44,12 @@ import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.TestUtils;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.coreservice.impl.parameter.ParameterBo;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.KualiModuleService;
-import org.kuali.rice.krad.service.PersistenceService;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 @ConfigureContext
 public class EffortCertificationExtractServiceTest extends KualiTestBase {
@@ -127,8 +127,7 @@ public class EffortCertificationExtractServiceTest extends KualiTestBase {
 
         try {
             effortCertificationExtractService.extract(fiscalYear, reportNumber);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             fail(message.getProperty("error.validParameters"));
         }
@@ -146,8 +145,7 @@ public class EffortCertificationExtractServiceTest extends KualiTestBase {
         try {
             effortCertificationExtractService.extract(null, reportNumber);
             fail(message.getProperty("error.emptyFiscalYear"));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
         }
     }
 
@@ -164,8 +162,7 @@ public class EffortCertificationExtractServiceTest extends KualiTestBase {
         try {
             effortCertificationExtractService.extract(fiscalYear, reportNumber);
             fail(message.getProperty("error.emptyReportNumber"));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
         }
     }
 
@@ -182,8 +179,7 @@ public class EffortCertificationExtractServiceTest extends KualiTestBase {
         try {
             effortCertificationExtractService.extract(fiscalYear, reportNumber);
             fail(message.getProperty("error.undefinedReportDefinition"));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
         }
     }
 
@@ -204,8 +200,7 @@ public class EffortCertificationExtractServiceTest extends KualiTestBase {
         try {
             effortCertificationExtractService.extract(fiscalYear, reportNumber);
             fail(message.getProperty("error.inactiveReportDefinition"));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
         }
     }
 
@@ -232,8 +227,7 @@ public class EffortCertificationExtractServiceTest extends KualiTestBase {
         try {
             effortCertificationExtractService.extract(fiscalYear, reportNumber);
             fail(message.getProperty("error.documentExist"));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
         }
     }
 

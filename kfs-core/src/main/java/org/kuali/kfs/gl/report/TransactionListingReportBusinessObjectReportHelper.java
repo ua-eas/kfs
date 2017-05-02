@@ -1,34 +1,34 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.report;
 
 import org.kuali.kfs.gl.businessobject.Transaction;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.report.BusinessObjectReportHelper;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.util.ObjectUtils;
 
 public class TransactionListingReportBusinessObjectReportHelper extends BusinessObjectReportHelper {
     protected static final int TRANSACTION_LEDGER_ENTRY_DESCRIPTION_MAX_LENGTH = 31;
-    
+
     /**
      * @see org.kuali.kfs.sys.report.BusinessObjectReportHelper#retrievePropertyValue(org.kuali.rice.krad.bo.BusinessObject, java.lang.String)
      */
@@ -40,7 +40,7 @@ public class TransactionListingReportBusinessObjectReportHelper extends Business
                 // return the debit amount
                 return e.getTransactionLedgerEntryAmount();
             } else if (!KFSConstants.GL_DEBIT_CODE.equals(e.getTransactionDebitCreditCode()) &&
-                    !KFSConstants.GL_CREDIT_CODE.equals(e.getTransactionDebitCreditCode())) {
+                !KFSConstants.GL_CREDIT_CODE.equals(e.getTransactionDebitCreditCode())) {
                 // return the budget amount
                 return e.getTransactionLedgerEntryAmount();
             }
@@ -57,7 +57,7 @@ public class TransactionListingReportBusinessObjectReportHelper extends Business
         if ("transactionLedgerEntryDescription".equals(propertyName) && businessObject instanceof Transaction) {
             Transaction e = (Transaction) businessObject;
             if (ObjectUtils.isNull(e.getTransactionLedgerEntryDescription()) ||
-                    (e.getTransactionLedgerEntryDescription().length() <= TRANSACTION_LEDGER_ENTRY_DESCRIPTION_MAX_LENGTH)) {
+                (e.getTransactionLedgerEntryDescription().length() <= TRANSACTION_LEDGER_ENTRY_DESCRIPTION_MAX_LENGTH)) {
                 return e.getTransactionLedgerEntryDescription();
             } else {
                 return e.getTransactionLedgerEntryDescription().substring(0, TRANSACTION_LEDGER_ENTRY_DESCRIPTION_MAX_LENGTH);

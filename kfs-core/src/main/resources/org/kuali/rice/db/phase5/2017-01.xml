@@ -1,0 +1,612 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="KFS701" id="FINP-1000_MORE_ROBUST_DOC_HDR_FIXTURES" context="unit">
+        <update tableName="krew_doc_hdr_t">
+            <column name="DOC_TYP_ID" valueComputed="(select doc_typ_id from krew_doc_typ_t where doc_typ_nm = 'REQS' and cur_ind = 1 and actv_ind = 1)"/>
+            <where>doc_hdr_id in ('11','12')</where>
+        </update>
+        <update tableName="krew_doc_hdr_t">
+            <column name="DOC_TYP_ID" valueComputed="(select doc_typ_id from krew_doc_typ_t where doc_typ_nm = 'ACM' and cur_ind = 1 and actv_ind = 1)"/>
+            <where>doc_hdr_id = '13'</where>
+        </update>
+        <update tableName="krew_doc_hdr_t">
+            <column name="DOC_TYP_ID" valueComputed="(select doc_typ_id from krew_doc_typ_t where doc_typ_nm = 'PO' and cur_ind = 1 and actv_ind = 1)"/>
+            <where>doc_hdr_id in ('21','22','23')</where>
+        </update>
+        <update tableName="krew_doc_hdr_t">
+            <column name="DOC_TYP_ID" valueComputed="(select doc_typ_id from krew_doc_typ_t where doc_typ_nm = 'PREQ' and cur_ind = 1 and actv_ind = 1)"/>
+            <where>doc_hdr_id in ('31','32','33','34','35','36')</where>
+        </update>
+        <update tableName="krew_doc_hdr_t">
+            <column name="DOC_TYP_ID" valueComputed="(select doc_typ_id from krew_doc_typ_t where doc_typ_nm = 'CM' and cur_ind = 1 and actv_ind = 1)"/>
+            <where>doc_hdr_id = '41'</where>
+        </update>
+        <update tableName="krew_doc_hdr_t">
+            <column name="DOC_TYP_ID" valueComputed="(select doc_typ_id from krew_doc_typ_t where doc_typ_nm = 'INV' and cur_ind = 1 and actv_ind = 1)"/>
+            <where>doc_hdr_id in ('51','52')</where>
+        </update>
+    </changeSet>
+
+    <changeSet author="KFS701" id="FINP-1012_REMOVE_NO_LONGER_NEEDED_FIXTURES" context="unit">
+        <delete tableName="KREW_DOC_HDR_T">
+            <where>doc_hdr_id in ('11','12','13','21','22','23','31','32','33','34','35','36','41','51','52')</where>
+        </delete>
+    </changeSet>
+
+    <changeSet author="KFS701" id="FINP-1019_REPLACE_CAB_PERMISSIONS_WITH_CAM_PERMISSIONS" context="bootstrap,demo,unit">
+        <delete tableName="KRIM_ROLE_PERM_T">
+            <where>perm_id in ('303', '304')</where>
+        </delete>
+        <delete tableName="KRIM_PERM_ATTR_DATA_T">
+            <where>perm_id in ('303', '304')</where>
+        </delete>
+        <delete tableName="KRIM_PERM_T">
+            <where>perm_id in ('303', '304')</where>
+        </delete>
+        <update tableName="KRIM_PERM_T">
+            <column name="nmspc_cd" value="KFS-CAM"/>
+            <where>perm_id in ('375','376')</where>
+        </update>
+
+        <insert tableName="KRIM_PERM_T">
+            <column name="PERM_ID" value="FINP1019-P1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" value="23"/>
+            <column name="NMSPC_CD" value="KFS-CAM"/>
+            <column name="NM" value="Look Up Records AssetTransactionType"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP1019-P1A1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP1019-P1"/>
+            <column name="KIM_TYP_ID" value="10"/>
+            <column name="KIM_ATTR_DEFN_ID" value="4"/>
+            <column name="ATTR_VAL" value="KFS-CAM"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP1019-P1A2"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP1019-P1"/>
+            <column name="KIM_TYP_ID" value="10"/>
+            <column name="KIM_ATTR_DEFN_ID" value="5"/>
+            <column name="ATTR_VAL" value="AssetTransactionType"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP1019-P1R1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" value="35"/>
+            <column name="PERM_ID" value="FINP1019-P1"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+
+        <insert tableName="KRIM_PERM_T">
+            <column name="PERM_ID" value="FINP1019-P2"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" value="24"/>
+            <column name="NMSPC_CD" value="KFS-CAM"/>
+            <column name="NM" value="Inquire Into Records AssetTransactionType"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP1019-P2A1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP1019-P2"/>
+            <column name="KIM_TYP_ID" value="10"/>
+            <column name="KIM_ATTR_DEFN_ID" value="4"/>
+            <column name="ATTR_VAL" value="KFS-CAM"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP1019-P2A2"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP1019-P2"/>
+            <column name="KIM_TYP_ID" value="10"/>
+            <column name="KIM_ATTR_DEFN_ID" value="5"/>
+            <column name="ATTR_VAL" value="AssetTransactionType"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP1019-P2R1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" value="35"/>
+            <column name="PERM_ID" value="FINP1019-P2"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+
+        <insert tableName="KRIM_PERM_T">
+            <column name="PERM_ID" value="FINP1019-P3"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" value="23"/>
+            <column name="NMSPC_CD" value="KFS-CAM"/>
+            <column name="NM" value="Look Up Records GeneralLedgerEntry"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP1019-P3A1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP1019-P3"/>
+            <column name="KIM_TYP_ID" value="10"/>
+            <column name="KIM_ATTR_DEFN_ID" value="4"/>
+            <column name="ATTR_VAL" value="KFS-CAM"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP1019-P3A2"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP1019-P3"/>
+            <column name="KIM_TYP_ID" value="10"/>
+            <column name="KIM_ATTR_DEFN_ID" value="5"/>
+            <column name="ATTR_VAL" value="GeneralLedgerEntry"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP1019-P3R1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" value="35"/>
+            <column name="PERM_ID" value="FINP1019-P3"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+
+        <insert tableName="KRIM_PERM_T">
+            <column name="PERM_ID" value="FINP1019-P4"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" value="24"/>
+            <column name="NMSPC_CD" value="KFS-CAM"/>
+            <column name="NM" value="Inquire Into Records GeneralLedgerEntry"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP1019-P4A1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP1019-P4"/>
+            <column name="KIM_TYP_ID" value="10"/>
+            <column name="KIM_ATTR_DEFN_ID" value="4"/>
+            <column name="ATTR_VAL" value="KFS-CAM"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP1019-P4A2"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP1019-P4"/>
+            <column name="KIM_TYP_ID" value="10"/>
+            <column name="KIM_ATTR_DEFN_ID" value="5"/>
+            <column name="ATTR_VAL" value="GeneralLedgerEntry"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP1019-P4R1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" value="35"/>
+            <column name="PERM_ID" value="FINP1019-P4"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+
+        <insert tableName="KRIM_PERM_T">
+            <column name="PERM_ID" value="FINP1019-P5"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" value="23"/>
+            <column name="NMSPC_CD" value="KFS-CAM"/>
+            <column name="NM" value="Look Up Records GeneralLedgerEntryAsset"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP1019-P5A1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP1019-P5"/>
+            <column name="KIM_TYP_ID" value="10"/>
+            <column name="KIM_ATTR_DEFN_ID" value="4"/>
+            <column name="ATTR_VAL" value="KFS-CAM"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP1019-P5A2"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP1019-P5"/>
+            <column name="KIM_TYP_ID" value="10"/>
+            <column name="KIM_ATTR_DEFN_ID" value="5"/>
+            <column name="ATTR_VAL" value="GeneralLedgerEntryAsset"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP1019-P5R1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" value="35"/>
+            <column name="PERM_ID" value="FINP1019-P5"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+
+        <insert tableName="KRIM_PERM_T">
+            <column name="PERM_ID" value="FINP1019-P6"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" value="24"/>
+            <column name="NMSPC_CD" value="KFS-CAM"/>
+            <column name="NM" value="Inquire Into Records GeneralLedgerEntryAsset"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP1019-P6A1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP1019-P6"/>
+            <column name="KIM_TYP_ID" value="10"/>
+            <column name="KIM_ATTR_DEFN_ID" value="4"/>
+            <column name="ATTR_VAL" value="KFS-CAM"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP1019-P6A2"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP1019-P6"/>
+            <column name="KIM_TYP_ID" value="10"/>
+            <column name="KIM_ATTR_DEFN_ID" value="5"/>
+            <column name="ATTR_VAL" value="GeneralLedgerEntryAsset"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP1019-P6R1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" value="35"/>
+            <column name="PERM_ID" value="FINP1019-P6"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+
+        <insert tableName="KRIM_PERM_T">
+            <column name="PERM_ID" value="FINP1019-P7"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" value="23"/>
+            <column name="NMSPC_CD" value="KFS-CAM"/>
+            <column name="NM" value="Look Up Records PurchasingAccountsPayableDocument"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP1019-P7A1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP1019-P7"/>
+            <column name="KIM_TYP_ID" value="10"/>
+            <column name="KIM_ATTR_DEFN_ID" value="4"/>
+            <column name="ATTR_VAL" value="KFS-CAM"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP1019-P7A2"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP1019-P7"/>
+            <column name="KIM_TYP_ID" value="10"/>
+            <column name="KIM_ATTR_DEFN_ID" value="5"/>
+            <column name="ATTR_VAL" value="PurchasingAccountsPayableDocument"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP1019-P7R1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" value="35"/>
+            <column name="PERM_ID" value="FINP1019-P7"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+
+        <insert tableName="KRIM_PERM_T">
+            <column name="PERM_ID" value="FINP1019-P8"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" value="24"/>
+            <column name="NMSPC_CD" value="KFS-CAM"/>
+            <column name="NM" value="Inquire Into Records PurchasingAccountsPayableDocument"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP1019-P8A1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP1019-P8"/>
+            <column name="KIM_TYP_ID" value="10"/>
+            <column name="KIM_ATTR_DEFN_ID" value="4"/>
+            <column name="ATTR_VAL" value="KFS-CAM"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP1019-P8A2"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP1019-P8"/>
+            <column name="KIM_TYP_ID" value="10"/>
+            <column name="KIM_ATTR_DEFN_ID" value="5"/>
+            <column name="ATTR_VAL" value="PurchasingAccountsPayableDocument"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP1019-P8R1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" value="35"/>
+            <column name="PERM_ID" value="FINP1019-P8"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+
+        <insert tableName="KRIM_PERM_T">
+            <column name="PERM_ID" value="FINP1019-P9"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" value="24"/>
+            <column name="NMSPC_CD" value="KFS-CAM"/>
+            <column name="NM" value="Inquire Into Records PurchasingAccountsPayableItemAsset"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP1019-P9A1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP1019-P9"/>
+            <column name="KIM_TYP_ID" value="10"/>
+            <column name="KIM_ATTR_DEFN_ID" value="4"/>
+            <column name="ATTR_VAL" value="KFS-CAM"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP1019-P9A2"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP1019-P9"/>
+            <column name="KIM_TYP_ID" value="10"/>
+            <column name="KIM_ATTR_DEFN_ID" value="5"/>
+            <column name="ATTR_VAL" value="PurchasingAccountsPayableItemAsset"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP1019-P9R1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" value="35"/>
+            <column name="PERM_ID" value="FINP1019-P9"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+
+        <insert tableName="KRIM_PERM_T">
+            <column name="PERM_ID" value="FINP1019-P10"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" value="24"/>
+            <column name="NMSPC_CD" value="KFS-CAM"/>
+            <column name="NM" value="Inquire Into Records PurchasingAccountsPayableLineAssetAccount"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP1019-P10A1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP1019-P10"/>
+            <column name="KIM_TYP_ID" value="10"/>
+            <column name="KIM_ATTR_DEFN_ID" value="4"/>
+            <column name="ATTR_VAL" value="KFS-CAM"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP1019-P10A2"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP1019-P10"/>
+            <column name="KIM_TYP_ID" value="10"/>
+            <column name="KIM_ATTR_DEFN_ID" value="5"/>
+            <column name="ATTR_VAL" value="PurchasingAccountsPayableLineAssetAccount"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP1019-P10R1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" value="35"/>
+            <column name="PERM_ID" value="FINP1019-P10"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+
+        <insert tableName="KRIM_PERM_T">
+            <column name="PERM_ID" value="FINP1019-P11"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" value="23"/>
+            <column name="NMSPC_CD" value="KFS-CAM"/>
+            <column name="NM" value="Look Up Records PurchasingAccountsPayableProcessingReport"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP1019-P11A1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP1019-P11"/>
+            <column name="KIM_TYP_ID" value="10"/>
+            <column name="KIM_ATTR_DEFN_ID" value="4"/>
+            <column name="ATTR_VAL" value="KFS-CAM"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP1019-P11A2"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP1019-P11"/>
+            <column name="KIM_TYP_ID" value="10"/>
+            <column name="KIM_ATTR_DEFN_ID" value="5"/>
+            <column name="ATTR_VAL" value="PurchasingAccountsPayableProcessingReport"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP1019-P11R1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" value="35"/>
+            <column name="PERM_ID" value="FINP1019-P11"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+
+        <insert tableName="KRIM_PERM_T">
+            <column name="PERM_ID" value="FINP1019-P12"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" value="24"/>
+            <column name="NMSPC_CD" value="KFS-CAM"/>
+            <column name="NM" value="Inquire Into Records PretagDetail"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP1019-P12A1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP1019-P12"/>
+            <column name="KIM_TYP_ID" value="10"/>
+            <column name="KIM_ATTR_DEFN_ID" value="4"/>
+            <column name="ATTR_VAL" value="KFS-CAM"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP1019-P12A2"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP1019-P12"/>
+            <column name="KIM_TYP_ID" value="10"/>
+            <column name="KIM_ATTR_DEFN_ID" value="5"/>
+            <column name="ATTR_VAL" value="PretagDetail"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP1019-P12R1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" value="35"/>
+            <column name="PERM_ID" value="FINP1019-P12"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+
+        <delete tableName="krcr_parm_t">
+            <where>nmspc_cd = 'KFS-CAB'</where>
+        </delete>
+        <delete tableName="krcr_cmpnt_t">
+            <where>nmspc_cd = 'KFS-CAB'</where>
+        </delete>
+        <delete tableName="krcr_nmspc_t">
+            <where>nmspc_cd = 'KFS-CAB'</where>
+        </delete>
+
+        <modifySql dbms="mysql">
+            <replace replace="sys_guid" with="uuid"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS701" id="FINP-1026_REPLACE_CAB_USE_SCREEN_PERMISSIONS_WITH_CAM_PERMISSIONS" context="bootstrap,demo,unit">
+        <delete tableName="KRIM_ROLE_PERM_T">
+            <where>perm_id = '15'</where>
+        </delete>
+        <delete tableName="KRIM_PERM_ATTR_DATA_T">
+            <where>perm_id = '15'</where>
+        </delete>
+        <delete tableName="KRIM_PERM_T">
+            <where>perm_id = '15'</where>
+        </delete>
+
+        <insert tableName="KRIM_PERM_T">
+            <column name="PERM_ID" value="FINP1026-P1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" value="29"/>
+            <column name="NMSPC_CD" value="KFS-CAM"/>
+            <column name="NM" value="Use Screen org.kuali.kfs.module.cam.web.struts.CapitalAssetInformationAction"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP1026-P1A1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP1026-P1"/>
+            <column name="KIM_TYP_ID" value="12"/>
+            <column name="KIM_ATTR_DEFN_ID" value="2"/>
+            <column name="ATTR_VAL" value="org.kuali.kfs.module.cam.web.struts.CapitalAssetInformationAction"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP1026-P1R1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" value="35"/>
+            <column name="PERM_ID" value="FINP1026-P1"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+
+        <insert tableName="KRIM_PERM_T">
+            <column name="PERM_ID" value="FINP1026-P2"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" value="29"/>
+            <column name="NMSPC_CD" value="KFS-CAM"/>
+            <column name="NM" value="Use Screen org.kuali.kfs.module.cam.web.struts.GlLineAction"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP1026-P2A1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP1026-P2"/>
+            <column name="KIM_TYP_ID" value="12"/>
+            <column name="KIM_ATTR_DEFN_ID" value="2"/>
+            <column name="ATTR_VAL" value="org.kuali.kfs.module.cam.web.struts.GlLineAction"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP1026-P2R1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" value="35"/>
+            <column name="PERM_ID" value="FINP1026-P2"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+
+        <insert tableName="KRIM_PERM_T">
+            <column name="PERM_ID" value="FINP1026-P3"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" value="29"/>
+            <column name="NMSPC_CD" value="KFS-CAM"/>
+            <column name="NM" value="Use Screen org.kuali.kfs.module.cam.web.struts.PurApLineAction"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP1026-P3A1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP1026-P3"/>
+            <column name="KIM_TYP_ID" value="12"/>
+            <column name="KIM_ATTR_DEFN_ID" value="2"/>
+            <column name="ATTR_VAL" value="org.kuali.kfs.module.cam.web.struts.PurApLineAction"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP1026-P3R1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" value="35"/>
+            <column name="PERM_ID" value="FINP1026-P3"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+
+        <modifySql dbms="mysql">
+            <replace replace="sys_guid" with="uuid"/>
+        </modifySql>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="kfs" id="2780" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SESID, POS_FRNGBEN_OBJ_CD" constraintName="PKLD_BCN_BENEFITS_RECALC01_MT" tableName="LD_BCN_BENEFITS_RECALC01_MT"/>
+    </changeSet>
+    <changeSet author="kfs" id="2781" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SESID, ORG_FIN_COA_CD, ORG_CD, SUB_FUND_GRP_CD, UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR, INC_EXP_CD, FIN_CONS_SORT_CD, FIN_LEVEL_SORT_CD, FIN_OBJECT_CD, FIN_SUB_OBJ_CD" constraintName="PKLD_BCN_BUILD_ACCTBAL01_MT" tableName="LD_BCN_BUILD_ACCTBAL01_MT"/>
+    </changeSet>
+    <changeSet author="kfs" id="2782" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SESID, UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR, ORG_LEVEL_CD" constraintName="PKLD_BCN_BUILD_CTRL_LIST01_MT" tableName="LD_BCN_BUILD_CTRL_LIST01_MT"/>
+    </changeSet>
+    <changeSet author="kfs" id="2783" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SESID, PERSON_UNVL_ID, FDOC_NBR, UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR" constraintName="PKLD_BCN_BUILD_CTRL_LIST02_MT" tableName="LD_BCN_BUILD_CTRL_LIST02_MT"/>
+    </changeSet>
+    <changeSet author="kfs" id="2784" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SESID, EMPLID" constraintName="PKLD_BCN_BUILD_EXSALTOT01_MT" tableName="LD_BCN_BUILD_EXSALTOT01_MT"/>
+    </changeSet>
+    <changeSet author="kfs" id="2785" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SESID, EMPLID" constraintName="PKLD_BCN_BUILD_EXSALTOT03_MT" tableName="LD_BCN_BUILD_EXSALTOT03_MT"/>
+    </changeSet>
+    <changeSet author="kfs" id="2786" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SESID, EMPLID" constraintName="PKLD_BCN_BUILD_EXSALTOT04_MT" tableName="LD_BCN_BUILD_EXSALTOT04_MT"/>
+    </changeSet>
+    <changeSet author="kfs" id="2787" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SESID, EMPLID" constraintName="PKLD_BCN_BUILD_EXSALTOT05_MT" tableName="LD_BCN_BUILD_EXSALTOT05_MT"/>
+    </changeSet>
+    <changeSet author="kfs" id="2788" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SESID, ORG_FIN_COA_CD, ORG_CD, EMPLID" constraintName="PKLD_BCN_BUILD_EXSALTOT06_MT" tableName="LD_BCN_BUILD_EXSALTOT06_MT"/>
+    </changeSet>
+    <changeSet author="kfs" id="2789" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SESID, ORG_FIN_COA_CD, ORG_CD, SUB_FUND_GRP_CD, FIN_COA_CD, INC_EXP_CD, FIN_CONS_OBJ_CD, FIN_OBJ_LEVEL_CD" constraintName="PKLD_BCN_BUILD_LEVLSUMM03_MT" tableName="LD_BCN_BUILD_LEVLSUMM03_MT"/>
+    </changeSet>
+    <changeSet author="kfs" id="2790" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SESID, SEL_ORG_FIN_COA, SEL_ORG_CD, SEL_SUB_FUND_GRP, UNIV_FISCAL_YR, FIN_COA_CD, INC_EXP_CD, FIN_OBJECT_CD, FIN_SUB_OBJ_CD" constraintName="PKLD_BCN_BUILD_MNTHSUMM01_MT" tableName="LD_BCN_BUILD_MNTHSUMM01_MT"/>
+    </changeSet>
+    <changeSet author="kfs" id="2791" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SESID, SEL_ORG_FIN_COA, SEL_ORG_CD, SEL_SUB_FUND_GRP, UNIV_FISCAL_YR, FIN_COA_CD, INC_EXP_CD, FIN_OBJECT_CD, FIN_SUB_OBJ_CD" constraintName="PKLD_BCN_BUILD_MNTHSUMM02_MT" tableName="LD_BCN_BUILD_MNTHSUMM02_MT"/>
+    </changeSet>
+    <changeSet author="kfs" id="2792" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SESID, ORG_FIN_COA_CD, ORG_CD, SUB_FUND_GRP_CD, FIN_COA_CD, INC_EXP_CD, FIN_CONS_OBJ_CD, FIN_OBJ_LEVEL_CD, FIN_OBJECT_CD" constraintName="PKLD_BCN_BUILD_OBJTSUMM01_MT" tableName="LD_BCN_BUILD_OBJTSUMM01_MT"/>
+    </changeSet>
+    <changeSet author="kfs" id="2793" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SESID, EMPLID" constraintName="PKLD_BCN_BUILD_POSLIST01_MT" tableName="LD_BCN_BUILD_POSLIST01_MT"/>
+    </changeSet>
+    <changeSet author="kfs" id="2794" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SESID, FIN_COA_CD, ORG_CD" constraintName="PKLD_BCN_BUILD_POS_SEL01_MT" tableName="LD_BCN_BUILD_POS_SEL01_MT"/>
+    </changeSet>
+    <changeSet author="kfs" id="2795" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SESID, FIN_COA_CD, ORG_CD" constraintName="PKLD_BCN_BUILD_PULLUP01_MT" tableName="LD_BCN_BUILD_PULLUP01_MT"/>
+    </changeSet>
+    <changeSet author="kfs" id="2796" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SESID, EMPLID" constraintName="PKLD_BCN_BUILD_SALSUMM02_MT" tableName="LD_BCN_BUILD_SALSUMM02_MT"/>
+    </changeSet>
+    <changeSet author="kfs" id="2797" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SESID, EMPLID" constraintName="PKLD_BCN_BUILD_SALSUMM03_MT" tableName="LD_BCN_BUILD_SALSUMM03_MT"/>
+    </changeSet>
+    <changeSet author="kfs" id="2798" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SESID, EMPLID" constraintName="PKLD_BCN_BUILD_SALSUMM04_MT" tableName="LD_BCN_BUILD_SALSUMM04_MT"/>
+    </changeSet>
+    <changeSet author="kfs" id="2799" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SESID, EMPLID" constraintName="PKLD_BCN_BUILD_SALSUMM05_MT" tableName="LD_BCN_BUILD_SALSUMM05_MT"/>
+    </changeSet>
+    <changeSet author="kfs" id="2800" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SESID, EMPLID" constraintName="PKLD_BCN_BUILD_SALTOT02_MT" tableName="LD_BCN_BUILD_SALTOT02_MT"/>
+    </changeSet>
+    <changeSet author="kfs" id="2801" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SESID, EMPLID" constraintName="PKLD_BCN_BUILD_SALTOT03_MT" tableName="LD_BCN_BUILD_SALTOT03_MT"/>
+    </changeSet>
+    <changeSet author="kfs" id="2802" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SESID, EMPLID" constraintName="PKLD_BCN_BUILD_SALTOT04_MT" tableName="LD_BCN_BUILD_SALTOT04_MT"/>
+    </changeSet>
+    <changeSet author="kfs" id="2803" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SESID, ORG_FIN_COA_CD, ORG_CD, EMPLID" constraintName="PKLD_BCN_BUILD_SALTOT05_MT" tableName="LD_BCN_BUILD_SALTOT05_MT"/>
+    </changeSet>
+    <changeSet author="kfs" id="2804" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SESID, UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR" constraintName="PKLD_BCN_DOC_PULLUP01_MT" tableName="LD_BCN_DOC_PULLUP01_MT"/>
+    </changeSet>
+    <changeSet author="kfs" id="2805" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SESID, UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR" constraintName="PKLD_BCN_DOC_PULLUP02_MT" tableName="LD_BCN_DOC_PULLUP02_MT"/>
+    </changeSet>
+    <changeSet author="kfs" id="2806" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SESID, FDOC_NBR" constraintName="PKLD_BCN_DOC_PULLUP03_MT" tableName="LD_BCN_DOC_PULLUP03_MT"/>
+    </changeSet>
+    <changeSet author="kfs" id="2807" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SESID, UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR" constraintName="PKLD_BCN_DOC_PUSHDOWN01_MT" tableName="LD_BCN_DOC_PUSHDOWN01_MT"/>
+    </changeSet>
+    <changeSet author="kfs" id="2808" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SESID, UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR" constraintName="PKLD_BCN_DOC_PUSHDOWN02_MT" tableName="LD_BCN_DOC_PUSHDOWN02_MT"/>
+    </changeSet>
+    <changeSet author="kfs" id="2809" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SESID, UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR" constraintName="PKLD_BCN_DOC_PUSHDOWN03_MT" tableName="LD_BCN_DOC_PUSHDOWN03_MT"/>
+    </changeSet>
+    <changeSet author="kfs" id="2810" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SESID, UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR" constraintName="PKLD_BCN_DOC_PUSHDOWN04_MT" tableName="LD_BCN_DOC_PUSHDOWN04_MT"/>
+    </changeSet>
+    <changeSet author="kfs" id="2811" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SESID, UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR" constraintName="PKLD_BCN_LCK_PYRT_ACCT01_MT" tableName="LD_BCN_LCK_PYRT_ACCT01_MT"/>
+    </changeSet>
+    <changeSet author="kfs" id="2812" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SESID, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR, FIN_OBJECT_CD, FIN_SUB_OBJ_CD" constraintName="PKLD_BCN_UPDT_RQST01_MT" tableName="LD_BCN_UPDT_RQST01_MT"/>
+    </changeSet>
+    <changeSet author="kfs" id="2813" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SESID, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR, FDOC_NBR" constraintName="PKLD_BCN_UPDT_RQST02_MT" tableName="LD_BCN_UPDT_RQST02_MT"/>
+    </changeSet>
+    <changeSet author="kfs" id="2814" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="UNIV_FISCAL_YR, FIN_COA_CD, POS_BENEFIT_TYP_CD" constraintName="PKLD_BENEFITS_CALC_T" tableName="LD_BENEFITS_CALC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2815" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="POS_BENEFIT_TYP_CD" constraintName="PKLD_BENEFITS_TYPE_T" tableName="LD_BENEFITS_TYPE_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2816" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR, FIN_OBJECT_CD, FIN_SUB_OBJ_CD, POSITION_NBR, EMPLID, POS_CSF_CREATE_TM" constraintName="PKLD_CSF_TRACKER_T" tableName="LD_CSF_TRACKER_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2817" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKLD_ERROR_CERT_T" tableName="LD_ERROR_CERT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2818" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKLD_EXP_TRNFR_DOC_T" tableName="LD_EXP_TRNFR_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2819" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR, FDOC_LINE_NBR" constraintName="PKLD_EXP_TRNFR_FRM_T" tableName="LD_EXP_TRNFR_FRM_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2820" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR, FDOC_LINE_NBR" constraintName="PKLD_EXP_TRNFR_TO_T" tableName="LD_EXP_TRNFR_TO_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2821" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKLD_JRNL_VCHR_DOC_T" tableName="LD_JRNL_VCHR_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2822" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR, FDOC_LINE_NBR" constraintName="PKLD_JRNL_VCHR_DTL_T" tableName="LD_JRNL_VCHR_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2823" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR, FIN_OBJECT_CD, FIN_SUB_OBJ_CD, POSITION_NBR, EMPLID" constraintName="PKLD_JULY1_POS_FND_T" tableName="LD_JULY1_POS_FND_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2824" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="UNIV_FISCAL_YR, FIN_COA_CD, FIN_OBJECT_CD" constraintName="PKLD_LABOR_OBJ_T" tableName="LD_LABOR_OBJ_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2825" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="LBR_BEN_RT_CAT_CD" constraintName="PKLD_LBR_BFT_RT_CAT_T" tableName="LD_LBR_BFT_RT_CAT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2826" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR, FIN_OBJECT_CD, FIN_SUB_OBJ_CD, FIN_BALANCE_TYP_CD, FIN_OBJ_TYP_CD, UNIV_FISCAL_PRD_CD, FDOC_TYP_CD, FS_ORIGIN_CD, FDOC_NBR, TRN_ENTR_SEQ_NBR" constraintName="PKLD_LBR_GL_ENTRY_T" tableName="LD_LBR_GL_ENTRY_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2827" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="UNIV_FISCAL_YR, FIN_COA_CD, FIN_OBJECT_CD, FINOBJ_BENE_TYP_CD" constraintName="PKLD_LBR_OBJ_BENE_T" tableName="LD_LBR_OBJ_BENE_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2828" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR, FIN_OBJECT_CD, FIN_SUB_OBJ_CD, FIN_BALANCE_TYP_CD, FIN_OBJ_TYP_CD, POSITION_NBR, EMPLID" constraintName="PKLD_LDGR_BAL_HIST_T" tableName="LD_LDGR_BAL_HIST_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2829" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR, FIN_OBJECT_CD, FIN_SUB_OBJ_CD, FIN_BALANCE_TYP_CD, FIN_OBJ_TYP_CD, POSITION_NBR, EMPLID" constraintName="PKLD_LDGR_BAL_T" tableName="LD_LDGR_BAL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2830" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="UNIV_FISCAL_YR, UNIV_FISCAL_PRD_CD, FIN_COA_CD, FIN_OBJECT_CD, FIN_BALANCE_TYP_CD, TRN_DEBIT_CRDT_CD" constraintName="PKLD_LDGR_ENTR_HIST_T" tableName="LD_LDGR_ENTR_HIST_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2831" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR, FIN_OBJECT_CD, FIN_SUB_OBJ_CD, FIN_BALANCE_TYP_CD, FIN_OBJ_TYP_CD, UNIV_FISCAL_PRD_CD, FDOC_TYP_CD, FS_ORIGIN_CD, FDOC_NBR, TRN_ENTR_SEQ_NBR" constraintName="PKLD_LDGR_ENTR_T" tableName="LD_LDGR_ENTR_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2832" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FS_ORIGIN_CD, FDOC_NBR, TRN_ENTR_SEQ_NBR" constraintName="PKLD_PND_LDGR_ENTR_T" tableName="LD_PND_LDGR_ENTR_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2833" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="POS_OBJ_GRP_CD" constraintName="PKLD_POS_OBJ_GRP_T" tableName="LD_POS_OBJ_GRP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2834" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="POSITION_NBR, EFFDT" constraintName="PKPS_POSITION_DATA" tableName="PS_POSITION_DATA"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,28 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.coa.businessobject;
 
-import java.sql.Date;
-import java.util.Arrays;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.bo.GlobalBusinessObjectDetailBase;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.ObjectUtil;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -32,11 +30,11 @@ import org.kuali.rice.kew.doctype.bo.DocumentType;
 import org.kuali.rice.kew.doctype.bo.DocumentTypeEBO;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.rice.krad.bo.GlobalBusinessObjectDetailBase;
 
-/**
- *
- */
+import java.sql.Date;
+import java.util.Arrays;
+
+
 public class AccountDelegateGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     private static final long serialVersionUID = -8089154029664644867L;
@@ -72,16 +70,17 @@ public class AccountDelegateGlobalDetail extends GlobalBusinessObjectDetailBase 
 
     /**
      * Gets the financialSystemDocumentTypeCode attribute.
+     *
      * @return Returns the financialSystemDocumentTypeCode.
      */
     public DocumentTypeEBO getFinancialSystemDocumentTypeCode() {
-        if ( StringUtils.isBlank( financialDocumentTypeCode ) ) {
+        if (StringUtils.isBlank(financialDocumentTypeCode)) {
             financialSystemDocumentTypeCode = null;
         } else {
-            if ( financialSystemDocumentTypeCode == null || !StringUtils.equals(financialDocumentTypeCode, financialSystemDocumentTypeCode.getName() ) ) {
+            if (financialSystemDocumentTypeCode == null || !StringUtils.equals(financialDocumentTypeCode, financialSystemDocumentTypeCode.getName())) {
                 org.kuali.rice.kew.api.doctype.DocumentType temp = SpringContext.getBean(DocumentTypeService.class).getDocumentTypeByName(financialDocumentTypeCode);
-                if ( temp != null ) {
-                    financialSystemDocumentTypeCode = DocumentType.from( temp );
+                if (temp != null) {
+                    financialSystemDocumentTypeCode = DocumentType.from(temp);
                 } else {
                     financialSystemDocumentTypeCode = null;
                 }
@@ -245,7 +244,7 @@ public class AccountDelegateGlobalDetail extends GlobalBusinessObjectDetailBase 
      */
     @Override
     public int hashCode() {
-        return ObjectUtil.generateHashCode(this, Arrays.asList(KFSPropertyConstants.DOCUMENT_NUMBER,"financialDocumentTypeCode", "accountDelegatePrimaryRoutingIndicator", "accountDelegateUniversalId" ));
+        return ObjectUtil.generateHashCode(this, Arrays.asList(KFSPropertyConstants.DOCUMENT_NUMBER, "financialDocumentTypeCode", "accountDelegatePrimaryRoutingIndicator", "accountDelegateUniversalId"));
     }
 
 }

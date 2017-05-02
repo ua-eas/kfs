@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -53,6 +53,7 @@ public class KfsKimAttributes extends org.kuali.rice.kim.bo.impl.KimAttributes {
     public static final String FILE_PATH = "filePath";
     public static final String ROUTE_NODE_NAME = "routeNodeName";
     public static final String PROFILE_PRINCIPAL_ID = "profilePrincipalId";
+    public static final String REPORT_CODE = "reportCode";
 
     protected String chartOfAccountsCode;
     protected String accountNumber;
@@ -72,6 +73,7 @@ public class KfsKimAttributes extends org.kuali.rice.kim.bo.impl.KimAttributes {
     protected String subAccountNumber;
     protected String filePath;
     protected Integer profilePrincipalId;
+    protected String reportCode;
 
     protected Chart chart;
     protected Organization organization;
@@ -296,6 +298,7 @@ public class KfsKimAttributes extends org.kuali.rice.kim.bo.impl.KimAttributes {
 
     /**
      * Gets the profilePrincipalId attribute.
+     *
      * @return Returns the profilePrincipalId.
      */
     public Integer getProfilePrincipalId() {
@@ -304,6 +307,7 @@ public class KfsKimAttributes extends org.kuali.rice.kim.bo.impl.KimAttributes {
 
     /**
      * Sets the profilePrincipalId attribute value.
+     *
      * @param profilePrincipalId The profilePrincipalId to set.
      */
     public void setProfilePrincipalId(Integer profilePrincipalId) {
@@ -388,5 +392,13 @@ public class KfsKimAttributes extends org.kuali.rice.kim.bo.impl.KimAttributes {
 
     public void setFilePath(String filePath) {
         this.filePath = filePath;
+    }
+
+    public String getReportCode() {
+        return reportCode;
+    }
+
+    public void setReportCode(String reportCode) {
+        this.reportCode = reportCode;
     }
 }

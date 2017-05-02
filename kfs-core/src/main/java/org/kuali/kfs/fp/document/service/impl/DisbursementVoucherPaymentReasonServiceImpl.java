@@ -1,44 +1,44 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.businessobject.DisbursementPayee;
 import org.kuali.kfs.fp.businessobject.PaymentReasonCode;
 import org.kuali.kfs.fp.document.DisbursementVoucherConstants;
 import org.kuali.kfs.fp.document.DisbursementVoucherDocument;
 import org.kuali.kfs.fp.document.service.DisbursementVoucherPayeeService;
 import org.kuali.kfs.fp.document.service.DisbursementVoucherPaymentReasonService;
+import org.kuali.kfs.kns.util.MessageList;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.kns.util.MessageList;
-import org.kuali.rice.krad.service.BusinessObjectService;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * implementing the service methods defined in DisbursementVoucherPaymentReasonService
@@ -54,7 +54,7 @@ public class DisbursementVoucherPaymentReasonServiceImpl implements Disbursement
 
     /**
      * @see org.kuali.kfs.fp.document.service.DisbursementVoucherPaymentReasonService#isPayeeQualifiedForPayment(org.kuali.kfs.fp.businessobject.DisbursementPayee,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Override
     public boolean isPayeeQualifiedForPayment(DisbursementPayee payee, String paymentReasonCode) {
@@ -64,7 +64,7 @@ public class DisbursementVoucherPaymentReasonServiceImpl implements Disbursement
 
     /**
      * @see org.kuali.kfs.fp.document.service.DisbursementVoucherPaymentReasonService#isPayeeQualifiedForPayment(org.kuali.kfs.fp.businessobject.DisbursementPayee,
-     *      java.lang.String, java.util.List)
+     * java.lang.String, java.util.List)
      */
     @Override
     public boolean isPayeeQualifiedForPayment(DisbursementPayee payee, String paymentReasonCode, Collection<String> payeeTypeCodes) {
@@ -154,7 +154,7 @@ public class DisbursementVoucherPaymentReasonServiceImpl implements Disbursement
 
     /**
      * @see org.kuali.kfs.fp.document.service.DisbursementVoucherPaymentReasonService#isPaymentReasonOfType(java.lang.String,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Override
     public boolean isPaymentReasonOfType(String typeParameterName, String paymentReasonCode) {
@@ -202,14 +202,14 @@ public class DisbursementVoucherPaymentReasonServiceImpl implements Disbursement
     @Override
     public boolean isTaxReviewRequired(String paymentReasonCode) {
         String parameterName = DisbursementVoucherConstants.PAYMENT_REASONS_REQUIRING_TAX_REVIEW_PARM_NM;
-        List<String> values = new ArrayList<String>( parameterService.getParameterValuesAsString(DisbursementVoucherDocument.class, parameterName) );
+        List<String> values = new ArrayList<String>(parameterService.getParameterValuesAsString(DisbursementVoucherDocument.class, parameterName));
 
         return values != null && values.contains(paymentReasonCode);
     }
 
     /**
      * @see org.kuali.kfs.fp.document.service.DisbursementVoucherPaymentReasonService#postPaymentReasonCodeUsage(java.lang.String,
-     *      org.kuali.rice.kns.util.MessageList)
+     * org.kuali.rice.kns.util.MessageList)
      */
     @Override
     public void postPaymentReasonCodeUsage(String paymentReasonCode, MessageList messageList) {
@@ -223,8 +223,7 @@ public class DisbursementVoucherPaymentReasonServiceImpl implements Disbursement
         if (payeeTypeCodes.size() > 1) {
             String messageKey = KFSKeyConstants.WARNING_DV_PAYMENT_REASON_VALID_FOR_MULTIPLE_PAYEE_TYPES;
             messageList.add(messageKey, descriptivePaymentReason, descriptivePayeeTypes);
-        }
-        else if (payeeTypeCodes.size() == 1) {
+        } else if (payeeTypeCodes.size() == 1) {
             String messageKey = KFSKeyConstants.WARNING_DV_PAYMENT_REASON_VALID_FOR_SINGEL_PAYEE_TYPE;
             messageList.add(messageKey, descriptivePaymentReason, descriptivePayeeTypes);
         }
@@ -242,7 +241,7 @@ public class DisbursementVoucherPaymentReasonServiceImpl implements Disbursement
         }
 
         if (this.isMovingPaymentReason(paymentReasonCode)) {
-            List<String> individualOwnerShipTypeCodes = new ArrayList<String>( parameterService.getParameterValuesAsString(DisbursementVoucherDocument.class, DisbursementVoucherConstants.INDIVIDUAL_OWNERSHIP_TYPES_PARM_NM) );
+            List<String> individualOwnerShipTypeCodes = new ArrayList<String>(parameterService.getParameterValuesAsString(DisbursementVoucherDocument.class, DisbursementVoucherConstants.INDIVIDUAL_OWNERSHIP_TYPES_PARM_NM));
             String ownerShipTypeAsString = this.convertListToString(individualOwnerShipTypeCodes);
 
             String messageKey = KFSKeyConstants.WARNING_DV_MOVING_PAYMENT_REASON;
@@ -279,11 +278,9 @@ public class DisbursementVoucherPaymentReasonServiceImpl implements Disbursement
 
             if (index == 0) {
                 listAsString.append(emlement);
-            }
-            else if (index < list.size() - 1) {
+            } else if (index < list.size() - 1) {
                 listAsString.append(KFSConstants.COMMA).append(oneSpace).append(emlement);
-            }
-            else if (index == list.size() - 1) {
+            } else if (index == list.size() - 1) {
                 listAsString.append(oneSpace).append(KFSConstants.AND).append(oneSpace).append(emlement);
             }
         }

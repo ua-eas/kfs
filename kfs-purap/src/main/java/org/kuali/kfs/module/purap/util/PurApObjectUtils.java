@@ -1,22 +1,33 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.util;
+
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.krad.service.PersistenceService;
+import org.kuali.kfs.krad.util.ExternalizableBusinessObjectUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.purap.PurapConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.web.format.FormatException;
+import org.kuali.rice.krad.bo.BusinessObject;
+import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -30,16 +41,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.kuali.kfs.module.purap.PurapConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.web.format.FormatException;
-import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
-import org.kuali.rice.krad.service.KualiModuleService;
-import org.kuali.rice.krad.service.ModuleService;
-import org.kuali.rice.krad.service.PersistenceService;
-import org.kuali.rice.krad.util.ExternalizableBusinessObjectUtils;
-import org.kuali.rice.krad.util.ObjectUtils;
 /**
  * Purap Object Utils.
  * Similar to the nervous system ObjectUtils this class contains methods to reflectively set and get values on
@@ -49,12 +50,11 @@ public class PurApObjectUtils {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PurApObjectUtils.class);
 
     /**
-     *
      * Populates a class using a base class to determine fields
      *
-     * @param base the class to determine what fields to copy
-     * @param src the source class
-     * @param target the target class
+     * @param base                   the class to determine what fields to copy
+     * @param src                    the source class
+     * @param target                 the target class
      * @param supplementalUncopyable a list of fields to never copy
      */
     public static void populateFromBaseClass(Class base, BusinessObject src, BusinessObject target, Map supplementalUncopyable) {
@@ -65,9 +65,8 @@ public class PurApObjectUtils {
         for (Field field : fields) {
             if (!Modifier.isTransient(field.getModifiers())) {
                 fieldNames.add(field.getName());
-            }
-            else {
-                if ( LOG.isDebugEnabled() ) {
+            } else {
+                if (LOG.isDebugEnabled()) {
                     LOG.debug("field " + field.getName() + " is transient, skipping ");
                 }
             }
@@ -79,17 +78,16 @@ public class PurApObjectUtils {
                 counter++;
             }
         }
-        if ( LOG.isDebugEnabled() ) {
+        if (LOG.isDebugEnabled()) {
             LOG.debug("Population complete for " + counter + " fields out of a total of " + fieldNames.size() + " potential fields in object with base class '" + base + "'");
         }
     }
 
     /**
-     *
      * True if a field is processable
      *
-     * @param baseClass the base class
-     * @param fieldName the field name to detrmine if processable
+     * @param baseClass          the base class
+     * @param fieldName          the field name to detrmine if processable
      * @param excludedFieldNames field names to exclude
      * @return true if a field is processable
      */
@@ -104,12 +102,12 @@ public class PurApObjectUtils {
     }
 
     /**
-     *
      * Attempts to copy a field
-     * @param baseClass the base class
-     * @param fieldName the field name to determine if processable
-     * @param sourceObject source object
-     * @param targetObject target object
+     *
+     * @param baseClass              the base class
+     * @param fieldName              the field name to determine if processable
+     * @param sourceObject           source object
+     * @param targetObject           target object
      * @param supplementalUncopyable
      */
     protected static void attemptCopyOfFieldName(String baseClassName, String fieldName, BusinessObject sourceObject, BusinessObject targetObject, Map supplementalUncopyable) {
@@ -117,36 +115,33 @@ public class PurApObjectUtils {
 
             Object propertyValue = ObjectUtils.getPropertyValue(sourceObject, fieldName);
             if ((ObjectUtils.isNotNull(propertyValue)) && (Collection.class.isAssignableFrom(propertyValue.getClass()))) {
-                if ( LOG.isDebugEnabled() ) {
+                if (LOG.isDebugEnabled()) {
                     LOG.debug("attempting to copy collection field '" + fieldName + "' using base class '" + baseClassName + "' and property value class '" + propertyValue.getClass() + "'");
                 }
-                copyCollection(fieldName, targetObject, (Collection)propertyValue, supplementalUncopyable);
-            }
-            else {
+                copyCollection(fieldName, targetObject, (Collection) propertyValue, supplementalUncopyable);
+            } else {
                 String propertyValueClass = (ObjectUtils.isNotNull(propertyValue)) ? propertyValue.getClass().toString() : "(null)";
-                if ( LOG.isDebugEnabled() ) {
+                if (LOG.isDebugEnabled()) {
                     LOG.debug("attempting to set field '" + fieldName + "' using base class '" + baseClassName + "' and property value class '" + propertyValueClass + "'");
                 }
                 ObjectUtils.setObjectProperty(targetObject, fieldName, propertyValue);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             // purposefully skip for now
             // (I wish objectUtils getPropertyValue threw named errors instead of runtime) so I could
             // selectively skip
-            if ( LOG.isDebugEnabled() ) {
+            if (LOG.isDebugEnabled()) {
                 LOG.debug("couldn't set field '" + fieldName + "' using base class '" + baseClassName + "' due to exception with class name '" + e.getClass().getName() + "'", e);
             }
         }
     }
 
     /**
-     *
      * Copies a collection
      *
-     * @param fieldName field to copy
-     * @param targetObject the object of the collection
-     * @param propertyValue value to copy
+     * @param fieldName              field to copy
+     * @param targetObject           the object of the collection
+     * @param propertyValue          value to copy
      * @param supplementalUncopyable uncopyable fields
      * @throws FormatException
      * @throws IllegalAccessException
@@ -162,21 +157,19 @@ public class PurApObjectUtils {
         }
 
         // ArrayList requires argument so handle differently than below
-            try {
-                listToSet = sourceList.getClass().newInstance();
+        try {
+            listToSet = sourceList.getClass().newInstance();
+        } catch (Exception e) {
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("couldn't set class '" + sourceList.getClass() + "' on collection..." + fieldName + " using " + sourceList.getClass());
             }
-            catch (Exception e) {
-                if ( LOG.isDebugEnabled() ) {
-                    LOG.debug("couldn't set class '" + sourceList.getClass() + "' on collection..." + fieldName + " using " + sourceList.getClass());
-                }
-                listToSet = new ArrayList<T>();
-            }
+            listToSet = new ArrayList<T>();
+        }
 
 
-
-        for (Iterator iterator = sourceList.iterator(); iterator.hasNext();) {
+        for (Iterator iterator = sourceList.iterator(); iterator.hasNext(); ) {
             BusinessObject sourceCollectionObject = (BusinessObject) iterator.next();
-            if ( LOG.isDebugEnabled() ) {
+            if (LOG.isDebugEnabled()) {
                 LOG.debug("attempting to copy collection member with class '" + sourceCollectionObject.getClass() + "'");
             }
             BusinessObject targetCollectionObject = (BusinessObject) createNewObjectFromClass(sourceCollectionObject.getClass());
@@ -199,7 +192,6 @@ public class PurApObjectUtils {
      * appropriate module service to create a new instance.
      *
      * @param boClass
-     *
      * @return a newInstance() of clazz
      */
     protected static Object createNewObjectFromClass(Class clazz) {
@@ -211,8 +203,7 @@ public class PurApObjectUtils {
                 Class eboInterface = ExternalizableBusinessObjectUtils.determineExternalizableBusinessObjectSubInterface(clazz);
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(eboInterface);
                 return moduleService.createNewObjectFromExternalizableClass(eboInterface);
-            }
-            else {
+            } else {
                 return clazz.newInstance();
             }
         } catch (Exception e) {
@@ -223,8 +214,8 @@ public class PurApObjectUtils {
     /**
      * Copies based on a class template it does not copy fields in Known Uncopyable Fields
      *
-     * @param base the base class
-     * @param src source
+     * @param base   the base class
+     * @param src    source
      * @param target target
      */
     public static void populateFromBaseClass(Class base, BusinessObject src, BusinessObject target) {
@@ -232,13 +223,12 @@ public class PurApObjectUtils {
     }
 
     /**
-     *
      * Populates from a base class traversing up the object hierarchy.
      *
-     * @param sourceObject object to copy from
-     * @param targetObject object to copy to
+     * @param sourceObject                     object to copy from
+     * @param targetObject                     object to copy to
      * @param supplementalUncopyableFieldNames fields to exclude
-     * @param classesToExclude classes to exclude
+     * @param classesToExclude                 classes to exclude
      */
     public static void populateFromBaseWithSuper(BusinessObject sourceObject, BusinessObject targetObject, Map supplementalUncopyableFieldNames, Set<Class> classesToExclude) {
         List<Class> classesToCopy = new ArrayList<Class>();
@@ -257,17 +247,18 @@ public class PurApObjectUtils {
     }
 
     // ***** following changes are to work around an ObjectUtils bug and are copied from ObjectUtils.java
+
     /**
      * Compares a business object with a List of BOs to determine if an object with the same key as the BO exists in the list. If it
      * does, the item is returned.
      *
      * @param controlList - The list of items to check
-     * @param bo - The BO whose keys we are looking for in the controlList
+     * @param bo          - The BO whose keys we are looking for in the controlList
      */
     public static BusinessObject retrieveObjectWithIdentitcalKey(Collection controlList, BusinessObject bo) {
         BusinessObject returnBo = null;
 
-        for (Iterator i = controlList.iterator(); i.hasNext();) {
+        for (Iterator i = controlList.iterator(); i.hasNext(); ) {
             BusinessObject listBo = (BusinessObject) i.next();
             if (equalByKeys(listBo, bo)) {
                 returnBo = listBo;
@@ -289,24 +280,20 @@ public class PurApObjectUtils {
 
         if (bo1 == null && bo2 == null) {
             equal = true;
-        }
-        else if (bo1 == null || bo2 == null) {
+        } else if (bo1 == null || bo2 == null) {
             equal = false;
-        }
-        else if (!bo1.getClass().getName().equals(bo2.getClass().getName())) {
+        } else if (!bo1.getClass().getName().equals(bo2.getClass().getName())) {
             equal = false;
-        }
-        else {
+        } else {
             Map bo1Keys = SpringContext.getBean(PersistenceService.class).getPrimaryKeyFieldValues(bo1);
             Map bo2Keys = SpringContext.getBean(PersistenceService.class).getPrimaryKeyFieldValues(bo2);
-            for (Iterator iter = bo1Keys.keySet().iterator(); iter.hasNext();) {
+            for (Iterator iter = bo1Keys.keySet().iterator(); iter.hasNext(); ) {
                 String keyName = (String) iter.next();
                 if (bo1Keys.get(keyName) != null && bo2Keys.get(keyName) != null) {
                     if (!bo1Keys.get(keyName).toString().equals(bo2Keys.get(keyName).toString())) {
                         equal = false;
                     }
-                }
-                else {
+                } else {
                     // CHANGE FOR PurapOjbCollectionHelper change if one is null we are likely looking at a new object (sequence) which is definitely
                     // not equal
                     equal = false;

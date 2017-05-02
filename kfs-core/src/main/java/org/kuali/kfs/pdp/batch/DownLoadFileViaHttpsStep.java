@@ -1,40 +1,39 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.pdp.batch;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.URL;
-import java.util.Date;
-
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSocketFactory;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 
 import org.kuali.kfs.pdp.PdpConstants;
 import org.kuali.kfs.pdp.PdpParameterConstants;
 import org.kuali.kfs.pdp.util.HttpsTrustManager;
 import org.kuali.kfs.sys.batch.AbstractStep;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
+
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.URL;
+import java.util.Date;
 
 /**
  * Batch step to download a text file from an HTTPS URL to the specified target directory.
@@ -64,7 +63,7 @@ public class DownLoadFileViaHttpsStep extends AbstractStep {
             SSLSocketFactory factory = context.getSocketFactory();
 
             URL url = new URL(sourceFileUrl);
-            HttpsURLConnection connection = (HttpsURLConnection)url.openConnection();
+            HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
             connection.setDoOutput(true);
             connection.setSSLSocketFactory(factory);
 
@@ -74,16 +73,15 @@ public class DownLoadFileViaHttpsStep extends AbstractStep {
             String line;
             int count = 0;
             while ((line = in.readLine()) != null) {
-               out.println(line);
-               count++;
+                out.println(line);
+                count++;
             }
 
             in.close();
             out.close();
 
             LOG.info("Total number of ACH Bank records downloaded: " + count);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
 

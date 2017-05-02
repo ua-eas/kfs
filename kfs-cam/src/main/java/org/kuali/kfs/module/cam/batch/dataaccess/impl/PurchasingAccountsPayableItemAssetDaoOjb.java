@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  * 
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,28 +18,28 @@
  */
 package org.kuali.kfs.module.cam.batch.dataaccess.impl;
 
-import java.math.BigDecimal;
-import java.util.Iterator;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryFactory;
 import org.apache.ojb.broker.query.ReportQueryByCriteria;
-import org.kuali.kfs.module.cab.CabPropertyConstants;
-import org.kuali.kfs.module.cab.batch.dataaccess.PurchasingAccountsPayableItemAssetDao;
-import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableItemAsset;
+import org.kuali.kfs.module.cam.CamsPropertyConstants;
+import org.kuali.kfs.module.cam.batch.dataaccess.PurchasingAccountsPayableItemAssetDao;
+import org.kuali.kfs.module.cam.businessobject.PurchasingAccountsPayableItemAsset;
 import org.kuali.kfs.sys.util.TransactionalServiceUtils;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+
+import java.math.BigDecimal;
+import java.util.Iterator;
 
 public class PurchasingAccountsPayableItemAssetDaoOjb extends PlatformAwareDaoBaseOjb implements PurchasingAccountsPayableItemAssetDao {
 
     public Integer findMaxCabLineNumber(String documentNumber, Integer accountsPayableLineItemIdentifier) {
         Criteria criteria = new Criteria();
-        criteria.addEqualTo(CabPropertyConstants.PurchasingAccountsPayableItemAsset.DOCUMENT_NUMBER, documentNumber);
-        criteria.addEqualTo(CabPropertyConstants.PurchasingAccountsPayableItemAsset.ACCOUNTS_PAYABLE_LINE_ITEM_IDENTIFIER, accountsPayableLineItemIdentifier);
+        criteria.addEqualTo(CamsPropertyConstants.PurchasingAccountsPayableItemAsset.DOCUMENT_NUMBER, documentNumber);
+        criteria.addEqualTo(CamsPropertyConstants.PurchasingAccountsPayableItemAsset.ACCOUNTS_PAYABLE_LINE_ITEM_IDENTIFIER, accountsPayableLineItemIdentifier);
 
         ReportQueryByCriteria query = QueryFactory.newReportQuery(PurchasingAccountsPayableItemAsset.class, criteria);
 
-        query.setAttributes(new String[] { "max(" + CabPropertyConstants.PurchasingAccountsPayableItemAsset.CAPITAL_ASSET_BUILDER_LINE_NUMBER + ")" });
+        query.setAttributes(new String[]{"max(" + CamsPropertyConstants.PurchasingAccountsPayableItemAsset.CAPITAL_ASSET_BUILDER_LINE_NUMBER + ")"});
         Iterator<?> iterator = getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(query);
         Integer maxSequenceNumber = Integer.valueOf(0);
 

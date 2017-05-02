@@ -1,32 +1,32 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.fp.businessobject;
 
-import java.util.LinkedHashMap;
-
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 /**
- * This class is used to represent a non-resident alien tax percent.  This is the percentage of a total 
+ * This class is used to represent a non-resident alien tax percent.  This is the percentage of a total
  * reimbursement that is collected in taxes for non-resident aliens.
  */
 public class NonResidentAlienTaxPercent extends PersistableBusinessObjectBase implements MutableInactivatable {
@@ -34,7 +34,7 @@ public class NonResidentAlienTaxPercent extends PersistableBusinessObjectBase im
     private String incomeClassCode;
     private String incomeTaxTypeCode;
     private boolean active;
-    
+
     private KualiDecimal incomeTaxPercent;
 
     private TaxIncomeClassCode incomeClass;
@@ -48,7 +48,7 @@ public class NonResidentAlienTaxPercent extends PersistableBusinessObjectBase im
 
     /**
      * Gets the incomeClassCode attribute.
-     * 
+     *
      * @return Returns the incomeClassCode
      */
     public String getIncomeClassCode() {
@@ -58,7 +58,7 @@ public class NonResidentAlienTaxPercent extends PersistableBusinessObjectBase im
 
     /**
      * Sets the incomeClassCode attribute.
-     * 
+     *
      * @param incomeClassCode The incomeClassCode to set.
      */
     public void setIncomeClassCode(String incomeClassCode) {
@@ -67,7 +67,7 @@ public class NonResidentAlienTaxPercent extends PersistableBusinessObjectBase im
 
     /**
      * Gets the incomeTaxTypeCode attribute.
-     * 
+     *
      * @return Returns the incomeTaxTypeCode
      */
     public String getIncomeTaxTypeCode() {
@@ -77,7 +77,7 @@ public class NonResidentAlienTaxPercent extends PersistableBusinessObjectBase im
 
     /**
      * Sets the incomeTaxTypeCode attribute.
-     * 
+     *
      * @param incomeTaxTypeCode The incomeTaxTypeCode to set.
      */
     public void setIncomeTaxTypeCode(String incomeTaxTypeCode) {
@@ -86,7 +86,7 @@ public class NonResidentAlienTaxPercent extends PersistableBusinessObjectBase im
 
     /**
      * Gets the incomeTaxPercent attribute.
-     * 
+     *
      * @return Returns the incomeTaxPercent
      */
     public KualiDecimal getIncomeTaxPercent() {
@@ -96,7 +96,7 @@ public class NonResidentAlienTaxPercent extends PersistableBusinessObjectBase im
 
     /**
      * Sets the incomeTaxPercent attribute.
-     * 
+     *
      * @param incomeTaxPercent The incomeTaxPercent to set.
      */
     public void setIncomeTaxPercent(KualiDecimal incomeTaxPercent) {
@@ -105,7 +105,7 @@ public class NonResidentAlienTaxPercent extends PersistableBusinessObjectBase im
 
     /**
      * Gets the incomeClass attribute.
-     * 
+     *
      * @return Returns the incomeClass
      */
     public TaxIncomeClassCode getIncomeClass() {
@@ -115,7 +115,7 @@ public class NonResidentAlienTaxPercent extends PersistableBusinessObjectBase im
 
     /**
      * Sets the incomeClass attribute.
-     * 
+     *
      * @param incomeClass The incomeClass to set.
      * @deprecated
      */
@@ -137,7 +137,8 @@ public class NonResidentAlienTaxPercent extends PersistableBusinessObjectBase im
     }
 
     /**
-     * Gets the active attribute. 
+     * Gets the active attribute.
+     *
      * @return Returns the active.
      */
     public boolean isActive() {
@@ -146,6 +147,7 @@ public class NonResidentAlienTaxPercent extends PersistableBusinessObjectBase im
 
     /**
      * Sets the active attribute value.
+     *
      * @param active The active to set.
      */
     public void setActive(boolean active) {

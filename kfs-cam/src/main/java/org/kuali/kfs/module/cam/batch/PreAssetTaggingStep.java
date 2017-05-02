@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  * 
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.cam.batch;
 
-import java.util.Collection;
-import java.util.Date;
-
 import org.apache.log4j.Logger;
-import org.kuali.kfs.module.cab.batch.service.BatchExtractService;
+import org.kuali.kfs.module.cam.batch.service.BatchExtractService;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderAccount;
 import org.kuali.kfs.sys.batch.AbstractStep;
 import org.kuali.rice.core.api.datetime.DateTimeService;
+
+import java.util.Collection;
+import java.util.Date;
 
 public class PreAssetTaggingStep extends AbstractStep {
     private static final Logger LOG = Logger.getLogger(PreAssetTaggingStep.class);
@@ -33,7 +33,7 @@ public class PreAssetTaggingStep extends AbstractStep {
     private DateTimeService dateTimeService;
 
     /**
-     * @see org.kuali.kfs.sys.batch.Step#execute(java.lang.String, java.util.Date)
+     * @see org.kuali.kfs.sys.batch.Step#execute(String, Date)
      */
     public boolean execute(String jobName, Date jobRunDate) throws InterruptedException {
         try {
@@ -49,8 +49,7 @@ public class PreAssetTaggingStep extends AbstractStep {
                 LOG.debug("Pre Asset Tagging extract finished at " + dateTimeService.getCurrentTimestamp());
             }
             batchExtractService.updateLastExtractDate(currentSqlDate);
-        }
-        catch (Throwable e) {
+        } catch (Throwable e) {
             LOG.error("Unexpected error occured during Pre Asset Tagging extract", e);
             throw new RuntimeException(e);
         }

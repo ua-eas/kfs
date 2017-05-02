@@ -1,0 +1,7 @@
+HEADER[~&~	~&~VNDR_PHN_TYP_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~VNDR_PHN_TYP_DESC::VARCHAR~&~	~&~DOBJ_MAINT_CD_ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'FX'~&~	~&~'186D917D-3E28-4A55-ACCA-806A0DF12D76'~&~	~&~'1'~&~	~&~'FAX'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'MB'~&~	~&~'89481C07-8666-B6BA-8FD5-A8D24EB78851'~&~	~&~'1'~&~	~&~'MOBILE'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PG'~&~	~&~'8115E355-677C-A427-64BD-B70582243606'~&~	~&~'1'~&~	~&~'PAGER'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PH'~&~	~&~'F7BF0ABD-608E-BF70-8A40-469DF73BAEA0'~&~	~&~'1'~&~	~&~'PHONE NUMBER'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PO'~&~	~&~'ADF65BDC-6630-7576-61BD-34D97AC9BEDB'~&~	~&~'2'~&~	~&~'PURCHASE ORDER'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'TF'~&~	~&~'8C48A5BE-0312-01EB-5323-A1417A1555E1'~&~	~&~'1'~&~	~&~'TOLL FREE'~&~	~&~'Y'~&~	~&~]RECORD

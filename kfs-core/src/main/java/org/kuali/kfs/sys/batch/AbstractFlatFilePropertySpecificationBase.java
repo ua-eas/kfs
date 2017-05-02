@@ -1,27 +1,27 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.batch;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.sys.businessobject.format.BatchDateFormatter;
 import org.kuali.rice.core.web.format.Formatter;
-import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.springframework.util.StringUtils;
 
 
@@ -47,9 +47,10 @@ public abstract class AbstractFlatFilePropertySpecificationBase implements FlatF
 
     /**
      * Sets the property on the business object
-     * @param value the substring of the parsed line to set
+     *
+     * @param value          the substring of the parsed line to set
      * @param businessObject the business object to set the parsed line on
-     * @param lineNumber the parsed line number
+     * @param lineNumber     the parsed line number
      */
 
     @Override
@@ -63,19 +64,19 @@ public abstract class AbstractFlatFilePropertySpecificationBase implements FlatF
         }
         try {
             PropertyUtils.setProperty(businessObject, propertyName, getFormattedObject(value, businessObject));
-        }
-        catch (Exception e) {
-            throw new RuntimeException("Exception occurred on line " + lineNumber + " while setting value " + value + " for property " + propertyName + "."  , e);
+        } catch (Exception e) {
+            throw new RuntimeException("Exception occurred on line " + lineNumber + " while setting value " + value + " for property " + propertyName + ".", e);
         }
     }
 
     /**
      * Returns the formatter class to format the substring before it is set on the business object
+     *
      * @param parsedObject the object that is being parsed into
      * @return the class for the formatter
      */
     protected Class<?> getFormatterClass(Object parsedObject) {
-        if (Formatter.class.isAssignableFrom(formatterClass) ) {
+        if (Formatter.class.isAssignableFrom(formatterClass)) {
             Class<? extends Formatter> attributeFormatter = KRADServiceLocatorWeb.getDataDictionaryService().getAttributeFormatter(parsedObject.getClass(), this.propertyName);
             if (attributeFormatter != null) {
                 this.formatterClass = attributeFormatter;
@@ -90,6 +91,7 @@ public abstract class AbstractFlatFilePropertySpecificationBase implements FlatF
 
     /**
      * Builds a formatter to format the parsed substring before it is set as a property on the business object
+     *
      * @param parsedObject the business object to parse into
      * @return the formatter
      */
@@ -97,11 +99,9 @@ public abstract class AbstractFlatFilePropertySpecificationBase implements FlatF
         Formatter formatter = null;
         try {
             formatter = (Formatter) getFormatterClass(parsedObject).newInstance();
-        }
-        catch (InstantiationException ie) {
+        } catch (InstantiationException ie) {
             throw new RuntimeException("Could not instantiate object of class " + formatterClass.getName(), ie);
-        }
-        catch (IllegalAccessException iae) {
+        } catch (IllegalAccessException iae) {
             throw new RuntimeException("Illegal access attempting to instantiate object of class " + formatterClass.getName(), iae);
         }
         return formatter;
@@ -109,6 +109,7 @@ public abstract class AbstractFlatFilePropertySpecificationBase implements FlatF
 
     /**
      * Sets the formatter class to use in this proprety specification
+     *
      * @param formatterClass the class of the formatter to use
      */
     public void setFormatterClass(Class<? extends Formatter> formatterClass) {
@@ -121,8 +122,9 @@ public abstract class AbstractFlatFilePropertySpecificationBase implements FlatF
     /**
      * This method returns the formatted object for the given string. It uses the formatter class define for specification property
      * if exists, otherwise look to the Data Dictionary of the parsedObject , otherwise use the default formatter class.
+     *
      * @param subString the parsed subString
-     * @param the object to parse into
+     * @param the       object to parse into
      */
     protected Object getFormattedObject(String subString, Object parsedObject) {
         Formatter formatter = getFormatter(parsedObject);
@@ -137,6 +139,7 @@ public abstract class AbstractFlatFilePropertySpecificationBase implements FlatF
 
     /**
      * Sets the name of the property this property specification will target for filling in the business object to parse into
+     *
      * @param propertyName the name of the target property
      */
     public void setPropertyName(String propertyName) {
@@ -145,6 +148,7 @@ public abstract class AbstractFlatFilePropertySpecificationBase implements FlatF
 
     /**
      * Determines if the substring should have all whitespace on the right removed before setting
+     *
      * @param rightTrim true if all whitespace on the right should be removed, false otherwise
      */
     public void setRightTrim(boolean rightTrim) {
@@ -153,6 +157,7 @@ public abstract class AbstractFlatFilePropertySpecificationBase implements FlatF
 
     /**
      * Determines if the substring should have all whitepsace on the left removed before setting
+     *
      * @param leftTrim true if all whitespace on the left should be removed, false otherwise
      */
     public void setLeftTrim(boolean leftTrim) {
@@ -162,6 +167,7 @@ public abstract class AbstractFlatFilePropertySpecificationBase implements FlatF
     /**
      * If the substring represents a date, then this is the format used to parse that date; it should be
      * compatible with java.text.SimpleDateFormat
+     *
      * @param dateFormat the date format to utilized
      */
     public void setDateFormat(String dateFormat) {

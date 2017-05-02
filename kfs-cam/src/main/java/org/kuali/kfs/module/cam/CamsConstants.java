@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -27,7 +27,7 @@ import java.util.Map;
  */
 public class CamsConstants {
     public static final String CAM_MODULE_CODE = "KFS-CAM";
-    public static final String[] MONTHS = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
+    public static final String[] MONTHS = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
     public static final String SET_PERIOD_DEPRECIATION_AMOUNT_REGEX = "setperiod\\d.*depreciation\\damount";
     public static final String GET_PERIOD_DEPRECIATION_AMOUNT_REGEX = "getperiod\\d.*depreciation\\damount";
     public static final String CPTLAST_NBR_SEQ = "CPTLAST_NBR_SEQ";
@@ -119,12 +119,13 @@ public class CamsConstants {
     }
 
     public static class Parameters {
-        public static final String DEPRECIATION_RUN_DATE_PARAMETER = "DEPRECIATION_RUN_DATE";
+        public static final String DEPRECIATION_DATE_PARAMETER = "DEPRECIATION_DATE";
         public static final String DEPRECIATION_CAMPUS_PLANT_FUND_OBJECT_SUB_TYPES = "DEPRECIATION_CAMPUS_PLANT_FUND_OBJECT_SUB_TYPE";
-        public static final String DEPRECIATION_ORGANIZATON_PLANT_FUND_SUB_OBJECT_TYPES = "DEPRECIATION_ORGANIZATON_PLANT_FUND_OBJECT_SUB_TYPE";
+        public static final String DEPRECIATION_ORGANIZATION_PLANT_FUND_OBJECT_SUB_TYPE = "DEPRECIATION_ORGANIZATION_PLANT_FUND_OBJECT_SUB_TYPE";
+        public static final String DEPRECIATION_PERIOD = "DEPRECIATION_PERIOD";
         public static final String NEW_IN_SERVICE_ASSET_DEPRECIATION_START_DATE = "NEW_IN_SERVICE_ASSET_DEPRECIATION_START_DATE";
         public static final String NON_DEPRECIABLE_FEDERALLY_OWNED_OBJECT_SUB_TYPES = "NON_DEPRECIABLE_FEDERALLY_OWNED_OBJECT_SUB_TYPES";
-        public static final String NON_DEPRECIABLE_NON_CAPITAL_ASSETS_STATUS_CODES = "NON_DEPRECIABLE_NON_CAPITAL_ASSET_STATUS_CODES";
+        public static final String NON_DEPRECIABLE_NON_CAPITAL_ASSET_STATUS_CODES = "NON_DEPRECIABLE_NON_CAPITAL_ASSET_STATUS_CODES";
         public static final String FEDERAL_CONTRIBUTIONS_OBJECT_SUB_TYPES = "FEDERAL_CONTRIBUTIONS_OBJECT_SUB_TYPES";
         public static final String FEDERAL_OWNED_OBJECT_SUB_TYPES = "FEDERAL_OWNED_OBJECT_SUB_TYPES";
         public static final String VALID_INVENTROY_STATUS_CODE_CHANGE = "VALID_ASSET_STATUS_BY_PRIOR_ASSET_STATUS";
@@ -149,15 +150,26 @@ public class CamsConstants {
         public static final String BAR_CODE_ERROR_DOCUMENT_IGNORES_LOCKS = "IGNORES_LOCKS_IND";
         public static final String MAX_NUMBER_OF_RECORDS_PER_DOCUMENT = "MAX_NUMBER_OF_RECORDS_PER_DOCUMENT";
         public static final String FISCAL_YEAR_END_MONTH_AND_DAY = "FISCAL_YEAR_END_MONTH_AND_DAY";
-        public static final String BLANK_OUT_BEGIN_MMDD = "BLANK_OUT_BEGIN_MMDD";
+        public static final String BLANK_OUT_PERIOD_BEGIN = "BLANK_OUT_PERIOD_BEGIN";
         public static final String BLANK_OUT_PERIOD_RUN_DATE = "BLANK_OUT_PERIOD_RUN_DATE";
-        public static final String RUN_DATE_NOTIFICATION_EMAIL_ADDRESSES = "RUN_DATE_NOTIFICATION_EMAIL_ADDRESSES";
+        public static final String BLANK_OUT_NOTIFICATION_EMAIL_ADDRESSES = "BLANK_OUT_NOTIFICATION_EMAIL_ADDRESSES";
 
-        public static final String BLANK_OUT_END_MMDD = "BLANK_OUT_END_MMDD";
+        public static final String BLANK_OUT_PERIOD_END = "BLANK_OUT_PERIOD_END";
         public static final String MANUFACTURER_REQUIRED_FOR_NON_MOVEABLE_ASSET_IND = "MANUFACTURER_REQUIRED_FOR_NON_MOVEABLE_ASSET_IND";
-        // CSU 6702 BEGIN
         public static String INCLUDE_RETIRED_ASSETS_IND = "INCLUDE_RETIRED_ASSETS_IND";
-        // CSU 6702 BEGIN
+
+        public static final String LAST_EXTRACT_TIME = "LAST_EXTRACT_TIME";
+        public static final String SUB_FUND_GROUPS = "SUB_FUND_GROUPS";
+        public static final String FISCAL_PERIODS = "FISCAL_PERIODS";
+        public static final String DOCUMENT_TYPES = "DOCUMENT_TYPES";
+        public static final String CHARTS = "CHARTS";
+        public static final String OBJECT_SUB_TYPES = "OBJECT_SUB_TYPES";
+        public static final String BALANCE_TYPES = "BALANCE_TYPES";
+        public static final String NAMESPACE = "KFS-CAM";
+        public static final String DETAIL_TYPE_BATCH = "Batch";
+        public static final String DETAIL_TYPE_DOCUMENT = "Document";
+        public static final String LAST_EXTRACT_DATE = "LAST_EXTRACT_DATE";
+        public static final String DETAIL_TYPE_PRE_ASSET_TAGGING_STEP = "PreAssetTaggingStep";
     }
 
     public static class Report {
@@ -193,6 +205,7 @@ public class CamsConstants {
         public static final String BAR_CODE_ERROR_DOCUMENT_IGNORES_LOCKS_NO = "N";
 
         public static final Map<String, String> statusDescription = new HashMap<String, String>();
+
         static {
             statusDescription.put(STATUS_CODE_CORRECTED, STATUS_CODE_CORRECTED_DESCRIPTION);
             statusDescription.put(STATUS_CODE_DELETED, STATUS_CODE_DELETED_DESCRIPTION);
@@ -279,9 +292,9 @@ public class CamsConstants {
         public static final String COLLECTION_ID_ASSET_REPAIR_HISTORY = "assetRepairHistory";
         public static final String SECTION_ID_COMPONENTS = "components";
         public static final String SECTION_ID_LOAN_INFORMATION = "equipmentLoanInformation";
-        public static final String[] EDIT_DETAIL_INFORMATION_FIELDS = new String[] { CamsPropertyConstants.Asset.ASSET_DATE_OF_SERVICE, CamsPropertyConstants.Asset.CAMPUS_TAG_NUMBER, CamsPropertyConstants.Asset.GOVERNMENT_TAG_NUMBER, CamsPropertyConstants.Asset.NATIONAL_STOCK_NUMBER, CamsPropertyConstants.Asset.MANUFACTURER_NAME, CamsPropertyConstants.Asset.MANUFACTURER_MODEL_NUMBER, CamsPropertyConstants.Asset.SERIAL_NUMBER, CamsPropertyConstants.Asset.CAMPUS_TAG_NUMBER, CamsPropertyConstants.Asset.OLD_TAG_NUMBER, CamsPropertyConstants.Asset.TOTAL_COST_AMOUNT, CamsPropertyConstants.Asset.FEDERAL_CONTRIBUTION, CamsPropertyConstants.Asset.ASSET_DEPRECIATION_DATE, CamsPropertyConstants.Asset.FINANCIAL_OBJECT_SUB_TYP_CODE };
-        public static final String[] EDIT_ORGANIZATION_INFORMATION_FIELDS = new String[] { CamsPropertyConstants.AssetOrganization.ASSET_ORGANIZATION + "." + CamsPropertyConstants.AssetOrganization.ORGANIZATION_TAG_NUMBER, CamsPropertyConstants.Asset.ESTIMATED_SELLING_PRICE, CamsPropertyConstants.Asset.RECEIVE_DATE, CamsPropertyConstants.Asset.REPLACEMENT_AMOUNT };
-        public static final String[] FABRICATION_INFORMATION_FIELDS = new String[] { CamsPropertyConstants.Asset.ESTIMATED_FABRICATION_COMPLETION_DATE, CamsPropertyConstants.Asset.FABRICATION_ESTIMATED_RETENTION_YEARS, CamsPropertyConstants.Asset.FABRICATION_ESTIMATED_TOTAL_AMOUNT };
+        public static final String[] EDIT_DETAIL_INFORMATION_FIELDS = new String[]{CamsPropertyConstants.Asset.ASSET_DATE_OF_SERVICE, CamsPropertyConstants.Asset.CAMPUS_TAG_NUMBER, CamsPropertyConstants.Asset.GOVERNMENT_TAG_NUMBER, CamsPropertyConstants.Asset.NATIONAL_STOCK_NUMBER, CamsPropertyConstants.Asset.MANUFACTURER_NAME, CamsPropertyConstants.Asset.MANUFACTURER_MODEL_NUMBER, CamsPropertyConstants.Asset.SERIAL_NUMBER, CamsPropertyConstants.Asset.CAMPUS_TAG_NUMBER, CamsPropertyConstants.Asset.OLD_TAG_NUMBER, CamsPropertyConstants.Asset.TOTAL_COST_AMOUNT, CamsPropertyConstants.Asset.FEDERAL_CONTRIBUTION, CamsPropertyConstants.Asset.ASSET_DEPRECIATION_DATE, CamsPropertyConstants.Asset.FINANCIAL_OBJECT_SUB_TYP_CODE};
+        public static final String[] EDIT_ORGANIZATION_INFORMATION_FIELDS = new String[]{CamsPropertyConstants.AssetOrganization.ASSET_ORGANIZATION + "." + CamsPropertyConstants.AssetOrganization.ORGANIZATION_TAG_NUMBER, CamsPropertyConstants.Asset.ESTIMATED_SELLING_PRICE, CamsPropertyConstants.Asset.RECEIVE_DATE, CamsPropertyConstants.Asset.REPLACEMENT_AMOUNT};
+        public static final String[] FABRICATION_INFORMATION_FIELDS = new String[]{CamsPropertyConstants.Asset.ESTIMATED_FABRICATION_COMPLETION_DATE, CamsPropertyConstants.Asset.FABRICATION_ESTIMATED_RETENTION_YEARS, CamsPropertyConstants.Asset.FABRICATION_ESTIMATED_TOTAL_AMOUNT};
         public static final String SECTION_TITLE_NO_PAYMENT = "- No payment exists for Capital Asset: ";
     }
 
@@ -343,43 +356,24 @@ public class CamsConstants {
     }
 
     public static final String defaultLockingInformation = "-1";
-    
+
     public static final String PREQ = "PREQ";
     public static final String CM = "CM";
 
     public static final String TRADE_IN_TYPE_CODE = "TRDI";
 
-    public static final String CB_INVOICE_LINE_ACTION_URL = "../cabPurApLine.do";
+    public static final String CB_INVOICE_LINE_ACTION_URL = "../camsPurApLine.do";
     public static final String DOT_DOC = ".doc";
     public static final String DOT_LINE = ".line";
 
     public static final String TRADE_IN_INDICATOR_QUESTION = "TradeInIndicatorConfirmation";
     public static final String SKIP_ASSET_NUMBERS_TO_ASSET_GLOBAL_QUESTION = "SkipAssetNumbersToAssetGlobalConfirmation";
-    public static final String PAYMENT_DIFFERENT_OBJECT_SUB_TYPE_CONFIRMATION_QUESTION = "PaymentDifferentObjectSubTypeQuestion";;
+    public static final String PAYMENT_DIFFERENT_OBJECT_SUB_TYPE_CONFIRMATION_QUESTION = "PaymentDifferentObjectSubTypeQuestion";
+    ;
     public static final String CAPITAL_ASSET_SYSTEM_STATE_CODE_NEW = "NEW";
     public static final String PO_STATUS_CODE_OPEN = "Open";
 
     public static final String CAB_PURAP_SESSION = "CABPurAp";
-
-    public static class DateFormats {
-        public static final String MONTH_DAY_YEAR = "MM/dd/yyyy";
-        public static final String MILITARY_TIME = "HH:mm:ss";
-    }
-
-    public static class Parameters {
-        public static final String LAST_EXTRACT_TIME = "LAST_EXTRACT_TIME";
-        public static final String SUB_FUND_GROUPS = "SUB_FUND_GROUPS";
-        public static final String FISCAL_PERIODS = "FISCAL_PERIODS";
-        public static final String DOCUMENT_TYPES = "DOCUMENT_TYPES";
-        public static final String CHARTS = "CHARTS";
-        public static final String OBJECT_SUB_TYPES = "OBJECT_SUB_TYPES";
-        public static final String BALANCE_TYPES = "BALANCE_TYPES";
-        public static final String NAMESPACE = "KFS-CAB";
-        public static final String DETAIL_TYPE_BATCH = "Batch";
-        public static final String DETAIL_TYPE_DOCUMENT = "Document";
-        public static final String LAST_EXTRACT_DATE = "LAST_EXTRACT_DATE";
-        public static final String DETAIL_TYPE_PRE_ASSET_TAGGING_STEP = "PreAssetTaggingStep";
-    }
 
     public static class Actions {
         public static final String PROCESS = "process";

@@ -1,0 +1,4 @@
+HEADER[~&~	~&~EMP_TYP_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~NM::VARCHAR~&~	~&~ACTV_IND::VARCHAR~&~	~&~DISPLAY_SORT_CD::VARCHAR~&~	~&~LAST_UPDT_DT::TIMESTAMP~&~	~&~]HEADER
+RECORD[~&~	~&~'N'~&~	~&~'5B97C50B03826110E0404F8189D85213'~&~	~&~'1'~&~	~&~'Non-Professional'~&~	~&~'Y'~&~	~&~'02'~&~	~&~'200811131406320000'~&~	~&~]RECORD
+RECORD[~&~	~&~'O'~&~	~&~'5B97C50B03836110E0404F8189D85213'~&~	~&~'1'~&~	~&~'Other'~&~	~&~'Y'~&~	~&~'99'~&~	~&~'200811131406330000'~&~	~&~]RECORD
+RECORD[~&~	~&~'P'~&~	~&~'5B97C50B03846110E0404F8189D85213'~&~	~&~'1'~&~	~&~'Professional'~&~	~&~'Y'~&~	~&~'01'~&~	~&~'200811131406330000'~&~	~&~]RECORD

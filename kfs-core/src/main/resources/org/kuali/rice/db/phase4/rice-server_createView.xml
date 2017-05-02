@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="kfs" id="rice01290" context="bootstrap,demo,unit">
+        <createView fullDefinition="false" viewName="krim_grp_mbr_v">
+            select g.NMSPC_CD AS NMSPC_CD,
+            g.GRP_NM AS grp_nm,
+            g.GRP_ID AS GRP_ID,
+            p.PRNCPL_NM AS PRNCPL_NM,
+            p.PRNCPL_ID AS PRNCPL_ID,
+            mg.GRP_NM AS mbr_grp_nm,
+            mg.GRP_ID AS mbr_grp_id
+            from
+            ((((krim_grp_mbr_t gm
+            left join krim_grp_t g on((g.GRP_ID = gm.GRP_ID)))
+            left join krim_grp_t mg on(((mg.GRP_ID = gm.MBR_ID) and (gm.MBR_TYP_CD = 'G'))))
+            left join krim_prncpl_t p on(((p.PRNCPL_ID = gm.MBR_ID) and (gm.MBR_TYP_CD = 'P'))))
+            left join krim_entity_nm_t en on(((en.ENTITY_ID = p.ENTITY_ID) and (en.DFLT_IND = 'Y') and (en.ACTV_IND = 'Y'))))
+            order by g.NMSPC_CD,g.GRP_NM,p.PRNCPL_NM
+        </createView>
+    </changeSet>
+    <changeSet author="kfs" id="rice01291" context="bootstrap,demo,unit">
+        <createView fullDefinition="false" viewName="krim_grp_v">
+            select g.NMSPC_CD AS NMSPC_CD,
+            g.GRP_NM AS grp_nm,
+            g.GRP_ID AS GRP_ID,
+            t.NM AS grp_typ_nm,
+            a.NM AS attr_nm,
+            d.ATTR_VAL AS attr_val
+            from
+            (((krim_grp_t g
+            left join krim_grp_attr_data_t d on((d.GRP_ID = g.GRP_ID)))
+            left join krim_attr_defn_t a on((a.KIM_ATTR_DEFN_ID = d.KIM_ATTR_DEFN_ID)))
+            left join krim_typ_t t on((g.KIM_TYP_ID = t.KIM_TYP_ID)))
+        </createView>
+    </changeSet>
+    <changeSet author="kfs" id="rice01292" context="bootstrap,demo,unit">
+        <createView fullDefinition="false" viewName="krim_perm_attr_v">
+            select t.NMSPC_CD AS tmpl_nmspc_cd,
+            t.NM AS tmpl_nm,
+            t.PERM_TMPL_ID AS PERM_TMPL_ID,
+            p.NMSPC_CD AS perm_nmspc_cd,
+            p.NM AS perm_nm,
+            p.PERM_ID AS PERM_ID,
+            a.NM AS attr_nm,
+            ad.ATTR_VAL AS attr_val
+            from
+            (((krim_perm_t p left join krim_perm_tmpl_t t on((p.PERM_TMPL_ID = t.PERM_TMPL_ID)))
+            left join krim_perm_attr_data_t ad on((p.PERM_ID = ad.PERM_ID)))
+            left join krim_attr_defn_t a on((ad.KIM_ATTR_DEFN_ID = a.KIM_ATTR_DEFN_ID)))
+            order by t.NMSPC_CD,t.NM,p.NMSPC_CD,p.PERM_ID,a.NM
+        </createView>
+    </changeSet>
+    <changeSet author="kfs" id="rice01293" context="bootstrap,demo,unit">
+        <createView fullDefinition="false" viewName="krim_perm_v">
+            select t.NMSPC_CD AS tmpl_nmspc_cd,
+            t.NM AS tmpl_nm,
+            t.PERM_TMPL_ID AS PERM_TMPL_ID,
+            p.NMSPC_CD AS perm_nmspc_cd,
+            p.NM AS perm_nm,
+            p.PERM_ID AS PERM_ID,
+            typ.NM AS perm_typ_nm,
+            typ.SRVC_NM AS SRVC_NM
+            from
+            ((krim_perm_t p
+            join krim_perm_tmpl_t t on((p.PERM_TMPL_ID = t.PERM_TMPL_ID)))
+            left join krim_typ_t typ on((t.KIM_TYP_ID = typ.KIM_TYP_ID)))
+        </createView>
+    </changeSet>
+    <changeSet author="kfs" id="rice01294" context="bootstrap,demo,unit">
+        <createView fullDefinition="false" viewName="krim_prncpl_v">
+            select p.PRNCPL_ID AS PRNCPL_ID,
+            p.PRNCPL_NM AS PRNCPL_NM,
+            en.FIRST_NM AS FIRST_NM,
+            en.LAST_NM AS LAST_NM,
+            ea.AFLTN_TYP_CD AS AFLTN_TYP_CD,
+            ea.CAMPUS_CD AS CAMPUS_CD,
+            eei.EMP_STAT_CD AS EMP_STAT_CD,
+            eei.EMP_TYP_CD AS EMP_TYP_CD
+            from
+            (((krim_prncpl_t p
+            left join krim_entity_emp_info_t eei on((eei.ENTITY_ID = p.ENTITY_ID)))
+            left join krim_entity_afltn_t ea on((ea.ENTITY_ID = p.ENTITY_ID)))
+            left join krim_entity_nm_t en on(((p.ENTITY_ID = en.ENTITY_ID) and ('Y' = en.DFLT_IND))))
+        </createView>
+    </changeSet>
+    <changeSet author="kfs" id="rice01295" context="bootstrap,demo,unit">
+        <createView fullDefinition="false" viewName="krim_role_grp_v">
+            select r.NMSPC_CD AS NMSPC_CD,
+            r.ROLE_NM AS ROLE_NM,
+            r.ROLE_ID AS role_id,
+            g.NMSPC_CD AS grp_nmspc_cd,
+            g.GRP_NM AS GRP_NM,
+            rm.ROLE_MBR_ID AS ROLE_MBR_ID,
+            a.NM AS attr_nm,
+            d.ATTR_VAL AS attr_val
+            from
+            ((((krim_role_mbr_t rm
+            left join krim_role_t r on((r.ROLE_ID = rm.ROLE_ID)))
+            left join krim_grp_t g on((g.GRP_ID = rm.MBR_ID)))
+            left join krim_role_mbr_attr_data_t d on((d.ROLE_MBR_ID = rm.ROLE_MBR_ID)))
+            left join krim_attr_defn_t a on((a.KIM_ATTR_DEFN_ID = d.KIM_ATTR_DEFN_ID)))
+            where (rm.MBR_TYP_CD = 'G')
+            order by r.NMSPC_CD,r.ROLE_NM,g.NMSPC_CD,g.GRP_NM,rm.ROLE_MBR_ID,a.NM
+        </createView>
+    </changeSet>
+    <changeSet author="kfs" id="rice01296" context="bootstrap,demo,unit">
+        <createView fullDefinition="false" viewName="krim_role_perm_v">
+            select r.NMSPC_CD AS NMSPC_CD,
+            r.ROLE_NM AS ROLE_NM,
+            r.ROLE_ID AS role_id,
+            pt.NMSPC_CD AS tmpl_nmspc_cd,
+            pt.NM AS tmpl_nm,
+            pt.PERM_TMPL_ID AS PERM_TMPL_ID,
+            p.NMSPC_CD AS perm_nmpsc_cd,
+            p.NM AS perm_nm,
+            p.PERM_ID AS PERM_ID,
+            a.NM AS attr_nm,
+            ad.ATTR_VAL AS attr_val
+            from
+            (((((krim_perm_t p
+            left join krim_perm_tmpl_t pt on((p.PERM_TMPL_ID = pt.PERM_TMPL_ID)))
+            left join krim_perm_attr_data_t ad on((p.PERM_ID = ad.PERM_ID)))
+            left join krim_attr_defn_t a on((ad.KIM_ATTR_DEFN_ID = a.KIM_ATTR_DEFN_ID)))
+            left join krim_role_perm_t rp on((rp.PERM_ID = p.PERM_ID)))
+            left join krim_role_t r on((rp.ROLE_ID = r.ROLE_ID)))
+            order by r.NMSPC_CD,r.ROLE_NM,pt.NMSPC_CD,pt.NM,p.PERM_ID,a.NM
+        </createView>
+    </changeSet>
+    <changeSet author="kfs" id="rice01297" context="bootstrap,demo,unit">
+        <createView fullDefinition="false" viewName="krim_role_prncpl_v">
+            select r.NMSPC_CD AS NMSPC_CD,
+            r.ROLE_NM AS ROLE_NM,
+            r.ROLE_ID AS ROLE_ID,
+            p.PRNCPL_NM AS PRNCPL_NM,
+            p.PRNCPL_ID AS PRNCPL_ID,
+            en.FIRST_NM AS FIRST_NM,
+            en.LAST_NM AS LAST_NM,
+            rm.ROLE_MBR_ID AS ROLE_MBR_ID,
+            ad.NM AS attr_nm,
+            rmad.ATTR_VAL AS attr_val
+            from
+            (((((krim_role_t r
+            left join krim_role_mbr_t rm on((r.ROLE_ID = rm.ROLE_ID)))
+            left join krim_role_mbr_attr_data_t rmad on((rm.ROLE_MBR_ID = rmad.ROLE_MBR_ID)))
+            left join krim_attr_defn_t ad on((rmad.KIM_ATTR_DEFN_ID = ad.KIM_ATTR_DEFN_ID)))
+            left join krim_prncpl_t p on(((rm.MBR_ID = p.PRNCPL_ID) and (rm.MBR_TYP_CD = 'P'))))
+            left join krim_entity_nm_t en on((p.ENTITY_ID = en.ENTITY_ID)))
+            where (en.DFLT_IND = 'Y')
+            order by r.NMSPC_CD,r.ROLE_NM,p.PRNCPL_NM,rm.ROLE_MBR_ID,ad.NM
+        </createView>
+    </changeSet>
+    <changeSet author="kfs" id="rice01298" context="bootstrap,demo,unit">
+        <createView fullDefinition="false" viewName="krim_role_role_v">
+            select r.NMSPC_CD AS NMSPC_CD,
+            r.ROLE_NM AS ROLE_NM,
+            r.ROLE_ID AS role_id,
+            mr.NMSPC_CD AS mbr_role_nmspc_cd,
+            mr.ROLE_NM AS mbr_role_nm,
+            mr.ROLE_ID AS mbr_role_id,
+            rm.ROLE_MBR_ID AS role_mbr_id,
+            a.NM AS attr_nm,
+            d.ATTR_VAL AS attr_val
+            from
+            ((((krim_role_mbr_t rm
+            left join krim_role_t r on((r.ROLE_ID = rm.ROLE_ID)))
+            left join krim_role_t mr on((mr.ROLE_ID = rm.MBR_ID)))
+            left join krim_role_mbr_attr_data_t d on((d.ROLE_MBR_ID = rm.ROLE_MBR_ID)))
+            left join krim_attr_defn_t a on((a.KIM_ATTR_DEFN_ID = d.KIM_ATTR_DEFN_ID)))
+            where (rm.MBR_TYP_CD = 'R')
+            order by r.NMSPC_CD,r.ROLE_NM,mr.NMSPC_CD,mr.ROLE_NM,rm.ROLE_MBR_ID,a.NM
+        </createView>
+    </changeSet>
+    <changeSet author="kfs" id="rice01299" dbms="mysql" context="bootstrap,demo,unit">
+        <createView fullDefinition="false" viewName="krim_role_v">
+            select r.NMSPC_CD AS NMSPC_CD,
+            r.ROLE_NM AS ROLE_NM,
+            r.ROLE_ID AS ROLE_ID,
+            t.NM AS role_typ_nm,
+            t.SRVC_NM AS SRVC_NM,
+            t.KIM_TYP_ID AS KIM_TYP_ID
+            from
+            krim_role_t r
+            join krim_typ_t t
+            where ((t.KIM_TYP_ID = r.KIM_TYP_ID) and (r.ACTV_IND = 'Y'))
+            order by r.NMSPC_CD,r.ROLE_NM
+        </createView>
+    </changeSet>
+    <changeSet author="kfs" id="rice01299" dbms="oracle" context="bootstrap,demo,unit">
+        <createView fullDefinition="false" viewName="krim_role_v">
+            select r.NMSPC_CD AS NMSPC_CD,
+            r.ROLE_NM AS ROLE_NM,
+            r.ROLE_ID AS ROLE_ID,
+            t.NM AS role_typ_nm,
+            t.SRVC_NM AS SRVC_NM,
+            t.KIM_TYP_ID AS KIM_TYP_ID
+            from
+            krim_role_t r
+            join krim_typ_t t on t.KIM_TYP_ID = r.KIM_TYP_ID
+            where r.ACTV_IND = 'Y'
+            order by r.NMSPC_CD,r.ROLE_NM
+        </createView>
+    </changeSet>
+    <changeSet author="kfs" id="rice01300" context="bootstrap,demo,unit">
+        <createView fullDefinition="false" viewName="krim_rsp_attr_v">
+            select krim_typ_t.NM AS responsibility_type_name,
+            krim_rsp_tmpl_t.NM AS rsp_TEMPLATE_NAME,
+            krim_rsp_t.NMSPC_CD AS rsp_namespace_code,
+            krim_rsp_t.NM AS rsp_NAME,
+            krim_rsp_t.RSP_ID AS rsp_id,
+            krim_attr_defn_t.NM AS attribute_name,
+            krim_rsp_attr_data_t.ATTR_VAL AS attribute_value
+            from
+            ((((krim_rsp_t
+            join krim_rsp_attr_data_t on((krim_rsp_t.RSP_ID = krim_rsp_attr_data_t.RSP_ID)))
+            join krim_attr_defn_t on((krim_rsp_attr_data_t.KIM_ATTR_DEFN_ID = krim_attr_defn_t.KIM_ATTR_DEFN_ID)))
+            join krim_rsp_tmpl_t on((krim_rsp_t.RSP_TMPL_ID = krim_rsp_tmpl_t.RSP_TMPL_ID)))
+            join krim_typ_t on((krim_rsp_tmpl_t.KIM_TYP_ID = krim_typ_t.KIM_TYP_ID)))
+            order by krim_rsp_tmpl_t.NM,krim_rsp_t.NM,krim_attr_defn_t.NM
+        </createView>
+    </changeSet>
+    <changeSet author="kfs" id="rice01301" context="bootstrap,demo,unit">
+        <createView fullDefinition="false" viewName="krim_rsp_role_actn_v">
+            select rsp.NMSPC_CD AS rsp_nmspc_cd,
+            rsp.RSP_ID AS rsp_id,
+            r.NMSPC_CD AS NMSPC_CD,
+            r.ROLE_NM AS ROLE_NM,
+            rr.ROLE_ID AS ROLE_ID,
+            rm.MBR_ID AS MBR_ID,
+            rm.MBR_TYP_CD AS MBR_TYP_CD,
+            rm.ROLE_MBR_ID AS ROLE_MBR_ID,
+            actn.ACTN_TYP_CD AS ACTN_TYP_CD,
+            actn.ACTN_PLCY_CD AS ACTN_PLCY_CD,
+            actn.FRC_ACTN AS FRC_ACTN,
+            actn.PRIORITY_NBR AS PRIORITY_NBR
+            from
+            (((((krim_rsp_t rsp
+            left join krim_rsp_tmpl_t rspt on((rsp.RSP_TMPL_ID = rspt.RSP_TMPL_ID)))
+            left join krim_role_rsp_t rr on((rr.RSP_ID = rsp.RSP_ID)))
+            left join krim_role_mbr_t rm on((rm.ROLE_ID = rr.ROLE_ID)))
+            left join krim_role_rsp_actn_t actn on(((actn.ROLE_RSP_ID = rr.ROLE_RSP_ID) and ((actn.ROLE_MBR_ID = rm.ROLE_MBR_ID) or (actn.ROLE_MBR_ID = '*')))))
+            left join krim_role_t r on((rr.ROLE_ID = r.ROLE_ID)))
+            order by rsp.NMSPC_CD,rsp.RSP_ID,rr.ROLE_ID,rm.ROLE_MBR_ID
+        </createView>
+    </changeSet>
+    <changeSet author="kfs" id="rice01302" context="bootstrap,demo,unit">
+        <createView fullDefinition="false" viewName="krim_rsp_role_v">
+            select rspt.NMSPC_CD AS rsp_tmpl_nmspc_cd,
+            rspt.NM AS rsp_tmpl_nm,
+            rsp.NMSPC_CD AS rsp_nmspc_cd,
+            rsp.NM AS rsp_nm,
+            rsp.RSP_ID AS rsp_id,
+            a.NM AS attr_nm,
+            d.ATTR_VAL AS attr_val,
+            r.NMSPC_CD AS NMSPC_CD,
+            r.ROLE_NM AS ROLE_NM,
+            rr.ROLE_ID AS ROLE_ID
+            from
+            (((((krim_rsp_t rsp
+            left join krim_rsp_tmpl_t rspt on((rsp.RSP_TMPL_ID = rspt.RSP_TMPL_ID)))
+            left join krim_rsp_attr_data_t d on((rsp.RSP_ID = d.RSP_ID)))
+            left join krim_attr_defn_t a on((d.KIM_ATTR_DEFN_ID = a.KIM_ATTR_DEFN_ID)))
+            left join krim_role_rsp_t rr on((rr.RSP_ID = rsp.RSP_ID)))
+            left join krim_role_t r on((rr.ROLE_ID = r.ROLE_ID)))
+            order by rspt.NMSPC_CD,rspt.NM,rsp.NMSPC_CD,rsp.NM,rsp.RSP_ID,a.NM,d.ATTR_VAL
+        </createView>
+    </changeSet>
+</databaseChangeLog>

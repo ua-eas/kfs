@@ -1,35 +1,33 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.module.purap.document;
 
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapConstants.PaymentRequestStatuses;
 import org.kuali.kfs.module.purap.PurapConstants.PurapDocTypeCodes;
@@ -69,18 +67,20 @@ import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.kfs.vnd.document.service.VendorService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kew.framework.postprocessor.ActionTakenEvent;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.bo.Note;
-import org.kuali.rice.krad.rules.rule.event.KualiDocumentEvent;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
-import org.kuali.rice.krad.workflow.service.WorkflowDocumentService;
+
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Payment Request Document Business Object. Contains the fields associated with the main document table.
@@ -112,6 +112,7 @@ public class PaymentRequestDocument extends AccountsPayableDocumentBase {
     protected String recurringPaymentTypeCode;
     protected boolean receivingDocumentRequiredIndicator;
     protected boolean paymentRequestPositiveApprovalIndicator;
+    private boolean achSignUpStatusFlag;
 
     //KFSCNTRB-1207 - UMD - Muddu -- start
     //the indicator which tells if the preq has been auto approved and this value will be used
@@ -154,7 +155,7 @@ public class PaymentRequestDocument extends AccountsPayableDocumentBase {
     public PaymentRequestDocument() {
         super();
 
-      //KFSCNTRB-12207 - UMD - Muddu
+        //KFSCNTRB-12207 - UMD - Muddu
         this.setAutoApprovedIndicator(false);
     }
 
@@ -184,8 +185,7 @@ public class PaymentRequestDocument extends AccountsPayableDocumentBase {
     public boolean isInquiryRendered() {
         if (isPostingYearPrior() && (getApplicationDocumentStatus().equals(PurapConstants.PaymentRequestStatuses.APPDOC_DEPARTMENT_APPROVED) || getApplicationDocumentStatus().equals(PurapConstants.PaymentRequestStatuses.APPDOC_AUTO_APPROVED) || getApplicationDocumentStatus().equals(PurapConstants.PaymentRequestStatuses.APPDOC_CANCELLED_POST_AP_APPROVE) || getApplicationDocumentStatus().equals(PurapConstants.PaymentRequestStatuses.APPDOC_CANCELLED_IN_PROCESS))) {
             return false;
-        }
-        else {
+        } else {
             return true;
         }
     }
@@ -236,8 +236,7 @@ public class PaymentRequestDocument extends AccountsPayableDocumentBase {
     public void setInvoiceNumber(String invoiceNumber) {
         if (!StringUtils.isEmpty(invoiceNumber)) {
             this.invoiceNumber = invoiceNumber.toUpperCase();
-        }
-        else {
+        } else {
             this.invoiceNumber = invoiceNumber;
         }
     }
@@ -450,8 +449,7 @@ public class PaymentRequestDocument extends AccountsPayableDocumentBase {
         // if paymentRequestPositiveApprovalIndicator functionality is disabled, always set it to false, overriding the passed-in value
         if (!isEnablePaymentRequestPositiveApprovalIndicator()) {
             paymentRequestPositiveApprovalIndicator = false;
-        }
-        else {
+        } else {
             this.paymentRequestPositiveApprovalIndicator = paymentRequestPositiveApprovalIndicator;
         }
     }
@@ -474,8 +472,7 @@ public class PaymentRequestDocument extends AccountsPayableDocumentBase {
         // if receivingDocumentRequiredIndicator functionality is disabled, always set it to false, overriding the passed-in value
         if (!isEnableReceivingDocumentRequiredIndicator()) {
             receivingDocumentRequiredIndicator = false;
-        }
-        else {
+        } else {
             this.receivingDocumentRequiredIndicator = receivingDocumentRequiredIndicator;
         }
     }
@@ -526,7 +523,7 @@ public class PaymentRequestDocument extends AccountsPayableDocumentBase {
     /**
      * Populates a preq from a PO
      *
-     * @param po Purchase Order Document used for populating the PREQ
+     * @param po                         Purchase Order Document used for populating the PREQ
      * @param expiredOrClosedAccountList a list of closed or expired accounts
      */
     public void populatePaymentRequestFromPurchaseOrder(PurchaseOrderDocument po, HashMap<String, ExpiredOrClosedAccountEntry> expiredOrClosedAccountList) {
@@ -579,8 +576,7 @@ public class PaymentRequestDocument extends AccountsPayableDocumentBase {
             this.templateVendorAddress(vendorAddress);
             this.setVendorAddressGeneratedIdentifier(vendorAddress.getVendorAddressGeneratedIdentifier());
             setVendorAttentionName(StringUtils.defaultString(vendorAddress.getVendorAttentionName()));
-        }
-        else {
+        } else {
             // set address from PO
             this.setVendorAddressGeneratedIdentifier(po.getVendorAddressGeneratedIdentifier());
             this.setVendorLine1Address(po.getVendorLine1Address());
@@ -595,8 +591,7 @@ public class PaymentRequestDocument extends AccountsPayableDocumentBase {
 
             if (blankAttentionLine) {
                 setVendorAttentionName(StringUtils.EMPTY);
-            }
-            else {
+            } else {
                 setVendorAttentionName(StringUtils.defaultString(po.getVendorAttentionName()));
             }
         }
@@ -605,8 +600,7 @@ public class PaymentRequestDocument extends AccountsPayableDocumentBase {
 
         AccountsPayableService accountsPayableService = SpringContext.getBean(AccountsPayableService.class);
 
-        if(SpringContext.getBean(PaymentRequestService.class).encumberedItemExistsForInvoicing(po))
-        {
+        if (SpringContext.getBean(PaymentRequestService.class).encumberedItemExistsForInvoicing(po)) {
             for (PurchaseOrderItem poi : (List<PurchaseOrderItem>) po.getItems()) {
                 // check to make sure it's eligible for payment (i.e. active and has encumbrance available
                 if (getDocumentSpecificService().poItemEligibleForAp(this, poi)) {
@@ -644,7 +638,7 @@ public class PaymentRequestDocument extends AccountsPayableDocumentBase {
      */
     @Override
     public String getDocumentTitle() {
-       if (SpringContext.getBean(ParameterService.class).getParameterValueAsBoolean(PaymentRequestDocument.class, PurapParameterConstants.PURAP_OVERRIDE_PREQ_DOC_TITLE)) {
+        if (SpringContext.getBean(ParameterService.class).getParameterValueAsBoolean(PaymentRequestDocument.class, PurapParameterConstants.PURAP_OVERRIDE_PREQ_DOC_TITLE)) {
             return getCustomDocumentTitle();
         }
         return this.buildDocumentTitle(super.getDocumentTitle());
@@ -669,8 +663,7 @@ public class PaymentRequestDocument extends AccountsPayableDocumentBase {
         // if this doc is final or will be final
         if (CollectionUtils.isEmpty(nodeNames) || this.getFinancialSystemDocumentHeader().getWorkflowDocument().isFinal()) {
             documentTitle = (new StringBuilder("PO: ")).append(poNumber).append(" Vendor: ").append(vendorName).append(" Amount: ").append(preqAmount).toString();
-        }
-        else {
+        } else {
             PurApAccountingLine theAccount = getFirstAccount();
             String accountNumber = (theAccount != null ? StringUtils.trimToEmpty(theAccount.getAccountNumber()) : "n/a");
             String subAccountNumber = (theAccount != null ? StringUtils.trimToEmpty(theAccount.getSubAccountNumber()) : "");
@@ -679,8 +672,8 @@ public class PaymentRequestDocument extends AccountsPayableDocumentBase {
             String indicator = getTitleIndicator();
             // set title to: PO# - VendorName - Chart/Account - total amt - Pay Date - Indicator (ie Hold, Request Cancel)
             documentTitle = (new StringBuilder("PO: ")).append(poNumber).append(" Vendor: ").append(vendorName).
-                    append(" Account: ").append(accountChart).append(" ").append(accountNumber).append(" ").append(subAccountNumber)
-                    .append(" Amount: ").append(preqAmount).append(" Pay Date: ").append(payDate).append(" ").append(indicator).toString();
+                append(" Account: ").append(accountChart).append(" ").append(accountNumber).append(" ").append(subAccountNumber)
+                .append(" Amount: ").append(preqAmount).append(" Pay Date: ").append(payDate).append(" ").append(indicator).toString();
         }
         return documentTitle;
     }
@@ -694,7 +687,7 @@ public class PaymentRequestDocument extends AccountsPayableDocumentBase {
         // loop through items, and pick the first item
         if ((getItems() != null) && (!getItems().isEmpty())) {
             PaymentRequestItem itemToUse = null;
-            for (Iterator iter = getItems().iterator(); iter.hasNext();) {
+            for (Iterator iter = getItems().iterator(); iter.hasNext(); ) {
                 PaymentRequestItem item = (PaymentRequestItem) iter.next();
                 if ((item.isConsideredEntered()) && ((item.getSourceAccountingLines() != null) && (!item.getSourceAccountingLines().isEmpty()))) {
                     // accounting lines are not empty so pick the first account
@@ -723,8 +716,7 @@ public class PaymentRequestDocument extends AccountsPayableDocumentBase {
     protected String getTitleIndicator() {
         if (isHoldIndicator()) {
             return PurapConstants.PaymentRequestIndicatorText.HOLD;
-        }
-        else if (isPaymentRequestedCancelIndicator()) {
+        } else if (isPaymentRequestedCancelIndicator()) {
             return PurapConstants.PaymentRequestIndicatorText.REQUEST_CANCEL;
         }
         return "";
@@ -739,7 +731,7 @@ public class PaymentRequestDocument extends AccountsPayableDocumentBase {
         LOG.debug("doRouteStatusChange() started");
 
         super.doRouteStatusChange(statusChangeEvent);
-        try{
+        try {
             //KFSCNTRB-1207 - UMD - Muddu -- start
             // if the document was processed but approved by the auto approve payment request job
             // then all we want to do is to change the application document status to auto-approved
@@ -766,8 +758,7 @@ public class PaymentRequestDocument extends AccountsPayableDocumentBase {
                     if (StringUtils.isNotBlank(disapprovalStatus)) {
                         SpringContext.getBean(AccountsPayableService.class).cancelAccountsPayableDocument(this, nodeName);
                     }
-                }
-                else {
+                } else {
                     logAndThrowRuntimeException("No status found to set for document being disapproved in node '" + nodeName + "'");
                 }
             }
@@ -778,22 +769,20 @@ public class PaymentRequestDocument extends AccountsPayableDocumentBase {
 
                 //**START AZ** KATTS-37 KevinMcO
                 if (StringUtils.isBlank(cancelledStatus) &&
-                        StringUtils.isBlank(PurapConstants.PaymentRequestStatuses.getPaymentRequestAppDocDisapproveStatuses().get(currentNodeName)) &&
-                        (PaymentRequestStatuses.APPDOC_INITIATE.equals(getApplicationDocumentStatus()) || PaymentRequestStatuses.APPDOC_IN_PROCESS.equals(getApplicationDocumentStatus()))) {
-                cancelledStatus = PaymentRequestStatuses.APPDOC_CANCELLED_IN_PROCESS;
+                    StringUtils.isBlank(PurapConstants.PaymentRequestStatuses.getPaymentRequestAppDocDisapproveStatuses().get(currentNodeName)) &&
+                    (PaymentRequestStatuses.APPDOC_INITIATE.equals(getApplicationDocumentStatus()) || PaymentRequestStatuses.APPDOC_IN_PROCESS.equals(getApplicationDocumentStatus()))) {
+                    cancelledStatus = PaymentRequestStatuses.APPDOC_CANCELLED_IN_PROCESS;
                 }
                 //**END AZ**
 
                 if (ObjectUtils.isNotNull(cancelledStatus)) {
                     SpringContext.getBean(AccountsPayableService.class).cancelAccountsPayableDocument(this, currentNodeName);
                     updateAndSaveAppDocStatus(cancelledStatus);
-                }
-                else {
+                } else {
                     logAndThrowRuntimeException("No status found to set for document being canceled in node '" + currentNodeName + "'");
                 }
             }
-        }
-        catch (WorkflowException e) {
+        } catch (WorkflowException e) {
             logAndThrowRuntimeException("Error saving routing data while saving document with id " + getDocumentNumber(), e);
         }
     }
@@ -812,15 +801,15 @@ public class PaymentRequestDocument extends AccountsPayableDocumentBase {
         if (CollectionUtils.isNotEmpty(currentNodes)) {
             Object[] names = currentNodes.toArray();
             if (names.length > 0) {
-                currentNode = (String)names[0];
+                currentNode = (String) names[0];
             }
         }
 
         // everything in the below list requires correcting entries to be written to the GL
-            if (PaymentRequestStatuses.getNodesRequiringCorrectingGeneralLedgerEntries().contains(currentNode)) {
-                SpringContext.getBean(PurapGeneralLedgerService.class).generateEntriesModifyPaymentRequest(this);
-            }
+        if (PaymentRequestStatuses.getNodesRequiringCorrectingGeneralLedgerEntries().contains(currentNode)) {
+            SpringContext.getBean(PurapGeneralLedgerService.class).generateEntriesModifyPaymentRequest(this);
         }
+    }
 
     /**
      * @see org.kuali.kfs.module.purap.document.AccountsPayableDocumentBase#processNodeChange(java.lang.String, java.lang.String)
@@ -946,7 +935,7 @@ public class PaymentRequestDocument extends AccountsPayableDocumentBase {
     }
 
     public KualiDecimal getGrandTotalExcludingDiscount() {
-        String[] discountCode = new String[] { PurapConstants.ItemTypeCodes.ITEM_TYPE_PMT_TERMS_DISCOUNT_CODE };
+        String[] discountCode = new String[]{PurapConstants.ItemTypeCodes.ITEM_TYPE_PMT_TERMS_DISCOUNT_CODE};
         return this.getTotalDollarAmountWithExclusions(discountCode, true);
     }
 
@@ -964,7 +953,7 @@ public class PaymentRequestDocument extends AccountsPayableDocumentBase {
     }
 
     public KualiDecimal getGrandPreTaxTotalExcludingDiscount() {
-        String[] discountCode = new String[] { PurapConstants.ItemTypeCodes.ITEM_TYPE_PMT_TERMS_DISCOUNT_CODE };
+        String[] discountCode = new String[]{PurapConstants.ItemTypeCodes.ITEM_TYPE_PMT_TERMS_DISCOUNT_CODE};
         return this.getTotalPreTaxDollarAmountWithExclusions(discountCode, true);
     }
 
@@ -973,7 +962,7 @@ public class PaymentRequestDocument extends AccountsPayableDocumentBase {
     }
 
     public KualiDecimal getGrandTaxAmountExcludingDiscount() {
-        String[] discountCode = new String[] { PurapConstants.ItemTypeCodes.ITEM_TYPE_PMT_TERMS_DISCOUNT_CODE };
+        String[] discountCode = new String[]{PurapConstants.ItemTypeCodes.ITEM_TYPE_PMT_TERMS_DISCOUNT_CODE};
         return this.getTotalTaxAmountWithExclusions(discountCode, true);
     }
 
@@ -1008,8 +997,7 @@ public class PaymentRequestDocument extends AccountsPayableDocumentBase {
         Person user = SpringContext.getBean(org.kuali.rice.kim.api.identity.PersonService.class).getPerson(getAccountsPayableRequestCancelIdentifier());
         if (user != null) {
             personName = user.getName();
-        }
-        else {
+        } else {
             personName = "";
         }
 
@@ -1167,7 +1155,7 @@ public class PaymentRequestDocument extends AccountsPayableDocumentBase {
      * Forces general ledger entries to be approved, does not wait for payment request document final approval.
      *
      * @see org.kuali.module.purap.rules.PurapAccountingDocumentRuleBase#customizeExplicitGeneralLedgerPendingEntry(org.kuali.kfs.sys.document.AccountingDocument,
-     *      org.kuali.kfs.sys.businessobject.AccountingLine, org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry)
+     * org.kuali.kfs.sys.businessobject.AccountingLine, org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry)
      */
     @Override
     public void customizeExplicitGeneralLedgerPendingEntry(GeneralLedgerPendingEntrySourceDetail postable, GeneralLedgerPendingEntry explicitEntry) {
@@ -1241,11 +1229,11 @@ public class PaymentRequestDocument extends AccountsPayableDocumentBase {
      * po.
      *
      * @return boolean return true if the receiving requirement has been met for all items on the payment request; false if
-     *         requirement has not been met
+     * requirement has not been met
      */
     public boolean isReceivingRequirementMet() {
 
-        for (Iterator iter = getItems().iterator(); iter.hasNext();) {
+        for (Iterator iter = getItems().iterator(); iter.hasNext(); ) {
             PaymentRequestItem preqItem = (PaymentRequestItem) iter.next();
 
             if (preqItem.getItemType().isQuantityBasedGeneralLedgerIndicator()) {
@@ -1377,6 +1365,20 @@ public class PaymentRequestDocument extends AccountsPayableDocumentBase {
     }
 
     /**
+     * @return the achSignUpStatusFlag
+     */
+    public boolean isAchSignUpStatusFlag() {
+        return achSignUpStatusFlag;
+    }
+
+    /**
+     * @param achSignUpStatusFlag the achSignUpStatusFlag to set
+     */
+    public void setAchSignUpStatusFlag(boolean achSignUpStatusFlag) {
+        this.achSignUpStatusFlag = achSignUpStatusFlag;
+    }
+
+    /**
      * @return the receiving document required indicator
      */
     public boolean getReceivingDocumentRequiredIndicatorForSearching() {
@@ -1402,8 +1404,7 @@ public class PaymentRequestDocument extends AccountsPayableDocumentBase {
                 LOG.debug("getAccountsPayableApprovalDateForSearching() returns " + date);
             }
             return date;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return new Date(this.getAccountsPayableApprovalTimestamp().getTime());
         }
     }
@@ -1431,6 +1432,7 @@ public class PaymentRequestDocument extends AccountsPayableDocumentBase {
 
     /**
      * Gets the justification attribute.
+     *
      * @return Returns the justification.
      */
     public String getJustification() {
@@ -1439,13 +1441,15 @@ public class PaymentRequestDocument extends AccountsPayableDocumentBase {
 
     /**
      * Sets the justification attribute value.
+     *
      * @param justification The justification to set.
      */
     public void setJustification(String justification) {
         this.justification = justification;
     }
 
-  //KFSCNTRB-1207 - UMD - Muddu -- start
+    //KFSCNTRB-1207 - UMD - Muddu -- start
+
     /**
      * Gets the autoApprovedIndicator attribute.
      *
@@ -1463,7 +1467,7 @@ public class PaymentRequestDocument extends AccountsPayableDocumentBase {
     public void setAutoApprovedIndicator(boolean autoApprovedIndicator) {
         this.autoApprovedIndicator = autoApprovedIndicator;
     }
-  //KFSCNTRB-1207 - UMD - Muddu -- end
+    //KFSCNTRB-1207 - UMD - Muddu -- end
 
     @Override
     public void processAfterRetrieve() {
@@ -1471,13 +1475,13 @@ public class PaymentRequestDocument extends AccountsPayableDocumentBase {
 
         // KFSMI-9022 : JHK : This is a bit of a hack, but it seems that the document header is not being loaded properly from
         // within the post-processor and causes problems.
-        if ( ObjectUtils.isNull( getDocumentHeader() ) || StringUtils.isBlank( getDocumentHeader().getDocumentNumber() ) ) {
+        if (ObjectUtils.isNull(getDocumentHeader()) || StringUtils.isBlank(getDocumentHeader().getDocumentNumber())) {
             WorkflowDocument workflowDocument = null;
-            if ( getDocumentHeader().hasWorkflowDocument() ) {
+            if (getDocumentHeader().hasWorkflowDocument()) {
                 workflowDocument = getDocumentHeader().getWorkflowDocument();
             }
             refreshReferenceObject(KFSPropertyConstants.DOCUMENT_HEADER);
-            if ( !ObjectUtils.isNull(getDocumentHeader()) ) {
+            if (!ObjectUtils.isNull(getDocumentHeader())) {
                 getDocumentHeader().setWorkflowDocument(workflowDocument);
             }
         }

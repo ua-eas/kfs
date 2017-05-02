@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -20,6 +20,7 @@ package org.kuali.kfs.integration.cg;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,17 +40,17 @@ public class ContractsAndGrantsModuleBillingServiceNoOp implements ContractsAndG
     }
 
     /**
-     * @see org.kuali.kfs.integration.cg.ContractsAndGrantsModuleBillingService#updateAwardIfNecessary(java.lang.Long, org.kuali.kfs.integration.cg.ContractsAndGrantsAward)
+     * @see org.kuali.kfs.integration.cg.ContractsAndGrantsModuleBillingService#updateAwardIfNecessary(String, ContractsAndGrantsBillingAward)
      */
     @Override
-    public ContractsAndGrantsBillingAward updateAwardIfNecessary(Long proposalNumber, ContractsAndGrantsBillingAward currentAward ) {
+    public ContractsAndGrantsBillingAward updateAwardIfNecessary(String proposalNumber, ContractsAndGrantsBillingAward currentAward) {
         LOG.warn("Using No-Op " + getClass().getSimpleName() + " service.");
         return null;
     }
 
     /**
      * @see org.kuali.kfs.integration.cg.ContractsAndGrantsModuleUpdateService#setLastBilledDateToAwardAccount(java.util.Map,
-     *      java.lang.String, java.sql.Date)
+     * java.lang.String, java.sql.Date)
      */
     @Override
     public void setLastBilledDateToAwardAccount(Map<String, Object> criteria, boolean invoiceReversal, Date lastBilledDate) {
@@ -58,11 +59,10 @@ public class ContractsAndGrantsModuleBillingServiceNoOp implements ContractsAndG
     }
 
     /**
-     * @see org.kuali.kfs.integration.cg.ContractsAndGrantsModuleUpdateService#setLastBilledDateToAward(java.lang.Long,
-     *      java.sql.Date)
+     * @see org.kuali.kfs.integration.cg.ContractsAndGrantsModuleUpdateService#setLastBilledDateToAward(String, java.sql.Date)
      */
     @Override
-    public void setLastBilledDateToAward(Long proposalNumber, Date lastBilledDate) {
+    public void setLastBilledDateToAward(String proposalNumber, Date lastBilledDate) {
         LOG.warn("Using No-Op " + getClass().getSimpleName() + " service.");
 
     }
@@ -81,5 +81,11 @@ public class ContractsAndGrantsModuleBillingServiceNoOp implements ContractsAndG
     @Override
     public void setFinalBilledAndLastBilledDateToAwardAccount(Map<String, Object> mapKey, boolean finalBilled, boolean invoiceReversal, Date lastBilledDate) {
         LOG.warn("Using No-Op " + getClass().getSimpleName() + " service.");
+    }
+
+    @Override
+    public Map<String, Object> getLetterOfCreditAwardCriteria(String fundGroupCode, String fundCode) {
+        LOG.warn("Using No-Op " + getClass().getSimpleName() + " service.");
+        return new HashMap<>();
     }
 }

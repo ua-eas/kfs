@@ -1,25 +1,25 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.external.kc.fixture;
 
 import org.kuali.kfs.integration.cg.dto.BudgetAdjustmentParametersDTO;
- 
+
 public enum BudgetAdjustmentParameterDTOLineFixture {
     /*
     DETAIL_F_LINE1("F","BL","2231473","5197","0.00","100.00", "0"),
@@ -38,24 +38,24 @@ public enum BudgetAdjustmentParameterDTOLineFixture {
     DETAIL_T_LINE2("BA","6044900","6000","100.00",""),
     */
 
-    DETAIL_LINE1("BL","1031400","6200","20.00",""),
-    DETAIL_LINE2("BL","1031400","5002","30.00",""),
-    DETAIL_LINE3("BL","1031400","4620","100.00",""),
-    DETAIL_LINE4("BL","1031400","4087","50.00",""),
-    DETAIL_LINE5("BL","1031400","5500","4.00",""),
-    DETAIL_LINE6("BL","1031400","5500","0.50",""),
-    DETAIL_LINE7("BL","1031400","5500","4.00",""),
-    DETAIL_LINE8("BL","1031400","5047","1.08",""),
-    DETAIL_LINE9("BL","1031400","5600","0.32",""),
-    DETAIL_LINE10("BL","1031400","2003","100.00",""),
-    DETAIL_LINE11("BL","1031400","5500","135.50",""),
-    DETAIL_LINE12("BL","1031400","5500","8.00",""),
-    DETAIL_LINE13("BL","1031400","5500","11.14",""),
-    DETAIL_LINE14("BL","1031400","5500","1.00",""),
-    DETAIL_LINE15("BL","1031400","5500","8.00",""),
-    DETAIL_LINE16("BL","1031400","5500","185.50",""),
-    DETAIL_LINE17("BL","1031400","5500","25.00",""),
-    DETAIL_LINE18("BL","1031400","5047","2.00","");
+    DETAIL_LINE1("BL", "1031400", "6200", "20.00", ""),
+    DETAIL_LINE2("BL", "1031400", "5002", "30.00", ""),
+    DETAIL_LINE3("BL", "1031400", "4620", "100.00", ""),
+    DETAIL_LINE4("BL", "1031400", "4087", "50.00", ""),
+    DETAIL_LINE5("BL", "1031400", "5500", "4.00", ""),
+    DETAIL_LINE6("BL", "1031400", "5500", "0.50", ""),
+    DETAIL_LINE7("BL", "1031400", "5500", "4.00", ""),
+    DETAIL_LINE8("BL", "1031400", "5047", "1.08", ""),
+    DETAIL_LINE9("BL", "1031400", "5600", "0.32", ""),
+    DETAIL_LINE10("BL", "1031400", "2003", "100.00", ""),
+    DETAIL_LINE11("BL", "1031400", "5500", "135.50", ""),
+    DETAIL_LINE12("BL", "1031400", "5500", "8.00", ""),
+    DETAIL_LINE13("BL", "1031400", "5500", "11.14", ""),
+    DETAIL_LINE14("BL", "1031400", "5500", "1.00", ""),
+    DETAIL_LINE15("BL", "1031400", "5500", "8.00", ""),
+    DETAIL_LINE16("BL", "1031400", "5500", "185.50", ""),
+    DETAIL_LINE17("BL", "1031400", "5500", "25.00", ""),
+    DETAIL_LINE18("BL", "1031400", "5047", "2.00", "");
     /*
     DETAIL_LINE1("BL","9898989","4620","6538.44",""),
     DETAIL_LINE2("BL","9898989","6200","20.00",""),
@@ -70,17 +70,17 @@ public enum BudgetAdjustmentParameterDTOLineFixture {
     private String currentBudgetAdjustAmount;
     private String projectCode;
 
-  private BudgetAdjustmentParameterDTOLineFixture( String chart, 
-          String account, String objectCode, String currentBudgetAdjustAmount,String projCode) {
-      this.chart = chart;
-      this.account = account;
-      this.objectCode = objectCode;
-      this.currentBudgetAdjustAmount = currentBudgetAdjustAmount;
-      this.projectCode = projCode;    
-  }
-  
-  public BudgetAdjustmentParametersDTO.Details createBudgetAdjustmentParameterDTO() {
-        
+    private BudgetAdjustmentParameterDTOLineFixture(String chart,
+                                                    String account, String objectCode, String currentBudgetAdjustAmount, String projCode) {
+        this.chart = chart;
+        this.account = account;
+        this.objectCode = objectCode;
+        this.currentBudgetAdjustAmount = currentBudgetAdjustAmount;
+        this.projectCode = projCode;
+    }
+
+    public BudgetAdjustmentParametersDTO.Details createBudgetAdjustmentParameterDTO() {
+
         BudgetAdjustmentParametersDTO.Details detail = new BudgetAdjustmentParametersDTO.Details();
         detail.setChart(this.chart);
         detail.setAccount(this.account);
@@ -88,6 +88,6 @@ public enum BudgetAdjustmentParameterDTOLineFixture {
         detail.setCurrentAmount(this.currentBudgetAdjustAmount);
         detail.setProjectCode(projectCode);
         return detail;
-     }
+    }
 
 }

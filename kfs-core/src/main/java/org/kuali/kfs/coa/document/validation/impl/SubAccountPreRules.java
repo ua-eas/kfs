@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -24,14 +24,14 @@ import org.kuali.kfs.coa.businessobject.A21SubAccount;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.IndirectCostRecoveryAccount;
 import org.kuali.kfs.coa.businessobject.SubAccount;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.document.authorization.MaintenanceDocumentRestrictions;
+import org.kuali.kfs.kns.service.BusinessObjectAuthorizationService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.kns.document.authorization.MaintenanceDocumentRestrictions;
-import org.kuali.rice.kns.service.BusinessObjectAuthorizationService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
 
 /**
  * PreRules checks for the {@link SubAccount} that needs to occur while still in the Struts processing. This includes defaults, confirmations,
@@ -48,14 +48,15 @@ public class SubAccountPreRules extends MaintenancePreRulesBase {
     }
 
     /**
-     * This checks to see if a continuation account is necessary and then copies the ICR data from the Account 
+     * This checks to see if a continuation account is necessary and then copies the ICR data from the Account
      * associated with this SubAccount (if necessary)
+     *
      * @see org.kuali.kfs.coa.document.validation.impl.MaintenancePreRulesBase#doCustomPreRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     protected boolean doCustomPreRules(MaintenanceDocument document) {
         setupConvenienceObjects(document);
         checkForContinuationAccounts(document.getNewMaintainableObject().getMaintenanceAction()); // run this first to avoid side
-                                                                                                    // effects
+        // effects
 
         LOG.debug("done with continuation account, proceeeding with remaining pre rules");
 
@@ -65,8 +66,8 @@ public class SubAccountPreRules extends MaintenancePreRulesBase {
     }
 
     /**
-     * 
      * This looks for the SubAccount's account number and then sets the values to the continuation account value if it exists
+     *
      * @param maintenanceAction
      */
     protected void checkForContinuationAccounts(String maintenanceAction) {
@@ -92,6 +93,7 @@ public class SubAccountPreRules extends MaintenancePreRulesBase {
      * This method sets the convenience objects like newSubAccount, so you have short and easy handles to the new and
      * old objects contained in the maintenance document. It also calls the BusinessObjectBase.refresh(), which will attempt to load
      * all sub-objects from the DB by their primary keys, if available.
+     *
      * @param document
      */
     protected void setupConvenienceObjects(MaintenanceDocument document) {
@@ -103,11 +105,11 @@ public class SubAccountPreRules extends MaintenancePreRulesBase {
     }
 
     /**
-     * 
-     * This copies the Indirect Cost Rate (ICR) from the account if the SubAccount is a specific type - determined 
+     * This copies the Indirect Cost Rate (ICR) from the account if the SubAccount is a specific type - determined
      * as "EX" from {@link SubAccountRule#CG_A21_TYPE_ICR}
      * <p>
      * If it is "EX" it will then copy over the ICR information from the Account specified for this SubAccount
+     *
      * @param document
      */
     protected void copyICRFromAccount(MaintenanceDocument document) {
@@ -126,7 +128,7 @@ public class SubAccountPreRules extends MaintenancePreRulesBase {
                     account = getAccountService().getByPrimaryId(newSubAccount.getChartOfAccountsCode(), newSubAccount.getAccountNumber());
                     if (ObjectUtils.isNotNull(account)) {
                         if (a21SubAccount.getA21ActiveIndirectCostRecoveryAccounts().isEmpty()) {
-                            for (IndirectCostRecoveryAccount icrAccount : account.getActiveIndirectCostRecoveryAccounts()){
+                            for (IndirectCostRecoveryAccount icrAccount : account.getActiveIndirectCostRecoveryAccounts()) {
                                 a21SubAccount.getA21IndirectCostRecoveryAccounts().add(A21IndirectCostRecoveryAccount.copyICRAccount(icrAccount));
                             }
                         }

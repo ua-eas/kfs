@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -93,15 +93,15 @@ public class PdpKeyConstants {
     public static final String ERROR_PDP_ACH_BANK_NOT_ALLOWED = "error.pdp.customerProfile.achBank.notAllowed";
     public static final String ERROR_PDP_CHECK_BANK_NOT_ALLOWED = "error.pdp.customerProfile.checkBank.notAllowed";
 
-    public static class BatchConstants{
-        public static class ErrorMessages{
-            public static final String ERROR_BATCH_CRITERIA_NONE_ENTERED ="batchSearchForm.batchcriteria.noneEntered";
+    public static class BatchConstants {
+        public static class ErrorMessages {
+            public static final String ERROR_BATCH_CRITERIA_NONE_ENTERED = "batchSearchForm.batchcriteria.noneEntered";
             public static final String ERROR_BATCH_CRITERIA_NO_DATE = "batchSearchForm.batchcriteria.noDate";
             public static final String ERROR_BATCH_CRITERIA_SOURCE_MISSING = "batchSearchForm.batchcriteria.sourcemissing";
             public static final String ERROR_BATCH_ID_IS_NOT_NUMERIC = "error.batch.batchId.notNumeric";
             public static final String ERROR_NOTE_EMPTY = "paymentMaintenanceForm.changeText.empty";
             public static final String ERROR_NOTE_TOO_LONG = "paymentMaintenanceForm.changeText.over250";
-            public static final String ERROR_PENDING_PAYMNET_GROUP_NOT_FOUND ="error.batch.pendingPaymentGroupsNotFound";
+            public static final String ERROR_PENDING_PAYMNET_GROUP_NOT_FOUND = "error.batch.pendingPaymentGroupsNotFound";
             public static final String ERROR_NOT_ALL_PAYMENT_GROUPS_OPEN_CANNOT_CANCEL = "error.batch.notAllPaymentGroupsOpenCannotCancel";
             public static final String ERROR_NOT_ALL_PAYMENT_GROUPS_OPEN_CANNOT_HOLD = "error.batch.notAllPaymentGroupsOpenCannotHold";
             public static final String ERROR_NOT_ALL_PAYMENT_GROUPS_OPEN_CANNOT_REMOVE_HOLD = "error.batch.notAllPaymentGroupsOpenCannotRemoveHold";
@@ -113,13 +113,13 @@ public class PdpKeyConstants {
             public static final String HOLD_SUCCESSFULLY_REMOVED_ON_BATCH = "message.batch.successfullyRemoveHold";
         }
 
-        public static class LinkText{
+        public static class LinkText {
             public static final String CANCEL_BATCH = "batchLookup.cancelBatch.text";
             public static final String HOLD_BATCH = "batchLookup.holdBatch.text";
             public static final String REMOVE_BATCH_HOLD = "batchLookup.removeBatchHold.text";
         }
 
-        public static class Confirmation{
+        public static class Confirmation {
             public static final String CANCEL_BATCH_MESSAGE = "message.batch.cancel";
             public static final String CANCEL_BATCH_QUESTION = "CancelBatch";
             public static final String HOLD_BATCH_MESSAGE = "message.batch.hold";
@@ -130,8 +130,8 @@ public class PdpKeyConstants {
         }
     }
 
-    public static class PaymentDetail{
-        public static class ErrorMessages{
+    public static class PaymentDetail {
+        public static class ErrorMessages {
             public static final String ERROR_PAYMENT_DETAIL_CRITERIA_NOT_ENTERED = "paymentDetailLookup.criteria.noneEntered";
             public static final String ERROR_PAYMENT_DETAIL_PAYEE_ID_TYPE_CODE_NULL_WITH_PAYEE_ID = "paymentDetailLookup.payeeIdTypeCd.nullWithPayeeId";
             public static final String ERROR_PAYMENT_DETAIL_PAYEE_ID_NULL_WITH_PAYEE_ID_TYPE_CODE = "paymentDetailLookup.payeeId.nullWithPayeeIdTypeCd";
@@ -178,7 +178,7 @@ public class PdpKeyConstants {
             public static final String CANCEL_REISSUE_DISBURSEMENT_MESSAGE = "message.paymentDetail.cancelReissueDisbursement";
             public static final String CANCEL_REISSUE_DISBURSEMENT_QUESTION = "CancelReissueDisbursement";
             public static final String REISSUE_DISBURSEMENT_MESSAGE = "message.paymentDetail.reissueDisbursement";
-            public static final String REISSUE_DISBURSEMENT_QUESTION="ReissueDisbursement";
+            public static final String REISSUE_DISBURSEMENT_QUESTION = "ReissueDisbursement";
             public static final String CHANGE_IMMEDIATE_PAYMENT_MESSAGE = "message.paymentDetail.changeImmediate";
             public static final String CHANGE_IMMEDIATE_PAYMENT_QUESTION = "ChangeImmediatePayment";
         }
@@ -202,10 +202,12 @@ public class PdpKeyConstants {
     public static final String ERROR_ACH_ACCOUNT_NOT_INACTIVABLE = "error.pdp.achAccount.accountNotInactivable";
 
     public static class Format {
+        public static final String MESSAGE_PDP_FORMAT_BATCH_EMAIL_SUBJECT = "message.pdp.format.batch.email.subject";
+
         public static final String ERROR_PDP_FORMAT_PROCESS_ALREADY_RUNNING = "error.pdp.format.alreadyRunning";
         public static final String ERROR_PDP_NO_MATCHING_PAYMENT_FOR_FORMAT = "error.pdp.format.NoMatchingPayments";
 
-        public static final class ErrorMessages{
+        public static final class ErrorMessages {
             public static final String ERROR_FORMAT_BANK_MISSING = "format.bank.missing";
             public static final String ERROR_FORMAT_DISBURSEMENT_EXHAUSTED = "format.disb.exhausted";
             public static final String ERROR_FORMAT_DISBURSEMENT_MISSING = "format.disb.missing";

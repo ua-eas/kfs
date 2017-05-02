@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="4006">
+        <createIndex indexName="LD_A21_DETAIL_LN_TI2" tableName="LD_A21_DETAIL_LN_T">
+            <column name="FIN_COA_CD"/>
+            <column name="ACCOUNT_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="4007">
+        <createIndex indexName="LD_A21_DETAIL_LN_TR2" tableName="LD_A21_DETAIL_LN_T">
+            <column name="FDOC_POST_YR"/>
+            <column name="FIN_COA_CD"/>
+            <column name="FIN_OBJECT_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="4008">
+        <createIndex indexName="LD_A21_DETAIL_TI2" tableName="LD_A21_DETAIL_T">
+            <column name="EMPLID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="4009">
+        <createIndex indexName="LD_A21_DETAIL_TI4" tableName="LD_A21_DETAIL_T">
+            <column name="A21_LBR_RPT_NBR"/>
+            <column name="A21_LBR_FSCL_YR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="4010">
+        <createIndex indexName="LD_A21_DTL_BLD_TI2" tableName="LD_A21_DTL_BLD_T">
+            <column name="EMPLID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="4011">
+        <createIndex indexName="LD_A21_DTL_BLD_TI4" tableName="LD_A21_DTL_BLD_T">
+            <column name="A21_LBR_RPT_NBR"/>
+            <column name="A21_LBR_FSCL_YR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="4012">
+        <createIndex indexName="LD_A21_DTL_LN_BLD_TI2" tableName="LD_A21_DTL_LN_BLD_T">
+            <column name="FIN_COA_CD"/>
+            <column name="ACCOUNT_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="4013">
+        <createIndex indexName="LD_A21_DTL_LN_BLD_TR2" tableName="LD_A21_DTL_LN_BLD_T">
+            <column name="FDOC_POST_YR"/>
+            <column name="FIN_COA_CD"/>
+            <column name="FIN_OBJECT_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="4014">
+        <createIndex indexName="LD_A21_DTL_LN_BLD_TR7" tableName="LD_A21_DTL_LN_BLD_T">
+            <column name="SOURCE_FIN_COA_CD"/>
+            <column name="SOURCE_ACCT_NBR"/>
+            <column name="CST_SRCSUBACCT_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="4015">
+        <createIndex indexName="LD_A21_REPORT_TR2" tableName="LD_A21_REPORT_T">
+            <column name="LBR_ET_FSCL_YR"/>
+            <column name="LBR_ET_FSCL_PRD_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="4016">
+        <createIndex indexName="LD_A21_REPORT_TR3" tableName="LD_A21_REPORT_T">
+            <column name="LBR_RPT_PRDSTAT_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="4017">
+        <createIndex indexName="LD_A21_REPORT_TR4" tableName="LD_A21_REPORT_T">
+            <column name="A21_LBR_RPT_TYP_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="4018">
+        <createIndex indexName="LD_A21_REPORT_T_TR1" tableName="LD_A21_REPORT_T">
+            <column name="LBR_RPT_BEG_FSCL_YR"/>
+            <column name="LBR_RPT_BEG_FSCL_PRD_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="4019">
+        <createIndex indexName="LD_A21_REPORT_T_TR5" tableName="LD_A21_REPORT_T">
+            <column name="LBR_RPT_END_FSCL_YR"/>
+            <column name="LBR_RPT_END_FSCL_PRD_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="4020">
+        <createIndex indexName="LD_A21_RPT_EARN_PAY_TR1" tableName="LD_A21_RPT_EARN_PAY_T">
+            <column name="A21_LBR_RPT_TYP_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="4021">
+        <createIndex indexName="LD_A21_RPT_POS_T_TR1" tableName="LD_A21_RPT_POS_T">
+            <column name="A21_LBR_RPT_NBR"/>
+            <column name="UNIV_FISCAL_YR"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

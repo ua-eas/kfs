@@ -1,0 +1,1474 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00847">
+        <createIndex indexName="KREN_CHNL_PRODCR_TI1" tableName="kren_chnl_prodcr_t">
+            <column name="CHNL_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00848">
+        <createIndex indexName="KREN_CHNL_PRODCR_TI2" tableName="kren_chnl_prodcr_t">
+            <column name="PRODCR_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00849">
+        <createIndex indexName="KREN_CHNL_SUBSCRP_TI1" tableName="kren_chnl_subscrp_t">
+            <column name="CHNL_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00850">
+        <createIndex indexName="KREN_MSG_DELIVSI1" tableName="kren_ntfctn_msg_deliv_t">
+            <column name="NTFCTN_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00851">
+        <createIndex indexName="KREN_MSG_DELIV_TI1" tableName="kren_msg_deliv_t">
+            <column name="MSG_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00852">
+        <createIndex indexName="KREN_NTFCTN_FK1" tableName="kren_ntfctn_t">
+            <column name="CHNL_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00853">
+        <createIndex indexName="KREN_NTFCTN_I1" tableName="kren_ntfctn_t">
+            <column name="CNTNT_TYP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00854">
+        <createIndex indexName="KREN_NTFCTN_I2" tableName="kren_ntfctn_t">
+            <column name="PRIO_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00855">
+        <createIndex indexName="KREN_NTFCTN_I3" tableName="kren_ntfctn_t">
+            <column name="PRODCR_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00856">
+        <createIndex indexName="KREN_RECIP_LIST_TI1" tableName="kren_recip_list_t">
+            <column name="CHNL_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00857">
+        <createIndex indexName="KREN_RECIP_TI1" tableName="kren_recip_t">
+            <column name="NTFCTN_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00858">
+        <createIndex indexName="KREN_RVWER_TI1" tableName="kren_rvwer_t">
+            <column name="CHNL_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00859">
+        <createIndex indexName="KREN_SNDR_TI1" tableName="kren_sndr_t">
+            <column name="NTFCTN_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00860">
+        <createIndex indexName="KREW_ACTN_ITM_T1" tableName="krew_actn_itm_t">
+            <column name="PRNCPL_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00861">
+        <createIndex indexName="KREW_ACTN_ITM_TI2" tableName="krew_actn_itm_t">
+            <column name="DOC_HDR_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00862">
+        <createIndex indexName="KREW_ACTN_ITM_TI3" tableName="krew_actn_itm_t">
+            <column name="ACTN_RQST_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00863">
+        <createIndex indexName="KREW_ACTN_ITM_TI5" tableName="krew_actn_itm_t">
+            <column name="PRNCPL_ID"/>
+            <column name="DLGN_TYP"/>
+            <column name="DOC_HDR_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00864">
+        <createIndex indexName="KREW_ACTN_ITM_TI6" tableName="krew_actn_itm_t">
+            <column name="DLGN_TYP"/>
+            <column name="DLGN_PRNCPL_ID"/>
+            <column name="DLGN_GRP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00865">
+        <createIndex indexName="KREW_ACTN_RQST_T11" tableName="krew_actn_rqst_t">
+            <column name="DOC_HDR_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00866">
+        <createIndex indexName="KREW_ACTN_RQST_T12" tableName="krew_actn_rqst_t">
+            <column name="PRNCPL_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00867">
+        <createIndex indexName="KREW_ACTN_RQST_T13" tableName="krew_actn_rqst_t">
+            <column name="ACTN_TKN_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00868">
+        <createIndex indexName="KREW_ACTN_RQST_T14" tableName="krew_actn_rqst_t">
+            <column name="PARNT_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00869">
+        <createIndex indexName="KREW_ACTN_RQST_T15" tableName="krew_actn_rqst_t">
+            <column name="RSP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00870">
+        <createIndex indexName="KREW_ACTN_RQST_T16" tableName="krew_actn_rqst_t">
+            <column name="STAT_CD"/>
+            <column name="RSP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00871">
+        <createIndex indexName="KREW_ACTN_RQST_T17" tableName="krew_actn_rqst_t">
+            <column name="RTE_NODE_INSTN_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00872">
+        <createIndex indexName="KREW_ACTN_RQST_T19" tableName="krew_actn_rqst_t">
+            <column name="STAT_CD"/>
+            <column name="DOC_HDR_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00873">
+        <createIndex indexName="KREW_ACTN_TKN_TI1" tableName="krew_actn_tkn_t">
+            <column name="DOC_HDR_ID"/>
+            <column name="PRNCPL_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00874">
+        <createIndex indexName="KREW_ACTN_TKN_TI2" tableName="krew_actn_tkn_t">
+            <column name="DOC_HDR_ID"/>
+            <column name="PRNCPL_ID"/>
+            <column name="ACTN_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00875">
+        <createIndex indexName="KREW_ACTN_TKN_TI3" tableName="krew_actn_tkn_t">
+            <column name="PRNCPL_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00876">
+        <createIndex indexName="KREW_ACTN_TKN_TI4" tableName="krew_actn_tkn_t">
+            <column name="DLGTR_PRNCPL_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00877">
+        <createIndex indexName="KREW_ACTN_TKN_TI5" tableName="krew_actn_tkn_t">
+            <column name="DOC_HDR_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00878">
+        <createIndex indexName="KREW_APP_DOC_STAT_TI1" tableName="krew_app_doc_stat_tran_t">
+            <column name="DOC_HDR_ID"/>
+            <column name="STAT_TRANS_DATE"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00879">
+        <createIndex indexName="KREW_APP_DOC_STAT_TI2" tableName="krew_app_doc_stat_tran_t">
+            <column name="DOC_HDR_ID"/>
+            <column name="APP_DOC_STAT_FROM"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00880">
+        <createIndex indexName="KREW_APP_DOC_STAT_TI3" tableName="krew_app_doc_stat_tran_t">
+            <column name="DOC_HDR_ID"/>
+            <column name="APP_DOC_STAT_TO"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00881">
+        <createIndex indexName="KREW_ATT_TI1" tableName="krew_att_t">
+            <column name="NTE_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00882">
+        <createIndex indexName="KREW_BAM_PARM_TI1" tableName="krsb_bam_parm_t">
+            <column name="BAM_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="mysql" id="rice00883">
+        <createIndex indexName="KREW_DOC_HDR_EXT_DT_TI1" tableName="krew_doc_hdr_ext_dt_t">
+            <column name="KEY_CD(255)"/>
+            <column name="VAL"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00883">
+        <createIndex indexName="KREW_DOC_HDR_EXT_DT_TI1" tableName="krew_doc_hdr_ext_dt_t">
+            <column name="KEY_CD"/>
+            <column name="VAL"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00884">
+        <createIndex indexName="KREW_DOC_HDR_EXT_DT_TI2" tableName="krew_doc_hdr_ext_dt_t">
+            <column name="DOC_HDR_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00885">
+        <createIndex indexName="KREW_DOC_HDR_EXT_DT_TI3" tableName="krew_doc_hdr_ext_dt_t">
+            <column name="VAL"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="mysql" id="rice00886">
+        <createIndex indexName="KREW_DOC_HDR_EXT_FLT_TI1" tableName="krew_doc_hdr_ext_flt_t">
+            <column name="KEY_CD(255)"/>
+            <column name="VAL"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00886">
+        <createIndex indexName="KREW_DOC_HDR_EXT_FLT_TI1" tableName="krew_doc_hdr_ext_flt_t">
+            <column name="KEY_CD"/>
+            <column name="VAL"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00887">
+        <createIndex indexName="KREW_DOC_HDR_EXT_FLT_TI2" tableName="krew_doc_hdr_ext_flt_t">
+            <column name="DOC_HDR_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00888">
+        <createIndex indexName="KREW_DOC_HDR_EXT_FLT_TI3" tableName="krew_doc_hdr_ext_flt_t">
+            <column name="VAL"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="mysql" id="rice00889">
+        <createIndex indexName="KREW_DOC_HDR_EXT_LONG_TI1" tableName="krew_doc_hdr_ext_long_t">
+            <column name="KEY_CD(255)"/>
+            <column name="VAL"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00889">
+        <createIndex indexName="KREW_DOC_HDR_EXT_LONG_TI1" tableName="krew_doc_hdr_ext_long_t">
+            <column name="KEY_CD"/>
+            <column name="VAL"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00890">
+        <createIndex indexName="KREW_DOC_HDR_EXT_LONG_TI2" tableName="krew_doc_hdr_ext_long_t">
+            <column name="DOC_HDR_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00891">
+        <createIndex indexName="KREW_DOC_HDR_EXT_LONG_TI3" tableName="krew_doc_hdr_ext_long_t">
+            <column name="VAL"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="mysql" id="rice00892">
+        <createIndex indexName="KREW_DOC_HDR_EXT_TI1" tableName="krew_doc_hdr_ext_t">
+            <column name="KEY_CD(255)"/>
+            <column name="VAL(255)"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00892">
+        <createIndex indexName="KREW_DOC_HDR_EXT_TI1" tableName="krew_doc_hdr_ext_t">
+            <column name="KEY_CD"/>
+            <column name="VAL"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00893">
+        <createIndex indexName="KREW_DOC_HDR_EXT_TI2" tableName="krew_doc_hdr_ext_t">
+            <column name="DOC_HDR_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="mysql" id="rice00894">
+        <createIndex indexName="KREW_DOC_HDR_EXT_TI3" tableName="krew_doc_hdr_ext_t">
+            <column name="VAL(255)"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00894">
+        <createIndex indexName="KREW_DOC_HDR_EXT_TI3" tableName="krew_doc_hdr_ext_t">
+            <column name="VAL"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00895">
+        <createIndex indexName="KREW_DOC_HDR_T10" tableName="krew_doc_hdr_t">
+            <column name="APP_DOC_STAT"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00896">
+        <createIndex indexName="KREW_DOC_HDR_T12" tableName="krew_doc_hdr_t">
+            <column name="APP_DOC_STAT_MDFN_DT"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00897">
+        <createIndex indexName="KREW_DOC_HDR_TI1" tableName="krew_doc_hdr_t">
+            <column name="DOC_TYP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00898">
+        <createIndex indexName="KREW_DOC_HDR_TI2" tableName="krew_doc_hdr_t">
+            <column name="INITR_PRNCPL_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00899">
+        <createIndex indexName="KREW_DOC_HDR_TI3" tableName="krew_doc_hdr_t">
+            <column name="DOC_HDR_STAT_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00900">
+        <createIndex indexName="KREW_DOC_HDR_TI4" tableName="krew_doc_hdr_t">
+            <column name="TTL"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00901">
+        <createIndex indexName="KREW_DOC_HDR_TI5" tableName="krew_doc_hdr_t">
+            <column name="CRTE_DT"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00902">
+        <createIndex indexName="KREW_DOC_HDR_TI6" tableName="krew_doc_hdr_t">
+            <column name="RTE_STAT_MDFN_DT"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00903">
+        <createIndex indexName="KREW_DOC_HDR_TI7" tableName="krew_doc_hdr_t">
+            <column name="APRV_DT"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00904">
+        <createIndex indexName="KREW_DOC_HDR_TI8" tableName="krew_doc_hdr_t">
+            <column name="FNL_DT"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00905">
+        <createIndex indexName="KREW_DOC_HDR_TI9" tableName="krew_doc_hdr_t">
+            <column name="APP_DOC_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00906">
+        <createIndex indexName="KREW_DOC_LNK_TI1" tableName="krew_doc_lnk_t">
+            <column name="ORGN_DOC_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00907">
+        <createIndex indexName="KREW_DOC_NTE_TI1" tableName="krew_doc_nte_t">
+            <column name="DOC_HDR_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00908">
+        <createIndex indexName="KREW_DOC_TYP_APP_DOC_STAT_T1" tableName="krew_doc_typ_app_doc_stat_t">
+            <column name="DOC_TYP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00909">
+        <createIndex indexName="KREW_DOC_TYP_APP_DOC_STAT_T2" tableName="krew_doc_typ_app_doc_stat_t">
+            <column name="DOC_TYP_ID"/>
+            <column name="CAT_NM"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00910">
+        <createIndex indexName="KREW_DOC_TYP_ATTR_TI1" tableName="krew_doc_typ_attr_t">
+            <column name="DOC_TYP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00911">
+        <createIndex indexName="KREW_DOC_TYP_PROC_TI1" tableName="krew_doc_typ_proc_t">
+            <column name="DOC_TYP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00912">
+        <createIndex indexName="KREW_DOC_TYP_PROC_TI2" tableName="krew_doc_typ_proc_t">
+            <column name="INIT_RTE_NODE_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00913">
+        <createIndex indexName="KREW_DOC_TYP_PROC_TI3" tableName="krew_doc_typ_proc_t">
+            <column name="NM"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00914">
+        <createIndex indexName="KREW_DOC_TYP_TI2" tableName="krew_doc_typ_t">
+            <column name="PARNT_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00915">
+        <createIndex indexName="KREW_DOC_TYP_TI3" tableName="krew_doc_typ_t">
+            <column name="DOC_TYP_ID"/>
+            <column name="PARNT_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00916">
+        <createIndex indexName="KREW_DOC_TYP_TI4" tableName="krew_doc_typ_t">
+            <column name="PREV_DOC_TYP_VER_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00917">
+        <createIndex indexName="KREW_DOC_TYP_TI5" tableName="krew_doc_typ_t">
+            <column name="CUR_IND"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00918">
+        <createIndex indexName="KREW_DOC_TYP_TI6" tableName="krew_doc_typ_t">
+            <column name="DOC_TYP_NM"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00919">
+        <createIndex indexName="KREW_EDL_DMP_TI1" tableName="krew_edl_dmp_t">
+            <column name="DOC_TYP_NM"/>
+            <column name="DOC_HDR_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00920">
+        <createIndex indexName="KREW_INIT_RTE_NODE_INSTN_TI1" tableName="krew_init_rte_node_instn_t">
+            <column name="DOC_HDR_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00921">
+        <createIndex indexName="KREW_INIT_RTE_NODE_INSTN_TI2" tableName="krew_init_rte_node_instn_t">
+            <column name="RTE_NODE_INSTN_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00922">
+        <createIndex indexName="KREW_OUT_BOX_ITM_TI1" tableName="krew_out_box_itm_t">
+            <column name="PRNCPL_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00923">
+        <createIndex indexName="KREW_OUT_BOX_ITM_TI2" tableName="krew_out_box_itm_t">
+            <column name="DOC_HDR_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00924">
+        <createIndex indexName="KREW_OUT_BOX_ITM_TI3" tableName="krew_out_box_itm_t">
+            <column name="ACTN_RQST_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00925">
+        <createIndex indexName="KREW_PPL_FLW_ATTR_TI1" tableName="krew_ppl_flw_attr_t">
+            <column name="PPL_FLW_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00926">
+        <createIndex indexName="KREW_PPL_FLW_ATTR_TI2" tableName="krew_ppl_flw_attr_t">
+            <column name="ATTR_DEFN_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00927">
+        <createIndex indexName="KREW_PPL_FLW_DLGT_TI1" tableName="krew_ppl_flw_dlgt_t">
+            <column name="PPL_FLW_MBR_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00928">
+        <createIndex indexName="KREW_PPL_FLW_FK1" tableName="krew_ppl_flw_t">
+            <column name="TYP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00929">
+        <createIndex indexName="KREW_PPL_FLW_MBR_TI1" tableName="krew_ppl_flw_mbr_t">
+            <column name="PPL_FLW_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00930">
+        <createIndex indexName="KREW_PPL_FLW_MBR_TI2" tableName="krew_ppl_flw_mbr_t">
+            <column name="PPL_FLW_ID"/>
+            <column name="PRIO"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00931">
+        <createIndex indexName="KREW_RTE_BRCH_PROTO_TI1" tableName="krew_rte_brch_proto_t">
+            <column name="BRCH_NM"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00932">
+        <createIndex indexName="KREW_RTE_BRCH_ST_TI1" tableName="krew_rte_brch_st_t">
+            <column name="RTE_BRCH_ID"/>
+            <column name="KEY_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00933">
+        <createIndex indexName="KREW_RTE_BRCH_ST_TI2" tableName="krew_rte_brch_st_t">
+            <column name="RTE_BRCH_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="mysql" id="rice00934">
+        <createIndex indexName="KREW_RTE_BRCH_ST_TI3" tableName="krew_rte_brch_st_t">
+            <column name="KEY_CD(255)"/>
+            <column name="VAL(255)"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00934">
+        <createIndex indexName="KREW_RTE_BRCH_ST_TI3" tableName="krew_rte_brch_st_t">
+            <column name="KEY_CD"/>
+            <column name="VAL"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00935">
+        <createIndex indexName="KREW_RTE_BRCH_TI1" tableName="krew_rte_brch_t">
+            <column name="NM"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00936">
+        <createIndex indexName="KREW_RTE_BRCH_TI2" tableName="krew_rte_brch_t">
+            <column name="PARNT_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00937">
+        <createIndex indexName="KREW_RTE_BRCH_TI3" tableName="krew_rte_brch_t">
+            <column name="INIT_RTE_NODE_INSTN_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00938">
+        <createIndex indexName="KREW_RTE_BRCH_TI4" tableName="krew_rte_brch_t">
+            <column name="SPLT_RTE_NODE_INSTN_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00939">
+        <createIndex indexName="KREW_RTE_BRCH_TI5" tableName="krew_rte_brch_t">
+            <column name="JOIN_RTE_NODE_INSTN_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00940">
+        <createIndex indexName="KREW_RTE_NODE_CFG_PARM_TI1" tableName="krew_rte_node_cfg_parm_t">
+            <column name="RTE_NODE_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00941">
+        <createIndex indexName="KREW_RTE_NODE_INSTN_LNK_TI1" tableName="krew_rte_node_instn_lnk_t">
+            <column name="FROM_RTE_NODE_INSTN_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00942">
+        <createIndex indexName="KREW_RTE_NODE_INSTN_LNK_TI2" tableName="krew_rte_node_instn_lnk_t">
+            <column name="TO_RTE_NODE_INSTN_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00943">
+        <createIndex indexName="KREW_RTE_NODE_INSTN_ST_TI1" tableName="krew_rte_node_instn_st_t">
+            <column name="RTE_NODE_INSTN_ID"/>
+            <column name="KEY_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00944">
+        <createIndex indexName="KREW_RTE_NODE_INSTN_ST_TI2" tableName="krew_rte_node_instn_st_t">
+            <column name="RTE_NODE_INSTN_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="mysql" id="rice00945">
+        <createIndex indexName="KREW_RTE_NODE_INSTN_ST_TI3" tableName="krew_rte_node_instn_st_t">
+            <column name="KEY_CD"/>
+            <column name="VAL(255)"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00945">
+        <createIndex indexName="KREW_RTE_NODE_INSTN_ST_TI3" tableName="krew_rte_node_instn_st_t">
+            <column name="KEY_CD"/>
+            <column name="VAL"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00946">
+        <createIndex indexName="KREW_RTE_NODE_INSTN_TI1" tableName="krew_rte_node_instn_t">
+            <column name="DOC_HDR_ID"/>
+            <column name="ACTV_IND"/>
+            <column name="CMPLT_IND"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00947">
+        <createIndex indexName="KREW_RTE_NODE_INSTN_TI2" tableName="krew_rte_node_instn_t">
+            <column name="RTE_NODE_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00948">
+        <createIndex indexName="KREW_RTE_NODE_INSTN_TI3" tableName="krew_rte_node_instn_t">
+            <column name="BRCH_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00949">
+        <createIndex indexName="KREW_RTE_NODE_INSTN_TI4" tableName="krew_rte_node_instn_t">
+            <column name="PROC_RTE_NODE_INSTN_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00950">
+        <createIndex indexName="KREW_RTE_NODE_LNK_TI1" tableName="krew_rte_node_lnk_t">
+            <column name="FROM_RTE_NODE_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00951">
+        <createIndex indexName="KREW_RTE_NODE_LNK_TI2" tableName="krew_rte_node_lnk_t">
+            <column name="TO_RTE_NODE_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00952">
+        <createIndex indexName="KREW_RTE_NODE_TI1" tableName="krew_rte_node_t">
+            <column name="NM"/>
+            <column name="DOC_TYP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00953">
+        <createIndex indexName="KREW_RTE_NODE_TI2" tableName="krew_rte_node_t">
+            <column name="DOC_TYP_ID"/>
+            <column name="FNL_APRVR_IND"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00954">
+        <createIndex indexName="KREW_RTE_NODE_TI3" tableName="krew_rte_node_t">
+            <column name="BRCH_PROTO_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00955">
+        <createIndex indexName="KREW_RTE_NODE_TI4" tableName="krew_rte_node_t">
+            <column name="DOC_TYP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00956">
+        <createIndex indexName="KREW_RULE_EXT_T1" tableName="krew_rule_ext_t">
+            <column name="RULE_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00957">
+        <createIndex indexName="KREW_RULE_EXT_VAL_T1" tableName="krew_rule_ext_val_t">
+            <column name="RULE_EXT_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00958">
+        <createIndex indexName="KREW_RULE_EXT_VAL_T2" tableName="krew_rule_ext_val_t">
+            <column name="RULE_EXT_VAL_ID"/>
+            <column name="KEY_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="mysql" id="rice00958">
+        <createIndex indexName="KREW_RULE_EXT_VAL_T2" tableName="krew_rule_ext_val_t">
+            <column name="RULE_EXT_VAL_ID"/>
+            <column name="KEY_CD(255)"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00959">
+        <createIndex indexName="KREW_RULE_RSP_TI1" tableName="krew_rule_rsp_t">
+            <column name="RULE_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00960">
+        <createIndex indexName="KREW_RULE_TMPL_ATTR_TI1" tableName="krew_rule_tmpl_attr_t">
+            <column name="RULE_TMPL_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00961">
+        <createIndex indexName="KREW_RULE_TMPL_ATTR_TI2" tableName="krew_rule_tmpl_attr_t">
+            <column name="RULE_ATTR_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00962">
+        <createIndex indexName="KREW_RULE_TR1" tableName="krew_rule_t">
+            <column name="RULE_EXPR_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00963">
+        <createIndex indexName="KREW_TYP_ATTR_TI1" tableName="krew_typ_attr_t">
+            <column name="ATTR_DEFN_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00964">
+        <createIndex indexName="KREW_TYP_ATTR_TI2" tableName="krew_typ_attr_t">
+            <column name="TYP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00965">
+        <createIndex indexName="KREW_USR_OPTN_TI1" tableName="krew_usr_optn_t">
+            <column name="PRNCPL_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00966">
+        <createIndex indexName="KRIM_DLGN_MBR_ATTR_DATA_TR1" tableName="krim_dlgn_mbr_attr_data_t">
+            <column name="KIM_TYP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00967">
+        <createIndex indexName="KRIM_DLGN_MBR_ATTR_DATA_TR2" tableName="krim_dlgn_mbr_attr_data_t">
+            <column name="KIM_ATTR_DEFN_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00968">
+        <createIndex indexName="KRIM_DLGN_MBR_TR2" tableName="krim_dlgn_mbr_t">
+            <column name="DLGN_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00969">
+        <createIndex indexName="KRIM_DLGN_TR1" tableName="krim_dlgn_t">
+            <column name="ROLE_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00970">
+        <createIndex indexName="KRIM_DLGN_TR2" tableName="krim_dlgn_t">
+            <column name="KIM_TYP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00971">
+        <createIndex indexName="KRIM_ENTITY_ADDR_TI1" tableName="krim_entity_addr_t">
+            <column name="ENTITY_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00972">
+        <createIndex indexName="KRIM_ENTITY_ADDR_TR1" tableName="krim_entity_addr_t">
+            <column name="ENT_TYP_CD"/>
+            <column name="ENTITY_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00973">
+        <createIndex indexName="KRIM_ENTITY_ADDR_TR2" tableName="krim_entity_addr_t">
+            <column name="ADDR_TYP_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00974">
+        <createIndex indexName="KRIM_ENTITY_AFLTN_TI1" tableName="krim_entity_afltn_t">
+            <column name="ENTITY_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00975">
+        <createIndex indexName="KRIM_ENTITY_AFLTN_TR2" tableName="krim_entity_afltn_t">
+            <column name="AFLTN_TYP_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00976">
+        <createIndex indexName="KRIM_ENTITY_CTZNSHP_TR1" tableName="krim_entity_ctznshp_t">
+            <column name="ENTITY_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00977">
+        <createIndex indexName="KRIM_ENTITY_CTZNSHP_TR2" tableName="krim_entity_ctznshp_t">
+            <column name="CTZNSHP_STAT_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00978">
+        <createIndex indexName="KRIM_ENTITY_EMAIL_TI1" tableName="krim_entity_email_t">
+            <column name="ENTITY_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00979">
+        <createIndex indexName="KRIM_ENTITY_EMAIL_TR1" tableName="krim_entity_email_t">
+            <column name="ENT_TYP_CD"/>
+            <column name="ENTITY_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00980">
+        <createIndex indexName="KRIM_ENTITY_EMP_INFO_TI1" tableName="krim_entity_emp_info_t">
+            <column name="ENTITY_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00981">
+        <createIndex indexName="KRIM_ENTITY_EMP_INFO_TI2" tableName="krim_entity_emp_info_t">
+            <column name="ENTITY_AFLTN_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00982">
+        <createIndex indexName="KRIM_ENTITY_EMP_INFO_TI3" tableName="krim_entity_emp_info_t">
+            <column name="EMP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00983">
+        <createIndex indexName="KRIM_ENTITY_EMP_INFO_TR2" tableName="krim_entity_emp_info_t">
+            <column name="EMP_STAT_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00984">
+        <createIndex indexName="KRIM_ENTITY_EMP_INFO_TR3" tableName="krim_entity_emp_info_t">
+            <column name="EMP_TYP_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00985">
+        <createIndex indexName="KRIM_ENTITY_ENT_TYP_TI1" tableName="krim_entity_ent_typ_t">
+            <column name="ENTITY_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00986">
+        <createIndex indexName="KRIM_ENTITY_ETHNIC_TR1" tableName="krim_entity_ethnic_t">
+            <column name="ENTITY_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00987">
+        <createIndex indexName="KRIM_ENTITY_EXT_ID_TI1" tableName="krim_entity_ext_id_t">
+            <column name="ENTITY_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00988">
+        <createIndex indexName="KRIM_ENTITY_EXT_ID_TR2" tableName="krim_entity_ext_id_t">
+            <column name="EXT_ID_TYP_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00989">
+        <createIndex indexName="KRIM_ENTITY_NM_TI1" tableName="krim_entity_nm_t">
+            <column name="ENTITY_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00990">
+        <createIndex indexName="KRIM_ENTITY_PHONE_TI1" tableName="krim_entity_phone_t">
+            <column name="ENTITY_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00991">
+        <createIndex indexName="KRIM_ENTITY_PHONE_TR1" tableName="krim_entity_phone_t">
+            <column name="ENT_TYP_CD"/>
+            <column name="ENTITY_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00992">
+        <createIndex indexName="KRIM_ENTITY_PHONE_TR2" tableName="krim_entity_phone_t">
+            <column name="PHONE_TYP_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00993">
+        <createIndex indexName="KRIM_ENTITY_RESIDENCY_TR1" tableName="krim_entity_residency_t">
+            <column name="ENTITY_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00994">
+        <createIndex indexName="KRIM_ENTITY_VISA_TR1" tableName="krim_entity_visa_t">
+            <column name="ENTITY_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00995">
+        <createIndex indexName="KRIM_GRP_ATTR_DATA_TR1" tableName="krim_grp_attr_data_t">
+            <column name="KIM_TYP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00996">
+        <createIndex indexName="KRIM_GRP_ATTR_DATA_TR2" tableName="krim_grp_attr_data_t">
+            <column name="KIM_ATTR_DEFN_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00997">
+        <createIndex indexName="KRIM_GRP_ATTR_DATA_TR3" tableName="krim_grp_attr_data_t">
+            <column name="GRP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00998">
+        <createIndex indexName="KRIM_GRP_MBR_TI1" tableName="krim_grp_mbr_t">
+            <column name="MBR_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice00999">
+        <createIndex indexName="KRIM_GRP_MBR_TR1" tableName="krim_grp_mbr_t">
+            <column name="GRP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01000">
+        <createIndex indexName="KRIM_GRP_TR1" tableName="krim_grp_t">
+            <column name="KIM_TYP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01001">
+        <createIndex indexName="KRIM_PERM_ATTR_DATA_TI1" tableName="krim_perm_attr_data_t">
+            <column name="PERM_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01002">
+        <createIndex indexName="KRIM_PERM_ATTR_DATA_TR1" tableName="krim_perm_attr_data_t">
+            <column name="KIM_TYP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01003">
+        <createIndex indexName="KRIM_PERM_ATTR_DATA_TR2" tableName="krim_perm_attr_data_t">
+            <column name="KIM_ATTR_DEFN_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01004">
+        <createIndex indexName="KRIM_PERM_TI1" tableName="krim_perm_t">
+            <column name="PERM_TMPL_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01005">
+        <createIndex indexName="KRIM_PERM_TI2" tableName="krim_perm_t">
+            <column name="PERM_TMPL_ID"/>
+            <column name="ACTV_IND"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01006">
+        <createIndex indexName="KRIM_PERM_TMPL_TI1" tableName="krim_perm_tmpl_t">
+            <column name="NMSPC_CD"/>
+            <column name="NM"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01007">
+        <createIndex indexName="KRIM_PERM_TMPL_TR1" tableName="krim_perm_tmpl_t">
+            <column name="KIM_TYP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01008">
+        <createIndex indexName="KRIM_PRNCPL_TR1" tableName="krim_prncpl_t">
+            <column name="ENTITY_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01009">
+        <createIndex indexName="KRIM_ROLE_MBR_ATTR_DATA_TI1" tableName="krim_role_mbr_attr_data_t">
+            <column name="ROLE_MBR_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01010">
+        <createIndex indexName="KRIM_ROLE_MBR_ATTR_DATA_TR1" tableName="krim_role_mbr_attr_data_t">
+            <column name="KIM_TYP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01011">
+        <createIndex indexName="KRIM_ROLE_MBR_ATTR_DATA_TR2" tableName="krim_role_mbr_attr_data_t">
+            <column name="KIM_ATTR_DEFN_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01012">
+        <createIndex indexName="KRIM_ROLE_MBR_TI1" tableName="krim_role_mbr_t">
+            <column name="MBR_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01013">
+        <createIndex indexName="KRIM_ROLE_MBR_TI2" tableName="krim_role_mbr_t">
+            <column name="ROLE_ID"/>
+            <column name="MBR_ID"/>
+            <column name="MBR_TYP_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01014">
+        <createIndex indexName="KRIM_ROLE_MBR_TI3" tableName="krim_role_mbr_t">
+            <column name="MBR_ID"/>
+            <column name="MBR_TYP_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01015">
+        <createIndex indexName="KRIM_ROLE_PERM_TI1" tableName="krim_role_perm_t">
+            <column name="PERM_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01016">
+        <createIndex indexName="KRIM_ROLE_PERM_TI2" tableName="krim_role_perm_t">
+            <column name="PERM_ID"/>
+            <column name="ACTV_IND"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01017">
+        <createIndex indexName="KRIM_ROLE_RSP_TI1" tableName="krim_role_rsp_t">
+            <column name="RSP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01018">
+        <createIndex indexName="KRIM_ROLE_TR1" tableName="krim_role_t">
+            <column name="KIM_TYP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01019">
+        <createIndex indexName="KRIM_RSP_ATTR_DATA_TR1" tableName="krim_rsp_attr_data_t">
+            <column name="KIM_TYP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01020">
+        <createIndex indexName="KRIM_RSP_ATTR_DATA_TR2" tableName="krim_rsp_attr_data_t">
+            <column name="KIM_ATTR_DEFN_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01021">
+        <createIndex indexName="KRIM_RSP_ATTR_DATA_TR3" tableName="krim_rsp_attr_data_t">
+            <column name="RSP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01022">
+        <createIndex indexName="KRIM_RSP_TMPL_TR1" tableName="krim_rsp_tmpl_t">
+            <column name="KIM_TYP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01023">
+        <createIndex indexName="KRIM_RSP_TR1" tableName="krim_rsp_t">
+            <column name="RSP_TMPL_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01024">
+        <createIndex indexName="KRIM_TYP_ATTRIBUTE_TI1" tableName="krim_typ_attr_t">
+            <column name="KIM_TYP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01025">
+        <createIndex indexName="KRIM_TYP_ATTR_TR2" tableName="krim_typ_attr_t">
+            <column name="KIM_ATTR_DEFN_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01026">
+        <createIndex indexName="KRLC_CNTY_TR1" tableName="krlc_cnty_t">
+            <column name="STATE_CD"/>
+            <column name="POSTAL_CNTRY_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01027">
+        <createIndex indexName="KRMS_ACTN_ATTR_TI1" tableName="krms_actn_attr_t">
+            <column name="ACTN_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01028">
+        <createIndex indexName="KRMS_ACTN_ATTR_TI2" tableName="krms_actn_attr_t">
+            <column name="ATTR_DEFN_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01029">
+        <createIndex indexName="KRMS_ACTN_TI1" tableName="krms_actn_t">
+            <column name="TYP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01030">
+        <createIndex indexName="KRMS_ACTN_TI2" tableName="krms_actn_t">
+            <column name="RULE_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01031">
+        <createIndex indexName="KRMS_ACTN_TI3" tableName="krms_actn_t">
+            <column name="RULE_ID"/>
+            <column name="SEQ_NO"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01032">
+        <createIndex indexName="KRMS_AGENDA_ATTR_T12" tableName="krms_agenda_attr_t">
+            <column name="ATTR_DEFN_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01033">
+        <createIndex indexName="KRMS_AGENDA_ATTR_TI1" tableName="krms_agenda_attr_t">
+            <column name="AGENDA_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01034">
+        <createIndex indexName="KRMS_AGENDA_ITM_TI1" tableName="krms_agenda_itm_t">
+            <column name="RULE_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01035">
+        <createIndex indexName="KRMS_AGENDA_ITM_TI2" tableName="krms_agenda_itm_t">
+            <column name="AGENDA_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01036">
+        <createIndex indexName="KRMS_AGENDA_ITM_TI3" tableName="krms_agenda_itm_t">
+            <column name="SUB_AGENDA_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01037">
+        <createIndex indexName="KRMS_AGENDA_ITM_TI4" tableName="krms_agenda_itm_t">
+            <column name="WHEN_TRUE"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01038">
+        <createIndex indexName="KRMS_AGENDA_ITM_TI5" tableName="krms_agenda_itm_t">
+            <column name="WHEN_FALSE"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01039">
+        <createIndex indexName="KRMS_AGENDA_ITM_TI6" tableName="krms_agenda_itm_t">
+            <column name="ALWAYS"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01040">
+        <createIndex indexName="KRMS_AGENDA_TI1" tableName="krms_agenda_t">
+            <column name="CNTXT_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01041">
+        <createIndex indexName="KRMS_CMPND_PROP_PROPS_FK2" tableName="krms_cmpnd_prop_props_t">
+            <column name="CMPND_PROP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01042">
+        <createIndex indexName="KRMS_CMPND_PROP_PROPS_TI1" tableName="krms_cmpnd_prop_props_t">
+            <column name="PROP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01043">
+        <createIndex indexName="KRMS_CNTXT_ATTR_TI1" tableName="krms_cntxt_attr_t">
+            <column name="CNTXT_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01044">
+        <createIndex indexName="KRMS_CNTXT_ATTR_TI2" tableName="krms_cntxt_attr_t">
+            <column name="ATTR_DEFN_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01045">
+        <createIndex indexName="KRMS_CNTXT_VLD_ACTN_TYP_TI1" tableName="krms_cntxt_vld_actn_typ_t">
+            <column name="CNTXT_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01046">
+        <createIndex indexName="KRMS_CNTXT_VLD_AGENDA_TYP_TI1" tableName="krms_cntxt_vld_agenda_typ_t">
+            <column name="CNTXT_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01047">
+        <createIndex indexName="KRMS_CNTXT_VLD_FUNC_TI1" tableName="krms_cntxt_vld_func_t">
+            <column name="CNTXT_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01048">
+        <createIndex indexName="KRMS_CNTXT_VLD_RULE_TYP_TI1" tableName="krms_cntxt_vld_rule_typ_t">
+            <column name="CNTXT_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01049">
+        <createIndex indexName="KRMS_CNTXT_VLD_TERM_SPEC_TI1" tableName="krms_cntxt_vld_term_spec_t">
+            <column name="CNTXT_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01050">
+        <createIndex indexName="KRMS_CNTXT_VLD_TERM_SPEC_TI2" tableName="krms_cntxt_vld_term_spec_t">
+            <column name="TERM_SPEC_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01051">
+        <createIndex indexName="KRMS_FUNC_CTGRY_FK2" tableName="krms_func_ctgry_t">
+            <column name="CTGRY_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01052">
+        <createIndex indexName="KRMS_FUNC_PARM_TI1" tableName="krms_func_parm_t">
+            <column name="FUNC_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01053">
+        <createIndex indexName="KRMS_FUNC_TI1" tableName="krms_func_t">
+            <column name="TYP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01054">
+        <createIndex indexName="KRMS_INPUT_ASSET_TI1" tableName="krms_term_rslvr_input_spec_t">
+            <column name="TERM_SPEC_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01055">
+        <createIndex indexName="KRMS_INPUT_ASSET_TI2" tableName="krms_term_rslvr_input_spec_t">
+            <column name="TERM_RSLVR_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01056">
+        <createIndex indexName="KRMS_NL_TMPL_ATTR_FK2" tableName="krms_nl_tmpl_attr_t">
+            <column name="ATTR_DEFN_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01057">
+        <createIndex indexName="KRMS_NL_TMPL_FK1" tableName="krms_nl_tmpl_t">
+            <column name="NL_USAGE_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01058">
+        <createIndex indexName="KRMS_NL_USAGE_ATTR_FK2" tableName="krms_nl_usage_attr_t">
+            <column name="ATTR_DEFN_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01059">
+        <createIndex indexName="KRMS_PROP_FK2" tableName="krms_prop_t">
+            <column name="TYP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01060">
+        <createIndex indexName="KRMS_PROP_PARM_TI1" tableName="krms_prop_parm_t">
+            <column name="PROP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01061">
+        <createIndex indexName="KRMS_PROP_TI1" tableName="krms_prop_t">
+            <column name="RULE_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01062">
+        <createIndex indexName="KRMS_RULE_ATTR_TI1" tableName="krms_rule_attr_t">
+            <column name="RULE_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01063">
+        <createIndex indexName="KRMS_RULE_ATTR_TI2" tableName="krms_rule_attr_t">
+            <column name="ATTR_DEFN_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01064">
+        <createIndex indexName="KRMS_RULE_TI1" tableName="krms_rule_t">
+            <column name="PROP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01065">
+        <createIndex indexName="KRMS_TERM_PARM_TI1" tableName="krms_term_parm_t">
+            <column name="TERM_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01066">
+        <createIndex indexName="KRMS_TERM_RESLV_PARM_FK1" tableName="krms_term_rslvr_parm_spec_t">
+            <column name="TERM_RSLVR_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01067">
+        <createIndex indexName="KRMS_TERM_RSLVR_ATTR_TI1" tableName="krms_term_rslvr_attr_t">
+            <column name="TERM_RSLVR_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01068">
+        <createIndex indexName="KRMS_TERM_RSLVR_ATTR_TI2" tableName="krms_term_rslvr_attr_t">
+            <column name="ATTR_DEFN_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01069">
+        <createIndex indexName="KRMS_TERM_RSLVR_FK1" tableName="krms_term_rslvr_t">
+            <column name="OUTPUT_TERM_SPEC_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01070">
+        <createIndex indexName="KRMS_TERM_RSLVR_TI2" tableName="krms_term_rslvr_t">
+            <column name="TYP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01071">
+        <createIndex indexName="KRMS_TERM_SPEC_CTGRY_FK2" tableName="krms_term_spec_ctgry_t">
+            <column name="CTGRY_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01072">
+        <createIndex indexName="KRMS_TERM_TI1" tableName="krms_term_t">
+            <column name="TERM_SPEC_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01073">
+        <createIndex indexName="KRMS_TYP_ATTR_TI1" tableName="krms_typ_attr_t">
+            <column name="ATTR_DEFN_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice01074">
+        <createIndex indexName="KRMS_TYP_ATTR_TI2" tableName="krms_typ_attr_t">
+            <column name="TYP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01075">
+        <createIndex indexName="KRMS_TYP_RELN_FK2" tableName="krms_typ_reln_t">
+            <column name="TO_TYP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01076">
+        <createIndex indexName="KRMS_TYP_T" tableName="krms_nl_tmpl_t">
+            <column name="TYP_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice01077">
+        <createIndex indexName="KRNS_ADHOC_RTE_ACTN_RECIP_T2" tableName="krns_adhoc_rte_actn_recip_t">
+            <column name="DOC_HDR_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice01078">
+        <createIndex indexName="KRNS_DOC_HDR_TI3" tableName="krns_doc_hdr_t">
+            <column name="ORG_DOC_HDR_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice01079">
+        <createIndex indexName="KRNS_MAINT_DOC_ATT_LST_TI1" tableName="krns_maint_doc_att_lst_t">
+            <column name="DOC_HDR_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice01080">
+        <createIndex indexName="KRNS_MAINT_LOCK_TI2" tableName="krns_maint_lock_t">
+            <column name="DOC_HDR_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" dbms="oracle" id="rice01081">
+        <createIndex indexName="KRNS_NTE_TI1" tableName="krns_nte_t">
+            <column name="RMT_OBJ_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" dbms="oracle" id="rice01082">
+        <createIndex indexName="KRNS_NTE_TR1" tableName="krns_nte_t">
+            <column name="NTE_TYP_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" dbms="oracle" id="rice01083">
+        <createIndex indexName="KRNS_PARM_TR2" tableName="krcr_parm_t">
+            <column name="PARM_TYP_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice01084">
+        <createIndex indexName="KRNS_PESSIMISTIC_LOCK_TI1" tableName="krns_pessimistic_lock_t">
+            <column name="DOC_HDR_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice01085">
+        <createIndex indexName="KRNS_PESSIMISTIC_LOCK_TI2" tableName="krns_pessimistic_lock_t">
+            <column name="PRNCPL_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice01086">
+        <createIndex indexName="KRNS_SESN_DOC_TI1" tableName="krns_sesn_doc_t">
+            <column name="LAST_UPDT_DT"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" dbms="mysql" id="rice01087">
+        <createIndex indexName="KRSB_BAM_TI1" tableName="krsb_bam_t">
+            <column name="SVC_NM"/>
+            <column name="MTHD_NM(255)"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" dbms="oracle" id="rice01087">
+        <createIndex indexName="KRSB_BAM_TI1" tableName="krsb_bam_t">
+            <column name="SVC_NM"/>
+            <column name="MTHD_NM"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice01088">
+        <createIndex indexName="KRSB_BAM_TI2" tableName="krsb_bam_t">
+            <column name="SVC_NM"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" dbms="mysql" id="rice01089">
+        <createIndex indexName="KRSB_MSG_QUE_TI1" tableName="krsb_msg_que_t">
+            <column name="SVC_NM"/>
+            <column name="SVC_MTHD_NM(255)"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" dbms="oracle" id="rice01089">
+        <createIndex indexName="KRSB_MSG_QUE_TI1" tableName="krsb_msg_que_t">
+            <column name="SVC_NM"/>
+            <column name="SVC_MTHD_NM"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" dbms="mysql" id="rice01090">
+        <createIndex indexName="KRSB_MSG_QUE_TI2" tableName="krsb_msg_que_t">
+            <column name="APPL_ID"/>
+            <column name="STAT_CD"/>
+            <column name="IP_NBR(255)"/>
+            <column name="DT"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" dbms="oracle" id="rice01090">
+        <createIndex indexName="KRSB_MSG_QUE_TI2" tableName="krsb_msg_que_t">
+            <column name="APPL_ID"/>
+            <column name="STAT_CD"/>
+            <column name="IP_NBR"/>
+            <column name="DT"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice01091">
+        <createIndex indexName="KRSB_QRTZ_FIRED_TRIGGERS_TI1" tableName="krsb_qrtz_fired_triggers">
+            <column name="JOB_GROUP"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice01092">
+        <createIndex indexName="KRSB_QRTZ_FIRED_TRIGGERS_TI2" tableName="krsb_qrtz_fired_triggers">
+            <column name="JOB_NAME"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice01093">
+        <createIndex indexName="KRSB_QRTZ_FIRED_TRIGGERS_TI3" tableName="krsb_qrtz_fired_triggers">
+            <column name="REQUESTS_RECOVERY"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice01094">
+        <createIndex indexName="KRSB_QRTZ_FIRED_TRIGGERS_TI4" tableName="krsb_qrtz_fired_triggers">
+            <column name="IS_STATEFUL"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice01095">
+        <createIndex indexName="KRSB_QRTZ_FIRED_TRIGGERS_TI5" tableName="krsb_qrtz_fired_triggers">
+            <column name="TRIGGER_GROUP"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice01096">
+        <createIndex indexName="KRSB_QRTZ_FIRED_TRIGGERS_TI6" tableName="krsb_qrtz_fired_triggers">
+            <column name="INSTANCE_NAME"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice01097">
+        <createIndex indexName="KRSB_QRTZ_FIRED_TRIGGERS_TI7" tableName="krsb_qrtz_fired_triggers">
+            <column name="TRIGGER_NAME"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice01098">
+        <createIndex indexName="KRSB_QRTZ_FIRED_TRIGGERS_TI8" tableName="krsb_qrtz_fired_triggers">
+            <column name="TRIGGER_NAME"/>
+            <column name="TRIGGER_GROUP"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice01099">
+        <createIndex indexName="KRSB_QRTZ_FIRED_TRIGGERS_TI9" tableName="krsb_qrtz_fired_triggers">
+            <column name="IS_VOLATILE"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice01100">
+        <createIndex indexName="KRSB_QRTZ_JOB_DETAILS_TI1" tableName="krsb_qrtz_job_details">
+            <column name="REQUESTS_RECOVERY"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice01101">
+        <createIndex indexName="KRSB_QRTZ_TRIGGERS_TI1" tableName="krsb_qrtz_triggers">
+            <column name="NEXT_FIRE_TIME"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice01102">
+        <createIndex indexName="KRSB_QRTZ_TRIGGERS_TI2" tableName="krsb_qrtz_triggers">
+            <column name="NEXT_FIRE_TIME"/>
+            <column name="TRIGGER_STATE"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice01103">
+        <createIndex indexName="KRSB_QRTZ_TRIGGERS_TI3" tableName="krsb_qrtz_triggers">
+            <column name="TRIGGER_STATE"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice01104">
+        <createIndex indexName="KRSB_QRTZ_TRIGGERS_TI4" tableName="krsb_qrtz_triggers">
+            <column name="IS_VOLATILE"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice01105">
+        <createIndex indexName="KRSB_SVC_DEF_TI1" tableName="krsb_svc_def_t">
+            <column name="INSTN_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice01106">
+        <createIndex indexName="KRSB_SVC_DEF_TI2" tableName="krsb_svc_def_t">
+            <column name="SVC_NM"/>
+            <column name="STAT_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice01107">
+        <createIndex indexName="KRSB_SVC_DEF_TI3" tableName="krsb_svc_def_t">
+            <column name="STAT_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice01108">
+        <createIndex indexName="KRSB_SVC_DEF_TI4" tableName="krsb_svc_def_t">
+            <column name="SVC_DSCRPTR_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01117">
+        <createIndex indexName="KR_POSTAL_CODE_TR1" tableName="krlc_pstl_cd_t">
+            <column name="POSTAL_CNTRY_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01118">
+        <createIndex indexName="KR_POSTAL_CODE_TR2" tableName="krlc_pstl_cd_t">
+            <column name="POSTAL_STATE_CD"/>
+            <column name="POSTAL_CNTRY_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01119">
+        <createIndex indexName="KR_POSTAL_CODE_TR3" tableName="krlc_pstl_cd_t">
+            <column name="COUNTY_CD"/>
+            <column name="POSTAL_STATE_CD"/>
+            <column name="POSTAL_CNTRY_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01120">
+        <createIndex indexName="KR_STATE_TR1" tableName="krlc_st_t">
+            <column name="POSTAL_CNTRY_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="rice01121">
+        <createIndex indexName="SH_CAMPUS_TR1" tableName="krlc_cmp_t">
+            <column name="CAMPUS_TYP_CD"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

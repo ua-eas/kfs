@@ -1,0 +1,5 @@
+HEADER[~&~	~&~TYP_ID::VARCHAR~&~	~&~NM::VARCHAR~&~	~&~NMSPC_CD::VARCHAR~&~	~&~SRVC_NM::VARCHAR~&~	~&~ACTV::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~]HEADER
+RECORD[~&~	~&~'1000'~&~	~&~'Notify PeopleFlow'~&~	~&~'KR-RULE'~&~	~&~'notificationPeopleFlowActionTypeService'~&~	~&~'Y'~&~	~&~'1'~&~	~&~]RECORD
+RECORD[~&~	~&~'1001'~&~	~&~'Route to PeopleFlow'~&~	~&~'KR-RULE'~&~	~&~'approvalPeopleFlowActionTypeService'~&~	~&~'Y'~&~	~&~'1'~&~	~&~]RECORD
+RECORD[~&~	~&~'1002'~&~	~&~'Validation Rule'~&~	~&~'KR-RULE'~&~	~&~'validationRuleTypeService'~&~	~&~'Y'~&~	~&~'1'~&~	~&~]RECORD
+RECORD[~&~	~&~'1003'~&~	~&~'Validation Action'~&~	~&~'KR-RULE'~&~	~&~'validationActionTypeService'~&~	~&~'Y'~&~	~&~'1'~&~	~&~]RECORD

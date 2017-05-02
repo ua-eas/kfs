@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="kfs" id="rice01258" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="DOC_HDR_ID" baseTableName="krns_maint_doc_t" constraintName="KRNS_MAINT_DOC_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="DOC_HDR_ID" referencedTableName="krns_doc_hdr_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice01256" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="NTE_ID" baseTableName="krns_att_t" constraintName="KRNS_ATT_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="NTE_ID" referencedTableName="krns_nte_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice01257" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="DOC_HDR_ID" baseTableName="krns_maint_doc_att_lst_t" constraintName="KRNS_MAINT_DOC_ATT_LST_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="DOC_HDR_ID" referencedTableName="krns_maint_doc_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice01259" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="NTE_TYP_CD" baseTableName="krns_nte_t" constraintName="KRNS_NTE_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="NTE_TYP_CD" referencedTableName="krns_nte_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice01263" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="TRIGGER_NAME,TRIGGER_GROUP" baseTableName="krsb_qrtz_blob_triggers" constraintName="KRSB_QRTZ_BLOB_TRIGGERS_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TRIGGER_NAME,TRIGGER_GROUP" referencedTableName="krsb_qrtz_triggers"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice01264" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="TRIGGER_NAME,TRIGGER_GROUP" baseTableName="krsb_qrtz_cron_triggers" constraintName="KRSB_QRTZ_CRON_TRIGGERS_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TRIGGER_NAME,TRIGGER_GROUP" referencedTableName="krsb_qrtz_triggers"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice01265" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="TRIGGER_NAME,TRIGGER_GROUP" baseTableName="krsb_qrtz_simple_triggers" constraintName="KRSB_QRTZ_SIMPLE_TRIGGERS_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TRIGGER_NAME,TRIGGER_GROUP" referencedTableName="krsb_qrtz_triggers"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice01266" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="TRIGGER_NAME,TRIGGER_GROUP" baseTableName="krsb_qrtz_trigger_listeners" constraintName="KRSB_QRTZ_TRIGGER_LISTENE_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TRIGGER_NAME,TRIGGER_GROUP" referencedTableName="krsb_qrtz_triggers"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice01267" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="JOB_NAME,JOB_GROUP" baseTableName="krsb_qrtz_job_listeners" constraintName="KRSB_QUARTZ_JOB_LISTENERS_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="JOB_NAME,JOB_GROUP" referencedTableName="krsb_qrtz_job_details"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice01268" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="SVC_DSCRPTR_ID" baseTableName="krsb_svc_def_t" constraintName="KRSB_SVC_DEF_FK1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="SVC_DSCRPTR_ID" referencedTableName="krsb_svc_dscrptr_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice01260" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="NMSPC_CD" baseTableName="krcr_cmpnt_t" constraintName="KRNS_PARM_DTL_TYP_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="NMSPC_CD" referencedTableName="krcr_nmspc_t"/>
+    </changeSet>
+</databaseChangeLog>

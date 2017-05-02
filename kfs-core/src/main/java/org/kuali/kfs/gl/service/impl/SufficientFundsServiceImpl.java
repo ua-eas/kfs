@@ -1,30 +1,24 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
+import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.service.AccountService;
 import org.kuali.kfs.coa.service.ObjectLevelService;
@@ -37,19 +31,26 @@ import org.kuali.kfs.gl.businessobject.Transaction;
 import org.kuali.kfs.gl.dataaccess.SufficientFundBalancesDao;
 import org.kuali.kfs.gl.service.SufficientFundsService;
 import org.kuali.kfs.gl.service.SufficientFundsServiceConstants;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.SufficientFundsItem;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.GeneralLedgerPostingDocument;
 import org.kuali.kfs.sys.service.GeneralLedgerPendingEntryService;
 import org.kuali.kfs.sys.service.OptionsService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * The base implementation of SufficientFundsService
@@ -66,6 +67,7 @@ public class SufficientFundsServiceImpl implements SufficientFundsService, Suffi
     private OptionsService optionsService;
     private GeneralLedgerPendingEntryService generalLedgerPendingEntryService;
     private BusinessObjectService businessObjectService;
+    private ObjectTypeService objectTypeService;
 
     /**
      * Default constructor
@@ -77,55 +79,63 @@ public class SufficientFundsServiceImpl implements SufficientFundsService, Suffi
     /**
      * This operation derives the acct_sf_finobj_cd which is used to populate the General Ledger Pending entry table, so that later
      * we can do Suff Fund checking against that entry
-     * 
-     * @param financialObject the object code being checked against
+     *
+     * @param financialObject            the object code being checked against
      * @param accountSufficientFundsCode the kind of sufficient funds checking turned on in this system
      * @return the object code that should be used for the sufficient funds inquiry, or a blank String
      * @see org.kuali.kfs.gl.service.SufficientFundsService#getSufficientFundsObjectCode(org.kuali.kfs.coa.businessobject.ObjectCode,
-     *      java.lang.String)
+     * java.lang.String)
      */
+    @Override
     public String getSufficientFundsObjectCode(ObjectCode financialObject, String accountSufficientFundsCode) {
+        LOG.debug("getSufficientFundsObjectCode() started");
 
         if (KFSConstants.SF_TYPE_NO_CHECKING.equals(accountSufficientFundsCode)) {
             return KFSConstants.NOT_AVAILABLE_STRING;
-        }
-        else if (KFSConstants.SF_TYPE_ACCOUNT.equals(accountSufficientFundsCode)) {
+        } else if (KFSConstants.SF_TYPE_ACCOUNT.equals(accountSufficientFundsCode)) {
             return "    ";
-        }
-        else if (KFSConstants.SF_TYPE_CASH_AT_ACCOUNT.equals(accountSufficientFundsCode)) {
+        } else if (KFSConstants.SF_TYPE_CASH_AT_ACCOUNT.equals(accountSufficientFundsCode)) {
             return "    ";
-        }
-        else if (KFSConstants.SF_TYPE_OBJECT.equals(accountSufficientFundsCode)) {
+        } else if (KFSConstants.SF_TYPE_OBJECT.equals(accountSufficientFundsCode)) {
             return financialObject.getFinancialObjectCode();
-        }
-        else if (KFSConstants.SF_TYPE_LEVEL.equals(accountSufficientFundsCode)) {
+        } else if (KFSConstants.SF_TYPE_LEVEL.equals(accountSufficientFundsCode)) {
             return financialObject.getFinancialObjectLevelCode();
-        }
-        else if (KFSConstants.SF_TYPE_CONSOLIDATION.equals(accountSufficientFundsCode)) {
+        } else if (KFSConstants.SF_TYPE_CONSOLIDATION.equals(accountSufficientFundsCode)) {
             financialObject.refreshReferenceObject("financialObjectLevel");
             return financialObject.getFinancialObjectLevel().getFinancialConsolidationObjectCode();
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Invalid Sufficient Funds Code: " + accountSufficientFundsCode);
         }
     }
 
     /**
+     * Purge the sufficient funds balance table by year/chart
+     *
+     * @param chart the chart of sufficient fund balances to purge
+     * @param year  the fiscal year of sufficient fund balances to purge
+     */
+    @Override
+    public void purgeYearByChart(String chart, int year) {
+        sufficientFundsDao.purgeYearByChart(chart, year);
+    }
+
+    /**
      * Checks for sufficient funds on a single document
-     * 
+     *
      * @param document document to check
      * @return Empty List if has sufficient funds for all accounts, List of SufficientFundsItem if not
      * @see org.kuali.kfs.gl.service.SufficientFundsService#checkSufficientFunds(org.kuali.rice.krad.document.FinancialDocument)
      */
+    @Override
     public List<SufficientFundsItem> checkSufficientFunds(GeneralLedgerPostingDocument document) {
         LOG.debug("checkSufficientFunds() started");
 
-        return checkSufficientFunds((List<? extends Transaction>) document.getPendingLedgerEntriesForSufficientFundsChecking());
+        return checkSufficientFunds(document.getPendingLedgerEntriesForSufficientFundsChecking());
     }
 
     /**
      * checks to see if a document is a <code>YearEndDocument</code>
-     * 
+     *
      * @param documentClass the class of a Document to check
      * @return true if the class implements <code>YearEndDocument</code>
      */
@@ -136,12 +146,13 @@ public class SufficientFundsServiceImpl implements SufficientFundsService, Suffi
 
     /**
      * Checks for sufficient funds on a list of transactions
-     * 
+     *
      * @param transactions list of transactions
      * @return Empty List if has sufficient funds for all accounts, List of SufficientFundsItem if not
      * @see org.kuali.kfs.gl.service.SufficientFundsService#checkSufficientFunds(java.util.List)
      */
     @SuppressWarnings("unchecked")
+    @Override
     public List<SufficientFundsItem> checkSufficientFunds(List<? extends Transaction> transactions) {
         LOG.debug("checkSufficientFunds() started");
 
@@ -149,13 +160,18 @@ public class SufficientFundsServiceImpl implements SufficientFundsService, Suffi
             e.refreshNonUpdateableReferences();
         }
 
+        final List<String> transactionDocumentNumbers = transactions.stream()
+            .map(Transaction::getDocumentNumber)
+            .distinct()
+            .collect(Collectors.toList());
+
         List<SufficientFundsItem> summaryItems = summarizeTransactions(transactions);
-        for (Iterator iter = summaryItems.iterator(); iter.hasNext();) {
+        for (Iterator iter = summaryItems.iterator(); iter.hasNext(); ) {
             SufficientFundsItem item = (SufficientFundsItem) iter.next();
-            if ( LOG.isDebugEnabled() ) {
+            if (LOG.isDebugEnabled()) {
                 LOG.debug("checkSufficientFunds() " + item.toString());
             }
-            if (hasSufficientFundsOnItem(item)) {
+            if (hasSufficientFundsOnItem(item, transactionDocumentNumbers)) {
                 iter.remove();
             }
         }
@@ -165,20 +181,20 @@ public class SufficientFundsServiceImpl implements SufficientFundsService, Suffi
 
     /**
      * For each transaction, fetches the appropriate sufficient funds item to check against
-     * 
+     *
      * @param transactions a list of Transactions
      * @return a List of corresponding SufficientFundsItem
      */
     @SuppressWarnings("unchecked")
     protected List<SufficientFundsItem> summarizeTransactions(List<? extends Transaction> transactions) {
-        Map<String, SufficientFundsItem> items = new HashMap<String, SufficientFundsItem>();
+        Map<String, SufficientFundsItem> items = new HashMap<>();
 
         SystemOptions currentYear = optionsService.getCurrentYearOptions();
 
         // loop over the given transactions, grouping into SufficientFundsItem objects
         // which are keyed by the appropriate chart/account/SF type, and derived object value
         // see getSufficientFundsObjectCode() for the "object" used for grouping
-        for (Iterator iter = transactions.iterator(); iter.hasNext();) {
+        for (Iterator iter = transactions.iterator(); iter.hasNext(); ) {
             Transaction tran = (Transaction) iter.next();
 
             SystemOptions year = tran.getOption();
@@ -194,25 +210,24 @@ public class SufficientFundsServiceImpl implements SufficientFundsService, Suffi
             if (items.containsKey(sfi.getKey())) {
                 SufficientFundsItem item = (SufficientFundsItem) items.get(sfi.getKey());
                 item.add(tran);
-            }
-            else {
+            } else {
                 items.put(sfi.getKey(), sfi);
             }
         }
 
-        return new ArrayList<SufficientFundsItem>(items.values());
+        return new ArrayList<>(items.values());
     }
 
     /**
      * Given a sufficient funds item record, determines if there are sufficient funds available for the transaction
-     * 
+     *
      * @param item the item to check
      * @return true if there are sufficient funds available, false otherwise
      */
-    protected boolean hasSufficientFundsOnItem(SufficientFundsItem item) {
+    protected boolean hasSufficientFundsOnItem(SufficientFundsItem item, List<String> transactionDocumentNumbers) {
 
         if (item.getAmount().equals(KualiDecimal.ZERO)) {
-            LOG.debug("hasSufficientFundsOnItem() Transactions with zero amounts shold pass");
+            LOG.debug("hasSufficientFundsOnItem() Transactions with zero amounts should pass");
             return true;
         }
 
@@ -222,53 +237,49 @@ public class SufficientFundsServiceImpl implements SufficientFundsService, Suffi
         }
 
         if (!item.getAccount().isPendingAcctSufficientFundsIndicator()) {
-            if ( LOG.isDebugEnabled() ) {
-                LOG.debug("hasSufficientFundsOnItem() No checking on eDocs for account " + item.getAccount().getChartOfAccountsCode() + "-" + item.getAccount().getAccountNumber());
-            }
+            LOG.debug("hasSufficientFundsOnItem() No checking on eDocs for account " + item.getAccount().getChartOfAccountsCode() + "-" + item.getAccount().getAccountNumber());
             return true;
         }
 
         // exit sufficient funds checking if not enabled for an account
         if (KFSConstants.SF_TYPE_NO_CHECKING.equals(item.getAccountSufficientFundsCode())) {
-            if ( LOG.isDebugEnabled() ) {
-                LOG.debug("hasSufficientFundsOnItem() sufficient funds not enabled for account " + item.getAccount().getChartOfAccountsCode() + "-" + item.getAccount().getAccountNumber());
-            }
+            LOG.debug("hasSufficientFundsOnItem() sufficient funds not enabled for account " + item.getAccount().getChartOfAccountsCode() + "-" + item.getAccount().getAccountNumber());
             return true;
         }
 
-        ObjectTypeService objectTypeService = (ObjectTypeService) SpringContext.getBean(ObjectTypeService.class);
         List<String> expenseObjectTypes = objectTypeService.getCurrentYearExpenseObjectTypes();
+        if (LOG.isDebugEnabled()) {
+            // let's not even risk joining a null array unless debug is on
+            LOG.debug("hasSufficientFundsOnItem() retrieved expense object types: " + StringUtils.join(expenseObjectTypes, ",") + " size: " + expenseObjectTypes.size());
+        }
 
-        if (KFSConstants.SF_TYPE_CASH_AT_ACCOUNT.equals(item.getAccount().getAccountSufficientFundsCode()) 
-                && !item.getFinancialObject().getChartOfAccounts().getFinancialCashObjectCode().equals(item.getFinancialObject().getFinancialObjectCode())) {
+        if (KFSConstants.SF_TYPE_CASH_AT_ACCOUNT.equals(item.getAccount().getAccountSufficientFundsCode())
+            && !item.getFinancialObject().getChartOfAccounts().getFinancialCashObjectCode().equals(item.getFinancialObject().getFinancialObjectCode())) {
             LOG.debug("hasSufficientFundsOnItem() SF checking is cash and transaction is not cash");
             return true;
-        }
-
-        else if (!KFSConstants.SF_TYPE_CASH_AT_ACCOUNT.equals(item.getAccount().getAccountSufficientFundsCode()) 
-                && !expenseObjectTypes.contains(item.getFinancialObjectType().getCode())) {
+        } else if (!KFSConstants.SF_TYPE_CASH_AT_ACCOUNT.equals(item.getAccount().getAccountSufficientFundsCode())
+            && !expenseObjectTypes.contains(item.getFinancialObjectType().getCode())) {
             LOG.debug("hasSufficientFundsOnItem() SF checking is budget and transaction is not expense");
             return true;
         }
 
-        Map<String, Object> keys = new HashMap<String, Object>();
+        Map<String, Object> keys = new HashMap<>();
         keys.put(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, item.getYear().getUniversityFiscalYear());
         keys.put(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, item.getAccount().getChartOfAccountsCode());
         keys.put(KFSPropertyConstants.ACCOUNT_NUMBER, item.getAccount().getAccountNumber());
         keys.put(KFSPropertyConstants.FINANCIAL_OBJECT_CODE, item.getSufficientFundsObjectCode());
-        SufficientFundBalances sfBalance = (SufficientFundBalances)businessObjectService.findByPrimaryKey(SufficientFundBalances.class, keys);
+        SufficientFundBalances sfBalance = (SufficientFundBalances) businessObjectService.findByPrimaryKey(SufficientFundBalances.class, keys);
 
         if (sfBalance == null) {
             Map criteria = new HashMap();
             criteria.put(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, item.getAccount().getChartOfAccountsCode());
             criteria.put(KFSPropertyConstants.ACCOUNT_NUMBER_FINANCIAL_OBJECT_CODE, item.getAccount().getAccountNumber());
-            
+
             Collection sufficientFundRebuilds = businessObjectService.findMatching(SufficientFundRebuild.class, criteria);
             if (sufficientFundRebuilds != null && sufficientFundRebuilds.size() > 0) {
                 LOG.debug("hasSufficientFundsOnItem() No balance record and waiting on rebuild, no sufficient funds");
                 return false;
-            }
-            else {
+            } else {
                 sfBalance = new SufficientFundBalances();
                 sfBalance.setAccountActualExpenditureAmt(KualiDecimal.ZERO);
                 sfBalance.setAccountEncumbranceAmount(KualiDecimal.ZERO);
@@ -277,8 +288,8 @@ public class SufficientFundsServiceImpl implements SufficientFundsService, Suffi
         }
 
         KualiDecimal balanceAmount = item.getAmount();
-        if (KFSConstants.SF_TYPE_CASH_AT_ACCOUNT.equals(item.getAccount().getAccountSufficientFundsCode()) 
-                || item.getYear().getBudgetCheckingBalanceTypeCd().equals(item.getBalanceTyp().getCode())) {
+        if (KFSConstants.SF_TYPE_CASH_AT_ACCOUNT.equals(item.getAccount().getAccountSufficientFundsCode())
+            || item.getYear().getBudgetCheckingBalanceTypeCd().equals(item.getBalanceTyp().getCode())) {
             // We need to change the sign on the amount because the amount in the item is an increase in cash. We only care
             // about decreases in cash.
 
@@ -295,40 +306,37 @@ public class SufficientFundsServiceImpl implements SufficientFundsService, Suffi
         PendingAmounts priorYearPending = new PendingAmounts();
         // if we're checking the CASH_AT_ACCOUNT type, then we need to consider the prior year pending transactions
         // if the balance forwards have not been run
-        if ((KFSConstants.SF_TYPE_CASH_AT_ACCOUNT.equals(item.getAccount().getAccountSufficientFundsCode())) 
-                && (!item.getYear().isFinancialBeginBalanceLoadInd())) {
+        if ((KFSConstants.SF_TYPE_CASH_AT_ACCOUNT.equals(item.getAccount().getAccountSufficientFundsCode()))
+            && (!item.getYear().isFinancialBeginBalanceLoadInd())) {
             priorYearPending = getPriorYearSufficientFundsBalanceAmount(item);
         }
 
-        PendingAmounts pending = getPendingBalanceAmount(item);
+        PendingAmounts pending = getPendingBalanceAmount(item, transactionDocumentNumbers);
 
         KualiDecimal availableBalance = null;
         if (KFSConstants.SF_TYPE_CASH_AT_ACCOUNT.equals(item.getAccount().getAccountSufficientFundsCode())) {
             // if the beginning balances have not loaded for the transaction FY, pull the remaining balance from last year
             if (!item.getYear().isFinancialBeginBalanceLoadInd()) {
                 availableBalance = sfBalance.getCurrentBudgetBalanceAmount()
-                        .add(priorYearPending.budget) // add the remaining budget from last year (assumed to carry to this year's)
-                        .add(pending.actual) // any pending expenses (remember sense is negated)
-                        .subtract(sfBalance.getAccountEncumbranceAmount()) // subtract the encumbrances (not reflected in cash yet)
-                        .subtract(priorYearPending.encumbrance);
-            } else { // balance forwards have been run, don't need to consider prior year remaining budget 
+                    .add(priorYearPending.budget) // add the remaining budget from last year (assumed to carry to this year's)
+                    .add(pending.actual) // any pending expenses (remember sense is negated)
+                    .subtract(sfBalance.getAccountEncumbranceAmount()) // subtract the encumbrances (not reflected in cash yet)
+                    .subtract(priorYearPending.encumbrance);
+            } else { // balance forwards have been run, don't need to consider prior year remaining budget
                 availableBalance = sfBalance.getCurrentBudgetBalanceAmount()
-                        .add(pending.actual)
-                        .subtract(sfBalance.getAccountEncumbranceAmount());
+                    .add(pending.actual)
+                    .subtract(sfBalance.getAccountEncumbranceAmount());
             }
-        }
-        else {
+        } else {
             availableBalance = sfBalance.getCurrentBudgetBalanceAmount() // current budget balance
-                    .add(pending.budget) // pending budget entries
-                    .subtract(sfBalance.getAccountActualExpenditureAmt()) // minus all current and pending actuals and encumbrances
-                    .subtract(pending.actual)
-                    .subtract(sfBalance.getAccountEncumbranceAmount())
-                    .subtract(pending.encumbrance);
+                .add(pending.budget) // pending budget entries
+                .subtract(sfBalance.getAccountActualExpenditureAmt()) // minus all current and pending actuals and encumbrances
+                .subtract(pending.actual)
+                .subtract(sfBalance.getAccountEncumbranceAmount())
+                .subtract(pending.encumbrance);
         }
 
-        if ( LOG.isDebugEnabled() ) {
-            LOG.debug("hasSufficientFundsOnItem() balanceAmount: " + balanceAmount + " availableBalance: " + availableBalance);
-        }
+        LOG.debug("hasSufficientFundsOnItem() balanceAmount: " + balanceAmount + " availableBalance: " + availableBalance);
         if (balanceAmount.compareTo(availableBalance) > 0) {
             LOG.debug("hasSufficientFundsOnItem() no sufficient funds");
             return false;
@@ -349,7 +357,7 @@ public class SufficientFundsServiceImpl implements SufficientFundsService, Suffi
 
     /**
      * Given a sufficient funds item to check, gets the prior year sufficient funds balance to check against
-     * 
+     *
      * @param item the sufficient funds item to check against
      * @return a PendingAmounts record with the pending budget and encumbrance
      */
@@ -364,28 +372,26 @@ public class SufficientFundsServiceImpl implements SufficientFundsService, Suffi
         keys.put(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, item.getAccount().getChartOfAccountsCode());
         keys.put(KFSPropertyConstants.ACCOUNT_NUMBER, item.getAccount().getAccountNumber());
         keys.put(KFSPropertyConstants.FINANCIAL_OBJECT_CODE, "    ");
-        SufficientFundBalances bal = (SufficientFundBalances)businessObjectService.findByPrimaryKey(SufficientFundBalances.class, keys);
+        SufficientFundBalances bal = (SufficientFundBalances) businessObjectService.findByPrimaryKey(SufficientFundBalances.class, keys);
 
         if (bal != null) {
             amounts.budget = bal.getCurrentBudgetBalanceAmount();
             amounts.encumbrance = bal.getAccountEncumbranceAmount();
         }
 
-        if ( LOG.isDebugEnabled() ) {
-            LOG.debug("getPriorYearSufficientFundsBalanceAmount() budget      " + amounts.budget);
-            LOG.debug("getPriorYearSufficientFundsBalanceAmount() encumbrance " + amounts.encumbrance);
-        }
+        LOG.debug("getPriorYearSufficientFundsBalanceAmount() budget      " + amounts.budget);
+        LOG.debug("getPriorYearSufficientFundsBalanceAmount() encumbrance " + amounts.encumbrance);
         return amounts;
     }
 
     /**
      * Totals the amounts of actual, encumbrance, and budget amounts from related pending entries
-     * 
+     *
      * @param item a sufficient funds item to find pending amounts for
      * @return the totals encapsulated in a PendingAmounts object
      */
     @SuppressWarnings("unchecked")
-    protected PendingAmounts getPendingBalanceAmount(SufficientFundsItem item) {
+    protected PendingAmounts getPendingBalanceAmount(SufficientFundsItem item, List<String> transactionDocumentNumbers) {
         LOG.debug("getPendingBalanceAmount() started");
 
         Integer fiscalYear = item.getYear().getUniversityFiscalYear();
@@ -414,38 +420,25 @@ public class SufficientFundsServiceImpl implements SufficientFundsService, Suffi
             // Get Payables (credit amount - debit amount)
             amounts.actual = amounts.actual.add(generalLedgerPendingEntryService.getActualSummary(years, chart, account, true));
             amounts.actual = amounts.actual.subtract(generalLedgerPendingEntryService.getActualSummary(years, chart, account, false));
-        }
-        else {
+        } else {
             // Non-Cash checking
 
             // Get expenditure (debit - credit)
-            amounts.actual = generalLedgerPendingEntryService.getExpenseSummary(fiscalYear, chart, account, item.getSufficientFundsObjectCode(), true, item.getDocumentTypeCode().startsWith("YE"));
-            amounts.actual = amounts.actual.subtract(generalLedgerPendingEntryService.getExpenseSummary(fiscalYear, chart, account, item.getSufficientFundsObjectCode(), false, item.getDocumentTypeCode().startsWith("YE")));
+            amounts.actual = generalLedgerPendingEntryService.getExpenseSummary(fiscalYear, chart, account, item.getSufficientFundsObjectCode(), true, item.getDocumentTypeCode().startsWith("YE"), transactionDocumentNumbers);
+            amounts.actual = amounts.actual.subtract(generalLedgerPendingEntryService.getExpenseSummary(fiscalYear, chart, account, item.getSufficientFundsObjectCode(), false, item.getDocumentTypeCode().startsWith("YE"), transactionDocumentNumbers));
 
             // Get budget
             amounts.budget = generalLedgerPendingEntryService.getBudgetSummary(fiscalYear, chart, account, item.getSufficientFundsObjectCode(), item.getDocumentTypeCode().startsWith("YE"));
 
             // Get encumbrance (debit - credit)
-            amounts.encumbrance = generalLedgerPendingEntryService.getEncumbranceSummary(fiscalYear, chart, account, item.getSufficientFundsObjectCode(), true, item.getDocumentTypeCode().startsWith("YE"));
-            amounts.encumbrance = amounts.encumbrance.subtract(generalLedgerPendingEntryService.getEncumbranceSummary(fiscalYear, chart, account, item.getSufficientFundsObjectCode(), false, item.getDocumentTypeCode().startsWith("YE")));
+            amounts.encumbrance = generalLedgerPendingEntryService.getEncumbranceSummary(fiscalYear, chart, account, item.getSufficientFundsObjectCode(), true, item.getDocumentTypeCode().startsWith("YE"), transactionDocumentNumbers);
+            amounts.encumbrance = amounts.encumbrance.subtract(generalLedgerPendingEntryService.getEncumbranceSummary(fiscalYear, chart, account, item.getSufficientFundsObjectCode(), false, item.getDocumentTypeCode().startsWith("YE"), transactionDocumentNumbers));
         }
 
-        if ( LOG.isDebugEnabled() ) {
-            LOG.debug("getPendingBalanceAmount() actual      " + amounts.actual);
-            LOG.debug("getPendingBalanceAmount() budget      " + amounts.budget);
-            LOG.debug("getPendingBalanceAmount() encumbrance " + amounts.encumbrance);
-        }
+        LOG.debug("getPendingBalanceAmount() actual      " + amounts.actual);
+        LOG.debug("getPendingBalanceAmount() budget      " + amounts.budget);
+        LOG.debug("getPendingBalanceAmount() encumbrance " + amounts.encumbrance);
         return amounts;
-    }
-
-    /**
-     * Purge the sufficient funds balance table by year/chart
-     * 
-     * @param chart the chart of sufficient fund balances to purge
-     * @param year the fiscal year of sufficient fund balances to purge
-     */
-    public void purgeYearByChart(String chart, int year) {
-        sufficientFundsDao.purgeYearByChart(chart, year);
     }
 
     public void setAccountService(AccountService accountService) {
@@ -475,8 +468,12 @@ public class SufficientFundsServiceImpl implements SufficientFundsService, Suffi
     public void setSufficientFundsDao(SufficientFundsDao sufficientFundsDao) {
         this.sufficientFundsDao = sufficientFundsDao;
     }
-    
+
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
         this.businessObjectService = businessObjectService;
+    }
+
+    public void setObjectTypeService(ObjectTypeService objectTypeService) {
+        this.objectTypeService = objectTypeService;
     }
 }

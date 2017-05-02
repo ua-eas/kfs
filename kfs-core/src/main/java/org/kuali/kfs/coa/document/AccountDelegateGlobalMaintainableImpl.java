@@ -1,30 +1,24 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.coa.document;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.AccountDelegate;
 import org.kuali.kfs.coa.businessobject.AccountDelegateGlobal;
@@ -33,22 +27,30 @@ import org.kuali.kfs.coa.businessobject.AccountDelegateModel;
 import org.kuali.kfs.coa.businessobject.AccountDelegateModelDetail;
 import org.kuali.kfs.coa.businessobject.AccountGlobalDetail;
 import org.kuali.kfs.coa.service.AccountDelegateService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.maintenance.MaintenanceLock;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.FinancialSystemGlobalMaintainable;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.maintenance.MaintenanceLock;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * This class overrides the base {@link FinancialSystemGlobalMaintainable} to generate the specific maintenance locks for Global delegates
  * and to help with using delegate models
- * 
+ *
  * @see OrganizationRoutingModelName
  */
 public class AccountDelegateGlobalMaintainableImpl extends FinancialSystemGlobalMaintainable {
@@ -70,19 +72,19 @@ public class AccountDelegateGlobalMaintainableImpl extends FinancialSystemGlobal
      */
     protected void displayMaxAccountDelegatesInfoMessage() {
         String maxAccountDelegatesString = SpringContext.getBean(ParameterService.class).getParameterValueAsString(AccountDelegateGlobal.class, KFSConstants.ChartApcParms.MAXIMUM_ACCOUNT_DELEGATES);
-        if(maxAccountDelegatesString != null && !maxAccountDelegatesString.isEmpty()){
+        if (maxAccountDelegatesString != null && !maxAccountDelegatesString.isEmpty()) {
             GlobalVariables.getMessageMap().putInfo(KFSConstants.GLOBAL_ERRORS, KFSKeyConstants.INFO_DOCUMENT_DELEGATE_MAXIMUM_ACCOUNT_DELEGATES, maxAccountDelegatesString);
         }
     }
 
     /**
      * This method is used for the creation of a delegate from a {@link OrganizationRoutingModelName}
-     * 
+     *
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#setupNewFromExisting()
      */
     @Override
-    public void setupNewFromExisting( MaintenanceDocument document, Map<String,String[]> parameters ) {
-        super.setupNewFromExisting( document, parameters );
+    public void setupNewFromExisting(MaintenanceDocument document, Map<String, String[]> parameters) {
+        super.setupNewFromExisting(document, parameters);
 
         AccountDelegateGlobal globalDelegate = (AccountDelegateGlobal) this.getBusinessObject();
         globalDelegate.setVersionNumber(1L);
@@ -109,24 +111,26 @@ public class AccountDelegateGlobalMaintainableImpl extends FinancialSystemGlobal
                 }
             }
         }
+
+        refreshAccounts();
     }
 
     @Override
     public String getLockingDocumentId() {
-       String lock = super.getLockingDocumentId();
-       if (StringUtils.isNotBlank(lock))
-           return lock;
-       else {
-           AccountDelegateService accountDelegateService = SpringContext.getBean(AccountDelegateService.class);
-           lock = accountDelegateService.getLockingDocumentId(this, getDocumentNumber());
-           return lock;
-       }
+        String lock = super.getLockingDocumentId();
+        if (StringUtils.isNotBlank(lock))
+            return lock;
+        else {
+            AccountDelegateService accountDelegateService = SpringContext.getBean(AccountDelegateService.class);
+            lock = accountDelegateService.getLockingDocumentId(this, getDocumentNumber());
+            return lock;
+        }
     }
-    
-    
+
+
     /**
      * This creates the particular locking representation for this global document.
-     * 
+     *
      * @see org.kuali.rice.kns.maintenance.Maintainable#generateMaintenanceLocks()
      */
     @Override
@@ -202,11 +206,11 @@ public class AccountDelegateGlobalMaintainableImpl extends FinancialSystemGlobal
                     lockRep = new StringBuilder();
                     lockRep.append(AccountDelegateGlobal.class.getName());
                     lockRep.append(KFSConstants.Maintenance.AFTER_CLASS_DELIM);
-                    lockRep.append("chartOfAccountsCode");
+                    lockRep.append(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE);
                     lockRep.append(KFSConstants.Maintenance.AFTER_FIELDNAME_DELIM);
                     lockRep.append(accountGlobalDetail.getChartOfAccountsCode());
                     lockRep.append(KFSConstants.Maintenance.AFTER_VALUE_DELIM);
-                    lockRep.append("accountNumber");
+                    lockRep.append(KFSPropertyConstants.ACCOUNT_NUMBER);
                     lockRep.append(KFSConstants.Maintenance.AFTER_FIELDNAME_DELIM);
                     lockRep.append(accountGlobalDetail.getAccountNumber());
 
@@ -231,16 +235,53 @@ public class AccountDelegateGlobalMaintainableImpl extends FinancialSystemGlobal
     /**
      * Overridden to update the delegations for currently routing documents; this also guarantees that the business
      * objects to change will be saved in a separate transaction
+     *
      * @see org.kuali.rice.kns.maintenance.KualiGlobalMaintainableImpl#saveBusinessObject()
      */
     @Override
     public void saveBusinessObject() {
-        final AccountDelegateGlobal accountDelegateGlobal = (AccountDelegateGlobal)this.getBusinessObject();
+        final AccountDelegateGlobal accountDelegateGlobal = (AccountDelegateGlobal) this.getBusinessObject();
         final AccountDelegateService accountDelegateService = SpringContext.getBean(AccountDelegateService.class);
-        
+
         accountDelegateService.saveInactivationsForGlobalMaintenanceDocument(accountDelegateGlobal.generateDeactivationsToPersist());
         accountDelegateService.saveChangesForGlobalMaintenanceDocument(accountDelegateGlobal.generateGlobalChangesToPersist());
-        
+
         accountDelegateService.updateDelegationRole();
+
+        refreshAccounts();
+    }
+
+    @Override
+    public void addNewLineToCollection(String collectionName) {
+        super.addNewLineToCollection(collectionName);
+        if (StringUtils.equals(collectionName, KFSPropertyConstants.ACCOUNT_CHANGE_DETAILS)) {
+            refreshAccounts();
+        }
+    }
+
+    @Override
+    public void processAfterCopy(MaintenanceDocument document, Map<String, String[]> parameters) {
+        super.processAfterCopy(document, parameters);
+        refreshAccounts();
+    }
+
+    @Override
+    public void processAfterEdit(MaintenanceDocument document, Map<String, String[]> requestParameters) {
+        super.processAfterEdit(document, requestParameters);
+        refreshAccounts();
+    }
+
+    @Override
+    public void processAfterRetrieve() {
+        super.processAfterRetrieve();
+        refreshAccounts();
+    }
+
+    protected void refreshAccounts() {
+        if (!ObjectUtils.isNull(getBusinessObject()) && !CollectionUtils.isEmpty(((AccountDelegateGlobal) getBusinessObject()).getAccountGlobalDetails())) {
+            for (AccountGlobalDetail accountGlobalDetail : ((AccountDelegateGlobal) getBusinessObject()).getAccountGlobalDetails()) {
+                accountGlobalDetail.refreshReferenceObject(KFSPropertyConstants.ACCOUNT);
+            }
+        }
     }
 }

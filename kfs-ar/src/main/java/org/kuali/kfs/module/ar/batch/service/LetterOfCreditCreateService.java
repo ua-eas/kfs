@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.ar.batch.service;
 
-import java.io.PrintWriter;
-
 import org.kuali.kfs.module.ar.document.CashControlDocument;
 import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
+
+import java.io.PrintWriter;
 
 /**
  * Service interface for implementing methods to create and route cash control documents and payment application documents
@@ -33,7 +33,7 @@ public interface LetterOfCreditCreateService {
      * This method routes the cash control document created by processing letters of credit invoices.
      *
      * @param cashControlDocument
-     * @param errorFile used for writing error log messages
+     * @param errorFile           used for writing error log messages
      */
     public void routeCashControlDocument(CashControlDocument cashControlDocument, PrintWriter errorFile);
 
@@ -47,9 +47,9 @@ public interface LetterOfCreditCreateService {
     /**
      * Creates a cash control detail and payment application document for the invoice.
      *
-     * @param cgInvoice invoice used to create cash control detail and payment app doc
+     * @param cgInvoice      invoice used to create cash control detail and payment app doc
      * @param cashControlDoc CashControlDocument that cash control details are added to
-     * @param errorFile used for writing error log messages
+     * @param errorFile      used for writing error log messages
      */
     public void processLetterOfCreditInvoice(ContractsGrantsInvoiceDocument cgInvoice, CashControlDocument cashControlDoc, PrintWriter errorFile);
 

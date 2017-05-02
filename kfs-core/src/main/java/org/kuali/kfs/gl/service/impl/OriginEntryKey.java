@@ -1,29 +1,29 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.service.impl;
 
-import java.util.Arrays;
-
 import org.kuali.kfs.coa.service.BalanceTypeService;
 import org.kuali.kfs.gl.ObjectHelper;
 import org.kuali.kfs.gl.businessobject.OriginEntryFull;
 import org.kuali.kfs.sys.context.SpringContext;
+
+import java.util.Arrays;
 
 /**
  * This class represents an origin entry key
@@ -33,7 +33,7 @@ public class OriginEntryKey {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     public boolean equals(Object obj) {
@@ -103,8 +103,7 @@ public class OriginEntryKey {
     public void setAccountNumber(String accountNumber) {
         if (null != accountNumber) {
             System.arraycopy(accountNumber.toCharArray(), 0, this.accountNumber, 0, this.accountNumber.length);
-        }
-        else {
+        } else {
             Arrays.fill(this.accountNumber, (char) 0);
         }
     }
@@ -122,8 +121,7 @@ public class OriginEntryKey {
     public void setBalanceTypeCode(String balanceTypeCode) {
         if (null != balanceTypeCode) {
             System.arraycopy(balanceTypeCode.toCharArray(), 0, this.balanceTypeCode, 0, this.balanceTypeCode.length);
-        }
-        else {
+        } else {
             Arrays.fill(this.balanceTypeCode, (char) 0);
         }
     }
@@ -141,8 +139,7 @@ public class OriginEntryKey {
     public void setChartCode(String chartCode) {
         if (null != chartCode) {
             System.arraycopy(chartCode, 0, this.chartCode, 0, this.chartCode.length);
-        }
-        else {
+        } else {
             Arrays.fill(this.chartCode, (char) 0);
         }
     }
@@ -160,8 +157,7 @@ public class OriginEntryKey {
     public void setFinancialSystemDocumentTypeCodeCode(String financialSystemDocumentTypeCodeCode) {
         if (null != financialSystemDocumentTypeCodeCode) {
             System.arraycopy(financialSystemDocumentTypeCodeCode.toCharArray(), 0, this.financialSystemDocumentTypeCodeCode, 0, this.financialSystemDocumentTypeCodeCode.length);
-        }
-        else {
+        } else {
             Arrays.fill(this.financialSystemDocumentTypeCodeCode, (char) 0);
         }
     }
@@ -179,8 +175,7 @@ public class OriginEntryKey {
     public void setEntrySequenceNumber(String entrySequenceNumber) {
         if (null != entrySequenceNumber) {
             System.arraycopy(entrySequenceNumber, 0, this.entrySequenceNumber, 0, this.entrySequenceNumber.length);
-        }
-        else {
+        } else {
             Arrays.fill(this.entrySequenceNumber, (char) 0);
         }
     }
@@ -198,8 +193,7 @@ public class OriginEntryKey {
     public void setDocumentNumber(String documentNumber) {
         if (null != documentNumber) {
             System.arraycopy(documentNumber, 0, this.documentNumber, 0, this.documentNumber.length);
-        }
-        else {
+        } else {
             Arrays.fill(this.documentNumber, (char) 0);
         }
     }
@@ -217,8 +211,7 @@ public class OriginEntryKey {
     public void setFinancialObjectCode(String financialObjectCode) {
         if (null != financialObjectCode) {
             System.arraycopy(financialObjectCode, 0, this.financialObjectCode, 0, this.financialObjectCode.length);
-        }
-        else {
+        } else {
             Arrays.fill(this.financialObjectCode, (char) 0);
         }
     }
@@ -236,8 +229,7 @@ public class OriginEntryKey {
     public void setFiscalPeriodCode(String fiscalPeriodCode) {
         if (null != fiscalPeriodCode) {
             System.arraycopy(fiscalPeriodCode, 0, this.fiscalPeriodCode, 0, this.fiscalPeriodCode.length);
-        }
-        else {
+        } else {
             Arrays.fill(this.fiscalPeriodCode, (char) 0);
         }
     }
@@ -255,8 +247,7 @@ public class OriginEntryKey {
     public void setFiscalYear(String fiscalYear) {
         if (null != fiscalYear) {
             System.arraycopy(fiscalYear, 0, this.fiscalYear, 0, this.fiscalYear.length);
-        }
-        else {
+        } else {
             Arrays.fill(this.fiscalYear, (char) 0);
         }
     }
@@ -274,8 +265,7 @@ public class OriginEntryKey {
     public void setObjectTypeCode(String objectTypeCode) {
         if (null != objectTypeCode) {
             System.arraycopy(objectTypeCode, 0, this.objectTypeCode, 0, this.objectTypeCode.length);
-        }
-        else {
+        } else {
             Arrays.fill(this.objectTypeCode, (char) 0);
         }
     }
@@ -293,8 +283,7 @@ public class OriginEntryKey {
     public void setSubAccountNumber(String subAccountNumber) {
         if (null != subAccountNumber) {
             System.arraycopy(subAccountNumber, 0, this.subAccountNumber, 0, this.subAccountNumber.length);
-        }
-        else {
+        } else {
             Arrays.fill(this.subAccountNumber, (char) 0);
         }
     }
@@ -312,8 +301,7 @@ public class OriginEntryKey {
     public void setSubObjectCode(String subObjectCode) {
         if (null != subObjectCode) {
             System.arraycopy(subObjectCode, 0, this.subObjectCode, 0, this.subObjectCode.length);
-        }
-        else {
+        } else {
             Arrays.fill(this.subObjectCode, (char) 0);
         }
     }
@@ -331,8 +319,7 @@ public class OriginEntryKey {
     public void setSystemOriginationCode(String systemOriginationCode) {
         if (null != systemOriginationCode) {
             System.arraycopy(systemOriginationCode.toCharArray(), 0, this.systemOriginationCode, 0, this.systemOriginationCode.length);
-        }
-        else {
+        } else {
             Arrays.fill(this.systemOriginationCode, (char) 0);
         }
     }

@@ -1,31 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.identity;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.kim.role.DerivedRoleTypeServiceBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.OrganizationOptions;
 import org.kuali.kfs.module.ar.businessobject.SystemInformation;
@@ -37,8 +32,13 @@ import org.kuali.kfs.sys.service.FinancialSystemUserService;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.role.RoleMembership;
-import org.kuali.rice.kns.kim.role.DerivedRoleTypeServiceBase;
-import org.kuali.rice.krad.service.BusinessObjectService;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class AccountsReceivableOrganizationDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBase {
     protected static final String PROCESSOR_ROLE_NAME = "Processor";
@@ -49,42 +49,42 @@ public class AccountsReceivableOrganizationDerivedRoleTypeServiceImpl extends De
     protected FinancialSystemUserService financialSystemUserService;
     protected UniversityDateService universityDateService;
 
-    protected ChartOrgHolder getProcessingChartOrg( Map<String,String> qualification ) {
+    protected ChartOrgHolder getProcessingChartOrg(Map<String, String> qualification) {
         ChartOrgHolderImpl chartOrg = null;
-        if ( qualification != null && !qualification.isEmpty() ) {
+        if (qualification != null && !qualification.isEmpty()) {
             chartOrg = new ChartOrgHolderImpl();
             // if the processing org is specified from the qualifications, use that
-            chartOrg.setChartOfAccountsCode( qualification.get(KFSPropertyConstants.PROCESSING_CHART_OF_ACCT_CD) );
-            chartOrg.setOrganizationCode( qualification.get(KFSPropertyConstants.PROCESSING_ORGANIZATION_CODE) );
+            chartOrg.setChartOfAccountsCode(qualification.get(KFSPropertyConstants.PROCESSING_CHART_OF_ACCT_CD));
+            chartOrg.setOrganizationCode(qualification.get(KFSPropertyConstants.PROCESSING_ORGANIZATION_CODE));
             // otherwise default to the normal chart/org values and derive the processing chart/org
             if (StringUtils.isBlank(chartOrg.getChartOfAccountsCode()) || StringUtils.isBlank(chartOrg.getOrganizationCode())) {
-                chartOrg.setChartOfAccountsCode( qualification.get(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE) );
-                chartOrg.setOrganizationCode( qualification.get(KfsKimAttributes.ORGANIZATION_CODE) );
+                chartOrg.setChartOfAccountsCode(qualification.get(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE));
+                chartOrg.setOrganizationCode(qualification.get(KfsKimAttributes.ORGANIZATION_CODE));
                 if (StringUtils.isBlank(chartOrg.getChartOfAccountsCode()) || StringUtils.isBlank(chartOrg.getOrganizationCode())) {
                     return null;
                 }
-                Map<String, Object> arOrgOptPk = new HashMap<String, Object>( 2 );
+                Map<String, Object> arOrgOptPk = new HashMap<String, Object>(2);
                 arOrgOptPk.put(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, chartOrg.getChartOfAccountsCode());
                 arOrgOptPk.put(KFSPropertyConstants.ORGANIZATION_CODE, chartOrg.getOrganizationCode());
                 OrganizationOptions oo = getBusinessObjectService().findByPrimaryKey(OrganizationOptions.class, arOrgOptPk);
                 if (oo != null) {
-                    chartOrg.setChartOfAccountsCode( oo.getProcessingChartOfAccountCode() );
-                    chartOrg.setOrganizationCode( oo.getProcessingOrganizationCode() );
+                    chartOrg.setChartOfAccountsCode(oo.getProcessingChartOfAccountCode());
+                    chartOrg.setOrganizationCode(oo.getProcessingOrganizationCode());
                 } else {
-                    chartOrg.setChartOfAccountsCode( UNMATCHABLE_QUALIFICATION );
-                    chartOrg.setOrganizationCode( UNMATCHABLE_QUALIFICATION );
+                    chartOrg.setChartOfAccountsCode(UNMATCHABLE_QUALIFICATION);
+                    chartOrg.setOrganizationCode(UNMATCHABLE_QUALIFICATION);
                 }
             }
         }
         return chartOrg;
     }
 
-    public boolean hasProcessorRole(ChartOrgHolder userOrg, Map<String,String> qualification) {
+    public boolean hasProcessorRole(ChartOrgHolder userOrg, Map<String, String> qualification) {
         ChartOrgHolder processingOrg = getProcessingChartOrg(qualification);
         // if no org passed, check if their primary org is a processing org
-        if ( processingOrg == null ) {
+        if (processingOrg == null) {
             // check the org options for this org
-            Map<String, Object> arProcessOrgCriteria = new HashMap<String, Object>( 2 );
+            Map<String, Object> arProcessOrgCriteria = new HashMap<String, Object>(2);
             arProcessOrgCriteria.put(KFSPropertyConstants.PROCESSING_CHART_OF_ACCT_CD, userOrg.getChartOfAccountsCode());
             arProcessOrgCriteria.put(KFSPropertyConstants.PROCESSING_ORGANIZATION_CODE, userOrg.getOrganizationCode());
             arProcessOrgCriteria.put(KFSPropertyConstants.ACTIVE, "Y");
@@ -96,14 +96,14 @@ public class AccountsReceivableOrganizationDerivedRoleTypeServiceImpl extends De
         }
     }
 
-    public boolean hasBillerRole(ChartOrgHolder userOrg, Map<String,String> qualification) {
+    public boolean hasBillerRole(ChartOrgHolder userOrg, Map<String, String> qualification) {
         ChartOrgHolderImpl billingOrg = new ChartOrgHolderImpl();
-        if ( qualification != null && !qualification.isEmpty()) {
-            billingOrg.setChartOfAccountsCode( qualification.get(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE) );
-            billingOrg.setOrganizationCode( qualification.get(KfsKimAttributes.ORGANIZATION_CODE) );
+        if (qualification != null && !qualification.isEmpty()) {
+            billingOrg.setChartOfAccountsCode(qualification.get(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE));
+            billingOrg.setOrganizationCode(qualification.get(KfsKimAttributes.ORGANIZATION_CODE));
         }
         if (StringUtils.isBlank(billingOrg.getChartOfAccountsCode()) || StringUtils.isBlank(billingOrg.getOrganizationCode())) {
-            Map<String, Object> arOrgOptPk = new HashMap<String, Object>( 2 );
+            Map<String, Object> arOrgOptPk = new HashMap<String, Object>(2);
             arOrgOptPk.put(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, userOrg.getChartOfAccountsCode());
             arOrgOptPk.put(KFSPropertyConstants.ORGANIZATION_CODE, userOrg.getOrganizationCode());
             return getBusinessObjectService().countMatching(OrganizationOptions.class, arOrgOptPk) > 0;
@@ -116,7 +116,7 @@ public class AccountsReceivableOrganizationDerivedRoleTypeServiceImpl extends De
      * @see org.kuali.rice.kns.kim.role.RoleTypeServiceBase#hasDerivedRole(java.lang.String, java.util.List, java.lang.String, java.lang.String, java.util.Map)
      */
     @Override
-    public boolean hasDerivedRole(String principalId, List<String> groupIds, String namespaceCode, String roleName, Map<String,String> qualification) {
+    public boolean hasDerivedRole(String principalId, List<String> groupIds, String namespaceCode, String roleName, Map<String, String> qualification) {
         validateRequiredAttributesAgainstReceived(qualification);
         if (getFinancialSystemUserService().isActiveFinancialSystemUser(principalId)) {
             ChartOrgHolder userOrg = getFinancialSystemUserService().getPrimaryOrganization(principalId, ArConstants.AR_NAMESPACE_CODE);
@@ -129,79 +129,79 @@ public class AccountsReceivableOrganizationDerivedRoleTypeServiceImpl extends De
         return false;
     }
 
-    public List<RoleMembership> getRoleMembersFromApplicationRole(String namespaceCode, String roleName, Map<String,String> qualification) {
+    public List<RoleMembership> getRoleMembersFromApplicationRole(String namespaceCode, String roleName, Map<String, String> qualification) {
         validateRequiredAttributesAgainstReceived(qualification);
         List<RoleMembership> results = new ArrayList<RoleMembership>();
         Set<String> principalIds = new HashSet<String>();
         if (PROCESSOR_ROLE_NAME.equals(roleName)) {
             ChartOrgHolder processingOrg = getProcessingChartOrg(qualification);
-            if ( processingOrg == null ) {
+            if (processingOrg == null) {
                 // get all users for all processing orgs
                 // build a set
-                List<OrganizationOptions> ooList = (List<OrganizationOptions>)getBusinessObjectService().findAll(OrganizationOptions.class);
-                for ( OrganizationOptions oo : ooList ) {
+                List<OrganizationOptions> ooList = (List<OrganizationOptions>) getBusinessObjectService().findAll(OrganizationOptions.class);
+                for (OrganizationOptions oo : ooList) {
                     principalIds.clear();
                     principalIds.addAll(
-                            getFinancialSystemUserService().getPrincipalIdsForFinancialSystemOrganizationUsers(
-                                    namespaceCode,
-                                    new ChartOrgHolderImpl( oo.getProcessingChartOfAccountCode(), oo.getProcessingOrganizationCode() )));
-                    if ( !principalIds.isEmpty() ) {
-                        Map<String,String> roleQualifier = new HashMap<String,String>(2);
+                        getFinancialSystemUserService().getPrincipalIdsForFinancialSystemOrganizationUsers(
+                            namespaceCode,
+                            new ChartOrgHolderImpl(oo.getProcessingChartOfAccountCode(), oo.getProcessingOrganizationCode())));
+                    if (!principalIds.isEmpty()) {
+                        Map<String, String> roleQualifier = new HashMap<String, String>(2);
                         roleQualifier.put(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE, oo.getProcessingChartOfAccountCode());
                         roleQualifier.put(KfsKimAttributes.ORGANIZATION_CODE, oo.getProcessingOrganizationCode());
-                        for ( String principalId : principalIds ) {
-                            RoleMembership.Builder builder = RoleMembership.Builder.create( null, null, principalId, KimConstants.KimGroupMemberTypes.PRINCIPAL_MEMBER_TYPE, roleQualifier );
+                        for (String principalId : principalIds) {
+                            RoleMembership.Builder builder = RoleMembership.Builder.create(null, null, principalId, KimConstants.KimGroupMemberTypes.PRINCIPAL_MEMBER_TYPE, roleQualifier);
                             results.add(builder.build());
                         }
                     }
                 }
             } else {
                 // get all users for the given org
-                principalIds.addAll( getFinancialSystemUserService().getPrincipalIdsForFinancialSystemOrganizationUsers(ArConstants.AR_NAMESPACE_CODE, processingOrg) );
-                if ( !principalIds.isEmpty() ) {
-                    Map<String,String> roleQualifier = new HashMap<String,String>(2);
+                principalIds.addAll(getFinancialSystemUserService().getPrincipalIdsForFinancialSystemOrganizationUsers(ArConstants.AR_NAMESPACE_CODE, processingOrg));
+                if (!principalIds.isEmpty()) {
+                    Map<String, String> roleQualifier = new HashMap<String, String>(2);
                     roleQualifier.put(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE, processingOrg.getChartOfAccountsCode());
                     roleQualifier.put(KfsKimAttributes.ORGANIZATION_CODE, processingOrg.getOrganizationCode());
-                    for ( String principalId : principalIds ) {
-                        RoleMembership.Builder builder = RoleMembership.Builder.create( null, null, principalId, KimConstants.KimGroupMemberTypes.PRINCIPAL_MEMBER_TYPE, roleQualifier );
+                    for (String principalId : principalIds) {
+                        RoleMembership.Builder builder = RoleMembership.Builder.create(null, null, principalId, KimConstants.KimGroupMemberTypes.PRINCIPAL_MEMBER_TYPE, roleQualifier);
                         results.add(builder.build());
                     }
                 }
             }
         } else { // billing role
             ChartOrgHolderImpl billingOrg = new ChartOrgHolderImpl();
-            if ( qualification != null && !qualification.isEmpty() ) {
-                billingOrg.setChartOfAccountsCode( qualification.get(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE) );
-                billingOrg.setOrganizationCode( qualification.get(KfsKimAttributes.ORGANIZATION_CODE) );
+            if (qualification != null && !qualification.isEmpty()) {
+                billingOrg.setChartOfAccountsCode(qualification.get(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE));
+                billingOrg.setOrganizationCode(qualification.get(KfsKimAttributes.ORGANIZATION_CODE));
             }
             if (StringUtils.isBlank(billingOrg.getChartOfAccountsCode()) || StringUtils.isBlank(billingOrg.getOrganizationCode())) {
                 // get all users for all billing orgs
-                List<OrganizationOptions> ooList = (List<OrganizationOptions>)getBusinessObjectService().findAll(OrganizationOptions.class);
-                for ( OrganizationOptions oo : ooList ) {
+                List<OrganizationOptions> ooList = (List<OrganizationOptions>) getBusinessObjectService().findAll(OrganizationOptions.class);
+                for (OrganizationOptions oo : ooList) {
                     principalIds.clear();
                     principalIds.addAll(
-                            getFinancialSystemUserService().getPrincipalIdsForFinancialSystemOrganizationUsers(
-                                    namespaceCode,
-                                    new ChartOrgHolderImpl( oo.getChartOfAccountsCode(), oo.getOrganizationCode() )));
-                    if ( !principalIds.isEmpty() ) {
-                        Map<String,String> roleQualifier = new HashMap<String,String>(2);
+                        getFinancialSystemUserService().getPrincipalIdsForFinancialSystemOrganizationUsers(
+                            namespaceCode,
+                            new ChartOrgHolderImpl(oo.getChartOfAccountsCode(), oo.getOrganizationCode())));
+                    if (!principalIds.isEmpty()) {
+                        Map<String, String> roleQualifier = new HashMap<String, String>(2);
                         roleQualifier.put(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE, oo.getChartOfAccountsCode());
                         roleQualifier.put(KfsKimAttributes.ORGANIZATION_CODE, oo.getOrganizationCode());
-                        for ( String principalId : principalIds ) {
-                            RoleMembership.Builder builder = RoleMembership.Builder.create( null, null, principalId, KimConstants.KimGroupMemberTypes.PRINCIPAL_MEMBER_TYPE, roleQualifier );
+                        for (String principalId : principalIds) {
+                            RoleMembership.Builder builder = RoleMembership.Builder.create(null, null, principalId, KimConstants.KimGroupMemberTypes.PRINCIPAL_MEMBER_TYPE, roleQualifier);
                             results.add(builder.build());
                         }
                     }
                 }
             } else {
                 // get all users for given org
-                principalIds.addAll( getFinancialSystemUserService().getPrincipalIdsForFinancialSystemOrganizationUsers(ArConstants.AR_NAMESPACE_CODE, billingOrg) );
-                if ( !principalIds.isEmpty() ) {
-                    Map<String,String> roleQualifier = new HashMap<String,String>(2);
+                principalIds.addAll(getFinancialSystemUserService().getPrincipalIdsForFinancialSystemOrganizationUsers(ArConstants.AR_NAMESPACE_CODE, billingOrg));
+                if (!principalIds.isEmpty()) {
+                    Map<String, String> roleQualifier = new HashMap<String, String>(2);
                     roleQualifier.put(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE, billingOrg.getChartOfAccountsCode());
                     roleQualifier.put(KfsKimAttributes.ORGANIZATION_CODE, billingOrg.getOrganizationCode());
-                    for ( String principalId : principalIds ) {
-                        RoleMembership.Builder builder = RoleMembership.Builder.create( null, null, principalId, KimConstants.KimGroupMemberTypes.PRINCIPAL_MEMBER_TYPE, roleQualifier );
+                    for (String principalId : principalIds) {
+                        RoleMembership.Builder builder = RoleMembership.Builder.create(null, null, principalId, KimConstants.KimGroupMemberTypes.PRINCIPAL_MEMBER_TYPE, roleQualifier);
                         results.add(builder.build());
                     }
                 }
@@ -231,7 +231,6 @@ public class AccountsReceivableOrganizationDerivedRoleTypeServiceImpl extends De
     public void setUniversityDateService(UniversityDateService universityDateService) {
         this.universityDateService = universityDateService;
     }
-
 
 
 }

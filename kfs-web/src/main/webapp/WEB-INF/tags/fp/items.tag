@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -25,10 +25,8 @@
 <c:set var="itemAttributes" value="${DataDictionary.InternalBillingItem.attributes}" />
 
  <div class="tab-container" align=center>
-	<h3>Items</h3>
-	<table cellpadding="0" cellspacing="0" class="datatable" summary="Items section">
-	    
-		<tr>
+	<table cellpadding="0" cellspacing="0" class="datatable items standard" summary="Items section">
+        <tr class="header">
             <kul:htmlAttributeHeaderCell literalLabel="&nbsp;"/>
             <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemServiceDate}"/>
             <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemStockNumber}"/>
@@ -42,8 +40,8 @@
             </c:if>
 		</tr>
         <c:if test="${not readOnly}">
-            <tr>
-                <kul:htmlAttributeHeaderCell literalLabel="add:" scope="row"/>
+            <tr class="highlight">
+                <td>&nbsp;</td>
                 <td class="infoline"><kul:dateInput attributeEntry="${itemAttributes.itemServiceDate}" property="newItem.itemServiceDate" /></td>
                 <td class="infoline"><kul:htmlControlAttribute attributeEntry="${itemAttributes.itemStockNumber}" property="newItem.itemStockNumber" /></td>
                 <td class="infoline"><kul:htmlControlAttribute attributeEntry="${itemAttributes.itemStockDescription}" property="newItem.itemStockDescription" /></td>
@@ -51,12 +49,20 @@
                 <td class="infoline"><kul:htmlControlAttribute attributeEntry="${itemAttributes.unitOfMeasureCode}" property="newItem.unitOfMeasureCode" /></td>
                 <td class="infoline"><kul:htmlControlAttribute attributeEntry="${itemAttributes.itemUnitAmount}" property="newItem.itemUnitAmount" styleClass="amount" /></td>
                 <td class="infoline"><!-- no total until it's added --></td>
-                <td class="infoline"><div align="center"><html:image property="methodToCall.insertItem" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-add1.gif" alt="Insert an Item" title="Insert an Item" styleClass="tinybutton"/></div></td>
+                <td class="infoline"><html:submit property="methodToCall.insertItem" alt="Insert an Item" title="Insert an Item" styleClass="btn btn-green" value="Add"/></td>
             </tr>
         </c:if>
         <logic:iterate id="item" name="KualiForm" property="document.items" indexId="ctr">
-            <tr>
-                <kul:htmlAttributeHeaderCell literalLabel="${ctr+1}:" scope="row">
+            <c:choose>
+                <c:when test="${not readOnly}">
+                    <tr class="${(ctr + 1) % 2 == 0 ? "highlight" : ""}">
+                </c:when>
+                <c:otherwise>
+                    <tr class="${ctr % 2 == 0 ? "highlight" : ""}">
+                </c:otherwise>
+            </c:choose>
+
+                <kul:htmlAttributeHeaderCell literalLabel="${ctr+1}" scope="row">
                     <%-- Outside this th, these hidden fields would be invalid HTML. --%>
                     <html:hidden property="document.item[${ctr}].itemSequenceId" />
                     <html:hidden property="document.item[${ctr}].versionNumber" />
@@ -78,7 +84,7 @@
                 <td class="datacell"><kul:htmlControlAttribute attributeEntry="${itemAttributes.itemUnitAmount}" property="document.item[${ctr}].itemUnitAmount" readOnly="${readOnly}" styleClass="amount"/></td>
                 <td class="datacell">$${KualiForm.document.items[ctr].total}</td> <%-- EL doesn't quash items' plural like Struts does. --%>
                 <c:if test="${not readOnly}">
-                    <td class="datacell"><div align="center"><html:image property="methodToCall.deleteItem.line${ctr}" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-delete1.gif" title="Delete Item ${ctr+1}" alt="Delete Item ${ctr+1}" styleClass="tinybutton"/></div></td>
+                    <td class="datacell"><html:submit property="methodToCall.deleteItem.line${ctr}" title="Delete Item ${ctr+1}" alt="Delete Item ${ctr+1}" styleClass="btn btn-red" value="Delete"/></td>
                 </c:if>
             </tr>
         </logic:iterate>

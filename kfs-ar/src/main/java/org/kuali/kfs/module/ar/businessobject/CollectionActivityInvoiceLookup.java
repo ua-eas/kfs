@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.bo.TransientBusinessObjectBase;
 
 /**
  * Defines an entry in the Contracts & Grants Invoice Lookup Result.
@@ -33,7 +33,7 @@ import org.kuali.rice.krad.bo.TransientBusinessObjectBase;
 public class CollectionActivityInvoiceLookup extends TransientBusinessObjectBase {
 
 
-    private Long proposalNumber;
+    private String proposalNumber;
     private Long agencyNumber;
     private String agencyName;
     private Long customerNumber;
@@ -57,7 +57,7 @@ public class CollectionActivityInvoiceLookup extends TransientBusinessObjectBase
      *
      * @return Returns the proposalNumber.
      */
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -67,10 +67,9 @@ public class CollectionActivityInvoiceLookup extends TransientBusinessObjectBase
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
-
 
 
     public Long getAgencyNumber() {
@@ -163,7 +162,6 @@ public class CollectionActivityInvoiceLookup extends TransientBusinessObjectBase
     }
 
 
-
     public String getBillingPeriod() {
         return billingPeriod;
     }
@@ -219,7 +217,7 @@ public class CollectionActivityInvoiceLookup extends TransientBusinessObjectBase
         if (this.proposalNumber != null) {
             m.put(KFSPropertyConstants.PROPOSAL_NUMBER, this.proposalNumber.toString());
         }
-                return m;
+        return m;
     }
 
     public List<String> getAwardAttributesForDisplay() {

@@ -1,37 +1,37 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.businessobject;
 
+import org.kuali.kfs.coa.businessobject.Chart;
+import org.kuali.kfs.coa.businessobject.Organization;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.util.KRADPropertyConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+import org.kuali.rice.location.api.campus.Campus;
+import org.kuali.rice.location.api.campus.CampusService;
+
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import org.kuali.kfs.coa.businessobject.Chart;
-import org.kuali.kfs.coa.businessobject.Organization;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.rice.krad.util.KRADPropertyConstants;
-import org.kuali.rice.location.api.campus.Campus;
-import org.kuali.rice.location.api.campus.CampusService;
 
 /**
  * This class represents a unique header for use with a CollectorBatch class
@@ -62,7 +62,7 @@ public class CollectorHeader extends PersistableBusinessObjectBase {
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode
      */
     public String getChartOfAccountsCode() {
@@ -71,7 +71,7 @@ public class CollectorHeader extends PersistableBusinessObjectBase {
 
     /**
      * Sets the chartOfAccountsCode attribute.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -81,7 +81,7 @@ public class CollectorHeader extends PersistableBusinessObjectBase {
 
     /**
      * Gets the organizationCode attribute.
-     * 
+     *
      * @return Returns the organizationCode
      */
     public String getOrganizationCode() {
@@ -90,7 +90,7 @@ public class CollectorHeader extends PersistableBusinessObjectBase {
 
     /**
      * Sets the organizationCode attribute.
-     * 
+     *
      * @param organizationCode The organizationCode to set.
      */
     public void setOrganizationCode(String organizationCode) {
@@ -100,7 +100,7 @@ public class CollectorHeader extends PersistableBusinessObjectBase {
 
     /**
      * Gets the processTransmissionDate attribute.
-     * 
+     *
      * @return Returns the processTransmissionDate
      */
     public Date getProcessTransmissionDate() {
@@ -109,7 +109,7 @@ public class CollectorHeader extends PersistableBusinessObjectBase {
 
     /**
      * Sets the processTransmissionDate attribute.
-     * 
+     *
      * @param processTransmissionDate The processTransmissionDate to set.
      */
     public void setProcessTransmissionDate(Date processTransmissionDate) {
@@ -119,7 +119,7 @@ public class CollectorHeader extends PersistableBusinessObjectBase {
 
     /**
      * Gets the processBatchSequenceNumber attribute.
-     * 
+     *
      * @return Returns the processBatchSequenceNumber
      */
     public Integer getProcessBatchSequenceNumber() {
@@ -128,7 +128,7 @@ public class CollectorHeader extends PersistableBusinessObjectBase {
 
     /**
      * Sets the processBatchSequenceNumber attribute.
-     * 
+     *
      * @param processBatchSequenceNumber The processBatchSequenceNumber to set.
      */
     public void setProcessBatchSequenceNumber(Integer processBatchSequenceNumber) {
@@ -138,7 +138,7 @@ public class CollectorHeader extends PersistableBusinessObjectBase {
 
     /**
      * Gets the processTotalRecordCount attribute.
-     * 
+     *
      * @return Returns the processTotalRecordCount
      */
     public Integer getProcessTotalRecordCount() {
@@ -147,7 +147,7 @@ public class CollectorHeader extends PersistableBusinessObjectBase {
 
     /**
      * Sets the processTotalRecordCount attribute.
-     * 
+     *
      * @param processTotalRecordCount The processTotalRecordCount to set.
      */
     public void setProcessTotalRecordCount(Integer processTotalRecordCount) {
@@ -157,7 +157,7 @@ public class CollectorHeader extends PersistableBusinessObjectBase {
 
     /**
      * Gets the processTotalAmount attribute.
-     * 
+     *
      * @return Returns the processTotalAmount
      */
     public KualiDecimal getProcessTotalAmount() {
@@ -166,7 +166,7 @@ public class CollectorHeader extends PersistableBusinessObjectBase {
 
     /**
      * Sets the processTotalAmount attribute.
-     * 
+     *
      * @param processTotalAmount The processTotalAmount to set.
      */
     public void setProcessTotalAmount(KualiDecimal processTotalAmount) {
@@ -176,7 +176,7 @@ public class CollectorHeader extends PersistableBusinessObjectBase {
 
     /**
      * Gets the organization attribute.
-     * 
+     *
      * @return Returns the organization
      */
     public Organization getOrganization() {
@@ -185,7 +185,7 @@ public class CollectorHeader extends PersistableBusinessObjectBase {
 
     /**
      * Sets the organization attribute.
-     * 
+     *
      * @param organization The organization to set.
      * @deprecated
      */
@@ -195,7 +195,7 @@ public class CollectorHeader extends PersistableBusinessObjectBase {
 
     /**
      * Gets the chartOfAccounts attribute.
-     * 
+     *
      * @return Returns the chartOfAccounts
      */
     public Chart getChartOfAccounts() {
@@ -204,7 +204,7 @@ public class CollectorHeader extends PersistableBusinessObjectBase {
 
     /**
      * Sets the chartOfAccounts attribute.
-     * 
+     *
      * @param chartOfAccounts The chartOfAccounts to set.
      * @deprecated
      */
@@ -236,7 +236,7 @@ public class CollectorHeader extends PersistableBusinessObjectBase {
 
     /**
      * Gets the campusCode attribute.
-     * 
+     *
      * @return Returns the campusCode.
      */
     public String getCampusCode() {
@@ -245,7 +245,7 @@ public class CollectorHeader extends PersistableBusinessObjectBase {
 
     /**
      * Sets the campusCode attribute value.
-     * 
+     *
      * @param campusCode The campusCode to set.
      */
     public void setContactCampusCode(String campusCode) {
@@ -254,7 +254,7 @@ public class CollectorHeader extends PersistableBusinessObjectBase {
 
     /**
      * Gets the departmentName attribute.
-     * 
+     *
      * @return Returns the departmentName.
      */
     public String getContactDepartmentName() {
@@ -263,7 +263,7 @@ public class CollectorHeader extends PersistableBusinessObjectBase {
 
     /**
      * Sets the departmentName attribute value.
-     * 
+     *
      * @param departmentName The departmentName to set.
      */
     public void setContactDepartmentName(String contactDepartmentName) {
@@ -272,7 +272,7 @@ public class CollectorHeader extends PersistableBusinessObjectBase {
 
     /**
      * Gets the mailingAddress attribute.
-     * 
+     *
      * @return Returns the mailingAddress.
      */
     public String getContactMailingAddress() {
@@ -281,7 +281,7 @@ public class CollectorHeader extends PersistableBusinessObjectBase {
 
     /**
      * Sets the mailingAddress attribute value.
-     * 
+     *
      * @param mailingAddress The mailingAddress to set.
      */
     public void setContactMailingAddress(String contactMailingAddress) {
@@ -290,7 +290,7 @@ public class CollectorHeader extends PersistableBusinessObjectBase {
 
     /**
      * Gets the phoneNumber attribute.
-     * 
+     *
      * @return Returns the phoneNumber.
      */
     public String getContactPersonPhoneNumber() {
@@ -299,7 +299,7 @@ public class CollectorHeader extends PersistableBusinessObjectBase {
 
     /**
      * Sets the phoneNumber attribute value.
-     * 
+     *
      * @param phoneNumber The phoneNumber to set.
      */
     public void setContactPersonPhoneNumber(String contactPersonPhoneNumber) {
@@ -308,7 +308,7 @@ public class CollectorHeader extends PersistableBusinessObjectBase {
 
     /**
      * Gets the campus attribute.
-     * 
+     *
      * @return Returns the campus.
      */
     public Campus getCampus() {
@@ -319,7 +319,7 @@ public class CollectorHeader extends PersistableBusinessObjectBase {
 
     /**
      * Sets the campus attribute value.
-     * 
+     *
      * @param campus The campus to set.
      */
     public void setCampus(Campus campus) {

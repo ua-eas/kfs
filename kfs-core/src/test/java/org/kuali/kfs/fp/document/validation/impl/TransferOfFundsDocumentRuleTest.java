@@ -1,23 +1,50 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
+
+import org.kuali.kfs.coa.businessobject.OffsetDefinition;
+import org.kuali.kfs.fp.businessobject.VoucherSourceAccountingLine;
+import org.kuali.kfs.fp.document.TransferOfFundsDocument;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.sys.ConfigureContext;
+import org.kuali.kfs.sys.DocumentTestUtils;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSKeyConstants;
+import org.kuali.kfs.sys.businessobject.AccountingLine;
+import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
+import org.kuali.kfs.sys.businessobject.TargetAccountingLine;
+import org.kuali.kfs.sys.context.KualiTestBase;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.context.TestUtils;
+import org.kuali.kfs.sys.document.AccountingDocument;
+import org.kuali.kfs.sys.document.validation.Validation;
+import org.kuali.kfs.sys.document.validation.impl.AccountingLineValueAllowedValidation;
+import org.kuali.kfs.sys.fixture.GeneralLedgerPendingEntryFixture;
+import org.kuali.kfs.sys.service.IsDebitTestUtils;
+import org.kuali.kfs.sys.service.UniversityDateService;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapContains;
 import static org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleTestUtils.testAddAccountingLineRule_ProcessAddAccountingLineBusinessRules;
@@ -44,43 +71,12 @@ import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 import static org.kuali.kfs.sys.service.IsDebitTestUtils.Amount.NEGATIVE;
 import static org.kuali.kfs.sys.service.IsDebitTestUtils.Amount.POSITIVE;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import org.kuali.kfs.coa.businessobject.OffsetDefinition;
-import org.kuali.kfs.fp.businessobject.VoucherSourceAccountingLine;
-import org.kuali.kfs.fp.document.TransferOfFundsDocument;
-import org.kuali.kfs.sys.ConfigureContext;
-import org.kuali.kfs.sys.DocumentTestUtils;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSKeyConstants;
-import org.kuali.kfs.sys.businessobject.AccountingLine;
-import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
-import org.kuali.kfs.sys.businessobject.TargetAccountingLine;
-import org.kuali.kfs.sys.context.KualiTestBase;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.context.TestUtils;
-import org.kuali.kfs.sys.document.AccountingDocument;
-import org.kuali.kfs.sys.document.validation.Validation;
-import org.kuali.kfs.sys.document.validation.impl.AccountingLineValueAllowedValidation;
-import org.kuali.kfs.sys.fixture.GeneralLedgerPendingEntryFixture;
-import org.kuali.kfs.sys.service.IsDebitTestUtils;
-import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.kfs.sys.suite.AnnotationTestSuite;
-import org.kuali.kfs.sys.suite.CrossSectionSuite;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.service.DocumentService;
-
 @ConfigureContext(session = khuntley)
 public class TransferOfFundsDocumentRuleTest extends KualiTestBase {
     public static final Class<TransferOfFundsDocument> DOCUMENT_CLASS = TransferOfFundsDocument.class;
 
     private static final String NON_MANDATORY_TRANSFER_OBJECT_CODE = "1669";
 
-
-    @AnnotationTestSuite(CrossSectionSuite.class)
     public void testProcessGenerateGeneralLedgerPendingEntries_validSourceExpenseFlexibleOffset() throws Exception {
         TestUtils.setSystemParameter(OffsetDefinition.class, KFSConstants.SystemGroupParameterNames.FLEXIBLE_OFFSET_ENABLED_FLAG, "Y");
         testGenerateGeneralLedgerPendingEntriesRule_ProcessGenerateGeneralLedgerPendingEntries(createDocument(), FLEXIBLE_EXPENSE_LINE.createTargetAccountingLine(), EXPECTED_FLEXIBLE_EXPLICIT_SOURCE_PENDING_ENTRY_FOR_EXPENSE2, EXPECTED_FLEXIBLE_OFFSET_SOURCE_PENDING_ENTRY);
@@ -440,8 +436,7 @@ public class TransferOfFundsDocumentRuleTest extends KualiTestBase {
         try {
             testSaveDocumentRule_ProcessSaveDocument(null, false);
             fail("validated null doc");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             assertTrue(true);
         }
     }
@@ -604,45 +599,45 @@ public class TransferOfFundsDocumentRuleTest extends KualiTestBase {
         retval.addTargetAccountingLine(getValidObjectSubTypeTargetLine());
         return retval;
     }
-    
+
     private boolean testAddAccountingLineRule_IsObjectCodeAllowed(AccountingLine accountingLine, boolean expected) throws Exception {
         Map<String, Validation> validations = SpringContext.getBeansOfType(Validation.class);
         boolean result = true;
         TransferOfFundsDocument document = createDocument();
-        
+
         // do general validation
-        AccountingLineValueAllowedValidation validation = (AccountingLineValueAllowedValidation)validations.get("AccountingDocument-IsObjectCodeAllowed-DefaultValidation"); 
+        AccountingLineValueAllowedValidation validation = (AccountingLineValueAllowedValidation) validations.get("AccountingDocument-IsObjectCodeAllowed-DefaultValidation");
         if (validation == null) throw new IllegalStateException("No object code value allowed validation");
         validation.setAccountingDocumentForValidation(document);
         validation.setAccountingLineForValidation(accountingLine);
         result = validation.validate(null);
         // do TF version validation
-        validation = (AccountingLineValueAllowedValidation)validations.get("TransferOfFunds-objectCodeValueAllowedValidation"); 
+        validation = (AccountingLineValueAllowedValidation) validations.get("TransferOfFunds-objectCodeValueAllowedValidation");
         if (validation == null) throw new IllegalStateException("No TF specific object code value allowed validation");
         validation.setAccountingDocumentForValidation(document);
         validation.setAccountingLineForValidation(accountingLine);
         result = validation.validate(null);
-        
+
         return result;
     }
-    
-    private void testAddAccountingLineRule_IsObjectTypeAllowed(AccountingLine accountingLine, boolean expected) throws Exception  {
+
+    private void testAddAccountingLineRule_IsObjectTypeAllowed(AccountingLine accountingLine, boolean expected) throws Exception {
         Map<String, Validation> validations = SpringContext.getBeansOfType(Validation.class);
         boolean result = true;
         TransferOfFundsDocument document = createDocument();
-        AccountingLineValueAllowedValidation validation = (AccountingLineValueAllowedValidation)validations.get("AccountingDocument-IsObjectTypeAllowed-DefaultValidation"); 
+        AccountingLineValueAllowedValidation validation = (AccountingLineValueAllowedValidation) validations.get("AccountingDocument-IsObjectTypeAllowed-DefaultValidation");
         if (validation == null) throw new IllegalStateException("No object type value allowed validation");
         validation.setAccountingDocumentForValidation(document);
         validation.setAccountingLineForValidation(accountingLine);
         result = validation.validate(null);
         assertEquals(expected, result);
     }
-    
-    private void testAddAccountingLine_IsObjectSubTypeAllowed(AccountingLine accountingLine, boolean expected) throws Exception  {
+
+    private void testAddAccountingLine_IsObjectSubTypeAllowed(AccountingLine accountingLine, boolean expected) throws Exception {
         Map<String, Validation> validations = SpringContext.getBeansOfType(Validation.class);
         boolean result = true;
         TransferOfFundsDocument document = createDocument();
-        AccountingLineValueAllowedValidation validation = (AccountingLineValueAllowedValidation)validations.get("TransferOfFunds-objectSubTypeValueAllowedValidation");
+        AccountingLineValueAllowedValidation validation = (AccountingLineValueAllowedValidation) validations.get("TransferOfFunds-objectSubTypeValueAllowedValidation");
         if (validation == null) throw new IllegalStateException("No object sub type value allowed validation");
         validation.setAccountingDocumentForValidation(document);
         validation.setAccountingLineForValidation(accountingLine);

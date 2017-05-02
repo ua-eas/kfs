@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -19,8 +19,10 @@
 package org.kuali.kfs.module.ar.document.web.struts;
 
 
-import java.util.List;
-
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.kns.web.ui.ExtraButton;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.module.ar.ArAuthorizationConstants;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
@@ -30,18 +32,16 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kns.service.DocumentHelperService;
-import org.kuali.rice.kns.web.ui.ExtraButton;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
+
+import java.util.List;
 
 /**
  * Form Class for Contracts & Grants Invoice Document.
  */
-public class ContractsGrantsInvoiceDocumentForm extends CustomerInvoiceDocumentForm {
+public class ContractsGrantsInvoiceDocumentForm extends CustomerInvoiceForm {
 
     /**
-     * @see org.kuali.kfs.module.ar.document.web.struts.CustomerInvoiceDocumentForm#getExtraButtons()
+     * @see CustomerInvoiceForm#getExtraButtons()
      */
     @Override
     public List<ExtraButton> getExtraButtons() {
@@ -68,7 +68,7 @@ public class ContractsGrantsInvoiceDocumentForm extends CustomerInvoiceDocumentF
     }
 
     /**
-     * @see org.kuali.kfs.module.ar.document.web.struts.CustomerInvoiceDocumentForm#getDefaultDocumentTypeName()
+     * @see CustomerInvoiceForm#getDefaultDocumentTypeName()
      */
     @Override
     protected String getDefaultDocumentTypeName() {

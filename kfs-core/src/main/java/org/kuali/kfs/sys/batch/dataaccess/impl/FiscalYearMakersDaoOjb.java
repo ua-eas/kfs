@@ -1,22 +1,35 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.batch.dataaccess.impl;
+
+import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.apache.ojb.broker.query.QueryByCriteria;
+import org.apache.ojb.broker.query.ReportQueryByCriteria;
+import org.apache.ojb.broker.util.ObjectModification;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.batch.dataaccess.FiscalYearMaker;
+import org.kuali.kfs.sys.batch.dataaccess.FiscalYearMakersDao;
+import org.kuali.kfs.sys.businessobject.FiscalYearBasedBusinessObject;
+import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -26,33 +39,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.apache.ojb.broker.query.QueryByCriteria;
-import org.apache.ojb.broker.query.ReportQueryByCriteria;
-import org.apache.ojb.broker.util.ObjectModification;
-import org.kuali.kfs.sys.batch.dataaccess.FiscalYearMaker;
-import org.kuali.kfs.sys.batch.dataaccess.FiscalYearMakersDao;
-import org.kuali.kfs.sys.businessobject.FiscalYearBasedBusinessObject;
-import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.util.ObjectUtils;
-
 /**
  * @see org.kuali.kfs.coa.batch.dataaccess.FiscalYearMakersDao
  */
 public class FiscalYearMakersDaoOjb extends PlatformAwareDaoBaseOjb implements FiscalYearMakersDao {
     private static final Logger LOG = org.apache.log4j.Logger.getLogger(FiscalYearMakersDaoOjb.class);
-    
+
     protected static final String KEY_STRING_DELIMITER = "|";
 
     /**
      * @see org.kuali.kfs.coa.batch.dataaccess.FiscalYearMakersDao#deleteNewYearRows(java.lang.Integer,
-     *      org.kuali.kfs.coa.batch.dataaccess.FiscalYearMakerHelper)
+     * org.kuali.kfs.coa.batch.dataaccess.FiscalYearMakerHelper)
      */
     public void deleteNewYearRows(Integer baseYear, FiscalYearMaker objectFiscalYearMaker) {
-        if ( LOG.isInfoEnabled() ) {
+        if (LOG.isInfoEnabled()) {
             LOG.info(String.format("\ndeleting %s for target year(s)", objectFiscalYearMaker.getBusinessObjectClass().getName()));
         }
 
@@ -64,10 +64,10 @@ public class FiscalYearMakersDaoOjb extends PlatformAwareDaoBaseOjb implements F
 
     /**
      * @see org.kuali.kfs.sys.batch.dataaccess.FiscalYearMakersDao#createNewYearRows(java.lang.Integer,
-     *      org.kuali.kfs.sys.batch.dataaccess.FiscalYearMaker, boolean, java.util.Map)
+     * org.kuali.kfs.sys.batch.dataaccess.FiscalYearMaker, boolean, java.util.Map)
      */
     public Collection<String> createNewYearRows(Integer baseYear, FiscalYearMaker fiscalYearMaker, boolean replaceMode, Map<Class<? extends FiscalYearBasedBusinessObject>, Set<String>> parentKeysWritten, boolean isParentClass) throws Exception {
-        if ( LOG.isInfoEnabled() ) {
+        if (LOG.isInfoEnabled()) {
             LOG.info(String.format("\n copying %s from %d to %d", fiscalYearMaker.getBusinessObjectClass().getName(), baseYear, baseYear + 1));
         }
 
@@ -85,41 +85,41 @@ public class FiscalYearMakersDaoOjb extends PlatformAwareDaoBaseOjb implements F
         List<String> primaryKeyFields = fiscalYearMaker.getPrimaryKeyPropertyNames();
 
         Set<String> nextYearPrimaryKeys = new HashSet<String>(2000);
-        LOG.info( "Loading Next Year's PKs for comparison");        
-        ReportQueryByCriteria nextYearKeyQuery = new ReportQueryByCriteria(fiscalYearMaker.getBusinessObjectClass(), primaryKeyFields.toArray(new String[0]), fiscalYearMaker.createNextYearSelectionCriteria(baseYear) );
+        LOG.info("Loading Next Year's PKs for comparison");
+        ReportQueryByCriteria nextYearKeyQuery = new ReportQueryByCriteria(fiscalYearMaker.getBusinessObjectClass(), primaryKeyFields.toArray(new String[0]), fiscalYearMaker.createNextYearSelectionCriteria(baseYear));
         Iterator<Object[]> nextYearRecords = getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(nextYearKeyQuery);
         StringBuilder keyString = new StringBuilder(40);
         int numNextYearRecords = 0;
-        while ( nextYearRecords.hasNext() ) {
+        while (nextYearRecords.hasNext()) {
             numNextYearRecords++;
             keyString.setLength(0);
             Object[] record = nextYearRecords.next();
-            for ( Object f : record ) {
-                keyString.append( f ).append( KEY_STRING_DELIMITER );
+            for (Object f : record) {
+                keyString.append(f).append(KEY_STRING_DELIMITER);
             }
             nextYearPrimaryKeys.add(keyString.toString());
-            if ( numNextYearRecords % 10000 == 0 ) {
-                if ( LOG.isInfoEnabled() ) {
+            if (numNextYearRecords % 10000 == 0) {
+                if (LOG.isInfoEnabled()) {
                     LOG.info("Processing Record: " + numNextYearRecords);
                 }
             }
         }
-        if ( LOG.isInfoEnabled() ) {
-            LOG.info( "Completed load of next year keys.  " + numNextYearRecords + " keys loaded.");
-            LOG.info( "Starting processing of existing FY rows" );
+        if (LOG.isInfoEnabled()) {
+            LOG.info("Completed load of next year keys.  " + numNextYearRecords + " keys loaded.");
+            LOG.info("Starting processing of existing FY rows");
         }
         // retrieve base year records to copy
         QueryByCriteria queryId = new QueryByCriteria(fiscalYearMaker.getBusinessObjectClass(), fiscalYearMaker.createSelectionCriteria(baseYear));
-        // BIG QUERY - GET ALL RECORDS for the current FY 
+        // BIG QUERY - GET ALL RECORDS for the current FY
         Iterator<FiscalYearBasedBusinessObject> recordsToCopy = getPersistenceBrokerTemplate().getIteratorByQuery(queryId);
-        
-        
-        while ( recordsToCopy.hasNext() ) {
+
+
+        while (recordsToCopy.hasNext()) {
             FiscalYearBasedBusinessObject objectToCopy = recordsToCopy.next();
             rowsRead++;
-            if ( LOG.isInfoEnabled() ) {
-                if ( rowsRead % 1000 == 0 ) {
-                    LOG.info( "*** Processing Record: " + rowsRead + " -- Written So Far: " + rowsWritten + " -- Failing RI: " + rowsFailingRI + " -- Keys Written: " + keysWritten.size() );
+            if (LOG.isInfoEnabled()) {
+                if (rowsRead % 1000 == 0) {
+                    LOG.info("*** Processing Record: " + rowsRead + " -- Written So Far: " + rowsWritten + " -- Failing RI: " + rowsFailingRI + " -- Keys Written: " + keysWritten.size());
                 }
             }
 
@@ -130,7 +130,7 @@ public class FiscalYearMakersDaoOjb extends PlatformAwareDaoBaseOjb implements F
             fiscalYearMaker.changeForNewYear(baseYear, objectToCopy);
 
             // determine if new year record already exists and if so do not overwrite
-            if ( nextYearPrimaryKeys.contains(getKeyString(fiscalYearMaker, primaryKeyFields, objectToCopy)) ) {
+            if (nextYearPrimaryKeys.contains(getKeyString(fiscalYearMaker, primaryKeyFields, objectToCopy))) {
                 if (isParentClass) {
                     addToKeysWritten(fiscalYearMaker, primaryKeyFields, objectToCopy, keysWritten);
                 }
@@ -155,7 +155,7 @@ public class FiscalYearMakersDaoOjb extends PlatformAwareDaoBaseOjb implements F
             parentKeysWritten.put(fiscalYearMaker.getBusinessObjectClass(), keysWritten);
         }
 
-        if ( LOG.isInfoEnabled() ) {
+        if (LOG.isInfoEnabled()) {
             LOG.info(String.format("\n%s:\n%d read = %d\n%d written = %d\nfailed RI = %d", fiscalYearMaker.getBusinessObjectClass(), baseYear, rowsRead, baseYear + 1, rowsWritten, rowsFailingRI));
         }
 
@@ -166,10 +166,10 @@ public class FiscalYearMakersDaoOjb extends PlatformAwareDaoBaseOjb implements F
 
     /**
      * Sets all reference and collection fields defined in the persistence layer to null on the given object
-     * 
+     *
      * @param businessObject object to set properties for
      */
-    protected void removeNonPrimitiveFields( FiscalYearMaker fiscalYearMaker, FiscalYearBasedBusinessObject businessObject) {
+    protected void removeNonPrimitiveFields(FiscalYearMaker fiscalYearMaker, FiscalYearBasedBusinessObject businessObject) {
         try {
             @SuppressWarnings("rawtypes")
             Map<String, Class> referenceFields = fiscalYearMaker.getReferenceObjectProperties();
@@ -191,13 +191,13 @@ public class FiscalYearMakersDaoOjb extends PlatformAwareDaoBaseOjb implements F
 
     /**
      * Checks all parents for the object we are copying has a corresponding record for the child record
-     * 
+     *
      * @return true if all parent records exist, false otherwise
      */
     protected boolean validateParentRecordsExist(FiscalYearMaker objectFiscalYearMaker, FiscalYearBasedBusinessObject childRecord, Map<Class<? extends FiscalYearBasedBusinessObject>, Set<String>> parentKeysWritten, List<String> copyErrors) throws Exception {
         // iterate through all parents, get attribute reference name and attempt to retrieve
         for (Class<? extends FiscalYearBasedBusinessObject> parentClass : objectFiscalYearMaker.getParentClasses()) {
-            if ( !validateChildParentReferencesExist(objectFiscalYearMaker,childRecord, parentClass, parentKeysWritten.get(parentClass), copyErrors) ) {
+            if (!validateChildParentReferencesExist(objectFiscalYearMaker, childRecord, parentClass, parentKeysWritten.get(parentClass), copyErrors)) {
                 return false;
             }
         }
@@ -208,14 +208,14 @@ public class FiscalYearMakersDaoOjb extends PlatformAwareDaoBaseOjb implements F
     /**
      * Validates the parent record(s) exists for the child record by retrieving the OJB reference (if found and foreign keys have
      * value)
-     * 
+     *
      * @param childRecord child record we are inserting
      * @param parentClass class for parent of child
-     * @param parentKeys Set of parent key Strings that have been written
-     * @param copyErrors Collection for adding error messages
+     * @param parentKeys  Set of parent key Strings that have been written
+     * @param copyErrors  Collection for adding error messages
      * @return true if the parent record(s) exist, false otherwise
      */
-    protected boolean validateChildParentReferencesExist(FiscalYearMaker objectFiscalYearMaker,FiscalYearBasedBusinessObject childRecord, Class<? extends FiscalYearBasedBusinessObject> parentClass, Set<String> parentKeys, List<String> copyErrors) throws Exception {
+    protected boolean validateChildParentReferencesExist(FiscalYearMaker objectFiscalYearMaker, FiscalYearBasedBusinessObject childRecord, Class<? extends FiscalYearBasedBusinessObject> parentClass, Set<String> parentKeys, List<String> copyErrors) throws Exception {
         boolean allChildParentReferencesExist = true;
         boolean foundParentReference = false;
 
@@ -231,15 +231,15 @@ public class FiscalYearMakersDaoOjb extends PlatformAwareDaoBaseOjb implements F
                 foundParentReference = true;
 
                 String foreignKeyString = getForeignKeyStringForReference(objectFiscalYearMaker, childRecord, referenceName);
-                if (StringUtils.isNotBlank(foreignKeyString) 
-                        && !parentKeys.contains(foreignKeyString)) {
+                if (StringUtils.isNotBlank(foreignKeyString)
+                    && !parentKeys.contains(foreignKeyString)) {
                     // attempt to retrieve the parent reference in case it already existed
                     getPersistenceBroker(true).retrieveReference(childRecord, referenceName);
                     PersistableBusinessObject reference = (PersistableBusinessObject) PropertyUtils.getSimpleProperty(childRecord, referenceName);
                     if (ObjectUtils.isNull(reference)) {
                         allChildParentReferencesExist = false;
                         writeMissingParentCopyError(childRecord, parentClass, foreignKeyString, copyErrors);
-                        LOG.warn( "Missing Parent Object: " + copyErrors.get(copyErrors.size()-1));
+                        LOG.warn("Missing Parent Object: " + copyErrors.get(copyErrors.size() - 1));
                     } else {
                         parentKeys.add(foreignKeyString);
                     }
@@ -256,19 +256,19 @@ public class FiscalYearMakersDaoOjb extends PlatformAwareDaoBaseOjb implements F
 
     /**
      * Builds a String containing foreign key values for the given reference of the business object
-     * 
+     *
      * @param businessObject business object instance with reference
-     * @param referenceName name of reference
+     * @param referenceName  name of reference
      * @return String of foreign key values or null if any of the foreign key values are null
      */
-    protected String getForeignKeyStringForReference( FiscalYearMaker fiscalYearMaker, FiscalYearBasedBusinessObject businessObject, String referenceName) throws Exception {
-        Map<String, String> foreignKeyToPrimaryKeyMap = fiscalYearMaker.getForeignKeyMappings( referenceName );
+    protected String getForeignKeyStringForReference(FiscalYearMaker fiscalYearMaker, FiscalYearBasedBusinessObject businessObject, String referenceName) throws Exception {
+        Map<String, String> foreignKeyToPrimaryKeyMap = fiscalYearMaker.getForeignKeyMappings(referenceName);
 
         StringBuilder foreignKeyString = new StringBuilder(80);
         for (String fkFieldName : foreignKeyToPrimaryKeyMap.keySet()) {
             Object fkFieldValue = PropertyUtils.getSimpleProperty(businessObject, fkFieldName);
             if (fkFieldValue != null) {
-                foreignKeyString.append( fkFieldValue.toString() ).append( KEY_STRING_DELIMITER );
+                foreignKeyString.append(fkFieldValue.toString()).append(KEY_STRING_DELIMITER);
             } else {
                 foreignKeyString.setLength(0);
                 break;
@@ -280,11 +280,11 @@ public class FiscalYearMakersDaoOjb extends PlatformAwareDaoBaseOjb implements F
 
     /**
      * Builds an error message when a parent record was not found for the child
-     * 
-     * @param childRecord child record we are inserting
-     * @param parentClass class for parent of child
+     *
+     * @param childRecord      child record we are inserting
+     * @param parentClass      class for parent of child
      * @param foreignKeyString string of foreign key values that was not found in parent
-     * @param copyErrors Collection for adding error messages
+     * @param copyErrors       Collection for adding error messages
      */
     protected void writeMissingParentCopyError(FiscalYearBasedBusinessObject childRecord, Class<? extends FiscalYearBasedBusinessObject> parentClass, String foreignKeyString, Collection<String> copyErrors) {
         StringBuilder errorCopyFailedMessage = new StringBuilder(150);
@@ -299,18 +299,18 @@ public class FiscalYearMakersDaoOjb extends PlatformAwareDaoBaseOjb implements F
 
     /**
      * Builds a string from the primary key values and adds to given set
-     * 
+     *
      * @param copiedObject object to grab key values for
-     * @param keysWritten Set containing all pk strings
+     * @param keysWritten  Set containing all pk strings
      */
-    protected void addToKeysWritten( FiscalYearMaker fiscalYearMaker, List<String> keyFieldNames, FiscalYearBasedBusinessObject copiedObject, Set<String> keysWritten) throws Exception {
+    protected void addToKeysWritten(FiscalYearMaker fiscalYearMaker, List<String> keyFieldNames, FiscalYearBasedBusinessObject copiedObject, Set<String> keysWritten) throws Exception {
         keysWritten.add(getKeyString(fiscalYearMaker, keyFieldNames, copiedObject));
     }
 
-    protected String getKeyString( FiscalYearMaker fiscalYearMaker, List<String> keyFieldNames, FiscalYearBasedBusinessObject businessObject ) throws Exception {
+    protected String getKeyString(FiscalYearMaker fiscalYearMaker, List<String> keyFieldNames, FiscalYearBasedBusinessObject businessObject) throws Exception {
         StringBuilder keyString = new StringBuilder(40);
         for (String keyFieldName : keyFieldNames) {
-            keyString.append( PropertyUtils.getSimpleProperty(businessObject, keyFieldName) ).append( KEY_STRING_DELIMITER );
+            keyString.append(PropertyUtils.getSimpleProperty(businessObject, keyFieldName)).append(KEY_STRING_DELIMITER);
         }
         return keyString.toString();
     }

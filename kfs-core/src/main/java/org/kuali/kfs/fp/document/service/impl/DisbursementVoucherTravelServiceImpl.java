@@ -1,29 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document.service.impl;
-
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.util.Calendar;
-import java.util.Collection;
 
 import org.kuali.kfs.fp.businessobject.TravelMileageRate;
 import org.kuali.kfs.fp.document.dataaccess.TravelMileageRateDao;
@@ -32,6 +25,13 @@ import org.kuali.kfs.sys.service.NonTransactional;
 import org.kuali.kfs.sys.util.KfsDateUtils;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Collection;
 
 /**
  * This is the default implementation of the DisbursementVoucherTravelService interface.
@@ -48,29 +48,28 @@ public class DisbursementVoucherTravelServiceImpl implements DisbursementVoucher
     /**
      * This method calculates the per diem amount for a given period of time at the rate provided.  The per diem amount is
      * calculated as described below.
-     *
+     * <p>
      * For same day trips:
      * - Per diem is equal to 1/2 of the per diem rate provided if the difference in time between the start and end time is
      * greater than 12 hours.  An additional 1/4 of a day is added back to the amount if the trip lasted past 7:00pm.
      * - If the same day trip is less than 12 hours, the per diem amount will be zero.
-     *
+     * <p>
      * For multiple day trips:
      * - Per diem amount is equal to the full rate times the number of full days of travel.  A full day is equal to any day
      * during the trip that is not the first day or last day of the trip.
      * - For the first day of the trip,
-     *   if the travel starts before noon, you receive a full day per diem,
-     *   if the travel starts between noon and 5:59pm, you get a half day per diem,
-     *   if the travel starts after 6:00pm, you only receive a quarter day per diem
+     * if the travel starts before noon, you receive a full day per diem,
+     * if the travel starts between noon and 5:59pm, you get a half day per diem,
+     * if the travel starts after 6:00pm, you only receive a quarter day per diem
      * - For the last day of the trip,
-     *   if the travel ends before 6:00am, you only receive a quarter day per diem,
-     *   if the travel ends between 6:00am and noon, you receive a half day per diem,
-     *   if the travel ends after noon, you receive a full day per diem
+     * if the travel ends before 6:00am, you only receive a quarter day per diem,
+     * if the travel ends between 6:00am and noon, you receive a half day per diem,
+     * if the travel ends after noon, you receive a full day per diem
      *
      * @param stateDateTime The starting date and time of the period the per diem amount is calculated for.
-     * @param endDateTime The ending date and time of the period the per diema mount is calculated for.
-     * @param rate The per diem rate used to calculate the per diem amount.
+     * @param endDateTime   The ending date and time of the period the per diema mount is calculated for.
+     * @param rate          The per diem rate used to calculate the per diem amount.
      * @return The per diem amount for the period specified, at the rate given.
-     *
      * @see org.kuali.kfs.fp.document.service.DisbursementVoucherTravelService#calculatePerDiemAmount(org.kuali.kfs.fp.businessobject.DisbursementVoucherNonEmployeeTravel)
      */
     @Override
@@ -123,22 +122,18 @@ public class DisbursementVoucherTravelServiceImpl implements DisbursementVoucher
                 // per diem for first day
                 if (timeInPerDiemPeriod(startCalendar, 0, 0, 11, 59)) { // Midnight to noon
                     perDiemAmount = perDiemAmount.add(perDiemRate);
-                }
-                else if (timeInPerDiemPeriod(startCalendar, 12, 0, 17, 59)) { // Noon to 5:59pm
+                } else if (timeInPerDiemPeriod(startCalendar, 12, 0, 17, 59)) { // Noon to 5:59pm
                     perDiemAmount = perDiemAmount.add(perDiemRate.divide(new KualiDecimal(2)));
-                }
-                else if (timeInPerDiemPeriod(startCalendar, 18, 0, 23, 59)) { // 6:00pm to Midnight
+                } else if (timeInPerDiemPeriod(startCalendar, 18, 0, 23, 59)) { // 6:00pm to Midnight
                     perDiemAmount = perDiemAmount.add(perDiemRate.divide(new KualiDecimal(4)));
                 }
 
                 // per diem for end day
                 if (timeInPerDiemPeriod(endCalendar, 0, 1, 6, 0)) { // Midnight to 6:00am
                     perDiemAmount = perDiemAmount.add(perDiemRate.divide(new KualiDecimal(4)));
-                }
-                else if (timeInPerDiemPeriod(endCalendar, 6, 1, 12, 0)) { // 6:00am to noon
+                } else if (timeInPerDiemPeriod(endCalendar, 6, 1, 12, 0)) { // 6:00am to noon
                     perDiemAmount = perDiemAmount.add(perDiemRate.divide(new KualiDecimal(2)));
-                }
-                else if (timeInPerDiemPeriod(endCalendar, 12, 01, 23, 59)) { // Noon to midnight
+                } else if (timeInPerDiemPeriod(endCalendar, 12, 01, 23, 59)) { // Noon to midnight
                     perDiemAmount = perDiemAmount.add(perDiemRate);
                 }
             }
@@ -150,11 +145,11 @@ public class DisbursementVoucherTravelServiceImpl implements DisbursementVoucher
     /**
      * Checks whether the date is in a per diem period given by the start hour and end hour and minutes.
      *
-     * @param cal The date being checked to see if it occurred within the defined travel per diem period.
-     * @param periodStartHour The starting hour of the per diem period.
+     * @param cal               The date being checked to see if it occurred within the defined travel per diem period.
+     * @param periodStartHour   The starting hour of the per diem period.
      * @param periodStartMinute The starting minute of the per diem period.
-     * @param periodEndHour The ending hour of the per diem period.
-     * @param periodEndMinute The ending minute of the per diem period.
+     * @param periodEndHour     The ending hour of the per diem period.
+     * @param periodEndMinute   The ending minute of the per diem period.
      * @return True if the date passed in occurred within the period defined by the given parameters, false otherwise.
      */
     protected boolean timeInPerDiemPeriod(Calendar cal, int periodStartHour, int periodStartMinute, int periodEndHour, int periodEndMinute) {
@@ -167,15 +162,14 @@ public class DisbursementVoucherTravelServiceImpl implements DisbursementVoucher
     /**
      * This method calculates the mileage amount based on the total mileage traveled and the using the reimbursement rate
      * applicable to when the trip started.
-     *
+     * <p>
      * For this method, a collection of mileage rates is retrieved, where each mileage rate is defined by a mileage limit.
      * This collection is iterated over to determine which mileage rate will be used for calculating the total mileage
      * amount due.
      *
-     * @param totalMileage The total mileage traveled that will be reimbursed for.
+     * @param totalMileage    The total mileage traveled that will be reimbursed for.
      * @param travelStartDate The start date of the travel, which will be used to retrieve the mileage reimbursement rate.
      * @return The total reimbursement due to the traveler for the mileage traveled.
-     *
      * @see org.kuali.kfs.fp.document.service.DisbursementVoucherTravelService#calculateMileageAmount(org.kuali.kfs.fp.businessobject.DisbursementVoucherNonEmployeeTravel)
      */
     @Override
@@ -211,7 +205,7 @@ public class DisbursementVoucherTravelServiceImpl implements DisbursementVoucher
          * Iterate over mileage rates sorted in descending order by the mileage limit amount. For all miles over the mileage limit
          * amount, the rate times those number of miles over is added to the mileage amount.
          */
-        for ( TravelMileageRate rate : mileageRates ) {
+        for (TravelMileageRate rate : mileageRates) {
             int mileageLimitAmount = rate.getMileageLimitAmount().intValue();
             if (mileageRemaining > mileageLimitAmount) {
                 BigDecimal numMiles = new BigDecimal(mileageRemaining - mileageLimitAmount);
@@ -227,6 +221,7 @@ public class DisbursementVoucherTravelServiceImpl implements DisbursementVoucher
 
     /**
      * Gets the travelMileageRateDao attribute.
+     *
      * @return Returns the travelMileageRateDao.
      */
     public TravelMileageRateDao getTravelMileageRateDao() {
@@ -235,6 +230,7 @@ public class DisbursementVoucherTravelServiceImpl implements DisbursementVoucher
 
     /**
      * Sets the travelMileageRateDao attribute.
+     *
      * @param travelMileageRateDao The travelMileageRateDao to set.
      */
     public void setTravelMileageRateDao(TravelMileageRateDao travelMileageRateDao) {
@@ -243,6 +239,7 @@ public class DisbursementVoucherTravelServiceImpl implements DisbursementVoucher
 
     /**
      * Gets the dateTimeService attribute.
+     *
      * @return Returns the dateTimeService.
      */
     public DateTimeService getDateTimeService() {
@@ -251,6 +248,7 @@ public class DisbursementVoucherTravelServiceImpl implements DisbursementVoucher
 
     /**
      * Sets the dateTimeService attribute.
+     *
      * @param dateTimeService The dateTimeService to set.
      */
     public void setDateTimeService(DateTimeService dateTimeService) {

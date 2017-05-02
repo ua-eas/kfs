@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="2342" dbms="mysql" context="bootstrap,demo,unit">
+    <createView fullDefinition="false" viewName="ca_object_code_v">
+        (select C.UNIV_FISCAL_YR AS UNIV_FISCAL_YR,
+            C.FIN_COA_CD AS FIN_COA_CD,
+            C.FIN_OBJECT_CD AS FIN_OBJECT_CD,
+            C.FIN_OBJ_CD_NM AS FIN_OBJ_CD_NM,
+            C.FIN_OBJ_CD_SHRT_NM AS FIN_OBJ_CD_SHRT_NM,
+            C.FIN_OBJ_LEVEL_CD AS FIN_OBJ_LEVEL_CD,
+            C.RPTS_TO_FIN_COA_CD AS RPTS_TO_FIN_COA_CD,
+            C.RPTS_TO_FIN_OBJ_CD AS RPTS_TO_FIN_OBJ_CD,
+            C.FIN_OBJ_TYP_CD AS FIN_OBJ_TYP_CD,
+            C.FIN_OBJ_SUB_TYP_CD AS FIN_OBJ_SUB_TYP_CD,
+            C.HIST_FIN_OBJECT_CD AS HIST_FIN_OBJECT_CD,
+            C.FIN_OBJ_ACTIVE_CD AS FIN_OBJ_ACTIVE_CD,
+            C.FOBJ_BDGT_AGGR_CD AS FOBJ_BDGT_AGGR_CD,
+            C.FOBJ_MNXFR_ELIM_CD AS FOBJ_MNXFR_ELIM_CD,
+            C.FIN_FED_FUNDED_CD AS FIN_FED_FUNDED_CD,
+            C.NXT_YR_FIN_OBJ_CD AS NXT_YR_FIN_OBJ_CD,
+            C.RSCH_BDGT_CTGRY_CD AS RSCH_BDGT_CTGRY_CD,
+            C.RSCH_OBJ_CD_DESC AS RSCH_OBJ_CD_DESC,
+            C.RSCH_ON_CMP_IND AS RSCH_ON_CMP_IND
+        from ca_object_code_t C
+        join sh_univ_date_t S
+        where ((C.UNIV_FISCAL_YR = S.UNIV_FISCAL_YR) and (S.UNIV_DT = cast(now() as date))))
+    </createView>
+  </changeSet>
+  <changeSet author="kfs" id="2342" dbms="oracle" context="bootstrap,demo,unit">
+    <createView fullDefinition="false" viewName="ca_object_code_v">
+      (SELECT C.UNIV_FISCAL_YR,
+        FIN_COA_CD,
+        FIN_OBJECT_CD,
+        FIN_OBJ_CD_NM,
+        FIN_OBJ_CD_SHRT_NM,
+        FIN_OBJ_LEVEL_CD,
+        RPTS_TO_FIN_COA_CD,
+        RPTS_TO_FIN_OBJ_CD,
+        FIN_OBJ_TYP_CD,
+        FIN_OBJ_SUB_TYP_CD,
+        HIST_FIN_OBJECT_CD,
+        FIN_OBJ_ACTIVE_CD,
+        FOBJ_BDGT_AGGR_CD,
+        FOBJ_MNXFR_ELIM_CD,
+        FIN_FED_FUNDED_CD,
+        NXT_YR_FIN_OBJ_CD,
+        RSCH_BDGT_CTGRY_CD,
+        RSCH_OBJ_CD_DESC,
+        RSCH_ON_CMP_IND
+      FROM CA_OBJECT_CODE_T C, SH_UNIV_DATE_T S
+      WHERE C.UNIV_FISCAL_YR = S.UNIV_FISCAL_YR AND UNIV_DT = TRUNC(SYSDATE))
+    </createView>
+  </changeSet>
+  <changeSet author="kfs" id="2343" dbms="mysql" context="bootstrap,demo,unit">
+    <createView fullDefinition="false" viewName="ca_sub_object_cd_v">
+      (select C.UNIV_FISCAL_YR AS UNIV_FISCAL_YR,
+        C.FIN_COA_CD AS FIN_COA_CD,
+        C.ACCOUNT_NBR AS ACCOUNT_NBR,
+        C.FIN_OBJECT_CD AS FIN_OBJECT_CD,
+        C.FIN_SUB_OBJ_CD AS FIN_SUB_OBJ_CD,
+        C.FIN_SUB_OBJ_CD_NM AS FIN_SUB_OBJ_CD_NM,
+        C.FIN_SUBOBJ_SHRT_NM AS FIN_SUBOBJ_SHRT_NM,
+        C.FIN_SUBOBJ_ACTV_CD AS FIN_SUBOBJ_ACTV_CD
+      from ca_sub_object_cd_t C
+      join sh_univ_date_t S
+      where ((C.UNIV_FISCAL_YR = S.UNIV_FISCAL_YR) and (S.UNIV_DT = cast(now() as date))))
+    </createView>
+  </changeSet>
+  <changeSet author="kfs" id="2343" dbms="oracle" context="bootstrap,demo,unit">
+    <createView fullDefinition="false" viewName="ca_sub_object_cd_v">
+      SELECT C.UNIV_FISCAL_YR,
+        FIN_COA_CD,
+        ACCOUNT_NBR,
+        FIN_OBJECT_CD,
+        FIN_SUB_OBJ_CD,
+        FIN_SUB_OBJ_CD_NM,
+        FIN_SUBOBJ_SHRT_NM,
+        FIN_SUBOBJ_ACTV_CD
+      FROM CA_SUB_OBJECT_CD_T C, SH_UNIV_DATE_T S
+      WHERE C.UNIV_FISCAL_YR = S.UNIV_FISCAL_YR AND UNIV_DT = TRUNC(SYSDATE)
+    </createView>
+  </changeSet>
+</databaseChangeLog>

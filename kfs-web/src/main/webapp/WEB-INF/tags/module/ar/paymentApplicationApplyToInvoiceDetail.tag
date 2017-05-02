@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -35,12 +35,9 @@
 <kul:tab tabTitle="Apply to Invoice Detail" defaultOpen="true"
 	tabErrorKey="${KFSConstants.PaymentApplicationTabErrorCodes.APPLY_TO_INVOICE_DETAIL_TAB}">
 	<div class="tab-container" align="center">
-	    <h3>Apply to Invoice Detail</h3>
-        <table width="100%" cellpadding="0" cellspacing="0" class="datatable">
+        <table class="standard">
 			<tr>
-				<th>
-					Customer
-				</th>
+				<th class="right">Customer</th>
 				<td>
 					<kul:htmlControlAttribute
 						readOnly="${readOnly}"
@@ -54,12 +51,10 @@
 				</td>
 			</tr>
 			<tr>
-				<th width='50%'>
-					Invoice
-				</th>
+				<th width='50%' class="right">Invoice</th>
 				<td>
 					<kul:checkErrors keyMatch="${KFSConstants.PaymentApplicationTabErrorCodes.APPLY_TO_INVOICE_DETAIL_TAB}"/>
-					<c:choose>						
+					<c:choose>
 						<c:when test="${empty KualiForm.enteredInvoiceDocumentNumber || hasErrors }">
 								<kul:htmlControlAttribute
 								readOnly="${readOnly}"
@@ -73,33 +68,31 @@
 									attributeEntry="${invoiceAttributes.organizationInvoiceNumber}"
 									property="enteredInvoiceDocumentNumber" />
 							</a>
-						</c:otherwise>	
+						</c:otherwise>
 					</c:choose>
 				</td>
 			</tr>
 			<c:if test="${readOnly ne true}">
 				<tr>
-					<td colspan='2'>
-						<center>
-							<html:image property="methodToCall.loadInvoices"
-								src="${ConfigProperties.externalizable.images.url}tinybutton-load.gif"
-								alt="Load Invoices" title="Load Invoices" styleClass="tinybutton" />
-						</center>
+					<td colspan='2' class="center">
+						<html:submit
+								property="methodToCall.loadInvoices"
+								alt="Load Invoices"
+								title="Load Invoices"
+								styleClass="btn btn-default"
+								value="Load"/>
 					</td>
 				</tr>
 			</c:if>
 		</table>
 		<c:choose>
-			<c:when
-				test="${empty KualiForm.selectedCustomerNumber}">
+			<c:when test="${empty KualiForm.selectedCustomerNumber}">
 			</c:when>
 			<c:otherwise>
-				<table width="100%" cellpadding="0" cellspacing="0"
-					class="datatable">
+				<table class="standard">
 					<tr id='beta_zeta'>
 						<td>
-							<table width="100%" cellpadding="0" cellspacing="0"
-								class="datatable">
+							<table class="standard">
 								<tr>
 									<td colspan='2' class='tab-subhead'>
 										<label for="selectedInvoiceDocumentNumber">Invoices</label>
@@ -116,10 +109,12 @@
 													property="invoiceApplications" indexId="ctr">
 												</logic:iterate>
 											</c:if>
-											<html:image property="methodToCall.goToInvoice"
-												src="${ConfigProperties.externalizable.images.url}tinybutton-load.gif"
-												alt="Go To Invoice" title="Go To Invoice"
-												styleClass="tinybutton" />
+											<html:submit
+													property="methodToCall.goToInvoice"
+													alt="Go To Invoice"
+													title="Go To Invoice"
+													styleClass="btn btn-default"
+													value="Load"/>
 										</c:if>
 									</td>
 								</tr>
@@ -128,18 +123,22 @@
 										<c:out value="Invoice ${KualiForm.selectedInvoiceDocumentNumber}" />
 										&nbsp;
 										<c:if test="${!empty KualiForm.previousInvoiceDocumentNumber}">
-											<html:image property="methodToCall.goToPreviousInvoice"
-												src="${ConfigProperties.externalizable.images.url}tinybutton-prev.gif"
-												alt="Go To Previous Invoice" title="Go To Previous Invoice"
-												styleClass="tinybutton" />
+											<html:submit
+													property="methodToCall.goToPreviousInvoice"
+													alt="Go To Previous Invoice"
+													title="Go To Previous Invoice"
+													styleClass="btn btn-default small"
+													value="prev"/>
 										</c:if>
 										<c:if
 											test="${!empty KualiForm.previousInvoiceDocumentNumber && !empty KualiForm.nextInvoiceDocumentNumber}">|</c:if>
 										<c:if test="${!empty KualiForm.nextInvoiceDocumentNumber}">
-											<html:image property="methodToCall.goToNextInvoice"
-												src="${ConfigProperties.externalizable.images.url}tinybutton-next.gif"
-												alt="Go To Next Invoice" title="Go To Next Invoice"
-												styleClass="tinybutton" />
+											<html:submit
+													property="methodToCall.goToNextInvoice"
+													alt="Go To Next Invoice"
+													title="Go To Next Invoice"
+													styleClass="btn btn-default small"
+													value="next"/>
 										</c:if>
 									</th>
 								</tr>
@@ -173,7 +172,7 @@
 															property="selectedInvoiceDocumentNumber" readOnly="true" />
 													</a>
 												</c:when>
-												<c:otherwise>								
+												<c:otherwise>
 														<kul:htmlControlAttribute
 															attributeEntry="${invoiceAttributes.organizationInvoiceNumber}"
 															property="selectedInvoiceDocumentNumber" readOnly="true" />
@@ -288,8 +287,8 @@
 																<td style="text-align: right;">
 																	<kul:htmlControlAttribute
 																		readOnly="${readOnly}"
-																		styleClass="amount" 
-																		disabled="${invoiceDetailApplication.fullApply || invoiceDetailApplication.invoiceQuickApplied}" 
+																		styleClass="amount"
+																		disabled="${invoiceDetailApplication.fullApply || invoiceDetailApplication.invoiceQuickApplied}"
 																		attributeEntry="${customerInvoiceDetailAttributes.amountApplied}"
 																		property="selectedInvoiceDetailApplications[${ctr}].amountApplied" />
 																</td>
@@ -298,8 +297,8 @@
 																		<center>
 																			<kul:htmlControlAttribute
 																				readOnly="${readOnly}"
-																				disabled="${invoiceDetailApplication.invoiceQuickApplied}" 
-																				attributeEntry="${customerInvoiceDetailAttributes.taxableIndicator}" 
+																				disabled="${invoiceDetailApplication.invoiceQuickApplied}"
+																				attributeEntry="${customerInvoiceDetailAttributes.taxableIndicator}"
 																				property="selectedInvoiceDetailApplications[${ctr}].fullApply" />
 																		</center>
 																	</td>
@@ -311,13 +310,16 @@
 												</td>
 											</tr>
 											<c:if test="${readOnly ne true}">
-											<tr>
-												<td style='text-align: right;' colspan='4'>
-													<html:image property="methodToCall.applyAllAmounts"
-														src="${ConfigProperties.externalizable.images.url}tinybutton-apply.gif"
-														alt="Apply" title="Apply" styleClass="tinybutton" />
-												</td>
-											</tr>
+												<tr>
+													<td style='text-align: right;' colspan='4'>
+														<html:submit
+																property="methodToCall.applyAllAmounts"
+																alt="Apply"
+																title="Apply"
+																styleClass="btn btn-default"
+																value="Apply"/>
+													</td>
+												</tr>
 											</c:if>
 										</table>
 									</td>

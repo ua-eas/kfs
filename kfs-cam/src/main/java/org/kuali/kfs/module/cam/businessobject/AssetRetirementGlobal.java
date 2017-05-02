@@ -1,37 +1,37 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cam.businessobject;
-
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.service.AccountingPeriodService;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.bo.GlobalBusinessObject;
+import org.kuali.kfs.krad.bo.GlobalBusinessObjectDetail;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
 import org.kuali.kfs.module.cam.document.service.AssetPaymentService;
@@ -45,23 +45,20 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.bo.DocumentHeader;
-import org.kuali.rice.krad.bo.GlobalBusinessObject;
-import org.kuali.rice.krad.bo.GlobalBusinessObjectDetail;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.KualiModuleService;
-import org.kuali.rice.krad.service.ModuleService;
-import org.kuali.rice.krad.util.ObjectUtils;
 import org.kuali.rice.location.api.LocationConstants;
 import org.kuali.rice.location.framework.country.CountryEbo;
 import org.kuali.rice.location.framework.postalcode.PostalCodeEbo;
 import org.kuali.rice.location.framework.state.StateEbo;
 
-/**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
- */
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 
 public class AssetRetirementGlobal extends PersistableBusinessObjectBase implements GlobalBusinessObject {
 
@@ -173,19 +170,16 @@ public class AssetRetirementGlobal extends PersistableBusinessObjectBase impleme
 
         if (retirementService.isAssetRetiredByTheft(this) && StringUtils.isNotBlank(this.getPaidCaseNumber())) {
             asset.setCampusPoliceDepartmentCaseNumber(this.getPaidCaseNumber());
-        }
-        else if (retirementService.isAssetRetiredBySold(this) || retirementService.isAssetRetiredByAuction(this)) {
+        } else if (retirementService.isAssetRetiredBySold(this) || retirementService.isAssetRetiredByAuction(this)) {
             asset.setRetirementChartOfAccountsCode(this.getRetirementChartOfAccountsCode());
             asset.setRetirementAccountNumber(this.getRetirementAccountNumber());
             asset.setCashReceiptFinancialDocumentNumber(this.getCashReceiptFinancialDocumentNumber());
             asset.setSalePrice(this.getSalePrice());
             asset.setEstimatedSellingPrice(this.getEstimatedSellingPrice());
-        }
-        else if (retirementService.isAssetRetiredByMerged(this)) {
+        } else if (retirementService.isAssetRetiredByMerged(this)) {
             asset.setTotalCostAmount(KualiDecimal.ZERO);
             asset.setSalvageAmount(KualiDecimal.ZERO);
-        }
-        else if (retirementService.isAssetRetiredByExternalTransferOrGift(this)) {
+        } else if (retirementService.isAssetRetiredByExternalTransferOrGift(this)) {
             persistables.add(setOffCampusLocationObjectsForPersist(asset));
         }
         asset.setLastInventoryDate(new Timestamp(SpringContext.getBean(DateTimeService.class).getCurrentSqlDate().getTime()));
@@ -590,24 +584,24 @@ public class AssetRetirementGlobal extends PersistableBusinessObjectBase impleme
      * @return Returns the postalZipCode
      */
     public PostalCodeEbo getPostalZipCode() {
-        if ( StringUtils.isBlank(retirementCountryCode) || StringUtils.isBlank(retirementZipCode) ) {
+        if (StringUtils.isBlank(retirementCountryCode) || StringUtils.isBlank(retirementZipCode)) {
             postalZipCode = null;
         } else {
-            if ( postalZipCode == null || !StringUtils.equals( postalZipCode.getCode(), retirementZipCode) || !StringUtils.equals(postalZipCode.getCountyCode(), KFSConstants.COUNTRY_CODE_UNITED_STATES ) ) {
+            if (postalZipCode == null || !StringUtils.equals(postalZipCode.getCode(), retirementZipCode) || !StringUtils.equals(postalZipCode.getCountyCode(), KFSConstants.COUNTRY_CODE_UNITED_STATES)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(PostalCodeEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(2);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(2);
                     keys.put(LocationConstants.PrimaryKeyConstants.COUNTRY_CODE, retirementCountryCode);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, retirementZipCode);
                     postalZipCode = moduleService.getExternalizableBusinessObject(PostalCodeEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
 
         return postalZipCode;
-      }
+    }
 
     /**
      * Sets the postalZipCode attribute.
@@ -853,17 +847,17 @@ public class AssetRetirementGlobal extends PersistableBusinessObjectBase impleme
      * @return Returns the retirementCountry.
      */
     public CountryEbo getRetirementCountry() {
-        if ( StringUtils.isBlank(retirementCountryCode) ) {
+        if (StringUtils.isBlank(retirementCountryCode)) {
             retirementCountry = null;
         } else {
-            if ( retirementCountry == null || !StringUtils.equals( retirementCountry.getCode(), retirementCountryCode) ) {
+            if (retirementCountry == null || !StringUtils.equals(retirementCountry.getCode(), retirementCountryCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(CountryEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(1);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(1);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, retirementCountryCode);
                     retirementCountry = moduleService.getExternalizableBusinessObject(CountryEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -887,18 +881,18 @@ public class AssetRetirementGlobal extends PersistableBusinessObjectBase impleme
      * @return Returns the retirementState.
      */
     public StateEbo getRetirementState() {
-        if ( StringUtils.isBlank(retirementStateCode) || StringUtils.isBlank(KFSConstants.COUNTRY_CODE_UNITED_STATES ) ) {
+        if (StringUtils.isBlank(retirementStateCode) || StringUtils.isBlank(KFSConstants.COUNTRY_CODE_UNITED_STATES)) {
             retirementState = null;
         } else {
-            if ( retirementState == null || !StringUtils.equals( retirementState.getCode(), retirementStateCode) || !StringUtils.equals(retirementState.getCountryCode(), KFSConstants.COUNTRY_CODE_UNITED_STATES ) ) {
+            if (retirementState == null || !StringUtils.equals(retirementState.getCode(), retirementStateCode) || !StringUtils.equals(retirementState.getCountryCode(), KFSConstants.COUNTRY_CODE_UNITED_STATES)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(StateEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(2);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(2);
                     keys.put(LocationConstants.PrimaryKeyConstants.COUNTRY_CODE, KFSConstants.COUNTRY_CODE_UNITED_STATES);/*RICE20_REFACTORME*/
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, retirementStateCode);
                     retirementState = moduleService.getExternalizableBusinessObject(StateEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -938,6 +932,7 @@ public class AssetRetirementGlobal extends PersistableBusinessObjectBase impleme
 
     /**
      * Get Posting Year
+     *
      * @return postingYear
      */
     public Integer getPostingYear() {
@@ -946,6 +941,7 @@ public class AssetRetirementGlobal extends PersistableBusinessObjectBase impleme
 
     /**
      * Set Posting year
+     *
      * @param postingYear
      */
     public void setPostingYear(Integer postingYear) {
@@ -954,10 +950,11 @@ public class AssetRetirementGlobal extends PersistableBusinessObjectBase impleme
 
     /**
      * Get the {@link AccountingPeriodService}
+     *
      * @return {@link AccountingPeriodService}
      */
     public static AccountingPeriodService getAccountingPeriodService() {
-        if ( accountingPeriodService == null ) {
+        if (accountingPeriodService == null) {
             accountingPeriodService = SpringContext.getBean(AccountingPeriodService.class);
         }
         return accountingPeriodService;
@@ -966,10 +963,11 @@ public class AssetRetirementGlobal extends PersistableBusinessObjectBase impleme
 
     /**
      * Creates a composite of postingPeriodCode and postingyear.
+     *
      * @return composite or an empty string if either postingPeriodCode or postingYear is null
      */
     public String getAccountingPeriodCompositeString() {
-        if (postingPeriodCode== null || postingYear == null ) {
+        if (postingPeriodCode == null || postingYear == null) {
             return "";
         }
         return postingPeriodCode + postingYear;
@@ -977,8 +975,8 @@ public class AssetRetirementGlobal extends PersistableBusinessObjectBase impleme
 
     /**
      * Sets the accountingPeriod if in period 13
-     * @param accountingPeriodString
-     * TODO remove hardcoding
+     *
+     * @param accountingPeriodString TODO remove hardcoding
      */
     public void setAccountingPeriodCompositeString(String accountingPeriodString) {
         String THIRTEEN = "13";
@@ -992,6 +990,7 @@ public class AssetRetirementGlobal extends PersistableBusinessObjectBase impleme
 
     /**
      * Get the posting period code
+     *
      * @return postingPeriodCode
      */
     public String getPostingPeriodCode() {
@@ -1000,6 +999,7 @@ public class AssetRetirementGlobal extends PersistableBusinessObjectBase impleme
 
     /**
      * Set the posting period code
+     *
      * @param postingPeriodCode
      */
     public void setPostingPeriodCode(String postingPeriodCode) {
@@ -1008,11 +1008,12 @@ public class AssetRetirementGlobal extends PersistableBusinessObjectBase impleme
 
     /**
      * Set postingYear and postingPeriodCode
+     *
      * @param accountingPeriod
      */
     public void setAccountingPeriod(AccountingPeriod accountingPeriod) {
         this.accountingPeriod = accountingPeriod;
-        if(ObjectUtils.isNotNull(accountingPeriod)) {
+        if (ObjectUtils.isNotNull(accountingPeriod)) {
             setPostingYear(accountingPeriod.getUniversityFiscalYear());
             setPostingPeriodCode(accountingPeriod.getUniversityFiscalPeriodCode());
         }
@@ -1020,6 +1021,7 @@ public class AssetRetirementGlobal extends PersistableBusinessObjectBase impleme
 
     /**
      * get the accountingPeriod
+     *
      * @return accountingPeriod
      */
     public AccountingPeriod getAccountingPeriod() {

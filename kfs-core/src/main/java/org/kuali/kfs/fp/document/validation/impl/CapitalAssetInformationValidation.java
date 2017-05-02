@@ -1,29 +1,30 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import java.util.List;
-
 import org.kuali.kfs.fp.businessobject.CapitalAssetAccountsGroupDetails;
 import org.kuali.kfs.fp.businessobject.CapitalAssetInformation;
 import org.kuali.kfs.fp.document.CapitalAssetEditable;
-import org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService;
+import org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -34,9 +35,8 @@ import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.MessageMap;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.util.List;
 
 /**
  * validate the capital asset information associated with the accounting document for validation
@@ -44,7 +44,7 @@ import org.kuali.rice.krad.util.ObjectUtils;
 public class CapitalAssetInformationValidation extends GenericValidation {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CapitalAssetInformationValidation.class);
 
-    private CapitalAssetBuilderModuleService capitalAssetBuilderModuleService = SpringContext.getBean(CapitalAssetBuilderModuleService.class);
+    private CapitalAssetManagementModuleService capitalAssetManagementModuleService = SpringContext.getBean(CapitalAssetManagementModuleService.class);
     private AccountingDocument accountingDocumentForValidation;
 
     /**
@@ -52,7 +52,7 @@ public class CapitalAssetInformationValidation extends GenericValidation {
      */
     @Override
     public boolean validate(AttributedDocumentEvent event) {
-        boolean valid = true ;
+        boolean valid = true;
 
         //check if accounting lines have been distributed to capital assets..
         valid &= accountingLinesDisributedToCapitalAssets(accountingDocumentForValidation);
@@ -105,8 +105,8 @@ public class CapitalAssetInformationValidation extends GenericValidation {
 
         int accountIndex = 0;
 
-        for (SourceAccountingLine sourceAccount : sourceAccountLines)  {
-            if (capitalAssetBuilderModuleService.hasCapitalAssetObjectSubType(sourceAccount)) {
+        for (SourceAccountingLine sourceAccount : sourceAccountLines) {
+            if (capitalAssetManagementModuleService.hasCapitalAssetObjectSubType(sourceAccount)) {
                 //capital object code so we need to check capital asset info...
                 //check if this sourceAccount does exist in any one capital assets....
                 if (!checkSourceDistributedAccountingLineExists(sourceAccount, capitalAssets)) {
@@ -123,9 +123,9 @@ public class CapitalAssetInformationValidation extends GenericValidation {
         List<TargetAccountingLine> targetAccountLines = accountingDocument.getTargetAccountingLines();
 
         accountIndex = 0;
-        for (TargetAccountingLine targetAccount : targetAccountLines)  {
+        for (TargetAccountingLine targetAccount : targetAccountLines) {
             //check if this targetAccount does exist in any one capital assets....
-            if (capitalAssetBuilderModuleService.hasCapitalAssetObjectSubType(targetAccount)) {
+            if (capitalAssetManagementModuleService.hasCapitalAssetObjectSubType(targetAccount)) {
                 //capital object code so we need to check capital asset info...
                 //check if this sourceAccount does exist in any one capital assets....
                 if (!checkTargetDistributedAccountingLineExists(targetAccount, capitalAssets)) {
@@ -156,10 +156,10 @@ public class CapitalAssetInformationValidation extends GenericValidation {
         for (CapitalAssetInformation capitalAsset : capitalAssets) {
             for (CapitalAssetAccountsGroupDetails groupAccountLine : capitalAsset.getCapitalAssetAccountsGroupDetails()) {
                 if (groupAccountLine.getSequenceNumber().compareTo(accountLine.getSequenceNumber()) == 0 &&
-                        groupAccountLine.getFinancialDocumentLineTypeCode().equals(accountLine.getFinancialDocumentLineTypeCode()) &&
-                        groupAccountLine.getChartOfAccountsCode().equals(accountLine.getChartOfAccountsCode()) &&
-                        groupAccountLine.getAccountNumber().equals(accountLine.getAccountNumber()) &&
-                        groupAccountLine.getFinancialObjectCode().equals(accountLine.getFinancialObjectCode())) {
+                    groupAccountLine.getFinancialDocumentLineTypeCode().equals(accountLine.getFinancialDocumentLineTypeCode()) &&
+                    groupAccountLine.getChartOfAccountsCode().equals(accountLine.getChartOfAccountsCode()) &&
+                    groupAccountLine.getAccountNumber().equals(accountLine.getAccountNumber()) &&
+                    groupAccountLine.getFinancialObjectCode().equals(accountLine.getFinancialObjectCode())) {
                     return true;
                 }
             }
@@ -182,10 +182,10 @@ public class CapitalAssetInformationValidation extends GenericValidation {
         for (CapitalAssetInformation capitalAsset : capitalAssets) {
             for (CapitalAssetAccountsGroupDetails groupAccountLine : capitalAsset.getCapitalAssetAccountsGroupDetails()) {
                 if (groupAccountLine.getSequenceNumber().compareTo(accountLine.getSequenceNumber()) == 0 &&
-                        groupAccountLine.getFinancialDocumentLineTypeCode().equals(accountLine.getFinancialDocumentLineTypeCode()) &&
-                        groupAccountLine.getChartOfAccountsCode().equals(accountLine.getChartOfAccountsCode()) &&
-                        groupAccountLine.getAccountNumber().equals(accountLine.getAccountNumber()) &&
-                        groupAccountLine.getFinancialObjectCode().equals(accountLine.getFinancialObjectCode())) {
+                    groupAccountLine.getFinancialDocumentLineTypeCode().equals(accountLine.getFinancialDocumentLineTypeCode()) &&
+                    groupAccountLine.getChartOfAccountsCode().equals(accountLine.getChartOfAccountsCode()) &&
+                    groupAccountLine.getAccountNumber().equals(accountLine.getAccountNumber()) &&
+                    groupAccountLine.getFinancialObjectCode().equals(accountLine.getFinancialObjectCode())) {
                     return true;
                 }
             }
@@ -214,7 +214,7 @@ public class CapitalAssetInformationValidation extends GenericValidation {
                 String errorPathPrefix = KFSPropertyConstants.CAPITAL_ASSET_INFORMATION + "[" + index + "].";
                 errors.addToErrorPath(errorPathPrefix);
 
-                isValid &= capitalAssetBuilderModuleService.validateFinancialProcessingData(accountingDocument, capitalAssetInformation, index);
+                isValid &= capitalAssetManagementModuleService.validateFinancialProcessingData(accountingDocument, capitalAssetInformation, index);
 
                 errors.removeFromErrorPath(errorPathPrefix);
                 errors.removeFromErrorPath(KFSPropertyConstants.DOCUMENT);
@@ -222,7 +222,7 @@ public class CapitalAssetInformationValidation extends GenericValidation {
             }
         }
 
-        isValid &= capitalAssetBuilderModuleService.validateAssetTags(accountingDocument);
+        isValid &= capitalAssetManagementModuleService.validateAssetTags(accountingDocument);
 
         return isValid;
     }
@@ -254,18 +254,18 @@ public class CapitalAssetInformationValidation extends GenericValidation {
             String errorPathPrefix = KFSPropertyConstants.DOCUMENT + "." + KFSPropertyConstants.CAPITAL_ASSET_INFORMATION + "[" + index + "]." + KFSPropertyConstants.CAPITAL_ASSET_NUMBER;
 
             if (!checkAccountingLineExists(accountingDocument, capitalAsset, errorPathPrefix)) {
-              //  MessageMap errors = GlobalVariables.getMessageMap();
-              //  errors.addToErrorPath(KFSPropertyConstants.DOCUMENT);
-              //  String parentName = (capitalAsset.getCapitalAssetActionIndicator().equalsIgnoreCase(KFSConstants.CapitalAssets.CAPITAL_ASSET_CREATE_ACTION_INDICATOR) ? KFSPropertyConstants.CAPITAL_ASSET_INFORMATION :  KFSPropertyConstants.CAPITAL_ASSET_MODIFY_INFORMATION);
-             //   errors.addToErrorPath(parentName);
-             //   String errorPathPrefix = KFSPropertyConstants.CAPITAL_ASSET_INFORMATION + "[" + index + "].";
-             //   errors.addToErrorPath(errorPathPrefix);
+                //  MessageMap errors = GlobalVariables.getMessageMap();
+                //  errors.addToErrorPath(KFSPropertyConstants.DOCUMENT);
+                //  String parentName = (capitalAsset.getCapitalAssetActionIndicator().equalsIgnoreCase(KFSConstants.CapitalAssets.CAPITAL_ASSET_CREATE_ACTION_INDICATOR) ? KFSPropertyConstants.CAPITAL_ASSET_INFORMATION :  KFSPropertyConstants.CAPITAL_ASSET_MODIFY_INFORMATION);
+                //   errors.addToErrorPath(parentName);
+                //   String errorPathPrefix = KFSPropertyConstants.CAPITAL_ASSET_INFORMATION + "[" + index + "].";
+                //   errors.addToErrorPath(errorPathPrefix);
                 //account does not exist so put out an error message and get out.
-             //   GlobalVariables.getMessageMap().putErrorWithoutFullErrorPath(errorPathPrefix, KFSKeyConstants.ERROR_ASSET_ACCOUNT_NUMBER_LINE_NOT_IN_SOURCE_OR_TARGET_ACCOUNTING_LINES, accountNumber);
+                //   GlobalVariables.getMessageMap().putErrorWithoutFullErrorPath(errorPathPrefix, KFSKeyConstants.ERROR_ASSET_ACCOUNT_NUMBER_LINE_NOT_IN_SOURCE_OR_TARGET_ACCOUNTING_LINES, accountNumber);
 
-              // errors.removeFromErrorPath(errorPathPrefix);
-              //  errors.removeFromErrorPath(parentName);
-              //  errors.removeFromErrorPath(KFSPropertyConstants.DOCUMENT);
+                // errors.removeFromErrorPath(errorPathPrefix);
+                //  errors.removeFromErrorPath(parentName);
+                //  errors.removeFromErrorPath(KFSPropertyConstants.DOCUMENT);
                 index++;
                 distributed = false;
 
@@ -290,7 +290,7 @@ public class CapitalAssetInformationValidation extends GenericValidation {
         boolean exists = true;
 
         List<CapitalAssetAccountsGroupDetails> groupAccounts = capitalAsset.getCapitalAssetAccountsGroupDetails();
-        for (CapitalAssetAccountsGroupDetails groupAccount: groupAccounts) {
+        for (CapitalAssetAccountsGroupDetails groupAccount : groupAccounts) {
             if (!accountLineExists(accountingDocument, groupAccount)) {
                 //this account is not found in source/target accounts list...
                 GlobalVariables.getMessageMap().putErrorWithoutFullErrorPath(errorPathPrefix, KFSKeyConstants.ERROR_ASSET_ACCOUNT_NUMBER_LINE_NOT_IN_SOURCE_OR_TARGET_ACCOUNTING_LINES, groupAccount.getAccountNumber());
@@ -302,7 +302,6 @@ public class CapitalAssetInformationValidation extends GenericValidation {
     }
 
     /**
-     *
      * @param accountingDocument
      * @param groupAccount
      * @return true if capital asset account exists in source/target lines else return false
@@ -311,23 +310,23 @@ public class CapitalAssetInformationValidation extends GenericValidation {
         boolean exists = false;
 
         List<SourceAccountingLine> sourceAccountLines = accountingDocument.getSourceAccountingLines();
-        for (SourceAccountingLine sourceAccount : sourceAccountLines)  {
+        for (SourceAccountingLine sourceAccount : sourceAccountLines) {
             if (groupAccountLine.getSequenceNumber().compareTo(sourceAccount.getSequenceNumber()) == 0 &&
-                    groupAccountLine.getFinancialDocumentLineTypeCode().equals(sourceAccount.getFinancialDocumentLineTypeCode()) &&
-                    groupAccountLine.getChartOfAccountsCode().equals(sourceAccount.getChartOfAccountsCode()) &&
-                    groupAccountLine.getAccountNumber().equals(sourceAccount.getAccountNumber()) &&
-                    groupAccountLine.getFinancialObjectCode().equals(sourceAccount.getFinancialObjectCode())) {
+                groupAccountLine.getFinancialDocumentLineTypeCode().equals(sourceAccount.getFinancialDocumentLineTypeCode()) &&
+                groupAccountLine.getChartOfAccountsCode().equals(sourceAccount.getChartOfAccountsCode()) &&
+                groupAccountLine.getAccountNumber().equals(sourceAccount.getAccountNumber()) &&
+                groupAccountLine.getFinancialObjectCode().equals(sourceAccount.getFinancialObjectCode())) {
                 return true;
             }
         }
 
         List<TargetAccountingLine> targetAccountLines = accountingDocument.getTargetAccountingLines();
-        for (TargetAccountingLine targetAccount : targetAccountLines)  {
+        for (TargetAccountingLine targetAccount : targetAccountLines) {
             if (groupAccountLine.getSequenceNumber().compareTo(targetAccount.getSequenceNumber()) == 0 &&
-                    groupAccountLine.getFinancialDocumentLineTypeCode().equals(targetAccount.getFinancialDocumentLineTypeCode()) &&
-                    groupAccountLine.getChartOfAccountsCode().equals(targetAccount.getChartOfAccountsCode()) &&
-                    groupAccountLine.getAccountNumber().equals(targetAccount.getAccountNumber()) &&
-                    groupAccountLine.getFinancialObjectCode().equals(targetAccount.getFinancialObjectCode())) {
+                groupAccountLine.getFinancialDocumentLineTypeCode().equals(targetAccount.getFinancialDocumentLineTypeCode()) &&
+                groupAccountLine.getChartOfAccountsCode().equals(targetAccount.getChartOfAccountsCode()) &&
+                groupAccountLine.getAccountNumber().equals(targetAccount.getAccountNumber()) &&
+                groupAccountLine.getFinancialObjectCode().equals(targetAccount.getFinancialObjectCode())) {
                 return true;
             }
         }
@@ -347,7 +346,7 @@ public class CapitalAssetInformationValidation extends GenericValidation {
     protected boolean amountsForCapitalAssetsAndAccountLinesMatch(AccountingDocument accountingDocument) {
         LOG.debug("amountsForCapitalAssetsAndAccountLinesMatch(accountingDocument) - start");
 
-        boolean amountMatch = true ;
+        boolean amountMatch = true;
 
         if (accountingDocument instanceof CapitalAssetEditable == false) {
             return true;
@@ -359,8 +358,8 @@ public class CapitalAssetInformationValidation extends GenericValidation {
         int accountIndex = 0;
 
         List<SourceAccountingLine> sourceAccountLines = accountingDocument.getSourceAccountingLines();
-        for (SourceAccountingLine sourceAccount : sourceAccountLines)  {
-            if (capitalAssetBuilderModuleService.hasCapitalAssetObjectSubType(sourceAccount)) {
+        for (SourceAccountingLine sourceAccount : sourceAccountLines) {
+            if (capitalAssetManagementModuleService.hasCapitalAssetObjectSubType(sourceAccount)) {
                 //capital object code so we need to check capital asset info...
                 //check if this sourceAccount amount match from accounting lines in capital assets....
                 KualiDecimal distributedAmount = getSourceDistributedTotalAmount(sourceAccount, capitalAssets);
@@ -378,9 +377,9 @@ public class CapitalAssetInformationValidation extends GenericValidation {
 
         accountIndex = 0;
         List<TargetAccountingLine> targetAccountLines = accountingDocument.getTargetAccountingLines();
-        for (TargetAccountingLine targetAccount : targetAccountLines)  {
+        for (TargetAccountingLine targetAccount : targetAccountLines) {
             //check if this targetAccount does exist in any one capital assets....
-            if (capitalAssetBuilderModuleService.hasCapitalAssetObjectSubType(targetAccount)) {
+            if (capitalAssetManagementModuleService.hasCapitalAssetObjectSubType(targetAccount)) {
                 //capital object code so we need to check capital asset info...
                 //check if this sourceAccount amount match from accounting lines in capital assets....
                 KualiDecimal distributedAmount = getTargetDistributedTotalAmount(targetAccount, capitalAssets);
@@ -414,10 +413,10 @@ public class CapitalAssetInformationValidation extends GenericValidation {
         for (CapitalAssetInformation capitalAsset : capitalAssets) {
             for (CapitalAssetAccountsGroupDetails groupAccountLine : capitalAsset.getCapitalAssetAccountsGroupDetails()) {
                 if (groupAccountLine.getSequenceNumber().compareTo(accountLine.getSequenceNumber()) == 0 &&
-                        groupAccountLine.getFinancialDocumentLineTypeCode().equals(accountLine.getFinancialDocumentLineTypeCode()) &&
-                        groupAccountLine.getChartOfAccountsCode().equals(accountLine.getChartOfAccountsCode()) &&
-                        groupAccountLine.getAccountNumber().equals(accountLine.getAccountNumber()) &&
-                        groupAccountLine.getFinancialObjectCode().equals(accountLine.getFinancialObjectCode())) {
+                    groupAccountLine.getFinancialDocumentLineTypeCode().equals(accountLine.getFinancialDocumentLineTypeCode()) &&
+                    groupAccountLine.getChartOfAccountsCode().equals(accountLine.getChartOfAccountsCode()) &&
+                    groupAccountLine.getAccountNumber().equals(accountLine.getAccountNumber()) &&
+                    groupAccountLine.getFinancialObjectCode().equals(accountLine.getFinancialObjectCode())) {
                     amount = amount.add(groupAccountLine.getAmount());
                 }
             }
@@ -441,10 +440,10 @@ public class CapitalAssetInformationValidation extends GenericValidation {
         for (CapitalAssetInformation capitalAsset : capitalAssets) {
             for (CapitalAssetAccountsGroupDetails groupAccountLine : capitalAsset.getCapitalAssetAccountsGroupDetails()) {
                 if (groupAccountLine.getSequenceNumber().compareTo(accountLine.getSequenceNumber()) == 0 &&
-                        groupAccountLine.getFinancialDocumentLineTypeCode().equals(accountLine.getFinancialDocumentLineTypeCode()) &&
-                        groupAccountLine.getChartOfAccountsCode().equals(accountLine.getChartOfAccountsCode()) &&
-                        groupAccountLine.getAccountNumber().equals(accountLine.getAccountNumber()) &&
-                        groupAccountLine.getFinancialObjectCode().equals(accountLine.getFinancialObjectCode())) {
+                    groupAccountLine.getFinancialDocumentLineTypeCode().equals(accountLine.getFinancialDocumentLineTypeCode()) &&
+                    groupAccountLine.getChartOfAccountsCode().equals(accountLine.getChartOfAccountsCode()) &&
+                    groupAccountLine.getAccountNumber().equals(accountLine.getAccountNumber()) &&
+                    groupAccountLine.getFinancialObjectCode().equals(accountLine.getFinancialObjectCode())) {
                     amount = amount.add(groupAccountLine.getAmount());
                 }
             }
@@ -505,7 +504,7 @@ public class CapitalAssetInformationValidation extends GenericValidation {
         KualiDecimal distributedAccountLinesAmount = new KualiDecimal(0);
 
         List<CapitalAssetAccountsGroupDetails> groupAccounts = capitalAsset.getCapitalAssetAccountsGroupDetails();
-        for (CapitalAssetAccountsGroupDetails groupAccount: groupAccounts) {
+        for (CapitalAssetAccountsGroupDetails groupAccount : groupAccounts) {
             distributedAccountLinesAmount = distributedAccountLinesAmount.add(groupAccount.getAmount());
         }
 

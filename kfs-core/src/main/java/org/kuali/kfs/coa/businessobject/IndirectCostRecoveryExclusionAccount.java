@@ -1,32 +1,30 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.coa.businessobject;
 
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
 import java.util.LinkedHashMap;
 
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 
-/**
- * 
- */
 public class IndirectCostRecoveryExclusionAccount extends PersistableBusinessObjectBase implements MutableInactivatable {
 
     private String chartOfAccountsCode;
@@ -37,7 +35,7 @@ public class IndirectCostRecoveryExclusionAccount extends PersistableBusinessObj
     private Account account;
     private Chart financialObjectChartOfAccount;
     private ObjectCode objectCodeCurrent;
-    private boolean active; 
+    private boolean active;
 
     public IndirectCostRecoveryExclusionAccount() {
         super();
@@ -45,7 +43,7 @@ public class IndirectCostRecoveryExclusionAccount extends PersistableBusinessObj
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode
      */
     public String getChartOfAccountsCode() {
@@ -54,7 +52,7 @@ public class IndirectCostRecoveryExclusionAccount extends PersistableBusinessObj
 
     /**
      * Sets the chartOfAccountsCode attribute.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -64,7 +62,7 @@ public class IndirectCostRecoveryExclusionAccount extends PersistableBusinessObj
 
     /**
      * Gets the accountNumber attribute.
-     * 
+     *
      * @return Returns the accountNumber
      */
     public String getAccountNumber() {
@@ -73,7 +71,7 @@ public class IndirectCostRecoveryExclusionAccount extends PersistableBusinessObj
 
     /**
      * Sets the accountNumber attribute.
-     * 
+     *
      * @param accountNumber The accountNumber to set.
      */
     public void setAccountNumber(String accountNumber) {
@@ -83,7 +81,7 @@ public class IndirectCostRecoveryExclusionAccount extends PersistableBusinessObj
 
     /**
      * Gets the financialObjectChartOfAccountCode attribute.
-     * 
+     *
      * @return Returns the financialObjectChartOfAccountCode
      */
     public String getFinancialObjectChartOfAccountCode() {
@@ -92,7 +90,7 @@ public class IndirectCostRecoveryExclusionAccount extends PersistableBusinessObj
 
     /**
      * Sets the financialObjectChartOfAccountCode attribute.
-     * 
+     *
      * @param financialObjectChartOfAccountCode The financialObjectChartOfAccountCode to set.
      */
     public void setFinancialObjectChartOfAccountCode(String financialObjectChartOfAccountCode) {
@@ -102,7 +100,7 @@ public class IndirectCostRecoveryExclusionAccount extends PersistableBusinessObj
 
     /**
      * Gets the financialObjectCode attribute.
-     * 
+     *
      * @return Returns the financialObjectCode
      */
     public String getFinancialObjectCode() {
@@ -111,7 +109,7 @@ public class IndirectCostRecoveryExclusionAccount extends PersistableBusinessObj
 
     /**
      * Sets the financialObjectCode attribute.
-     * 
+     *
      * @param financialObjectCode The financialObjectCode to set.
      */
     public void setFinancialObjectCode(String financialObjectCode) {
@@ -121,7 +119,7 @@ public class IndirectCostRecoveryExclusionAccount extends PersistableBusinessObj
 
     /**
      * Gets the chart attribute.
-     * 
+     *
      * @return Returns the chart
      */
     public Chart getChart() {
@@ -130,7 +128,7 @@ public class IndirectCostRecoveryExclusionAccount extends PersistableBusinessObj
 
     /**
      * Sets the chart attribute.
-     * 
+     *
      * @param chart The chart to set.
      * @deprecated
      */
@@ -140,7 +138,7 @@ public class IndirectCostRecoveryExclusionAccount extends PersistableBusinessObj
 
     /**
      * Gets the account attribute.
-     * 
+     *
      * @return Returns the account
      */
     public Account getAccount() {
@@ -149,7 +147,7 @@ public class IndirectCostRecoveryExclusionAccount extends PersistableBusinessObj
 
     /**
      * Sets the account attribute.
-     * 
+     *
      * @param account The account to set.
      * @deprecated
      */
@@ -159,7 +157,7 @@ public class IndirectCostRecoveryExclusionAccount extends PersistableBusinessObj
 
     /**
      * Gets the financialObjectChartOfAccount attribute.
-     * 
+     *
      * @return Returns the financialObjectChartOfAccount
      */
     public Chart getFinancialObjectChartOfAccount() {
@@ -168,7 +166,7 @@ public class IndirectCostRecoveryExclusionAccount extends PersistableBusinessObj
 
     /**
      * Sets the financialObjectChartOfAccount attribute.
-     * 
+     *
      * @param financialObjectChartOfAccount The financialObjectChartOfAccount to set.
      * @deprecated
      */
@@ -190,7 +188,7 @@ public class IndirectCostRecoveryExclusionAccount extends PersistableBusinessObj
     public void setObjectCodeCurrent(ObjectCode objectCodeCurrent) {
         this.objectCodeCurrent = objectCodeCurrent;
     }
-    
+
     /**
      * @return Returns whether the objectCode is active.
      */
@@ -201,7 +199,7 @@ public class IndirectCostRecoveryExclusionAccount extends PersistableBusinessObj
     /**
      * @param active Set if the record is active.
      */
-     
+
     public void setActive(boolean active) {
         this.active = active;
     }

@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -20,7 +20,7 @@
 
 <%@ attribute name="overrideTitle" required="false"
 	description="The title to be used for this section." %>
-<%@ attribute name="documentAttributes" required="false" type="java.util.Map" 
+<%@ attribute name="documentAttributes" required="false" type="java.util.Map"
 	description="The DataDictionary entry containing attributes for this row's fields." %>
 <%@ attribute name="itemAttributes" required="true" type="java.util.Map"
 	description="The DataDictionary entry containing attributes for this row's fields."%>
@@ -52,17 +52,29 @@
 		<c:set var="isOpen" value="${currentTab == 'OPEN'}" />
 	</c:when>
 </c:choose>
-	
+
 <tr>
 	<td colspan="${mainColumnCount}" class="subhead">
 		<span class="subhead-left"><c:out value="${overrideTitle}" /> &nbsp;</span>
 		<c:if test="${isOpen == 'true' || isOpen == 'TRUE'}">
-			<html:image property="methodToCall.toggleTab.tab${tabKey}" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-hide.gif" alt="hide" title="toggle" styleClass="tinybutton" styleId="tab-${tabKey}-imageToggle"
-				onclick="javascript: return toggleTab(document, '${tabKey}'); " />
+			<html:button
+					property="methodToCall.toggleTab.tab${tabKey}"
+					alt="hide"
+					title="toggle"
+					styleClass="btn btn-default small"
+					styleId="tab-${tabKey}-imageToggle"
+					onclick="javascript: return toggleTab(document, '${tabKey}'); "
+					value="Hide"/>
 		</c:if>
 		<c:if test="${isOpen != 'true' && isOpen != 'TRUE'}">
-			<html:image property="methodToCall.toggleTab.tab${tabKey}" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-show.gif" alt="show" title="toggle" styleClass="tinybutton" styleId="tab-${tabKey}-imageToggle"
-				onclick="javascript: return toggleTab(document, '${tabKey}'); " />
+			<html:button
+					property="methodToCall.toggleTab.tab${tabKey}"
+					alt="show"
+					title="toggle"
+					styleClass="btn btn-default small"
+					styleId="tab-${tabKey}-imageToggle"
+					onclick="javascript: return toggleTab(document, '${tabKey}'); "
+					value="Show"/>
 		</c:if>
 	</td>
 </tr>
@@ -73,9 +85,9 @@
 
 <tr>
 	<kul:htmlAttributeHeaderCell colspan="${colSpanItemType + 4}"
-		attributeEntry="${itemAttributes.itemTypeCode}" />	
+		attributeEntry="${itemAttributes.itemTypeCode}" />
 	<kul:htmlAttributeHeaderCell colspan="${colSpanExtendedPrice}"
-		attributeEntry="${itemAttributes.extendedPrice}" />	
+		attributeEntry="${itemAttributes.extendedPrice}" />
 	<c:if test="${colSpanBlank > 0}">
 		<th colspan="${colSpanBlank}">&nbsp;</th>
 	</c:if>
@@ -89,27 +101,23 @@
 			<kul:htmlControlAttribute
 				attributeEntry="${itemAttributes.itemTypeCode}"
 				property="document.item[${ctr}].itemType.itemTypeDescription"
-				readOnly="true" /> 
+				readOnly="true" />
 		</tr>
 		<tr>
-			<td class="infoline" colspan="${colSpanItemType + 4}">
-			    <div align="right">
-			        <kul:htmlControlAttribute attributeEntry="${itemAttributes.itemTypeCode}" property="document.item[${ctr}].itemType.itemTypeDescription" readOnly="true" />:&nbsp;
-			    </div>
+			<td class="infoline right" colspan="${colSpanItemType + 4}">
+				<kul:htmlControlAttribute attributeEntry="${itemAttributes.itemTypeCode}" property="document.item[${ctr}].itemType.itemTypeDescription" readOnly="true" />:&nbsp;
 			</td>
-			<td class="infoline" colspan="${colSpanExtendedPrice}">
-				<div align="right">
-					<kul:htmlControlAttribute attributeEntry="${itemAttributes.itemUnitPrice}" property="document.item[${ctr}].itemUnitPrice" readOnly="true" styleClass="amount" />
-				</div>
+			<td class="infoline right" colspan="${colSpanExtendedPrice}">
+				<kul:htmlControlAttribute attributeEntry="${itemAttributes.itemUnitPrice}" property="document.item[${ctr}].itemUnitPrice" readOnly="true" styleClass="amount" />
 			</td>
-			<c:if test="${colSpanBlank > 0}">					
+			<c:if test="${colSpanBlank > 0}">
 			<td colspan="${colSpanBlank}" class="infoline">
 				&nbsp;
-			</td>					
-			</c:if>								
-		</tr>	
+			</td>
+			</c:if>
+		</tr>
 		<c:if test="${empty KualiForm.editingMode['allowItemEntry'] || !empty itemLine.itemExtendedPrice}">
-		    <purap:purapGeneralAccounting 
+		    <purap:purapGeneralAccounting
 			    accountPrefix="document.item[${ctr}]."
 			    itemColSpan="${mainColumnCount}" />
 		</c:if>

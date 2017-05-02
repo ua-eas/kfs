@@ -1,0 +1,65 @@
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<data xmlns="ns:workflow" xsi:schemaLocation="ns:workflow resource:WorkflowData" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <documentTypes xmlns="ns:workflow/DocumentType" xsi:schemaLocation="ns:workflow/DocumentType resource:DocumentType">
+        <documentType>
+            <name>
+                CLOS
+            </name>
+            <parent>
+                CG
+            </parent>
+            <label>
+                Proposal/Award Close
+            </label>
+            <docHandler>
+                ${kfs.url}/cgProposalAwardClose.do?methodToCall=docHandler
+            </docHandler>
+            <helpDefinitionURL>
+                default.htm?turl=WordDocuments%2Fproposalawardclose.htm
+            </helpDefinitionURL>
+            <active>
+                true
+            </active>
+            <routingVersion>
+                2
+            </routingVersion>
+            <routePaths>
+                <routePath>
+                    <start name="AdHoc" nextNode="Unprocessed"/>
+                    <role name="Unprocessed" nextNode="Management"/>
+                    <role name="Management"/>
+                </routePath>
+            </routePaths>
+            <routeNodes>
+                <start name="AdHoc"/>
+                <role name="Unprocessed">
+                    <qualifierResolverClass>
+                        org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
+                    </qualifierResolverClass>
+                </role>
+                <role name="Management">
+                    <qualifierResolverClass>
+                        org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
+                    </qualifierResolverClass>
+                </role>
+            </routeNodes>
+        </documentType>
+    </documentTypes>
+</data>

@@ -1,31 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.fp.businessobject;
 
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.sys.businessobject.OriginationCode;
+
 import java.util.LinkedHashMap;
 
-import org.kuali.kfs.sys.businessobject.OriginationCode;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
-
 /**
- * This class is used to represent a "message of the day" object.  These messages are displayed on the associated 
+ * This class is used to represent a "message of the day" object.  These messages are displayed on the associated
  * portal page and may contain phrases, informational messages or any other message deemed worthy.
  */
 public class MessageOfTheDay extends PersistableBusinessObjectBase {
@@ -44,7 +44,7 @@ public class MessageOfTheDay extends PersistableBusinessObjectBase {
 
     /**
      * Gets the financialSystemOriginationCode attribute.
-     * 
+     *
      * @return Returns the financialSystemOriginationCode
      */
     public String getFinancialSystemOriginationCode() {
@@ -53,7 +53,7 @@ public class MessageOfTheDay extends PersistableBusinessObjectBase {
 
     /**
      * Sets the financialSystemOriginationCode attribute.
-     * 
+     *
      * @param financialSystemOriginationCode The financialSystemOriginationCode to set.
      */
     public void setFinancialSystemOriginationCode(String financialSystemOriginationCode) {
@@ -63,7 +63,7 @@ public class MessageOfTheDay extends PersistableBusinessObjectBase {
 
     /**
      * Gets the financialSystemMessageOfTheDayText attribute.
-     * 
+     *
      * @return Returns the financialSystemMessageOfTheDayText
      */
     public String getFinancialSystemMessageOfTheDayText() {
@@ -72,7 +72,7 @@ public class MessageOfTheDay extends PersistableBusinessObjectBase {
 
     /**
      * Sets the financialSystemMessageOfTheDayText attribute.
-     * 
+     *
      * @param financialSystemMessageOfTheDayText The financialSystemMessageOfTheDayText to set.
      */
     public void setFinancialSystemMessageOfTheDayText(String financialSystemMessageOfTheDayText) {
@@ -81,7 +81,7 @@ public class MessageOfTheDay extends PersistableBusinessObjectBase {
 
     /**
      * Gets the financialSystemOrigination attribute.
-     * 
+     *
      * @return Returns the financialSystemOrigination.
      */
     public OriginationCode getFinancialSystemOrigination() {
@@ -90,7 +90,7 @@ public class MessageOfTheDay extends PersistableBusinessObjectBase {
 
     /**
      * Sets the financialSystemOrigination attribute value.
-     * 
+     *
      * @param financialSystemOrigination The financialSystemOrigination to set.
      * @deprecated
      */

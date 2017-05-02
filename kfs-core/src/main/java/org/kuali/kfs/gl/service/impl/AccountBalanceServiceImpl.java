@@ -1,27 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.service.impl;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.collections.IteratorUtils;
 import org.kuali.kfs.coa.service.ObjectTypeService;
@@ -30,6 +25,7 @@ import org.kuali.kfs.gl.OJBUtility;
 import org.kuali.kfs.gl.businessobject.AccountBalance;
 import org.kuali.kfs.gl.dataaccess.AccountBalanceDao;
 import org.kuali.kfs.gl.service.AccountBalanceService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.kfs.sys.businessobject.UniversityDate;
@@ -37,8 +33,12 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.OptionsService;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.krad.service.BusinessObjectService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * The basic implementation of the AccountBalanceService interface
@@ -54,7 +54,7 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
 
     /**
      * Defers to the DAO to find the consolidated account balances, based on the keys given in the Map parameter
-     * 
+     *
      * @param fieldValues the input fields and values
      * @return the summary records of account balance entries
      * @see org.kuali.kfs.gl.service.AccountBalanceService#findConsolidatedAvailableAccountBalance(java.util.Map)
@@ -67,8 +67,8 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
 
     /**
      * Given the map of parameters, constructs a query to find all qualifying account balance records
-     * 
-     * @param fieldValues the input fields and values
+     *
+     * @param fieldValues    the input fields and values
      * @param isConsolidated determine whether the search results are consolidated
      * @return a collection of account balance entries
      * @see org.kuali.kfs.gl.service.AccountBalanceService#findAvailableAccountBalance(java.util.Map)
@@ -81,14 +81,14 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
 
     /**
      * This finds account balances grouped by consolidation
-     * 
+     *
      * @param universityFiscalYear the fiscal year account to find account balances for
-     * @param chartOfAccountsCode the chart of accounts code to find account balances for
-     * @param accountNumber the account number to find account balances for
-     * @param subAccountNumber the sub account number to find account balances for
-     * @param isCostShareExcluded should account balances found have cost share information excluded?
-     * @param isConsolidated should account balances found be consolidated?
-     * @param pendingEntryCode should pending entries be included in the query?
+     * @param chartOfAccountsCode  the chart of accounts code to find account balances for
+     * @param accountNumber        the account number to find account balances for
+     * @param subAccountNumber     the sub account number to find account balances for
+     * @param isCostShareExcluded  should account balances found have cost share information excluded?
+     * @param isConsolidated       should account balances found be consolidated?
+     * @param pendingEntryCode     should pending entries be included in the query?
      * @return a List of qualifying account balance records
      * @see org.kuali.kfs.gl.service.AccountBalanceService#findAccountBalanceByConsolidation(java.util.Map, boolean, boolean)
      */
@@ -98,9 +98,9 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
         ObjectTypeService objectTypeService = (ObjectTypeService) SpringContext.getBean(ObjectTypeService.class);
 
         String[] incomeObjectTypes = objectTypeService.getBasicIncomeObjectTypes(universityFiscalYear).toArray(new String[0]);
-        String[] incomeTransferObjectTypes = { objectTypeService.getIncomeTransferObjectType(universityFiscalYear) };
+        String[] incomeTransferObjectTypes = {objectTypeService.getIncomeTransferObjectType(universityFiscalYear)};
         String[] expenseObjectTypes = objectTypeService.getBasicExpenseObjectTypes(universityFiscalYear).toArray(new String[0]);
-        String[] expenseTransferObjectTypes = { objectTypeService.getExpenseTransferObjectType(universityFiscalYear) };
+        String[] expenseTransferObjectTypes = {objectTypeService.getExpenseTransferObjectType(universityFiscalYear)};
 
         // Consolidate all object types into one array (yes I could have used lists, but it was just as many lines of code than
         // this)
@@ -149,7 +149,7 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
         List balances = accountBalanceDao.findAccountBalanceByConsolidationByObjectTypes(allObjectTypes, universityFiscalYear, chartOfAccountsCode, accountNumber, isCostShareExcluded, isConsolidated, pendingEntryCode, options, today);
 
         // Convert it to Account Balances
-        for (Iterator iter = balances.iterator(); iter.hasNext();) {
+        for (Iterator iter = balances.iterator(); iter.hasNext(); ) {
             Map bal = (Map) iter.next();
             AccountBalance bbc = new AccountBalance(AccountBalance.TYPE_CONSOLIDATION, bal, universityFiscalYear, chartOfAccountsCode, accountNumber);
             // Add variances to the AccountBalance and add the account balance (which will be on the detail line) to the results table (KFSCNTRB-1734)
@@ -158,8 +158,7 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
                 if (bbc.getSubAccountNumber().equals(subAccountNumber)) {
                     results.add(bbc);
                 }
-            }
-            else {
+            } else {
                 results.add(bbc);
             }
         }
@@ -168,7 +167,7 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
 
         // Get balances for these parameters, then based on the object type code, put balances into the correct summary line
         List data = accountBalanceDao.findAccountBalanceByConsolidationByObjectTypes(incomeObjectTypes, universityFiscalYear, chartOfAccountsCode, accountNumber, isCostShareExcluded, isConsolidated, pendingEntryCode, options, today);
-        for (Iterator iter = data.iterator(); iter.hasNext();) {
+        for (Iterator iter = data.iterator(); iter.hasNext(); ) {
             Map bal = (Map) iter.next();
             AccountBalance bbc = new AccountBalance(AccountBalance.TYPE_CONSOLIDATION, bal, universityFiscalYear, chartOfAccountsCode, accountNumber);
             if ((subAccountNumber != null) && (subAccountNumber.length() > 0)) {
@@ -176,14 +175,12 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
                     income.add(bbc);
                     incomeTotal.add(bbc);
                 }
-            }
-            else {
+            } else {
                 String transferExpenseCode = bbc.getFinancialObject().getFinancialObjectLevel().getFinancialConsolidationObject().getFinConsolidationObjectCode();
                 if (transferExpenseCode.equals(GeneralLedgerConstants.INCOME_OR_EXPENSE_TRANSFER_CONSOLIDATION_CODE)) {
                     incomeTransfers.add(bbc);
                     incomeTotal.add(bbc);
-                }
-                else {
+                } else {
                     income.add(bbc);
                     incomeTotal.add(bbc);
                 }
@@ -191,7 +188,7 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
         }
 
         data = accountBalanceDao.findAccountBalanceByConsolidationByObjectTypes(incomeTransferObjectTypes, universityFiscalYear, chartOfAccountsCode, accountNumber, isCostShareExcluded, isConsolidated, pendingEntryCode, options, today);
-        for (Iterator iter = data.iterator(); iter.hasNext();) {
+        for (Iterator iter = data.iterator(); iter.hasNext(); ) {
             Map bal = (Map) iter.next();
             AccountBalance bbc = new AccountBalance(AccountBalance.TYPE_CONSOLIDATION, bal, universityFiscalYear, chartOfAccountsCode, accountNumber);
             if ((subAccountNumber != null) && (subAccountNumber.length() > 0)) {
@@ -199,15 +196,14 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
                     incomeTransfers.add(bbc);
                     incomeTotal.add(bbc);
                 }
-            }
-            else {
+            } else {
                 incomeTransfers.add(bbc);
                 incomeTotal.add(bbc);
             }
         }
 
         data = accountBalanceDao.findAccountBalanceByConsolidationByObjectTypes(expenseObjectTypes, universityFiscalYear, chartOfAccountsCode, accountNumber, isCostShareExcluded, isConsolidated, pendingEntryCode, options, today);
-        for (Iterator iter = data.iterator(); iter.hasNext();) {
+        for (Iterator iter = data.iterator(); iter.hasNext(); ) {
             Map bal = (Map) iter.next();
             AccountBalance bbc = new AccountBalance(AccountBalance.TYPE_CONSOLIDATION, bal, universityFiscalYear, chartOfAccountsCode, accountNumber);
             if ((subAccountNumber != null) && (subAccountNumber.length() > 0)) {
@@ -215,14 +211,12 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
                     expense.add(bbc);
                     expenseTotal.add(bbc);
                 }
-            }
-            else {
+            } else {
                 String transferExpenseCode = bbc.getFinancialObject().getFinancialObjectLevel().getFinancialConsolidationObject().getFinConsolidationObjectCode();
                 if (transferExpenseCode.equals(GeneralLedgerConstants.INCOME_OR_EXPENSE_TRANSFER_CONSOLIDATION_CODE)) {
                     expenseTransfers.add(bbc);
                     expenseTotal.add(bbc);
-                }
-                else {
+                } else {
                     expense.add(bbc);
                     expenseTotal.add(bbc);
                 }
@@ -230,7 +224,7 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
         }
 
         data = accountBalanceDao.findAccountBalanceByConsolidationByObjectTypes(expenseTransferObjectTypes, universityFiscalYear, chartOfAccountsCode, accountNumber, isCostShareExcluded, isConsolidated, pendingEntryCode, options, today);
-        for (Iterator iter = data.iterator(); iter.hasNext();) {
+        for (Iterator iter = data.iterator(); iter.hasNext(); ) {
             Map bal = (Map) iter.next();
             AccountBalance bbc = new AccountBalance(AccountBalance.TYPE_CONSOLIDATION, bal, universityFiscalYear, chartOfAccountsCode, accountNumber);
             if ((subAccountNumber != null) && (subAccountNumber.length() > 0)) {
@@ -238,8 +232,7 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
                     expenseTransfers.add(bbc);
                     expenseTotal.add(bbc);
                 }
-            }
-            else {
+            } else {
                 expenseTransfers.add(bbc);
                 expenseTotal.add(bbc);
             }
@@ -261,18 +254,18 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
 
     /**
      * Finds account balances grouped by object level
-     * 
-     * @param universityFiscalYear the fiscal year account to find account balances for
-     * @param chartOfAccountsCode the chart of accounts code to find account balances for
-     * @param accountNumber the account number to find account balances for
-     * @param subAccountNumber the sub account number to find account balances for
+     *
+     * @param universityFiscalYear       the fiscal year account to find account balances for
+     * @param chartOfAccountsCode        the chart of accounts code to find account balances for
+     * @param accountNumber              the account number to find account balances for
+     * @param subAccountNumber           the sub account number to find account balances for
      * @param financialConsolidationCode the consolidation code to find account balances for
-     * @param isCostShareExcluded should account balances found have cost share information excluded?
-     * @param isConsolidated should account balances found be consolidated?
-     * @param pendingEntryCode should pending entries be included in the query?
+     * @param isCostShareExcluded        should account balances found have cost share information excluded?
+     * @param isConsolidated             should account balances found be consolidated?
+     * @param pendingEntryCode           should pending entries be included in the query?
      * @return a List of qualifying account balance records
      * @see org.kuali.kfs.gl.service.AccountBalanceService#findAccountBalanceByLevel(java.lang.Integer, java.lang.String,
-     *      java.lang.String, java.lang.String, java.lang.String, boolean, boolean, int)
+     * java.lang.String, java.lang.String, java.lang.String, boolean, boolean, int)
      */
     public List findAccountBalanceByLevel(Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber, String subAccountNumber, String financialConsolidationObjectCode, boolean isCostShareExcluded, boolean isConsolidated, int pendingEntryCode) {
         LOG.debug("findAccountBalanceByLevel() started");
@@ -291,7 +284,7 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
         List balances = accountBalanceDao.findAccountBalanceByLevel(universityFiscalYear, chartOfAccountsCode, accountNumber, financialConsolidationObjectCode, isCostShareExcluded, isConsolidated, pendingEntryCode, today, options);
 
         // Convert it to Account Balances
-        for (Iterator iter = balances.iterator(); iter.hasNext();) {
+        for (Iterator iter = balances.iterator(); iter.hasNext(); ) {
             Map bal = (Map) iter.next();
             bal.put(GeneralLedgerConstants.ColumnNames.CONSOLIDATION_OBJECT_CODE, financialConsolidationObjectCode);
             AccountBalance bbc = new AccountBalance(AccountBalance.TYPE_LEVEL, bal, universityFiscalYear, chartOfAccountsCode, accountNumber);
@@ -299,8 +292,7 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
                 if (bbc.getSubAccountNumber().equals(subAccountNumber)) {
                     results.add(bbc);
                 }
-            }
-            else {
+            } else {
                 results.add(bbc);
             }
         }
@@ -310,19 +302,19 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
 
     /**
      * Finds account balances that match the qualifying parameters, grouped by object code
-     * 
-     * @param universityFiscalYear the fiscal year account to find account balances for
-     * @param chartOfAccountsCode the chart of accounts code to find account balances for
-     * @param accountNumber the account number to find account balances for
-     * @param subAccountNumber the sub account number to find account balances for
-     * @param financialObjectLevelCode the financial object level code to find account balances for
+     *
+     * @param universityFiscalYear       the fiscal year account to find account balances for
+     * @param chartOfAccountsCode        the chart of accounts code to find account balances for
+     * @param accountNumber              the account number to find account balances for
+     * @param subAccountNumber           the sub account number to find account balances for
+     * @param financialObjectLevelCode   the financial object level code to find account balances for
      * @param financialReportingSortCode the reporting sort code to sort account balances by
-     * @param isCostShareExcluded should account balances found have cost share information excluded?
-     * @param isConsolidated should account balances found be consolidated?
-     * @param pendingEntryCode should pending entries be included in the query?
+     * @param isCostShareExcluded        should account balances found have cost share information excluded?
+     * @param isConsolidated             should account balances found be consolidated?
+     * @param pendingEntryCode           should pending entries be included in the query?
      * @return a List of qualifying account balance records
      * @see org.kuali.kfs.gl.service.AccountBalanceService#findAccountBalanceByObject(java.lang.Integer, java.lang.String,
-     *      java.lang.String, java.lang.String, java.lang.String, java.lang.String, boolean, boolean, int)
+     * java.lang.String, java.lang.String, java.lang.String, java.lang.String, boolean, boolean, int)
      */
     public List findAccountBalanceByObject(Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber, String subAccountNumber, String financialObjectLevelCode, String financialReportingSortCode, boolean isCostShareExcluded, boolean isConsolidated, int pendingEntryCode) {
         LOG.debug("findAccountBalanceByObject() started");
@@ -341,7 +333,7 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
         List balances = accountBalanceDao.findAccountBalanceByObject(universityFiscalYear, chartOfAccountsCode, accountNumber, financialObjectLevelCode, financialReportingSortCode, isCostShareExcluded, isConsolidated, pendingEntryCode, today, options);
 
         // Convert it to Account Balances
-        for (Iterator iter = balances.iterator(); iter.hasNext();) {
+        for (Iterator iter = balances.iterator(); iter.hasNext(); ) {
             Map bal = (Map) iter.next();
             bal.put(GeneralLedgerConstants.ColumnNames.OBJECT_LEVEL_CODE, financialObjectLevelCode);
             AccountBalance bbc = new AccountBalance(AccountBalance.TYPE_OBJECT, bal, universityFiscalYear, chartOfAccountsCode, accountNumber);
@@ -349,8 +341,7 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
                 if (bbc.getSubAccountNumber().equals(subAccountNumber)) {
                     results.add(bbc);
                 }
-            }
-            else {
+            } else {
                 results.add(bbc);
             }
         }
@@ -360,7 +351,7 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
 
     /**
      * Defers to the DAO to save the account balance.
-     * 
+     *
      * @param ab account balance record to save
      * @see org.kuali.kfs.gl.service.AccountBalanceService#save(org.kuali.kfs.gl.businessobject.AccountBalance)
      */
@@ -370,9 +361,9 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
 
     /**
      * Purge an entire fiscal year for a single chart.
-     * 
+     *
      * @param chartOfAccountsCode the chart of accounts of account balances to purge
-     * @param year the fiscal year of account balances to purge
+     * @param year                the fiscal year of account balances to purge
      */
     public void purgeYearByChart(String chartOfAccountsCode, int year) {
         LOG.debug("purgeYearByChart() started");
@@ -382,8 +373,8 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
 
     /**
      * This method gets the number of the available account balances according to input fields and values
-     * 
-     * @param fieldValues the input fields and values
+     *
+     * @param fieldValues    the input fields and values
      * @param isConsolidated determine whether the search results are consolidated
      * @return the number of the available account balances
      * @see org.kuali.kfs.gl.service.AccountBalanceService#getAvailableAccountBalanceCount(java.util.Map, boolean)
@@ -392,8 +383,7 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
         Integer recordCount = null;
         if (!isConsolidated) {
             recordCount = OJBUtility.getResultSizeFromMap(fieldValues, new AccountBalance()).intValue();
-        }
-        else {
+        } else {
             Iterator recordCountIterator = accountBalanceDao.findConsolidatedAvailableAccountBalance(fieldValues);
             // TODO: WL: why build a list and waste time/memory when we can just iterate through the iterator and do a count?
             List recordCountList = IteratorUtils.toList(recordCountIterator);
@@ -425,7 +415,7 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
 
     /**
      * Sets the optionsService.
-     * 
+     *
      * @param optionsService
      */
     public void setOptionsService(OptionsService optionsService) {

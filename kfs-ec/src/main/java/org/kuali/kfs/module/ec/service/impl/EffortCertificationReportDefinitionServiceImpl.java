@@ -1,34 +1,27 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ec.service.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.ec.EffortCertificationReport;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ec.EffortConstants;
 import org.kuali.kfs.module.ec.EffortKeyConstants;
 import org.kuali.kfs.module.ec.EffortPropertyConstants;
@@ -41,12 +34,19 @@ import org.kuali.kfs.module.ec.service.EffortCertificationReportDefinitionServic
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.MessageBuilder;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Provide the implementation of the service methods related to EffortCertificationReportDefinition
- * 
+ *
  * @see org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition
  */
 public class EffortCertificationReportDefinitionServiceImpl implements EffortCertificationReportDefinitionService {
@@ -57,10 +57,10 @@ public class EffortCertificationReportDefinitionServiceImpl implements EffortCer
     /**
      * @see org.kuali.kfs.module.ec.service.EffortCertificationReportDefinitionService#findReportDefinitionByPrimaryKey(java.util.Map)
      */
-    public EffortCertificationReportDefinition findReportDefinitionByPrimaryKey(Map<String, String> fieldValues) {        
+    public EffortCertificationReportDefinition findReportDefinitionByPrimaryKey(Map<String, String> fieldValues) {
         return (EffortCertificationReportDefinition) businessObjectService.findByPrimaryKey(EffortCertificationReportDefinition.class, fieldValues);
     }
-    
+
     /**
      * @see org.kuali.kfs.module.ec.service.EffortCertificationReportDefinitionService#validateEffortCertificationReportDefinition(org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition)
      */
@@ -77,11 +77,11 @@ public class EffortCertificationReportDefinitionServiceImpl implements EffortCer
         if (StringUtils.isEmpty(reportNumber)) {
             return MessageBuilder.buildMessage(EffortKeyConstants.ERROR_REPORT_NUMBER_MISSING, null).getMessage();
         }
-        
+
         String combinedFieldValues = new StringBuilder(fiscalYear.toString()).append(EffortConstants.VALUE_SEPARATOR).append(reportNumber).toString();
 
         // check if there exists the given report definition
-        effortCertificationReportDefinition = (EffortCertificationReportDefinition)businessObjectService.retrieve(effortCertificationReportDefinition);
+        effortCertificationReportDefinition = (EffortCertificationReportDefinition) businessObjectService.retrieve(effortCertificationReportDefinition);
         if (effortCertificationReportDefinition == null) {
             return MessageBuilder.buildMessage(EffortKeyConstants.ERROR_REPORT_DEFINITION_NOT_EXIST, combinedFieldValues).getMessage();
         }
@@ -125,8 +125,7 @@ public class EffortCertificationReportDefinitionServiceImpl implements EffortCer
             if (earnCodePayGroups.containsKey(payGroup)) {
                 Set<String> earnCodeSet = earnCodePayGroups.get(payGroup);
                 earnCodeSet.add(earnCode);
-            }
-            else {
+            } else {
                 Set<String> earnCodeSet = new HashSet<String>();
                 earnCodeSet.add(earnCode);
                 earnCodePayGroups.put(payGroup, earnCodeSet);
@@ -147,7 +146,7 @@ public class EffortCertificationReportDefinitionServiceImpl implements EffortCer
 
         return businessObjectService.findMatching(EffortCertificationReportEarnPaygroup.class, fieldValues);
     }
-    
+
     /**
      * @see org.kuali.kfs.module.ec.service.EffortCertificationReportDefinitionService#existsPendingEffortCertification(org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition)
      */
@@ -155,28 +154,28 @@ public class EffortCertificationReportDefinitionServiceImpl implements EffortCer
         Map<String, Object> fieldValues = new HashMap<String, Object>();
         fieldValues.put(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, reportDefinition.getUniversityFiscalYear());
         fieldValues.put(EffortPropertyConstants.EFFORT_CERTIFICATION_REPORT_NUMBER, reportDefinition.getEffortCertificationReportNumber());
-        
+
         int numOfPendingDocuments = businessObjectService.countMatching(EffortCertificationDocumentBuild.class, fieldValues);
-        if(numOfPendingDocuments > 0) {
+        if (numOfPendingDocuments > 0) {
             return true;
         }
-        
+
         List<String> pendingStatusCodes = Arrays.asList(KFSConstants.DocumentStatusCodes.ENROUTE);
         fieldValues.put(KFSPropertyConstants.EMPLID, emplid);
-        fieldValues.put(KFSPropertyConstants.DOCUMENT_HEADER + "." + KFSPropertyConstants.FINANCIAL_DOCUMENT_STATUS_CODE, pendingStatusCodes);    
-        
+        fieldValues.put(KFSPropertyConstants.DOCUMENT_HEADER + "." + KFSPropertyConstants.FINANCIAL_DOCUMENT_STATUS_CODE, pendingStatusCodes);
+
         return businessObjectService.countMatching(EffortCertificationDocument.class, fieldValues) > 0;
     }
-    
+
     /**
      * @see org.kuali.kfs.module.ec.service.EffortCertificationReportDefinitionService#hasApprovedEffortCertification(java.lang.String, org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition)
      */
     public boolean hasApprovedEffortCertification(String emplid, EffortCertificationReportDefinition reportDefinition) {
-        Map<String, Object> fieldValues = new HashMap<String, Object>();        
+        Map<String, Object> fieldValues = new HashMap<String, Object>();
         fieldValues.put(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, reportDefinition.getUniversityFiscalYear());
         fieldValues.put(EffortPropertyConstants.EFFORT_CERTIFICATION_REPORT_NUMBER, reportDefinition.getEffortCertificationReportNumber());
         fieldValues.put(KFSPropertyConstants.EMPLID, emplid);
-        fieldValues.put(KFSPropertyConstants.DOCUMENT_HEADER + "." + KFSPropertyConstants.FINANCIAL_DOCUMENT_STATUS_CODE, KFSConstants.DocumentStatusCodes.APPROVED);    
+        fieldValues.put(KFSPropertyConstants.DOCUMENT_HEADER + "." + KFSPropertyConstants.FINANCIAL_DOCUMENT_STATUS_CODE, KFSConstants.DocumentStatusCodes.APPROVED);
 
         return businessObjectService.countMatching(EffortCertificationDocument.class, fieldValues) > 0;
     }
@@ -191,7 +190,7 @@ public class EffortCertificationReportDefinitionServiceImpl implements EffortCer
 
         return businessObjectService.countMatching(EffortCertificationDocument.class, fieldValues) > 0;
     }
-    
+
     /**
      * @see org.kuali.kfs.module.ec.service.EffortCertificationReportDefinitionService#hasBeenUsedForEffortCertificationGeneration(java.lang.String, org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition)
      */
@@ -206,7 +205,7 @@ public class EffortCertificationReportDefinitionServiceImpl implements EffortCer
 
     /**
      * Sets the businessObjectService attribute value.
-     * 
+     *
      * @param businessObjectService The businessObjectService to set.
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {

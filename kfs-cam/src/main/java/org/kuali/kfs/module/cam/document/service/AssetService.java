@@ -1,31 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cam.document.service;
 
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.module.cam.businessobject.Asset;
+import org.kuali.rice.kew.api.WorkflowDocument;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-
-import org.kuali.kfs.module.cam.businessobject.Asset;
-import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.krad.document.Document;
 
 
 /**
@@ -34,7 +34,7 @@ import org.kuali.rice.krad.document.Document;
 public interface AssetService {
     /**
      * Check if asset has started depreciation already.
-     * 
+     *
      * @param asset
      * @return
      */
@@ -42,7 +42,7 @@ public interface AssetService {
 
     /**
      * Checks if given mainenanceDocument has started routing.
-     * 
+     *
      * @param document
      * @return
      */
@@ -50,7 +50,7 @@ public interface AssetService {
 
     /**
      * A helper method for determining the route levels for a given document.
-     * 
+     *
      * @param workflowDocument
      * @return List
      */
@@ -77,21 +77,21 @@ public interface AssetService {
     /**
      * The Asset Type Code is allowed to be changed only: (1)If the tag number has not been assigned or (2)The asset is tagged, and
      * the asset created in the current fiscal year
-     * 
+     *
      * @return
      */
     boolean isAssetTaggedInPriorFiscalYear(Asset asset);
 
     /**
      * The Tag Number check excludes value of "N" and retired assets.
-     * 
+     *
      * @return
      */
     boolean isTagNumberCheckExclude(Asset asset);
 
     /**
      * Test if any of the off campus location field is entered.
-     * 
+     *
      * @param asset
      * @return
      */
@@ -99,7 +99,7 @@ public interface AssetService {
 
     /**
      * Test if financialObjectSubTypeCode is changed.
-     * 
+     *
      * @param oldAsset
      * @param newAsset
      * @return
@@ -108,7 +108,7 @@ public interface AssetService {
 
     /**
      * Test if assetTypeCode is changed.
-     * 
+     *
      * @param oldAsset
      * @param newAsset
      * @return
@@ -117,7 +117,7 @@ public interface AssetService {
 
     /**
      * Test if Depreciable Life Limit is "0" This method...
-     * 
+     *
      * @param asset
      * @return
      */
@@ -125,7 +125,7 @@ public interface AssetService {
 
     /**
      * Test two capitalAssetNumber equal.
-     * 
+     *
      * @param capitalAssetNumber1
      * @param capitalAssetNumber2
      * @return
@@ -134,7 +134,7 @@ public interface AssetService {
 
     /**
      * This method calls the service codes to calculate the summary fields for each asset
-     * 
+     *
      * @param asset
      */
     void setAssetSummaryFields(Asset asset);
@@ -144,7 +144,7 @@ public interface AssetService {
      * <li>return TRUE if found in MOVABLE_EQUIPMENT_OBJECT_SUB_TYPE_CODES</li>
      * <li>return FALSE if found in NON_MOVABLE_EQUIPMENT_OBJECT_SUB_TYPE_CODES</li>
      * <li>throw ValidationException if not defined in neither one of them</li>
-     * 
+     *
      * @param financialObjectSubType
      * @return boolean
      */
@@ -155,17 +155,17 @@ public interface AssetService {
      * <li>return TRUE if found in MOVABLE_EQUIPMENT_OBJECT_SUB_TYPE_CODES</li>
      * <li>return FALSE if found in NON_MOVABLE_EQUIPMENT_OBJECT_SUB_TYPE_CODES</li>
      * <li>throw ValidationException if not defined in neither one of them</li>
-     * 
+     *
      * @param financialObjectSubType
      * @return boolean
      */
     public boolean isAssetMovableCheckByPayment(Asset asset);
-    
+
     /**
      * This will check if the list of financial object sub type code are compatible with each other.
      * <li> return TRUE if all Object sub type code are compatible with each other.
      * <li> return FALSE if any non copatible object sub type code are found.
-     * 
+     *
      * @param financialObjectSubTypeCode
      * @return
      */
@@ -173,7 +173,7 @@ public interface AssetService {
 
     /**
      * This method returns all active assets found matching this tag number
-     * 
+     *
      * @param campusTagNumber Campus Tag Number
      * @return List of assets found matching tag number
      */
@@ -181,7 +181,7 @@ public interface AssetService {
 
     /**
      * This method returns all active and not active assets found matching this tag number
-     * 
+     *
      * @param campusTagNumber Campus Tag Number
      * @return List of assets found matching tag number
      */
@@ -189,7 +189,7 @@ public interface AssetService {
 
     /**
      * For the given Asset sets the separateHistory.
-     * 
+     *
      * @param asset for which to set the separateHistory
      */
     public void setSeparateHistory(Asset asset);
@@ -202,7 +202,7 @@ public interface AssetService {
 
     /**
      * Sets the fiscal year and month in the asset object based on the creation date of the asset
-     * 
+     *
      * @param asset
      */
     public void setFiscalPeriod(Asset asset);

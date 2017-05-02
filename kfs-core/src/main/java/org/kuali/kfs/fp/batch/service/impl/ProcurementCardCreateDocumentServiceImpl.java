@@ -1,46 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.batch.service.impl;
-
-import static org.kuali.kfs.fp.document.validation.impl.ProcurementCardDocumentRuleConstants.AUTO_APPROVE_DOCUMENTS_IND;
-import static org.kuali.kfs.fp.document.validation.impl.ProcurementCardDocumentRuleConstants.AUTO_APPROVE_NUMBER_OF_DAYS;
-import static org.kuali.kfs.fp.document.validation.impl.ProcurementCardDocumentRuleConstants.DEFAULT_TRANS_ACCOUNT_PARM_NM;
-import static org.kuali.kfs.fp.document.validation.impl.ProcurementCardDocumentRuleConstants.DEFAULT_TRANS_CHART_CODE_PARM_NM;
-import static org.kuali.kfs.fp.document.validation.impl.ProcurementCardDocumentRuleConstants.DEFAULT_TRANS_OBJECT_CODE_PARM_NM;
-import static org.kuali.kfs.fp.document.validation.impl.ProcurementCardDocumentRuleConstants.ERROR_TRANS_ACCOUNT_PARM_NM;
-import static org.kuali.kfs.fp.document.validation.impl.ProcurementCardDocumentRuleConstants.SINGLE_TRANSACTION_IND_PARM_NM;
-import static org.kuali.kfs.sys.KFSConstants.GL_CREDIT_CODE;
-import static org.kuali.kfs.sys.KFSConstants.FinancialDocumentTypeCodes.PROCUREMENT_CARD;
-
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.MessageFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.ProjectCode;
@@ -52,6 +28,7 @@ import org.kuali.kfs.coa.service.ObjectCodeService;
 import org.kuali.kfs.coa.service.ProjectCodeService;
 import org.kuali.kfs.coa.service.SubAccountService;
 import org.kuali.kfs.coa.service.SubObjectCodeService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.batch.ProcurementCardAutoApproveDocumentsStep;
 import org.kuali.kfs.fp.batch.ProcurementCardCreateDocumentsStep;
 import org.kuali.kfs.fp.batch.ProcurementCardLoadStep;
@@ -65,7 +42,15 @@ import org.kuali.kfs.fp.businessobject.ProcurementCardTargetAccountingLine;
 import org.kuali.kfs.fp.businessobject.ProcurementCardVendor;
 import org.kuali.kfs.fp.document.ProcurementCardDocument;
 import org.kuali.kfs.fp.document.validation.impl.ProcurementCardDocumentRuleConstants;
-import org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService;
+import org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
@@ -73,25 +58,17 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.service.AccountingLineRuleHelperService;
 import org.kuali.kfs.sys.document.service.FinancialSystemDocumentService;
 import org.kuali.kfs.sys.document.validation.event.DocumentSystemSaveEvent;
+import org.kuali.kfs.sys.mail.VelocityMailMessage;
+import org.kuali.kfs.sys.service.EmailService;
 import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.kfs.sys.service.VelocityEmailService;
 import org.kuali.kfs.sys.util.KfsDateUtils;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
 import org.kuali.rice.core.web.format.Formatter;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.document.DocumentStatus;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.krad.bo.DocumentHeader;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.DataDictionaryService;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.MessageMap;
-import org.kuali.rice.krad.util.ObjectUtils;
-import org.kuali.rice.krad.workflow.service.WorkflowDocumentService;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.arizona.kfs.fp.businessobject.ProcurementCardLevel3Add;
@@ -111,17 +88,18 @@ import edu.arizona.kfs.fp.businessobject.ProcurementCardTranShipSvc;
 import edu.arizona.kfs.fp.businessobject.ProcurementCardTranTransportLeg;
 import edu.arizona.kfs.fp.businessobject.ProcurementCardTransaction;
 import edu.arizona.kfs.fp.businessobject.ProcurementCardTransactionDetail;
-
-/**
- * This is the default implementation of the ProcurementCardCreateDocumentService interface.
- *
- * @see org.kuali.kfs.fp.batch.service.ProcurementCardCreateDocumentService
- */
+import static org.kuali.kfs.fp.document.validation.impl.ProcurementCardDocumentRuleConstants.AUTO_APPROVE_DOCUMENTS_IND;
+import static org.kuali.kfs.fp.document.validation.impl.ProcurementCardDocumentRuleConstants.AUTO_APPROVE_NUMBER_OF_DAYS;
+import static org.kuali.kfs.fp.document.validation.impl.ProcurementCardDocumentRuleConstants.DEFAULT_TRANS_ACCOUNT_PARM_NM;
+import static org.kuali.kfs.fp.document.validation.impl.ProcurementCardDocumentRuleConstants.DEFAULT_TRANS_CHART_CODE_PARM_NM;
+import static org.kuali.kfs.fp.document.validation.impl.ProcurementCardDocumentRuleConstants.DEFAULT_TRANS_OBJECT_CODE_PARM_NM;
+import static org.kuali.kfs.fp.document.validation.impl.ProcurementCardDocumentRuleConstants.ERROR_TRANS_ACCOUNT_PARM_NM;
+import static org.kuali.kfs.fp.document.validation.impl.ProcurementCardDocumentRuleConstants.SINGLE_TRANSACTION_IND_PARM_NM;
+import static org.kuali.kfs.sys.KFSConstants.FinancialDocumentTypeCodes.PROCUREMENT_CARD;
+import static org.kuali.kfs.sys.KFSConstants.GL_CREDIT_CODE;
 
 public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCardCreateDocumentService {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ProcurementCardCreateDocumentServiceImpl.class);
-
-    protected static final String WORKFLOW_SEARCH_RESULT_KEY = "routeHeaderId";
 
     protected ParameterService parameterService;
     protected BusinessObjectService businessObjectService;
@@ -130,9 +108,10 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
     protected DataDictionaryService dataDictionaryService;
     protected DateTimeService dateTimeService;
     protected AccountingLineRuleHelperService accountingLineRuleUtil;
-    protected CapitalAssetBuilderModuleService capitalAssetBuilderModuleService;
+    protected CapitalAssetManagementModuleService capitalAssetManagementModuleService;
     protected FinancialSystemDocumentService financialSystemDocumentService;
-    private VelocityEmailService procurementCardCreateEmailService;
+    protected EmailService emailService;
+    protected String emailTemplateUrl;
 
     public static final String DOCUMENT_DESCRIPTION_PATTERN = "{0}-{1}-{2}-{3}";
 
@@ -142,32 +121,30 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
      *
      * @return True if the procurement card documents were created successfully.  If any problem occur while creating the
      * documents, a runtime exception will be thrown.
-     *
      * @see org.kuali.kfs.fp.batch.service.ProcurementCardCreateDocumentService#createProcurementCardDocuments()
      */
     @Override
     @SuppressWarnings("rawtypes")
     @Transactional
     public boolean createProcurementCardDocuments() {
+        LOG.debug("createProcurementCardDocuments() started");
+
         List documents = new ArrayList();
         List cardTransactions = retrieveTransactions();
 
         // iterate through card transaction list and create documents
-        for (Iterator iter = cardTransactions.iterator(); iter.hasNext();) {
+        for (Iterator iter = cardTransactions.iterator(); iter.hasNext(); ) {
             documents.add(createProcurementCardDocument((List) iter.next()));
         }
 
         // now store all the documents
-        for (Iterator iter = documents.iterator(); iter.hasNext();) {
+        for (Iterator iter = documents.iterator(); iter.hasNext(); ) {
             ProcurementCardDocument pcardDocument = (ProcurementCardDocument) iter.next();
             try {
                 documentService.saveDocument(pcardDocument, DocumentSystemSaveEvent.class);
-                if ( LOG.isInfoEnabled() ) {
-                    LOG.info("Saved Procurement Card document: "+pcardDocument.getDocumentNumber());
-                }
-            }
-            catch (Exception e) {
-                LOG.error("Error persisting document # " + pcardDocument.getDocumentHeader().getDocumentNumber() + " " + e.getMessage(), e);
+                LOG.info("createProcurementCardDocuments() Saved Procurement Card document: " + pcardDocument.getDocumentNumber());
+            } catch (Exception e) {
+                LOG.error("createProcurementCardDocuments() Error persisting document # " + pcardDocument.getDocumentHeader().getDocumentNumber() + " " + e.getMessage(), e);
                 throw new RuntimeException("Error persisting document # " + pcardDocument.getDocumentHeader().getDocumentNumber() + " " + e.getMessage(), e);
             }
         }
@@ -191,14 +168,24 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
         // Create formatter for payment amounts and batch run time
         String batchRunTime = dateFormat.format(dateTimeService.getCurrentDate());
 
-        final Map<String, Object> templateVariables = new HashMap<String, Object>();
+        final Map<String, Object> templateVariables = new HashMap<>();
 
         templateVariables.put(KFSConstants.ProcurementCardEmailVariableTemplate.DOC_CREATE_DATE, batchRunTime);
         templateVariables.put(KFSConstants.ProcurementCardEmailVariableTemplate.TRANSACTION_COUNTER, totalBatchTransactions);
         templateVariables.put(KFSConstants.ProcurementCardEmailVariableTemplate.TRANSACTION_SUMMARY_LIST, summaryList);
 
         // Handle for email sending exception
-        procurementCardCreateEmailService.sendEmailNotification(templateVariables);
+        VelocityMailMessage msg = new VelocityMailMessage();
+        msg.setFromAddress(emailService.getDefaultFromAddress());
+        getProdEmailReceivers().stream().forEach(r -> msg.addToAddress(r));
+        msg.setSubject("KFS Pcard Load Summary");
+        msg.setTemplateUrl(emailTemplateUrl);
+        msg.setTemplateVariables(templateVariables);
+        emailService.sendMessage(msg,false);
+    }
+
+    protected Collection<String> getProdEmailReceivers() {
+        return parameterService.getParameterValuesAsString(KFSConstants.CoreModuleNamespaces.FINANCIAL, KFSConstants.ProcurementCardParameters.PCARD_BATCH_CREATE_DOC_STEP, KFSConstants.ProcurementCardParameters.PCARD_BATCH_SUMMARY_TO_EMAIL_ADDRESSES);
     }
 
     /**
@@ -208,13 +195,12 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
      */
     protected DateFormat getDateFormat(String namespaceCode, String componentCode, String parameterName, String defaultValue) {
         DateFormat dateFormat = new SimpleDateFormat(defaultValue);
-        if (getParameterService().parameterExists(namespaceCode, componentCode, parameterName)) {
-            String formatParmVal = getParameterService().getParameterValueAsString(namespaceCode, componentCode, parameterName, defaultValue);
+        if (parameterService.parameterExists(namespaceCode, componentCode, parameterName)) {
+            String formatParmVal = parameterService.getParameterValueAsString(namespaceCode, componentCode, parameterName, defaultValue);
             if (StringUtils.isNotBlank(formatParmVal)) {
                 try {
                     dateFormat = new SimpleDateFormat(formatParmVal);
-                }
-                catch (IllegalArgumentException e) {
+                } catch (IllegalArgumentException e) {
                     LOG.error("Parameter PCARD_BATCH_SUMMARY_RUNNING_TIMESTAMP_FORMAT used by ProcurementCardCreateDocumentsStep does not set up properly. Use system default timestamp format instead for generating report.");
                     dateFormat = new SimpleDateFormat(defaultValue);
                 }
@@ -252,9 +238,9 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
 
         HashMap<String, String> totalDocMap;
 
-        Map<Date, HashMap<String, String>> docMapByPstDt = new HashMap<Date, HashMap<String, String>>();
-        Map<Date, Integer> transctionMapByPstDt = new HashMap<Date, Integer>();
-        Map<Date, KualiDecimal> totalAmountMapByPstDt = new HashMap<Date, KualiDecimal>();
+        Map<Date, HashMap<String, String>> docMapByPstDt = new HashMap<>();
+        Map<Date, Integer> transctionMapByPstDt = new HashMap<>();
+        Map<Date, KualiDecimal> totalAmountMapByPstDt = new HashMap<>();
         Iterator iter = null;
         Date keyDate = null;
 
@@ -270,9 +256,8 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
                     totalDocMap = docMapByPstDt.get(keyDate);
                     totalTransactionCounter = transctionMapByPstDt.get(keyDate).intValue();
                     totalAmount = totalAmountMapByPstDt.get(keyDate);
-                }
-                else {
-                    totalDocMap = new HashMap<String, String>();
+                } else {
+                    totalDocMap = new HashMap<>();
                     totalTransactionCounter = 0;
                     totalAmount = KualiDecimal.ZERO;
                 }
@@ -307,11 +292,11 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
      * @return
      */
     protected List<ProcurementCardReportType> buildBatchReportSummary(Map<Date, HashMap<String, String>> docMapByPstDt, Map<Date, Integer> transctionMapByPstDt, Map<Date, KualiDecimal> totalAmountMapByPstDt) {
-        List<ProcurementCardReportType> summaryList = new ArrayList<ProcurementCardReportType>();
+        List<ProcurementCardReportType> summaryList = new ArrayList<>();
         ProcurementCardReportType reportEntry;
 
         Formatter currencyFormatter = new CurrencyFormatter();
-        DateFormat dateFormatter = getDateFormat(KFSConstants.CoreModuleNamespaces.FINANCIAL, KFSConstants.ProcurementCardParameters.PCARD_BATCH_CREATE_DOC_STEP, KFSConstants.ProcurementCardParameters.BATCH_SUMMARY_POSTING_DATE_FORMAT,KFSConstants.ProcurementCardTransactionTimeFormat);
+        DateFormat dateFormatter = getDateFormat(KFSConstants.CoreModuleNamespaces.FINANCIAL, KFSConstants.ProcurementCardParameters.PCARD_BATCH_CREATE_DOC_STEP, KFSConstants.ProcurementCardParameters.BATCH_SUMMARY_POSTING_DATE_FORMAT, KFSConstants.ProcurementCardTransactionTimeFormat);
 
         for (Date keyDate : docMapByPstDt.keySet()) {
             reportEntry = new ProcurementCardReportType();
@@ -360,24 +345,19 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
      * routing path.
      *
      * @return True if the routing was performed successfully.  A runtime exception will be thrown if any errors occur while routing.
-     *
-     * @see org.kuali.kfs.fp.batch.service.ProcurementCardCreateDocumentService#routeProcurementCardDocuments(java.util.List)
      */
     @Override
     public boolean routeProcurementCardDocuments() {
+        LOG.debug("routeProcurementCardDocuments() started");
 
         Collection<ProcurementCardDocument> procurementCardDocumentList = retrieveProcurementCardDocumentsToRoute(KewApiConstants.ROUTE_HEADER_SAVED_CD);
 
-        //Collections.reverse(documentIdList);
-        if ( LOG.isInfoEnabled() ) {
-            LOG.info("Number of PCards to Route: "+procurementCardDocumentList.size());
-        }
+        LOG.info("routeProcurementCardDocuments() Number of PCards to Route: " + procurementCardDocumentList.size());
 
-        for (ProcurementCardDocument pcardDocument: procurementCardDocumentList) {
+        for (ProcurementCardDocument pcardDocument : procurementCardDocumentList) {
             try {
-                if ( LOG.isInfoEnabled() ) {
-                    LOG.info("Routing PCDO document # " + pcardDocument.getDocumentNumber() + ".");
-                }
+                LOG.info("routeProcurementCardDocuments() Routing PCDO document # " + pcardDocument.getDocumentNumber() + ".");
+
                 documentService.prepareWorkflowDocument(pcardDocument);
 
                 //** NOTE
@@ -385,11 +365,10 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
                 //     Calling workflow service to BYPASS business rule checks
                 //
                 //** NOTE
-                workflowDocumentService.route( pcardDocument.getDocumentHeader().getWorkflowDocument(), "", null);
-             }
-            catch (WorkflowException e) {
+                workflowDocumentService.route(pcardDocument.getDocumentHeader().getWorkflowDocument(), "", null);
+            } catch (WorkflowException e) {
                 LOG.error("Error routing document # " + pcardDocument.getDocumentNumber() + " " + e.getMessage());
-                throw new RuntimeException(e.getMessage(),e);
+                throw new RuntimeException(e.getMessage(), e);
             }
         }
 
@@ -398,15 +377,16 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
 
     /**
      * Returns a list of all initiated but not yet routed procurement card documents, using the KualiWorkflowInfo service.
+     *
      * @return a list of procurement card documents to route
      */
-    protected Collection<ProcurementCardDocument> retrieveProcurementCardDocumentsToRoute(String statusCode){
+    protected Collection<ProcurementCardDocument> retrieveProcurementCardDocumentsToRoute(String statusCode) {
 
         try {
-            return this.getFinancialSystemDocumentService().findByWorkflowStatusCode(ProcurementCardDocument.class, DocumentStatus.fromCode(statusCode));
+            return financialSystemDocumentService.findByWorkflowStatusCode(ProcurementCardDocument.class, DocumentStatus.fromCode(statusCode));
         } catch (WorkflowException e) {
             LOG.error("Error searching for enroute procurement card documents " + e.getMessage());
-            throw new RuntimeException(e.getMessage(),e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
     }
@@ -418,7 +398,6 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
      * if the difference is larger than the grace period defined, then the document is auto approved.
      *
      * @return This method always returns true.
-     *
      * @see org.kuali.kfs.fp.batch.service.ProcurementCardCreateDocumentService#autoApproveProcurementCardDocuments()
      */
     @Override
@@ -436,35 +415,33 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
         int autoApproveNumberDays = Integer.parseInt(parameterService.getParameterValueAsString(ProcurementCardAutoApproveDocumentsStep.class, AUTO_APPROVE_NUMBER_OF_DAYS));
 
         Timestamp currentDate = dateTimeService.getCurrentTimestamp();
-        for (ProcurementCardDocument pcardDocument: pcardDocumentList) {
+        for (ProcurementCardDocument pcardDocument : pcardDocumentList) {
             try {
 
                 // prevent PCard documents from auto approving if they have capital asset info to collect
-                if(capitalAssetBuilderModuleService.hasCapitalAssetObjectSubType(pcardDocument)) {
+                if (capitalAssetManagementModuleService.hasCapitalAssetObjectSubType(pcardDocument)) {
                     continue;
                 }
 
                 // if number of days in route is passed the allowed number, call doc service for super user approve
-                Timestamp docCreateDate = new Timestamp( pcardDocument.getDocumentHeader().getWorkflowDocument().getDateCreated().getMillis() );
+                Timestamp docCreateDate = new Timestamp(pcardDocument.getDocumentHeader().getWorkflowDocument().getDateCreated().getMillis());
                 if (KfsDateUtils.getDifferenceInDays(docCreateDate, currentDate) > autoApproveNumberDays) {
                     // update document description to reflect the auto approval
                     pcardDocument.getDocumentHeader().setDocumentDescription("Auto Approved On " + dateTimeService.toDateTimeString(currentDate) + ".");
 
-                    if ( LOG.isInfoEnabled() ) {
-                        LOG.info("Auto approving document # " + pcardDocument.getDocumentHeader().getDocumentNumber());
-                    }
+                    LOG.info("autoApproveProcurementCardDocuments() Auto approving document # " + pcardDocument.getDocumentHeader().getDocumentNumber());
+
                     pcardDocument.setAutoApprovedIndicator(true);
                     documentService.superUserApproveDocument(pcardDocument, "");
                 }
             } catch (WorkflowException e) {
-                LOG.error("Error auto approving document # " + pcardDocument.getDocumentNumber() + " " + e.getMessage(),e);
-                throw new RuntimeException(e.getMessage(),e);
+                LOG.error("autoApproveProcurementCardDocuments() Error auto approving document # " + pcardDocument.getDocumentNumber() + " " + e.getMessage(), e);
+                throw new RuntimeException(e.getMessage(), e);
             }
         }
 
         return true;
     }
-
 
     /**
      * This method retrieves a list of transactions from a temporary table, and groups them into document lists, based on
@@ -484,15 +461,14 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
 
         List documentTransactions = new ArrayList();
         if (singleTransaction) {
-            for (Iterator iter = transactions.iterator(); iter.hasNext();) {
+            for (Iterator iter = transactions.iterator(); iter.hasNext(); ) {
                 documentTransactions.add(iter.next());
                 groupedTransactions.add(documentTransactions);
                 documentTransactions = new ArrayList();
             }
-        }
-        else {
+        } else {
             Map cardTransactionsMap = new HashMap();
-            for (Iterator iter = transactions.iterator(); iter.hasNext();) {
+            for (Iterator iter = transactions.iterator(); iter.hasNext(); ) {
                 ProcurementCardTransaction transaction = (ProcurementCardTransaction) iter.next();
                 if (!cardTransactionsMap.containsKey(transaction.getTransactionCreditCardNumber())) {
                     cardTransactionsMap.put(transaction.getTransactionCreditCardNumber(), new ArrayList());
@@ -500,7 +476,7 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
                 ((List) cardTransactionsMap.get(transaction.getTransactionCreditCardNumber())).add(transaction);
             }
 
-            for (Iterator iter = cardTransactionsMap.values().iterator(); iter.hasNext();) {
+            for (Iterator iter = cardTransactionsMap.values().iterator(); iter.hasNext(); ) {
                 groupedTransactions.add(iter.next());
 
             }
@@ -508,7 +484,6 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
 
         return groupedTransactions;
     }
-
 
     /**
      * Creates a ProcurementCardDocument from the List of transactions given.
@@ -538,7 +513,7 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
             int transactionLineNumber = 1;
             KualiDecimal documentTotalAmount = KualiDecimal.ZERO;
             String errorText = "";
-            for (Iterator iter = transactions.iterator(); iter.hasNext();) {
+            for (Iterator iter = transactions.iterator(); iter.hasNext(); ) {
                 ProcurementCardTransaction transaction = (ProcurementCardTransaction) iter.next();
 
                 // create transaction detail record with accounting lines
@@ -568,10 +543,9 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
                 errorText = errorText.substring(0, documentExplanationMaxLength - truncatedMessage.length()) + truncatedMessage;
             }
             pcardDocument.getDocumentHeader().setExplanation(errorText);
-        }
-        catch (WorkflowException e) {
-            LOG.error("Error creating pcdo documents: " + e.getMessage(),e);
-            throw new RuntimeException("Error creating pcdo documents: " + e.getMessage(),e);
+        } catch (WorkflowException e) {
+            LOG.error("Error creating pcdo documents: " + e.getMessage(), e);
+            throw new RuntimeException("Error creating pcdo documents: " + e.getMessage(), e);
         }
 
         return pcardDocument;
@@ -600,7 +574,7 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
      * Creates card holder record and sets that record to the document given.
      *
      * @param pcardDocument Procurement card document to place the record in.
-     * @param transaction The transaction to set the card holder record fields from.
+     * @param transaction   The transaction to set the card holder record fields from.
      */
     protected void createCardHolderRecord(ProcurementCardDocument pcardDocument, ProcurementCardTransaction transaction) {
         ProcurementCardHolder cardHolder = new ProcurementCardHolder();
@@ -608,9 +582,9 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
         cardHolder.setDocumentNumber(pcardDocument.getDocumentNumber());
         cardHolder.setTransactionCreditCardNumber(transaction.getTransactionCreditCardNumber());
 
-            final ProcurementCardDefault procurementCardDefault = retrieveProcurementCardDefault(transaction.getTransactionCreditCardNumber());
-            if (procurementCardDefault != null) {
-            if (getParameterService().getParameterValueAsBoolean(ProcurementCardCreateDocumentsStep.class, ProcurementCardCreateDocumentsStep.USE_CARD_HOLDER_DEFAULT_PARAMETER_NAME)) {
+        final ProcurementCardDefault procurementCardDefault = retrieveProcurementCardDefault(transaction.getTransactionCreditCardNumber());
+        if (procurementCardDefault != null) {
+            if (parameterService.getParameterValueAsBoolean(ProcurementCardCreateDocumentsStep.class, ProcurementCardCreateDocumentsStep.USE_CARD_HOLDER_DEFAULT_PARAMETER_NAME)) {
                 cardHolder.setCardCycleAmountLimit(procurementCardDefault.getCardCycleAmountLimit());
                 cardHolder.setCardCycleVolumeLimit(procurementCardDefault.getCardCycleVolumeLimit());
                 cardHolder.setCardHolderAlternateName(procurementCardDefault.getCardHolderAlternateName());
@@ -625,12 +599,12 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
                 cardHolder.setCardNoteText(procurementCardDefault.getCardNoteText());
                 cardHolder.setCardStatusCode(procurementCardDefault.getCardStatusCode());
             }
-                if (getParameterService().getParameterValueAsBoolean(ProcurementCardCreateDocumentsStep.class, ProcurementCardCreateDocumentsStep.USE_ACCOUNTING_DEFAULT_PARAMETER_NAME)) {
-                    cardHolder.setChartOfAccountsCode(procurementCardDefault.getChartOfAccountsCode());
-                    cardHolder.setAccountNumber(procurementCardDefault.getAccountNumber());
-                    cardHolder.setSubAccountNumber(procurementCardDefault.getSubAccountNumber());
-                }
+            if (parameterService.getParameterValueAsBoolean(ProcurementCardCreateDocumentsStep.class, ProcurementCardCreateDocumentsStep.USE_ACCOUNTING_DEFAULT_PARAMETER_NAME)) {
+                cardHolder.setChartOfAccountsCode(procurementCardDefault.getChartOfAccountsCode());
+                cardHolder.setAccountNumber(procurementCardDefault.getAccountNumber());
+                cardHolder.setSubAccountNumber(procurementCardDefault.getSubAccountNumber());
             }
+        }
 
         if (StringUtils.isEmpty(cardHolder.getAccountNumber())) {
             cardHolder.setChartOfAccountsCode(transaction.getChartOfAccountsCode());
@@ -659,8 +633,8 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
     /**
      * Creates a transaction detail record and adds that record to the document provided.
      *
-     * @param pcardDocument Document to place record in.
-     * @param transaction Transaction to set fields from.
+     * @param pcardDocument         Document to place record in.
+     * @param transaction           Transaction to set fields from.
      * @param transactionLineNumber Line number of the new transaction detail record within the procurement card document.
      * @return The error text that was generated from the creation of the detail records.  If the text is empty, no errors were encountered.
      */
@@ -689,8 +663,7 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
 
         if (GL_CREDIT_CODE.equals(transaction.getTransactionDebitCreditCode())) {
             transactionDetail.setTransactionTotalAmount(transaction.getFinancialDocumentTotalAmount().negated());
-        }
-        else {
+        } else {
             transactionDetail.setTransactionTotalAmount(transaction.getFinancialDocumentTotalAmount());
         }
 
@@ -720,8 +693,8 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
     /**
      * Creates a transaction vendor detail record and adds it to the transaction detail.
      *
-     * @param pcardDocument The procurement card document to retrieve values from.
-     * @param transaction Transaction to set fields from.
+     * @param pcardDocument     The procurement card document to retrieve values from.
+     * @param transaction       Transaction to set fields from.
      * @param transactionDetail The transaction detail to set the vendor record on.
      */
     protected void createTransactionVendorRecord(ProcurementCardDocument pcardDocument, ProcurementCardTransaction transaction, ProcurementCardTransactionDetail transactionDetail) {
@@ -1139,8 +1112,8 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
      * From the transaction accounting attributes, creates source and target accounting lines. Attributes are validated first, and
      * replaced with default and error values if needed. There will be 1 source and 1 target line generated.
      *
-     * @param pcardDocument The procurement card document to add the new accounting lines to.
-     * @param transaction The transaction to process into account lines.
+     * @param pcardDocument        The procurement card document to add the new accounting lines to.
+     * @param transaction          The transaction to process into account lines.
      * @param docTransactionDetail The transaction detail to create source and target accounting lines from.
      * @return String containing any error messages.
      */
@@ -1166,7 +1139,7 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
      * Creates the to record for the transaction. The chart of account attributes from the transaction are used to create
      * the accounting line.
      *
-     * @param transaction The transaction to pull information from to create the accounting line.
+     * @param transaction          The transaction to pull information from to create the accounting line.
      * @param docTransactionDetail The transaction detail to pull information from to populate the accounting line.
      * @return The target accounting line fully populated with values from the parameters passed in.
      */
@@ -1181,22 +1154,21 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
         targetLine.setFinancialSubObjectCode(transaction.getFinancialSubObjectCode());
         targetLine.setProjectCode(transaction.getProjectCode());
 
-        if (getParameterService().getParameterValueAsBoolean(ProcurementCardCreateDocumentsStep.class, ProcurementCardCreateDocumentsStep.USE_ACCOUNTING_DEFAULT_PARAMETER_NAME)) {
+        if (parameterService.getParameterValueAsBoolean(ProcurementCardCreateDocumentsStep.class, ProcurementCardCreateDocumentsStep.USE_ACCOUNTING_DEFAULT_PARAMETER_NAME)) {
             final ProcurementCardDefault procurementCardDefault = retrieveProcurementCardDefault(transaction.getTransactionCreditCardNumber());
             if (procurementCardDefault != null) {
-                    targetLine.setChartOfAccountsCode(procurementCardDefault.getChartOfAccountsCode());
-                    targetLine.setAccountNumber(procurementCardDefault.getAccountNumber());
-                    targetLine.setFinancialObjectCode(procurementCardDefault.getFinancialObjectCode());
-                    targetLine.setSubAccountNumber(procurementCardDefault.getSubAccountNumber());
-                    targetLine.setFinancialSubObjectCode(procurementCardDefault.getFinancialSubObjectCode());
-                    targetLine.setProjectCode(procurementCardDefault.getProjectCode());
+                targetLine.setChartOfAccountsCode(procurementCardDefault.getChartOfAccountsCode());
+                targetLine.setAccountNumber(procurementCardDefault.getAccountNumber());
+                targetLine.setFinancialObjectCode(procurementCardDefault.getFinancialObjectCode());
+                targetLine.setSubAccountNumber(procurementCardDefault.getSubAccountNumber());
+                targetLine.setFinancialSubObjectCode(procurementCardDefault.getFinancialSubObjectCode());
+                targetLine.setProjectCode(procurementCardDefault.getProjectCode());
             }
         }
 
         if (GL_CREDIT_CODE.equals(transaction.getTransactionDebitCreditCode())) {
             targetLine.setAmount(transaction.getFinancialDocumentTotalAmount().negated());
-        }
-        else {
+        } else {
             targetLine.setAmount(transaction.getFinancialDocumentTotalAmount());
         }
 
@@ -1206,7 +1178,7 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
     /**
      * Creates the from record for the transaction. The clearing chart, account, and object code is used for creating the line.
      *
-     * @param transaction The transaction to pull information from to create the accounting line.
+     * @param transaction          The transaction to pull information from to create the accounting line.
      * @param docTransactionDetail The transaction detail to pull information from to populate the accounting line.
      * @return The source accounting line fully populated with values from the parameters passed in.
      */
@@ -1221,8 +1193,7 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
 
         if (GL_CREDIT_CODE.equals(transaction.getTransactionDebitCreditCode())) {
             sourceLine.setAmount(transaction.getFinancialDocumentTotalAmount().negated());
-        }
-        else {
+        } else {
             sourceLine.setAmount(transaction.getFinancialDocumentTotalAmount());
         }
 
@@ -1243,8 +1214,8 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
         final String lineNumber = targetLine.getSequenceNumber() == null ? "new" : targetLine.getSequenceNumber().toString();
 
         if (!accountingLineRuleUtil.isValidChart("", targetLine.getChart(), dataDictionaryService.getDataDictionary())) {
-            String tempErrorText = "Target Accounting Line "+lineNumber+" Chart " + targetLine.getChartOfAccountsCode() + " is invalid; using error Chart Code.";
-            if ( LOG.isInfoEnabled() ) {
+            String tempErrorText = "Target Accounting Line " + lineNumber + " Chart " + targetLine.getChartOfAccountsCode() + " is invalid; using error Chart Code.";
+            if (LOG.isInfoEnabled()) {
                 LOG.info(tempErrorText);
             }
             errorText += " " + tempErrorText;
@@ -1254,8 +1225,8 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
         }
 
         if (!accountingLineRuleUtil.isValidAccount("", targetLine.getAccount(), dataDictionaryService.getDataDictionary()) || targetLine.getAccount().isExpired()) {
-            String tempErrorText = "Target Accounting Line "+lineNumber+" Chart " + targetLine.getChartOfAccountsCode() + " Account " + targetLine.getAccountNumber() + " is invalid; using error account.";
-            if ( LOG.isInfoEnabled() ) {
+            String tempErrorText = "Target Accounting Line " + lineNumber + " Chart " + targetLine.getChartOfAccountsCode() + " Account " + targetLine.getAccountNumber() + " is invalid; using error account.";
+            if (LOG.isInfoEnabled()) {
                 LOG.info(tempErrorText);
             }
             errorText += " " + tempErrorText;
@@ -1266,8 +1237,8 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
         }
 
         if (!accountingLineRuleUtil.isValidObjectCode("", targetLine.getObjectCode(), dataDictionaryService.getDataDictionary())) {
-            String tempErrorText = "Target Accounting Line "+lineNumber+" Chart " + targetLine.getChartOfAccountsCode() + " Object Code " + targetLine.getFinancialObjectCode() + " is invalid; using default Object Code.";
-            if ( LOG.isInfoEnabled() ) {
+            String tempErrorText = "Target Accounting Line " + lineNumber + " Chart " + targetLine.getChartOfAccountsCode() + " Object Code " + targetLine.getFinancialObjectCode() + " is invalid; using default Object Code.";
+            if (LOG.isInfoEnabled()) {
                 LOG.info(tempErrorText);
             }
             errorText += " " + tempErrorText;
@@ -1277,8 +1248,8 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
         }
 
         if (StringUtils.isNotBlank(targetLine.getSubAccountNumber()) && !accountingLineRuleUtil.isValidSubAccount("", targetLine.getSubAccount(), dataDictionaryService.getDataDictionary())) {
-            String tempErrorText = "Target Accounting Line "+lineNumber+" Chart " + targetLine.getChartOfAccountsCode() + " Account " + targetLine.getAccountNumber() + " Sub Account " + targetLine.getSubAccountNumber() + " is invalid; Setting Sub Account to blank.";
-            if ( LOG.isInfoEnabled() ) {
+            String tempErrorText = "Target Accounting Line " + lineNumber + " Chart " + targetLine.getChartOfAccountsCode() + " Account " + targetLine.getAccountNumber() + " Sub Account " + targetLine.getSubAccountNumber() + " is invalid; Setting Sub Account to blank.";
+            if (LOG.isInfoEnabled()) {
                 LOG.info(tempErrorText);
             }
             errorText += " " + tempErrorText;
@@ -1287,8 +1258,8 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
         }
 
         if (StringUtils.isNotBlank(targetLine.getFinancialSubObjectCode()) && !accountingLineRuleUtil.isValidSubObjectCode("", targetLine.getSubObjectCode(), dataDictionaryService.getDataDictionary())) {
-            String tempErrorText = "Target Accounting Line "+lineNumber+" Chart " + targetLine.getChartOfAccountsCode() + " Account " + targetLine.getAccountNumber() + " Object Code " + targetLine.getFinancialObjectCode() + " Sub Object Code " + targetLine.getFinancialSubObjectCode() + " is invalid; setting Sub Object to blank.";
-            if ( LOG.isInfoEnabled() ) {
+            String tempErrorText = "Target Accounting Line " + lineNumber + " Chart " + targetLine.getChartOfAccountsCode() + " Account " + targetLine.getAccountNumber() + " Object Code " + targetLine.getFinancialObjectCode() + " Sub Object Code " + targetLine.getFinancialSubObjectCode() + " is invalid; setting Sub Object to blank.";
+            if (LOG.isInfoEnabled()) {
                 LOG.info(tempErrorText);
             }
             errorText += " " + tempErrorText;
@@ -1297,10 +1268,10 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
         }
 
         if (StringUtils.isNotBlank(targetLine.getProjectCode()) && !accountingLineRuleUtil.isValidProjectCode("", targetLine.getProject(), dataDictionaryService.getDataDictionary())) {
-            if ( LOG.isInfoEnabled() ) {
-                LOG.info("Target Accounting Line "+lineNumber+" Project Code " + targetLine.getProjectCode() + " is invalid; setting to blank.");
+            if (LOG.isInfoEnabled()) {
+                LOG.info("Target Accounting Line " + lineNumber + " Project Code " + targetLine.getProjectCode() + " is invalid; setting to blank.");
             }
-            errorText += " Target Accounting Line "+lineNumber+" Project Code " + targetLine.getProjectCode() + " is invalid; setting to blank.";
+            errorText += " Target Accounting Line " + lineNumber + " Project Code " + targetLine.getProjectCode() + " is invalid; setting to blank.";
 
             targetLine.setProjectCode("");
         }
@@ -1322,23 +1293,22 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
         String errorText = "";
         final String lineNumber = transaction.getTransactionSequenceRowNumber() == null ? "new" : transaction.getTransactionSequenceRowNumber().toString();
 
-        if (getParameterService().getParameterValueAsBoolean(ProcurementCardCreateDocumentsStep.class, ProcurementCardCreateDocumentsStep.USE_ACCOUNTING_DEFAULT_PARAMETER_NAME)) {
+        if (parameterService.getParameterValueAsBoolean(ProcurementCardCreateDocumentsStep.class, ProcurementCardCreateDocumentsStep.USE_ACCOUNTING_DEFAULT_PARAMETER_NAME)) {
             final ProcurementCardDefault procurementCardDefault = retrieveProcurementCardDefault(transaction.getTransactionCreditCardNumber());
             if (ObjectUtils.isNull(procurementCardDefault)) {
-                final String tempErrorText = "Procurement Card Accounting Line Defaults are turned on but no Procurement Card Default record could be retrieved for transaction: "+transaction.getTransactionReferenceNumber() + " by card number.";
-                if ( LOG.isInfoEnabled() ) {
+                final String tempErrorText = "Procurement Card Accounting Line Defaults are turned on but no Procurement Card Default record could be retrieved for transaction: " + transaction.getTransactionReferenceNumber() + " by card number.";
+                if (LOG.isInfoEnabled()) {
                     LOG.info(tempErrorText);
                 }
                 errorText += " " + tempErrorText;
             }
-        }
-        else {
+        } else {
             transaction.refresh();
 
             final ChartService chartService = SpringContext.getBean(ChartService.class);
             if (transaction.getChartOfAccountsCode() == null || ObjectUtils.isNull(chartService.getByPrimaryId(transaction.getChartOfAccountsCode()))) {
-                String tempErrorText = "Transaction "+lineNumber+" Chart " + transaction.getChartOfAccountsCode() + " is invalid; using error Chart Code.";
-                if ( LOG.isInfoEnabled() ) {
+                String tempErrorText = "Transaction " + lineNumber + " Chart " + transaction.getChartOfAccountsCode() + " is invalid; using error Chart Code.";
+                if (LOG.isInfoEnabled()) {
                     LOG.info(tempErrorText);
                 }
                 errorText += " " + tempErrorText;
@@ -1348,8 +1318,8 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
 
             final AccountService accountService = SpringContext.getBean(AccountService.class);
             if (transaction.getAccountNumber() == null || ObjectUtils.isNull(accountService.getByPrimaryIdWithCaching(transaction.getChartOfAccountsCode(), transaction.getAccountNumber())) || accountService.getByPrimaryIdWithCaching(transaction.getChartOfAccountsCode(), transaction.getAccountNumber()).isExpired()) {
-                String tempErrorText = "Transaction "+lineNumber+" Chart " + transaction.getChartOfAccountsCode() + " Account " + transaction.getAccountNumber() + " is invalid; using error account.";
-                if ( LOG.isInfoEnabled() ) {
+                String tempErrorText = "Transaction " + lineNumber + " Chart " + transaction.getChartOfAccountsCode() + " Account " + transaction.getAccountNumber() + " is invalid; using error account.";
+                if (LOG.isInfoEnabled()) {
                     LOG.info(tempErrorText);
                 }
                 errorText += " " + tempErrorText;
@@ -1361,8 +1331,8 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
             final UniversityDateService uds = SpringContext.getBean(UniversityDateService.class);
             final ObjectCodeService ocs = SpringContext.getBean(ObjectCodeService.class);
             if (transaction.getFinancialObjectCode() == null || ObjectUtils.isNull(ocs.getByPrimaryIdWithCaching(uds.getCurrentFiscalYear(), transaction.getChartOfAccountsCode(), transaction.getFinancialObjectCode()))) {
-                String tempErrorText = "Transaction "+lineNumber+" Chart " + transaction.getChartOfAccountsCode() + " Object Code " + transaction.getFinancialObjectCode() + " is invalid; using default Object Code.";
-                if ( LOG.isInfoEnabled() ) {
+                String tempErrorText = "Transaction " + lineNumber + " Chart " + transaction.getChartOfAccountsCode() + " Object Code " + transaction.getFinancialObjectCode() + " is invalid; using default Object Code.";
+                if (LOG.isInfoEnabled()) {
                     LOG.info(tempErrorText);
                 }
                 errorText += " " + tempErrorText;
@@ -1376,8 +1346,8 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
                 SubAccount subAccount = sas.getByPrimaryIdWithCaching(transaction.getChartOfAccountsCode(), transaction.getAccountNumber(), transaction.getSubAccountNumber());
 
                 if (ObjectUtils.isNull(subAccount)) {
-                    String tempErrorText = "Transaction "+lineNumber+" Chart " + transaction.getChartOfAccountsCode() + " Account " + transaction.getAccountNumber() + " Sub Account " + transaction.getSubAccountNumber() + " is invalid; Setting Sub Account to blank.";
-                    if ( LOG.isInfoEnabled() ) {
+                    String tempErrorText = "Transaction " + lineNumber + " Chart " + transaction.getChartOfAccountsCode() + " Account " + transaction.getAccountNumber() + " Sub Account " + transaction.getSubAccountNumber() + " is invalid; Setting Sub Account to blank.";
+                    if (LOG.isInfoEnabled()) {
                         LOG.info(tempErrorText);
                     }
                     errorText += " " + tempErrorText;
@@ -1392,8 +1362,8 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
                 SubObjectCode soc = socs.getByPrimaryIdForCurrentYear(transaction.getChartOfAccountsCode(), transaction.getAccountNumber(), transaction.getFinancialObjectCode(), transaction.getFinancialSubObjectCode());
 
                 if (ObjectUtils.isNull(soc)) {
-                    String tempErrorText = "Transaction "+lineNumber+" Chart " + transaction.getChartOfAccountsCode() + " Account " + transaction.getAccountNumber() + " Object Code " + transaction.getFinancialObjectCode() + " Sub Object Code " + transaction.getFinancialSubObjectCode() + " is invalid; setting Sub Object to blank.";
-                    if ( LOG.isInfoEnabled() ) {
+                    String tempErrorText = "Transaction " + lineNumber + " Chart " + transaction.getChartOfAccountsCode() + " Account " + transaction.getAccountNumber() + " Object Code " + transaction.getFinancialObjectCode() + " Sub Object Code " + transaction.getFinancialSubObjectCode() + " is invalid; setting Sub Object to blank.";
+                    if (LOG.isInfoEnabled()) {
                         LOG.info(tempErrorText);
                     }
                     errorText += " " + tempErrorText;
@@ -1408,10 +1378,10 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
                 ProjectCode pc = pcs.getByPrimaryId(transaction.getProjectCode());
 
                 if (ObjectUtils.isNull(pc)) {
-                    if ( LOG.isInfoEnabled() ) {
-                        LOG.info("Transaction "+lineNumber+" Project Code " + transaction.getProjectCode() + " is invalid; setting to blank.");
+                    if (LOG.isInfoEnabled()) {
+                        LOG.info("Transaction " + lineNumber + " Project Code " + transaction.getProjectCode() + " is invalid; setting to blank.");
                     }
-                    errorText += " Transaction "+lineNumber+" Project Code " + transaction.getProjectCode() + " is invalid; setting to blank.";
+                    errorText += " Transaction " + lineNumber + " Project Code " + transaction.getProjectCode() + " is invalid; setting to blank.";
 
                     transaction.setProjectCode("");
                 }
@@ -1424,58 +1394,37 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
         return errorText;
     }
 
-    /**
-     * Retrieves the error chart code from the parameter table.
-     * @return The error chart code defined in the parameter table.
-     */
     protected String getErrorChartCode() {
         return parameterService.getParameterValueAsString(ProcurementCardCreateDocumentsStep.class, ProcurementCardDocumentRuleConstants.ERROR_TRANS_CHART_CODE_PARM_NM);
     }
 
-    /**
-     * Retrieves the error account number from the parameter table.
-     * @return The error account number defined in the parameter table.
-     */
     protected String getErrorAccountNumber() {
         return parameterService.getParameterValueAsString(ProcurementCardCreateDocumentsStep.class, ERROR_TRANS_ACCOUNT_PARM_NM);
     }
 
     /**
      * Gets the default Chart Code, Account from the custom Procurement Cardholder table.
-     *
      */
     protected ProcurementCardDefault retrieveProcurementCardDefault(String creditCardNumber) {
-        Map<String, String> fieldValues = new HashMap<String, String>();
+        Map<String, String> fieldValues = new HashMap<>();
         fieldValues.put(KFSPropertyConstants.CREDIT_CARD_NUMBER, creditCardNumber);
-        List<ProcurementCardDefault> matchingPcardDefaults = (List<ProcurementCardDefault>)businessObjectService.findMatching(ProcurementCardDefault.class, fieldValues);
+        List<ProcurementCardDefault> matchingPcardDefaults = (List<ProcurementCardDefault>) businessObjectService.findMatching(ProcurementCardDefault.class, fieldValues);
         ProcurementCardDefault procurementCardDefault = null;
-        if ( !matchingPcardDefaults.isEmpty() ) {
+        if (!matchingPcardDefaults.isEmpty()) {
             procurementCardDefault = matchingPcardDefaults.get(0);
         }
 
         return procurementCardDefault;
     }
 
-    /**
-     * Retrieves the default chard code from the parameter table.
-     * @return The default chart code defined in the parameter table.
-     */
     protected String getDefaultChartCode() {
         return parameterService.getParameterValueAsString(ProcurementCardLoadStep.class, DEFAULT_TRANS_CHART_CODE_PARM_NM);
     }
 
-    /**
-     * Retrieves the default account number from the parameter table.
-     * @return The default account number defined in the parameter table.
-     */
     protected String getDefaultAccountNumber() {
         return parameterService.getParameterValueAsString(ProcurementCardLoadStep.class, DEFAULT_TRANS_ACCOUNT_PARM_NM);
     }
 
-    /**
-     * Retrieves the default object code from the parameter table.
-     * @return The default object code defined in the parameter table.
-     */
     protected String getDefaultObjectCode() {
         return parameterService.getParameterValueAsString(ProcurementCardLoadStep.class, DEFAULT_TRANS_OBJECT_CODE_PARM_NM);
     }
@@ -1496,136 +1445,47 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
         businessObjectService.save(transactions);
     }
 
-    /**
-     * @return retrieves the presumably injected implementation of ParameterService to use
-     */
-    public ParameterService getParameterService() {
-        return parameterService;
-    }
-
-    /**
-     * Sets the parameterService attribute.
-     * @param parameterService
-     */
     public void setParameterService(ParameterService parameterService) {
         this.parameterService = parameterService;
     }
 
-    /**
-     * Gets the businessObjectService attribute.
-     * @return Returns the businessObjectService.
-     */
-    public BusinessObjectService getBusinessObjectService() {
-        return businessObjectService;
-    }
-
-    /**
-     * Sets the businessObjectService attribute.
-     * @param businessObjectService The businessObjectService to set.
-     */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
         this.businessObjectService = businessObjectService;
     }
 
-    /**
-     * Gets the documentService attribute.
-     * @return Returns the documentService.
-     */
-    public DocumentService getDocumentService() {
-        return documentService;
-    }
-
-    /**
-     * Sets the documentService attribute.
-     * @param documentService The documentService to set.
-     */
     public void setDocumentService(DocumentService documentService) {
         this.documentService = documentService;
-    }
-
-    public WorkflowDocumentService getWorkflowDocumentService() {
-        return workflowDocumentService;
     }
 
     public void setWorkflowDocumentService(WorkflowDocumentService workflowDocumentService) {
         this.workflowDocumentService = workflowDocumentService;
     }
 
-    /**
-     * Gets the dataDictionaryService attribute.
-     * @return Returns the dataDictionaryService.
-     */
-    public DataDictionaryService getDataDictionaryService() {
-        return dataDictionaryService;
-    }
-
-    /**
-     * Sets the dataDictionaryService attribute.
-     * @param dataDictionaryService dataDictionaryService to set.
-     */
     public void setDataDictionaryService(DataDictionaryService dataDictionaryService) {
         this.dataDictionaryService = dataDictionaryService;
     }
 
-
-    /**
-     * Gets the dateTimeService attribute.
-     * @return Returns the dateTimeService.
-     */
-    public DateTimeService getDateTimeService() {
-        return dateTimeService;
-    }
-
-    /**
-     * Sets the dateTimeService attribute.
-     * @param dateTimeService The dateTimeService to set.
-     */
     public void setDateTimeService(DateTimeService dateTimeService) {
         this.dateTimeService = dateTimeService;
     }
 
-    /**
-     * Sets the accountingLineRuleUtil attribute value.
-     * @param accountingLineRuleUtil The accountingLineRuleUtil to set.
-     */
     public void setAccountingLineRuleUtil(AccountingLineRuleHelperService accountingLineRuleUtil) {
         this.accountingLineRuleUtil = accountingLineRuleUtil;
     }
 
-    /**
-     * Sets the capitalAssetBuilderModuleService attribute value.
-     * @param capitalAssetBuilderModuleService The capitalAssetBuilderModuleService to set.
-     */
-    public void setCapitalAssetBuilderModuleService(CapitalAssetBuilderModuleService capitalAssetBuilderModuleService) {
-        this.capitalAssetBuilderModuleService = capitalAssetBuilderModuleService;
+    public void setCapitalAssetManagementModuleService(CapitalAssetManagementModuleService capitalAssetManagementModuleService) {
+        this.capitalAssetManagementModuleService = capitalAssetManagementModuleService;
     }
 
-    /**
-     * Sets the procurementCardCreateEmailService attribute.
-     *
-     * @param procurementCardCreateEmailService The procurementCardCreateEmailService to set.
-     */
-    public void setProcurementCardCreateEmailService(VelocityEmailService procurementCardCreateEmailService) {
-        this.procurementCardCreateEmailService = procurementCardCreateEmailService;
-    }
-
-    /**
-     * Gets the financialSystemDocumentHeaderSerivce attribute
-     *
-     * @return
-     */
-    public FinancialSystemDocumentService getFinancialSystemDocumentService() {
-        return financialSystemDocumentService;
-    }
-
-    /**
-     * Spring hook to inject financialSystemDocumentHeaderService
-     *
-     * @param financialSystemDocumentService
-     */
     public void setFinancialSystemDocumentService(FinancialSystemDocumentService financialSystemDocumentService) {
         this.financialSystemDocumentService = financialSystemDocumentService;
     }
 
+    public void setEmailService(EmailService emailService) {
+        this.emailService = emailService;
+    }
 
+    public void setEmailTemplateUrl(String emailTemplateUrl) {
+        this.emailTemplateUrl = emailTemplateUrl;
+    }
 }

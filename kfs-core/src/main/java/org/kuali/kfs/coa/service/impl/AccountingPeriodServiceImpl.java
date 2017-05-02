@@ -1,22 +1,32 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.coa.service.impl;
+
+import org.kuali.kfs.coa.businessobject.AccountingPeriod;
+import org.kuali.kfs.coa.service.AccountingPeriodService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.businessobject.UniversityDate;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 
 import java.sql.Date;
 import java.util.Collection;
@@ -24,16 +34,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-
-import org.kuali.kfs.coa.businessobject.AccountingPeriod;
-import org.kuali.kfs.coa.service.AccountingPeriodService;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.businessobject.UniversityDate;
-import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 
 /**
  * This service implementation is the default implementation of the AccountingPeriod service that is delivered with Kuali.
@@ -59,7 +59,7 @@ public class AccountingPeriodServiceImpl implements AccountingPeriodService {
      * @see org.kuali.kfs.coa.service.AccountingPeriodService#getAllAccountingPeriods()
      */
     @Override
-    @Cacheable(value=AccountingPeriod.CACHE_NAME, key="'{getAllAccountingPeriods}'")
+    @Cacheable(value = AccountingPeriod.CACHE_NAME, key = "'{getAllAccountingPeriods}'")
     public Collection<AccountingPeriod> getAllAccountingPeriods() {
         return businessObjectService.findAll(AccountingPeriod.class);
     }
@@ -70,9 +70,9 @@ public class AccountingPeriodServiceImpl implements AccountingPeriodService {
      * @see org.kuali.kfs.coa.service.AccountingPeriodService#getOpenAccountingPeriods()
      */
     @Override
-    @Cacheable(value=AccountingPeriod.CACHE_NAME, key="'{getOpenAccountingPeriods}'")
+    @Cacheable(value = AccountingPeriod.CACHE_NAME, key = "'{getOpenAccountingPeriods}'")
     public Collection<AccountingPeriod> getOpenAccountingPeriods() {
-        HashMap<String,Object> map = new HashMap<String,Object>();
+        HashMap<String, Object> map = new HashMap<String, Object>();
         map.put(KFSConstants.ACCOUNTING_PERIOD_ACTIVE_INDICATOR_FIELD, Boolean.TRUE);
 
         return businessObjectService.findMatchingOrderBy(AccountingPeriod.class, map, KFSPropertyConstants.ACCTING_PERIOD_UNIV_FISCAL_PERIOD_END_DATE, true);
@@ -86,12 +86,12 @@ public class AccountingPeriodServiceImpl implements AccountingPeriodService {
      * @return an accounting period
      */
     @Override
-    @Cacheable(value=AccountingPeriod.CACHE_NAME, key="#p0+'-'+#p1")
+    @Cacheable(value = AccountingPeriod.CACHE_NAME, key = "#p0+'-'+#p1")
     public AccountingPeriod getByPeriod(String periodCode, Integer fiscalYear) {
         // build up the hashmap to find the accounting period
-        HashMap<String,Object> keys = new HashMap<String,Object>();
-        keys.put( KFSPropertyConstants.UNIVERSITY_FISCAL_PERIOD_CODE, periodCode);
-        keys.put( KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, fiscalYear);
+        HashMap<String, Object> keys = new HashMap<String, Object>();
+        keys.put(KFSPropertyConstants.UNIVERSITY_FISCAL_PERIOD_CODE, periodCode);
+        keys.put(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, fiscalYear);
         AccountingPeriod acctPeriod = businessObjectService.findByPrimaryKey(AccountingPeriod.class, keys);
         return acctPeriod;
     }
@@ -106,8 +106,7 @@ public class AccountingPeriodServiceImpl implements AccountingPeriodService {
         AccountingPeriod acctPeriod;
         try {
             acctPeriod = getByDate(dateTimeService.convertToSqlDate(dateString));
-        }
-        catch (Exception pe) {
+        } catch (Exception pe) {
             LOG.error("AccountingPeriod getByStringDate unable to convert string " + dateString + " into date.", pe);
             throw new RuntimeException("AccountingPeriod getByStringDate unable to convert string " + dateString + " into date.", pe);
         }
@@ -120,9 +119,9 @@ public class AccountingPeriodServiceImpl implements AccountingPeriodService {
      * @see org.kuali.kfs.coa.service.AccountingPeriodService#getByDate(java.sql.Date)
      */
     @Override
-    @Cacheable(value=AccountingPeriod.CACHE_NAME, key="'date='+#p0")
+    @Cacheable(value = AccountingPeriod.CACHE_NAME, key = "'date='+#p0")
     public AccountingPeriod getByDate(Date date) {
-        Map<String,Object> primaryKeys = new HashMap<String, Object>();
+        Map<String, Object> primaryKeys = new HashMap<String, Object>();
         primaryKeys.put(KFSPropertyConstants.UNIVERSITY_DATE, date);
         UniversityDate universityDate = businessObjectService.findByPrimaryKey(UniversityDate.class, primaryKeys);
         primaryKeys.clear();
@@ -147,7 +146,7 @@ public class AccountingPeriodServiceImpl implements AccountingPeriodService {
 
     /**
      * @see org.kuali.kfs.coa.service.AccountingPeriodService#compareAccountingPeriodsByDate(org.kuali.kfs.coa.businessobject.AccountingPeriod,
-     *      org.kuali.kfs.coa.businessobject.AccountingPeriod)
+     * org.kuali.kfs.coa.businessobject.AccountingPeriod)
      */
     @Override
     public int compareAccountingPeriodsByDate(AccountingPeriod tweedleDee, AccountingPeriod tweedleDum) {
@@ -160,7 +159,7 @@ public class AccountingPeriodServiceImpl implements AccountingPeriodService {
     }
 
     @Override
-    @CacheEvict(value=AccountingPeriod.CACHE_NAME,allEntries=true)
+    @CacheEvict(value = AccountingPeriod.CACHE_NAME, allEntries = true)
     public void clearCache() {
         // nothing to do - annotation does it all
     }
@@ -168,6 +167,7 @@ public class AccountingPeriodServiceImpl implements AccountingPeriodService {
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
         this.businessObjectService = businessObjectService;
     }
+
     public void setDateTimeService(DateTimeService dateTimeService) {
         this.dateTimeService = dateTimeService;
     }

@@ -1,97 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:p="http://www.springframework.org/schema/p"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-                           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-                           http://www.springframework.org/schema/tx
-                           http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
-                           http://www.springframework.org/schema/aop
-                           http://www.springframework.org/schema/aop/spring-aop-3.0.xsd" default-lazy-init="false">
+                           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd" default-lazy-init="false">
 
-<!-- KNS -->
-    <bean id="kualiInquirable" class="org.kuali.kfs.sys.businessobject.inquiry.KfsInquirableImpl" scope="prototype" />
+    <!-- KRAD -->
+    <!--<bean id="kfs.kualiModuleService" class="org.kuali.kfs.sys.service.impl.KfsKualiModuleServiceImpl"/>-->
 
-<!-- KRAD -->
-	<bean id="kualiModuleService" class="org.kuali.kfs.sys.service.impl.KfsKualiModuleServiceImpl"/>
+    <bean id="cf.documentHelperService" class="org.kuali.kfs.sys.service.impl.DocumentHelperServiceImpl"/>
 
-	<bean id="documentHelperService" class="org.kuali.kfs.sys.service.impl.DocumentHelperServiceImpl" >
-		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
-		</property>
-	</bean> 
-
-  	<bean id="postProcessorService" class="org.kuali.kfs.sys.service.impl.PostProcessorServiceImpl">
-		<property name="documentService" ref="documentService" />
-	</bean>
-
-    <bean id="documentHeaderDao" parent="platformAwareDao" class="org.kuali.kfs.sys.document.dataaccess.impl.FinancialSystemDocumentHeaderDaoOjb">
-    	<property name="documentHeaderBaseClass" value="org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader" />
-    </bean>
-    
-    <bean id="businessObjectAuthorizationService" class="org.kuali.kfs.sys.service.impl.BusinessObjectAuthorizationServiceImpl"/>
-
-    <bean id="dataDictionaryService" class="org.kuali.kfs.sys.service.impl.DataDictionaryServiceImpl">
-        <property name="kualiConfigurationService" ref="kualiConfigurationService"/>
-        <property name="kualiModuleService" ref="kualiModuleService"/>
-        <property name="baselinePackages">
-            <list>
-                <value>classpath:org/kuali/rice/krad/bo/datadictionary/DataDictionaryBaseTypes.xml</value>
-                <value>classpath:org/kuali/rice/krad/bo/datadictionary/AdHocRoutePerson.xml</value>
-                <value>classpath:org/kuali/rice/krad/bo/datadictionary/AdHocRouteWorkgroup.xml</value>
-                <value>classpath:org/kuali/rice/krad/bo/datadictionary/Attachment.xml</value>
-                <value>classpath:org/kuali/rice/krad/bo/datadictionary/AttributeReferenceDummy.xml</value>
-                <value>classpath:org/kuali/rice/krad/bo/datadictionary/AttributeReferenceElements.xml</value>
-                <value>classpath:org/kuali/rice/krad/bo/datadictionary/BusinessObjectAttributeEntry.xml</value>
-                <value>classpath:org/kuali/rice/krad/bo/datadictionary/DocumentHeader.xml</value>
-                <value>classpath:org/kuali/rice/coreservice/web/namespace/Namespace.xml</value>
-                <value>classpath:org/kuali/rice/coreservice/web/parameter/ParameterType.xml</value>
-                <value>classpath:org/kuali/rice/coreservice/web/component/Component.xml</value>
-                <value>classpath:org/kuali/rice/coreservice/web/parameter/Parameter.xml</value>
-                <value>classpath:org/kuali/rice/krad/bo/datadictionary/PessimisticLock.xml</value>
-                <value>classpath:org/kuali/rice/krad/bo/datadictionary/Note.xml</value>
-                <value>classpath:org/kuali/rice/krad/bo/datadictionary/NoteType.xml</value>
-                <value>classpath:org/kuali/rice/coreservice/web/namespace/NamespaceMaintenanceDocument.xml</value>
-                <value>classpath:org/kuali/rice/coreservice/web/parameter/ParameterTypeMaintenanceDocument.xml</value>
-                <value>classpath:org/kuali/rice/coreservice/web/component/ComponentMaintenanceDocument.xml</value>
-                <value>classpath:org/kuali/rice/coreservice/web/parameter/ParameterMaintenanceDocument.xml</value>
-                <value>classpath:org/kuali/rice/core/web/cache/CacheAdmin.xml</value>
-                <value>classpath:org/kuali/rice/location/web/campus/CampusMaintenanceDocument.xml</value>
-                <value>classpath:org/kuali/rice/location/web/campus/CampusTypeMaintenanceDocument.xml</value>
-                <value>classpath:org/kuali/rice/location/web/country/CountryMaintenanceDocument.xml</value>
-                <value>classpath:org/kuali/rice/location/web/county/CountyMaintenanceDocument.xml</value>
-                <value>classpath:org/kuali/rice/location/web/state/StateMaintenanceDocument.xml</value>
-                <value>classpath:org/kuali/rice/location/web/postalcode/PostalCodeMaintenanceDocument.xml</value>
-                <value>classpath:org/kuali/rice/krad/uif/UifControlDefinitions.xml</value>
-                <value>classpath:org/kuali/rice/krad/uif/UifFieldDefinitions.xml</value>
-                <value>classpath:org/kuali/rice/krad/uif/UifGroupDefinitions.xml</value>
-                <value>classpath:org/kuali/rice/krad/uif/UifHeaderFooterDefinitions.xml</value>
-                <value>classpath:org/kuali/rice/krad/uif/UifLayoutManagerDefinitions.xml</value>
-                <value>classpath:org/kuali/rice/krad/uif/UifWidgetDefinitions.xml</value>
-                <value>classpath:org/kuali/rice/krad/uif/UifViewPageDefinitions.xml</value>
-                <value>classpath:org/kuali/rice/kns/bo/datadictionary/DataDictionaryBaseTypes.xml</value>
-            </list>
-        </property>
+    <bean id="cf.documentHeaderDao" parent="platformAwareDao" class="org.kuali.kfs.sys.document.dataaccess.impl.FinancialSystemDocumentHeaderDaoOjb">
+        <property name="documentHeaderBaseClass" value="org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader"/>
     </bean>
 
 </beans>

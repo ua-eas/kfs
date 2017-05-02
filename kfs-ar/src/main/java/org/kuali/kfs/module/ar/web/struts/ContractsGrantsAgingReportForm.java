@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.ar.web.struts;
 
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.kns.web.ui.ExtraButton;
+import org.kuali.kfs.sys.KFSConstants;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.rice.kns.web.struts.form.LookupForm;
-import org.kuali.rice.kns.web.ui.ExtraButton;
 
 
 /**

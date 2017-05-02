@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  * 
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,21 +18,20 @@
  */
 package org.kuali.kfs.module.cam.batch.service.impl;
 
+import net.sf.jasperreports.engine.JRParameter;
+import org.kuali.kfs.module.cam.batch.ExtractProcessLog;
+import org.kuali.kfs.module.cam.batch.service.BatchExtractReportService;
+import org.kuali.kfs.sys.KFSConstants.ReportGeneration;
+import org.kuali.kfs.sys.report.ReportInfo;
+import org.kuali.kfs.sys.service.ReportGenerationService;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-
-import net.sf.jasperreports.engine.JRParameter;
-
-import org.kuali.kfs.module.cab.batch.ExtractProcessLog;
-import org.kuali.kfs.module.cab.batch.service.BatchExtractReportService;
-import org.kuali.kfs.sys.KFSConstants.ReportGeneration;
-import org.kuali.kfs.sys.report.ReportInfo;
-import org.kuali.kfs.sys.service.ReportGenerationService;
-import org.kuali.rice.core.api.datetime.DateTimeService;
 
 public class BatchExtractReportServiceImpl implements BatchExtractReportService {
     protected ReportGenerationService reportGenerationService;
@@ -42,7 +41,7 @@ public class BatchExtractReportServiceImpl implements BatchExtractReportService 
     protected DateTimeService dateTimeService;
 
     /**
-     * @see org.kuali.kfs.module.cab.batch.service.BatchExtractReportService#generateStatusReportPDF(org.kuali.kfs.module.cab.batch.ExtractProcessLog)
+     * @see BatchExtractReportService#generateStatusReportPDF(ExtractProcessLog)
      */
     public File generateStatusReportPDF(ExtractProcessLog extractProcessLog) {
         String reportFileName = cabBatchStatusReportInfo.getReportFileName();
@@ -65,7 +64,7 @@ public class BatchExtractReportServiceImpl implements BatchExtractReportService 
     }
 
     /**
-     * @see org.kuali.kfs.module.cab.batch.service.BatchExtractReportService#generateMismatchReportPDF(org.kuali.kfs.module.cab.batch.ExtractProcessLog)
+     * @see BatchExtractReportService#generateMismatchReportPDF(ExtractProcessLog)
      */
     public File generateMismatchReportPDF(ExtractProcessLog extractProcessLog) {
         String reportFileName = cabBatchMismatchReportInfo.getReportFileName();

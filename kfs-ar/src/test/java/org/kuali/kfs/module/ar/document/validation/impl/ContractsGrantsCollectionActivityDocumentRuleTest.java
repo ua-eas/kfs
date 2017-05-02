@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,19 +18,19 @@
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.module.ar.businessobject.ContractsGrantsCollectionActivityInvoiceDetail;
 import org.kuali.kfs.module.ar.document.ContractsGrantsCollectionActivityDocument;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.krad.service.DocumentService;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 /**
  * This class tests the rules in ContractsGrantsCollectionActivityDocumentRule
@@ -45,7 +45,6 @@ public class ContractsGrantsCollectionActivityDocumentRuleTest extends KualiTest
     private final static String ACTIVITY_CODE = "LSTS";
 
     /**
-     *
      * @see junit.framework.TestCase#setUp()
      */
     @Override
@@ -57,7 +56,6 @@ public class ContractsGrantsCollectionActivityDocumentRuleTest extends KualiTest
     }
 
     /**
-     *
      * @see junit.framework.TestCase#tearDown()
      */
     @Override
@@ -84,7 +82,7 @@ public class ContractsGrantsCollectionActivityDocumentRuleTest extends KualiTest
      * Tests the validateCollectionActivityDocument() method of service and returns true when all rules passed.
      */
     public void testValidateCollectionActivityDocument_True() {
-        contractsGrantsCollectionActivityDocument.setProposalNumber(11L);
+        contractsGrantsCollectionActivityDocument.setProposalNumber("11");
         contractsGrantsCollectionActivityDocument.setActivityCode(ACTIVITY_CODE);
         contractsGrantsCollectionActivityDocument.setActivityDate(new Date(System.currentTimeMillis()));
         contractsGrantsCollectionActivityDocument.setActivityText("testing activity comment");
@@ -124,7 +122,7 @@ public class ContractsGrantsCollectionActivityDocumentRuleTest extends KualiTest
      * Tests the validateCollectionActivityDocument() method of service and returns false when the rule fails.
      */
     public void testValidateCollectionActivityDocument_False_missing_InvoiceDetails() {
-        contractsGrantsCollectionActivityDocument.setProposalNumber(11L);
+        contractsGrantsCollectionActivityDocument.setProposalNumber("11");
         contractsGrantsCollectionActivityDocument.setActivityCode(ACTIVITY_CODE);
         contractsGrantsCollectionActivityDocument.setActivityDate(new Date(System.currentTimeMillis()));
         contractsGrantsCollectionActivityDocument.setActivityText("testing activity comment");

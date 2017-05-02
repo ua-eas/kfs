@@ -1,23 +1,29 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys;
 
+import org.apache.log4j.Logger;
+
+import javax.management.ListenerNotFoundException;
+import javax.management.Notification;
+import javax.management.NotificationEmitter;
+import javax.management.NotificationListener;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryNotificationInfo;
 import java.lang.management.MemoryPoolMXBean;
@@ -28,13 +34,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.management.ListenerNotFoundException;
-import javax.management.Notification;
-import javax.management.NotificationEmitter;
-import javax.management.NotificationListener;
-
-import org.apache.log4j.Logger;
-
 public class MemoryMonitor {
     private final Collection<Listener> listeners = new ArrayList<Listener>();
     private static final Logger LOG = Logger.getLogger(MemoryMonitor.class);
@@ -43,7 +42,9 @@ public class MemoryMonitor {
     public interface Listener {
         public void memoryUsageLow(String springContextId, Map<String, String> memoryUsageStatistics, String deadlockedThreadIds);
     }
+
     NotificationListener lowMemoryListener;
+
     public MemoryMonitor() {
         LOG.info("initializing");
         this.springContextId = "Unknown";
@@ -66,16 +67,16 @@ public class MemoryMonitor {
         };
         ((NotificationEmitter) ManagementFactory.getMemoryMXBean()).addNotificationListener(lowMemoryListener, null, null);
     }
-    
+
     public void stop() {
         try {
             removeAllListeners();
             ((NotificationEmitter) ManagementFactory.getMemoryMXBean()).removeNotificationListener(lowMemoryListener);
         } catch (ListenerNotFoundException ex) {
-            LOG.error( "Unable to unregister mbean listener", ex);
+            LOG.error("Unable to unregister mbean listener", ex);
         }
     }
-    
+
     public void removeAllListeners() {
         listeners.clear();
     }

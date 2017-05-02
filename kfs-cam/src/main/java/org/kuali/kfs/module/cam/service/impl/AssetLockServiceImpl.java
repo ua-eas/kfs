@@ -1,34 +1,30 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cam.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.kuali.kfs.module.cab.CabConstants;
-import org.kuali.kfs.module.cab.CabPropertyConstants;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.UrlFactory;
+import org.kuali.kfs.module.cam.CamsPropertyConstants;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsConstants.DocumentTypeName;
 import org.kuali.kfs.module.cam.CamsKeyConstants;
@@ -38,11 +34,14 @@ import org.kuali.kfs.module.cam.service.AssetLockService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.UrlFactory;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 @Transactional
 public class AssetLockServiceImpl implements AssetLockService {
@@ -53,6 +52,7 @@ public class AssetLockServiceImpl implements AssetLockService {
     // FP document types includes:
     // CashReceipt,DistributionOfIncomeAndExpense,GeneralErrorCorrection,InternalBilling,ServiceBilling,YearEndDistributionOfIncomeAndExpense,YearEndGeneralErrorCorrection,ProcurementCard
     private static final Map<String, String> FINANCIAL_DOC_TYPE_MAP = new HashMap<String, String>();
+
     static {
         FINANCIAL_DOC_TYPE_MAP.put(KFSConstants.FinancialDocumentTypeCodes.CASH_RECEIPT, KFSConstants.FinancialDocumentTypeCodes.CASH_RECEIPT);
         FINANCIAL_DOC_TYPE_MAP.put(KFSConstants.FinancialDocumentTypeCodes.ADVANCE_DEPOSIT, KFSConstants.FinancialDocumentTypeCodes.ADVANCE_DEPOSIT);
@@ -70,6 +70,7 @@ public class AssetLockServiceImpl implements AssetLockService {
     // CAMS document types for maintain asset: AssetMaintenance, AssetFabrication, Asset Global, Asset Location Global,
     // LoanAndReturn
     private static final Map<String, String> ASSET_MAINTAIN_DOC_TYPE_MAP = new HashMap<String, String>();
+
     static {
         ASSET_MAINTAIN_DOC_TYPE_MAP.put(DocumentTypeName.ASSET_EDIT, DocumentTypeName.ASSET_EDIT);
         ASSET_MAINTAIN_DOC_TYPE_MAP.put(DocumentTypeName.ASSET_LOCATION_GLOBAL, DocumentTypeName.ASSET_LOCATION_GLOBAL);
@@ -80,6 +81,7 @@ public class AssetLockServiceImpl implements AssetLockService {
 
     // CAMS document types relating payment changes: AssetRetirement and Merge, AssetTransfer, AssetPayment, Asset Separate
     private static final Map<String, String> ASSET_PMT_CHG_DOC_TYPE_MAP = new HashMap<String, String>();
+
     static {
         ASSET_PMT_CHG_DOC_TYPE_MAP.put(DocumentTypeName.ASSET_RETIREMENT_GLOBAL, DocumentTypeName.ASSET_RETIREMENT_GLOBAL);
         ASSET_PMT_CHG_DOC_TYPE_MAP.put(DocumentTypeName.ASSET_TRANSFER, DocumentTypeName.ASSET_TRANSFER);
@@ -88,7 +90,7 @@ public class AssetLockServiceImpl implements AssetLockService {
     }
 
     protected boolean isPurApDocument(String documentTypeName) {
-        return CabConstants.PREQ.equals(documentTypeName) || CabConstants.CM.equals(documentTypeName);
+        return CamsConstants.PREQ.equals(documentTypeName) || CamsConstants.CM.equals(documentTypeName);
     }
 
     /**
@@ -111,19 +113,17 @@ public class AssetLockServiceImpl implements AssetLockService {
     }
 
 
-	/**
-	 * @param assetLocks
-	 *            All asset locks must be owned by the same documentNumber and having the same
-	 *            documentTypeName
-	 * @param ignoreLockingInfoForDeletion
-	 *            Indicate whether or not to ignore asset locking information
-	 *            when deleting existing asset locks granted to document. This
-	 *            will be used to update asset locks if locking info updated as
-	 *            well.
-	 * @return Return false without any of the asset being locked. Return true
-	 *         when all assets can be locked.
-	 * @see org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService#checkAndLockForDocument(java.util.Collection)
-	 */
+    /**
+     * @param assetLocks                   All asset locks must be owned by the same documentNumber and having the same
+     *                                     documentTypeName
+     * @param ignoreLockingInfoForDeletion Indicate whether or not to ignore asset locking information
+     *                                     when deleting existing asset locks granted to document. This
+     *                                     will be used to update asset locks if locking info updated as
+     *                                     well.
+     * @return Return false without any of the asset being locked. Return true
+     * when all assets can be locked.
+     * @see org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService#checkAndLockForDocument(java.util.Collection)
+     */
     public synchronized boolean checkAndSetAssetLocks(List<AssetLock> assetLocks, boolean ignoreLockingInfoForDeletion) {
         if (assetLocks == null || assetLocks.isEmpty() || !assetLocks.iterator().hasNext()) {
             return true;
@@ -182,8 +182,8 @@ public class AssetLockServiceImpl implements AssetLockService {
         // PREQ blocking documents
         if (CamsConstants.DocumentTypeName.ASSET_PREQ_INQUIRY.equals(documentTypeName)) {
             List fpAndPurApDocTypes = new ArrayList<String>();
-            fpAndPurApDocTypes.add(CabConstants.PREQ);
-            fpAndPurApDocTypes.add(CabConstants.CM);
+            fpAndPurApDocTypes.add(CamsConstants.PREQ);
+            fpAndPurApDocTypes.add(CamsConstants.CM);
             return fpAndPurApDocTypes;
         }
 
@@ -192,7 +192,7 @@ public class AssetLockServiceImpl implements AssetLockService {
     }
 
     /**
-     * @see org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService#deleteLocks(java.lang.String, java.lang.String)
+     * @see org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService#deleteLocks(java.lang.String, java.lang.String)
      */
 
     public void deleteAssetLocks(String documentNumber, String lockingInformation) {
@@ -200,16 +200,16 @@ public class AssetLockServiceImpl implements AssetLockService {
             return;
         }
         Map<String, Object> fieldValues = new HashMap<String, Object>();
-        fieldValues.put(CabPropertyConstants.CapitalAssetLock.DOCUMENT_NUMBER, documentNumber);
+        fieldValues.put(CamsPropertyConstants.CapitalAssetLock.DOCUMENT_NUMBER, documentNumber);
         if (StringUtils.isNotBlank(lockingInformation)) {
-            fieldValues.put(CabPropertyConstants.CapitalAssetLock.LOCKING_INFORMATION, lockingInformation);
+            fieldValues.put(CamsPropertyConstants.CapitalAssetLock.LOCKING_INFORMATION, lockingInformation);
         }
         getBusinessObjectService().deleteMatching(AssetLock.class, fieldValues);
     }
 
     /**
-     * @see org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService#generateAssetLocks(java.util.Collection,
-     *      java.lang.String, java.lang.String, java.lang.String)
+     * @see org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService#generateAssetLocks(java.util.Collection,
+     * java.lang.String, java.lang.String, java.lang.String)
      */
 
     public List<AssetLock> buildAssetLockHelper(List<Long> assetNumbers, String documentNumber, String documentType, String lockingInformation) {
@@ -245,12 +245,11 @@ public class AssetLockServiceImpl implements AssetLockService {
             }
 
             // post an error about the locked document
-            String[] errorParameters = { blockingUrl, blockingDocId };
+            String[] errorParameters = {blockingUrl, blockingDocId};
             if (FINANCIAL_DOC_TYPE_MAP.containsKey(documentTypeName)) {
                 // display a different error message for lock request from FP document.
                 GlobalVariables.getMessageMap().putError(KRADConstants.GLOBAL_ERRORS, CamsKeyConstants.AssetLock.ERROR_ASSET_LOCKED, errorParameters);
-            }
-            else {
+            } else {
                 GlobalVariables.getMessageMap().putError(KRADConstants.GLOBAL_ERRORS, CamsKeyConstants.AssetLock.ERROR_ASSET_MAINTENANCE_LOCKED, errorParameters);
             }
         }
@@ -269,9 +268,9 @@ public class AssetLockServiceImpl implements AssetLockService {
             return false;
         }
         Map<String, Object> fieldValues = new HashMap<String, Object>();
-        fieldValues.put(CabPropertyConstants.CapitalAssetLock.DOCUMENT_NUMBER, documentNumber);
+        fieldValues.put(CamsPropertyConstants.CapitalAssetLock.DOCUMENT_NUMBER, documentNumber);
         if (StringUtils.isNotBlank(lockingInformation)) {
-            fieldValues.put(CabPropertyConstants.CapitalAssetLock.LOCKING_INFORMATION, lockingInformation);
+            fieldValues.put(CamsPropertyConstants.CapitalAssetLock.LOCKING_INFORMATION, lockingInformation);
         }
         Collection<AssetLock> assetLocks = getBusinessObjectService().findMatching(AssetLock.class, fieldValues);
         return assetLocks != null && !assetLocks.isEmpty();
@@ -299,7 +298,7 @@ public class AssetLockServiceImpl implements AssetLockService {
 
     /**
      * @see org.kuali.kfs.module.cam.service.AssetLockService#getAssetLockingDocuments(java.util.List, java.lang.String,
-     *      java.lang.String)
+     * java.lang.String)
      */
 
     public List<String> getAssetLockingDocuments(List<Long> assetNumbers, String documentTypeName, String excludingDocumentNumber) {

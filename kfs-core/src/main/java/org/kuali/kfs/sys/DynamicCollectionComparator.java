@@ -1,31 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys;
+
+import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang.ObjectUtils;
 
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.lang.ObjectUtils;
 
 /**
  * The comparator can dynamically implement java.util.Comparator and facilitate to sort a given colletion. This implementation is
@@ -45,8 +45,8 @@ public class DynamicCollectionComparator<T> implements Comparator<T>, Serializab
 
     /**
      * private constructs a DynamicCollectionComparator.java.
-     * 
-     * @param list the given collection that needs to be sorted
+     *
+     * @param list      the given collection that needs to be sorted
      * @param fieldName the field name ordered by
      * @param sortOrder the given sort order, either ascending or descending
      */
@@ -64,8 +64,8 @@ public class DynamicCollectionComparator<T> implements Comparator<T>, Serializab
 
     /**
      * sort the given collection ordered by the given field name. Ascending order is used.
-     * 
-     * @param list the given collection that needs to be sorted
+     *
+     * @param list      the given collection that needs to be sorted
      * @param fieldName the field name ordered by
      */
     public static <C> void sort(List<C> list, String... fieldNames) {
@@ -74,8 +74,8 @@ public class DynamicCollectionComparator<T> implements Comparator<T>, Serializab
 
     /**
      * sort the given collection ordered by the given field name
-     * 
-     * @param list the given collection that needs to be sorted
+     *
+     * @param list      the given collection that needs to be sorted
      * @param fieldName the field name ordered by
      * @param sortOrder the given sort order, either ascending or descending
      */
@@ -110,40 +110,33 @@ public class DynamicCollectionComparator<T> implements Comparator<T>, Serializab
      */
     public int compare(T object0, T object1, String fieldName) {
         int comparisonResult = 0;
-        
+
         try {
             Object propery0 = PropertyUtils.getProperty(object0, fieldName);
             Object propery1 = PropertyUtils.getProperty(object1, fieldName);
 
-            if(propery0 == null && propery1 == null) {
+            if (propery0 == null && propery1 == null) {
                 comparisonResult = 0;
-            }
-            else if(propery0 == null) {
+            } else if (propery0 == null) {
                 comparisonResult = -1;
-            }
-            else if(propery1 == null) {
+            } else if (propery1 == null) {
                 comparisonResult = 1;
-            }            
-            else if (propery0 instanceof Comparable) {
+            } else if (propery0 instanceof Comparable) {
                 Comparable comparable0 = (Comparable) propery0;
                 Comparable comparable1 = (Comparable) propery1;
 
                 comparisonResult = comparable0.compareTo(comparable1);
-            }
-            else {
+            } else {
                 String property0AsString = ObjectUtils.toString(propery0);
                 String property1AsString = ObjectUtils.toString(propery1);
 
                 comparisonResult = property0AsString.compareTo(property1AsString);
             }
-        }
-        catch (IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
             throw new RuntimeException("unable to compare property: " + fieldName, e);
-        }
-        catch (InvocationTargetException e) {
+        } catch (InvocationTargetException e) {
             throw new RuntimeException("unable to compare property: " + fieldName, e);
-        }
-        catch (NoSuchMethodException e) {
+        } catch (NoSuchMethodException e) {
             throw new RuntimeException("unable to compare property: " + fieldName, e);
         }
 
@@ -152,7 +145,7 @@ public class DynamicCollectionComparator<T> implements Comparator<T>, Serializab
 
     /**
      * convert the sort order as an interger. If the sort order is "DESC" (descending order), reutrn -1; otherwise, return 1.
-     * 
+     *
      * @return -1 if the sort order is "DESC" (descending order); otherwise, return 1.
      */
     public int getSortOrderAsNumber() {

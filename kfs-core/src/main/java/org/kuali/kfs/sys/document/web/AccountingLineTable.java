@@ -1,32 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.document.web;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.kuali.kfs.kns.web.ui.Field;
+import org.kuali.kfs.sys.document.web.renderers.TableRenderer;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
-
-import org.kuali.kfs.sys.document.web.renderers.TableRenderer;
-import org.kuali.rice.kns.web.ui.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * An inner table inside a table cell.
@@ -36,7 +35,8 @@ public class AccountingLineTable implements RenderableElement {
     private AccountingLineRenderingContext renderingContext;
 
     /**
-     * Gets the rows attribute. 
+     * Gets the rows attribute.
+     *
      * @return Returns the rows.
      */
     public List<AccountingLineTableRow> getRows() {
@@ -45,6 +45,7 @@ public class AccountingLineTable implements RenderableElement {
 
     /**
      * Sets the rows attribute value.
+     *
      * @param rows The rows to set.
      */
     public void setRows(List<AccountingLineTableRow> rows) {
@@ -55,7 +56,7 @@ public class AccountingLineTable implements RenderableElement {
      * @see org.kuali.kfs.sys.document.web.RenderableElement#isHidden()
      */
     public boolean isHidden() {
-        for(AccountingLineTableRow row : rows) {
+        for (AccountingLineTableRow row : rows) {
             if (!row.isHidden()) {
                 return false;
             }
@@ -65,14 +66,16 @@ public class AccountingLineTable implements RenderableElement {
 
     /**
      * This is not an action block
+     *
      * @see org.kuali.kfs.sys.document.web.RenderableElement#isActionBlock()
      */
     public boolean isActionBlock() {
         return false;
     }
-    
+
     /**
      * Determines if this table is empty of any renderable elements
+     *
      * @return true if this is empty, false otherwise
      */
     public boolean isEmpty() {
@@ -95,12 +98,13 @@ public class AccountingLineTable implements RenderableElement {
         renderer.clear();
         this.renderingContext = null;
     }
-    
+
     /**
      * Requests that this table render all of its children rows
-     * @param pageContext the page context to render to
-     * @param parentTag the parent tag requesting the rendering
-     * @param accountingLine accounting line getting rendered
+     *
+     * @param pageContext            the page context to render to
+     * @param parentTag              the parent tag requesting the rendering
+     * @param accountingLine         accounting line getting rendered
      * @param accountingLineProperty property to the accounting line
      * @throws JspException thrown when some sort of thing goes wrong
      */
@@ -112,7 +116,7 @@ public class AccountingLineTable implements RenderableElement {
 
     /**
      * @see org.kuali.kfs.sys.document.web.RenderableElement#appendFieldNames(java.util.List)
-     * 
+     * <p>
      * KRAD Conversion: Customization of the fields - No use of data dictionary
      */
     public void appendFields(List<Field> fields) {
@@ -129,9 +133,10 @@ public class AccountingLineTable implements RenderableElement {
             row.populateWithTabIndexIfRequested(reallyHighIndex);
         }
     }
-    
+
     /**
      * Adds a row to the bottom of this table's list of rows
+     *
      * @param row the row to add
      */
     public void addRow(AccountingLineTableRow row) {

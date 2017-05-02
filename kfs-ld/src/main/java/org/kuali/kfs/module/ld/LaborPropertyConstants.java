@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -31,27 +31,27 @@ public class LaborPropertyConstants {
 
         /**
          * Spew out accounting period codes as a String array
-         * 
+         *
          * @return String[]
          */
         public static String[] codeToArray() {
-            return new String[] { JULY.periodCode, AUGUST.periodCode, SEPTEMBER.periodCode, OCTOBER.periodCode, NOVEMBER.periodCode, DECEMBER.periodCode, JANUARY.periodCode, FEBRUARY.periodCode, MARCH.periodCode, APRIL.periodCode, MAY.periodCode, JUNE.periodCode, YEAR_END.periodCode };
+            return new String[]{JULY.periodCode, AUGUST.periodCode, SEPTEMBER.periodCode, OCTOBER.periodCode, NOVEMBER.periodCode, DECEMBER.periodCode, JANUARY.periodCode, FEBRUARY.periodCode, MARCH.periodCode, APRIL.periodCode, MAY.periodCode, JUNE.periodCode, YEAR_END.periodCode};
         }
 
         /**
          * Spew out the property names in as a String array
-         * 
+         *
          * @return String[]
          */
         public static String[] namesToArray() {
-            return new String[] { JULY.propertyName, AUGUST.propertyName, SEPTEMBER.propertyName, OCTOBER.propertyName, NOVEMBER.propertyName, DECEMBER.propertyName, JANUARY.propertyName, FEBRUARY.propertyName, MARCH.propertyName, APRIL.propertyName, MAY.propertyName, JUNE.propertyName, YEAR_END.propertyName };
+            return new String[]{JULY.propertyName, AUGUST.propertyName, SEPTEMBER.propertyName, OCTOBER.propertyName, NOVEMBER.propertyName, DECEMBER.propertyName, JANUARY.propertyName, FEBRUARY.propertyName, MARCH.propertyName, APRIL.propertyName, MAY.propertyName, JUNE.propertyName, YEAR_END.propertyName};
         }
 
         /**
          * Spew out everything in an array
          */
         public static AccountingPeriodProperties[] toArray() {
-            return new AccountingPeriodProperties[] { JULY, AUGUST, SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER, JANUARY, FEBRUARY, MARCH, APRIL, MAY, JUNE, YEAR_END };
+            return new AccountingPeriodProperties[]{JULY, AUGUST, SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER, JANUARY, FEBRUARY, MARCH, APRIL, MAY, JUNE, YEAR_END};
         }
 
         public String periodCode;

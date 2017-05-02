@@ -1,35 +1,35 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import org.apache.commons.beanutils.PropertyUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kim.api.KimConstants;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Holds constants for disbursement voucher and payee documents.
@@ -109,11 +109,11 @@ public interface DisbursementVoucherConstants {
         public static final String PRE_PAID_TRAVEL_EXPENSES = "PrePaidTravelExpenses";
     }
 
-    public enum TabByReasonCode{
+    public enum TabByReasonCode {
         NON_EMPLOYEE_TRAVEL_TAB(NONEMPLOYEE_TRAVEL_PAY_REASONS_PARM_NM, TabKey.NON_EMPLOYEE_TRAVEL_EXPENSE, KFSPropertyConstants.DV_NON_EMPLOYEE_TRAVEL,
-                KFSPropertyConstants.DISB_VCHR_NON_EMP_TRAVELER_NAME,KFSKeyConstants.WARNING_DV_NON_EMPLOYEE_TRAVEL_TAB),
+            KFSPropertyConstants.DISB_VCHR_NON_EMP_TRAVELER_NAME, KFSKeyConstants.WARNING_DV_NON_EMPLOYEE_TRAVEL_TAB),
         PREPAID_TRAVEL_TAB(PREPAID_TRAVEL_PAYMENT_REASONS_PARM_NM, TabKey.PRE_PAID_TRAVEL_EXPENSES, KFSPropertyConstants.DV_PRE_CONFERENCE_DETAIL,
-                KFSPropertyConstants.DV_CONFERENCE_DESTINATION_NAME,KFSKeyConstants.WARNING_DV_PREPAID_TRAVEL_TAB);
+            KFSPropertyConstants.DV_CONFERENCE_DESTINATION_NAME, KFSKeyConstants.WARNING_DV_PREPAID_TRAVEL_TAB);
 
         public String paymentReasonParameterName;
         public String tabKey;
@@ -130,6 +130,7 @@ public interface DisbursementVoucherConstants {
         }
 
         private static ParameterService parameterService;
+
         private static ParameterService getParameterService() {
             if (parameterService == null) {
                 parameterService = SpringContext.getBean(ParameterService.class);
@@ -138,8 +139,8 @@ public interface DisbursementVoucherConstants {
         }
 
         public static TabByReasonCode getTabByReasonCode(String paymentReasonCode) {
-            for(TabByReasonCode tab : TabByReasonCode.values()) {
-                if(/*REFACTORME*/SpringContext.getBean(ParameterEvaluatorService.class).getParameterEvaluator(DisbursementVoucherDocument.class, tab.paymentReasonParameterName, paymentReasonCode).evaluationSucceeds()){
+            for (TabByReasonCode tab : TabByReasonCode.values()) {
+                if (/*REFACTORME*/SpringContext.getBean(ParameterEvaluatorService.class).getParameterEvaluator(DisbursementVoucherDocument.class, tab.paymentReasonParameterName, paymentReasonCode).evaluationSucceeds()) {
                     return tab;
                 }
             }
@@ -148,16 +149,16 @@ public interface DisbursementVoucherConstants {
 
         public static List<String> getAllTabKeys() {
             List<String> tabKeys = new ArrayList<String>();
-            for(TabByReasonCode tab : TabByReasonCode.values()) {
+            for (TabByReasonCode tab : TabByReasonCode.values()) {
                 tabKeys.add(tab.tabKey);
             }
             return tabKeys;
         }
 
-        public static List<String> getAllDocumentPropertyKeys(){
+        public static List<String> getAllDocumentPropertyKeys() {
             List<String> documentPropertyKeys = new ArrayList<String>();
 
-            for(TabByReasonCode tab : TabByReasonCode.values()) {
+            for (TabByReasonCode tab : TabByReasonCode.values()) {
                 String propertyKey = tab.getDocumentPropertyKey();
                 documentPropertyKeys.add(propertyKey);
             }
@@ -223,6 +224,7 @@ public interface DisbursementVoucherConstants {
     public static final String PAYMENT_REASONS_REQUIRING_TAX_REVIEW_PARM_NM = "PAYMENT_REASONS_REQUIRING_TAX_REVIEW";
     public static final String TAX_CONTROL_CODES_REQUIRING_TAX_REVIEW_PARM_NM = "TAX_CONTROL_CODES_REQUIRING_TAX_REVIEW";
     public static final String CAMPUSES_TAXED_FOR_MOVING_REIMBURSEMENTS_PARM_NM = "CAMPUSES_TAXED_FOR_MOVING_REIMBURSEMENTS";
+    public static final String INCOME_CLASS_CODES_REQUIRING_STATE_TAX_PARM_NM = "INCOME_CLASS_CODES_REQUIRING_STATE_TAX";
 
     public static final String IMMEDIATE_EXTRACT_FROM_ADDRESS_PARM_NM = "IMMEDIATE_EXTRACT_NOTIFICATION_FROM_EMAIL_ADDRESS";
     public static final String IMMEDIATE_EXTRACT_TO_ADDRESSES_PARM_NM = "IMMEDIATE_EXTRACT_NOTIFICATION_TO_EMAIL_ADDRESSES";
@@ -250,11 +252,10 @@ public interface DisbursementVoucherConstants {
     public static final String DV_COVER_SHEET_TEMPLATE_ATTACHMENT_PARM_NM = "COVER_SHEET_TEMPLATE_ATTACHMENT";
     public static final String DV_COVER_SHEET_TEMPLATE_HANDLING_PARM_NM = "COVER_SHEET_TEMPLATE_HANDLING";
     public static final String DV_COVER_SHEET_TEMPLATE_BAR_PARM_NM = "COVER_SHEET_TEMPLATE_BAR";
-    public static final String DV_COVER_SHEET_TEMPLATE_NM = "disbursementVoucherCoverSheetTemplate.pdf";
+    public static final String DV_COVER_SHEET_TEMPLATE_NM = "/org/kuali/kfs/fp/document/disbursementVoucherCoverSheetTemplate.pdf";
 
     public static final String PAYMENT_REASON_CODE_ROYALTIES_PARM_NM = "PAYMENT_REASON_CODE_ROYALTIES";
     public static final String PAYMENT_REASON_CODE_RENTAL_PAYMENT_PARM_NM = "PAYMENT_REASON_CODE_RENTAL_PAYMENT";
-    public static final String PAYMENT_REASON_CODE_TRAVEL_HONORARIUM_PARM_NM = "PAYMENT_REASON_CODE_TRAVEL_HONORARIUM";
 
 
     public static class RouteLevelNames {
@@ -272,6 +273,6 @@ public interface DisbursementVoucherConstants {
     public static final String ADD_PAYMENT_REASON_TO_DV_TITLE_PARM_NM = "ADD_PAYMENT_REASON_TO_DV_TITLE_IND";
     public static final String ADD_PAYEE_TAX_REV_TO_DV_TITLE_PARM_NM = "ADD_PAYEE_TAX_REVIEW_FLAG_TO_DV_TITLE_IND";
     public static final String ADD_PAYMENT_REASON_TAX_REV_TO_DV_TITLE_PARM_NM = "ADD_PAYMENT_REASON_TAX_REVIEW_FLAG_TO_DV_TITLE_IND";
-    
+
     public static final String DISBURSEMENT_VOUCHER_PAYMENT_SOURCE_EXTRACTION_SERVICE = "disbursementVoucherExtractService";
 }

@@ -1,45 +1,46 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document.service.impl;
 
-import java.io.IOException;
-import java.io.OutputStream;
-
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.pdf.AcroFields;
+import com.lowagie.text.pdf.PdfReader;
+import com.lowagie.text.pdf.PdfStamper;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.businessobject.PaymentReasonCode;
 import org.kuali.kfs.fp.document.DisbursementVoucherConstants;
 import org.kuali.kfs.fp.document.DisbursementVoucherDocument;
 import org.kuali.kfs.fp.document.service.DisbursementVoucherCoverSheetService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.PersistenceStructureService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.businessobject.PaymentDocumentationLocation;
 import org.kuali.kfs.sys.businessobject.options.PaymentMethodValuesFinder;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.parameter.ParameterEvaluator;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.PersistenceStructureService;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.springframework.core.io.ClassPathResource;
 
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.pdf.AcroFields;
-import com.lowagie.text.pdf.PdfReader;
-import com.lowagie.text.pdf.PdfStamper;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * This is the default implementation of the DisbursementVoucherCoverSheetService interface.
@@ -53,15 +54,12 @@ public class DisbursementVoucherCoverSheetServiceImpl implements DisbursementVou
 
     /**
      * This method uses the values provided to build and populate a cover sheet associated with a given DisbursementVoucher.
-     * 
-     * @param templateDirectory The directory where the cover sheet template can be found.
-     * @param templateName The name of the cover sheet template to be used to build the cover sheet.
-     * @param document The DisbursementVoucher the cover sheet will be populated from.
+     *
+     * @param document     The DisbursementVoucher the cover sheet will be populated from.
      * @param outputStream The stream the cover sheet file will be written to.
-     * @see org.kuali.kfs.fp.document.service.DisbursementVoucherCoverSheetService#generateDisbursementVoucherCoverSheet(java.lang.String,
-     *      java.lang.String, org.kuali.kfs.fp.document.DisbursementVoucherDocument, java.io.OutputStream)
+     * @see org.kuali.kfs.fp.document.service.DisbursementVoucherCoverSheetService#generateDisbursementVoucherCoverSheet(org.kuali.kfs.fp.document.DisbursementVoucherDocument, java.io.OutputStream)
      */
-    public void generateDisbursementVoucherCoverSheet(String templateDirectory, String templateName, DisbursementVoucherDocument document, OutputStream outputStream) throws DocumentException, IOException {
+    public void generateDisbursementVoucherCoverSheet(DisbursementVoucherDocument document, OutputStream outputStream) throws DocumentException, IOException {
         if (this.isCoverSheetPrintable(document)) {
             String attachment = "";
             String handling = "";
@@ -97,7 +95,7 @@ public class DisbursementVoucherCoverSheetServiceImpl implements DisbursementVou
                 alien = parameterService.getParameterValueAsString(DisbursementVoucherDocument.class, DisbursementVoucherConstants.DV_COVER_SHEET_TEMPLATE_ALIEN_PARM_NM);
                 lines = parameterService.getParameterValueAsString(DisbursementVoucherDocument.class, DisbursementVoucherConstants.DV_COVER_SHEET_TEMPLATE_LINES_PARM_NM);
             }
-            
+
             // determine if non-employee travel payment reasons
             String paymentReasonCode = document.getDvPayeeDetail().getDisbVchrPaymentReasonCode();
             ParameterEvaluator travelNonEmplPaymentReasonEvaluator = /*REFACTORME*/SpringContext.getBean(ParameterEvaluatorService.class).getParameterEvaluator(DisbursementVoucherDocument.class, DisbursementVoucherConstants.NONEMPLOYEE_TRAVEL_PAY_REASONS_PARM_NM, paymentReasonCode);
@@ -109,7 +107,10 @@ public class DisbursementVoucherCoverSheetServiceImpl implements DisbursementVou
             }
 
             try {
-                PdfReader reader = new PdfReader(templateDirectory + templateName);
+                String templateName = DisbursementVoucherConstants.DV_COVER_SHEET_TEMPLATE_NM;
+                ClassPathResource classPathResource = new ClassPathResource(templateName);
+                InputStream templateInputStream = classPathResource.getInputStream();
+                PdfReader reader = new PdfReader(templateInputStream);
 
                 // populate form with document values
                 PdfStamper stamper = new PdfStamper(reader, outputStream);
@@ -131,12 +132,10 @@ public class DisbursementVoucherCoverSheetServiceImpl implements DisbursementVou
 
                 stamper.setFormFlattening(true);
                 stamper.close();
-            }
-            catch (DocumentException e) {
+            } catch (DocumentException e) {
                 LOG.error("Error creating coversheet for: " + docNumber + ". ::" + e);
                 throw e;
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 LOG.error("Error creating coversheet for: " + docNumber + ". ::" + e);
                 throw e;
             }
@@ -147,19 +146,19 @@ public class DisbursementVoucherCoverSheetServiceImpl implements DisbursementVou
     /**
      * @see org.kuali.kfs.fp.document.service.DisbursementVoucherCoverSheetService#isCoverSheetPrintable(org.kuali.kfs.fp.document.DisbursementVoucherDocument)
      */
-    public boolean isCoverSheetPrintable(DisbursementVoucherDocument document) {        
+    public boolean isCoverSheetPrintable(DisbursementVoucherDocument document) {
         WorkflowDocument workflowDocument = document.getDocumentHeader().getWorkflowDocument();
-        
-        if(ObjectUtils.isNull(workflowDocument)){
+
+        if (ObjectUtils.isNull(workflowDocument)) {
             return false;
-        }        
+        }
 
         return !(workflowDocument.isCanceled() || workflowDocument.isInitiated() || workflowDocument.isDisapproved() || workflowDocument.isException() || workflowDocument.isDisapproved() || workflowDocument.isSaved());
     }
 
     /**
      * This method contains logic to determine the address the cover sheet should be sent to.
-     * 
+     *
      * @param docLocCd A key used to retrieve the document location.
      * @return The address the cover sheet will be sent to or empty string if no location is found.
      */
@@ -167,8 +166,7 @@ public class DisbursementVoucherCoverSheetServiceImpl implements DisbursementVou
         String address = "";
         try {
             address = ((PaymentDocumentationLocation) businessObjectService.findBySinglePrimaryKey(PaymentDocumentationLocation.class, docLocCd)).getPaymentDocumentationLocationAddress();
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             // ignored
         }
 
@@ -179,7 +177,7 @@ public class DisbursementVoucherCoverSheetServiceImpl implements DisbursementVou
 
     /**
      * Sets the businessObjectService attribute value.
-     * 
+     *
      * @param businessObjectService The businessObjectService to set.
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
@@ -188,7 +186,7 @@ public class DisbursementVoucherCoverSheetServiceImpl implements DisbursementVou
 
     /**
      * Sets the persistenceStructureService attribute value.
-     * 
+     *
      * @param persistenceStructureService The persistenceService to set.
      */
     public void setPersistenceStructureService(PersistenceStructureService persistenceStructureService) {
@@ -197,7 +195,7 @@ public class DisbursementVoucherCoverSheetServiceImpl implements DisbursementVou
 
     /**
      * Sets the parameterService attribute value.
-     * 
+     *
      * @param parameterService The parameterService to set.
      */
     public void setParameterService(ParameterService parameterService) {

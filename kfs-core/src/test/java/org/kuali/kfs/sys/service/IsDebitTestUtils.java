@@ -1,39 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.service;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.kuali.kfs.coa.service.AccountService;
-import org.kuali.kfs.fp.document.AdvanceDepositDocument;
-import org.kuali.kfs.fp.document.CashReceiptDocument;
-import org.kuali.kfs.fp.document.CreditCardReceiptDocument;
-import org.kuali.kfs.fp.document.DisbursementVoucherDocument;
-import org.kuali.kfs.fp.document.DistributionOfIncomeAndExpenseDocument;
-import org.kuali.kfs.fp.document.GeneralErrorCorrectionDocument;
-import org.kuali.kfs.fp.document.IndirectCostAdjustmentDocument;
-import org.kuali.kfs.fp.document.InternalBillingDocument;
-import org.kuali.kfs.fp.document.NonCheckDisbursementDocument;
-import org.kuali.kfs.fp.document.PreEncumbranceDocument;
-import org.kuali.kfs.fp.document.ServiceBillingDocument;
-import org.kuali.kfs.fp.document.TransferOfFundsDocument;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.kfs.sys.businessobject.TargetAccountingLine;
@@ -42,9 +29,9 @@ import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.service.DebitDeterminerService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.document.TransactionalDocument;
-import org.kuali.rice.krad.service.DocumentService;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * IsDebitTestUtils
@@ -136,16 +123,14 @@ public class IsDebitTestUtils {
             }
             unparsedLine = removeChartIfNotNeeded(unparsedLine);
             line = financialDocument.getAccountingLineParser().parseSourceAccountingLine(financialDocument, unparsedLine);
-        }
-        else if (TargetAccountingLine.class.isAssignableFrom(lineClass)) {
+        } else if (TargetAccountingLine.class.isAssignableFrom(lineClass)) {
             unparsedLine = targetLines.get(getDocumentTypeCode(financialDocument));
             if (unparsedLine == null) {
                 throw new IllegalArgumentException("no value found in targetMap for: " + financialDocument.getClass() + ";" + lineClass);
             }
             unparsedLine = removeChartIfNotNeeded(unparsedLine);
             line = financialDocument.getAccountingLineParser().parseTargetAccountingLine(financialDocument, unparsedLine);
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("invalid accounting line type (" + lineClass + ")");
         }
 
@@ -153,9 +138,10 @@ public class IsDebitTestUtils {
         line.setFinancialObjectCode(objectCode);
         return line;
     }
-    
+
     /**
      * Returns the document type name for the given document
+     *
      * @param financialDocument the document to find a doc type name for
      * @return the doc type name
      */
@@ -164,17 +150,18 @@ public class IsDebitTestUtils {
         final String docTypeName = dataDictionaryService.getDocumentTypeNameByClass(financialDocument.getClass());
         return docTypeName;
     }
-    
+
     /**
      * Checks if accounts can cross charts; if not, removes chart from accounting line
+     *
      * @param accountingLine the accounting line to potentially correct
      * @return the accounting line, with perhaps the chart removed
      */
     private static String removeChartIfNotNeeded(String accountingLine) {
         final AccountService accountService = SpringContext.getBean(AccountService.class);
         final String updatedAccountingLine = (!accountService.accountsCanCrossCharts()) ?
-                accountingLine.substring(3) :
-                accountingLine;
+            accountingLine.substring(3) :
+            accountingLine;
         return updatedAccountingLine;
     }
 
@@ -246,8 +233,7 @@ public class IsDebitTestUtils {
         try {
             IsDebitTestUtils.isDebit(dataDictionaryService, dataDicitionaryService, financialDocument, accountingLine);
 
-        }
-        catch (IllegalStateException e) {
+        } catch (IllegalStateException e) {
             DebitDeterminerService isDebitUtils = SpringContext.getBean(DebitDeterminerService.class);
             failedAsExpected = isDebitUtils.getDebitCalculationIllegalStateExceptionMessage().equals(e.getMessage());
         }
@@ -269,8 +255,7 @@ public class IsDebitTestUtils {
         try {
             IsDebitTestUtils.isDebit(dataDictionaryService, dataDicitionaryService, financialDocument, accountingLine);
 
-        }
-        catch (IllegalStateException e) {
+        } catch (IllegalStateException e) {
             DebitDeterminerService isDebitUtils = SpringContext.getBean(DebitDeterminerService.class);
             failedAsExpected = isDebitUtils.getErrorCorrectionIllegalStateExceptionMessage().equals(e.getMessage());
         }

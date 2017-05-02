@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="kfs" id="722" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_APPLICATION_DOC_TC0"
+                             tableName="AR_APPLICATION_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="723" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_AWD_ACCT_OBJ_TOT_BLLD_TC0"
+                             tableName="AR_AWD_ACCT_OBJ_TOT_BLLD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="724" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_BILL_TC0" tableName="AR_BILL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="725" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_CGB_CLCTN_ACTVY_DOC_TC0"
+                             tableName="AR_CGB_CLCTN_ACTVY_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="726" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_CGB_CLCTN_ACTVY_INV_DTL_TC0"
+                             tableName="AR_CGB_CLCTN_ACTVY_INV_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="727" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_CGB_INV_DTL_TC0" tableName="AR_CGB_INV_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="728" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_CLCTN_ACTVY_TYP_TC0"
+                             tableName="AR_CLCTN_ACTVY_TYP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="729" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_CLCTN_EVNT_TC0" tableName="AR_CLCTN_EVNT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="730" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_CRDT_MEMO_DOC_TC0" tableName="AR_CRDT_MEMO_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="731" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_CRDT_MEMO_DTL_TC0" tableName="AR_CRDT_MEMO_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="732" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_CSH_CTRL_DTL_TC0" tableName="AR_CSH_CTRL_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="733" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_CSH_CTRL_TC0" tableName="AR_CSH_CTRL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="734" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_CST_CTGRY_FIN_CONSOLDTN_TC0"
+                             tableName="AR_CST_CTGRY_FIN_CONSOLDTN_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="735" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_CST_CTGRY_FIN_OBJ_CD_TC0"
+                             tableName="AR_CST_CTGRY_FIN_OBJ_CD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="736" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_CST_CTGRY_FIN_OBJ_LEVEL_TC0"
+                             tableName="AR_CST_CTGRY_FIN_OBJ_LEVEL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="737" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_CST_CTGRY_TC0" tableName="AR_CST_CTGRY_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="738" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_CUST_ADDR_TC0" tableName="AR_CUST_ADDR_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="739" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_CUST_ADDR_TYP_TC0" tableName="AR_CUST_ADDR_TYP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="740" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_CUST_BILLING_STMT_TC0"
+                             tableName="AR_CUST_BILLING_STMT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="741" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_CUST_PRCS_TYP_TC0" tableName="AR_CUST_PRCS_TYP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="742" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_CUST_TC0" tableName="AR_CUST_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="743" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_CUST_TYP_TC0" tableName="AR_CUST_TYP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="744" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_DOC_HDR_TC0" tableName="AR_DOC_HDR_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="745" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_DOC_RCURRNC_TC0" tableName="AR_DOC_RCURRNC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="746" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_DUN_CMPGN_DOC_TC0" tableName="AR_DUN_CMPGN_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="747" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_DUN_LTR_DIST_TC0" tableName="AR_DUN_LTR_DIST_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="748" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_DUN_LTR_TMPLT_TC0" tableName="AR_DUN_LTR_TMPLT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="749" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_FNL_BILLED_IND_DOC_TC0"
+                             tableName="AR_FNL_BILLED_IND_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="750" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_FNL_BILLED_IND_ENTRY_TC0"
+                             tableName="AR_FNL_BILLED_IND_ENTRY_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="751" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_INV_ACCT_DTL_TC0" tableName="AR_INV_ACCT_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="752" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_INV_ADDR_DTL_TC0" tableName="AR_INV_ADDR_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="753" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_INV_BILL_TC0" tableName="AR_INV_BILL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="754" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_INV_DOC_ERROR_LOG_TC0"
+                             tableName="AR_INV_DOC_ERROR_LOG_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="755" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_INV_DOC_ERROR_MSG_TC0"
+                             tableName="AR_INV_DOC_ERROR_MSG_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="756" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_INV_DOC_TC0" tableName="AR_INV_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="757" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_INV_DTL_ACCT_OBJ_CD_TC0"
+                             tableName="AR_INV_DTL_ACCT_OBJ_CD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="758" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_INV_DTL_TC0" tableName="AR_INV_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="759" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_INV_GNRL_DTL_TC0" tableName="AR_INV_GNRL_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="760" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_INV_ITM_CODE_TC0" tableName="AR_INV_ITM_CODE_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="761" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_INV_MLSTN_TC0" tableName="AR_INV_MLSTN_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="762" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_INV_PD_APLD_TC0" tableName="AR_INV_PD_APLD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="763" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_INV_RCURRNC_DTL_TC0"
+                             tableName="AR_INV_RCURRNC_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="764" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_INV_SUSP_CTGRY_TC0"
+                             tableName="AR_INV_SUSP_CTGRY_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="765" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_INV_TMPLT_TC0" tableName="AR_INV_TMPLT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="766" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_INV_TRNS_MTHD_TC0" tableName="AR_INV_TRNS_MTHD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="767" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_LOCKBOX_TC0" tableName="AR_LOCKBOX_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="768" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_LTRCR_RVW_DOC_TC0" tableName="AR_LTRCR_RVW_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="769" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_LTRCR_RVW_DTL_TC0" tableName="AR_LTRCR_RVW_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="770" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_MLSTN_SCHDL_TC0" tableName="AR_MLSTN_SCHDL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="771" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_MLSTN_TC0" tableName="AR_MLSTN_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="772" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_NON_APLD_DIST_TC0" tableName="AR_NON_APLD_DIST_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="773" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_NON_APLD_HLDG_TC0" tableName="AR_NON_APLD_HLDG_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="774" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_NON_INV_DIST_TC0" tableName="AR_NON_INV_DIST_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="775" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_NON_INV_TC0" tableName="AR_NON_INV_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="776" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_ORG_ACCTGDFLT_TC0" tableName="AR_ORG_ACCTGDFLT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="777" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_ORG_OPTION_TC0" tableName="AR_ORG_OPTION_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="778" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_PMT_MEDIUM_TC0" tableName="AR_PMT_MEDIUM_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="779" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_PRDTRMND_BILL_SCHDL_TC0"
+                             tableName="AR_PRDTRMND_BILL_SCHDL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="780" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_PRN_INV_OPTN_TC0" tableName="AR_PRN_INV_OPTN_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="781" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_SYS_INFO_TC0" tableName="AR_SYS_INFO_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="782" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_WRITEOFF_DOC_TC0" tableName="AR_WRITEOFF_DOC_T"/>
+    </changeSet>
+</databaseChangeLog>

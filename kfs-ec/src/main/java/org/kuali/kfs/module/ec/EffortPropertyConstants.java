@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -56,7 +56,7 @@ public class EffortPropertyConstants {
     public static final String LABOR_OBJECT_FRINGE_OR_SALARY_CODE = KFSPropertyConstants.LABOR_OBJECT + "." + KFSPropertyConstants.FINANCIAL_OBJECT_FRINGE_OR_SALARY_CODE;
     public static final String SOURCE_ACCOUNT_NUMBER = "sourceAccountNumber";
     public static final String SOURCE_CHART_OF_ACCOUNTS_CODE = "sourceChartOfAccountsCode";
-    public static final String COST_SHARE_SOURCE_SUB_ACCOUNT_NUMBER ="costShareSourceSubAccountNumber";
+    public static final String COST_SHARE_SOURCE_SUB_ACCOUNT_NUMBER = "costShareSourceSubAccountNumber";
     public static final String EFFORT_CERTIFICATION_DOCUMENT_NEW_LINE = "newDetailLine";
 
     public static final String PERSISED_PAYROLL_AMOUNT = "persistedPayrollAmount";

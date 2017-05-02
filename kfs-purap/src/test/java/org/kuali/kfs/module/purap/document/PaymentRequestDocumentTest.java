@@ -1,33 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document;
 
-import static org.kuali.kfs.sys.document.AccountingDocumentTestUtils.testGetNewDocument_byDocumentClass;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.appleton;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.rorenfro;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
+import org.kuali.kfs.kns.service.TransactionalDocumentDictionaryService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.SequenceAccessorService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants.PurchaseOrderStatuses;
 import org.kuali.kfs.module.purap.businessobject.AccountsPayableItem;
 import org.kuali.kfs.module.purap.businessobject.PaymentRequestItem;
@@ -52,11 +47,16 @@ import org.kuali.kfs.vnd.businessobject.PaymentTermType;
 import org.kuali.kfs.vnd.businessobject.VendorAddress;
 import org.kuali.kfs.vnd.document.service.VendorService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.kns.service.TransactionalDocumentDictionaryService;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.service.SequenceAccessorService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import static org.kuali.kfs.sys.document.AccountingDocumentTestUtils.testGetNewDocument_byDocumentClass;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.appleton;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.rorenfro;
 
 /**
  * This class is used to create and test populated Payment Request Documents of various kinds.
@@ -108,21 +108,21 @@ public class PaymentRequestDocumentTest extends KualiTestBase {
     @ConfigureContext(session = appleton, shouldCommitTransactions = false)
     public final void testConvertIntoErrorCorrection() throws Exception {
         purchaseOrderDocument = createPurchaseOrderDocument(PurchaseOrderDocumentFixture.PO_APPROVAL_REQUIRED, false);
-        paymentRequestDocument = createPaymentRequestDocument(PaymentRequestDocumentFixture.PREQ_APPROVAL_REQUIRED, purchaseOrderDocument, true, new KualiDecimal[] { new KualiDecimal(100) });
+        paymentRequestDocument = createPaymentRequestDocument(PaymentRequestDocumentFixture.PREQ_APPROVAL_REQUIRED, purchaseOrderDocument, true, new KualiDecimal[]{new KualiDecimal(100)});
         AccountingDocumentTestUtils.testConvertIntoErrorCorrection(paymentRequestDocument, getExpectedPrePeCount(), documentService, SpringContext.getBean(TransactionalDocumentDictionaryService.class));
     }
 
     @ConfigureContext(session = appleton, shouldCommitTransactions = false)
     public final void testSaveDocument() throws Exception {
         purchaseOrderDocument = createPurchaseOrderDocument(PurchaseOrderDocumentFixture.PO_APPROVAL_REQUIRED, false);
-        paymentRequestDocument = createPaymentRequestDocument(PaymentRequestDocumentFixture.PREQ_APPROVAL_REQUIRED, purchaseOrderDocument, true, new KualiDecimal[] { new KualiDecimal(100) });
+        paymentRequestDocument = createPaymentRequestDocument(PaymentRequestDocumentFixture.PREQ_APPROVAL_REQUIRED, purchaseOrderDocument, true, new KualiDecimal[]{new KualiDecimal(100)});
     }
 
     @ConfigureContext(session = appleton, shouldCommitTransactions = false)
     public final void testRouteDocument() throws Exception {
         purchaseOrderDocument = createPurchaseOrderDocument(PurchaseOrderDocumentFixture.PO_APPROVAL_REQUIRED, true);
         purchaseOrderDocument.setAccountDistributionMethod("S");
-        paymentRequestDocument = createPaymentRequestDocument(PaymentRequestDocumentFixture.PREQ_APPROVAL_REQUIRED, purchaseOrderDocument, true, new KualiDecimal[] { new KualiDecimal(100) });
+        paymentRequestDocument = createPaymentRequestDocument(PaymentRequestDocumentFixture.PREQ_APPROVAL_REQUIRED, purchaseOrderDocument, true, new KualiDecimal[]{new KualiDecimal(100)});
         paymentRequestDocument.setAccountDistributionMethod("S");
         AccountingDocumentTestUtils.testRouteDocument(paymentRequestDocument, documentService);
     }
@@ -130,7 +130,7 @@ public class PaymentRequestDocumentTest extends KualiTestBase {
     @ConfigureContext(session = appleton, shouldCommitTransactions = false)
     public final void testRouteDocumentToFinal() throws Exception {
         purchaseOrderDocument = createPurchaseOrderDocument(PurchaseOrderDocumentFixture.PO_APPROVAL_REQUIRED, true);
-        paymentRequestDocument = createPaymentRequestDocument(PaymentRequestDocumentFixture.PREQ_APPROVAL_REQUIRED, purchaseOrderDocument, true, new KualiDecimal[] { new KualiDecimal(100) });
+        paymentRequestDocument = createPaymentRequestDocument(PaymentRequestDocumentFixture.PREQ_APPROVAL_REQUIRED, purchaseOrderDocument, true, new KualiDecimal[]{new KualiDecimal(100)});
 
         final String docId = paymentRequestDocument.getDocumentNumber();
         AccountingDocumentTestUtils.routeDocument(paymentRequestDocument, documentService);
@@ -273,8 +273,8 @@ public class PaymentRequestDocumentTest extends KualiTestBase {
     }
 
     /**
-     *
      * Test Usetax and split accounting
+     *
      * @throws Exception
      */
     @ConfigureContext(session = appleton, shouldCommitTransactions = false)
@@ -305,7 +305,7 @@ public class PaymentRequestDocumentTest extends KualiTestBase {
         purchaseOrderDocument.setItems(poiList); // add items
         purchaseOrderDocument.fixItemReferences();
         purchaseOrderDocument.setTotalDollarAmount(new KualiDecimal(1000));
-        paymentRequestDocument = createPaymentRequestDocument(PaymentRequestDocumentFixture.PREQ_APPROVAL_REQUIRED, purchaseOrderDocument, true, new KualiDecimal[] { new KualiDecimal(1) });
+        paymentRequestDocument = createPaymentRequestDocument(PaymentRequestDocumentFixture.PREQ_APPROVAL_REQUIRED, purchaseOrderDocument, true, new KualiDecimal[]{new KualiDecimal(1)});
         // setup payment request items
 
         for (PurchaseOrderItem poi : poiList) {
@@ -315,7 +315,7 @@ public class PaymentRequestDocumentTest extends KualiTestBase {
                 paymentRequestDocument.addItem(pri);
             }
         }
-        updateQuantityAndPrice(paymentRequestDocument, new KualiDecimal[] { new KualiDecimal(1) });
+        updateQuantityAndPrice(paymentRequestDocument, new KualiDecimal[]{new KualiDecimal(1)});
         paymentRequestDocument.setUseTaxIndicator(true);
         AccountingDocumentTestUtils.testSaveDocument(paymentRequestDocument, documentService);
 
@@ -353,7 +353,7 @@ public class PaymentRequestDocumentTest extends KualiTestBase {
      * At a minimum saves the document, but can additionally route the document (stipulation: coded to work only for budget review).
      *
      * @param poFixture - purchase order document fixture to source test data
-     * @param routePO - An option to route the purchase order if set to true
+     * @param routePO   - An option to route the purchase order if set to true
      * @return
      * @throws Exception
      * @ConfigureContext(shouldCommitTransactions=false)
@@ -366,8 +366,8 @@ public class PaymentRequestDocumentTest extends KualiTestBase {
      * Creates a purchase order document with a provided purchase order document.
      * At a minimum saves the document, but can additionally route the document (stipulation: coded to work only for budget review).
      *
-     * @param poFixture - purchase order document fixture to source test data
-     * @param routePO - An option to route the purchase order if set to true
+     * @param poFixture                                       - purchase order document fixture to source test data
+     * @param routePO                                         - An option to route the purchase order if set to true
      * @param accountsPayablePurchasingDocumentLinkIdentifier - Integer accountsPayablePurchasingDocumentLinkIdentifier to set on the PO if not null
      * @return
      * @throws Exception
@@ -489,8 +489,8 @@ public class PaymentRequestDocumentTest extends KualiTestBase {
     }
 
     /**
-     *
      * generate list of usetax items to test with
+     *
      * @return
      * @throws Exception
      */
@@ -504,9 +504,9 @@ public class PaymentRequestDocumentTest extends KualiTestBase {
     /**
      * Creates a new payment request document and additionally saves it.
      *
-     * @param preqFixture - The payment request document fixture to source test data from
-     * @param po - The purchase order to copy select values from and to link to the payment request document
-     * @param copyPoItems - An option to copy the items from the purchase order if set to true
+     * @param preqFixture      - The payment request document fixture to source test data from
+     * @param po               - The purchase order to copy select values from and to link to the payment request document
+     * @param copyPoItems      - An option to copy the items from the purchase order if set to true
      * @param itemQuantityList - A list of quantity values for each item in your payment request document
      * @return
      * @throws Exception

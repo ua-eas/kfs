@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -33,18 +33,18 @@
 <%@ attribute name="highlight" required="false"
               description="boolean indicating if this field is rendered as highlighted (to indicate old/new value change)" %>
                <%@ attribute name="forceRequired" required="false" %>
-               
+
 <script language="JavaScript" type="text/javascript" src="dwr/interface/PersonService.js"></script>
 <script language="JavaScript" type="text/javascript" src="scripts/sys/objectInfo.js"></script>
 
-<kul:htmlControlAttribute property="${userIdFieldName}" 
+<kul:htmlControlAttribute property="${userIdFieldName}"
                     attributeEntry="${DataDictionary['PersonImpl'].attributes.employeeId}" forceRequired="${forceRequired}"
                     onblur="loadEmplInfo( '${userIdFieldName}', '${userNameFieldName}' );${onblur}" readOnly="${readOnly}"/>
 <c:if test="${!readOnly}">
-	<kul:lookup boClassName="org.kuali.rice.kim.api.identity.Person" 
-		        fieldConversions="${fieldConversions}" 
-				lookupParameters="${lookupParameters}" 
-				fieldLabel="${label}" 
+	<kul:lookup boClassName="org.kuali.rice.kim.api.identity.Person"
+		        fieldConversions="${fieldConversions}"
+				lookupParameters="${lookupParameters}"
+				fieldLabel="${label}"
 				referencesToRefresh="${referencesToRefresh}"
 				anchor="${currentTabIndex}"/>
 </c:if>
@@ -54,9 +54,9 @@
 </c:if>
 
 <div id="${userNameFieldName}.div">
-    <html:hidden write="true" property="${userNameFieldName}"/>       
+    <html:hidden write="true" property="${userNameFieldName}"/>
 </div>
-	
+
 <c:if test="${!empty universalIdFieldName}">
 	<input type="hidden" name="${universalIdFieldName}" value="${universalId}" />
 </c:if>

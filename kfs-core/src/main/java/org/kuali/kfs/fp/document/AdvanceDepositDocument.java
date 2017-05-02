@@ -1,27 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.fp.businessobject.AdvanceDepositDetail;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.document.Copyable;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.krad.rules.rule.event.SaveDocumentEvent;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -38,10 +39,9 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.document.Copyable;
-import org.kuali.rice.krad.rules.rule.event.KualiDocumentEvent;
-import org.kuali.rice.krad.rules.rule.event.SaveDocumentEvent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This is the business object that represents the AdvanceDeposit document in Kuali. This is a transactional document that will
@@ -184,8 +184,8 @@ public class AdvanceDepositDocument extends CashReceiptFamilyBase implements Cop
     /**
      * This method returns the overall total of the document - the advance deposit total.
      *
-     * @see org.kuali.kfs.sys.document.AccountingDocumentBase#getTotalDollarAmount()
      * @return KualiDecimal
+     * @see org.kuali.kfs.sys.document.AccountingDocumentBase#getTotalDollarAmount()
      */
     @Override
     public KualiDecimal getTotalDollarAmount() {
@@ -225,9 +225,9 @@ public class AdvanceDepositDocument extends CashReceiptFamilyBase implements Cop
      * Generates bank offset GLPEs for deposits, if enabled.
      *
      * @param financialDocument submitted financial document
-     * @param sequenceHelper helper class which will allows us to increment a reference without using an Integer
+     * @param sequenceHelper    helper class which will allows us to increment a reference without using an Integer
      * @return true if there are no issues creating GLPE's
-     * @see org.kuali.rice.krad.rule.GenerateGeneralLedgerDocumentPendingEntriesRule#processGenerateDocumentGeneralLedgerPendingEntries(org.kuali.rice.krad.document.FinancialDocument,org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper)
+     * @see org.kuali.rice.krad.rule.GenerateGeneralLedgerDocumentPendingEntriesRule#processGenerateDocumentGeneralLedgerPendingEntries(org.kuali.rice.krad.document.FinancialDocument, org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper)
      */
     @Override
     public boolean generateDocumentGeneralLedgerPendingEntries(GeneralLedgerPendingEntrySequenceHelper sequenceHelper) {
@@ -266,7 +266,7 @@ public class AdvanceDepositDocument extends CashReceiptFamilyBase implements Cop
         super.postProcessSave(event);
         if (!(event instanceof SaveDocumentEvent)) { // don't lock until they route
             String documentTypeName = SpringContext.getBean(DataDictionaryService.class).getDocumentTypeNameByClass(this.getClass());
-            this.getCapitalAssetManagementModuleService().generateCapitalAssetLock(this,documentTypeName);
+            this.getCapitalAssetManagementModuleService().generateCapitalAssetLock(this, documentTypeName);
         }
     }
 
@@ -284,7 +284,7 @@ public class AdvanceDepositDocument extends CashReceiptFamilyBase implements Cop
      * Upon error correction, negates amount in each advance deposit detail, and updates the documentNumber to point to the new document.
      */
     protected void correctAdvanceDepositDetails() {
-        for (AdvanceDepositDetail deposit: advanceDeposits) {
+        for (AdvanceDepositDetail deposit : advanceDeposits) {
             deposit.setVersionNumber(new Long(1));
             deposit.setDocumentNumber(documentNumber);
             deposit.setFinancialDocumentAdvanceDepositAmount(deposit.getFinancialDocumentAdvanceDepositAmount().negated());

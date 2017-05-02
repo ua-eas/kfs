@@ -1,30 +1,30 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ld.document.web.struts;
 
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.module.ld.document.BenefitExpenseTransferDocument;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Struts Action Form for the Benefit Expense Transfer Document.
@@ -44,10 +44,10 @@ public class BenefitExpenseTransferForm extends ExpenseTransferDocumentFormBase 
     protected String getDefaultDocumentTypeName() {
         return "BT";
     }
-    
+
     /**
      * Gets the BenefitExpenseTransferDocument attribute.
-     * 
+     *
      * @return Returns the BenefitExpenseTransferDocument
      */
     public BenefitExpenseTransferDocument getBenefitExpenseTransferDocument() {
@@ -56,7 +56,7 @@ public class BenefitExpenseTransferForm extends ExpenseTransferDocumentFormBase 
 
     /**
      * Gets the accountNumber attribute.
-     * 
+     *
      * @return Returns the accountNumber.
      */
     public String getAccountNumber() {
@@ -65,7 +65,7 @@ public class BenefitExpenseTransferForm extends ExpenseTransferDocumentFormBase 
 
     /**
      * Sets the accountNumber attribute value.
-     * 
+     *
      * @param accountNumber The accountNumber to set.
      */
     public void setAccountNumber(String accountNumber) {
@@ -74,7 +74,7 @@ public class BenefitExpenseTransferForm extends ExpenseTransferDocumentFormBase 
 
     /**
      * Gets the subAccountNumber attribute.
-     * 
+     *
      * @return Return the subAccountNumber.
      */
     public String getSubAccountNumber() {
@@ -83,7 +83,7 @@ public class BenefitExpenseTransferForm extends ExpenseTransferDocumentFormBase 
 
     /**
      * Sets the subAccountNumber attribute value.
-     * 
+     *
      * @param subAccountNumber The subAccountNumber to set.
      */
     public void setSubAccountNumber(String subAccountNumber) {
@@ -92,7 +92,7 @@ public class BenefitExpenseTransferForm extends ExpenseTransferDocumentFormBase 
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Return the chartOfAccountsCode.
      */
     public String getChartOfAccountsCode() {
@@ -101,7 +101,7 @@ public class BenefitExpenseTransferForm extends ExpenseTransferDocumentFormBase 
 
     /**
      * Sets the chartOfAccountsCode attribute value.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -109,9 +109,9 @@ public class BenefitExpenseTransferForm extends ExpenseTransferDocumentFormBase 
     }
 
     /**
-     * Returns forced read only target fields (i.e only source target fields without chart of accounts code, 
+     * Returns forced read only target fields (i.e only source target fields without chart of accounts code,
      * account number, sub-account number, financial sub object code, project code, organization reference id, and amount)
-     * 
+     *
      * @see org.kuali.kfs.module.ld.document.web.struts.ExpenseTransferDocumentFormBase#getForcedReadOnlyTargetFields()
      */
     @Override
@@ -130,7 +130,7 @@ public class BenefitExpenseTransferForm extends ExpenseTransferDocumentFormBase 
 
     /**
      * Sets university fiscal year, chart of accounts code, account number, sub-account number from first source accounting line
-     * 
+     *
      * @see org.kuali.kfs.module.ld.document.web.struts.ExpenseTransferDocumentFormBase#populateSearchFields()
      */
     @Override

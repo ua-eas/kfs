@@ -1,39 +1,37 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.coa.businessobject;
 
-import java.util.LinkedHashMap;
-
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 
-/**
- * 
- */
+import java.util.LinkedHashMap;
+
+
 public class SubAccount extends PersistableBusinessObjectBase implements MutableInactivatable {
 
     private static final long serialVersionUID = 6853259976912014273L;
 
     public static final String CACHE_NAME = KFSConstants.APPLICATION_NAMESPACE_CODE + "/" + "SubAccount";
-    
+
     private String chartOfAccountsCode;
     private String accountNumber;
     private String subAccountNumber;
@@ -67,7 +65,7 @@ public class SubAccount extends PersistableBusinessObjectBase implements Mutable
 
     /**
      * Gets the accountNumber attribute.
-     * 
+     *
      * @return Returns the accountNumber.
      */
     public String getAccountNumber() {
@@ -83,7 +81,7 @@ public class SubAccount extends PersistableBusinessObjectBase implements Mutable
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode.
      */
     public String getChartOfAccountsCode() {
@@ -92,7 +90,7 @@ public class SubAccount extends PersistableBusinessObjectBase implements Mutable
 
     /**
      * Sets the chartOfAccountsCode attribute value.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -101,7 +99,7 @@ public class SubAccount extends PersistableBusinessObjectBase implements Mutable
 
     /**
      * Sets the financialReporting attribute value.
-     * 
+     *
      * @param reportingCode The financialReporting to set.
      * @deprecated
      */
@@ -111,7 +109,7 @@ public class SubAccount extends PersistableBusinessObjectBase implements Mutable
 
     /**
      * Gets the subAccountName attribute.
-     * 
+     *
      * @return Returns the subAccountName
      */
     public String getSubAccountName() {
@@ -120,7 +118,7 @@ public class SubAccount extends PersistableBusinessObjectBase implements Mutable
 
     /**
      * Sets the subAccountName attribute.
-     * 
+     *
      * @param subAccountName The subAccountName to set.
      */
     public void setSubAccountName(String subAccountName) {
@@ -129,7 +127,7 @@ public class SubAccount extends PersistableBusinessObjectBase implements Mutable
 
     /**
      * Gets the active attribute.
-     * 
+     *
      * @return Returns the active
      */
     public boolean isActive() {
@@ -138,7 +136,7 @@ public class SubAccount extends PersistableBusinessObjectBase implements Mutable
 
     /**
      * Sets the active attribute.
-     * 
+     *
      * @param active The active to set.
      */
     public void setActive(boolean active) {
@@ -147,7 +145,7 @@ public class SubAccount extends PersistableBusinessObjectBase implements Mutable
 
     /**
      * Gets the account attribute.
-     * 
+     *
      * @return Returns the account
      */
     public Account getAccount() {
@@ -156,7 +154,7 @@ public class SubAccount extends PersistableBusinessObjectBase implements Mutable
 
     /**
      * Sets the account attribute.
-     * 
+     *
      * @param account The account to set.
      */
     public void setAccount(Account account) {
@@ -165,7 +163,7 @@ public class SubAccount extends PersistableBusinessObjectBase implements Mutable
 
     /**
      * Gets the subAccount attribute.
-     * 
+     *
      * @return Returns the subAccount
      */
     public String getSubAccountNumber() {
@@ -174,7 +172,7 @@ public class SubAccount extends PersistableBusinessObjectBase implements Mutable
 
     /**
      * Sets the subAccount attribute.
-     * 
+     *
      * @param subAccount The subAccount to set.
      */
     public void setSubAccountNumber(String subAccountNumber) {
@@ -183,7 +181,7 @@ public class SubAccount extends PersistableBusinessObjectBase implements Mutable
 
     /**
      * Gets the financialReporting attribute.
-     * 
+     *
      * @return Returns the financialReporting
      */
     public ReportingCode getReportingCode() {
@@ -235,7 +233,7 @@ public class SubAccount extends PersistableBusinessObjectBase implements Mutable
 
     /**
      * Gets the a21SubAccount attribute.
-     * 
+     *
      * @return Returns the a21SubAccount.
      */
     public A21SubAccount getA21SubAccount() {
@@ -244,7 +242,7 @@ public class SubAccount extends PersistableBusinessObjectBase implements Mutable
 
     /**
      * Sets the a21SubAccount attribute value.
-     * 
+     *
      * @param subAccount The a21SubAccount to set.
      */
     public void setA21SubAccount(A21SubAccount subAccount) {
@@ -309,7 +307,7 @@ public class SubAccount extends PersistableBusinessObjectBase implements Mutable
 
     /**
      * Gets the cGCostSharingSectionBlank attribute.
-     * 
+     *
      * @return Returns the cGCostSharingSectionBlank.
      */
     public String getCgCostSharingSectionBlank() {
@@ -318,7 +316,7 @@ public class SubAccount extends PersistableBusinessObjectBase implements Mutable
 
     /**
      * Gets the cGICRSectionBlank attribute.
-     * 
+     *
      * @return Returns the cGICRSectionBlank.
      */
     public String getCgICRSectionBlank() {
@@ -327,7 +325,7 @@ public class SubAccount extends PersistableBusinessObjectBase implements Mutable
 
     /**
      * Gets the financialReportingCodeSectionBlank attribute.
-     * 
+     *
      * @return Returns the financialReportingCodeSectionBlank.
      */
     public String getFinancialReportingCodeSectionBlank() {
@@ -336,7 +334,7 @@ public class SubAccount extends PersistableBusinessObjectBase implements Mutable
 
     /**
      * Gets the cGCostSharingSection attribute.
-     * 
+     *
      * @return Returns the cGCostSharingSection.
      */
     public String getCgCostSharingSection() {
@@ -345,7 +343,7 @@ public class SubAccount extends PersistableBusinessObjectBase implements Mutable
 
     /**
      * Gets the cGICRSection attribute.
-     * 
+     *
      * @return Returns the cGICRSection.
      */
     public String getCgICRSection() {
@@ -354,7 +352,7 @@ public class SubAccount extends PersistableBusinessObjectBase implements Mutable
 
     /**
      * Gets the financialReportingCodeSection attribute.
-     * 
+     *
      * @return Returns the financialReportingCodeSection.
      */
     public String getFinancialReportingCodeSection() {

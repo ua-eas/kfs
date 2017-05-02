@@ -1,35 +1,35 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.web.struts;
-
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.upload.FormFile;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.kns.web.struts.action.KualiAction;
+import org.kuali.kfs.krad.exception.AuthorizationException;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.batch.BatchInputFileSetType;
@@ -40,13 +40,12 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.exception.FileStorageException;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.services.IdentityManagementService;
-import org.kuali.rice.kns.util.KNSGlobalVariables;
-import org.kuali.rice.kns.web.struts.action.KualiAction;
-import org.kuali.rice.krad.exception.AuthorizationException;
-import org.kuali.rice.krad.exception.ValidationException;
-import org.kuali.rice.krad.service.ModuleService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This class is the struts action for the batch upload screen that supports file sets
@@ -54,6 +53,7 @@ import org.kuali.rice.krad.util.KRADConstants;
 public class KualiBatchInputFileSetAction extends KualiAction {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(KualiBatchInputFileSetAction.class);
     private static IdentityManagementService identityManagementService;
+
     private IdentityManagementService getIdentityManagementService() {
         if (identityManagementService == null) {
             identityManagementService = SpringContext.getBean(IdentityManagementService.class);
@@ -63,7 +63,7 @@ public class KualiBatchInputFileSetAction extends KualiAction {
 
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiAction#execute(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -79,7 +79,7 @@ public class KualiBatchInputFileSetAction extends KualiAction {
     protected void checkAuthorization(ActionForm form, String methodToCall) throws AuthorizationException {
         BatchUpload batchUpload = ((KualiBatchInputFileSetForm) form).getBatchUpload();
         BatchInputFileSetType batchInputFileType = retrieveBatchInputFileSetTypeImpl(batchUpload.getBatchInputTypeName());
-        Map<String,String> permissionDetails = new HashMap<String,String>();
+        Map<String, String> permissionDetails = new HashMap<String, String>();
         permissionDetails.put(KimConstants.AttributeConstants.NAMESPACE_CODE, getNamespaceCode(batchInputFileType.getClass()));
         permissionDetails.put(KimConstants.AttributeConstants.BEAN_NAME, batchUpload.getBatchInputTypeName());
         if (!getIdentityManagementService().isAuthorizedByTemplateName(GlobalVariables.getUserSession().getPrincipalId(), KRADConstants.KNS_NAMESPACE, KFSConstants.PermissionTemplate.UPLOAD_BATCH_INPUT_FILES.name, permissionDetails, null)) {
@@ -115,7 +115,7 @@ public class KualiBatchInputFileSetAction extends KualiAction {
 
         boolean requiredValuesForFilesMissing = false;
         if (StringUtils.isBlank(batchUpload.getFileUserIdentifer())) {
-            GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, KFSKeyConstants.ERROR_BATCH_UPLOAD_NO_FILE_SET_IDENTIFIER_SELECTED, new String[] {});
+            GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, KFSKeyConstants.ERROR_BATCH_UPLOAD_NO_FILE_SET_IDENTIFIER_SELECTED, new String[]{});
             requiredValuesForFilesMissing = true;
         }
 
@@ -131,10 +131,9 @@ public class KualiBatchInputFileSetAction extends KualiAction {
         for (String fileType : uploadedFiles.keySet()) {
             FormFile uploadedFile = uploadedFiles.get(fileType);
             if (uploadedFile == null || uploadedFile.getInputStream() == null || uploadedFile.getInputStream().available() == 0) {
-                GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, KFSKeyConstants.ERROR_BATCH_UPLOAD_NO_FILE_SELECTED_SAVE_FOR_FILE_TYPE, new String[] { batchType.getFileTypeDescription().get(fileType) });
+                GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, KFSKeyConstants.ERROR_BATCH_UPLOAD_NO_FILE_SELECTED_SAVE_FOR_FILE_TYPE, new String[]{batchType.getFileTypeDescription().get(fileType)});
                 requiredValuesForFilesMissing = true;
-            }
-            else {
+            } else {
                 typeToStreamMap.put(fileType, uploadedFile.getInputStream());
             }
         }
@@ -145,13 +144,11 @@ public class KualiBatchInputFileSetAction extends KualiAction {
 
         try {
             Map<String, String> typeToSavedFileNames = batchInputFileSetService.save(GlobalVariables.getUserSession().getPerson(), batchType, batchUpload.getFileUserIdentifer(), typeToStreamMap);
-        }
-        catch (FileStorageException e) {
+        } catch (FileStorageException e) {
             LOG.error("Error occured while trying to save file set (probably tried to save a file that already exists).", e);
-            GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, KFSKeyConstants.ERROR_BATCH_UPLOAD_FILE_SAVE_ERROR, new String[] { e.getMessage() });
+            GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, KFSKeyConstants.ERROR_BATCH_UPLOAD_FILE_SAVE_ERROR, new String[]{e.getMessage()});
             return mapping.findForward(KFSConstants.MAPPING_BASIC);
-        }
-        catch (ValidationException e) {
+        } catch (ValidationException e) {
             LOG.error("Error occured while trying to validate file set.", e);
             GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, KFSKeyConstants.ERROR_BATCH_UPLOAD_FILE_VALIDATION_ERROR);
             return mapping.findForward(KFSConstants.MAPPING_BASIC);

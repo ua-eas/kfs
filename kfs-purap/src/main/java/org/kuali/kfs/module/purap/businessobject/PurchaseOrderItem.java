@@ -1,40 +1,40 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.module.purap.businessobject;
 
-import static org.kuali.rice.core.api.util.type.KualiDecimal.ZERO;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.service.SequenceAccessorService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
 import org.kuali.kfs.module.purap.document.service.PurchaseOrderService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.service.SequenceAccessorService;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+
+import static org.kuali.rice.core.api.util.type.KualiDecimal.ZERO;
 
 /**
  * Purchase Order Item Business Object.
@@ -50,9 +50,9 @@ public class PurchaseOrderItem extends PurchasingItemBase {
     private KualiDecimal itemOutstandingEncumberedAmount;
     private boolean itemActiveIndicator = true;
     private KualiDecimal itemDamagedTotalQuantity;
-        
+
     private PurchaseOrderDocument purchaseOrder;
-    
+
     // Not persisted to DB
     private boolean itemSelectedForRetransmitIndicator;
     private boolean movingToSplit;
@@ -66,7 +66,7 @@ public class PurchaseOrderItem extends PurchasingItemBase {
 
     /**
      * Constructor.
-     * 
+     *
      * @param ri - Requisition Item
      * @param po - Purchase Order Document
      */
@@ -75,8 +75,8 @@ public class PurchaseOrderItem extends PurchasingItemBase {
 
         this.setPurchaseOrder(po);
         SequenceAccessorService sas = SpringContext.getBean(SequenceAccessorService.class);
-        Integer itemIdentifier = sas.getNextAvailableSequenceNumber("PO_ITM_ID", PurchaseOrderDocument.class).intValue();        
-        this.setItemIdentifier(itemIdentifier);        
+        Integer itemIdentifier = sas.getNextAvailableSequenceNumber("PO_ITM_ID", PurchaseOrderDocument.class).intValue();
+        this.setItemIdentifier(itemIdentifier);
         this.setItemLineNumber(ri.getItemLineNumber());
         this.setItemUnitOfMeasureCode(ri.getItemUnitOfMeasureCode());
         this.setItemQuantity(ri.getItemQuantity());
@@ -84,9 +84,9 @@ public class PurchaseOrderItem extends PurchasingItemBase {
         this.setItemDescription(ri.getItemDescription());
         this.setItemUnitPrice(ri.getItemUnitPrice());
         this.setItemAuxiliaryPartIdentifier(ri.getItemAuxiliaryPartIdentifier());
-        this.setItemAssignedToTradeInIndicator(ri.getItemAssignedToTradeInIndicator());        
-        this.setItemTaxAmount( ri.getItemTaxAmount() );
-        
+        this.setItemAssignedToTradeInIndicator(ri.getItemAssignedToTradeInIndicator());
+        this.setItemTaxAmount(ri.getItemTaxAmount());
+
         //copy use tax items over, and blank out keys (useTaxId and itemIdentifier)
         for (PurApItemUseTax useTaxItem : ri.getUseTaxItems()) {
             PurchaseOrderItemUseTax newItemUseTax = new PurchaseOrderItemUseTax(useTaxItem);
@@ -94,17 +94,17 @@ public class PurchaseOrderItem extends PurchasingItemBase {
             this.getUseTaxItems().add(newItemUseTax);
 
         }
-        
+
         this.setExternalOrganizationB2bProductReferenceNumber(ri.getExternalOrganizationB2bProductReferenceNumber());
         this.setExternalOrganizationB2bProductTypeName(ri.getExternalOrganizationB2bProductTypeName());
 
         this.setItemReceivedTotalQuantity(ZERO);
         this.setItemDamagedTotalQuantity(ZERO);
-        
+
         this.setItemTypeCode(ri.getItemTypeCode());
 
-        if (ri.getSourceAccountingLines() != null && ri.getSourceAccountingLines().size() > 0 && 
-                !StringUtils.equals(PurapConstants.ItemTypeCodes.ITEM_TYPE_ORDER_DISCOUNT_CODE,ri.getItemType().getItemTypeCode())) {
+        if (ri.getSourceAccountingLines() != null && ri.getSourceAccountingLines().size() > 0 &&
+            !StringUtils.equals(PurapConstants.ItemTypeCodes.ITEM_TYPE_ORDER_DISCOUNT_CODE, ri.getItemType().getItemTypeCode())) {
             List accounts = new ArrayList();
             for (PurApAccountingLine account : ri.getSourceAccountingLines()) {
                 PurchaseOrderAccount poAccount = new PurchaseOrderAccount(account);
@@ -117,21 +117,21 @@ public class PurchaseOrderItem extends PurchasingItemBase {
         // In amendment, the user can set it to false when they click on
         // the inactivate button.
         this.setItemActiveIndicator(true);
-        
+
         this.setPurchasingCommodityCode(ri.getPurchasingCommodityCode());
         this.setCommodityCode(getCommodityCode());
-        
+
         // If the RequisitionItem has a CapitalAssetItem, create a new PurchasingCapitalAssetItem and add it to the PO.
-        if( ObjectUtils.isNotNull(reqCamsItem) ) {
+        if (ObjectUtils.isNotNull(reqCamsItem)) {
             PurchaseOrderCapitalAssetItem newPOCapitalAssetItem = new PurchaseOrderCapitalAssetItem(reqCamsItem, itemIdentifier);
             po.getPurchasingCapitalAssetItems().add(newPOCapitalAssetItem);
         }
     }
-    
+
     public boolean isItemActiveIndicator() {
         return itemActiveIndicator;
     }
-    
+
 //    public String getItemActiveIndicator() {
 //        return (new Boolean(itemActiveIndicator)).toString();
 //    }
@@ -181,7 +181,8 @@ public class PurchaseOrderItem extends PurchasingItemBase {
     }
 
     /**
-     * Gets the itemDamagedTotalQuantity attribute. 
+     * Gets the itemDamagedTotalQuantity attribute.
+     *
      * @return Returns the itemDamagedTotalQuantity.
      */
     public KualiDecimal getItemDamagedTotalQuantity() {
@@ -190,6 +191,7 @@ public class PurchaseOrderItem extends PurchasingItemBase {
 
     /**
      * Sets the itemDamagedTotalQuantity attribute value.
+     *
      * @param itemDamagedTotalQuantity The itemDamagedTotalQuantity to set.
      */
     public void setItemDamagedTotalQuantity(KualiDecimal itemDamagedTotalQuantity) {
@@ -221,7 +223,7 @@ public class PurchaseOrderItem extends PurchasingItemBase {
 
     public void setItemSelectedForRetransmitIndicator(boolean itemSelectedForRetransmitIndicator) {
         this.itemSelectedForRetransmitIndicator = itemSelectedForRetransmitIndicator;
-    }    
+    }
 
     public boolean isMovingToSplit() {
         return movingToSplit;
@@ -234,7 +236,7 @@ public class PurchaseOrderItem extends PurchasingItemBase {
     /**
      * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
      */
-    
+
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
         LinkedHashMap m = new LinkedHashMap();
         m.put("documentNumber", this.documentNumber);
@@ -250,10 +252,10 @@ public class PurchaseOrderItem extends PurchasingItemBase {
     public Class getAccountingLineClass() {
         return PurchaseOrderAccount.class;
     }
-    
+
     /**
-     * 
      * This method returns the total item paid amount
+     *
      * @return
      */
     public KualiDecimal getItemPaidAmount() {
@@ -276,12 +278,11 @@ public class PurchaseOrderItem extends PurchasingItemBase {
         // if service add the po outstanding amount to outstanding amount
         if (iT.isAmountBasedGeneralLedgerIndicator()) {
             outstandingAmount = outstandingAmount.add(this.getItemOutstandingEncumberedAmount());
-        }
-        else {
+        } else {
             // else add outstanding quantity * unit price
             BigDecimal qty = new BigDecimal(this.getOutstandingQuantity().toString());
             outstandingAmount = outstandingAmount.add(new KualiDecimal(this.getItemUnitPrice().multiply(qty).setScale(KualiDecimal.SCALE, KualiDecimal.ROUND_BEHAVIOR)));
-            
+
             KualiDecimal itemTaxAmount = this.getItemTaxAmount() == null ? ZERO : this.getItemTaxAmount();
             KualiDecimal outstandingTaxAmount = new KualiDecimal(qty).divide(this.getItemQuantity()).multiply(itemTaxAmount);
             outstandingAmount = outstandingAmount.add(outstandingTaxAmount);
@@ -290,55 +291,54 @@ public class PurchaseOrderItem extends PurchasingItemBase {
         // return the total encumbrance subtracted by the outstanding amount from above
         return totalEncumberance.subtract(outstandingAmount);
     }
-    
+
     /**
      * Exists due to a setter requirement by the htmlControlAttribute
-     * @deprecated
+     *
      * @param amount - outstanding quantity
+     * @deprecated
      */
-    public void setOutstandingQuantity(){
+    public void setOutstandingQuantity() {
         // do nothing
     }
-    
+
     public KualiDecimal getOutstandingQuantity() {
-            KualiDecimal outstandingQuantity = (this.getItemQuantity() != null) ? this.getItemQuantity() : KualiDecimal.ZERO;
-            KualiDecimal invoicedQuantity = (this.getItemInvoicedTotalQuantity() != null) ? this.getItemInvoicedTotalQuantity() : KualiDecimal.ZERO;
-            return outstandingQuantity.subtract(invoicedQuantity);
+        KualiDecimal outstandingQuantity = (this.getItemQuantity() != null) ? this.getItemQuantity() : KualiDecimal.ZERO;
+        KualiDecimal invoicedQuantity = (this.getItemInvoicedTotalQuantity() != null) ? this.getItemInvoicedTotalQuantity() : KualiDecimal.ZERO;
+        return outstandingQuantity.subtract(invoicedQuantity);
     }
-    
+
     public boolean isCanInactivateItem() {
         if (versionNumber == null) {
             // don't allow newly added item to be inactivatable.
             return false;
-        }
-        else if (versionNumber != null && itemActiveIndicator && !getPurchaseOrder().getContainsUnpaidPaymentRequestsOrCreditMemos()) {
+        } else if (versionNumber != null && itemActiveIndicator && !getPurchaseOrder().getContainsUnpaidPaymentRequestsOrCreditMemos()) {
             return true;
         }
         return false;
     }
-        
+
     /**
      * Override the method in PurApItemBase so that if the item is
      * not eligible to be displayed in the account summary tab,
      * which is if the item is inactive, we'll return null and
      * the item won't be added to the list of account summary.
-     * 
+     *
      * @see org.kuali.kfs.module.purap.businessobject.PurApItemBase#getSummaryItem()
      */
     @Override
     public PurApSummaryItem getSummaryItem() {
         if (!this.itemActiveIndicator) {
             return null;
-        }
-        else {
+        } else {
             return super.getSummaryItem();
         }
     }
 
-    public boolean isNewUnorderedItem(){
+    public boolean isNewUnorderedItem() {
         return SpringContext.getBean(PurchaseOrderService.class).isNewUnorderedItem(this);
     }
-    
+
     @Override
     public boolean isNewItemForAmendment() {
         return SpringContext.getBean(PurchaseOrderService.class).isNewItemForAmendment(this);

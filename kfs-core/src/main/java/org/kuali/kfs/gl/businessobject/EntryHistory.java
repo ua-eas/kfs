@@ -1,28 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.gl.businessobject;
 
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
 import java.sql.Date;
 import java.sql.Timestamp;
-
-import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 /**
  * General Ledger business object for LedgerEntryHistory
@@ -39,10 +39,10 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
         this.setTransactionLedgerEntryAmount(KualiDecimal.ZERO);
         this.setRowCount(0);
     }
-    
+
     /**
      * Constructs a EntryHistory.java.
-     * 
+     *
      * @param transaction
      */
     public EntryHistory(OriginEntryInformation originEntry) {
@@ -54,20 +54,20 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
         this.setUniversityFiscalPeriodCode(originEntry.getUniversityFiscalPeriodCode());
         this.setTransactionDebitCreditCode(originEntry.getTransactionDebitCreditCode());
     }
-    
+
     /**
      * Adds a transactionLedgerEntryAmount and increments the rowCount.
-     * 
+     *
      * @param transactionLedgerEntryAmount
      */
     public void addAmount(KualiDecimal transactionLedgerEntryAmount) {
         this.setTransactionLedgerEntryAmount(this.getTransactionLedgerEntryAmount().add(transactionLedgerEntryAmount));
         rowCount++;
     }
-    
+
     /**
      * Gets the rowCount
-     * 
+     *
      * @return Returns the rowCount
      */
     public Integer getRowCount() {
@@ -76,15 +76,16 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * Sets the rowCount
-     * 
+     *
      * @param rowCount The rowCount to set.
      */
     public void setRowCount(Integer rowCount) {
         this.rowCount = rowCount;
     }
-    
+
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#getAccountNumber()
      */
     @Override
@@ -94,6 +95,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#setAccountNumber(java.lang.String)
      */
     @Override
@@ -103,6 +105,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#getSubAccountNumber()
      */
     @Override
@@ -112,6 +115,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#setSubAccountNumber(java.lang.String)
      */
     @Override
@@ -121,6 +125,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#getFinancialSubObjectCode()
      */
     @Override
@@ -130,6 +135,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#setFinancialSubObjectCode(java.lang.String)
      */
     @Override
@@ -139,6 +145,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#getFinancialObjectTypeCode()
      */
     @Override
@@ -148,6 +155,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#setFinancialObjectTypeCode(java.lang.String)
      */
     @Override
@@ -157,6 +165,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#getFinancialDocumentTypeCode()
      */
     @Override
@@ -166,6 +175,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#getFinancialSystemOriginationCode()
      */
     @Override
@@ -175,6 +185,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#setFinancialSystemOriginationCode(java.lang.String)
      */
     @Override
@@ -184,6 +195,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#setFinancialDocumentTypeCode(java.lang.String)
      */
     @Override
@@ -193,6 +205,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#getDocumentNumber()
      */
     @Override
@@ -202,6 +215,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#setDocumentNumber(java.lang.String)
      */
     @Override
@@ -211,6 +225,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#getTransactionLedgerEntrySequenceNumber()
      */
     @Override
@@ -220,6 +235,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#setTransactionLedgerEntrySequenceNumber(java.lang.Integer)
      */
     @Override
@@ -229,6 +245,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#getProjectCode()
      */
     @Override
@@ -238,6 +255,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#setProjectCode(java.lang.String)
      */
     @Override
@@ -247,6 +265,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#getTransactionLedgerEntryDescription()
      */
     @Override
@@ -256,6 +275,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#setTransactionLedgerEntryDescription(java.lang.String)
      */
     @Override
@@ -265,6 +285,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#getTransactionDate()
      */
     @Override
@@ -274,6 +295,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#setTransactionDate(java.sql.Date)
      */
     @Override
@@ -283,6 +305,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#getOrganizationDocumentNumber()
      */
     @Override
@@ -292,6 +315,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#setOrganizationDocumentNumber(java.lang.String)
      */
     @Override
@@ -301,6 +325,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#getOrganizationReferenceId()
      */
     @Override
@@ -310,6 +335,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#setOrganizationReferenceId(java.lang.String)
      */
     @Override
@@ -319,6 +345,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#getReferenceFinancialDocumentTypeCode()
      */
     @Override
@@ -328,6 +355,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#setReferenceFinancialDocumentTypeCode(java.lang.String)
      */
     @Override
@@ -337,6 +365,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#getReferenceFinancialSystemOriginationCode()
      */
     @Override
@@ -346,6 +375,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#setReferenceFinancialSystemOriginationCode(java.lang.String)
      */
     @Override
@@ -355,6 +385,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#getReferenceFinancialDocumentNumber()
      */
     @Override
@@ -364,6 +395,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#setReferenceFinancialDocumentNumber(java.lang.String)
      */
     @Override
@@ -373,6 +405,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#getFinancialDocumentReversalDate()
      */
     @Override
@@ -382,6 +415,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#setFinancialDocumentReversalDate(java.sql.Date)
      */
     @Override
@@ -391,6 +425,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#getTransactionEncumbranceUpdateCode()
      */
     @Override
@@ -400,6 +435,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#setTransactionEncumbranceUpdateCode(java.lang.String)
      */
     @Override
@@ -409,6 +445,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#getTransactionPostingDate()
      */
     @Override
@@ -418,6 +455,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#setTransactionPostingDate(java.sql.Date)
      */
     @Override
@@ -427,6 +465,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#getTransactionDateTimeStamp()
      */
     @Override
@@ -436,6 +475,7 @@ public class EntryHistory extends Entry implements LedgerEntryHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#setTransactionDateTimeStamp(java.sql.Timestamp)
      */
     @Override

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -43,29 +43,27 @@ public class LaborGLScrubberValidatorImpl extends ScrubberValidatorImpl implemen
     @Override
     protected Message validateUniversityFiscalPeriodCode(OriginEntryInformation originEntry, OriginEntryInformation workingEntry, UniversityDate universityRunDate, AccountingCycleCachingService accountingCycleCachingService) {
         LOG.debug("validateUniversityFiscalPeriodCode() started");
-        
+
         String periodCode = originEntry.getUniversityFiscalPeriodCode();
         if (!StringUtils.hasText(periodCode)) {
             if (universityRunDate.getAccountingPeriod().isOpen()) {
                 workingEntry.setUniversityFiscalPeriodCode(universityRunDate.getUniversityFiscalAccountingPeriod());
                 workingEntry.setUniversityFiscalYear(universityRunDate.getUniversityFiscalYear());
-            }
-            else {
+            } else {
                 return MessageBuilder.buildMessage(KFSKeyConstants.ERROR_ACCOUNTING_PERIOD_CLOSED, " (year " + universityRunDate.getUniversityFiscalYear() + ", period " + universityRunDate.getUniversityFiscalAccountingPeriod(), Message.TYPE_FATAL);
             }
-        }
-        else {
+        } else {
             AccountingPeriod originEntryAccountingPeriod = accountingCycleCachingService.getAccountingPeriod(originEntry.getUniversityFiscalYear(), originEntry.getUniversityFiscalPeriodCode());
             if (originEntryAccountingPeriod == null) {
                 return MessageBuilder.buildMessage(KFSKeyConstants.ERROR_ACCOUNTING_PERIOD_NOT_FOUND, periodCode, Message.TYPE_FATAL);
-            }
-            else if (!originEntryAccountingPeriod.isActive() && !originEntry.getFinancialBalanceTypeCode().equals(KFSConstants.BALANCE_TYPE_A21)) {
+            } else if (!originEntryAccountingPeriod.isActive() && !originEntry.getFinancialBalanceTypeCode().equals(KFSConstants.BALANCE_TYPE_A21)) {
                 return MessageBuilder.buildMessage(KFSKeyConstants.ERROR_ACCOUNTING_PERIOD_NOT_ACTIVE, periodCode, Message.TYPE_FATAL);
             }
 
             workingEntry.setUniversityFiscalPeriodCode(periodCode);
         }
 
-        return null;    }
+        return null;
+    }
 
 }

@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -19,11 +19,6 @@
 package org.kuali.kfs.module.ar.document.service;
 
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
@@ -37,6 +32,11 @@ import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
 /**
  * This class defines all the service methods for Contracts & Grants invoice Document.
  */
@@ -45,7 +45,7 @@ public interface ContractsGrantsInvoiceDocumentService {
     /**
      * This method creates Source Accounting lines enabling the creation of GLPEs in the document.
      *
-     * @param document the Contracts & Grants Invoice document
+     * @param document      the Contracts & Grants Invoice document
      * @param awardAccounts award accounts to populate as accounting lines
      */
     public void createSourceAccountingLines(ContractsGrantsInvoiceDocument contractsGrantsInvoiceDocument, List<ContractsAndGrantsBillingAwardAccount> awardAccounts);
@@ -78,7 +78,7 @@ public interface ContractsGrantsInvoiceDocumentService {
      * @param proposalNumber
      * @return
      */
-    public KualiDecimal getMilestonesBilledToDateAmount(Long proposalNumber);
+    public KualiDecimal getMilestonesBilledToDateAmount(String proposalNumber);
 
     /**
      * Returns the billed to date amount for the given Proposal Number for Predetermined Billing.
@@ -86,7 +86,7 @@ public interface ContractsGrantsInvoiceDocumentService {
      * @param proposalNumber
      * @return
      */
-    public KualiDecimal getPredeterminedBillingBilledToDateAmount(Long proposalNumber);
+    public KualiDecimal getPredeterminedBillingBilledToDateAmount(String proposalNumber);
 
     /**
      * Returns the total amount billed to date for an Award.
@@ -94,7 +94,7 @@ public interface ContractsGrantsInvoiceDocumentService {
      * @param proposalNumber used to find the AwardAccountObjectCodeTotalBilled
      * @return billed to date amount
      */
-    public KualiDecimal getAwardBilledToDateAmountByProposalNumber(Long proposalNumber);
+    public KualiDecimal getAwardBilledToDateAmountByProposalNumber(String proposalNumber);
 
     /**
      * This method retrieves CG invoice documents that match the given field values
@@ -158,7 +158,7 @@ public interface ContractsGrantsInvoiceDocumentService {
      * Determine if the collectorPrincipalId can view the invoice, leverages role qualifiers
      * on the CGB Collector role to perform the check.
      *
-     * @param invoice The invoice to check if the collector can view.
+     * @param invoice              The invoice to check if the collector can view.
      * @param collectorPrincipalId The principal id of the collector to check permissions for.
      * @return Returns true if the collector can view the invoice, false otherwise.
      */
@@ -179,7 +179,7 @@ public interface ContractsGrantsInvoiceDocumentService {
      * @param invoiceMilestones
      * @param invoiceBills
      */
-    public void updateBillsAndMilestones(boolean billed, List<InvoiceMilestone> invoiceMilestones,List<InvoiceBill> invoiceBills);
+    public void updateBillsAndMilestones(boolean billed, List<InvoiceMilestone> invoiceMilestones, List<InvoiceBill> invoiceBills);
 
     /**
      * This method generates the attached invoices for the invoice addresses in the Contracts & Grants Invoice Document.
@@ -194,7 +194,7 @@ public interface ContractsGrantsInvoiceDocumentService {
      * @param accountDetails
      * @param proposalNumber
      */
-    public void updateUnfinalizationToAwardAccount(List<InvoiceAccountDetail> accountDetails,Long proposalNumber);
+    public void updateUnfinalizationToAwardAccount(List<InvoiceAccountDetail> accountDetails, String proposalNumber);
 
     /**
      * Corrects the Contracts & Grants Invoice Document.
@@ -206,9 +206,10 @@ public interface ContractsGrantsInvoiceDocumentService {
 
     /**
      * Determines if a Contracts & Grants cost category contains a given object code
-     * @param category the cost category which may contain an object code
+     *
+     * @param category            the cost category which may contain an object code
      * @param chartOfAccountsCode the chart of the object code to check
-     * @param objectCode the object code to check
+     * @param objectCode          the object code to check
      * @return true if the cost category contains the given object code, false otherwise
      */
     public boolean doesCostCategoryContainObjectCode(CostCategory category, String chartOfAccountsCode, String objectCode);
@@ -233,7 +234,7 @@ public interface ContractsGrantsInvoiceDocumentService {
      * Determines if the given invoice template can be utilized by the given CGB Invoice Document based on
      * a comparison of the billing chart/org of the invoiceTemplate to the billing chart/org of the invoice doc.
      *
-     * @param invoiceTemplate the invoice template to check
+     * @param invoiceTemplate                the invoice template to check
      * @param contractsGrantsInvoiceDocument the invoice document to check against
      * @return true if the document can utilize the template, false otherwise
      */
@@ -242,6 +243,7 @@ public interface ContractsGrantsInvoiceDocumentService {
     /**
      * Determines whether the given ContractsGrantsInvoiceDocument is "effective" or not: if it is disapproved, cancelled, or error corrected then it is NOT effective,
      * and in all other cases, it is effective
+     *
      * @param invoiceDocument the invoice document to check
      * @return true if the document is "effective" given the rules above, false otherwise
      */
@@ -249,34 +251,39 @@ public interface ContractsGrantsInvoiceDocumentService {
 
     /**
      * Update the billed indicator on a List of given Invoice Bills
-     * @param billed the value for the billed indicator
+     *
+     * @param billed       the value for the billed indicator
      * @param invoiceBills the bills to update
      */
     public void updateBillsBilledIndicator(boolean billed, List<InvoiceBill> invoiceBills);
 
     /**
      * Update the billed indicator on a List of given Milestones
-     * @param billed the value for the billed indicator
+     *
+     * @param billed            the value for the billed indicator
      * @param invoiceMilestones the invoice milestones to update
      */
     public void updateMilestonesBilledIndicator(boolean billed, List<InvoiceMilestone> invoiceMilestones);
 
     /**
      * This helper method returns a map of a list of invoices mapped by the proposal number of the invoice
+     *
      * @param invoices The list of invoices for which filtering to be done by proposal number
      * @return Returns the map of invoices based on key of proposal number.
      */
-    public Map<Long, List<ContractsGrantsInvoiceDocument>> getInvoicesByAward(Collection<ContractsGrantsInvoiceDocument> invoices);
+    public Map<String, List<ContractsGrantsInvoiceDocument>> getInvoicesByAward(Collection<ContractsGrantsInvoiceDocument> invoices);
 
     /**
      * Recalculates the totals - based on the invoice detail account object codes which have categories - for all accounting lines on the given
      * ContractsGrantsInvoiceDocument
+     *
      * @param contractsGrantsInvoiceDocument a C&G Invoice with accounting lines to recalculate
      */
     public void recalculateSourceAccountingLineTotals(ContractsGrantsInvoiceDocument contractsGrantsInvoiceDocument);
 
     /**
      * Calculate and return the total billed amount from any other invoices with the same award and billing period
+     *
      * @param contractsGrantsInvoiceDocument invoice used to find other related invoices
      * @return calculated new total billed amount
      */
@@ -284,6 +291,7 @@ public interface ContractsGrantsInvoiceDocumentService {
 
     /**
      * Determines if the given Contracts & Grants Invoice Document was (likely) created in batch (as opposed to the lookup screen or the LOC)
+     *
      * @param document the Contracts & Grants Invoice to test
      * @return true if the document was likely created in batch, false otherwise
      */
@@ -292,6 +300,7 @@ public interface ContractsGrantsInvoiceDocumentService {
     /**
      * Determines if the given Contracts & Grants Invoice Document passes routing validation.  Note: no error messages are returned; this simply
      * checks if any error messages are created or not for the document
+     *
      * @param document the Contracts & Grants Invoice to check
      * @return true if the c&g invoice passes validation with no errors, false otherwise
      */

@@ -1,27 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.service;
-
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
@@ -35,6 +30,11 @@ import org.kuali.kfs.sys.document.GeneralLedgerPendingEntrySource;
 import org.kuali.kfs.sys.document.GeneralLedgerPostingDocument;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 /**
  * This interface defines methods that a GeneralLedgerPendingEntry Service must provide
  */
@@ -42,7 +42,7 @@ public interface GeneralLedgerPendingEntryService {
 
     /**
      * This method...
-     * 
+     *
      * @param universityFiscalYears
      * @param chartOfAccountsCode
      * @param accountNumber
@@ -53,7 +53,7 @@ public interface GeneralLedgerPendingEntryService {
 
     /**
      * This method...
-     * 
+     *
      * @param universityFiscalYears
      * @param chartOfAccountsCode
      * @param accountNumber
@@ -64,33 +64,35 @@ public interface GeneralLedgerPendingEntryService {
 
     /**
      * This method...
-     * 
+     *
      * @param universityFiscalYear
      * @param chartOfAccountsCode
      * @param accountNumber
      * @param sufficientFundsObjectCode
      * @param isDebit
      * @param isYearEnd
+     * @param transactionDocumentNumbers
      * @return
      */
-    public KualiDecimal getExpenseSummary(Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber, String sufficientFundsObjectCode, boolean isDebit, boolean isYearEnd);
+    public KualiDecimal getExpenseSummary(Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber, String sufficientFundsObjectCode, boolean isDebit, boolean isYearEnd, List<String> transactionDocumentNumbers);
 
     /**
      * This method...
-     * 
+     *
      * @param universityFiscalYear
      * @param chartOfAccountsCode
      * @param accountNumber
      * @param sufficientFundsObjectCode
      * @param isDebit
      * @param isYearEnd
+     * @param transactionDocumentNumbers
      * @return
      */
-    public KualiDecimal getEncumbranceSummary(Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber, String sufficientFundsObjectCode, boolean isDebit, boolean isYearEnd);
+    public KualiDecimal getEncumbranceSummary(Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber, String sufficientFundsObjectCode, boolean isDebit, boolean isYearEnd, List<String> transactionDocumentNumbers);
 
     /**
      * This method...
-     * 
+     *
      * @param universityFiscalYear
      * @param chartOfAccountsCode
      * @param accountNumber
@@ -108,7 +110,7 @@ public interface GeneralLedgerPendingEntryService {
 
     /**
      * Invokes generateGeneralLedgerPendingEntries method on the transactional document.
-     * 
+     *
      * @param document - document whose pending entries need generated
      * @return whether the business rules succeeded
      */
@@ -116,7 +118,7 @@ public interface GeneralLedgerPendingEntryService {
 
     /**
      * The fiscal year and period is null in quite a few glpe's. This will put in a sensible default.
-     * 
+     *
      * @param glpe
      */
     public void fillInFiscalPeriodYear(GeneralLedgerPendingEntry glpe);
@@ -133,14 +135,14 @@ public interface GeneralLedgerPendingEntryService {
 
     /**
      * Delete all pending entries for a specific document approved code
-     * 
+     *
      * @param financialDocumentApprovedCode
      */
     public void deleteByFinancialDocumentApprovedCode(String financialDocumentApprovedCode);
 
     /**
      * Does the given account have any general ledger entries? It is necessary to check this before closing an account.
-     * 
+     *
      * @param account
      * @return
      */
@@ -148,25 +150,25 @@ public interface GeneralLedgerPendingEntryService {
 
     /**
      * The method finds all pending ledger entries
-     * 
+     *
      * @return all pending ledger entries
      */
     public Iterator findApprovedPendingLedgerEntries();
 
     /**
      * This method retrieves all pending ledger entries for the given encumbrance
-     * 
+     *
      * @param encumbrance the encumbrance entry
-     * @param isApproved the flag that indicates whether the pending entries are approved or don't care
+     * @param isApproved  the flag that indicates whether the pending entries are approved or don't care
      * @return all pending ledger entries of the given encumbrance
      */
     public Iterator findPendingLedgerEntries(Encumbrance encumbrance, boolean isApproved);
 
     /**
      * This method retrieves all pending ledger entries for the given encumbrance
-     * 
-     * @param balance the balance entry
-     * @param isApproved the flag that indicates whether the pending entries are approved or don't care
+     *
+     * @param balance        the balance entry
+     * @param isApproved     the flag that indicates whether the pending entries are approved or don't care
      * @param isConsolidated determine whether the search results are consolidated
      * @return all pending ledger entries of the given encumbrance
      */
@@ -174,8 +176,8 @@ public interface GeneralLedgerPendingEntryService {
 
     /**
      * This method retrieves all pending ledger entries matching the given entry criteria
-     * 
-     * @param isApproved the flag that indicates whether the pending entries are approved or don't care
+     *
+     * @param isApproved  the flag that indicates whether the pending entries are approved or don't care
      * @param fieldValues the input fields and values
      * @return all pending ledger entries matching the given balance criteria
      */
@@ -183,8 +185,8 @@ public interface GeneralLedgerPendingEntryService {
 
     /**
      * This method retrieves all pending ledger entries matching the given balance criteria
-     * 
-     * @param isApproved the flag that indicates whether the pending entries are approved or don't care
+     *
+     * @param isApproved  the flag that indicates whether the pending entries are approved or don't care
      * @param fieldValues the input fields and values
      * @return all pending ledger entries matching the given balance criteria
      */
@@ -192,7 +194,7 @@ public interface GeneralLedgerPendingEntryService {
 
     /**
      * This method retrieves all pending ledger entries that may belong to cash balance in the future
-     * 
+     *
      * @param isApproved the flag that indicates whether the pending entries are approved or don't care
      * @return all pending ledger entries that may belong to cash balance
      */
@@ -200,7 +202,7 @@ public interface GeneralLedgerPendingEntryService {
 
     /**
      * This method retrieves all pending ledger entries that may belong to encumbrance table in the future
-     * 
+     *
      * @param isApproved the flag that indicates whether the pending entries are approved or don't care
      * @return all pending ledger entries that may belong to encumbrance table
      */
@@ -208,18 +210,18 @@ public interface GeneralLedgerPendingEntryService {
 
     /**
      * This method retrieves all pending ledger entries that may belong to the given account balance record in the future
-     * 
+     *
      * @param fieldValues
-     * @param isApproved the flag that indicates whether the pending entries are approved or don't care
+     * @param isApproved  the flag that indicates whether the pending entries are approved or don't care
      * @return all pending ledger entries that may belong to encumbrance table
      */
     public Iterator findPendingLedgerEntrySummaryForAccountBalance(Map fieldValues, boolean isApproved);
 
     /**
      * This method retrieves all pending ledger entries that may belong to the given account balance record in the future
-     * 
+     *
      * @param fieldValues
-     * @param isApproved the flag that indicates whether the pending entries are approved or don't care
+     * @param isApproved  the flag that indicates whether the pending entries are approved or don't care
      * @return all pending ledger entries that may belong to encumbrance table
      */
     public Iterator findPendingLedgerEntriesForAccountBalance(Map fieldValues, boolean isApproved);
@@ -232,7 +234,7 @@ public interface GeneralLedgerPendingEntryService {
 
     /**
      * This populates an empty GeneralLedgerPendingEntry explicitEntry object instance with default values.
-     * 
+     *
      * @param accountingDocument
      * @param accountingLine
      * @param sequenceHelper
@@ -242,21 +244,21 @@ public interface GeneralLedgerPendingEntryService {
 
     /**
      * Convenience method to build a GLPE without a generalLedgerPendingEntrySourceDetail
-     * 
-     * @param document a GeneralLedgerPostingDocument
-     * @param account the account for use in the GLPE
-     * @param objectCode the object code for use in the GLPE
-     * @param subAccountNumber the sub account number for use in the GLPE
-     * @param subObjectCode the subobject code for use in the GLPE
+     *
+     * @param document                a GeneralLedgerPostingDocument
+     * @param account                 the account for use in the GLPE
+     * @param objectCode              the object code for use in the GLPE
+     * @param subAccountNumber        the sub account number for use in the GLPE
+     * @param subObjectCode           the subobject code for use in the GLPE
      * @param organizationReferenceId the organization reference id to use in the GLPE
-     * @param projectCode the project code to use in the GLPE
-     * @param referenceNumber the reference number to use in the GLPE
-     * @param referenceTypeCode the reference type code to use in the GLPE
-     * @param referenceOriginCode the reference origin code to use in the GLPE
-     * @param description the description to put in the GLPE
-     * @param isDebit true if the GLPE represents a debit, false if it represents a credit
-     * @param amount the amount of the GLPE
-     * @param sequenceHelper the sequence helper to use
+     * @param projectCode             the project code to use in the GLPE
+     * @param referenceNumber         the reference number to use in the GLPE
+     * @param referenceTypeCode       the reference type code to use in the GLPE
+     * @param referenceOriginCode     the reference origin code to use in the GLPE
+     * @param description             the description to put in the GLPE
+     * @param isDebit                 true if the GLPE represents a debit, false if it represents a credit
+     * @param amount                  the amount of the GLPE
+     * @param sequenceHelper          the sequence helper to use
      * @return a populated general ledger pending entry
      */
     public GeneralLedgerPendingEntry buildGeneralLedgerPendingEntry(GeneralLedgerPostingDocument document, Account account, ObjectCode objectCode, String subAccountNumber, String subObjectCode, String organizationReferenceId, String projectCode, String referenceNumber, String referenceTypeCode, String referenceOriginCode, String description, boolean isDebit, KualiDecimal amount, GeneralLedgerPendingEntrySequenceHelper sequenceHelper);
@@ -264,18 +266,18 @@ public interface GeneralLedgerPendingEntryService {
     /**
      * This populates an GeneralLedgerPendingEntry offsetEntry object instance with values that differ from the values supplied in
      * the explicit entry that it was cloned from. Note that the entries do not contain BOs now.
-     * 
+     *
      * @param universityFiscalYear
      * @param explicitEntry
      * @param sequenceHelper
-     * @param offsetEntry Cloned from the explicit entry
+     * @param offsetEntry          Cloned from the explicit entry
      */
     public boolean populateOffsetGeneralLedgerPendingEntry(Integer universityFiscalYear, GeneralLedgerPendingEntry explicitEntry, GeneralLedgerPendingEntrySequenceHelper sequenceHelper, GeneralLedgerPendingEntry offsetEntry);
 
     /**
      * This populates an empty GeneralLedgerPendingEntry instance with default values for a bank offset. A global error will be
      * posted as a side-effect if the given Bank has not defined the necessary bank offset relations.
-     * 
+     *
      * @param bank
      * @param depositAmount
      * @param financialDocument
@@ -288,7 +290,7 @@ public interface GeneralLedgerPendingEntryService {
 
     /**
      * Adds up the amounts of all cash to offset GeneralLedgerPendingEntry records on the given AccountingDocument
-     * 
+     *
      * @param glPostingDocument the accounting document total the offset to cash amount for
      * @return the offset to cash amount, where debited values have been subtracted and credited values have been added
      */
@@ -296,7 +298,7 @@ public interface GeneralLedgerPendingEntryService {
 
     /**
      * Determines if the given GeneralLedgerPendingEntry represents offsets to cash
-     * 
+     *
      * @param generalLedgerPendingEntry the GeneralLedgerPendingEntry to check
      * @return true if the GeneralLedgerPendingEntry represents an offset to cash; false otherwise
      */
@@ -305,11 +307,11 @@ public interface GeneralLedgerPendingEntryService {
     /**
      * Gets the encumbrance balance type. It returns the encumbrance balance type for the given universityFiscalYear if one is
      * passed in the fieldValues or the current year encumbrance balance types.
-     * 
+     *
      * @param fieldValues
      * @param currentFiscalYear
      * @return the encumbrance balance type for the given universityFiscalYear if one is passed in the fieldValues or the current
-     *         year encumbrance balance types.
+     * year encumbrance balance types.
      */
     public List<String> getEncumbranceBalanceTypes(Map fieldValues, Integer currentFiscalYear);
 }

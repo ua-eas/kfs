@@ -1,35 +1,35 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.fp.businessobject;
 
+import org.kuali.kfs.fp.document.CashManagementDocument;
+import org.kuali.kfs.fp.document.CashReceiptDocument;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.businessobject.Bank;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-
-import org.kuali.kfs.fp.document.CashManagementDocument;
-import org.kuali.kfs.fp.document.CashReceiptDocument;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.businessobject.Bank;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 
 
 /**
@@ -64,7 +64,8 @@ public class Deposit extends PersistableBusinessObjectBase {
     }
 
     /**
-     * Gets the bank attribute. 
+     * Gets the bank attribute.
+     *
      * @return Returns the bank.
      */
     public Bank getBank() {
@@ -73,6 +74,7 @@ public class Deposit extends PersistableBusinessObjectBase {
 
     /**
      * Sets the bank attribute value.
+     *
      * @param bank The bank to set.
      */
     public void setBank(Bank bank) {
@@ -88,7 +90,7 @@ public class Deposit extends PersistableBusinessObjectBase {
 
     /**
      * Sets the cashManagementDocument attribute value.
-     * 
+     *
      * @param cashManagementDocument The cashManagementDocument to set.
      */
     public void setCashManagementDocument(CashManagementDocument cashManagementDocument) {
@@ -105,7 +107,7 @@ public class Deposit extends PersistableBusinessObjectBase {
 
     /**
      * Sets the depositCashReceiptControl attribute value.
-     * 
+     *
      * @param depositCashReceiptControl The depositCashReceiptControl to set.
      */
     public void setDepositCashReceiptControl(List depositCashReceiptControl) {
@@ -121,7 +123,7 @@ public class Deposit extends PersistableBusinessObjectBase {
 
     /**
      * Sets the depositAmount attribute value.
-     * 
+     *
      * @param depositAmount The depositAmount to set.
      */
     public void setDepositAmount(KualiDecimal depositAmount) {
@@ -138,7 +140,7 @@ public class Deposit extends PersistableBusinessObjectBase {
 
     /**
      * Sets the depositBankCode attribute value.
-     * 
+     *
      * @param depositBankCode The depositBankCode to set.
      */
     public void setDepositBankCode(String depositBankCode) {
@@ -155,7 +157,7 @@ public class Deposit extends PersistableBusinessObjectBase {
 
     /**
      * Sets the depositDate attribute value.
-     * 
+     *
      * @param depositDate The depositDate to set.
      */
     public void setDepositDate(Date depositDate) {
@@ -172,7 +174,7 @@ public class Deposit extends PersistableBusinessObjectBase {
 
     /**
      * Sets the depositTicketNumber attribute value.
-     * 
+     *
      * @param depositTicketNumber The depositTicketNumber to set.
      */
     public void setDepositTicketNumber(String depositTicketNumber) {
@@ -195,7 +197,7 @@ public class Deposit extends PersistableBusinessObjectBase {
 
     /**
      * Sets the depositTypeCode attribute value.
-     * 
+     *
      * @param depositTypeCode The depositTypeCode to set.
      */
     public void setDepositTypeCode(String depositTypeCode) {
@@ -212,7 +214,7 @@ public class Deposit extends PersistableBusinessObjectBase {
 
     /**
      * Sets the financialDocumentDepositLineNumber attribute value.
-     * 
+     *
      * @param financialDocumentDepositLineNumber The financialDocumentDepositLineNumber to set.
      */
     public void setFinancialDocumentDepositLineNumber(Integer financialDocumentDepositLineNumber) {
@@ -229,7 +231,7 @@ public class Deposit extends PersistableBusinessObjectBase {
 
     /**
      * Sets the documentNumber attribute value.
-     * 
+     *
      * @param documentNumber The documentNumber to set.
      */
     public void setDocumentNumber(String documentNumber) {
@@ -240,7 +242,7 @@ public class Deposit extends PersistableBusinessObjectBase {
     /**
      * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
      */
-    
+
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
         LinkedHashMap m = new LinkedHashMap();
         m.put(KFSPropertyConstants.DOCUMENT_NUMBER, getDocumentNumber());
@@ -251,7 +253,7 @@ public class Deposit extends PersistableBusinessObjectBase {
 
     /**
      * Returns true if this deposit has the same document deposit line number as the passed in Deposit
-     * 
+     *
      * @param other
      * @return true if the given Deposit has primary key values equal to this Deposit
      */
@@ -269,7 +271,7 @@ public class Deposit extends PersistableBusinessObjectBase {
 
     /**
      * This method returns whether the given deposit contains the parameter cash receipt document
-     * 
+     *
      * @param crDoc the cash receipt document to look for
      * @return true if the cash receipt document is part of the deposit, false if otherwise
      */
@@ -284,7 +286,7 @@ public class Deposit extends PersistableBusinessObjectBase {
 
     /**
      * Gets the depositedCoin attribute.
-     * 
+     *
      * @return Returns the depositedCoin.
      */
     public CoinDetail getDepositedCoin() {
@@ -294,7 +296,7 @@ public class Deposit extends PersistableBusinessObjectBase {
 
     /**
      * Sets the depositedCoin attribute value.
-     * 
+     *
      * @param depositedCoin The depositedCoin to set.
      */
     public void setDepositedCoin(CoinDetail depositedCoin) {
@@ -304,7 +306,7 @@ public class Deposit extends PersistableBusinessObjectBase {
 
     /**
      * Gets the depositedCurrency attribute.
-     * 
+     *
      * @return Returns the depositedCurrency.
      */
     public CurrencyDetail getDepositedCurrency() {
@@ -314,7 +316,7 @@ public class Deposit extends PersistableBusinessObjectBase {
 
     /**
      * Sets the depositedCurrency attribute value.
-     * 
+     *
      * @param depositedCurrency The depositedCurrency to set.
      */
     public void setDepositedCurrency(CurrencyDetail depositedCurrency) {

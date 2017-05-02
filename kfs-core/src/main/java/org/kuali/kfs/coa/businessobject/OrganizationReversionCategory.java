@@ -1,32 +1,30 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.coa.businessobject;
 
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
 import java.util.LinkedHashMap;
 
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 
-/**
- * 
- */
 public class OrganizationReversionCategory extends PersistableBusinessObjectBase implements MutableInactivatable {
 
     private String organizationReversionCategoryCode;
@@ -43,7 +41,7 @@ public class OrganizationReversionCategory extends PersistableBusinessObjectBase
 
     /**
      * Gets the organizationReversionCategoryCode attribute.
-     * 
+     *
      * @return Returns the organizationReversionCategoryCode
      */
     public String getOrganizationReversionCategoryCode() {
@@ -52,7 +50,7 @@ public class OrganizationReversionCategory extends PersistableBusinessObjectBase
 
     /**
      * Sets the organizationReversionCategoryCode attribute.
-     * 
+     *
      * @param organizationReversionCategoryCode The organizationReversionCategoryCode to set.
      */
     public void setOrganizationReversionCategoryCode(String organizationReversionCategoryCode) {
@@ -62,7 +60,7 @@ public class OrganizationReversionCategory extends PersistableBusinessObjectBase
 
     /**
      * Gets the organizationReversionCategoryName attribute.
-     * 
+     *
      * @return Returns the organizationReversionCategoryName
      */
     public String getOrganizationReversionCategoryName() {
@@ -71,7 +69,7 @@ public class OrganizationReversionCategory extends PersistableBusinessObjectBase
 
     /**
      * Sets the organizationReversionCategoryName attribute.
-     * 
+     *
      * @param organizationReversionCategoryName The organizationReversionCategoryName to set.
      */
     public void setOrganizationReversionCategoryName(String organizationReversionCategoryName) {
@@ -81,7 +79,7 @@ public class OrganizationReversionCategory extends PersistableBusinessObjectBase
 
     /**
      * Gets the organizationReversionSortCode attribute.
-     * 
+     *
      * @return Returns the organizationReversionSortCode
      */
     public String getOrganizationReversionSortCode() {
@@ -90,7 +88,7 @@ public class OrganizationReversionCategory extends PersistableBusinessObjectBase
 
     /**
      * Sets the organizationReversionSortCode attribute.
-     * 
+     *
      * @param organizationReversionSortCode The organizationReversionSortCode to set.
      */
     public void setOrganizationReversionSortCode(String organizationReversionSortCode) {
@@ -99,7 +97,7 @@ public class OrganizationReversionCategory extends PersistableBusinessObjectBase
 
     /**
      * Gets the active attribute.
-     * 
+     *
      * @return Returns the active.
      */
     public boolean isActive() {
@@ -108,7 +106,7 @@ public class OrganizationReversionCategory extends PersistableBusinessObjectBase
 
     /**
      * Sets the active attribute value.
-     * 
+     *
      * @param active The active to set.
      */
     public void setActive(boolean active) {

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+<changeSet author="kfs" id="3997" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_A21_DETAIL_LN_TC0" tableName="LD_A21_DETAIL_LN_T"/>
+    </changeSet>
+<changeSet author="kfs" id="3998" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_A21_DETAIL_TC0" tableName="LD_A21_DETAIL_T"/>
+    </changeSet>
+<changeSet author="kfs" id="3999" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_A21_DTL_BLD_TC0" tableName="LD_A21_DTL_BLD_T"/>
+    </changeSet>
+<changeSet author="kfs" id="4000" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_A21_DTL_LN_BLD_TC0" tableName="LD_A21_DTL_LN_BLD_T"/>
+    </changeSet>
+<changeSet author="kfs" id="4001" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_A21_PRD_STAT_TC0" tableName="LD_A21_PRD_STAT_T"/>
+    </changeSet>
+<changeSet author="kfs" id="4002" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_A21_REPORT_TC0" tableName="LD_A21_REPORT_T"/>
+    </changeSet>
+<changeSet author="kfs" id="4003" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_A21_RPT_EARN_PAY_TC0" tableName="LD_A21_RPT_EARN_PAY_T"/>
+    </changeSet>
+<changeSet author="kfs" id="4004" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_A21_RPT_POS_TC0" tableName="LD_A21_RPT_POS_T"/>
+    </changeSet>
+<changeSet author="kfs" id="4005" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_A21_RPT_TYP_TC0" tableName="LD_A21_RPT_TYP_T"/>
+    </changeSet>
+</databaseChangeLog>

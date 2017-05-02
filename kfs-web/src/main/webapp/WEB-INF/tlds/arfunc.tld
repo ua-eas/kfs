@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <taglib xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
-	version="2.0">
+        xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+        version="2.0">
 
-	<description>Kuali functions library</description>
-	<display-name>Kuali functions</display-name>
-	<tlib-version>1.0</tlib-version>
-	<short-name>arfunc</short-name>
-	<uri>http://www.kuali.org/jsp/jstl/functions</uri>
+    <description>Kuali functions library</description>
+    <display-name>Kuali functions</display-name>
+    <tlib-version>1.0</tlib-version>
+    <short-name>arfunc</short-name>
+    <uri>http://www.kuali.org/jsp/jstl/functions</uri>
 
-	<function>
-		<description>Returns boolean for ability to reverse the Payment Application on this Cash Control Detail</description>
-		<name>canCorrectDetail</name>
-		<function-class>org.kuali.kfs.module.ar.util.AccountsReceivableUtils</function-class>
+    <function>
+        <description>Returns boolean for ability to reverse the Payment Application on this Cash Control Detail</description>
+        <name>canCorrectDetail</name>
+        <function-class>org.kuali.kfs.module.ar.util.AccountsReceivableUtils</function-class>
         <function-signature>boolean canCorrectDetail(org.kuali.kfs.module.ar.businessobject.CashControlDetail)</function-signature>
-		<example>&lt;c:out value="${arfunc:canCorrectDetail(cashControlDetail)}"></example>
-	</function>
+        <example>&lt;c:out value="${arfunc:canCorrectDetail(cashControlDetail)}"></example>
+    </function>
 
 </taglib>

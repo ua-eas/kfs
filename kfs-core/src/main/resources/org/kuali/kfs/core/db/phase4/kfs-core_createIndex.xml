@@ -1,0 +1,1785 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1641">
+    <createIndex indexName="CA_A21_SUB_ACCT_TR1" tableName="CA_A21_SUB_ACCT_T">
+      <column name="ICR_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1642">
+    <createIndex indexName="CA_A21_SUB_ACCT_TR3" tableName="CA_A21_SUB_ACCT_T">
+      <column name="ICR_FIN_COA_CD"/>
+      <column name="ICR_ACCOUNT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1643">
+    <createIndex indexName="CA_A21_SUB_ACCT_TR6" tableName="CA_A21_SUB_ACCT_T">
+      <column name="CST_SHR_COA_CD"/>
+      <column name="CST_SHRSRCACCT_NBR"/>
+      <column name="CST_SRCSUBACCT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1644">
+    <createIndex indexName="CA_ACCOUNT_TI10" tableName="CA_ACCOUNT_T">
+      <column name="ACCT_MGR_UNVL_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1645">
+    <createIndex indexName="CA_ACCOUNT_TI11" tableName="CA_ACCOUNT_T">
+      <column name="ACCT_SPVSR_UNVL_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1646">
+    <createIndex indexName="CA_ACCOUNT_TI2" tableName="CA_ACCOUNT_T">
+      <column name="ACCOUNT_NBR"/>
+      <column name="FIN_COA_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1647">
+    <createIndex indexName="CA_ACCOUNT_TI3" tableName="CA_ACCOUNT_T">
+      <column name="ACCT_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1648">
+    <createIndex indexName="CA_ACCOUNT_TI4" tableName="CA_ACCOUNT_T">
+      <column name="FIN_HGH_ED_FUNC_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1649">
+    <createIndex indexName="CA_ACCOUNT_TI5" tableName="CA_ACCOUNT_T">
+      <column name="FIN_COA_CD"/>
+      <column name="ORG_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1650">
+    <createIndex indexName="CA_ACCOUNT_TI6" tableName="CA_ACCOUNT_T">
+      <column name="ACCT_RSTRC_STAT_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1651">
+    <createIndex indexName="CA_ACCOUNT_TI7" tableName="CA_ACCOUNT_T">
+      <column name="SUB_FUND_GRP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1652">
+    <createIndex indexName="CA_ACCOUNT_TI8" tableName="CA_ACCOUNT_T">
+      <column name="ACCT_FSC_OFC_UID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1653">
+    <createIndex indexName="CA_ACCOUNT_TI9" tableName="CA_ACCOUNT_T">
+      <column name="ACCT_PHYS_CMP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1654">
+    <createIndex indexName="CA_ACCOUNT_TR10" tableName="CA_ACCOUNT_T">
+      <column name="CONT_FIN_COA_CD"/>
+      <column name="CONT_ACCOUNT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1655">
+    <createIndex indexName="CA_ACCOUNT_TR11" tableName="CA_ACCOUNT_T">
+      <column name="ENDOW_FIN_COA_CD"/>
+      <column name="ENDOW_ACCOUNT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1656">
+    <createIndex indexName="CA_ACCOUNT_TR14" tableName="CA_ACCOUNT_T">
+      <column name="INCOME_FIN_COA_CD"/>
+      <column name="INCOME_ACCOUNT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1657">
+    <createIndex indexName="CA_ACCOUNT_TR15" tableName="CA_ACCOUNT_T">
+      <column name="ACCT_ICR_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1658">
+    <createIndex indexName="CA_ACCOUNT_TR16" tableName="CA_ACCOUNT_T">
+      <column name="ICR_FIN_COA_CD"/>
+      <column name="ICR_ACCOUNT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1659">
+    <createIndex indexName="CA_ACCOUNT_TR20" tableName="CA_ACCOUNT_T">
+      <column name="ACCT_SF_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1660">
+    <createIndex indexName="CA_ACCOUNT_TR21" tableName="CA_ACCOUNT_T">
+      <column name="BDGT_REC_LVL_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1661">
+    <createIndex indexName="CA_ACCOUNT_TR9" tableName="CA_ACCOUNT_T">
+      <column name="RPTS_TO_FIN_COA_CD"/>
+      <column name="RPTS_TO_ACCT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1662">
+    <createIndex indexName="CA_ACCT_CHG_DOC_TI2" tableName="CA_ACCT_CHG_DOC_T">
+      <column name="ACCT_FSC_OFC_UID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1663">
+    <createIndex indexName="CA_ACCT_CHG_DOC_TI3" tableName="CA_ACCT_CHG_DOC_T">
+      <column name="ACCT_MGR_UNVL_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1664">
+    <createIndex indexName="CA_ACCT_CHG_DOC_TI4" tableName="CA_ACCT_CHG_DOC_T">
+      <column name="ACCT_SPVSR_UNVL_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1665">
+    <createIndex indexName="CA_ACCT_CHG_DTL_TI2" tableName="CA_ACCT_CHG_DTL_T">
+      <column name="FIN_COA_CD"/>
+      <column name="ACCOUNT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1666">
+    <createIndex indexName="CA_ACCT_CHG_DTL_TI3" tableName="CA_ACCT_CHG_DTL_T">
+      <column name="FDOC_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1667">
+    <createIndex indexName="CA_ACCT_DELEGATE_TI2" tableName="CA_ACCT_DELEGATE_T">
+      <column name="ACCT_DLGT_UNVL_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1668">
+    <createIndex indexName="CA_ACCT_DESC_TR1" tableName="CA_ACCT_DESC_T">
+      <column name="CAMPUS_CD"/>
+      <column name="BLDG_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1669">
+    <createIndex indexName="CA_CHART_TR12" tableName="CA_CHART_T">
+      <column name="RPTS_TO_FIN_COA_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1670">
+    <createIndex indexName="CA_DLGT_CHG_DOC_TI2" tableName="CA_DLGT_CHG_DOC_T">
+      <column name="FDOC_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1671">
+    <createIndex indexName="CA_DLGT_CHG_DOC_TI3" tableName="CA_DLGT_CHG_DOC_T">
+      <column name="ACCT_DLGT_UNVL_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1672">
+    <createIndex indexName="CA_HIGHR_ED_FUNC_TR1" tableName="CA_HIGHR_ED_FUNC_T">
+      <column name="FIN_UBO_FUNC_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1673">
+    <createIndex indexName="CA_HIGHR_ED_FUNC_TR2" tableName="CA_HIGHR_ED_FUNC_T">
+      <column name="FIN_FED_FUNC_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1674">
+    <createIndex indexName="CA_HIGHR_ED_FUNC_TR3" tableName="CA_HIGHR_ED_FUNC_T">
+      <column name="FIN_AICPA_FUNC_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1675">
+    <createIndex indexName="CA_ICR_EXCL_ACCT_TR3" tableName="CA_ICR_EXCL_ACCT_T">
+      <column name="FIN_OBJ_COA_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1676">
+    <createIndex indexName="CA_OBJECT_CODE_TI2" tableName="CA_OBJECT_CODE_T">
+      <column name="FIN_COA_CD"/>
+      <column name="FIN_OBJ_LEVEL_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1677">
+    <createIndex indexName="CA_OBJECT_CODE_TI3" tableName="CA_OBJECT_CODE_T">
+      <column name="FIN_OBJ_SUB_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1678">
+    <createIndex indexName="CA_OBJECT_CODE_TI4" tableName="CA_OBJECT_CODE_T">
+      <column name="FIN_OBJ_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1679">
+    <createIndex indexName="CA_OBJECT_CODE_TI5" tableName="CA_OBJECT_CODE_T">
+      <column name="UNIV_FISCAL_YR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1680">
+    <createIndex indexName="CA_OBJECT_CODE_TR2" tableName="CA_OBJECT_CODE_T">
+      <column name="FOBJ_BDGT_AGGR_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1681">
+    <createIndex indexName="CA_OBJECT_CODE_TR3" tableName="CA_OBJECT_CODE_T">
+      <column name="FOBJ_MNXFR_ELIM_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1682">
+    <createIndex indexName="CA_OBJECT_CODE_TR4" tableName="CA_OBJECT_CODE_T">
+      <column name="FIN_FED_FUNDED_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1683">
+    <createIndex indexName="CA_OBJECT_CODE_TR5" tableName="CA_OBJECT_CODE_T">
+      <column name="UNIV_FISCAL_YR"/>
+      <column name="FIN_COA_CD"/>
+      <column name="NXT_YR_FIN_OBJ_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1684">
+    <createIndex indexName="CA_OBJECT_CODE_TR8" tableName="CA_OBJECT_CODE_T">
+      <column name="RPTS_TO_FIN_COA_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1685">
+    <createIndex indexName="CA_OBJ_CD_CHG_DOC_TI1" tableName="CA_OBJ_CD_CHG_DOC_T">
+      <column name="UNIV_FISCAL_YR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1686">
+    <createIndex indexName="CA_OBJ_CD_CHG_DTL_TR1" tableName="CA_OBJ_CD_CHG_DTL_T">
+      <column name="FIN_COA_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1687">
+    <createIndex indexName="CA_OBJ_LEVEL_TI2" tableName="CA_OBJ_LEVEL_T">
+      <column name="FIN_COA_CD"/>
+      <column name="FIN_CONS_OBJ_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1688">
+    <createIndex indexName="CA_OBJ_TYPE_TR1" tableName="CA_OBJ_TYPE_T">
+      <column name="ACCTG_CTGRY_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1689">
+    <createIndex indexName="CA_ORG_REVERSION_TR2" tableName="CA_ORG_REVERSION_T">
+      <column name="FIN_COA_CD"/>
+      <column name="ORG_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1690">
+    <createIndex indexName="CA_ORG_REVERSION_TR3" tableName="CA_ORG_REVERSION_T">
+      <column name="CSH_RVRSNFINCOA_CD"/>
+      <column name="CSH_RVRSN_ACCT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1691">
+    <createIndex indexName="CA_ORG_REVERSION_TR4" tableName="CA_ORG_REVERSION_T">
+      <column name="BDGT_RVRSN_COA_CD"/>
+      <column name="BDGT_RVRSNACCT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1692">
+    <createIndex indexName="CA_ORG_RTNG_MDL_TI2" tableName="CA_ORG_RTNG_MDL_T">
+      <column name="ACCT_DLGT_UNVL_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1693">
+    <createIndex indexName="CA_ORG_RVRSN_CHG_DTL_TR1" tableName="CA_ORG_RVRSN_CHG_DTL_T">
+      <column name="ORG_RVRSN_CTGRY_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1694">
+    <createIndex indexName="CA_ORG_RVRSN_CHG_ORG_TR2" tableName="CA_ORG_RVRSN_CHG_ORG_T">
+      <column name="FIN_COA_CD"/>
+      <column name="ORG_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1695">
+    <createIndex indexName="CA_ORG_RVRSN_DTL_TR1" tableName="CA_ORG_RVRSN_DTL_T">
+      <column name="UNIV_FISCAL_YR"/>
+      <column name="FIN_COA_CD"/>
+      <column name="ORG_RVRSN_OBJ_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1696">
+    <createIndex indexName="CA_ORG_RVRSN_DTL_TR3" tableName="CA_ORG_RVRSN_DTL_T">
+      <column name="FIN_COA_CD"/>
+      <column name="ORG_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1697">
+    <createIndex indexName="CA_ORG_RVRSN_DTL_TR5" tableName="CA_ORG_RVRSN_DTL_T">
+      <column name="ORG_RVRSN_CTGRY_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1698">
+    <createIndex indexName="CA_ORG_TI2" tableName="CA_ORG_T">
+      <column name="ORG_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1699">
+    <createIndex indexName="CA_ORG_TI3" tableName="CA_ORG_T">
+      <column name="RC_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1700">
+    <createIndex indexName="CA_ORG_TI4" tableName="CA_ORG_T">
+      <column name="ORG_MGR_UNVL_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1701">
+    <createIndex indexName="CA_ORG_TI5" tableName="CA_ORG_T">
+      <column name="RPTS_TO_FIN_COA_CD"/>
+      <column name="RPTS_TO_ORG_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1702">
+    <createIndex indexName="CA_ORG_TR11" tableName="CA_ORG_T">
+      <column name="ORG_PLNT_COA_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1703">
+    <createIndex indexName="CA_ORG_TR12" tableName="CA_ORG_T">
+      <column name="CMP_PLNT_COA_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1704">
+    <createIndex indexName="CA_PRIOR_YR_ACCT_TI10" tableName="CA_PRIOR_YR_ACCT_T">
+      <column name="ACCT_MGR_UNVL_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1705">
+    <createIndex indexName="CA_PRIOR_YR_ACCT_TI11" tableName="CA_PRIOR_YR_ACCT_T">
+      <column name="ACCT_SPVSR_UNVL_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1706">
+    <createIndex indexName="CA_PRIOR_YR_ACCT_TI2" tableName="CA_PRIOR_YR_ACCT_T">
+      <column name="ACCOUNT_NBR"/>
+      <column name="FIN_COA_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1707">
+    <createIndex indexName="CA_PRIOR_YR_ACCT_TI3" tableName="CA_PRIOR_YR_ACCT_T">
+      <column name="ACCT_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1708">
+    <createIndex indexName="CA_PRIOR_YR_ACCT_TI4" tableName="CA_PRIOR_YR_ACCT_T">
+      <column name="FIN_HGH_ED_FUNC_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1709">
+    <createIndex indexName="CA_PRIOR_YR_ACCT_TI5" tableName="CA_PRIOR_YR_ACCT_T">
+      <column name="FIN_COA_CD"/>
+      <column name="ORG_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1710">
+    <createIndex indexName="CA_PRIOR_YR_ACCT_TI6" tableName="CA_PRIOR_YR_ACCT_T">
+      <column name="ACCT_RSTRC_STAT_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1711">
+    <createIndex indexName="CA_PRIOR_YR_ACCT_TI7" tableName="CA_PRIOR_YR_ACCT_T">
+      <column name="SUB_FUND_GRP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1712">
+    <createIndex indexName="CA_PRIOR_YR_ACCT_TI8" tableName="CA_PRIOR_YR_ACCT_T">
+      <column name="ACCT_FSC_OFC_UID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1713">
+    <createIndex indexName="CA_PRIOR_YR_ACCT_TI9" tableName="CA_PRIOR_YR_ACCT_T">
+      <column name="ACCT_PHYS_CMP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1714">
+    <createIndex indexName="CA_PRIOR_YR_ACCT_TR10" tableName="CA_PRIOR_YR_ACCT_T">
+      <column name="CONT_FIN_COA_CD"/>
+      <column name="CONT_ACCOUNT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1715">
+    <createIndex indexName="CA_PRIOR_YR_ACCT_TR11" tableName="CA_PRIOR_YR_ACCT_T">
+      <column name="ENDOW_FIN_COA_CD"/>
+      <column name="ENDOW_ACCOUNT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1716">
+    <createIndex indexName="CA_PRIOR_YR_ACCT_TR13" tableName="CA_PRIOR_YR_ACCT_T">
+      <column name="INCOME_FIN_COA_CD"/>
+      <column name="INCOME_ACCOUNT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1717">
+    <createIndex indexName="CA_PRIOR_YR_ACCT_TR14" tableName="CA_PRIOR_YR_ACCT_T">
+      <column name="ICR_FIN_COA_CD"/>
+      <column name="ICR_ACCOUNT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1718">
+    <createIndex indexName="CA_PRIOR_YR_ACCT_TR9" tableName="CA_PRIOR_YR_ACCT_T">
+      <column name="RPTS_TO_FIN_COA_CD"/>
+      <column name="RPTS_TO_ACCT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1719">
+    <createIndex indexName="CA_PRIOR_YR_ORG_TI2" tableName="CA_PRIOR_YR_ORG_T">
+      <column name="ORG_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1720">
+    <createIndex indexName="CA_PRIOR_YR_ORG_TI3" tableName="CA_PRIOR_YR_ORG_T">
+      <column name="RC_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1721">
+    <createIndex indexName="CA_PRIOR_YR_ORG_TI4" tableName="CA_PRIOR_YR_ORG_T">
+      <column name="ORG_MGR_UNVL_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1722">
+    <createIndex indexName="CA_PRIOR_YR_ORG_TI5" tableName="CA_PRIOR_YR_ORG_T">
+      <column name="RPTS_TO_FIN_COA_CD"/>
+      <column name="RPTS_TO_ORG_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1723">
+    <createIndex indexName="CA_PRIOR_YR_ORG_TR10" tableName="CA_PRIOR_YR_ORG_T">
+      <column name="CMP_PLNT_COA_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1724">
+    <createIndex indexName="CA_PRIOR_YR_ORG_TR9" tableName="CA_PRIOR_YR_ORG_T">
+      <column name="ORG_PLNT_COA_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1725">
+    <createIndex indexName="CA_PROJECT_TI2" tableName="CA_PROJECT_T">
+      <column name="FIN_COA_CD"/>
+      <column name="ORG_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1726">
+    <createIndex indexName="CA_PROJECT_TI3" tableName="CA_PROJECT_T">
+      <column name="PROJ_MGR_UNVL_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1727">
+    <createIndex indexName="CA_SUB_ACCT_TI2" tableName="CA_SUB_ACCT_T">
+      <column name="FIN_COA_CD"/>
+      <column name="ACCOUNT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1728">
+    <createIndex indexName="CA_SUB_ACCT_TR5" tableName="CA_SUB_ACCT_T">
+      <column name="FIN_RPT_CHRT_CD"/>
+      <column name="FIN_RPT_ORG_CD"/>
+      <column name="FIN_RPT_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1729">
+    <createIndex indexName="CA_SUB_FUND_GRP_TR1" tableName="CA_SUB_FUND_GRP_T">
+      <column name="FUND_GRP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1730">
+    <createIndex indexName="CA_SUB_FUND_GRP_TR2" tableName="CA_SUB_FUND_GRP_T">
+      <column name="SUB_FUNDGRP_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1731">
+    <createIndex indexName="CA_SUB_FUND_GRP_TR3" tableName="CA_SUB_FUND_GRP_T">
+      <column name="ACCT_RSTRC_STAT_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1732">
+    <createIndex indexName="CA_SUB_OBJECT_CD_TI2" tableName="CA_SUB_OBJECT_CD_T">
+      <column name="UNIV_FISCAL_YR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1733">
+    <createIndex indexName="CA_SUB_OBJECT_CD_TR1" tableName="CA_SUB_OBJECT_CD_T">
+      <column name="UNIV_FISCAL_YR"/>
+      <column name="FIN_COA_CD"/>
+      <column name="FIN_OBJECT_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1734">
+    <createIndex indexName="CA_SUB_OBJECT_CD_TR3" tableName="CA_SUB_OBJECT_CD_T">
+      <column name="FIN_COA_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1735">
+    <createIndex indexName="CA_SUB_OBJ_CD_CHG_DOC_TR2" tableName="CA_SUB_OBJ_CD_CHG_DOC_T">
+      <column name="UNIV_FISCAL_YR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1736">
+    <createIndex indexName="CA_SUB_OBJ_CD_CHG_DOC_TR3" tableName="CA_SUB_OBJ_CD_CHG_DOC_T">
+      <column name="FIN_COA_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1737">
+    <createIndex indexName="CA_SUB_OBJ_CD_CHG_DTL_TR1" tableName="CA_SUB_OBJ_CD_CHG_DTL_T">
+      <column name="UNIV_FISCAL_YR"/>
+      <column name="FIN_COA_CD"/>
+      <column name="FIN_OBJECT_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1738">
+    <createIndex indexName="CA_SUB_OBJ_CD_CHG_DTL_TR4" tableName="CA_SUB_OBJ_CD_CHG_DTL_T">
+      <column name="FIN_COA_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1749">
+    <createIndex indexName="FP_ACCT_LINES_TR3" tableName="FP_ACCT_LINES_T">
+      <column name="FDOC_POST_YR"/>
+      <column name="FIN_COA_CD"/>
+      <column name="FIN_OBJECT_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1750">
+    <createIndex indexName="FP_ACCT_LINES_TR4" tableName="FP_ACCT_LINES_T">
+      <column name="FIN_COA_CD"/>
+      <column name="ACCOUNT_NBR"/>
+      <column name="SUB_ACCT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1751">
+    <createIndex indexName="FP_ACCT_LINES_TR5" tableName="FP_ACCT_LINES_T">
+      <column name="FDOC_POST_YR"/>
+      <column name="FIN_COA_CD"/>
+      <column name="ACCOUNT_NBR"/>
+      <column name="FIN_OBJECT_CD"/>
+      <column name="FIN_SUB_OBJ_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1752">
+    <createIndex indexName="FP_ACCT_LINES_TR6" tableName="FP_ACCT_LINES_T">
+      <column name="PROJECT_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1753">
+    <createIndex indexName="FP_ACCT_LINES_TR7" tableName="FP_ACCT_LINES_T">
+      <column name="FIN_BALANCE_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1754">
+    <createIndex indexName="FP_ACCT_LINES_TR9" tableName="FP_ACCT_LINES_T">
+      <column name="FS_REF_ORIGIN_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1755">
+    <createIndex indexName="FP_ADV_DPST_DTL_TR2" tableName="FP_ADV_DPST_DTL_T">
+      <column name="FDOC_BANK_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1756">
+    <createIndex indexName="FP_BDGT_ADJ_DTL_TI2" tableName="FP_BDGT_ADJ_DTL_T">
+      <column name="FIN_COA_CD"/>
+      <column name="ACCOUNT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1757">
+    <createIndex indexName="FP_BDGT_ADJ_DTL_TI3" tableName="FP_BDGT_ADJ_DTL_T">
+      <column name="FDOC_POST_YR"/>
+      <column name="FIN_COA_CD"/>
+      <column name="FIN_OBJECT_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1758">
+    <createIndex indexName="FP_BDGT_ADJ_DTL_TR4" tableName="FP_BDGT_ADJ_DTL_T">
+      <column name="FDOC_POST_YR"/>
+      <column name="FIN_COA_CD"/>
+      <column name="ACCOUNT_NBR"/>
+      <column name="FIN_OBJECT_CD"/>
+      <column name="FIN_SUB_OBJ_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1759">
+    <createIndex indexName="FP_BDGT_ADJ_DTL_TR5" tableName="FP_BDGT_ADJ_DTL_T">
+      <column name="PROJECT_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1760">
+    <createIndex indexName="FP_BDGT_ADJ_DTL_TR6" tableName="FP_BDGT_ADJ_DTL_T">
+      <column name="FIN_COA_CD"/>
+      <column name="ACCOUNT_NBR"/>
+      <column name="SUB_ACCT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1761">
+    <createIndex indexName="FP_CASH_RCPT_DOC_TR2" tableName="FP_CASH_RCPT_DOC_T">
+      <column name="FDOC_POST_YR"/>
+      <column name="FDOC_POST_PRD_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1762">
+    <createIndex indexName="FP_CPTL_AST_INFO_DTL_TR1" tableName="FP_CPTL_AST_INFO_DTL_T">
+      <column name="FDOC_NBR"/>
+      <column name="CPTLAST_LINE_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1763">
+    <createIndex indexName="FP_CR_CARD_DTL_TR1" tableName="FP_CR_CARD_DTL_T">
+      <column name="FDOC_CCRD_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1764">
+    <createIndex indexName="FP_CR_CARD_DTL_TR2" tableName="FP_CR_CARD_DTL_T">
+      <column name="FDOC_CCRD_VNDR_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1765">
+    <createIndex indexName="FP_CR_CARD_VNDR_TR7" tableName="FP_CR_CARD_VNDR_T">
+      <column name="FDOC_CCRD_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1766">
+    <createIndex indexName="FP_CR_CARD_VNDR_TR8" tableName="FP_CR_CARD_VNDR_T">
+      <column name="INC_FIN_COA_CD"/>
+      <column name="INC_ACCT_NBR"/>
+      <column name="INC_SUB_ACCT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1767">
+    <createIndex indexName="FP_CR_CARD_VNDR_TR9" tableName="FP_CR_CARD_VNDR_T">
+      <column name="EXP_FIN_COA_CD"/>
+      <column name="EXP_ACCT_NBR"/>
+      <column name="EXP_SUB_ACCT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1768">
+    <createIndex indexName="FP_CUST_CC_INFO_TI1" tableName="FP_CUST_CC_INFO_T">
+      <column name="FIDOC_CCRD_VNDR_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1769">
+    <createIndex indexName="FP_DEP_CSH_RCPT_TI2" tableName="FP_DEP_CSH_RCPT_T">
+      <column name="FDOC_CSH_RCPT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1770">
+    <createIndex indexName="FP_DV_DOC_TR2" tableName="FP_DV_DOC_T">
+      <column name="DV_DOC_LOC_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1771">
+    <createIndex indexName="FP_DV_NONEMP_EXP_TR3" tableName="FP_DV_NONEMP_EXP_T">
+      <column name="DV_EXP_CD"/>
+      <column name="DV_EXP_CO_NM"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1772">
+    <createIndex indexName="FP_DV_NRA_TAX_TR1" tableName="FP_DV_NRA_TAX_T">
+      <column name="INC_CLS_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1773">
+    <createIndex indexName="FP_DV_PAYEE_DTL_TI2" tableName="FP_DV_PAYEE_DTL_T">
+      <column name="DV_PAYEE_ID_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1774">
+    <createIndex indexName="FP_DV_PAYEE_DTL_TR1" tableName="FP_DV_PAYEE_DTL_T">
+      <column name="DV_PMT_REAS_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1775">
+    <createIndex indexName="FP_ELCTRNC_PMT_CLM_TI2" tableName="FP_ELCTRNC_PMT_CLM_T">
+      <column name="FDOC_POST_YR"/>
+      <column name="FDOC_POST_PRD_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1776">
+    <createIndex indexName="FP_ERROR_COR_DOC_TR2" tableName="FP_ERROR_COR_DOC_T">
+      <column name="FDOC_POST_YR"/>
+      <column name="FDOC_POST_PRD_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1777">
+    <createIndex indexName="FP_FND_TRNFR_DOC_TR2" tableName="FP_FND_TRNFR_DOC_T">
+      <column name="FDOC_POST_YR"/>
+      <column name="FDOC_POST_PRD_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1778">
+    <createIndex indexName="FP_FSCL_YR_CTRL_TR1" tableName="FP_FSCL_YR_CTRL_T">
+      <column name="FS_FUNC_CTRL_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1779">
+    <createIndex indexName="FP_JRNL_VCHR_DOC_TR2" tableName="FP_JRNL_VCHR_DOC_T">
+      <column name="FDOC_POST_YR"/>
+      <column name="FDOC_POST_PRD_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1780">
+    <createIndex indexName="FP_JRNL_VCHR_DOC_TR3" tableName="FP_JRNL_VCHR_DOC_T">
+      <column name="FIN_BALANCE_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1781">
+    <createIndex indexName="FP_OFST_ACCT_TR3" tableName="FP_OFST_ACCT_T">
+      <column name="FIN_OFST_COA_CD"/>
+      <column name="FIN_OFST_ACCT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1782">
+    <createIndex indexName="FP_PRCRMNT_ACCT_LINES_TI2" tableName="FP_PRCRMNT_ACCT_LINES_T">
+      <column name="FIN_COA_CD"/>
+      <column name="ACCOUNT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1783">
+    <createIndex indexName="FP_PRCRMNT_ACCT_LINES_TI3" tableName="FP_PRCRMNT_ACCT_LINES_T">
+      <column name="FDOC_POST_YR"/>
+      <column name="FIN_COA_CD"/>
+      <column name="FIN_OBJECT_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1784">
+    <createIndex indexName="FP_PRCRMNT_ACCT_LINES_TR4" tableName="FP_PRCRMNT_ACCT_LINES_T">
+      <column name="FIN_COA_CD"/>
+      <column name="ACCOUNT_NBR"/>
+      <column name="SUB_ACCT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1785">
+    <createIndex indexName="FP_PRCRMNT_ACCT_LINES_TR5" tableName="FP_PRCRMNT_ACCT_LINES_T">
+      <column name="FDOC_POST_YR"/>
+      <column name="FIN_COA_CD"/>
+      <column name="ACCOUNT_NBR"/>
+      <column name="FIN_OBJECT_CD"/>
+      <column name="FIN_SUB_OBJ_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1786">
+    <createIndex indexName="FP_PRCRMNT_ACCT_LINES_TR6" tableName="FP_PRCRMNT_ACCT_LINES_T">
+      <column name="PROJECT_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1787">
+    <createIndex indexName="FP_PRCRMNT_ACCT_LINES_TR7" tableName="FP_PRCRMNT_ACCT_LINES_T">
+      <column name="FIN_BALANCE_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1788">
+    <createIndex indexName="FP_PRCRMNT_CARD_DFLT_TR3" tableName="FP_PRCRMNT_CARD_DFLT_T">
+      <column name="FIN_COA_CD"/>
+      <column name="ACCOUNT_NBR"/>
+      <column name="SUB_ACCT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1789">
+    <createIndex indexName="FP_PRCRMNT_CARD_DFLT_TR4" tableName="FP_PRCRMNT_CARD_DFLT_T">
+      <column name="PROJECT_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1790">
+    <createIndex indexName="FP_RPT_CD_TR4" tableName="FP_RPT_CD_T">
+      <column name="FIN_RPT_CHRT_CD"/>
+      <column name="FIN_RPT_ORG_CD"/>
+      <column name="FIN_RPTS_TO_RPT_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1791">
+    <createIndex indexName="FP_SALES_TAX_TR1" tableName="FP_SALES_TAX_T">
+      <column name="FIN_COA_CD"/>
+      <column name="ACCOUNT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1792">
+    <createIndex indexName="FS_DOC_HEADER_TI1" tableName="FS_DOC_HEADER_T">
+      <column name="FDOC_IN_ERR_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1793">
+    <createIndex indexName="FS_DOC_HEADER_TI2" tableName="FS_DOC_HEADER_T">
+      <column name="FDOC_CRTE_DT"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1794">
+    <createIndex indexName="FS_OPTION_TR1" tableName="FS_OPTION_T">
+      <column name="UNIV_FIN_COA_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1795">
+    <createIndex indexName="FS_OPTION_TR10" tableName="FS_OPTION_T">
+      <column name="FOBJTP_CSH_NINC_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1796">
+    <createIndex indexName="FS_OPTION_TR11" tableName="FS_OPTION_T">
+      <column name="ACT_FIN_BAL_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1797">
+    <createIndex indexName="FS_OPTION_TR12" tableName="FS_OPTION_T">
+      <column name="BDGT_CHK_BALTYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1798">
+    <createIndex indexName="FS_OPTION_TR13" tableName="FS_OPTION_T">
+      <column name="EXT_ENC_FBALTYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1799">
+    <createIndex indexName="FS_OPTION_TR14" tableName="FS_OPTION_T">
+      <column name="INT_ENC_FBALTYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1800">
+    <createIndex indexName="FS_OPTION_TR15" tableName="FS_OPTION_T">
+      <column name="PRE_ENC_FBALTYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1801">
+    <createIndex indexName="FS_OPTION_TR16" tableName="FS_OPTION_T">
+      <column name="ELIM_FINBAL_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1802">
+    <createIndex indexName="FS_OPTION_TR17" tableName="FS_OPTION_T">
+      <column name="CSTSHR_ENCUM_FIN_BAL_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1803">
+    <createIndex indexName="FS_OPTION_TR18" tableName="FS_OPTION_T">
+      <column name="FIN_OBJECT_TYP_TRNFR_INC_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1804">
+    <createIndex indexName="FS_OPTION_TR19" tableName="FS_OPTION_T">
+      <column name="FIN_OBJECT_TYP_TRNFR_EXP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1805">
+    <createIndex indexName="FS_OPTION_TR2" tableName="FS_OPTION_T">
+      <column name="FOBJTP_INC_CSH_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1806">
+    <createIndex indexName="FS_OPTION_TR20" tableName="FS_OPTION_T">
+      <column name="BASE_BDGT_FIN_BAL_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1807">
+    <createIndex indexName="FS_OPTION_TR21" tableName="FS_OPTION_T">
+      <column name="MO_BDGT_FIN_BAL_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1808">
+    <createIndex indexName="FS_OPTION_TR22" tableName="FS_OPTION_T">
+      <column name="NMNL_FIN_BAL_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1809">
+    <createIndex indexName="FS_OPTION_TR3" tableName="FS_OPTION_T">
+      <column name="FOBJTP_XPND_EXP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1810">
+    <createIndex indexName="FS_OPTION_TR4" tableName="FS_OPTION_T">
+      <column name="FOBJTP_XPNDNEXP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1811">
+    <createIndex indexName="FS_OPTION_TR5" tableName="FS_OPTION_T">
+      <column name="FOBJTP_EXPNXPND_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1812">
+    <createIndex indexName="FS_OPTION_TR6" tableName="FS_OPTION_T">
+      <column name="FOBJ_TYP_ASSET_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1813">
+    <createIndex indexName="FS_OPTION_TR7" tableName="FS_OPTION_T">
+      <column name="FOBJ_TYP_LBLTY_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1814">
+    <createIndex indexName="FS_OPTION_TR8" tableName="FS_OPTION_T">
+      <column name="FOBJ_TYP_FNDBAL_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1815">
+    <createIndex indexName="FS_OPTION_TR9" tableName="FS_OPTION_T">
+      <column name="FOBJTP_INC_NCSH_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1816">
+    <createIndex indexName="FS_TAX_REGION_TR1" tableName="FS_TAX_REGION_T">
+      <column name="TAX_REGION_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1817">
+    <createIndex indexName="FS_TAX_REGION_TR2" tableName="FS_TAX_REGION_T">
+      <column name="LIAB_ACCT_FIN_COA_CD"/>
+      <column name="LIAB_ACCT_ACCT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1818">
+    <createIndex indexName="FS_WIRE_CHRG_TR3" tableName="FS_WIRE_CHRG_T">
+      <column name="UNIV_FISCAL_YR"/>
+      <column name="FIN_COA_CD"/>
+      <column name="INC_FIN_OBJ_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1819">
+    <createIndex indexName="FS_WIRE_CHRG_TR4" tableName="FS_WIRE_CHRG_T">
+      <column name="UNIV_FISCAL_YR"/>
+      <column name="FIN_COA_CD"/>
+      <column name="EXP_FIN_OBJ_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1820">
+    <createIndex indexName="FS_WIRE_CHRG_TR5" tableName="FS_WIRE_CHRG_T">
+      <column name="FIN_COA_CD"/>
+      <column name="ACCOUNT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1821">
+    <createIndex indexName="GL_ACCT_BALANCES_HIST_TR1" tableName="GL_ACCT_BALANCES_HIST_T">
+      <column name="UNIV_FISCAL_YR"/>
+      <column name="FIN_COA_CD"/>
+      <column name="FIN_OBJECT_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1822">
+    <createIndex indexName="GL_ACCT_BALANCES_HIST_TR2" tableName="GL_ACCT_BALANCES_HIST_T">
+      <column name="FIN_COA_CD"/>
+      <column name="ACCOUNT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1823">
+    <createIndex indexName="GL_ACCT_BALANCES_TI2" tableName="GL_ACCT_BALANCES_T">
+      <column name="UNIV_FISCAL_YR"/>
+      <column name="FIN_COA_CD"/>
+      <column name="FIN_OBJECT_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1824">
+    <createIndex indexName="GL_ACCT_BALANCES_TI3" tableName="GL_ACCT_BALANCES_T">
+      <column name="TIMESTAMP"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1825">
+    <createIndex indexName="GL_ACCT_BALANCES_TR1" tableName="GL_ACCT_BALANCES_T">
+      <column name="FIN_COA_CD"/>
+      <column name="ACCOUNT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2855">
+    <createIndex indexName="GL_BALANCE_TI2" tableName="GL_BALANCE_T">
+      <column name="TIMESTAMP"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2856">
+    <createIndex indexName="GL_BALANCE_TR3" tableName="GL_BALANCE_T">
+      <column name="FIN_COA_CD"/>
+      <column name="ACCOUNT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2857">
+    <createIndex indexName="GL_BALANCE_TR4" tableName="GL_BALANCE_T">
+      <column name="UNIV_FISCAL_YR"/>
+      <column name="FIN_COA_CD"/>
+      <column name="FIN_OBJECT_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2858">
+    <createIndex indexName="GL_BALANCE_TR6" tableName="GL_BALANCE_T">
+      <column name="FIN_BALANCE_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2859">
+    <createIndex indexName="GL_BALANCE_TR7" tableName="GL_BALANCE_T">
+      <column name="FIN_OBJ_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1826">
+    <createIndex indexName="GL_BALANCE_HIST_TR1" tableName="GL_BALANCE_HIST_T">
+      <column name="UNIV_FISCAL_YR"/>
+      <column name="FIN_COA_CD"/>
+      <column name="FIN_OBJECT_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1827">
+    <createIndex indexName="GL_BALANCE_HIST_TR2" tableName="GL_BALANCE_HIST_T">
+      <column name="FIN_COA_CD"/>
+      <column name="ACCOUNT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1828">
+    <createIndex indexName="GL_BALANCE_HIST_TR4" tableName="GL_BALANCE_HIST_T">
+      <column name="FIN_OBJ_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1829">
+    <createIndex indexName="GL_BALANCE_HIST_TR5" tableName="GL_BALANCE_HIST_T">
+      <column name="FIN_BALANCE_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1830">
+    <createIndex indexName="GL_ENCUMBRANCE_HIST_TR1" tableName="GL_ENCUMBRANCE_HIST_T">
+      <column name="FS_ORIGIN_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1831">
+    <createIndex indexName="GL_ENCUMBRANCE_HIST_TR2" tableName="GL_ENCUMBRANCE_HIST_T">
+      <column name="FIN_COA_CD"/>
+      <column name="ACCOUNT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1832">
+    <createIndex indexName="GL_ENCUMBRANCE_HIST_TR3" tableName="GL_ENCUMBRANCE_HIST_T">
+      <column name="FIN_BALANCE_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1833">
+    <createIndex indexName="GL_ENCUMBRANCE_HIST_TR4" tableName="GL_ENCUMBRANCE_HIST_T">
+      <column name="UNIV_FISCAL_YR"/>
+      <column name="FIN_COA_CD"/>
+      <column name="FIN_OBJECT_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1834">
+    <createIndex indexName="GL_ENCUMBRANCE_TI2" tableName="GL_ENCUMBRANCE_T">
+      <column name="TIMESTAMP"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1835">
+    <createIndex indexName="GL_ENCUMBRANCE_TR1" tableName="GL_ENCUMBRANCE_T">
+      <column name="FS_ORIGIN_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1836">
+    <createIndex indexName="GL_ENCUMBRANCE_TR2" tableName="GL_ENCUMBRANCE_T">
+      <column name="FIN_COA_CD"/>
+      <column name="ACCOUNT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1837">
+    <createIndex indexName="GL_ENCUMBRANCE_TR4" tableName="GL_ENCUMBRANCE_T">
+      <column name="UNIV_FISCAL_YR"/>
+      <column name="FIN_COA_CD"/>
+      <column name="FIN_OBJECT_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1838">
+    <createIndex indexName="GL_ENCUMBRANCE_TR5" tableName="GL_ENCUMBRANCE_T">
+      <column name="FIN_BALANCE_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1839">
+    <createIndex indexName="GL_ENTRY_HIST_TR1" tableName="GL_ENTRY_HIST_T">
+      <column name="FIN_COA_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1840">
+    <createIndex indexName="GL_ENTRY_HIST_TR4" tableName="GL_ENTRY_HIST_T">
+      <column name="UNIV_FISCAL_YR"/>
+      <column name="UNIV_FISCAL_PRD_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1841">
+    <createIndex indexName="GL_ENTRY_HIST_TR5" tableName="GL_ENTRY_HIST_T">
+      <column name="FIN_BALANCE_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1842">
+    <createIndex indexName="GL_ENTRY_TI2" tableName="GL_ENTRY_T">
+      <column name="FDOC_NBR"/>
+      <column name="FS_ORIGIN_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1843">
+    <createIndex indexName="GL_ENTRY_TI3" tableName="GL_ENTRY_T">
+      <column name="TIMESTAMP"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1844">
+    <createIndex indexName="GL_ENTRY_TR1" tableName="GL_ENTRY_T">
+      <column name="FIN_COA_CD"/>
+      <column name="ACCOUNT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1845">
+    <createIndex indexName="GL_ENTRY_TR12" tableName="GL_ENTRY_T">
+      <column name="UNIV_FISCAL_YR"/>
+      <column name="UNIV_FISCAL_PRD_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1846">
+    <createIndex indexName="GL_ENTRY_TR13" tableName="GL_ENTRY_T">
+      <column name="FDOC_REVERSAL_DT"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1847">
+    <createIndex indexName="GL_ENTRY_TR14" tableName="GL_ENTRY_T">
+      <column name="FS_ORIGIN_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1848">
+    <createIndex indexName="GL_ENTRY_TR3" tableName="GL_ENTRY_T">
+      <column name="UNIV_FISCAL_YR"/>
+      <column name="FIN_COA_CD"/>
+      <column name="FIN_OBJECT_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1849">
+    <createIndex indexName="GL_ENTRY_TR5" tableName="GL_ENTRY_T">
+      <column name="FIN_BALANCE_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1850">
+    <createIndex indexName="GL_ENTRY_TR7" tableName="GL_ENTRY_T">
+      <column name="FIN_OBJ_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1851">
+    <createIndex indexName="GL_EXPEND_TRN_TR1" tableName="GL_EXPEND_TRN_MT">
+      <column name="FIN_COA_CD"/>
+      <column name="ACCOUNT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1852">
+    <createIndex indexName="GL_ID_BILL_TI2" tableName="GL_ID_BILL_T">
+      <column name="FDOC_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1853">
+    <createIndex indexName="GL_ID_BILL_TI3" tableName="GL_ID_BILL_T">
+      <column name="FS_ORIGIN_CD"/>
+      <column name="FDOC_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1854">
+    <createIndex indexName="GL_ID_BILL_TI4" tableName="GL_ID_BILL_T">
+      <column name="ACCOUNT_NBR"/>
+      <column name="FDOC_TYP_CD"/>
+      <column name="FIN_COA_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1855">
+    <createIndex indexName="GL_ID_BILL_TR1" tableName="GL_ID_BILL_T">
+      <column name="UNIV_FISCAL_YR"/>
+      <column name="FIN_COA_CD"/>
+      <column name="FIN_OBJECT_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1856">
+    <createIndex indexName="GL_ID_BILL_TR2" tableName="GL_ID_BILL_T">
+      <column name="FIN_COA_CD"/>
+      <column name="ACCOUNT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1857">
+    <createIndex indexName="GL_ID_BILL_TR4" tableName="GL_ID_BILL_T">
+      <column name="FIN_BALANCE_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1858">
+    <createIndex indexName="GL_ID_BILL_TR5" tableName="GL_ID_BILL_T">
+      <column name="FIN_OBJ_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1859">
+    <createIndex indexName="GL_OFFSET_DEFN_TR2" tableName="GL_OFFSET_DEFN_T">
+      <column name="FIN_COA_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1860">
+    <createIndex indexName="GL_OFFSET_DEFN_TR3" tableName="GL_OFFSET_DEFN_T">
+      <column name="UNIV_FISCAL_YR"/>
+      <column name="FIN_COA_CD"/>
+      <column name="FIN_OBJECT_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1861">
+    <createIndex indexName="GL_OFFSET_DEFN_TR4" tableName="GL_OFFSET_DEFN_T">
+      <column name="FIN_BALANCE_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1862">
+    <createIndex indexName="GL_ORG_RVRSN_CTGRY_AMT_TR4" tableName="GL_ORG_RVRSN_CTGRY_AMT_T">
+      <column name="ORG_RVRSN_CTGRY_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1863">
+    <createIndex indexName="GL_PENDING_ENTRY_TI2" tableName="GL_PENDING_ENTRY_T">
+      <column name="UNIV_FISCAL_YR"/>
+      <column name="FIN_COA_CD"/>
+      <column name="ACCOUNT_NBR"/>
+      <column name="SUB_ACCT_NBR"/>
+      <column name="FIN_OBJECT_CD"/>
+      <column name="FIN_SUB_OBJ_CD"/>
+      <column name="FIN_BALANCE_TYP_CD"/>
+      <column name="FIN_OBJ_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1864">
+    <createIndex indexName="GL_PENDING_ENTRY_TI3" tableName="GL_PENDING_ENTRY_T">
+      <column name="UNIV_FISCAL_YR"/>
+      <column name="FIN_COA_CD"/>
+      <column name="ACCOUNT_NBR"/>
+      <column name="FIN_OBJECT_CD"/>
+      <column name="FIN_BALANCE_TYP_CD"/>
+      <column name="ACCT_SF_FINOBJ_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1865">
+    <createIndex indexName="GL_PENDING_ENTRY_TI4" tableName="GL_PENDING_ENTRY_T">
+      <column name="FIN_OBJ_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1866">
+    <createIndex indexName="GL_PENDING_ENTRY_TI5" tableName="GL_PENDING_ENTRY_T">
+      <column name="FS_ORIGIN_CD"/>
+      <column name="FDOC_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1867">
+    <createIndex indexName="GL_PENDING_ENTRY_TI6" tableName="GL_PENDING_ENTRY_T">
+      <column name="UNIV_FISCAL_YR"/>
+      <column name="FIN_COA_CD"/>
+      <column name="ACCOUNT_NBR"/>
+      <column name="FIN_OBJECT_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1868">
+    <createIndex indexName="GL_REVERSAL_TR1" tableName="GL_REVERSAL_T">
+      <column name="FIN_COA_CD"/>
+      <column name="ACCOUNT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1869">
+    <createIndex indexName="GL_REVERSAL_TR10" tableName="GL_REVERSAL_T">
+      <column name="TRANSACTION_DT"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1870">
+    <createIndex indexName="GL_REVERSAL_TR12" tableName="GL_REVERSAL_T">
+      <column name="UNIV_FISCAL_YR"/>
+      <column name="UNIV_FISCAL_PRD_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1871">
+    <createIndex indexName="GL_REVERSAL_TR3" tableName="GL_REVERSAL_T">
+      <column name="UNIV_FISCAL_YR"/>
+      <column name="FIN_COA_CD"/>
+      <column name="FIN_OBJECT_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1872">
+    <createIndex indexName="GL_REVERSAL_TR5" tableName="GL_REVERSAL_T">
+      <column name="FIN_BALANCE_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1873">
+    <createIndex indexName="GL_REVERSAL_TR7" tableName="GL_REVERSAL_T">
+      <column name="FIN_OBJ_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1874">
+    <createIndex indexName="GL_SF_BALANCES_TI2" tableName="GL_SF_BALANCES_T">
+      <column name="UNIV_FISCAL_YR"/>
+      <column name="FIN_COA_CD"/>
+      <column name="FIN_OBJECT_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1875">
+    <createIndex indexName="GL_SF_BALANCES_TI3" tableName="GL_SF_BALANCES_T">
+      <column name="TIMESTAMP"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1876">
+    <createIndex indexName="GL_SF_BALANCES_TR3" tableName="GL_SF_BALANCES_T">
+      <column name="FIN_COA_CD"/>
+      <column name="ACCOUNT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1877">
+    <createIndex indexName="PDP_CUST_BNK_TR3" tableName="PDP_CUST_BNK_T">
+      <column name="DISB_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1878">
+    <createIndex indexName="PDP_CUST_BNK_T_TR2" tableName="PDP_CUST_BNK_T">
+      <column name="BNK_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1879">
+    <createIndex indexName="PDP_CUST_PRFL_T_TR4" tableName="PDP_CUST_PRFL_T">
+      <column name="DFLT_COA_CD"/>
+      <column name="DFLT_ACCT_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1880">
+    <createIndex indexName="PDP_CUST_PRFL_T_TR6" tableName="PDP_CUST_PRFL_T">
+      <column name="ACH_TRANS_TYP"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1881">
+    <createIndex indexName="PDP_DISB_NBR_RNG_T_TR2" tableName="PDP_DISB_NBR_RNG_T">
+      <column name="BNK_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1882">
+    <createIndex indexName="PDP_DISB_NBR_RNG_T_TR3" tableName="PDP_DISB_NBR_RNG_T">
+      <column name="DISB_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1883">
+    <createIndex indexName="PDP_FIL_TI2" tableName="PDP_FIL_T">
+      <column name="CUST_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1884">
+    <createIndex indexName="PDP_FMT_PROC_TR1" tableName="PDP_FMT_PROC_T">
+      <column name="PMT_PROC_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1885">
+    <createIndex indexName="PDP_PAYEE_ACH_ACCT_T_TR2" tableName="PDP_PAYEE_ACH_ACCT_T">
+      <column name="BNK_ACCT_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1886">
+    <createIndex indexName="PDP_PAYEE_ACH_ACCT_T_TR3" tableName="PDP_PAYEE_ACH_ACCT_T">
+      <column name="PAYEE_ID_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1887">
+    <createIndex indexName="PDP_PAYEE_ACH_ACCT_T_TR4" tableName="PDP_PAYEE_ACH_ACCT_T">
+      <column name="ACH_TRANS_TYP"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1888">
+    <createIndex indexName="PDP_PMT_ACCT_DTL_TI2" tableName="PDP_PMT_ACCT_DTL_T">
+      <column name="PMT_DTL_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1889">
+    <createIndex indexName="PDP_PMT_ACCT_HIST_TI2" tableName="PDP_PMT_ACCT_HIST_T">
+      <column name="PMT_ACCT_DTL_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1890">
+    <createIndex indexName="PDP_PMT_ACCT_HIST_TI3" tableName="PDP_PMT_ACCT_HIST_T">
+      <column name="ACCTG_CHG_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1891">
+    <createIndex indexName="PDP_PMT_DTL_TI2" tableName="PDP_PMT_DTL_T">
+      <column name="PMT_GRP_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1892">
+    <createIndex indexName="PDP_PMT_DTL_TI3" tableName="PDP_PMT_DTL_T">
+      <column name="CUST_PMT_DOC_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1893">
+    <createIndex indexName="PDP_PMT_DTL_T_TR2" tableName="PDP_PMT_DTL_T">
+      <column name="FS_ORIGIN_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1894">
+    <createIndex indexName="PDP_PMT_GRP_HIST_TI3" tableName="PDP_PMT_GRP_HIST_T">
+      <column name="ORIG_PMT_STAT_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1895">
+    <createIndex indexName="PDP_PMT_GRP_HIST_TI4" tableName="PDP_PMT_GRP_HIST_T">
+      <column name="PMT_CHG_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1896">
+    <createIndex indexName="PDP_PMT_GRP_HIST_TI6" tableName="PDP_PMT_GRP_HIST_T">
+      <column name="ORIG_DISB_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1897">
+    <createIndex indexName="PDP_PMT_GRP_HIST_TI7" tableName="PDP_PMT_GRP_HIST_T">
+      <column name="ORIG_PROC_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1898">
+    <createIndex indexName="PDP_PMT_GRP_HIST_TI8" tableName="PDP_PMT_GRP_HIST_T">
+      <column name="PMT_GRP_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1899">
+    <createIndex indexName="PDP_PMT_GRP_HIST_T_TR5" tableName="PDP_PMT_GRP_HIST_T">
+      <column name="ORIG_BNK_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1900">
+    <createIndex indexName="PDP_PMT_GRP_TI2" tableName="PDP_PMT_GRP_T">
+      <column name="PMT_FIL_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1901">
+    <createIndex indexName="PDP_PMT_GRP_TI4" tableName="PDP_PMT_GRP_T">
+      <column name="DISB_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1902">
+    <createIndex indexName="PDP_PMT_GRP_TI5" tableName="PDP_PMT_GRP_T">
+      <column name="PMT_STAT_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1903">
+    <createIndex indexName="PDP_PMT_GRP_TI6" tableName="PDP_PMT_GRP_T">
+      <column name="DISB_NBR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1904">
+    <createIndex indexName="PDP_PMT_GRP_TI7" tableName="PDP_PMT_GRP_T">
+      <column name="PMT_PAYEE_NM"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1905">
+    <createIndex indexName="PDP_PMT_GRP_TI8" tableName="PDP_PMT_GRP_T">
+      <column name="PROC_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1906">
+    <createIndex indexName="PDP_PMT_GRP_T_TR4" tableName="PDP_PMT_GRP_T">
+      <column name="PAYEE_ID_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1907">
+    <createIndex indexName="PDP_PMT_GRP_T_TR7" tableName="PDP_PMT_GRP_T">
+      <column name="ALTRNT_PAYEE_ID_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1908">
+    <createIndex indexName="PDP_PMT_GRP_T_TR8" tableName="PDP_PMT_GRP_T">
+      <column name="BNK_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1909">
+    <createIndex indexName="PDP_PMT_NTE_TXT_TI3" tableName="PDP_PMT_NTE_TXT_T">
+      <column name="PMT_DTL_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1910">
+    <createIndex indexName="PDP_PROC_SUM_TI2" tableName="PDP_PROC_SUM_T">
+      <column name="DISB_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1911">
+    <createIndex indexName="PDP_PROC_SUM_TI3" tableName="PDP_PROC_SUM_T">
+      <column name="CUST_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1912">
+    <createIndex indexName="PDP_PROC_SUM_TI4" tableName="PDP_PROC_SUM_T">
+      <column name="PROC_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1913">
+    <createIndex indexName="PUR_AP_CMP_PARM_TI1" tableName="PUR_AP_CMP_PARM_T">
+      <column name="CMP_PUR_DRCTR_NM"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1914">
+    <createIndex indexName="PUR_COMM_CONTR_MGR_TR3" tableName="PUR_COMM_CONTR_MGR_T">
+      <column name="CONTR_MGR_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1915">
+    <createIndex indexName="PUR_VNDR_ADDR_TI1" tableName="PUR_VNDR_ADDR_T">
+      <column name="VNDR_HDR_GNRTD_ID"/>
+      <column name="VNDR_DTL_ASND_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1916">
+    <createIndex indexName="PUR_VNDR_ADDR_TR2" tableName="PUR_VNDR_ADDR_T">
+      <column name="VNDR_ADDR_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1917">
+    <createIndex indexName="PUR_VNDR_ALIAS_TI1" tableName="PUR_VNDR_ALIAS_T">
+      <column name="VNDR_HDR_GNRTD_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1918">
+    <createIndex indexName="PUR_VNDR_ALIAS_TR1" tableName="PUR_VNDR_ALIAS_T">
+      <column name="VNDR_HDR_GNRTD_ID"/>
+      <column name="VNDR_DTL_ASND_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1919">
+    <createIndex indexName="PUR_VNDR_CNTCT_PHN_NBR_TR1" tableName="PUR_VNDR_CNTCT_PHN_NBR_T">
+      <column name="VNDR_PHN_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1920">
+    <createIndex indexName="PUR_VNDR_CNTCT_PHN_NBR_TR2" tableName="PUR_VNDR_CNTCT_PHN_NBR_T">
+      <column name="VNDR_CNTCT_GNRTD_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1921">
+    <createIndex indexName="PUR_VNDR_CNTCT_TR1" tableName="PUR_VNDR_CNTCT_T">
+      <column name="VNDR_HDR_GNRTD_ID"/>
+      <column name="VNDR_DTL_ASND_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1922">
+    <createIndex indexName="PUR_VNDR_CNTCT_TR2" tableName="PUR_VNDR_CNTCT_T">
+      <column name="VNDR_CNTCT_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1923">
+    <createIndex indexName="PUR_VNDR_CONTR_ORG_TR2" tableName="PUR_VNDR_CONTR_ORG_T">
+      <column name="FIN_COA_CD"/>
+      <column name="ORG_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1924">
+    <createIndex indexName="PUR_VNDR_CONTR_TR1" tableName="PUR_VNDR_CONTR_T">
+      <column name="VNDR_HDR_GNRTD_ID"/>
+      <column name="VNDR_DTL_ASND_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1925">
+    <createIndex indexName="PUR_VNDR_CONTR_TR3" tableName="PUR_VNDR_CONTR_T">
+      <column name="CONTR_MGR_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1926">
+    <createIndex indexName="PUR_VNDR_CONTR_TR4" tableName="PUR_VNDR_CONTR_T">
+      <column name="PO_CST_SRC_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1927">
+    <createIndex indexName="PUR_VNDR_CONTR_TR5" tableName="PUR_VNDR_CONTR_T">
+      <column name="VNDR_PMT_TERM_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1928">
+    <createIndex indexName="PUR_VNDR_CONTR_TR6" tableName="PUR_VNDR_CONTR_T">
+      <column name="VNDR_SHP_PMT_TERM_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1929">
+    <createIndex indexName="PUR_VNDR_CONTR_TR7" tableName="PUR_VNDR_CONTR_T">
+      <column name="VNDR_SHP_TTL_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1930">
+    <createIndex indexName="PUR_VNDR_CUST_NBR_TR1" tableName="PUR_VNDR_CUST_NBR_T">
+      <column name="VNDR_HDR_GNRTD_ID"/>
+      <column name="VNDR_DTL_ASND_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1931">
+    <createIndex indexName="PUR_VNDR_CUST_NBR_TR2" tableName="PUR_VNDR_CUST_NBR_T">
+      <column name="FIN_COA_CD"/>
+      <column name="VNDR_ORG_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1932">
+    <createIndex indexName="PUR_VNDR_DFLT_ADDR_TI1" tableName="PUR_VNDR_DFLT_ADDR_T">
+      <column name="VNDR_ADDR_GNRTD_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1933">
+    <createIndex indexName="PUR_VNDR_DTL_TR2" tableName="PUR_VNDR_DTL_T">
+      <column name="VNDR_INACTV_REAS_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1934">
+    <createIndex indexName="PUR_VNDR_DTL_TR3" tableName="PUR_VNDR_DTL_T">
+      <column name="VNDR_PMT_TERM_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1935">
+    <createIndex indexName="PUR_VNDR_DTL_TR4" tableName="PUR_VNDR_DTL_T">
+      <column name="VNDR_SHP_TTL_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1936">
+    <createIndex indexName="PUR_VNDR_DTL_TR5" tableName="PUR_VNDR_DTL_T">
+      <column name="VNDR_SHP_PMT_TERM_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1937">
+    <createIndex indexName="PUR_VNDR_DTL_TR6" tableName="PUR_VNDR_DTL_T">
+      <column name="VNDR_SOLD_TO_GNRTD_ID"/>
+      <column name="VNDR_SOLD_TO_ASND_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1938">
+    <createIndex indexName="PUR_VNDR_EXCL_MTCH_TR2" tableName="PUR_VNDR_EXCL_MTCH_T">
+      <column name="VNDR_HDR_GNRTD_ID"/>
+      <column name="VNDR_DTL_ASND_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1939">
+    <createIndex indexName="PUR_VNDR_HDR_TR1" tableName="PUR_VNDR_HDR_T">
+      <column name="VNDR_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1940">
+    <createIndex indexName="PUR_VNDR_HDR_TR2" tableName="PUR_VNDR_HDR_T">
+      <column name="VNDR_OWNR_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1941">
+    <createIndex indexName="PUR_VNDR_HDR_TR3" tableName="PUR_VNDR_HDR_T">
+      <column name="VNDR_OWNR_CTGRY_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1942">
+    <createIndex indexName="PUR_VNDR_HDR_TR4" tableName="PUR_VNDR_HDR_T">
+      <column name="VNDR_CHAP_3_STAT_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1943">
+    <createIndex indexName="PUR_VNDR_HDR_TR5" tableName="PUR_VNDR_HDR_T">
+      <column name="VNDR_CHAP_4_STAT_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1944">
+    <createIndex indexName="PUR_VNDR_HDR_TR6" tableName="PUR_VNDR_HDR_T">
+      <column name="VNDR_W8_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1945">
+    <createIndex indexName="PUR_VNDR_PHN_NBR_TR1" tableName="PUR_VNDR_PHN_NBR_T">
+      <column name="VNDR_HDR_GNRTD_ID"/>
+      <column name="VNDR_DTL_ASND_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1946">
+    <createIndex indexName="PUR_VNDR_PHN_NBR_TR2" tableName="PUR_VNDR_PHN_NBR_T">
+      <column name="VNDR_PHN_TYP_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1947">
+    <createIndex indexName="PUR_VNDR_SHP_SPCL_COND_TR2" tableName="PUR_VNDR_SHP_SPCL_COND_T">
+      <column name="VNDR_SHP_SPCL_COND_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1948">
+    <createIndex indexName="PUR_VNDR_SUPP_DVRST_TR2" tableName="PUR_VNDR_SUPP_DVRST_T">
+      <column name="VNDR_SUPP_DVRST_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1949">
+    <createIndex indexName="PUR_VNDR_TAX_CHG_TR1" tableName="PUR_VNDR_TAX_CHG_T">
+      <column name="VNDR_HDR_GNRTD_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="1950">
+    <createIndex indexName="PUR_VNDR_TYP_TR1" tableName="PUR_VNDR_TYP_T">
+      <column name="VNDR_ADDR_TYP_REQ_CD"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="1951">
+    <createIndex indexName="SH_UNIV_DATE_TI2" tableName="SH_UNIV_DATE_T">
+      <column name="UNIV_FISCAL_YR"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="4228">
+    <createIndex indexName="IDX_QRTZ_FT_JOB_GROUP" tableName="QRTZ_FIRED_TRIGGERS">
+      <column name="JOB_GROUP"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="4229">
+    <createIndex indexName="IDX_QRTZ_FT_JOB_NAME" tableName="QRTZ_FIRED_TRIGGERS">
+      <column name="JOB_NAME"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="4230">
+    <createIndex indexName="IDX_QRTZ_FT_JOB_REQ_RECOVERY" tableName="QRTZ_FIRED_TRIGGERS">
+      <column name="REQUESTS_RECOVERY"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="4231">
+    <createIndex indexName="IDX_QRTZ_FT_JOB_STATEFUL" tableName="QRTZ_FIRED_TRIGGERS">
+      <column name="IS_STATEFUL"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="4232">
+    <createIndex indexName="IDX_QRTZ_FT_TRIG_GROUP" tableName="QRTZ_FIRED_TRIGGERS">
+      <column name="TRIGGER_GROUP"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="4233">
+    <createIndex indexName="IDX_QRTZ_FT_TRIG_INST_NAME" tableName="QRTZ_FIRED_TRIGGERS">
+      <column name="INSTANCE_NAME"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="4234">
+    <createIndex indexName="IDX_QRTZ_FT_TRIG_NAME" tableName="QRTZ_FIRED_TRIGGERS">
+      <column name="TRIGGER_NAME"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="4235">
+    <createIndex indexName="IDX_QRTZ_FT_TRIG_NM_GP" tableName="QRTZ_FIRED_TRIGGERS">
+      <column name="TRIGGER_NAME"/>
+      <column name="TRIGGER_GROUP"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="4236">
+    <createIndex indexName="IDX_QRTZ_FT_TRIG_VOLATILE" tableName="QRTZ_FIRED_TRIGGERS">
+      <column name="IS_VOLATILE"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="4237">
+    <createIndex indexName="IDX_QRTZ_J_REQ_RECOVERY" tableName="QRTZ_JOB_DETAILS">
+      <column name="REQUESTS_RECOVERY"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="4238">
+    <createIndex indexName="IDX_QRTZ_T_NEXT_FIRE_TIME" tableName="QRTZ_TRIGGERS">
+      <column name="NEXT_FIRE_TIME"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="4239">
+    <createIndex indexName="IDX_QRTZ_T_NFT_ST" tableName="QRTZ_TRIGGERS">
+      <column name="NEXT_FIRE_TIME"/>
+      <column name="TRIGGER_STATE"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="4240">
+    <createIndex indexName="IDX_QRTZ_T_STATE" tableName="QRTZ_TRIGGERS">
+      <column name="TRIGGER_STATE"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" id="4241">
+    <createIndex indexName="IDX_QRTZ_T_VOLATILE" tableName="QRTZ_TRIGGERS">
+      <column name="IS_VOLATILE"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="4242">
+    <createIndex indexName="SYS_C0092242" tableName="QRTZ_TRIGGERS">
+      <column name="JOB_NAME"/>
+      <column name="JOB_GROUP"/>
+    </createIndex>
+  </changeSet>
+</databaseChangeLog>

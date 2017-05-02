@@ -1,38 +1,36 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.coa.businessobject.BalanceType;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.ObjectType;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 
-/**
- * 
- */
+import java.util.LinkedHashMap;
+
+
 public class SystemOptions extends PersistableBusinessObjectBase implements FiscalYearBasedBusinessObject {
 
     public static final String CACHE_NAME = KFSConstants.APPLICATION_NAMESPACE_CODE + "/" + "SystemOptions";
-    
+
     /**
      * Default no-arg constructor.
      */
@@ -94,7 +92,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Gets the universityFiscalYear attribute.
-     * 
+     *
      * @return Returns the universityFiscalYear
      */
     public Integer getUniversityFiscalYear() {
@@ -103,7 +101,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Sets the universityFiscalYear attribute.
-     * 
+     *
      * @param universityFiscalYear The universityFiscalYear to set.
      */
     public void setUniversityFiscalYear(Integer universityFiscalYear) {
@@ -112,7 +110,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Gets the actualFinancialBalanceTypeCd attribute.
-     * 
+     *
      * @return Returns the actualFinancialBalanceTypeCd
      */
     public String getActualFinancialBalanceTypeCd() {
@@ -121,7 +119,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Sets the actualFinancialBalanceTypeCd attribute.
-     * 
+     *
      * @param actualFinancialBalanceTypeCd The actualFinancialBalanceTypeCd to set.
      */
     public void setActualFinancialBalanceTypeCd(String actualFinancialBalanceTypeCd) {
@@ -130,7 +128,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Gets the budgetCheckingBalanceTypeCd attribute.
-     * 
+     *
      * @return Returns the budgetCheckingBalanceTypeCd
      */
     public String getBudgetCheckingBalanceTypeCd() {
@@ -139,7 +137,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Sets the budgetCheckingBalanceTypeCd attribute.
-     * 
+     *
      * @param budgetCheckingBalanceTypeCd The budgetCheckingBalanceTypeCd to set.
      */
     public void setBudgetCheckingBalanceTypeCd(String budgetCheckingBalanceTypeCd) {
@@ -148,7 +146,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Gets the budgetCheckingOptionsCode attribute.
-     * 
+     *
      * @return Returns the budgetCheckingOptionsCode
      */
     public boolean isBudgetCheckingOptionsCode() {
@@ -157,7 +155,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Sets the budgetCheckingOptionsCode attribute.
-     * 
+     *
      * @param budgetCheckingOptionsCode The budgetCheckingOptionsCode to set.
      */
     public void setBudgetCheckingOptionsCode(boolean budgetCheckingOptionsCode) {
@@ -166,7 +164,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Gets the universityFiscalYearStartYr attribute.
-     * 
+     *
      * @return Returns the universityFiscalYearStartYr
      */
     public Integer getUniversityFiscalYearStartYr() {
@@ -175,7 +173,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Sets the universityFiscalYearStartYr attribute.
-     * 
+     *
      * @param universityFiscalYearStartYr The universityFiscalYearStartYr to set.
      */
     public void setUniversityFiscalYearStartYr(Integer universityFiscalYearStartYr) {
@@ -184,7 +182,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Gets the universityFiscalYearStartMo attribute.
-     * 
+     *
      * @return Returns the universityFiscalYearStartMo
      */
     public String getUniversityFiscalYearStartMo() {
@@ -193,7 +191,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Sets the universityFiscalYearStartMo attribute.
-     * 
+     *
      * @param universityFiscalYearStartMo The universityFiscalYearStartMo to set.
      */
     public void setUniversityFiscalYearStartMo(String universityFiscalYearStartMo) {
@@ -202,7 +200,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Gets the finObjectTypeIncomecashCode attribute.
-     * 
+     *
      * @return Returns the finObjectTypeIncomecashCode
      */
     public String getFinObjectTypeIncomecashCode() {
@@ -211,7 +209,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Sets the finObjectTypeIncomecashCode attribute.
-     * 
+     *
      * @param finObjectTypeIncomecashCode The finObjectTypeIncomecashCode to set.
      */
     public void setFinObjectTypeIncomecashCode(String finObjectTypeIncomecashCode) {
@@ -220,7 +218,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Gets the finObjTypeExpenditureexpCd attribute.
-     * 
+     *
      * @return Returns the finObjTypeExpenditureexpCd
      */
     public String getFinObjTypeExpenditureexpCd() {
@@ -229,7 +227,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Sets the finObjTypeExpenditureexpCd attribute.
-     * 
+     *
      * @param finObjTypeExpenditureexpCd The finObjTypeExpenditureexpCd to set.
      */
     public void setFinObjTypeExpenditureexpCd(String finObjTypeExpenditureexpCd) {
@@ -238,7 +236,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Gets the finObjTypeExpendNotExpCode attribute.
-     * 
+     *
      * @return Returns the finObjTypeExpendNotExpCode
      */
     public String getFinObjTypeExpendNotExpCode() {
@@ -247,7 +245,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Sets the finObjTypeExpendNotExpCode attribute.
-     * 
+     *
      * @param finObjTypeExpendNotExpCode The finObjTypeExpendNotExpCode to set.
      */
     public void setFinObjTypeExpendNotExpCode(String finObjTypeExpendNotExpCode) {
@@ -256,7 +254,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Gets the finObjTypeExpNotExpendCode attribute.
-     * 
+     *
      * @return Returns the finObjTypeExpNotExpendCode
      */
     public String getFinObjTypeExpNotExpendCode() {
@@ -265,7 +263,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Sets the finObjTypeExpNotExpendCode attribute.
-     * 
+     *
      * @param finObjTypeExpNotExpendCode The finObjTypeExpNotExpendCode to set.
      */
     public void setFinObjTypeExpNotExpendCode(String finObjTypeExpNotExpendCode) {
@@ -274,7 +272,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Gets the financialObjectTypeAssetsCd attribute.
-     * 
+     *
      * @return Returns the financialObjectTypeAssetsCd
      */
     public String getFinancialObjectTypeAssetsCd() {
@@ -283,7 +281,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Sets the financialObjectTypeAssetsCd attribute.
-     * 
+     *
      * @param financialObjectTypeAssetsCd The financialObjectTypeAssetsCd to set.
      */
     public void setFinancialObjectTypeAssetsCd(String financialObjectTypeAssetsCd) {
@@ -292,7 +290,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Gets the finObjectTypeLiabilitiesCode attribute.
-     * 
+     *
      * @return Returns the finObjectTypeLiabilitiesCode
      */
     public String getFinObjectTypeLiabilitiesCode() {
@@ -301,7 +299,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Sets the finObjectTypeLiabilitiesCode attribute.
-     * 
+     *
      * @param finObjectTypeLiabilitiesCode The finObjectTypeLiabilitiesCode to set.
      */
     public void setFinObjectTypeLiabilitiesCode(String finObjectTypeLiabilitiesCode) {
@@ -310,7 +308,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Gets the finObjectTypeFundBalanceCd attribute.
-     * 
+     *
      * @return Returns the finObjectTypeFundBalanceCd
      */
     public String getFinObjectTypeFundBalanceCd() {
@@ -319,7 +317,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Sets the finObjectTypeFundBalanceCd attribute.
-     * 
+     *
      * @param finObjectTypeFundBalanceCd The finObjectTypeFundBalanceCd to set.
      */
     public void setFinObjectTypeFundBalanceCd(String finObjectTypeFundBalanceCd) {
@@ -328,7 +326,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Gets the extrnlEncumFinBalanceTypCd attribute.
-     * 
+     *
      * @return Returns the extrnlEncumFinBalanceTypCd
      */
     public String getExtrnlEncumFinBalanceTypCd() {
@@ -337,7 +335,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Sets the extrnlEncumFinBalanceTypCd attribute.
-     * 
+     *
      * @param extrnlEncumFinBalanceTypCd The extrnlEncumFinBalanceTypCd to set.
      */
     public void setExtrnlEncumFinBalanceTypCd(String extrnlEncumFinBalanceTypCd) {
@@ -346,7 +344,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Gets the intrnlEncumFinBalanceTypCd attribute.
-     * 
+     *
      * @return Returns the intrnlEncumFinBalanceTypCd
      */
     public String getIntrnlEncumFinBalanceTypCd() {
@@ -355,7 +353,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Sets the intrnlEncumFinBalanceTypCd attribute.
-     * 
+     *
      * @param intrnlEncumFinBalanceTypCd The intrnlEncumFinBalanceTypCd to set.
      */
     public void setIntrnlEncumFinBalanceTypCd(String intrnlEncumFinBalanceTypCd) {
@@ -364,7 +362,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Gets the preencumbranceFinBalTypeCd attribute.
-     * 
+     *
      * @return Returns the preencumbranceFinBalTypeCd
      */
     public String getPreencumbranceFinBalTypeCd() {
@@ -373,7 +371,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Sets the preencumbranceFinBalTypeCd attribute.
-     * 
+     *
      * @param preencumbranceFinBalTypeCd The preencumbranceFinBalTypeCd to set.
      */
     public void setPreencumbranceFinBalTypeCd(String preencumbranceFinBalTypeCd) {
@@ -382,7 +380,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Gets the eliminationsFinBalanceTypeCd attribute.
-     * 
+     *
      * @return Returns the eliminationsFinBalanceTypeCd
      */
     public String getEliminationsFinBalanceTypeCd() {
@@ -391,7 +389,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Sets the eliminationsFinBalanceTypeCd attribute.
-     * 
+     *
      * @param eliminationsFinBalanceTypeCd The eliminationsFinBalanceTypeCd to set.
      */
     public void setEliminationsFinBalanceTypeCd(String eliminationsFinBalanceTypeCd) {
@@ -400,7 +398,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Gets the finObjTypeIncomeNotCashCd attribute.
-     * 
+     *
      * @return Returns the finObjTypeIncomeNotCashCd
      */
     public String getFinObjTypeIncomeNotCashCd() {
@@ -409,7 +407,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Sets the finObjTypeIncomeNotCashCd attribute.
-     * 
+     *
      * @param finObjTypeIncomeNotCashCd The finObjTypeIncomeNotCashCd to set.
      */
     public void setFinObjTypeIncomeNotCashCd(String finObjTypeIncomeNotCashCd) {
@@ -418,7 +416,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Gets the finObjTypeCshNotIncomeCd attribute.
-     * 
+     *
      * @return Returns the finObjTypeCshNotIncomeCd
      */
     public String getFinObjTypeCshNotIncomeCd() {
@@ -427,7 +425,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Sets the finObjTypeCshNotIncomeCd attribute.
-     * 
+     *
      * @param finObjTypeCshNotIncomeCd The finObjTypeCshNotIncomeCd to set.
      */
     public void setFinObjTypeCshNotIncomeCd(String finObjTypeCshNotIncomeCd) {
@@ -436,7 +434,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Gets the universityFiscalYearName attribute.
-     * 
+     *
      * @return Returns the universityFiscalYearName
      */
     public String getUniversityFiscalYearName() {
@@ -445,7 +443,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Sets the universityFiscalYearName attribute.
-     * 
+     *
      * @param universityFiscalYearName The universityFiscalYearName to set.
      */
     public void setUniversityFiscalYearName(String universityFiscalYearName) {
@@ -454,7 +452,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Gets the financialBeginBalanceLoadInd attribute.
-     * 
+     *
      * @return Returns the financialBeginBalanceLoadInd
      */
     public boolean isFinancialBeginBalanceLoadInd() {
@@ -463,7 +461,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Sets the financialBeginBalanceLoadInd attribute.
-     * 
+     *
      * @param financialBeginBalanceLoadInd The financialBeginBalanceLoadInd to set.
      */
     public void setFinancialBeginBalanceLoadInd(boolean financialBeginBalanceLoadInd) {
@@ -472,7 +470,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Gets the universityFinChartOfAcct attribute.
-     * 
+     *
      * @return Returns the universityFinChartOfAcct
      */
     public Chart getUniversityFinChartOfAcct() {
@@ -481,7 +479,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Sets the universityFinChartOfAcct attribute.
-     * 
+     *
      * @param universityFinChartOfAcct The universityFinChartOfAcct to set.
      * @deprecated
      */
@@ -715,7 +713,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Gets the costShareEncumbranceBalanceTypeCode attribute.
-     * 
+     *
      * @return Returns the costShareEncumbranceBalanceTypeCode.
      */
     public String getCostShareEncumbranceBalanceTypeCd() {
@@ -724,7 +722,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Sets the costShareEncumbranceBalanceTypeCode attribute value.
-     * 
+     *
      * @param costShareEncumbranceBalanceTypeCode The costShareEncumbranceBalanceTypeCode to set.
      */
     public void setCostShareEncumbranceBalanceTypeCd(String costShareEncumbranceBalanceTypeCd) {
@@ -733,7 +731,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Gets the costShareEncumbranceBalanceType attribute.
-     * 
+     *
      * @return Returns the costShareEncumbranceBalanceType.
      */
     public BalanceType getCostShareEncumbranceBalanceType() {
@@ -742,7 +740,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Sets the costShareEncumbranceBalanceType attribute value.
-     * 
+     *
      * @param costShareEncumbranceBalanceType The costShareEncumbranceBalanceType to set.
      * @deprecated
      */
@@ -752,7 +750,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Gets the baseBudgetFinancialBalanceTypeCode attribute.
-     * 
+     *
      * @return Returns the baseBudgetFinancialBalanceTypeCode.
      */
     public String getBaseBudgetFinancialBalanceTypeCd() {
@@ -761,7 +759,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Sets the baseBudgetFinancialBalanceTypeCode attribute value.
-     * 
+     *
      * @param baseBudgetFinancialBalanceTypeCode The baseBudgetFinancialBalanceTypeCode to set.
      */
     public void setBaseBudgetFinancialBalanceTypeCd(String baseBudgetFinancialBalanceTypeCd) {
@@ -770,7 +768,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Gets the monthlyBudgetFinancialBalanceTypeCode attribute.
-     * 
+     *
      * @return Returns the monthlyBudgetFinancialBalanceTypeCode.
      */
     public String getMonthlyBudgetFinancialBalanceTypeCd() {
@@ -779,7 +777,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Sets the monthlyBudgetFinancialBalanceTypeCode attribute value.
-     * 
+     *
      * @param monthlyBudgetFinancialBalanceTypeCode The monthlyBudgetFinancialBalanceTypeCode to set.
      */
     public void setMonthlyBudgetFinancialBalanceTypeCd(String monthlyBudgetFinancialBalanceTypeCode) {
@@ -788,7 +786,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Gets the financialObjectTypeTransferIncomeCode attribute.
-     * 
+     *
      * @return Returns the financialObjectTypeTransferIncomeCode.
      */
     public String getFinancialObjectTypeTransferIncomeCd() {
@@ -797,7 +795,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Sets the financialObjectTypeTransferIncomeCode attribute value.
-     * 
+     *
      * @param financialObjectTypeTransferIncomeCode The financialObjectTypeTransferIncomeCode to set.
      */
     public void setFinancialObjectTypeTransferIncomeCd(String financialObjectTypeTransferIncomeCd) {
@@ -806,7 +804,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Gets the financialObjectTypeTransferExpenseCode attribute.
-     * 
+     *
      * @return Returns the financialObjectTypeTransferExpenseCode.
      */
     public String getFinancialObjectTypeTransferExpenseCd() {
@@ -815,7 +813,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Sets the financialObjectTypeTransferExpenseCode attribute value.
-     * 
+     *
      * @param financialObjectTypeTransferExpenseCode The financialObjectTypeTransferExpenseCode to set.
      */
     public void setFinancialObjectTypeTransferExpenseCd(String financialObjectTypeTransferExpenseCd) {
@@ -824,7 +822,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Gets the financialObjectTypeTransferIncome attribute.
-     * 
+     *
      * @return Returns the financialObjectTypeTransferIncome.
      */
     public ObjectType getFinancialObjectTypeTransferIncome() {
@@ -833,7 +831,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Sets the financialObjectTypeTransferIncome attribute value.
-     * 
+     *
      * @param financialObjectTypeTransferIncome The financialObjectTypeTransferIncome to set.
      * @deprecated
      */
@@ -843,7 +841,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Gets the financialObjectTypeTransferExpense attribute.
-     * 
+     *
      * @return Returns the financialObjectTypeTransferExpense.
      */
     public ObjectType getFinancialObjectTypeTransferExpense() {
@@ -852,7 +850,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Sets the financialObjectTypeTransferExpense attribute value.
-     * 
+     *
      * @param financialObjectTypeTransferExpense The financialObjectTypeTransferExpense to set.
      * @deprecated
      */
@@ -862,7 +860,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Gets the baseBudgetFinancialBalanceType attribute.
-     * 
+     *
      * @return Returns the baseBudgetFinancialBalanceType.
      */
     public BalanceType getBaseBudgetFinancialBalanceType() {
@@ -871,7 +869,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Sets the baseBudgetFinancialBalanceType attribute value.
-     * 
+     *
      * @param baseBudgetFinancialBalanceType The baseBudgetFinancialBalanceType to set.
      * @deprecated
      */
@@ -881,7 +879,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Gets the monthlyBudgetFinancialBalanceType attribute.
-     * 
+     *
      * @return Returns the monthlyBudgetFinancialBalanceType.
      */
     public BalanceType getMonthlyBudgetFinancialBalanceType() {
@@ -890,7 +888,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Sets the monthlyBudgetFinancialBalanceType attribute value.
-     * 
+     *
      * @param monthlyBudgetFinancialBalanceType The monthlyBudgetFinancialBalanceType to set.
      * @deprecated
      */
@@ -900,7 +898,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Gets the nominalFinancialBalanceTypeCode attribute.
-     * 
+     *
      * @return Returns the nominalFinancialBalanceTypeCode.
      */
     public String getNominalFinancialBalanceTypeCd() {
@@ -909,7 +907,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Sets the nominalFinancialBalanceTypeCode attribute value.
-     * 
+     *
      * @param nominalFinancialBalanceTypeCode The nominalFinancialBalanceTypeCode to set.
      */
     public void setNominalFinancialBalanceTypeCd(String nominalFinancialBalanceTypeCd) {
@@ -918,7 +916,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Gets the nominalFinancialBalanceType attribute.
-     * 
+     *
      * @return Returns the nominalFinancialBalanceType.
      */
     public BalanceType getNominalFinancialBalanceType() {
@@ -927,7 +925,7 @@ public class SystemOptions extends PersistableBusinessObjectBase implements Fisc
 
     /**
      * Sets the nominalFinancialBalanceType attribute value.
-     * 
+     *
      * @param nominalFinancialBalanceType The nominalFinancialBalanceType to set.
      * @deprecated
      */

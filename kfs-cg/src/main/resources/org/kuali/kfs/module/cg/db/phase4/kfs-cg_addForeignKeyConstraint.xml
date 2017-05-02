@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="kfs" id="2679" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CG_AGENCY_NBR" baseTableName="CG_AGENCY_ADDR_T"
+                                 constraintName="CG_AGENCY_ADDR_TR1" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CG_AGENCY_NBR"
+                                 referencedTableName="CG_AGENCY_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2680" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CG_AGENCY_TYP_CD" baseTableName="CG_AGENCY_T"
+                                 constraintName="CG_AGENCY_TR1" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CG_AGENCY_TYP_CD"
+                                 referencedTableName="CG_AGENCY_TYP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2681" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CG_RPTTO_AGNCY_NBR" baseTableName="CG_AGENCY_T"
+                                 constraintName="CG_AGENCY_TR2" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CG_AGENCY_NBR"
+                                 referencedTableName="CG_AGENCY_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2682" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,ACCOUNT_NBR" baseTableName="CG_AWD_ACCT_T"
+                                 constraintName="CG_AWD_ACCT_TR1" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR" referencedTableName="CA_ACCOUNT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2683" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD" baseTableName="CG_AWD_ACCT_T"
+                                 constraintName="CG_AWD_ACCT_TR2" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD"
+                                 referencedTableName="CA_CHART_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2684" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CGPRPSL_NBR" baseTableName="CG_AWD_ACCT_T"
+                                 constraintName="CG_AWD_ACCT_TR4" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CGPRPSL_NBR"
+                                 referencedTableName="CG_AWD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2685" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CGPRPSL_NBR" baseTableName="CG_AWD_FNDMGR_T"
+                                 constraintName="CG_AWD_FNDMGR_TR1" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CGPRPSL_NBR"
+                                 referencedTableName="CG_AWD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2686" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD" baseTableName="CG_AWD_ORG_T"
+                                 constraintName="CG_AWD_ORG_TR1" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD"
+                                 referencedTableName="CA_CHART_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2687" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,ORG_CD" baseTableName="CG_AWD_ORG_T"
+                                 constraintName="CG_AWD_ORG_TR2" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ORG_CD"
+                                 referencedTableName="CA_ORG_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2688" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CGPRPSL_NBR" baseTableName="CG_AWD_ORG_T"
+                                 constraintName="CG_AWD_ORG_TR3" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CGPRPSL_NBR"
+                                 referencedTableName="CG_AWD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2689" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CGPRPSL_NBR" baseTableName="CG_AWD_PRJDR_T"
+                                 constraintName="CG_AWD_PRJDR_TR2" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CGPRPSL_NBR"
+                                 referencedTableName="CG_AWD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2690" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CG_SUBCNR_NBR" baseTableName="CG_AWD_SUBCN_T"
+                                 constraintName="CG_AWD_SUBCN_TR1" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CG_SUBCNR_NBR"
+                                 referencedTableName="CG_SUBCNR_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2691" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CGPRPSL_NBR" baseTableName="CG_AWD_SUBCN_T"
+                                 constraintName="CG_AWD_SUBCN_TR2" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CGPRPSL_NBR"
+                                 referencedTableName="CG_AWD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2692" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CGPRPSL_NBR" baseTableName="CG_AWD_T" constraintName="CG_AWD_TR1"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="CGPRPSL_NBR" referencedTableName="CG_PRPSL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2693" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CGPRPSL_AWD_TYP_CD" baseTableName="CG_AWD_T"
+                                 constraintName="CG_AWD_TR2" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CGPRPSL_AWD_TYP_CD"
+                                 referencedTableName="CG_PRPSL_AWD_TYP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2694" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CGAWD_STAT_CD" baseTableName="CG_AWD_T" constraintName="CG_AWD_TR3"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="CGAWD_STAT_CD" referencedTableName="CG_AWD_STAT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2695" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CG_LTRCR_FNDGRP_CD" baseTableName="CG_AWD_T"
+                                 constraintName="CG_AWD_TR4" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CG_LTRCR_FNDGRP_CD"
+                                 referencedTableName="CG_LTRCR_FNDGRP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2696" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CG_GRANT_DESC_CD" baseTableName="CG_AWD_T" constraintName="CG_AWD_TR5"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="CG_GRANT_DESC_CD" referencedTableName="CG_GRANT_DESC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2697" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CG_AGENCY_NBR" baseTableName="CG_AWD_T" constraintName="CG_AWD_TR6"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="CG_AGENCY_NBR" referencedTableName="CG_AGENCY_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2698" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CG_FEDPT_AGNCY_NBR" baseTableName="CG_AWD_T"
+                                 constraintName="CG_AWD_TR7" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CG_AGENCY_NBR"
+                                 referencedTableName="CG_AGENCY_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2699" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CGAWD_PURPOSE_CD" baseTableName="CG_AWD_T" constraintName="CG_AWD_TR8"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="CGPRPSL_PURPOSE_CD" referencedTableName="CG_PRPSL_PURPOSE_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2700" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CG_LTRCR_FND_CD" baseTableName="CG_AWD_T" constraintName="CG_AWD_TR9"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="CG_LTRCR_FND_CD" referencedTableName="CG_LTRCR_FND_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2701" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CG_LTRCR_FNDGRP_CD" baseTableName="CG_LTRCR_FND_T"
+                                 constraintName="CG_LTRCR_FND_TR1" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CG_LTRCR_FNDGRP_CD"
+                                 referencedTableName="CG_LTRCR_FNDGRP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2702" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,ORG_CD" baseTableName="CG_PRPSL_ORG_T"
+                                 constraintName="CG_PRPSL_ORG_TR1" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ORG_CD"
+                                 referencedTableName="CA_ORG_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2703" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD" baseTableName="CG_PRPSL_ORG_T"
+                                 constraintName="CG_PRPSL_ORG_TR2" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD"
+                                 referencedTableName="CA_CHART_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2704" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CGPRPSL_NBR" baseTableName="CG_PRPSL_ORG_T"
+                                 constraintName="CG_PRPSL_ORG_TR3" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CGPRPSL_NBR"
+                                 referencedTableName="CG_PRPSL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2705" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CGPRPSL_NBR" baseTableName="CG_PRPSL_PRJDR_T"
+                                 constraintName="CG_PRPSL_PRJDR_TR2" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CGPRPSL_NBR"
+                                 referencedTableName="CG_PRPSL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2706" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CGPRPSL_NBR" baseTableName="CG_PRPSL_RSRCH_RSK_T"
+                                 constraintName="CG_PRPSL_RSRCH_RSK_TR1" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CGPRPSL_NBR"
+                                 referencedTableName="CG_PRPSL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2707" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="RSRCH_RSK_TYP_CD" baseTableName="CG_PRPSL_RSRCH_RSK_T"
+                                 constraintName="CG_PRPSL_RSRCH_RSK_TR2" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="RSRCH_RSK_TYP_CD"
+                                 referencedTableName="ER_RSRCH_RSK_TYP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2708" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CG_SUBCNR_NBR" baseTableName="CG_PRPSL_SUBCN_T"
+                                 constraintName="CG_PRPSL_SUBCN_TR1" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CG_SUBCNR_NBR"
+                                 referencedTableName="CG_SUBCNR_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2709" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CGPRPSL_NBR" baseTableName="CG_PRPSL_SUBCN_T"
+                                 constraintName="CG_PRPSL_SUBCN_TR2" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CGPRPSL_NBR"
+                                 referencedTableName="CG_PRPSL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2710" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CGPRPSL_AWD_TYP_CD" baseTableName="CG_PRPSL_T"
+                                 constraintName="CG_PRPSL_TR2" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CGPRPSL_AWD_TYP_CD"
+                                 referencedTableName="CG_PRPSL_AWD_TYP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2711" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CG_AGENCY_NBR" baseTableName="CG_PRPSL_T"
+                                 constraintName="CG_PRPSL_TR3" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CG_AGENCY_NBR"
+                                 referencedTableName="CG_AGENCY_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2712" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CGPRPSL_STAT_CD" baseTableName="CG_PRPSL_T"
+                                 constraintName="CG_PRPSL_TR4" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CGPRPSL_STAT_CD"
+                                 referencedTableName="CG_PRPSL_STAT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2713" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CG_FEDPT_AGNCY_NBR" baseTableName="CG_PRPSL_T"
+                                 constraintName="CG_PRPSL_TR5" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CG_AGENCY_NBR"
+                                 referencedTableName="CG_AGENCY_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2714" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CGPRPSL_PURPOSE_CD" baseTableName="CG_PRPSL_T"
+                                 constraintName="CG_PRPSL_TR6" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CGPRPSL_PURPOSE_CD"
+                                 referencedTableName="CG_PRPSL_PURPOSE_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2715" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CG_CFDA_NBR" baseTableName="CG_PRPSL_T" constraintName="CG_PRPSL_TR7"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="CG_CFDA_NBR" referencedTableName="CG_CFDA_REF_T"/>
+    </changeSet>
+</databaseChangeLog>

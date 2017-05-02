@@ -1,40 +1,40 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.fixture;
 
-import java.sql.Date;
-
 import org.kuali.kfs.module.ar.businessobject.InvoiceGeneralDetail;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.sql.Date;
 
 /**
  * Fixture class for InvoiceGeneralDetail
  */
 public enum InvoiceGeneralDetailFixture {
 
-    INV_GNRL_DTL1("5678", "comment", "2011-05-02 - 2012-04-30", "MILE", false, null, "GTMS - Grant - Milestone", new KualiDecimal(100000.00), new KualiDecimal(1), KualiDecimal.ZERO, KualiDecimal.ZERO, null, 11L),
-    INV_GNRL_DTL2("5680", "comment", "2011-05-02 - 2012-04-30", "ANNU", false, null, "GTMS - Grant - Milestone", new KualiDecimal(100000.00), new KualiDecimal(13.00), KualiDecimal.ZERO, KualiDecimal.ZERO, null, 11L),
-    INV_GNRL_DTL3("5678", "comment", "2011-05-02 - 2012-04-30", "MNTH", false, null, "GTMS - Grant - Milestone", new KualiDecimal(100000.00), new KualiDecimal(1), KualiDecimal.ZERO, KualiDecimal.ZERO, null, 11L),
-    INV_GNRL_DTL4("5678", "comment", "2011-05-02 - 2012-04-30", "PDBS", false, null, "GTMS - Grant - Milestone", new KualiDecimal(100000.00), new KualiDecimal(1), KualiDecimal.ZERO, KualiDecimal.ZERO, null, 11L),
-    INV_GNRL_DTL5("5678", "comment", "2011-05-02 - 2012-04-30", "MILE", false, null, "GTMS - Grant - Milestone", new KualiDecimal(100000.00), KualiDecimal.ZERO, KualiDecimal.ZERO, KualiDecimal.ZERO, null, 11L),
-    INV_GNRL_DTL6("5678", "comment", "2011-05-02 - 2012-04-30", "MILE", true, null, "GTMS - Grant - Milestone", new KualiDecimal(100000.00), new KualiDecimal(1), KualiDecimal.ZERO, KualiDecimal.ZERO, null, 11L),
-    INV_GNRL_DTL7("5678", "comment", "2011-05-02 - 2012-04-30", "MILE", true, null, "GTMS - Grant - Milestone", new KualiDecimal(1000.00), new KualiDecimal(100000.00), KualiDecimal.ZERO, KualiDecimal.ZERO, null, 11L);
+    INV_GNRL_DTL1("5678", "comment", "2011-05-02 - 2012-04-30", "MILE", false, null, "GTMS - Grant - Milestone", new KualiDecimal(100000.00), new KualiDecimal(1), KualiDecimal.ZERO, KualiDecimal.ZERO, null, "11"),
+    INV_GNRL_DTL2("5680", "comment", "2011-05-02 - 2012-04-30", "ANNU", false, null, "GTMS - Grant - Milestone", new KualiDecimal(100000.00), new KualiDecimal(13.00), KualiDecimal.ZERO, KualiDecimal.ZERO, null, "11"),
+    INV_GNRL_DTL3("5678", "comment", "2011-05-02 - 2012-04-30", "MNTH", false, null, "GTMS - Grant - Milestone", new KualiDecimal(100000.00), new KualiDecimal(1), KualiDecimal.ZERO, KualiDecimal.ZERO, null, "11"),
+    INV_GNRL_DTL4("5678", "comment", "2011-05-02 - 2012-04-30", "PDBS", false, null, "GTMS - Grant - Milestone", new KualiDecimal(100000.00), new KualiDecimal(1), KualiDecimal.ZERO, KualiDecimal.ZERO, null, "11"),
+    INV_GNRL_DTL5("5678", "comment", "2011-05-02 - 2012-04-30", "MILE", false, null, "GTMS - Grant - Milestone", new KualiDecimal(100000.00), KualiDecimal.ZERO, KualiDecimal.ZERO, KualiDecimal.ZERO, null, "11"),
+    INV_GNRL_DTL6("5678", "comment", "2011-05-02 - 2012-04-30", "MILE", true, null, "GTMS - Grant - Milestone", new KualiDecimal(100000.00), new KualiDecimal(1), KualiDecimal.ZERO, KualiDecimal.ZERO, null, "11"),
+    INV_GNRL_DTL7("5678", "comment", "2011-05-02 - 2012-04-30", "MILE", true, null, "GTMS - Grant - Milestone", new KualiDecimal(1000.00), new KualiDecimal(100000.00), KualiDecimal.ZERO, KualiDecimal.ZERO, null, "11");
 
     private String documentNumber;
     private String comment;
@@ -48,9 +48,9 @@ public enum InvoiceGeneralDetailFixture {
     private KualiDecimal billedToDateAmount = KualiDecimal.ZERO;
     private KualiDecimal costShareAmount = KualiDecimal.ZERO;
     private Date lastBilledDate;
-    private Long proposalNumber;
+    private String proposalNumber;
 
-    private InvoiceGeneralDetailFixture(String documentNumber, String comment, String awardDateRange, String billingFrequencyCode, boolean finalBillIndicator, String billingPeriod, String instrumentTypeCode, KualiDecimal awardTotal, KualiDecimal newTotalBilled, KualiDecimal billedToDateAmount, KualiDecimal costShareAmount, Date lastBilledDate, Long proposalNumber) {
+    private InvoiceGeneralDetailFixture(String documentNumber, String comment, String awardDateRange, String billingFrequencyCode, boolean finalBillIndicator, String billingPeriod, String instrumentTypeCode, KualiDecimal awardTotal, KualiDecimal newTotalBilled, KualiDecimal billedToDateAmount, KualiDecimal costShareAmount, Date lastBilledDate, String proposalNumber) {
         this.documentNumber = documentNumber;
         this.comment = comment;
         this.awardDateRange = awardDateRange;

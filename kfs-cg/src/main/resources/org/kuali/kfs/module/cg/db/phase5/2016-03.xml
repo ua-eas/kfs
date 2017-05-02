@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns='http://www.liquibase.org/xml/ns/dbchangelog'
+                   xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+                   xsi:schemaLocation='http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd'>
+
+    <changeSet author="KFS601" id="FINI-319_CHANGE_CGPRPSL_NBR_TYPE_TO_VARCHAR_FROM_DECIMALa" context="bootstrap,demo,unit">
+        <dropForeignKeyConstraint baseTableName="CG_AWD_ACCT_T" constraintName="CG_AWD_ACCT_TR4"/>
+        <dropForeignKeyConstraint baseTableName="CG_AWD_FNDMGR_T" constraintName="CG_AWD_FNDMGR_TR1"/>
+        <dropForeignKeyConstraint baseTableName="CG_AWD_ORG_T" constraintName="CG_AWD_ORG_TR3"/>
+        <dropForeignKeyConstraint baseTableName="CG_AWD_PRJDR_T" constraintName="CG_AWD_PRJDR_TR2"/>
+        <dropForeignKeyConstraint baseTableName="CG_AWD_SUBCN_T" constraintName="CG_AWD_SUBCN_TR2"/>
+        <dropForeignKeyConstraint baseTableName="CG_AWD_T" constraintName="CG_AWD_TR1"/>
+        <dropForeignKeyConstraint baseTableName="CG_PRPSL_ORG_T" constraintName="CG_PRPSL_ORG_TR3"/>
+        <dropForeignKeyConstraint baseTableName="CG_PRPSL_PRJDR_T" constraintName="CG_PRPSL_PRJDR_TR2"/>
+        <dropForeignKeyConstraint baseTableName="CG_PRPSL_RSRCH_RSK_T" constraintName="CG_PRPSL_RSRCH_RSK_TR1"/>
+        <dropForeignKeyConstraint baseTableName="CG_PRPSL_RSRCH_RSK_T" constraintName="CG_PRPSL_RSRCH_RSK_TR2"/>
+        <dropForeignKeyConstraint baseTableName="CG_PRPSL_SUBCN_T" constraintName="CG_PRPSL_SUBCN_TR1"/>
+        <dropForeignKeyConstraint baseTableName="CG_PRPSL_SUBCN_T" constraintName="CG_PRPSL_SUBCN_TR2"/>
+
+        <createTable tableName="CG_PRPSL_RSRCH_RSK_T2">
+            <column defaultValueNumeric="0" name="CGPRPSL_NBR" type="VARCHAR(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="RSRCH_RSK_TYP_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="RSRCH_RSK_TYP_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <sql>INSERT INTO CG_PRPSL_RSRCH_RSK_T2 SELECT * FROM CG_PRPSL_RSRCH_RSK_T</sql>
+        <dropTable tableName="CG_PRPSL_RSRCH_RSK_T"/>
+        <renameTable oldTableName="CG_PRPSL_RSRCH_RSK_T2" newTableName="CG_PRPSL_RSRCH_RSK_T"/>
+        <addPrimaryKey columnNames="CGPRPSL_NBR, RSRCH_RSK_TYP_CD" constraintName="PKCG_PRPSL_RSRCH_RSK_T" tableName="CG_PRPSL_RSRCH_RSK_T"/>
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CG_PRPSL_RSRCH_RSK_TC0" tableName="CG_PRPSL_RSRCH_RSK_T"/>
+        <createIndex indexName="CG_PRPSL_RSRCH_RSK_TR2" tableName="CG_PRPSL_RSRCH_RSK_T">
+            <column name="RSRCH_RSK_TYP_CD"/>
+        </createIndex>
+
+        <createTable tableName="CG_PRPSL_T2">
+            <column defaultValueNumeric="0" name="CGPRPSL_NBR" type="VARCHAR(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CGPRPSL_BEG_DT" type="DATE"/>
+            <column name="CGPRPSL_END_DT" type="DATE"/>
+            <column name="CGPRPSL_TOT_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CGPRPSL_DRCTCS_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CGPRPSL_INDRCS_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CGPRPSL_REJECTD_DT" type="DATE"/>
+            <column name="CGPRPSL_LSTUPDT_DT" type="DATE"/>
+            <column name="CGPRPSL_DUE_DT" type="DATE"/>
+            <column name="CGPRPSL_TOTPRJ_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CGPRPSL_SUBMSSN_DT" type="DATE"/>
+            <column name="CGPRPSL_FEDPT_IND" type="VARCHAR(1)"/>
+            <column name="CG_OLD_PRPSL_NBR" type="VARCHAR(8)"/>
+            <column name="CG_GRANT_NBR" type="VARCHAR(27)"/>
+            <column name="CGPRPSL_CLOSING_DT" type="DATE"/>
+            <column name="CGPRPSL_AWD_TYP_CD" type="VARCHAR(1)"/>
+            <column name="CG_AGENCY_NBR" type="VARCHAR(6)"/>
+            <column name="CGPRPSL_STAT_CD" type="VARCHAR(2)"/>
+            <column name="CG_FEDPT_AGNCY_NBR" type="VARCHAR(5)"/>
+            <column name="CG_CFDA_NBR" type="VARCHAR(6)"/>
+            <column name="CGPRPSL_FELLOW_NM" type="VARCHAR(123)"/>
+            <column name="CGPRPSL_PURPOSE_CD" type="VARCHAR(1)"/>
+            <column name="CGPRPSL_PROJ_TTL" type="VARCHAR(250)"/>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINI-319_CHANGE_CGPRPSL_NBR_TYPE_TO_VARCHAR_FROM_DECIMALb" context="bootstrap,demo,unit">
+        <sql>INSERT INTO CG_PRPSL_T2 SELECT * FROM CG_PRPSL_T</sql>
+        <dropTable tableName="CG_PRPSL_T"/>
+        <renameTable oldTableName="CG_PRPSL_T2" newTableName="CG_PRPSL_T"/>
+        <addPrimaryKey columnNames="CGPRPSL_NBR" constraintName="PKCG_PRPSL_T" tableName="CG_PRPSL_T"/>
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CG_PRPSL_TC0" tableName="CG_PRPSL_T"/>
+        <createIndex indexName="CG_PRPSL_TI2" tableName="CG_PRPSL_T">
+            <column name="CG_AGENCY_NBR"/>
+        </createIndex>
+        <createIndex indexName="CG_PRPSL_TI3" tableName="CG_PRPSL_T">
+            <column name="CGPRPSL_AWD_TYP_CD"/>
+        </createIndex>
+        <createIndex indexName="CG_PRPSL_TI4" tableName="CG_PRPSL_T">
+            <column name="CGPRPSL_PURPOSE_CD"/>
+        </createIndex>
+        <createIndex indexName="CG_PRPSL_TI5" tableName="CG_PRPSL_T">
+            <column name="CGPRPSL_STAT_CD"/>
+        </createIndex>
+        <createIndex indexName="CG_PRPSL_TI6" tableName="CG_PRPSL_T">
+            <column name="CG_FEDPT_AGNCY_NBR"/>
+        </createIndex>
+        <createIndex indexName="CG_PRPSL_TR7" tableName="CG_PRPSL_T">
+            <column name="CG_CFDA_NBR"/>
+        </createIndex>
+
+        <createTable tableName="CG_PRPSL_SUBCN_T2">
+            <column defaultValue="" name="CGPRPSL_SUBCN_NBR" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="CGPRPSL_NBR" type="VARCHAR(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="CG_SUBCNR_NBR" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CGPRPSL_SUBCN_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CGPRPSL_SUBCN_DESC" type="VARCHAR(30)"/>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <sql>INSERT INTO CG_PRPSL_SUBCN_T2 SELECT * FROM CG_PRPSL_SUBCN_T</sql>
+        <dropTable tableName="CG_PRPSL_SUBCN_T"/>
+        <renameTable oldTableName="CG_PRPSL_SUBCN_T2" newTableName="CG_PRPSL_SUBCN_T"/>
+        <addPrimaryKey columnNames="CGPRPSL_SUBCN_NBR, CGPRPSL_NBR, CG_SUBCNR_NBR" constraintName="PKCG_PRPSL_SUBCN_T" tableName="CG_PRPSL_SUBCN_T"/>
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CG_PRPSL_SUBCN_TC0" tableName="CG_PRPSL_SUBCN_T"/>
+        <createIndex indexName="CG_PRPSL_SUBCN_TI2" tableName="CG_PRPSL_SUBCN_T">
+            <column name="CGPRPSL_NBR"/>
+        </createIndex>
+        <createIndex indexName="CG_PRPSL_SUBCN_TI3" tableName="CG_PRPSL_SUBCN_T">
+            <column name="CG_SUBCNR_NBR"/>
+        </createIndex>
+
+        <createTable tableName="CG_PRPSL_ORG_T2">
+            <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ORG_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="CGPRPSL_NBR" type="VARCHAR(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CGPRPSL_PRMORG_IND" type="VARCHAR(1)"/>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <sql>INSERT INTO CG_PRPSL_ORG_T2 SELECT * FROM CG_PRPSL_ORG_T</sql>
+        <dropTable tableName="CG_PRPSL_ORG_T"/>
+        <renameTable oldTableName="CG_PRPSL_ORG_T2" newTableName="CG_PRPSL_ORG_T"/>
+        <addPrimaryKey columnNames="FIN_COA_CD, ORG_CD, CGPRPSL_NBR" constraintName="PKCG_PRPSL_ORG_T" tableName="CG_PRPSL_ORG_T"/>
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CG_PRPSL_ORG_TC0" tableName="CG_PRPSL_ORG_T"/>
+        <createIndex indexName="CG_PRPSL_ORG_TI2" tableName="CG_PRPSL_ORG_T">
+            <column name="CGPRPSL_NBR"/>
+        </createIndex>
+
+        <createTable tableName="CG_PRPSL_PRJDR_T2">
+            <column defaultValue="" name="PERSON_UNVL_ID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="CGPRPSL_NBR" type="VARCHAR(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRPSL_PRMPRJDR_IND" type="VARCHAR(1)"/>
+            <column name="PRPSL_PRJDRPRJ_TTL" type="VARCHAR(100)"/>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <sql>INSERT INTO CG_PRPSL_PRJDR_T2 SELECT * FROM CG_PRPSL_PRJDR_T</sql>
+        <dropTable tableName="CG_PRPSL_PRJDR_T"/>
+        <renameTable oldTableName="CG_PRPSL_PRJDR_T2" newTableName="CG_PRPSL_PRJDR_T"/>
+        <addPrimaryKey columnNames="PERSON_UNVL_ID, CGPRPSL_NBR" constraintName="PKCG_PRPSL_PRJDR_T" tableName="CG_PRPSL_PRJDR_T"/>
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CG_PRPSL_PRJDR_TC0" tableName="CG_PRPSL_PRJDR_T"/>
+        <createIndex indexName="CG_PRPSL_PRJDR_TI2" tableName="CG_PRPSL_PRJDR_T">
+            <column name="CGPRPSL_NBR"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINI-319_CHANGE_CGPRPSL_NBR_TYPE_TO_VARCHAR_FROM_DECIMALc" context="bootstrap,demo,unit">
+        <createTable tableName="CG_AWD_T2">
+            <column defaultValueNumeric="0" name="CGPRPSL_NBR" type="VARCHAR(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CGAWD_BEG_DT" type="DATE"/>
+            <column name="CGAWD_END_DT" type="DATE"/>
+            <column name="CGAWD_TOT_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CGAWD_ADDENDUM_NBR" type="VARCHAR(7)"/>
+            <column name="CGAWD_ALOC_UCS_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CG_AGENCY_AWD_NBR" type="VARCHAR(27)"/>
+            <column name="CG_FEDPT_FND_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CGAWD_ENTRY_DT" type="DATE"/>
+            <column name="CG_AGENCY_FUT1_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CG_AGENCY_FUT2_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CG_AGENCY_FUT3_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CGAWD_DOC_NBR" type="VARCHAR(12)"/>
+            <column name="CGAWD_LST_UPDT_DT" type="DATE"/>
+            <column name="CG_FEDPT_IND" type="VARCHAR(1)"/>
+            <column name="CG_OLD_PRPSL_NBR" type="VARCHAR(8)"/>
+            <column name="CGAWD_DRCT_CST_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CGAWD_INDR_CST_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CG_FED_FNDED_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CGAWD_CREATE_TS" type="DATE"/>
+            <column name="CGAWD_CLOSING_DT" type="DATE"/>
+            <column name="CGPRPSL_AWD_TYP_CD" type="VARCHAR(1)"/>
+            <column name="CGAWD_STAT_CD" type="VARCHAR(2)"/>
+            <column name="CG_LTRCR_FNDGRP_CD" type="VARCHAR(4)"/>
+            <column name="CG_GRANT_DESC_CD" type="VARCHAR(3)"/>
+            <column name="CG_AGENCY_NBR" type="VARCHAR(6)"/>
+            <column name="CG_FEDPT_AGNCY_NBR" type="VARCHAR(5)"/>
+            <column name="CG_AGNCY_ANALST_NM" type="VARCHAR(123)"/>
+            <column name="CG_ANALYST_PHN_NBR" type="VARCHAR(10)"/>
+            <column name="CGAWD_PROJ_TTL" type="VARCHAR(250)"/>
+            <column name="CGAWD_PURPOSE_CD" type="VARCHAR(1)"/>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="BILL_FREQ_CD" type="VARCHAR(4)"/>
+            <column name="EXCL_FRM_INV_IND" type="VARCHAR(1)"/>
+            <column name="ADDL_FRMS_REQ_IND" type="VARCHAR(1)"/>
+            <column name="ADDL_FRMS_DESC" type="VARCHAR(255)"/>
+            <column name="INSTRMNT_TYP_CD" type="VARCHAR(4)"/>
+            <column name="MIN_INV_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CG_LTRCR_FND_CD" type="VARCHAR(15)"/>
+            <column name="AUTO_APPROVE_IND" type="VARCHAR(1)"/>
+            <column name="FUNDING_EXP_DT" type="DATE"/>
+            <column name="INV_OPT_CD" type="VARCHAR(1)"/>
+            <column name="EXCL_FRM_INV_REASON_TXT" type="VARCHAR(255)"/>
+            <column name="STATE_TRNSFR_IND" type="VARCHAR(1)"/>
+            <column name="CMPGN_ID" type="VARCHAR(4)"/>
+            <column defaultValue="N" name="STOP_WRK_IND" type="VARCHAR(1)"/>
+            <column name="STOP_WRK_REASON_TXT" type="VARCHAR(120)"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINI-319_CHANGE_CGPRPSL_NBR_TYPE_TO_VARCHAR_FROM_DECIMALd" context="bootstrap,demo,unit">
+        <sql>INSERT INTO CG_AWD_T2 SELECT * FROM CG_AWD_T</sql>
+        <dropTable tableName="CG_AWD_T"/>
+        <renameTable oldTableName="CG_AWD_T2" newTableName="CG_AWD_T"/>
+        <addPrimaryKey columnNames="CGPRPSL_NBR" constraintName="PKCG_AWD_T" tableName="CG_AWD_T"/>
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CG_AWD_TC0" tableName="CG_AWD_T"/>
+        <createIndex indexName="CG_AWD_TI2" tableName="CG_AWD_T">
+            <column name="CG_AGENCY_NBR"/>
+        </createIndex>
+        <createIndex indexName="CG_AWD_TI3" tableName="CG_AWD_T">
+            <column name="CGAWD_STAT_CD"/>
+        </createIndex>
+        <createIndex indexName="CG_AWD_TI4" tableName="CG_AWD_T">
+            <column name="CG_FEDPT_AGNCY_NBR"/>
+        </createIndex>
+        <createIndex indexName="CG_AWD_TI5" tableName="CG_AWD_T">
+            <column name="CG_GRANT_DESC_CD"/>
+        </createIndex>
+        <createIndex indexName="CG_AWD_TI6" tableName="CG_AWD_T">
+            <column name="CG_LTRCR_FNDGRP_CD"/>
+        </createIndex>
+        <createIndex indexName="CG_AWD_TI7" tableName="CG_AWD_T">
+            <column name="CGPRPSL_AWD_TYP_CD"/>
+        </createIndex>
+        <createIndex indexName="CG_AWD_TI8" tableName="CG_AWD_T">
+            <column name="CGAWD_PURPOSE_CD"/>
+        </createIndex>
+        <createIndex indexName="CG_AWD_TR9" tableName="CG_AWD_T">
+            <column name="CG_LTRCR_FND_CD"/>
+        </createIndex>
+
+        <createTable tableName="CG_AWD_PRJDR_T2">
+            <column defaultValue="" name="PERSON_UNVL_ID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="CGPRPSL_NBR" type="VARCHAR(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CGAWD_PRMPRJDR_IND" type="VARCHAR(1)"/>
+            <column name="CGAWD_PRJDRPRJ_TTL" type="VARCHAR(100)"/>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <sql>INSERT INTO CG_AWD_PRJDR_T2 SELECT * FROM CG_AWD_PRJDR_T</sql>
+        <dropTable tableName="CG_AWD_PRJDR_T"/>
+        <renameTable oldTableName="CG_AWD_PRJDR_T2" newTableName="CG_AWD_PRJDR_T"/>
+        <addPrimaryKey columnNames="PERSON_UNVL_ID, CGPRPSL_NBR" constraintName="PKCG_AWD_PRJDR_T" tableName="CG_AWD_PRJDR_T"/>
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CG_AWD_PRJDR_TC0" tableName="CG_AWD_PRJDR_T"/>
+        <createIndex indexName="CG_AWD_PRJDR_TI2" tableName="CG_AWD_PRJDR_T">
+            <column name="CGPRPSL_NBR"/>
+        </createIndex>
+
+        <createTable tableName="CG_AWD_FNDMGR_T2">
+            <column defaultValue="" name="PERSON_UNVL_ID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="CGPRPSL_NBR" type="VARCHAR(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRI_FNDMGR_IND" type="VARCHAR(1)"/>
+            <column name="PROJECT_TTL" type="VARCHAR(100)"/>
+            <column name="ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <sql>INSERT INTO CG_AWD_FNDMGR_T2 SELECT * FROM CG_AWD_FNDMGR_T</sql>
+        <dropTable tableName="CG_AWD_FNDMGR_T"/>
+        <renameTable oldTableName="CG_AWD_FNDMGR_T2" newTableName="CG_AWD_FNDMGR_T"/>
+        <addPrimaryKey columnNames="PERSON_UNVL_ID, CGPRPSL_NBR" constraintName="PKCG_AWD_FNDMGR_T" tableName="CG_AWD_FNDMGR_T"/>
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CG_AWD_FNDMGR_TC0" tableName="CG_AWD_FNDMGR_T"/>
+        <createIndex indexName="CG_AWD_FNDMGR_TR1" tableName="CG_AWD_FNDMGR_T">
+            <column name="CGPRPSL_NBR"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINI-319_CHANGE_CGPRPSL_NBR_TYPE_TO_VARCHAR_FROM_DECIMALe" context="bootstrap,demo,unit">
+        <createTable tableName="CG_AWD_ACCT_T2">
+            <column defaultValueNumeric="0" name="CGPRPSL_NBR" type="VARCHAR(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ACCOUNT_NBR" type="VARCHAR(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PERSON_UNVL_ID" type="VARCHAR(40)"/>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FNL_BILLED_IND" type="VARCHAR(1)"/>
+            <column name="CURR_LST_BILLED_DT" type="DATE"/>
+            <column name="PREV_LST_BILLED_DT" type="DATE"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINI-319_CHANGE_CGPRPSL_NBR_TYPE_TO_VARCHAR_FROM_DECIMALf" context="bootstrap,demo,unit">
+        <sql>INSERT INTO CG_AWD_ACCT_T2 SELECT * FROM CG_AWD_ACCT_T</sql>
+        <dropTable tableName="CG_AWD_ACCT_T"/>
+        <renameTable oldTableName="CG_AWD_ACCT_T2" newTableName="CG_AWD_ACCT_T"/>
+        <addPrimaryKey columnNames="CGPRPSL_NBR, FIN_COA_CD, ACCOUNT_NBR" constraintName="PKCG_AWD_ACCT_T" tableName="CG_AWD_ACCT_T"/>
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CG_AWD_ACCT_TC0" tableName="CG_AWD_ACCT_T"/>
+        <createIndex indexName="CG_AWD_ACCT_TI2" tableName="CG_AWD_ACCT_T">
+            <column name="FIN_COA_CD"/>
+            <column name="ACCOUNT_NBR"/>
+        </createIndex>
+        <createIndex indexName="CG_AWD_ACCT_TI4" tableName="CG_AWD_ACCT_T">
+            <column name="PERSON_UNVL_ID"/>
+        </createIndex>
+
+        <createTable tableName="CG_AWD_ORG_T2">
+            <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ORG_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="CGPRPSL_NBR" type="VARCHAR(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CGAWD_PRM_ORG_IND" type="VARCHAR(1)"/>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <sql>INSERT INTO CG_AWD_ORG_T2 SELECT * FROM CG_AWD_ORG_T</sql>
+        <dropTable tableName="CG_AWD_ORG_T"/>
+        <renameTable oldTableName="CG_AWD_ORG_T2" newTableName="CG_AWD_ORG_T"/>
+        <addPrimaryKey columnNames="FIN_COA_CD, ORG_CD, CGPRPSL_NBR" constraintName="PKCG_AWD_ORG_T" tableName="CG_AWD_ORG_T"/>
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CG_AWD_ORG_TC0" tableName="CG_AWD_ORG_T"/>
+        <createIndex indexName="CG_AWD_ORG_TI2" tableName="CG_AWD_ORG_T">
+            <column name="CGPRPSL_NBR"/>
+        </createIndex>
+
+        <createTable tableName="CG_AWD_SUBCN_T2">
+            <column defaultValue="" name="AWD_SUBCN_AMND_NBR" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="CGAWD_SUBCN_NBR" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="CG_SUBCNR_NBR" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="CGPRPSL_NBR" type="VARCHAR(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CG_SUBCN_AMT" type="DECIMAL(19, 2)"/>
+            <column name="SUBCNR_CNTCT_F_NM" type="VARCHAR(20)"/>
+            <column name="SUBCNR_CNTCT_L_NM" type="VARCHAR(25)"/>
+            <column name="SUBCN_AUDTHIST_TXT" type="VARCHAR(2000)"/>
+            <column name="CGAWD_SUBCN_DESC" type="VARCHAR(30)"/>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <sql>INSERT INTO CG_AWD_SUBCN_T2 SELECT * FROM CG_AWD_SUBCN_T</sql>
+        <dropTable tableName="CG_AWD_SUBCN_T"/>
+        <renameTable oldTableName="CG_AWD_SUBCN_T2" newTableName="CG_AWD_SUBCN_T"/>
+        <addPrimaryKey columnNames="AWD_SUBCN_AMND_NBR, CGAWD_SUBCN_NBR, CG_SUBCNR_NBR, CGPRPSL_NBR" constraintName="PKCG_AWD_SUBCN_T" tableName="CG_AWD_SUBCN_T"/>
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CG_AWD_SUBCN_TC0" tableName="CG_AWD_SUBCN_T"/>
+        <createIndex indexName="CG_AWD_SUBCN_TI2" tableName="CG_AWD_SUBCN_T">
+            <column name="CGPRPSL_NBR"/>
+        </createIndex>
+        <createIndex indexName="CG_AWD_SUBCN_TI3" tableName="CG_AWD_SUBCN_T">
+            <column name="CG_SUBCNR_NBR"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINI-319_CHANGE_CGPRPSL_NBR_TYPE_TO_VARCHAR_FROM_DECIMALg" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CGPRPSL_NBR" baseTableName="CG_AWD_ACCT_T"
+                                 constraintName="CG_AWD_ACCT_TR4" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CGPRPSL_NBR"
+                                 referencedTableName="CG_AWD_T"/>
+        <addForeignKeyConstraint baseColumnNames="CGPRPSL_NBR" baseTableName="CG_AWD_FNDMGR_T"
+                                 constraintName="CG_AWD_FNDMGR_TR1" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CGPRPSL_NBR"
+                                 referencedTableName="CG_AWD_T"/>
+        <addForeignKeyConstraint baseColumnNames="CGPRPSL_NBR" baseTableName="CG_AWD_ORG_T"
+                                 constraintName="CG_AWD_ORG_TR3" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CGPRPSL_NBR"
+                                 referencedTableName="CG_AWD_T"/>
+        <addForeignKeyConstraint baseColumnNames="CGPRPSL_NBR" baseTableName="CG_AWD_PRJDR_T"
+                                 constraintName="CG_AWD_PRJDR_TR2" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CGPRPSL_NBR"
+                                 referencedTableName="CG_AWD_T"/>
+        <addForeignKeyConstraint baseColumnNames="CGPRPSL_NBR" baseTableName="CG_AWD_SUBCN_T"
+                                 constraintName="CG_AWD_SUBCN_TR2" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CGPRPSL_NBR"
+                                 referencedTableName="CG_AWD_T"/>
+        <addForeignKeyConstraint baseColumnNames="CGPRPSL_NBR" baseTableName="CG_AWD_T" constraintName="CG_AWD_TR1"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="CGPRPSL_NBR" referencedTableName="CG_PRPSL_T"/>
+        <addForeignKeyConstraint baseColumnNames="CGPRPSL_NBR" baseTableName="CG_PRPSL_ORG_T"
+                                 constraintName="CG_PRPSL_ORG_TR3" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CGPRPSL_NBR"
+                                 referencedTableName="CG_PRPSL_T"/>
+        <addForeignKeyConstraint baseColumnNames="CGPRPSL_NBR" baseTableName="CG_PRPSL_PRJDR_T"
+                                 constraintName="CG_PRPSL_PRJDR_TR2" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CGPRPSL_NBR"
+                                 referencedTableName="CG_PRPSL_T"/>
+        <addForeignKeyConstraint baseColumnNames="CGPRPSL_NBR" baseTableName="CG_PRPSL_RSRCH_RSK_T"
+                                 constraintName="CG_PRPSL_RSRCH_RSK_TR1" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CGPRPSL_NBR"
+                                 referencedTableName="CG_PRPSL_T"/>
+        <addForeignKeyConstraint baseColumnNames="RSRCH_RSK_TYP_CD" baseTableName="CG_PRPSL_RSRCH_RSK_T"
+                                 constraintName="CG_PRPSL_RSRCH_RSK_TR2" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="RSRCH_RSK_TYP_CD"
+                                 referencedTableName="ER_RSRCH_RSK_TYP_T"/>
+        <addForeignKeyConstraint baseColumnNames="CGPRPSL_NBR" baseTableName="CG_PRPSL_SUBCN_T"
+                                 constraintName="CG_PRPSL_SUBCN_TR2" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CGPRPSL_NBR"
+                                 referencedTableName="CG_PRPSL_T"/>
+        <addForeignKeyConstraint baseColumnNames="CG_SUBCNR_NBR" baseTableName="CG_PRPSL_SUBCN_T"
+                                 constraintName="CG_PRPSL_SUBCN_TR1" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CG_SUBCNR_NBR"
+                                 referencedTableName="CG_SUBCNR_T"/>
+    </changeSet>
+</databaseChangeLog>

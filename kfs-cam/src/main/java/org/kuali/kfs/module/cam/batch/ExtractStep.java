@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  * 
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.cam.batch;
 
-import java.sql.Timestamp;
-import java.util.Date;
-
 import org.apache.log4j.Logger;
-import org.kuali.kfs.module.cab.batch.service.BatchExtractReportService;
-import org.kuali.kfs.module.cab.batch.service.BatchExtractService;
+import org.kuali.kfs.module.cam.batch.service.BatchExtractReportService;
+import org.kuali.kfs.module.cam.batch.service.BatchExtractService;
 import org.kuali.kfs.sys.batch.AbstractStep;
 import org.kuali.rice.core.api.datetime.DateTimeService;
+
+import java.sql.Timestamp;
+import java.util.Date;
 
 public class ExtractStep extends AbstractStep {
     private static final Logger LOG = Logger.getLogger(ExtractStep.class);
@@ -47,7 +47,7 @@ public class ExtractStep extends AbstractStep {
      * <li>Insert into CB_PUR_ITM_AST_T when record not exists or inactive, if active exact match found then skip</li>
      * <li>Insert one/multiple entries into CB_PUR_LN_AST_ACCT_T, amount should match exact from account line history</li>
      *
-     * @see org.kuali.kfs.batch.Step#execute(java.lang.String, java.util.Date)
+     * @see org.kuali.kfs.batch.Step#execute(String, Date)
      */
     @Override
     public boolean execute(String jobName, Date jobRunDate) throws InterruptedException {
@@ -60,14 +60,12 @@ public class ExtractStep extends AbstractStep {
             processLog.setStartTime(startTs);
             batchExtractService.performExtract(processLog);
             processLog.setFinishTime(dateTimeService.getCurrentTimestamp());
-        }
-        catch (Throwable e) {
+        } catch (Throwable e) {
             processLog.setSuccess(false);
             processLog.setErrorMessage("Unexpected error occured while performing CAB Extract. " + e.toString());
             LOG.error("Unexpected error occured while performing CAB Extract.", e);
             throw new RuntimeException(e);
-        }
-        finally {
+        } finally {
             batchExtractReportService.generateStatusReportPDF(processLog);
             // create mismatch report if necessary
             if (processLog.getMismatchedGLEntries() != null && !processLog.getMismatchedGLEntries().isEmpty()) {

@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,9 +18,11 @@
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
-import java.util.List;
-
 import org.apache.commons.collections.CollectionUtils;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
@@ -30,10 +32,8 @@ import org.kuali.kfs.module.ar.document.FinalBilledIndicatorDocument;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.util.List;
 
 /**
  * This class is Validation class for FinalBilledIndicator.
@@ -56,7 +56,7 @@ public class FinalBilledIndicatorValidation {
             GlobalVariables.getMessageMap().putError(ArPropertyConstants.FINAL_BILLED_INDICATOR_ENTRIES_PROPERTY_PATH, ArKeyConstants.ERROR_FINAL_BILLED_INDICATOR_NO_INVOICE);
             valid = false;
         } else {
-            for (FinalBilledIndicatorEntry entry: invoiceEntries) {
+            for (FinalBilledIndicatorEntry entry : invoiceEntries) {
                 valid &= validateEntry(entry);
             }
         }
@@ -96,13 +96,11 @@ public class FinalBilledIndicatorValidation {
                     return false;
                 }
                 return entryValidations((ContractsGrantsInvoiceDocument) testDocument);
-            }
-            else {
+            } else {
                 GlobalVariables.getMessageMap().putError(ArPropertyConstants.FINAL_BILLED_INDICATOR_ENTRIES_PROPERTY_PATH, ArKeyConstants.ERROR_FINAL_BILLED_INDICATOR_INVALID_INVOICE);
                 return false;
             }
-        }
-        catch (WorkflowException ex) {
+        } catch (WorkflowException ex) {
             LOG.error("problem during FinalBilledIndicatorValidation.validContractsGrantsInvoiceValidation()", ex);
             throw new RuntimeException("problem during FinalBilledIndicatorValidation.validContractsGrantsInvoiceValidation()", ex);
         }

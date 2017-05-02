@@ -1,29 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.businessobject.lookup;
-
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
@@ -31,6 +24,14 @@ import org.kuali.kfs.gl.Constant;
 import org.kuali.kfs.gl.businessobject.Balance;
 import org.kuali.kfs.gl.businessobject.CurrentAccountBalance;
 import org.kuali.kfs.gl.service.AccountBalanceService;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.datadictionary.DataDictionary;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.ObjectUtil;
@@ -39,29 +40,32 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.fixture.AccountFixture;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.rice.kns.lookup.HtmlData.AnchorHtmlData;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.rice.krad.datadictionary.DataDictionary;
-import org.kuali.rice.krad.exception.ValidationException;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.DataDictionaryService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 @ConfigureContext
 public class CurrentAccountBalanceLookupableHelperServiceTest extends AbstractGeneralLedgerLookupableHelperServiceTestBase {
 
     // Enum, for sake of readability in method calls
-    private enum ExpectException{YES, NO};
+    private enum ExpectException {
+        YES, NO
+    }
+
+    ;
 
     // Class variables, service key, namely the class being tested
     private static final String LOOKUP_HELPER_SERVICE_KEY = "glCurrentAccountBalanceLookupableHelperService";
 
     // Class variables, search parameter keys
     private static final String UNIVERSITY_FISCAL_YEAR_KEY = KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR; // universityFiscalYear
-    private static final String UNIVERSITY_FISCAL_PERIOD_CODE_KEY =  KFSPropertyConstants.UNIVERSITY_FISCAL_PERIOD_CODE; // universityFiscalPeriodCode
-    private static final String CHART_OF_ACCOUNTS_CODE_KEY =  KFSPropertyConstants.ACCOUNT + "." + KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE; // chartOfAccountsCode
-    private static final String ACCOUNT_NUMBER_KEY =   KFSPropertyConstants.ACCOUNT + "." + KFSPropertyConstants.ACCOUNT_NUMBER; // account.accountNumber
+    private static final String UNIVERSITY_FISCAL_PERIOD_CODE_KEY = KFSPropertyConstants.UNIVERSITY_FISCAL_PERIOD_CODE; // universityFiscalPeriodCode
+    private static final String CHART_OF_ACCOUNTS_CODE_KEY = KFSPropertyConstants.ACCOUNT + "." + KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE; // chartOfAccountsCode
+    private static final String ACCOUNT_NUMBER_KEY = KFSPropertyConstants.ACCOUNT + "." + KFSPropertyConstants.ACCOUNT_NUMBER; // account.accountNumber
     private static final String FISCAL_OFFICER_PRINCIPAL_NAME_KEY = KFSPropertyConstants.ACCOUNT + "." + KFSPropertyConstants.ACCOUNT_FISCAL_OFFICER_USER + "." + KFSPropertyConstants.PERSON_USER_ID; // account.accountFiscalOfficerUser.principalName;
     private static final String ACCOUNT_SUPERVISOR_PRINCIPAL_NAME_KEY = KFSPropertyConstants.ACCOUNT + "." + KFSPropertyConstants.ACCOUNT_SUPERVISORY_USER + "." + KFSPropertyConstants.PERSON_USER_ID; // account.accountSupervisoryUser.principalName
     private static final String SUB_ACCOUNT_NUMBER_KEY = KFSPropertyConstants.SUB_ACCOUNT_NUMBER; // subAccountNumber
@@ -84,8 +88,6 @@ public class CurrentAccountBalanceLookupableHelperServiceTest extends AbstractGe
     private Map<String, String> requiredFieldToValueMap;
     private Map<String, String> semiRequiredFieldToValueMap;
     private Map<String, String> optionalFieldToValueMap;
-
-
 
 
     /**
@@ -115,7 +117,7 @@ public class CurrentAccountBalanceLookupableHelperServiceTest extends AbstractGe
     /*
      * Helper method that sets up each type of search parameter map.
      */
-    private void initFieldToValueMaps(){
+    private void initFieldToValueMaps() {
         initRequiredFieldToValueMap();
         initSemiRequiredFieldToValueMap();
         initOptionalFieldToValueMap();
@@ -126,7 +128,7 @@ public class CurrentAccountBalanceLookupableHelperServiceTest extends AbstractGe
     /*
      * Initialize required search parameter key/value pairs.
      */
-    private void initRequiredFieldToValueMap(){
+    private void initRequiredFieldToValueMap() {
         requiredFieldToValueMap = new HashMap<String, String>();
         requiredFieldToValueMap.put(UNIVERSITY_FISCAL_YEAR_KEY, UNIVERSITY_FISCAL_YEAR.toString());
         requiredFieldToValueMap.put(UNIVERSITY_FISCAL_PERIOD_CODE_KEY, pendingEntry.getUniversityFiscalPeriodCode());
@@ -137,7 +139,7 @@ public class CurrentAccountBalanceLookupableHelperServiceTest extends AbstractGe
     /*
      * Initialize "at-least-one" search parameter key/value pairs.
      */
-    private void initSemiRequiredFieldToValueMap(){
+    private void initSemiRequiredFieldToValueMap() {
         /*
          * These are related to creating an Account object to set on the
          * pendingEntry object, and a subsequent join on the Account table
@@ -154,7 +156,7 @@ public class CurrentAccountBalanceLookupableHelperServiceTest extends AbstractGe
     /*
      * Initialize completely optional search parameter key/value pairs.
      */
-    private void initOptionalFieldToValueMap(){
+    private void initOptionalFieldToValueMap() {
         optionalFieldToValueMap = new HashMap<String, String>();
         optionalFieldToValueMap.put(SUB_ACCOUNT_NUMBER_KEY, pendingEntry.getSubAccountNumber());
 
@@ -169,7 +171,7 @@ public class CurrentAccountBalanceLookupableHelperServiceTest extends AbstractGe
     /*
      * Combine all search parameter key/value pairs into ine map.
      */
-    private void initFullFieldToValueMap(){
+    private void initFullFieldToValueMap() {
         fullFieldToValueMap = new HashMap<String, String>();
         fullFieldToValueMap.putAll(requiredFieldToValueMap);
         fullFieldToValueMap.putAll(semiRequiredFieldToValueMap);
@@ -184,7 +186,7 @@ public class CurrentAccountBalanceLookupableHelperServiceTest extends AbstractGe
      * would be hyperlinked to perform an auto search and return the user to a
      * "System Options Inquiry" results page with details about that
      * "Fiscal Year" entry.
-     *
+     * <p>
      * In this specific test case, the "subAccountCode" hyperlink should not
      * exist when the "Consolidation Option" of the search is selected to be
      * "Consolidation". Selecting this option means that subAccountNumber is
@@ -211,14 +213,14 @@ public class CurrentAccountBalanceLookupableHelperServiceTest extends AbstractGe
         inquiryFieldNames.add(SUB_ACCOUNT_NUMBER_KEY);
 
         //List<String> inquiryFieldNames = new ArrayList<String>();
-        for(String fieldName : inquiryFieldNames){
-            AnchorHtmlData htmlData = (AnchorHtmlData)lookupableHelperServiceImpl.getInquiryUrl(currentAccountBalance, fieldName);
+        for (String fieldName : inquiryFieldNames) {
+            AnchorHtmlData htmlData = (AnchorHtmlData) lookupableHelperServiceImpl.getInquiryUrl(currentAccountBalance, fieldName);
             assertTrue("Null inquiryUrl for property: " + fieldName, ObjectUtils.isNotNull(htmlData));
 
             String href = htmlData.getHref();
-            if(SUB_ACCOUNT_NUMBER_KEY.equals(fieldName)){
+            if (SUB_ACCOUNT_NUMBER_KEY.equals(fieldName)) {
                 assertTrue("The href anchor for the property " + fieldName + "is not blank.", StringUtils.isBlank(href));
-            }else{
+            } else {
                 assertTrue("The href anchor for the property " + fieldName + "is blank.", StringUtils.isNotBlank(href));
             }
         }
@@ -231,23 +233,23 @@ public class CurrentAccountBalanceLookupableHelperServiceTest extends AbstractGe
 
     /**
      * This test validates search paramaters specific to CurrentAccountBalanceLookupableHelperServiceImpl.
-     *
+     * <p>
      * Validation of actual values via services only occur for universityFiscalYear and
      * universityFiscalPeriodCode. This means that test values must be present in the
      * coresponding FS_OPTION_T and SH_ACCT_PERIOD_T DB tables.
-     *
+     * <p>
      * Validation for the remaining parameters consist of ensuring the parameters line up
      * with public properties of the CurrentAccountBalance class, as defined in the
      * CurrentAccountBalance.xml Data Dictionary(DD) configuration, and that the values of
      * the properties are non-null if they are defined as such in the DD.
-     *
+     * <p>
      * Additionally, it should be noted that this method tests the various combinations
      * of parameters, since one subset is always required, another subset requires only
      * one from the set, and the final subset is entirely optional.
-     *
+     * <p>
      * Coverage for Override of {@link org.kuali.kfs.gl.businessobject.lookup.AbstractGeneralLedgerLookupableHelperServiceImpl#validateSearchParameters(java.util.Map)}
      */
-    public void testValidateSearchParameters(){
+    public void testValidateSearchParameters() {
         /*
          * Search Parameter Subsets:
          *
@@ -305,12 +307,12 @@ public class CurrentAccountBalanceLookupableHelperServiceTest extends AbstractGe
      * 2. Perform validation against the input map, both positive and negative testing
      * 3. Clear any global error messages since an error count will fail other tests
      */
-    private void validateMap(Map<String, String> fieldToValueMap, ExpectException shouldExpectException){
+    private void validateMap(Map<String, String> fieldToValueMap, ExpectException shouldExpectException) {
         String message = String.format("Validation failed for search parameters: %s", fieldToValueMap.keySet());
-        try{
-            if(shouldExpectException == ExpectException.YES){
+        try {
+            if (shouldExpectException == ExpectException.YES) {
                 assertTrue(message, validateSearchParametersThrowsException(fieldToValueMap));
-            }else{
+            } else {
                 assertFalse(message, validateSearchParametersThrowsException(fieldToValueMap));
             }
         } finally {
@@ -327,9 +329,9 @@ public class CurrentAccountBalanceLookupableHelperServiceTest extends AbstractGe
      * to blow up if an unexpected error manifests.
      */
     private boolean validateSearchParametersThrowsException(Map<String, String> fieldToValueMap) {
-        try{
+        try {
             lookupableHelperServiceImpl.validateSearchParameters(fieldToValueMap);
-        }catch(ValidationException e){
+        } catch (ValidationException e) {
             return true;
         }
         return false;
@@ -337,119 +339,119 @@ public class CurrentAccountBalanceLookupableHelperServiceTest extends AbstractGe
 
 
     /**
-    * This method will run several searches with various combos
-    * of search parameter key/value pairs.
-    *
-    * @throw java.lang.Exception Thrown when any exception occurs that is not of type ValidationException
-    * @see org.kuali.kfs.gl.businessobject.lookup.AbstractGeneralLedgerLookupableHelperServiceTestBase#testGetSearchResults()
-    */
-   @Override
-   public void testGetSearchResults() throws Exception {
+     * This method will run several searches with various combos
+     * of search parameter key/value pairs.
+     *
+     * @throw java.lang.Exception Thrown when any exception occurs that is not of type ValidationException
+     * @see org.kuali.kfs.gl.businessobject.lookup.AbstractGeneralLedgerLookupableHelperServiceTestBase#testGetSearchResults()
+     */
+    @Override
+    public void testGetSearchResults() throws Exception {
 
-       // Used to persist generated record
-       Balance balance = new Balance(pendingEntry);
-       balance.setUniversityFiscalYear(UNIVERSITY_FISCAL_YEAR);
+        // Used to persist generated record
+        Balance balance = new Balance(pendingEntry);
+        balance.setUniversityFiscalYear(UNIVERSITY_FISCAL_YEAR);
 
-       // Used for testing lookup
-       CurrentAccountBalance currentAccountBalance = generateCurrentAccountBalance(balance);
+        // Used for testing lookup
+        CurrentAccountBalance currentAccountBalance = generateCurrentAccountBalance(balance);
 
-       // Test without having inserted Balance
-       Map<String, String> fieldValues = getLookupFieldValues(currentAccountBalance, false);
-       List searchResults = lookupableHelperServiceImpl.getSearchResults(fieldValues);
-       assertTrue(testDataGenerator.getMessageValue("noSuchRecord"), !contains(searchResults, currentAccountBalance));
+        // Test without having inserted Balance
+        Map<String, String> fieldValues = getLookupFieldValues(currentAccountBalance, false);
+        List searchResults = lookupableHelperServiceImpl.getSearchResults(fieldValues);
+        assertTrue(testDataGenerator.getMessageValue("noSuchRecord"), !contains(searchResults, currentAccountBalance));
 
-       // Add record to DB
-       insertNewRecord(balance);
+        // Add record to DB
+        insertNewRecord(balance);
 
-       // Search with only the required params, should return 1 result
-       fieldValues = getLookupFieldValues(currentAccountBalance, false);
-       searchResults = lookupableHelperServiceImpl.getSearchResults(fieldValues);
-       int numOfFirstResult = searchResults.size();
-       assertTrue(testDataGenerator.getMessageValue("wrongRecordSize"), searchResults.size() >= 1);
-       assertTrue(testDataGenerator.getMessageValue("failToFindRecord"), contains(searchResults, currentAccountBalance));
+        // Search with only the required params, should return 1 result
+        fieldValues = getLookupFieldValues(currentAccountBalance, false);
+        searchResults = lookupableHelperServiceImpl.getSearchResults(fieldValues);
+        int numOfFirstResult = searchResults.size();
+        assertTrue(testDataGenerator.getMessageValue("wrongRecordSize"), searchResults.size() >= 1);
+        assertTrue(testDataGenerator.getMessageValue("failToFindRecord"), contains(searchResults, currentAccountBalance));
 
-       // Search with all available search params, should return 1 result
-       fieldValues = getLookupFieldValues(currentAccountBalance, true);
-       searchResults = lookupableHelperServiceImpl.getSearchResults(fieldValues);
-       assertTrue(testDataGenerator.getMessageValue("wrongRecordSize"), searchResults.size() >= numOfFirstResult);
-       assertTrue(testDataGenerator.getMessageValue("failToFindRecord"), contains(searchResults, currentAccountBalance));
+        // Search with all available search params, should return 1 result
+        fieldValues = getLookupFieldValues(currentAccountBalance, true);
+        searchResults = lookupableHelperServiceImpl.getSearchResults(fieldValues);
+        assertTrue(testDataGenerator.getMessageValue("wrongRecordSize"), searchResults.size() >= numOfFirstResult);
+        assertTrue(testDataGenerator.getMessageValue("failToFindRecord"), contains(searchResults, currentAccountBalance));
 
-   }
-
-
-   /**
-    * This method will return a map of entries suitable for building a record
-    * query.
-    *
-    * Need to override since TestDataGenerator only handles key/value pairs
-    * contained in the data.properties test file.
-    *
-    * If one places properties in the file that are not relevant to a Transaction objects,
-    * an exception is thrown.
-    *
-    * @param businessObject Moot, this is just to follow the parents method signature
-    * @param isExtended If true, will include all search kay/pair values, if false, will only return bare minimum kay/pair values
-    * @see org.kuali.kfs.gl.businessobject.lookup.AbstractGeneralLedgerLookupableHelperServiceTestBase#getLookupFieldValues(org.kuali.rice.krad.bo.PersistableBusinessObjectBase, boolean)
-    */
-   @Override
-   public Map<String, String> getLookupFieldValues(PersistableBusinessObjectBase businessObject, boolean isExtended) throws Exception{
-       if(isExtended){
-           return fullFieldToValueMap;
-       }else{
-           // Don't add in the optional fields
-           Map<String, String> results = new HashMap<String, String>();
-           results.putAll(requiredFieldToValueMap);
-           results.put(ACCOUNT_NUMBER_KEY, semiRequiredFieldToValueMap.get(ACCOUNT_NUMBER_KEY));
-           return results;
-       }
-   }
+    }
 
 
-   /*
-    * Build a CuurentAccountBalance from the given Balance
-    */
-   private CurrentAccountBalance generateCurrentAccountBalance(Balance balance){
-       CurrentAccountBalance currentAccountBalance = new CurrentAccountBalance();
-       ObjectUtil.buildObject(currentAccountBalance, balance);
-       currentAccountBalance.setUniversityFiscalYear(UNIVERSITY_FISCAL_YEAR);
-       currentAccountBalance.setAccount(generateAccount());
-       currentAccountBalance.setUniversityFiscalPeriodCode(requiredFieldToValueMap.get(UNIVERSITY_FISCAL_PERIOD_CODE_KEY));
-       return currentAccountBalance;
-   }
+    /**
+     * This method will return a map of entries suitable for building a record
+     * query.
+     * <p>
+     * Need to override since TestDataGenerator only handles key/value pairs
+     * contained in the data.properties test file.
+     * <p>
+     * If one places properties in the file that are not relevant to a Transaction objects,
+     * an exception is thrown.
+     *
+     * @param businessObject Moot, this is just to follow the parents method signature
+     * @param isExtended     If true, will include all search kay/pair values, if false, will only return bare minimum kay/pair values
+     * @see org.kuali.kfs.gl.businessobject.lookup.AbstractGeneralLedgerLookupableHelperServiceTestBase#getLookupFieldValues(org.kuali.rice.krad.bo.PersistableBusinessObjectBase, boolean)
+     */
+    @Override
+    public Map<String, String> getLookupFieldValues(PersistableBusinessObjectBase businessObject, boolean isExtended) throws Exception {
+        if (isExtended) {
+            return fullFieldToValueMap;
+        } else {
+            // Don't add in the optional fields
+            Map<String, String> results = new HashMap<String, String>();
+            results.putAll(requiredFieldToValueMap);
+            results.put(ACCOUNT_NUMBER_KEY, semiRequiredFieldToValueMap.get(ACCOUNT_NUMBER_KEY));
+            return results;
+        }
+    }
 
 
-   /*
-    * Create a minimal Account object, which will be set on
-    * super.pendingEntry, and used in generating test data.
-    */
-   private Account generateAccount(){
-       Account account = AccountFixture.ACCOUNT_PRESENCE_ACCOUNT.createAccount();
-       account.setAccountExpirationDate(Date.valueOf(ACCOUNT_EXPIRATION_DATE));
-       account.setActive(true);
-       account.setAccountNumber(testDataGenerator.getPropertyValue(KFSPropertyConstants.ACCOUNT_NUMBER));
-       account.setChartOfAccountsCode(pendingEntry.getChartOfAccountsCode());
-       account.setOrganizationCode(optionalFieldToValueMap.get(ORGINIZATION_CODE_KEY));
-
-       Person accountFiscalOfficerUser = personService.getPersonByPrincipalName(semiRequiredFieldToValueMap.get(FISCAL_OFFICER_PRINCIPAL_NAME_KEY));
-       account.setAccountFiscalOfficerSystemIdentifier(accountFiscalOfficerUser.getPrincipalId());
-       account.setAccountFiscalOfficerUser(accountFiscalOfficerUser);
-
-       Person accountSupervisoryUser = personService.getPersonByPrincipalName(semiRequiredFieldToValueMap.get(ACCOUNT_SUPERVISOR_PRINCIPAL_NAME_KEY));
-       account.setAccountFiscalOfficerSystemIdentifier(accountSupervisoryUser.getPrincipalId());
-       account.setAccountSupervisoryUser(accountSupervisoryUser);
-
-       return account;
-   }
+    /*
+     * Build a CuurentAccountBalance from the given Balance
+     */
+    private CurrentAccountBalance generateCurrentAccountBalance(Balance balance) {
+        CurrentAccountBalance currentAccountBalance = new CurrentAccountBalance();
+        ObjectUtil.buildObject(currentAccountBalance, balance);
+        currentAccountBalance.setUniversityFiscalYear(UNIVERSITY_FISCAL_YEAR);
+        currentAccountBalance.setAccount(generateAccount());
+        currentAccountBalance.setUniversityFiscalPeriodCode(requiredFieldToValueMap.get(UNIVERSITY_FISCAL_PERIOD_CODE_KEY));
+        return currentAccountBalance;
+    }
 
 
-   /*
-    * This method inserts a new Balance record into database.
-    *
-    * @param transaction the given transaction to persist.
-    */
-   private void insertNewRecord(Balance balance) {
-       SpringContext.getBean(BusinessObjectService.class).save(balance);
-   }
+    /*
+     * Create a minimal Account object, which will be set on
+     * super.pendingEntry, and used in generating test data.
+     */
+    private Account generateAccount() {
+        Account account = AccountFixture.ACCOUNT_PRESENCE_ACCOUNT.createAccount();
+        account.setAccountExpirationDate(Date.valueOf(ACCOUNT_EXPIRATION_DATE));
+        account.setActive(true);
+        account.setAccountNumber(testDataGenerator.getPropertyValue(KFSPropertyConstants.ACCOUNT_NUMBER));
+        account.setChartOfAccountsCode(pendingEntry.getChartOfAccountsCode());
+        account.setOrganizationCode(optionalFieldToValueMap.get(ORGINIZATION_CODE_KEY));
+
+        Person accountFiscalOfficerUser = personService.getPersonByPrincipalName(semiRequiredFieldToValueMap.get(FISCAL_OFFICER_PRINCIPAL_NAME_KEY));
+        account.setAccountFiscalOfficerSystemIdentifier(accountFiscalOfficerUser.getPrincipalId());
+        account.setAccountFiscalOfficerUser(accountFiscalOfficerUser);
+
+        Person accountSupervisoryUser = personService.getPersonByPrincipalName(semiRequiredFieldToValueMap.get(ACCOUNT_SUPERVISOR_PRINCIPAL_NAME_KEY));
+        account.setAccountFiscalOfficerSystemIdentifier(accountSupervisoryUser.getPrincipalId());
+        account.setAccountSupervisoryUser(accountSupervisoryUser);
+
+        return account;
+    }
+
+
+    /*
+     * This method inserts a new Balance record into database.
+     *
+     * @param transaction the given transaction to persist.
+     */
+    private void insertNewRecord(Balance balance) {
+        SpringContext.getBean(BusinessObjectService.class).save(balance);
+    }
 
 
     /**
@@ -465,7 +467,7 @@ public class CurrentAccountBalanceLookupableHelperServiceTest extends AbstractGe
         lookupFields.add(UNIVERSITY_FISCAL_YEAR_KEY);
         lookupFields.add(UNIVERSITY_FISCAL_PERIOD_CODE_KEY);
         lookupFields.add(ACCOUNT_NUMBER_KEY);
-        if(isExtended){
+        if (isExtended) {
             lookupFields.add(ORGINIZATION_CODE_KEY);
             lookupFields.add(FISCAL_OFFICER_PRINCIPAL_NAME_KEY);
             lookupFields.add(ACCOUNT_SUPERVISOR_PRINCIPAL_NAME_KEY);

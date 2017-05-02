@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -45,7 +45,7 @@ public interface ContractsAndGrantsModuleBillingService {
      * @param currentAward
      * @return
      */
-    public ContractsAndGrantsBillingAward updateAwardIfNecessary(Long proposalNumber, ContractsAndGrantsBillingAward currentAward);
+    public ContractsAndGrantsBillingAward updateAwardIfNecessary(String proposalNumber, ContractsAndGrantsBillingAward currentAward);
 
     /**
      * This method sets last Billed Date to award Account.
@@ -62,7 +62,7 @@ public interface ContractsAndGrantsModuleBillingService {
      * @param proposalNumber
      * @param lastBilledDate
      */
-    public void setLastBilledDateToAward(Long proposalNumber, java.sql.Date lastBilledDate);
+    public void setLastBilledDateToAward(String proposalNumber, java.sql.Date lastBilledDate);
 
     /**
      * This method sets final billed to award Account.
@@ -81,5 +81,15 @@ public interface ContractsAndGrantsModuleBillingService {
      * @param lastBilledDate
      */
     public void setFinalBilledAndLastBilledDateToAwardAccount(Map<String, Object> mapKey, boolean finalBilled, boolean invoiceReversal, java.sql.Date lastBilledDate);
+
+
+    /**
+     * Gets letter of credit award criteria.
+     *
+     * @param fundGroupCode the fund group code
+     * @param fundCode      the fund code
+     * @return the letter of credit award criteria
+     */
+    public Map<String, Object> getLetterOfCreditAwardCriteria(String fundGroupCode, String fundCode);
 
 }

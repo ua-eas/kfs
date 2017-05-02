@@ -1,35 +1,35 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.coa.businessobject;
 
-import java.math.BigDecimal;
-
 import org.apache.log4j.Logger;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 import org.springframework.beans.BeanUtils;
+
+import java.math.BigDecimal;
 
 /**
  * IndrectCostRecoveryAccount
  */
-public class IndirectCostRecoveryAccount extends PersistableBusinessObjectBase implements MutableInactivatable{
+public class IndirectCostRecoveryAccount extends PersistableBusinessObjectBase implements MutableInactivatable {
     private static Logger LOG = Logger.getLogger(IndirectCostRecoveryAccount.class);
 
     private Integer indirectCostRecoveryAccountGeneratedIdentifier;
@@ -125,7 +125,7 @@ public class IndirectCostRecoveryAccount extends PersistableBusinessObjectBase i
      *
      * @param account The account to set.
      * @deprecated Setter is required by OJB, but should not be used to modify this attribute. This attribute is set on the initial
-     *             creation of the object and should not be changed.
+     * creation of the object and should not be changed.
      */
     @Deprecated
     public void setIndirectCostRecoveryAccount(Account indirectCostRecoveryAccount) {
@@ -144,7 +144,7 @@ public class IndirectCostRecoveryAccount extends PersistableBusinessObjectBase i
      *
      * @param indirectCostRcvyChartOfAccounts The chartOfAccounts to set.
      * @deprecated Setter is required by OJB, but should not be used to modify this attribute. This attribute is set on the initial
-     *             creation of the object and should not be changed.
+     * creation of the object and should not be changed.
      */
     @Deprecated
     public void setIndirectCostRecoveryChartOfAccounts(Chart indirectCostRecoveryChartOfAccounts) {

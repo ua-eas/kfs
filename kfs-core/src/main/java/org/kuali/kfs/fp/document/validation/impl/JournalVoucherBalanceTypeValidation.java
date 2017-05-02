@@ -1,37 +1,37 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import static org.kuali.kfs.sys.KFSPropertyConstants.BALANCE_TYPE_CODE;
-import static org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBaseConstants.ERROR_PATH.DOCUMENT_ERROR_PREFIX;
-
 import org.kuali.kfs.coa.businessobject.BalanceType;
 import org.kuali.kfs.fp.document.JournalVoucherDocument;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
+import org.kuali.kfs.krad.datadictionary.DataDictionaryEntry;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.datadictionary.AttributeDefinition;
-import org.kuali.rice.krad.datadictionary.DataDictionaryEntry;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import static org.kuali.kfs.sys.KFSPropertyConstants.BALANCE_TYPE_CODE;
+import static org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBaseConstants.ERROR_PATH.DOCUMENT_ERROR_PREFIX;
 
 /**
  * Validation for the balance type on a Journal Voucher
@@ -42,6 +42,7 @@ public class JournalVoucherBalanceTypeValidation extends GenericValidation {
 
     /**
      * Checks that the balance type on a Journal Voucher document is in the database and currently active
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -59,10 +60,11 @@ public class JournalVoucherBalanceTypeValidation extends GenericValidation {
         }
         return true;
     }
-    
+
     /**
      * Looks up a label from the data dictionary
-     * @param entryClass the class of the attribute to lookup the label for
+     *
+     * @param entryClass    the class of the attribute to lookup the label for
      * @param attributeName the attribute to look up the label for
      * @return the label
      */
@@ -79,7 +81,8 @@ public class JournalVoucherBalanceTypeValidation extends GenericValidation {
     }
 
     /**
-     * Gets the journalVoucherForValidation attribute. 
+     * Gets the journalVoucherForValidation attribute.
+     *
      * @return Returns the journalVoucherForValidation.
      */
     public JournalVoucherDocument getJournalVoucherForValidation() {
@@ -88,6 +91,7 @@ public class JournalVoucherBalanceTypeValidation extends GenericValidation {
 
     /**
      * Sets the journalVoucherForValidation attribute value.
+     *
      * @param journalVoucherForValidation The journalVoucherForValidation to set.
      */
     public void setJournalVoucherForValidation(JournalVoucherDocument journalVoucherForValidation) {
@@ -95,7 +99,8 @@ public class JournalVoucherBalanceTypeValidation extends GenericValidation {
     }
 
     /**
-     * Gets the dataDictionaryService attribute. 
+     * Gets the dataDictionaryService attribute.
+     *
      * @return Returns the dataDictionaryService.
      */
     public DataDictionaryService getDataDictionaryService() {
@@ -104,6 +109,7 @@ public class JournalVoucherBalanceTypeValidation extends GenericValidation {
 
     /**
      * Sets the dataDictionaryService attribute value.
+     *
      * @param dataDictionaryService The dataDictionaryService to set.
      */
     public void setDataDictionaryService(DataDictionaryService dataDictionaryService) {

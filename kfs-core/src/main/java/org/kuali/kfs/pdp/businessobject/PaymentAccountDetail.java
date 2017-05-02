@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -21,10 +21,6 @@
  *
  */
 package org.kuali.kfs.pdp.businessobject;
-
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
 
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Chart;
@@ -35,6 +31,10 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.TimestampedBusinessObjectBase;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 public class PaymentAccountDetail extends TimestampedBusinessObjectBase {
 
@@ -68,7 +68,7 @@ public class PaymentAccountDetail extends TimestampedBusinessObjectBase {
 
     /**
      * This method gets the accountHistory list.
-     * 
+     *
      * @return the accountHistory list
      */
     public List<PaymentAccountHistory> getAccountHistory() {
@@ -77,7 +77,7 @@ public class PaymentAccountDetail extends TimestampedBusinessObjectBase {
 
     /**
      * This method sets the accountHistory list
-     * 
+     *
      * @param ah
      */
     public void setAccountHistory(List<PaymentAccountHistory> ah) {
@@ -86,7 +86,7 @@ public class PaymentAccountDetail extends TimestampedBusinessObjectBase {
 
     /**
      * This method add a new PaymentAccountHistory.
-     * 
+     *
      * @param pah
      */
     public void addAccountHistory(PaymentAccountHistory pah) {
@@ -96,7 +96,7 @@ public class PaymentAccountDetail extends TimestampedBusinessObjectBase {
 
     /**
      * This method deletes a PaymentAccountHistory.
-     * 
+     *
      * @param pah
      */
     public void deleteAccountDetail(PaymentAccountHistory pah) {
@@ -104,9 +104,9 @@ public class PaymentAccountDetail extends TimestampedBusinessObjectBase {
     }
 
     /**
+     * @return
      * @hibernate.id column="PMT_ACCT_DTL_ID" generator-class="sequence"
      * @hibernate.generator-param name="sequence" value="PDP.PDP_PMT_ACCT_DTL_ID_SEQ"
-     * @return
      */
     public KualiInteger getId() {
         return id;
@@ -260,7 +260,7 @@ public class PaymentAccountDetail extends TimestampedBusinessObjectBase {
 
     /**
      * Gets the paymentDetailId attribute.
-     * 
+     *
      * @return Returns the paymentDetailId.
      */
     public KualiInteger getPaymentDetailId() {
@@ -269,7 +269,7 @@ public class PaymentAccountDetail extends TimestampedBusinessObjectBase {
 
     /**
      * Sets the paymentDetailId attribute value.
-     * 
+     *
      * @param paymentDetailId The paymentDetailId to set.
      */
     public void setPaymentDetailId(KualiInteger paymentDetailId) {
@@ -279,7 +279,7 @@ public class PaymentAccountDetail extends TimestampedBusinessObjectBase {
     /**
      * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
      */
-    
+
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
         LinkedHashMap m = new LinkedHashMap();
 
@@ -290,7 +290,7 @@ public class PaymentAccountDetail extends TimestampedBusinessObjectBase {
 
     /**
      * This method gets the account.
-     * 
+     *
      * @return the account
      */
     public Account getAccount() {
@@ -299,7 +299,7 @@ public class PaymentAccountDetail extends TimestampedBusinessObjectBase {
 
     /**
      * This method sets the account.
-     * 
+     *
      * @param account
      */
     public void setAccount(Account account) {
@@ -308,7 +308,7 @@ public class PaymentAccountDetail extends TimestampedBusinessObjectBase {
 
     /**
      * This method gets the subAccount.
-     * 
+     *
      * @return the subAccount
      */
     public SubAccount getSubAccount() {
@@ -317,7 +317,7 @@ public class PaymentAccountDetail extends TimestampedBusinessObjectBase {
 
     /**
      * This method sets the subAccount.
-     * 
+     *
      * @param subAccount
      */
     public void setSubAccount(SubAccount subAccount) {
@@ -326,7 +326,7 @@ public class PaymentAccountDetail extends TimestampedBusinessObjectBase {
 
     /**
      * This method gets the chart of accounts.
-     * 
+     *
      * @return the chart of accounts
      */
     public Chart getChartOfAccounts() {
@@ -335,7 +335,7 @@ public class PaymentAccountDetail extends TimestampedBusinessObjectBase {
 
     /**
      * This method sets the chart of accounts.
-     * 
+     *
      * @param chartOfAccounts
      */
     public void setChartOfAccounts(Chart chartOfAccounts) {
@@ -344,7 +344,7 @@ public class PaymentAccountDetail extends TimestampedBusinessObjectBase {
 
     /**
      * This method gets the project.
-     * 
+     *
      * @return the project
      */
     public ProjectCode getProject() {
@@ -353,7 +353,7 @@ public class PaymentAccountDetail extends TimestampedBusinessObjectBase {
 
     /**
      * This method sets the project.
-     * 
+     *
      * @param project
      */
     public void setProject(ProjectCode project) {
@@ -362,7 +362,7 @@ public class PaymentAccountDetail extends TimestampedBusinessObjectBase {
 
     /**
      * This method gets the cuttent object code.
-     * 
+     *
      * @return the current object code
      */
     public ObjectCodeCurrent getObjectCode() {
@@ -371,7 +371,7 @@ public class PaymentAccountDetail extends TimestampedBusinessObjectBase {
 
     /**
      * This method sets the cuttent object code.
-     * 
+     *
      * @param objectCode
      */
     public void setObjectCode(ObjectCodeCurrent objectCode) {

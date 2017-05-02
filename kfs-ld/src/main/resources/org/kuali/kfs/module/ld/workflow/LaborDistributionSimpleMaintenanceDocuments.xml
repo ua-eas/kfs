@@ -1,0 +1,140 @@
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<data xmlns="ns:workflow" xsi:schemaLocation="ns:workflow resource:WorkflowData" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <documentTypes xmlns="ns:workflow/DocumentType" xsi:schemaLocation="ns:workflow/DocumentType resource:DocumentType">
+        <documentType>
+            <name>
+                BCAL
+            </name>
+            <parent>
+                LDSM
+            </parent>
+            <label>
+                Labor Benefits Calculation
+            </label>
+            <helpDefinitionURL>
+                default.htm?turl=WordDocuments%2Flaborbenefitscalculation.htm
+            </helpDefinitionURL>
+            <active>
+                true
+            </active>
+            <routingVersion>
+                2
+            </routingVersion>
+        </documentType>
+        <documentType>
+            <name>
+                BENT
+            </name>
+            <parent>
+                LDSM
+            </parent>
+            <label>
+                Labor Benefits Type
+            </label>
+            <helpDefinitionURL>
+                default.htm?turl=WordDocuments%2Flaborbenefitstype.htm
+            </helpDefinitionURL>
+            <active>
+                true
+            </active>
+            <routingVersion>
+                2
+            </routingVersion>
+        </documentType>
+        <documentType>
+            <name>
+                LOBJ
+            </name>
+            <parent>
+                LDSM
+            </parent>
+            <label>
+                Labor Object Code
+            </label>
+            <helpDefinitionURL>
+                default.htm?turl=WordDocuments%2Flaborobjectcode.htm
+            </helpDefinitionURL>
+            <active>
+                true
+            </active>
+            <routingVersion>
+                2
+            </routingVersion>
+        </documentType>
+        <documentType>
+            <name>
+                LOBN
+            </name>
+            <parent>
+                LDSM
+            </parent>
+            <label>
+                Labor Object Code Benefits
+            </label>
+            <helpDefinitionURL>
+                ${kfs.externalizable.help.url}/default.htm?turl=WordDocuments%2Flaborobjectcodebenefits.htm
+            </helpDefinitionURL>
+            <active>
+                true
+            </active>
+            <routingVersion>
+                2
+            </routingVersion>
+        </documentType>
+        <documentType>
+            <name>
+                POGR
+            </name>
+            <parent>
+                LDSM
+            </parent>
+            <label>
+                Labor Position Object Group Code
+            </label>
+            <helpDefinitionURL>
+                default.htm?turl=WordDocuments%2Flaborpositionobjectgroupcode.htm
+            </helpDefinitionURL>
+            <active>
+                true
+            </active>
+            <routingVersion>
+                2
+            </routingVersion>
+        </documentType>
+        <documentType>
+            <name>
+                BNRC
+            </name>
+            <parent>
+                LDSM
+            </parent>
+            <label>
+                Labor Benefit Rate Category
+            </label>
+            <helpDefinitionURL>default.htm?turl=WordDocuments%2Flaborbenefitratecate.htm</helpDefinitionURL>
+            <active>
+                true
+            </active>
+            <routingVersion>
+                2
+            </routingVersion>
+        </documentType>
+    </documentTypes>
+</data>

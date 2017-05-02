@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,9 +18,8 @@
  */
 package org.kuali.kfs.sys;
 
+import org.kuali.kfs.krad.util.KRADPropertyConstants;
 import org.kuali.rice.kim.impl.KIMPropertyConstants;
-import org.kuali.rice.krad.util.KRADPropertyConstants;
-
 
 
 /**
@@ -269,7 +268,6 @@ public class KFSPropertyConstants {
     public static final String BUILDING_ROOM_NUMBER = "buildingRoomNumber";
     public static final String BURSAR_USER = "bursarUser";
     public static final String BUSINESS_OBJECT_FOR_VALIDATION = "businessObjectForValidation";
-    public static final String CAB_USER = "cabUser";
     public static final String CAMPUS = KRADPropertyConstants.CAMPUS;
     public static final String CAMPUS_CODE = "campusCode";
     public static final String CAMPUS_DESCRIPTION = "campusDescription";
@@ -334,7 +332,7 @@ public class KFSPropertyConstants {
     public static final String COMPONENT_LABEL = "componentLabel";
     public static final String CUSTOMER_ADDRESS_IDENTIFIER = "customerAddressIdentifier";
     public static final String CUSTOMER_NUMBER = "customerNumber";
-    public static final String CUSTOMER_ADDRESS_TYPE_CODE="customerAddressTypeCode";
+    public static final String CUSTOMER_ADDRESS_TYPE_CODE = "customerAddressTypeCode";
     public static final String CUSTOMER_NAME = "customerName";
     public static final String CUSTOMER_TAX_NUMBER = "customerTaxNbr";
     public static final String DEPARTMENT_NAME = "departmentName";
@@ -821,6 +819,7 @@ public class KFSPropertyConstants {
     public static final String MAINTENANCE_USER = "maintenanceUser";
     public static final String MAILING_ADDRESS = "mailingAddress";
     public static final String MILEAGE_LIMIT_AMOUNT = "mileageLimitAmount";
+    public static final String LAST_UPDATED_TIMESTAMP = "lastUpdatedTimestamp";
     public static final String MODULAR_BUDGET = "modularBudget";
     public static final String MONTH = "month";
     public static final String MONTH1_AMOUNT = "month1Amount";
@@ -849,6 +848,7 @@ public class KFSPropertyConstants {
     public static final String NEW_PRECONF_REGISTRANT_LINE = "newPreConferenceRegistrantLine";
     public static final String NEW_PREPAID_EXPENSE_LINE = "newPrePaidNonEmployeeExpenseLine";
     public static final String NEW_SOURCE_LINE = "newSourceLine";
+    public static final String NEW_TARGET = "newTarget";
     public static final String NEW_TARGET_LINE = "newTargetLine";
     public static final String NEXT_CAPITAL_ASSET_NUMBER = "nextCapitalAssetNumber";
     public static final String NEXT_CHECK_SEQUENCE_ID = "nextCheckSequenceId";
@@ -1032,8 +1032,9 @@ public class KFSPropertyConstants {
     public static final String PROCESS_TOTAL_AMOUNT = "processTotalAmount";
     public static final String PROCESS_TOTAL_RECORD_COUNT = "processTotalRecordCount";
     public static final String PROCESS_TRANSMISSION_DATE = "processTransmissionDate";
+    public static final String PROCESSED_DATE = "processedDate";
     public static final String PROCESSING_FIN_CHART_OF_ACCT = "processingFinChartOfAcct";
-    public static final String PROCESSING_CHART_OF_ACCT_CD ="processingChartOfAccountCode";
+    public static final String PROCESSING_CHART_OF_ACCT_CD = "processingChartOfAccountCode";
     public static final String PROCESSING_FIN_CHART_OF_ACCT_CD = "processingFinChartOfAcctCd";
     public static final String PROCESSING_ORG = "processingOrg";
     public static final String PROCESSING_ORGANIZATION_CODE = "processingOrganizationCode";
@@ -1297,8 +1298,12 @@ public class KFSPropertyConstants {
     public static final String APPLICATION_DOCUMENT_STATUS = "applicationDocumentStatus";
     public static final String SALES_TAX = "salesTax";
     public static final String INVOICE_TEMPLATE_CODE = "invoiceTemplateCode";
+    public static final String MEMORY_MONITOR_THRESHOLD_KEY = "memory.monitor.threshold";
+    public static final String USE_QUARTZ_SCHEDULING_KEY = "use.quartz.scheduling";
+    public static final String DIRECTORIES_TO_CREATE_PATH = "directoriesToCreateOnStartup";
+    public static final String UPDATE_DATABASE_ON_STARTUP = "updateDatabaseOnStartup";
+    public static final String UPDATE_WORKFLOW_ON_STARTUP = "updateWorkflowOnStartup";
 
-    //Added by Electronic Payment Claim mod
     public static final String PAYMENT_CLAIM_STATUS_CODE = "paymentClaimStatusCode";
     public static final String RANGE_LOWER_BOUND_KEY_PREFIX = "rangeLowerBoundKeyPrefix_";
     public static final String GENERATING_ACCOUNTING_LINE = "generatingAccountingLine";
@@ -1311,6 +1316,27 @@ public class KFSPropertyConstants {
     public static final String HAS_DOCUMENTATION = "hasDocumentation";
     public static final String CHOSEN_ELECTRONIC_PAYMENT_CLAIMING_DOCUMENT_CODE = "chosenElectronicPaymentClaimingDocumentCode";
     public static final String CLAIMS = "claims";
+    public static final String LINK_GROUPS = "linkGroups";
+    public static final String MENU = "menu";
+    public static final String LOGO_URL = "logoUrl";
+    public static final String PERMISSION = "permission";
+    public static final String ACTION_LIST_URL = "actionListUrl";
+    public static final String SIGNOUT_URL = "signoutUrl";
+    public static final String DOC_SEARCH_URL = "docSearchUrl";
+    public static final String REMOTE_VIEW_URL = "remoteViewUrl";
+    public static final String VERSIONS = "versions";
+    public static final String LABEL = "label";
+    public static final String LINK = "link";
+    public static final String LINKS = "links";
+    public static final String BUSINESS_OBJECT_CLASS = "businessObjectClass";
+    public static final String LINK_TYPE = "linkType";
+    public static final String TEMPLATE_NAMESPACE = "templateNamespace";
+    public static final String TEMPLATE_NAME = "templateName";
+    public static final String DETAILS = "details";
+    public static final String INSTITUTION_ID = "institutionId";
+    public static final String SIDEBAR_OUT = "sidebarOut";
+    public static final String CHECKED_LINK_FILTERS = "checkedLinkFilters";
+    public static final String NAMESPACE_CODES_TO_URLS_MAPPING = "namespaceCodesToUrlsMapping";
 
     public static class SubAccountImport {
         public static final String CHART_OF_ACCOUNTS_CODE = "chartOfAccountsCode";

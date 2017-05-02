@@ -1,0 +1,1809 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="kfs" id="2718" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_BENEFITS_RECALC01_MT">
+            <column defaultValue="" name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="POS_FRNGBEN_OBJ_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FB_SUM" type="DECIMAL(19, 2)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2719" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_BUILD_ACCTBAL01_MT">
+            <column defaultValue="" name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ORG_FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ORG_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="SUB_FUND_GRP_CD" type="VARCHAR(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ACCOUNT_NBR" type="VARCHAR(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="SUB_ACCT_NBR" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="INC_EXP_CD" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_CONS_SORT_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_LEVEL_SORT_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_OBJECT_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_SUB_OBJ_CD" type="VARCHAR(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FIN_OBJ_LEVEL_CD" type="VARCHAR(4)"/>
+            <column name="APPT_RQST_FTE_QTY" type="DECIMAL(22, 6)"/>
+            <column name="APPT_RQCSF_FTE_QTY" type="DECIMAL(22, 6)"/>
+            <column name="POS_CSF_FTE_QTY" type="DECIMAL(22, 6)"/>
+            <column name="FIN_BEG_BAL_LN_AMT" type="DECIMAL(19, 2)"/>
+            <column name="ACLN_ANNL_BAL_AMT" type="DECIMAL(19, 2)"/>
+            <column name="POS_CSF_LV_FTE_QTY" type="DECIMAL(22, 6)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2720" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_BUILD_CTRL_LIST01_MT">
+            <column defaultValue="" name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ACCOUNT_NBR" type="VARCHAR(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="ORG_LEVEL_CD" type="DECIMAL(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ORG_FIN_COA_CD" type="VARCHAR(2)"/>
+            <column name="ORG_CD" type="VARCHAR(4)"/>
+            <column name="PULL_FLAG" type="DECIMAL(5)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2721" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_BUILD_CTRL_LIST02_MT">
+            <column defaultValue="" name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="PERSON_UNVL_ID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ACCOUNT_NBR" type="VARCHAR(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="SUB_ACCT_NBR" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="HIER_ORG_LVL_CD" type="DECIMAL(7)"/>
+            <column name="SEL_ORG_LVL_CD" type="DECIMAL(7)"/>
+            <column name="SEL_ORG_FIN_COA" type="VARCHAR(2)"/>
+            <column name="SEL_ORG_CD" type="VARCHAR(4)"/>
+            <column name="SEL_PULL_FLAG" type="DECIMAL(7)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2722" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_BUILD_EXSALTOT01_MT">
+            <column defaultValue="" name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="EMPLID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2723" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_BUILD_EXSALTOT02_MT">
+            <column name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="POSITION_NBR" type="VARCHAR(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="EMPLID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SAL_AMT" type="DECIMAL(19, 2)"/>
+            <column name="SAL_PCT" type="DECIMAL(22, 6)"/>
+            <column name="SAL_MTHS" type="DECIMAL(2)"/>
+            <column name="POS_CSF_AMT" type="DECIMAL(19, 2)"/>
+            <column name="POS_CSF_TM_PCT" type="DECIMAL(22, 6)"/>
+            <column name="SAL_PMTHS" type="DECIMAL(2)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2724" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_BUILD_EXSALTOT03_MT">
+            <column defaultValue="" name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="EMPLID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SAL_MTHS" type="DECIMAL(2)"/>
+            <column name="SAL_PMTHS" type="DECIMAL(2)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2725" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_BUILD_EXSALTOT04_MT">
+            <column defaultValue="" name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="EMPLID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CSF_MTHS" type="DECIMAL(2)"/>
+            <column name="CSF_PMTHS" type="DECIMAL(2)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2726" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_BUILD_EXSALTOT05_MT">
+            <column defaultValue="" name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="EMPLID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="POS_CSF_AMT" type="DECIMAL(19, 2)"/>
+            <column name="RES_CSF_AMT" type="DECIMAL(19, 2)"/>
+            <column name="POS_CSF_TM_PCT" type="DECIMAL(22, 6)"/>
+            <column name="SAL_AMT" type="DECIMAL(19, 2)"/>
+            <column name="SAL_PCT" type="DECIMAL(22, 6)"/>
+            <column name="SAL_FTE" type="DECIMAL(22, 6)"/>
+            <column name="SAL_MTHS" type="DECIMAL(2)"/>
+            <column name="SAL_PMTHS" type="DECIMAL(2)"/>
+            <column name="CSF_MTHS" type="DECIMAL(2)"/>
+            <column name="CSF_PMTHS" type="DECIMAL(2)"/>
+            <column name="USE_FLAG" type="CHAR(1)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2727" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_BUILD_EXSALTOT06_MT">
+            <column defaultValue="" name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ORG_FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ORG_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="EMPLID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="POS_CSF_AMT" type="DECIMAL(19, 2)"/>
+            <column name="APPT_RQST_AMT" type="DECIMAL(19, 2)"/>
+            <column name="APPT_RQST_FTE_QTY" type="DECIMAL(22, 6)"/>
+            <column name="INIT_RQST_AMT" type="DECIMAL(19, 2)"/>
+            <column name="INIT_RQST_FTE" type="DECIMAL(22, 6)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2728" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_BUILD_LEVLSUMM02_MT">
+            <column name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ORG_FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ORG_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SUB_FUND_GRP_CD" type="VARCHAR(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="INC_EXP_CD" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FIN_CONS_OBJ_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FIN_OBJ_LEVEL_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="POS_CSF_FNDSTAT_CD" type="VARCHAR(1)"/>
+            <column name="POS_CSF_FTE_QTY" type="DECIMAL(22, 6)"/>
+            <column name="POS_CSF_LV_FTE_QTY" type="DECIMAL(22, 6)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2729" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_BUILD_LEVLSUMM03_MT">
+            <column defaultValue="" name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ORG_FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ORG_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="SUB_FUND_GRP_CD" type="VARCHAR(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="INC_EXP_CD" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_CONS_OBJ_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_OBJ_LEVEL_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="APPT_RQCSF_FTE_QTY" type="DECIMAL(22, 6)"/>
+            <column name="APPT_RQST_FTE_QTY" type="DECIMAL(22, 6)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2730" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_BUILD_MNTHSUMM01_MT">
+            <column defaultValue="" name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="SEL_ORG_FIN_COA" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="SEL_ORG_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="SEL_SUB_FUND_GRP" type="VARCHAR(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="INC_EXP_CD" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_OBJECT_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_SUB_OBJ_CD" type="VARCHAR(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ACLN_ANNL_BAL_AMT" type="DECIMAL(19, 2)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2731" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_BUILD_MNTHSUMM02_MT">
+            <column defaultValue="" name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="SEL_ORG_FIN_COA" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="SEL_ORG_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="SEL_SUB_FUND_GRP" type="VARCHAR(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="INC_EXP_CD" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_OBJECT_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_SUB_OBJ_CD" type="VARCHAR(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FDOC_LN_MO1_AMT" type="DECIMAL(19, 2)"/>
+            <column name="FDOC_LN_MO2_AMT" type="DECIMAL(19, 2)"/>
+            <column name="FDOC_LN_MO3_AMT" type="DECIMAL(19, 2)"/>
+            <column name="FDOC_LN_MO4_AMT" type="DECIMAL(19, 2)"/>
+            <column name="FDOC_LN_MO5_AMT" type="DECIMAL(19, 2)"/>
+            <column name="FDOC_LN_MO6_AMT" type="DECIMAL(19, 2)"/>
+            <column name="FDOC_LN_MO7_AMT" type="DECIMAL(19, 2)"/>
+            <column name="FDOC_LN_MO8_AMT" type="DECIMAL(19, 2)"/>
+            <column name="FDOC_LN_MO9_AMT" type="DECIMAL(19, 2)"/>
+            <column name="FDOC_LN_MO10_AMT" type="DECIMAL(19, 2)"/>
+            <column name="FDOC_LN_MO11_AMT" type="DECIMAL(19, 2)"/>
+            <column name="FDOC_LN_MO12_AMT" type="DECIMAL(19, 2)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2732" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_BUILD_OBJTSUMM01_MT">
+            <column defaultValue="" name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ORG_FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ORG_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="SUB_FUND_GRP_CD" type="VARCHAR(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="INC_EXP_CD" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_CONS_OBJ_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_OBJ_LEVEL_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_OBJECT_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="APPT_RQCSF_FTE_QTY" type="DECIMAL(22, 6)"/>
+            <column name="APPT_RQST_FTE_QTY" type="DECIMAL(22, 6)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2733" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_BUILD_OBJTSUMM02_MT">
+            <column name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ORG_FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ORG_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SUB_FUND_GRP_CD" type="VARCHAR(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="INC_EXP_CD" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FIN_CONS_OBJ_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FIN_OBJ_LEVEL_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FIN_OBJECT_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="POS_CSF_FNDSTAT_CD" type="VARCHAR(1)"/>
+            <column name="POS_CSF_FTE_QTY" type="DECIMAL(22, 6)"/>
+            <column name="POS_CSF_LV_FTE_QTY" type="DECIMAL(22, 6)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2734" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_BUILD_POSLIST01_MT">
+            <column defaultValue="" name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="EMPLID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="POS_CSF_AMT" type="DECIMAL(19, 2)"/>
+            <column name="POS_CSF_FTE_QTY" type="DECIMAL(22, 6)"/>
+            <column name="APPT_RQST_AMT" type="DECIMAL(19, 2)"/>
+            <column name="APPT_RQST_FTE_QTY" type="DECIMAL(22, 6)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2735" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_BUILD_POS_SEL01_MT">
+            <column defaultValue="" name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ORG_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ORG_LEVEL_CD" type="DECIMAL(7)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2736" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_BUILD_PULLUP01_MT">
+            <column defaultValue="" name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ORG_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="RPTS_TO_FIN_COA_CD" type="VARCHAR(2)"/>
+            <column name="RPTS_TO_ORG_CD" type="VARCHAR(4)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2737" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_BUILD_SALSUMM01_MT">
+            <column name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="POSITION_NBR" type="VARCHAR(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="EMPLID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SAL_AMT" type="DECIMAL(19, 2)"/>
+            <column name="SAL_PCT" type="DECIMAL(22, 6)"/>
+            <column name="SAL_MTHS" type="DECIMAL(2)"/>
+            <column name="POS_CSF_AMT" type="DECIMAL(19, 2)"/>
+            <column name="POS_CSF_TM_PCT" type="DECIMAL(22, 6)"/>
+            <column name="SAL_PMTHS" type="DECIMAL(2)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2738" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_BUILD_SALSUMM02_MT">
+            <column defaultValue="" name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="EMPLID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SAL_MTHS" type="DECIMAL(2)"/>
+            <column name="SAL_PMTHS" type="DECIMAL(2)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2739" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_BUILD_SALSUMM03_MT">
+            <column defaultValue="" name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="EMPLID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CSF_MTHS" type="DECIMAL(2)"/>
+            <column name="CSF_PMTHS" type="DECIMAL(2)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2740" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_BUILD_SALSUMM04_MT">
+            <column defaultValue="" name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="EMPLID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="POS_CSF_AMT" type="DECIMAL(19, 2)"/>
+            <column name="RES_CSF_AMT" type="DECIMAL(19, 2)"/>
+            <column name="POS_CSF_TM_PCT" type="DECIMAL(22, 6)"/>
+            <column name="SAL_AMT" type="DECIMAL(19, 2)"/>
+            <column name="SAL_PCT" type="DECIMAL(22, 6)"/>
+            <column name="SAL_MTHS" type="DECIMAL(2)"/>
+            <column name="SAL_PMTHS" type="DECIMAL(2)"/>
+            <column name="CSF_MTHS" type="DECIMAL(2)"/>
+            <column name="CSF_PMTHS" type="DECIMAL(2)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2741" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_BUILD_SALSUMM05_MT">
+            <column defaultValue="" name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="EMPLID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2742" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_BUILD_SALTOT01_MT">
+            <column name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="POSITION_NBR" type="VARCHAR(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="EMPLID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SAL_AMT" type="DECIMAL(19, 2)"/>
+            <column name="SAL_PCT" type="DECIMAL(22, 6)"/>
+            <column name="SAL_MTHS" type="DECIMAL(2)"/>
+            <column name="POS_CSF_AMT" type="DECIMAL(19, 2)"/>
+            <column name="POS_CSF_TM_PCT" type="DECIMAL(22, 6)"/>
+            <column name="SAL_PMTHS" type="DECIMAL(2)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2743" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_BUILD_SALTOT02_MT">
+            <column defaultValue="" name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="EMPLID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SAL_MTHS" type="DECIMAL(2)"/>
+            <column name="SAL_PMTHS" type="DECIMAL(2)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2744" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_BUILD_SALTOT03_MT">
+            <column defaultValue="" name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="EMPLID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CSF_MTHS" type="DECIMAL(2)"/>
+            <column name="CSF_PMTHS" type="DECIMAL(2)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2745" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_BUILD_SALTOT04_MT">
+            <column defaultValue="" name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="EMPLID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="POS_CSF_AMT" type="DECIMAL(19, 2)"/>
+            <column name="RES_CSF_AMT" type="DECIMAL(19, 2)"/>
+            <column name="POS_CSF_TM_PCT" type="DECIMAL(22, 6)"/>
+            <column name="SAL_AMT" type="DECIMAL(19, 2)"/>
+            <column name="SAL_PCT" type="DECIMAL(22, 6)"/>
+            <column name="SAL_FTE" type="DECIMAL(22, 6)"/>
+            <column name="SAL_MTHS" type="DECIMAL(2)"/>
+            <column name="SAL_PMTHS" type="DECIMAL(2)"/>
+            <column name="CSF_MTHS" type="DECIMAL(2)"/>
+            <column name="CSF_PMTHS" type="DECIMAL(2)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2746" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_BUILD_SALTOT05_MT">
+            <column defaultValue="" name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ORG_FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ORG_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="EMPLID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="POS_CSF_AMT" type="DECIMAL(19, 2)"/>
+            <column name="APPT_RQST_AMT" type="DECIMAL(19, 2)"/>
+            <column name="APPT_RQST_FTE_QTY" type="DECIMAL(22, 6)"/>
+            <column name="INIT_RQST_AMT" type="DECIMAL(19, 2)"/>
+            <column name="INIT_RQST_FTE" type="DECIMAL(22, 6)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2747" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_DOC_PULLUP01_MT">
+            <column defaultValue="" name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ACCOUNT_NBR" type="VARCHAR(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SORG_FIN_COA_CD" type="VARCHAR(2)"/>
+            <column name="SORG_CD" type="VARCHAR(4)"/>
+            <column name="PULL_FLAG" type="DECIMAL(5)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2748" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_DOC_PULLUP02_MT">
+            <column defaultValue="" name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ACCOUNT_NBR" type="VARCHAR(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ORG_LEVEL_CD" type="DECIMAL(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ORG_FIN_COA_CD" type="VARCHAR(2)"/>
+            <column name="ORG_CD" type="VARCHAR(4)"/>
+            <column name="SORG_FIN_COA_CD" type="VARCHAR(2)"/>
+            <column name="SORG_CD" type="VARCHAR(4)"/>
+            <column name="PULL_FLAG" type="DECIMAL(5)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2749" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_DOC_PULLUP03_MT">
+            <column defaultValue="" name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ORG_LEVEL_CD" type="DECIMAL(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ORG_FIN_COA_CD" type="VARCHAR(2)"/>
+            <column name="ORG_CD" type="VARCHAR(4)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2750" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_DOC_PUSHDOWN01_MT">
+            <column defaultValue="" name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ACCOUNT_NBR" type="VARCHAR(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ORG_LEVEL_CD" type="DECIMAL(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ORG_FIN_COA_CD" type="VARCHAR(2)"/>
+            <column name="ORG_CD" type="VARCHAR(4)"/>
+            <column name="PULL_FLAG" type="DECIMAL(5)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2751" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_DOC_PUSHDOWN02_MT">
+            <column defaultValue="" name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ACCOUNT_NBR" type="VARCHAR(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ORG_LEVEL_CD" type="DECIMAL(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SEL_ORG_LVL" type="DECIMAL(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SEL_ORGFIN_COA" type="VARCHAR(2)"/>
+            <column name="SEL_ORG" type="VARCHAR(4)"/>
+            <column name="SEL_PULLFLAG" type="DECIMAL(5)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2752" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_DOC_PUSHDOWN03_MT">
+            <column defaultValue="" name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ACCOUNT_NBR" type="VARCHAR(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ORG_LEVEL_CD" type="DECIMAL(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SEL_ORG_LVL" type="DECIMAL(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SEL_ORGFIN_COA" type="VARCHAR(2)"/>
+            <column name="SEL_ORG" type="VARCHAR(4)"/>
+            <column name="SEL_PULLFLAG" type="DECIMAL(5)"/>
+            <column name="LONE_ORGFIN_COA" type="VARCHAR(2)"/>
+            <column name="LONE_ORG" type="VARCHAR(4)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2753" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_DOC_PUSHDOWN04_MT">
+            <column defaultValue="" name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ACCOUNT_NBR" type="VARCHAR(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="SUB_ACCT_NBR" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ORG_LEVEL_CD" type="DECIMAL(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SEL_ORG_LVL" type="DECIMAL(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SEL_ORGFIN_COA" type="VARCHAR(2)"/>
+            <column name="SEL_ORG" type="VARCHAR(4)"/>
+            <column name="SEL_PULLFLAG" type="DECIMAL(5)"/>
+            <column name="LONE_ORGFIN_COA" type="VARCHAR(2)"/>
+            <column name="LONE_ORG" type="VARCHAR(4)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2754" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_LCK_PYRT_ACCT01_MT">
+            <column defaultValue="" name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ACCOUNT_NBR" type="VARCHAR(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="SUB_ACCT_NBR" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2755" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_UPDT_RQST01_MT">
+            <column defaultValue="" name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ACCOUNT_NBR" type="VARCHAR(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="SUB_ACCT_NBR" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_OBJECT_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_SUB_OBJ_CD" type="VARCHAR(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FIN_OBJ_TYP_CD" type="VARCHAR(2)"/>
+            <column name="ACLN_ANNL_BAL_AMT" type="DECIMAL(19, 2)"/>
+            <column name="RQST_UPDT_ERR_CD" type="VARCHAR(4)"/>
+            <column name="FDOC_LN_MO1_AMT" type="DECIMAL(19, 2)"/>
+            <column name="FDOC_LN_MO2_AMT" type="DECIMAL(19, 2)"/>
+            <column name="FDOC_LN_MO3_AMT" type="DECIMAL(19, 2)"/>
+            <column name="FDOC_LN_MO4_AMT" type="DECIMAL(19, 2)"/>
+            <column name="FDOC_LN_MO5_AMT" type="DECIMAL(19, 2)"/>
+            <column name="FDOC_LN_MO6_AMT" type="DECIMAL(19, 2)"/>
+            <column name="FDOC_LN_MO7_AMT" type="DECIMAL(19, 2)"/>
+            <column name="FDOC_LN_MO8_AMT" type="DECIMAL(19, 2)"/>
+            <column name="FDOC_LN_MO9_AMT" type="DECIMAL(19, 2)"/>
+            <column name="FDOC_LN_MO10_AMT" type="DECIMAL(19, 2)"/>
+            <column name="FDOC_LN_MO11_AMT" type="DECIMAL(19, 2)"/>
+            <column name="FDOC_LN_MO12_AMT" type="DECIMAL(19, 2)"/>
+            <column name="FDOC_NBR" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ORG_COA_OF_LVL_CD" type="VARCHAR(2)"/>
+            <column name="ORG_OF_LVL_CD" type="VARCHAR(4)"/>
+            <column name="ORG_LEVEL_CD" type="DECIMAL(7)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2756" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BCN_UPDT_RQST02_MT">
+            <column defaultValue="" name="SESID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ACCOUNT_NBR" type="VARCHAR(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="SUB_ACCT_NBR" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ORG_COA_OF_LVL_CD" type="VARCHAR(2)"/>
+            <column name="ORG_OF_LVL_CD" type="VARCHAR(4)"/>
+            <column name="ORG_LEVEL_CD" type="DECIMAL(7)"/>
+            <column name="CTRL_FLAG" type="VARCHAR(1)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2757" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BENEFITS_CALC_T">
+            <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="POS_BENEFIT_TYP_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="POS_FRNG_BENE_PCT" type="DECIMAL(7, 4)"/>
+            <column name="POS_FRNGBEN_OBJ_CD" type="VARCHAR(4)"/>
+            <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="--" name="LBR_BEN_RT_CAT_CD" type="VARCHAR(2)"/>
+            <column name="OFFSET_FIN_OBJECT_CD" type="VARCHAR(4)"/>
+            <column name="OFFSET_ACCOUNT_NBR" type="VARCHAR(7)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2758" context="bootstrap,demo,unit">
+        <createTable tableName="LD_BENEFITS_TYPE_T">
+            <column defaultValue="" name="POS_BENEFIT_TYP_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="POS_BENE_TYP_DESC" type="VARCHAR(40)"/>
+            <column name="POS_BENE_RETIRE_CD" type="VARCHAR(1)"/>
+            <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2759" context="bootstrap,demo,unit">
+        <createTable tableName="LD_CSF_TRACKER_T">
+            <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ACCOUNT_NBR" type="VARCHAR(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="SUB_ACCT_NBR" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_OBJECT_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_SUB_OBJ_CD" type="VARCHAR(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="POSITION_NBR" type="VARCHAR(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="EMPLID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="POS_CSF_CREATE_TM" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="POS_CSF_DELETE_CD" type="VARCHAR(1)"/>
+            <column name="POS_CSF_AMT" type="DECIMAL(19, 2)"/>
+            <column name="POS_CSF_FTE_QTY" type="DECIMAL(22, 6)"/>
+            <column name="POS_CSF_TM_PCT" type="DECIMAL(22, 6)"/>
+            <column name="POS_CSF_FNDSTAT_CD" type="VARCHAR(1)"/>
+            <column name="EMPL_RCD" type="DECIMAL(3)"/>
+            <column name="ERNCD" type="VARCHAR(3)"/>
+            <column name="ADDL_SEQ" type="DECIMAL(2)"/>
+            <column name="EFFDT" type="DATE"/>
+            <column name="EFFSEQ" type="DECIMAL(3)"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="kfs" id="2760" context="bootstrap,demo,unit">
+        <createTable tableName="LD_ERROR_CERT_T">
+            <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="EXPND_DESC" type="VARCHAR(400)"/>
+            <column name="EXPND_PROJ_BENEFIT_DESC" type="VARCHAR(400)"/>
+            <column name="ERROR_DESC" type="VARCHAR(400)"/>
+            <column name="ERROR_CORR_REASON_DESC" type="VARCHAR(400)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2761" context="bootstrap,demo,unit">
+        <createTable tableName="LD_EXP_TRNFR_DOC_T">
+            <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FDOC_NXT_FRM_NBR" type="DECIMAL(7)"/>
+            <column name="FDOC_NXT_TO_NBR" type="DECIMAL(7)"/>
+            <column name="FDOC_POST_YR" type="DECIMAL(4)"/>
+            <column name="FDOC_POST_PRD_CD" type="VARCHAR(2)"/>
+            <column name="POSITION_NBR" type="VARCHAR(8)"/>
+            <column name="EMPLID" type="VARCHAR(40)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2762" context="bootstrap,demo,unit">
+        <createTable tableName="LD_EXP_TRNFR_FRM_T">
+            <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="FDOC_LINE_NBR" type="DECIMAL(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FIN_COA_CD" type="VARCHAR(2)"/>
+            <column name="ACCOUNT_NBR" type="VARCHAR(7)"/>
+            <column name="FDOC_POST_YR" type="DECIMAL(4)"/>
+            <column name="FIN_OBJECT_CD" type="VARCHAR(4)"/>
+            <column name="FIN_BALANCE_TYP_CD" type="VARCHAR(2)"/>
+            <column name="FDOC_LINE_AMT" type="DECIMAL(19, 2)"/>
+            <column name="SUB_ACCT_NBR" type="VARCHAR(5)"/>
+            <column name="FIN_SUB_OBJ_CD" type="VARCHAR(3)"/>
+            <column name="PROJECT_CD" type="VARCHAR(10)"/>
+            <column name="ORG_REFERENCE_ID" type="VARCHAR(8)"/>
+            <column name="POSITION_NBR" type="VARCHAR(8)"/>
+            <column name="PYRL_TOTAL_HR" type="DECIMAL(8, 2)"/>
+            <column name="FDOC_OVERRIDE_CD" type="VARCHAR(100)"/>
+            <column name="PYRL_DT_FSCL_YR" type="DECIMAL(4)"/>
+            <column name="PYRL_DT_FSCLPRD_CD" type="VARCHAR(2)"/>
+            <column name="EMPLID" type="VARCHAR(40)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2763" context="bootstrap,demo,unit">
+        <createTable tableName="LD_EXP_TRNFR_TO_T">
+            <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="FDOC_LINE_NBR" type="DECIMAL(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FIN_COA_CD" type="VARCHAR(2)"/>
+            <column name="ACCOUNT_NBR" type="VARCHAR(7)"/>
+            <column name="FDOC_POST_YR" type="DECIMAL(4)"/>
+            <column name="FIN_OBJECT_CD" type="VARCHAR(4)"/>
+            <column name="FIN_BALANCE_TYP_CD" type="VARCHAR(2)"/>
+            <column name="FDOC_LINE_AMT" type="DECIMAL(19, 2)"/>
+            <column name="SUB_ACCT_NBR" type="VARCHAR(5)"/>
+            <column name="FIN_SUB_OBJ_CD" type="VARCHAR(3)"/>
+            <column name="PROJECT_CD" type="VARCHAR(10)"/>
+            <column name="ORG_REFERENCE_ID" type="VARCHAR(8)"/>
+            <column name="POSITION_NBR" type="VARCHAR(8)"/>
+            <column name="PYRL_TOTAL_HR" type="DECIMAL(8, 2)"/>
+            <column name="FDOC_OVERRIDE_CD" type="VARCHAR(100)"/>
+            <column name="PYRL_DT_FSCL_YR" type="DECIMAL(4)"/>
+            <column name="PYRL_DT_FSCLPRD_CD" type="VARCHAR(2)"/>
+            <column name="EMPLID" type="VARCHAR(40)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2764" context="bootstrap,demo,unit">
+        <createTable tableName="LD_JRNL_VCHR_DOC_T">
+            <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FDOC_NXT_LINE_NBR" type="DECIMAL(7)"/>
+            <column name="FDOC_POST_YR" type="DECIMAL(4)"/>
+            <column name="FDOC_POST_PRD_CD" type="VARCHAR(2)"/>
+            <column name="FDOC_REVERSAL_DT" type="DATE"/>
+            <column name="FIN_BALANCE_TYP_CD" type="VARCHAR(2)"/>
+            <column name="FDOC_OFST_TYP_CD" type="VARCHAR(4)"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="kfs" id="2765" context="bootstrap,demo,unit">
+        <createTable tableName="LD_JRNL_VCHR_DTL_T">
+            <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="FDOC_LINE_NBR" type="DECIMAL(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FIN_COA_CD" type="VARCHAR(2)"/>
+            <column name="ACCOUNT_NBR" type="VARCHAR(7)"/>
+            <column name="FDOC_POST_YR" type="DECIMAL(4)"/>
+            <column name="FIN_OBJECT_CD" type="VARCHAR(4)"/>
+            <column name="FIN_BALANCE_TYP_CD" type="VARCHAR(2)"/>
+            <column name="FDOC_LINE_AMT" type="DECIMAL(19, 2)"/>
+            <column name="SUB_ACCT_NBR" type="VARCHAR(5)"/>
+            <column name="FIN_SUB_OBJ_CD" type="VARCHAR(3)"/>
+            <column name="PROJECT_CD" type="VARCHAR(10)"/>
+            <column name="ORG_REFERENCE_ID" type="VARCHAR(8)"/>
+            <column name="FS_REF_ORIGIN_CD" type="VARCHAR(2)"/>
+            <column name="FDOC_REF_NBR" type="VARCHAR(14)"/>
+            <column name="FDOC_REF_TYP_CD" type="VARCHAR(4)"/>
+            <column name="FDOC_OVERRIDE_CD" type="VARCHAR(100)"/>
+            <column name="FDOC_LINE_DESC" type="VARCHAR(40)"/>
+            <column name="FDOC_LINE_DBCR_CD" type="VARCHAR(1)"/>
+            <column name="TRN_ENCUM_UPDT_CD" type="VARCHAR(1)"/>
+            <column name="FIN_OBJ_TYP_CD" type="VARCHAR(2)"/>
+            <column name="POSITION_NBR" type="VARCHAR(8)"/>
+            <column name="PAY_PERIOD_END_DT" type="DATE"/>
+            <column name="TRN_TOTAL_HR" type="DECIMAL(9, 2)"/>
+            <column name="PYRL_DT_FSCL_YR" type="DECIMAL(4)"/>
+            <column name="PYRL_DT_FSCLPRD_CD" type="VARCHAR(2)"/>
+            <column name="EMPLID" type="VARCHAR(40)"/>
+            <column name="EMPL_RCD" type="DECIMAL(3)"/>
+            <column name="ERNCD" type="VARCHAR(3)"/>
+            <column name="PAYGROUP" type="VARCHAR(3)"/>
+            <column name="SAL_ADMIN_PLAN" type="VARCHAR(4)"/>
+            <column name="GRADE" type="VARCHAR(3)"/>
+            <column name="RUN_ID" type="VARCHAR(10)"/>
+            <column name="LL_ORIG_FIN_COA_CD" type="VARCHAR(2)"/>
+            <column name="LL_ORIG_ACCT_NBR" type="VARCHAR(7)"/>
+            <column name="LL_ORIG_SUB_ACCT_NBR" type="VARCHAR(5)"/>
+            <column name="LL_ORIG_FIN_OBJECT_CD" type="VARCHAR(4)"/>
+            <column name="LL_ORIG_FIN_SUB_OBJ_CD" type="VARCHAR(3)"/>
+            <column name="COMPANY" type="VARCHAR(3)"/>
+            <column name="SETID" type="VARCHAR(5)"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="kfs" id="2766" context="bootstrap,demo,unit">
+        <createTable tableName="LD_JULY1_POS_FND_T">
+            <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ACCOUNT_NBR" type="VARCHAR(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="SUB_ACCT_NBR" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_OBJECT_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_SUB_OBJ_CD" type="VARCHAR(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="POSITION_NBR" type="VARCHAR(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="EMPLID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="JULY1_BDGT_AMT" type="DECIMAL(19, 2)"/>
+            <column name="JULY1_BDGT_FTE_QTY" type="DECIMAL(22, 6)"/>
+            <column name="JULY1_BDGT_TM_PCT" type="DECIMAL(22, 6)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2767" context="bootstrap,demo,unit">
+        <createTable tableName="LD_LABOR_OBJ_T">
+            <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_OBJECT_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DTL_POS_REQ_CD" type="VARCHAR(1)"/>
+            <column name="FIN_OBJ_HRS_REQ_CD" type="VARCHAR(1)"/>
+            <column name="FIN_OBJ_PAY_TYP_CD" type="VARCHAR(1)"/>
+            <column name="FINOBJ_FRNGSLRY_CD" type="VARCHAR(1)"/>
+            <column name="POS_OBJ_GRP_CD" type="VARCHAR(2)"/>
+            <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2768" context="bootstrap,demo,unit">
+        <createTable tableName="LD_LBR_BFT_RT_CAT_T">
+            <column defaultValue="" name="LBR_BEN_RT_CAT_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
+            <column name="LBR_BEN_RT_CAT_NM" type="VARCHAR(40)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2769" context="bootstrap,demo,unit">
+        <createTable tableName="LD_LBR_GL_ENTRY_T">
+            <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ACCOUNT_NBR" type="VARCHAR(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="SUB_ACCT_NBR" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_OBJECT_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_SUB_OBJ_CD" type="VARCHAR(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_BALANCE_TYP_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_OBJ_TYP_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="UNIV_FISCAL_PRD_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FDOC_TYP_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FS_ORIGIN_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="TRN_ENTR_SEQ_NBR" type="DECIMAL(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TRN_LDGR_ENTR_DESC" type="VARCHAR(40)"/>
+            <column name="TRN_LDGR_ENTR_AMT" type="DECIMAL(19, 2)"/>
+            <column name="TRN_DEBIT_CRDT_CD" type="VARCHAR(1)"/>
+            <column name="TRANSACTION_DT" type="DATE"/>
+            <column name="ORG_DOC_NBR" type="VARCHAR(10)"/>
+            <column name="PROJECT_CD" type="VARCHAR(10)"/>
+            <column name="ORG_REFERENCE_ID" type="VARCHAR(8)"/>
+            <column name="FDOC_REF_TYP_CD" type="VARCHAR(4)"/>
+            <column name="FS_REF_ORIGIN_CD" type="VARCHAR(2)"/>
+            <column name="FDOC_REF_NBR" type="VARCHAR(14)"/>
+            <column name="FDOC_REVERSAL_DT" type="DATE"/>
+            <column name="TRN_ENCUM_UPDT_CD" type="VARCHAR(1)"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="kfs" id="2770" context="bootstrap,demo,unit">
+        <createTable tableName="LD_LBR_OBJ_BENE_T">
+            <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_OBJECT_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FINOBJ_BENE_TYP_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LBR_BEN_RT_CAT_CD" type="VARCHAR(2)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2771" context="bootstrap,demo,unit">
+        <createTable tableName="LD_LDGR_BAL_HIST_T">
+            <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ACCOUNT_NBR" type="VARCHAR(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="SUB_ACCT_NBR" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_OBJECT_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_SUB_OBJ_CD" type="VARCHAR(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_BALANCE_TYP_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_OBJ_TYP_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="POSITION_NBR" type="VARCHAR(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="EMPLID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ACLN_ANNL_BAL_AMT" type="DECIMAL(19, 2)"/>
+            <column name="FIN_BEG_BAL_LN_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CONTR_GR_BB_AC_AMT" type="DECIMAL(19, 2)"/>
+            <column name="MO1_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
+            <column name="MO2_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
+            <column name="MO3_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
+            <column name="MO4_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
+            <column name="MO5_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
+            <column name="MO6_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
+            <column name="MO7_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
+            <column name="MO8_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
+            <column name="MO9_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
+            <column name="MO10_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
+            <column name="MO11_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
+            <column name="MO12_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
+            <column name="MO13_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2772" context="bootstrap,demo,unit">
+        <createTable tableName="LD_LDGR_BAL_T">
+            <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ACCOUNT_NBR" type="VARCHAR(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="SUB_ACCT_NBR" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_OBJECT_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_SUB_OBJ_CD" type="VARCHAR(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_BALANCE_TYP_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_OBJ_TYP_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="POSITION_NBR" type="VARCHAR(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="EMPLID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ACLN_ANNL_BAL_AMT" type="DECIMAL(19, 2)"/>
+            <column name="FIN_BEG_BAL_LN_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CONTR_GR_BB_AC_AMT" type="DECIMAL(19, 2)"/>
+            <column name="MO1_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
+            <column name="MO2_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
+            <column name="MO3_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
+            <column name="MO4_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
+            <column name="MO5_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
+            <column name="MO6_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
+            <column name="MO7_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
+            <column name="MO8_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
+            <column name="MO9_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
+            <column name="MO10_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
+            <column name="MO11_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
+            <column name="MO12_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
+            <column name="MO13_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
+            <column name="TIMESTAMP" type="DATE"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="kfs" id="2773" context="bootstrap,demo,unit">
+        <createTable tableName="LD_LDGR_ENTR_HIST_T">
+            <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="UNIV_FISCAL_PRD_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_OBJECT_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_BALANCE_TYP_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="TRN_DEBIT_CRDT_CD" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TRN_LDGR_ENTR_AMT" type="DECIMAL(19, 2)"/>
+            <column name="ROW_CNT" type="DECIMAL(7)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2774" context="bootstrap,demo,unit">
+        <createTable tableName="LD_LDGR_ENTR_T">
+            <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ACCOUNT_NBR" type="VARCHAR(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="SUB_ACCT_NBR" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_OBJECT_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_SUB_OBJ_CD" type="VARCHAR(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_BALANCE_TYP_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_OBJ_TYP_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="UNIV_FISCAL_PRD_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FDOC_TYP_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FS_ORIGIN_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="TRN_ENTR_SEQ_NBR" type="DECIMAL(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="POSITION_NBR" type="VARCHAR(8)"/>
+            <column name="PROJECT_CD" type="VARCHAR(10)"/>
+            <column name="TRN_LDGR_ENTR_DESC" type="VARCHAR(40)"/>
+            <column name="TRN_LDGR_ENTR_AMT" type="DECIMAL(19, 2)"/>
+            <column name="TRN_DEBIT_CRDT_CD" type="VARCHAR(1)"/>
+            <column name="TRANSACTION_DT" type="DATE"/>
+            <column name="ORG_DOC_NBR" type="VARCHAR(10)"/>
+            <column name="ORG_REFERENCE_ID" type="VARCHAR(8)"/>
+            <column name="FDOC_REF_TYP_CD" type="VARCHAR(4)"/>
+            <column name="FS_REF_ORIGIN_CD" type="VARCHAR(2)"/>
+            <column name="FDOC_REF_NBR" type="VARCHAR(14)"/>
+            <column name="FDOC_REVERSAL_DT" type="DATE"/>
+            <column name="TRN_ENCUM_UPDT_CD" type="VARCHAR(1)"/>
+            <column name="TRN_POST_DT" type="DATE"/>
+            <column name="PAY_PERIOD_END_DT" type="DATE"/>
+            <column name="TRN_TOTAL_HR" type="DECIMAL(8, 2)"/>
+            <column name="PYRL_DT_FSCL_YR" type="DECIMAL(4)"/>
+            <column name="PYRL_DT_FSCLPRD_CD" type="VARCHAR(2)"/>
+            <column name="EMPLID" type="VARCHAR(40)"/>
+            <column name="EMPL_RCD" type="DECIMAL(3)"/>
+            <column name="ERNCD" type="VARCHAR(3)"/>
+            <column name="PAYGROUP" type="VARCHAR(3)"/>
+            <column name="SAL_ADMIN_PLAN" type="VARCHAR(4)"/>
+            <column name="GRADE" type="VARCHAR(3)"/>
+            <column name="RUN_ID" type="VARCHAR(10)"/>
+            <column name="LL_ORIG_FIN_COA_CD" type="VARCHAR(2)"/>
+            <column name="LL_ORIG_ACCT_NBR" type="VARCHAR(7)"/>
+            <column name="LL_ORIG_SUB_ACCT_NBR" type="VARCHAR(5)"/>
+            <column name="LL_ORIG_FIN_OBJECT_CD" type="VARCHAR(4)"/>
+            <column name="LL_ORIG_FIN_SUB_OBJ_CD" type="VARCHAR(3)"/>
+            <column name="COMPANY" type="VARCHAR(3)"/>
+            <column name="SETID" type="VARCHAR(5)"/>
+            <column name="TIMESTAMP" type="DATE"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="kfs" id="2775" context="bootstrap,demo,unit">
+        <createTable tableName="LD_PND_LDGR_ENTR_T">
+            <column defaultValue="" name="FS_ORIGIN_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="TRN_ENTR_SEQ_NBR" type="DECIMAL(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UNIV_FISCAL_YR" type="DECIMAL(4)"/>
+            <column name="FIN_COA_CD" type="VARCHAR(2)"/>
+            <column name="ACCOUNT_NBR" type="VARCHAR(7)"/>
+            <column name="SUB_ACCT_NBR" type="VARCHAR(5)"/>
+            <column name="FIN_OBJECT_CD" type="VARCHAR(4)"/>
+            <column name="FIN_SUB_OBJ_CD" type="VARCHAR(3)"/>
+            <column name="FIN_BALANCE_TYP_CD" type="VARCHAR(2)"/>
+            <column name="FIN_OBJ_TYP_CD" type="VARCHAR(2)"/>
+            <column name="UNIV_FISCAL_PRD_CD" type="VARCHAR(2)"/>
+            <column name="FDOC_TYP_CD" type="VARCHAR(4)"/>
+            <column name="POSITION_NBR" type="VARCHAR(8)"/>
+            <column name="PROJECT_CD" type="VARCHAR(10)"/>
+            <column name="TRN_LDGR_ENTR_DESC" type="VARCHAR(40)"/>
+            <column name="TRN_LDGR_ENTR_AMT" type="DECIMAL(19, 2)"/>
+            <column name="TRN_DEBIT_CRDT_CD" type="VARCHAR(1)"/>
+            <column name="TRANSACTION_DT" type="DATE"/>
+            <column name="ORG_DOC_NBR" type="VARCHAR(10)"/>
+            <column name="ORG_REFERENCE_ID" type="VARCHAR(8)"/>
+            <column name="FDOC_REF_TYP_CD" type="VARCHAR(4)"/>
+            <column name="FS_REF_ORIGIN_CD" type="VARCHAR(2)"/>
+            <column name="FDOC_REF_NBR" type="VARCHAR(14)"/>
+            <column name="FDOC_REVERSAL_DT" type="DATE"/>
+            <column name="TRN_ENCUM_UPDT_CD" type="VARCHAR(1)"/>
+            <column name="TRN_POST_DT" type="DATE"/>
+            <column name="PAY_PERIOD_END_DT" type="DATE"/>
+            <column name="TRN_TOTAL_HR" type="DECIMAL(8, 2)"/>
+            <column name="PYRL_DT_FSCL_YR" type="DECIMAL(4)"/>
+            <column name="PYRL_DT_FSCLPRD_CD" type="VARCHAR(2)"/>
+            <column name="FDOC_APPROVED_CD" type="VARCHAR(1)"/>
+            <column name="TRN_ENTR_OFST_CD" type="VARCHAR(1)"/>
+            <column name="TRNENTR_PROCESS_TM" type="DATE"/>
+            <column name="EMPLID" type="VARCHAR(40)"/>
+            <column name="EMPL_RCD" type="DECIMAL(3)"/>
+            <column name="ERNCD" type="VARCHAR(3)"/>
+            <column name="PAYGROUP" type="VARCHAR(3)"/>
+            <column name="SAL_ADMIN_PLAN" type="VARCHAR(4)"/>
+            <column name="GRADE" type="VARCHAR(3)"/>
+            <column name="RUN_ID" type="VARCHAR(10)"/>
+            <column name="LL_ORIG_FIN_COA_CD" type="VARCHAR(2)"/>
+            <column name="LL_ORIG_ACCT_NBR" type="VARCHAR(7)"/>
+            <column name="LL_ORIG_SUB_ACCT_NBR" type="VARCHAR(5)"/>
+            <column name="LL_ORIG_FIN_OBJECT_CD" type="VARCHAR(4)"/>
+            <column name="LL_ORIG_FIN_SUB_OBJ_CD" type="VARCHAR(3)"/>
+            <column name="COMPANY" type="VARCHAR(3)"/>
+            <column name="SETID" type="VARCHAR(5)"/>
+            <column name="TIMESTAMP" type="DATE"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="kfs" id="2776" context="bootstrap,demo,unit">
+        <createTable tableName="LD_POS_OBJ_GRP_T">
+            <column defaultValue="" name="POS_OBJ_GRP_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="POS_OBJ_GRP_NM" type="VARCHAR(40)"/>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2777" context="bootstrap,demo,unit">
+        <createTable tableName="PS_POSITION_DATA">
+            <column defaultValue="" name="POSITION_NBR" type="VARCHAR(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="EFFDT" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="JOBCODE" type="VARCHAR(6)"/>
+            <column name="POS_EFF_STATUS" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DESCR" type="VARCHAR(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DESCRSHORT" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="BUSINESS_UNIT" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DEPTID" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="POSN_STATUS" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="STATUS_DT" type="DATE"/>
+            <column name="BUDGETED_POSN" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="STD_HRS_DEFAULT" type="DECIMAL(6, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="STD_HRS_FREQUENCY" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="POS_REG_TEMP" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="POS_FTE" type="DECIMAL(3, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="POS_SAL_PLAN_DFLT" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="POS_GRADE_DFLT" type="VARCHAR(3)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+</databaseChangeLog>

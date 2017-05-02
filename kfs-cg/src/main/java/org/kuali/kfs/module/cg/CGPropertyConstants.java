@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -19,11 +19,10 @@
 package org.kuali.kfs.module.cg;
 
 
-
 /**
  * Property Constants for CG module
  */
-public class CGPropertyConstants{
+public class CGPropertyConstants {
 
     // Research Risk Type
     public static final String RESEARCH_RISK_TYPE_SORT_NUMBER = "researchRiskTypeSortNumber";
@@ -49,7 +48,7 @@ public class CGPropertyConstants{
         public static final String AGENCY_ADDRESS_ZIP_CODE = "agencyZipCode";
         public static final String AGENCY_ADDRESS_INTERNATIONAL_PROVINCE_NAME = "agencyAddressInternationalProvinceName";
         public static final String AGENCY_ADDRESS_INTERNATIONAL_MAIL_CODE = "agencyInternationalMailCode";
-        public static final String AGENCY_CUSTOMER_TYPE_CODE= "customerTypeCode";
+        public static final String AGENCY_CUSTOMER_TYPE_CODE = "customerTypeCode";
         public static final String AGENCY_CUSTOMER_NUMBER = "customerNumber";
     }
 
@@ -70,6 +69,7 @@ public class CGPropertyConstants{
     }
 
     // AR related constants
+    public static final String BILLING_FREQUENCY = "billingFrequency";
     public static final String CUSTOMER = "customer";
     public static final String CUSTOMER_NUMBER = "customerNumber";
     public static final String CUSTOMER_TYPE_CODE = "customerTypeCode";

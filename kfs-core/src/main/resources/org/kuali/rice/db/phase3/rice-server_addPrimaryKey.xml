@@ -1,0 +1,687 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00431">
+        <addPrimaryKey columnNames="NMSPC_CD, CMPNT_CD, MSG_KEY, LOC" constraintName="PKkrad_msg_t" tableName="krad_msg_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00432">
+        <addPrimaryKey columnNames="CMPNT_SET_ID" constraintName="PKkrcr_cmpnt_set_t" tableName="krcr_cmpnt_set_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00433">
+        <addPrimaryKey columnNames="NMSPC_CD, CMPNT_CD" constraintName="PKkrcr_cmpnt_t" tableName="krcr_cmpnt_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00434">
+        <addPrimaryKey columnNames="NMSPC_CD, CMPNT_CD" constraintName="PKkrcr_drvd_cmpnt_t" tableName="krcr_drvd_cmpnt_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00435">
+        <addPrimaryKey columnNames="NMSPC_CD" constraintName="PKkrcr_nmspc_t" tableName="krcr_nmspc_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00436">
+        <addPrimaryKey columnNames="NMSPC_CD, CMPNT_CD, PARM_NM, APPL_ID" constraintName="PKkrcr_parm_t" tableName="krcr_parm_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00437">
+        <addPrimaryKey columnNames="PARM_TYP_CD" constraintName="PKkrcr_parm_typ_t" tableName="krcr_parm_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00438">
+        <addPrimaryKey columnNames="STYLE_ID" constraintName="PKkrcr_style_t" tableName="krcr_style_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00439">
+        <addPrimaryKey columnNames="CHNL_ID, PRODCR_ID" constraintName="PKkren_chnl_prodcr_t" tableName="kren_chnl_prodcr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00440">
+        <addPrimaryKey columnNames="CHNL_SUBSCRP_ID" constraintName="PKkren_chnl_subscrp_t" tableName="kren_chnl_subscrp_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00441">
+        <addPrimaryKey columnNames="CHNL_ID" constraintName="PKkren_chnl_t" tableName="kren_chnl_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00442">
+        <addPrimaryKey columnNames="CNTNT_TYP_ID" constraintName="PKkren_cntnt_typ_t" tableName="kren_cntnt_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00443">
+        <addPrimaryKey columnNames="MSG_DELIV_ID" constraintName="PKkren_msg_deliv_t" tableName="kren_msg_deliv_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00444">
+        <addPrimaryKey columnNames="MSG_ID" constraintName="PKkren_msg_t" tableName="kren_msg_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00445">
+        <addPrimaryKey columnNames="NTFCTN_MSG_DELIV_ID" constraintName="PKkren_ntfctn_msg_deliv_t" tableName="kren_ntfctn_msg_deliv_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00446">
+        <addPrimaryKey columnNames="NTFCTN_ID" constraintName="PKkren_ntfctn_t" tableName="kren_ntfctn_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00447">
+        <addPrimaryKey columnNames="PRIO_ID" constraintName="PKkren_prio_t" tableName="kren_prio_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00448">
+        <addPrimaryKey columnNames="PRODCR_ID" constraintName="PKkren_prodcr_t" tableName="kren_prodcr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00449">
+        <addPrimaryKey columnNames="RECIP_DELIV_ID" constraintName="PKkren_recip_deliv_t" tableName="kren_recip_deliv_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00450">
+        <addPrimaryKey columnNames="RECIP_LIST_ID" constraintName="PKkren_recip_list_t" tableName="kren_recip_list_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00451">
+        <addPrimaryKey columnNames="RECIP_PREFS_ID" constraintName="PKkren_recip_prefs_t" tableName="kren_recip_prefs_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00452">
+        <addPrimaryKey columnNames="RECIP_ID" constraintName="PKkren_recip_t" tableName="kren_recip_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00453">
+        <addPrimaryKey columnNames="RVWER_ID" constraintName="PKkren_rvwer_t" tableName="kren_rvwer_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00454">
+        <addPrimaryKey columnNames="SNDR_ID" constraintName="PKkren_sndr_t" tableName="kren_sndr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00455">
+        <addPrimaryKey columnNames="ACTN_ITM_ID" constraintName="PKkrew_actn_itm_t" tableName="krew_actn_itm_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00456">
+        <addPrimaryKey columnNames="ACTN_RQST_ID" constraintName="PKkrew_actn_rqst_t" tableName="krew_actn_rqst_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00457">
+        <addPrimaryKey columnNames="ACTN_TKN_ID" constraintName="PKkrew_actn_tkn_t" tableName="krew_actn_tkn_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00458">
+        <addPrimaryKey columnNames="APP_DOC_STAT_TRAN_ID" constraintName="PKkrew_app_doc_stat_tran_t" tableName="krew_app_doc_stat_tran_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00459">
+        <addPrimaryKey columnNames="ATTACHMENT_ID" constraintName="PKkrew_att_t" tableName="krew_att_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00460">
+        <addPrimaryKey columnNames="ATTR_DEFN_ID" constraintName="PKkrew_attr_defn_t" tableName="krew_attr_defn_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00461">
+        <addPrimaryKey columnNames="DLGN_RULE_ID" constraintName="PKkrew_dlgn_rsp_t" tableName="krew_dlgn_rsp_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00462">
+        <addPrimaryKey columnNames="DOC_HDR_ID" constraintName="PKkrew_doc_hdr_cntnt_t" tableName="krew_doc_hdr_cntnt_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00463">
+        <addPrimaryKey columnNames="DOC_HDR_EXT_DT_ID" constraintName="PKkrew_doc_hdr_ext_dt_t" tableName="krew_doc_hdr_ext_dt_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00464">
+        <addPrimaryKey columnNames="DOC_HDR_EXT_FLT_ID" constraintName="PKkrew_doc_hdr_ext_flt_t" tableName="krew_doc_hdr_ext_flt_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00465">
+        <addPrimaryKey columnNames="DOC_HDR_EXT_LONG_ID" constraintName="PKkrew_doc_hdr_ext_long_t" tableName="krew_doc_hdr_ext_long_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00466">
+        <addPrimaryKey columnNames="DOC_HDR_EXT_ID" constraintName="PKkrew_doc_hdr_ext_t" tableName="krew_doc_hdr_ext_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00467">
+        <addPrimaryKey columnNames="DOC_HDR_ID" constraintName="PKkrew_doc_hdr_t" tableName="krew_doc_hdr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00468">
+        <addPrimaryKey columnNames="DOC_LNK_ID" constraintName="PKkrew_doc_lnk_t" tableName="krew_doc_lnk_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00469">
+        <addPrimaryKey columnNames="DOC_NTE_ID" constraintName="PKkrew_doc_nte_t" tableName="krew_doc_nte_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00470">
+        <addPrimaryKey columnNames="DOC_TYP_ID, DOC_STAT_NM" constraintName="PKkrew_doc_typ_app_doc_stat_t" tableName="krew_doc_typ_app_doc_stat_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00471">
+        <addPrimaryKey columnNames="DOC_TYP_ID, CAT_NM" constraintName="PKkrew_doc_typ_app_stat_cat_t" tableName="krew_doc_typ_app_stat_cat_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00472">
+        <addPrimaryKey columnNames="DOC_TYP_ATTRIB_ID" constraintName="PKkrew_doc_typ_attr_t" tableName="krew_doc_typ_attr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00473">
+        <addPrimaryKey columnNames="DOC_TYP_ID, DOC_PLCY_NM" constraintName="PKkrew_doc_typ_plcy_reln_t" tableName="krew_doc_typ_plcy_reln_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00474">
+        <addPrimaryKey columnNames="DOC_TYP_PROC_ID" constraintName="PKkrew_doc_typ_proc_t" tableName="krew_doc_typ_proc_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00475">
+        <addPrimaryKey columnNames="DOC_TYP_ID" constraintName="PKkrew_doc_typ_t" tableName="krew_doc_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00476">
+        <addPrimaryKey columnNames="EDOCLT_ASSOC_ID" constraintName="PKkrew_edl_assctn_t" tableName="krew_edl_assctn_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00477">
+        <addPrimaryKey columnNames="EDOCLT_DEF_ID" constraintName="PKkrew_edl_def_t" tableName="krew_edl_def_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00478">
+        <addPrimaryKey columnNames="DOC_HDR_ID" constraintName="PKkrew_edl_dmp_t" tableName="krew_edl_dmp_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00479">
+        <addPrimaryKey columnNames="EDL_FIELD_DMP_ID" constraintName="PKkrew_edl_fld_dmp_t" tableName="krew_edl_fld_dmp_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00480">
+        <addPrimaryKey columnNames="DOC_HDR_ID, RTE_NODE_INSTN_ID" constraintName="PKkrew_init_rte_node_instn_t" tableName="krew_init_rte_node_instn_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00481">
+        <addPrimaryKey columnNames="ACTN_ITM_ID" constraintName="PKkrew_out_box_itm_t" tableName="krew_out_box_itm_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00482">
+        <addPrimaryKey columnNames="PPL_FLW_ATTR_ID" constraintName="PKkrew_ppl_flw_attr_t" tableName="krew_ppl_flw_attr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00483">
+        <addPrimaryKey columnNames="PPL_FLW_DLGT_ID" constraintName="PKkrew_ppl_flw_dlgt_t" tableName="krew_ppl_flw_dlgt_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00484">
+        <addPrimaryKey columnNames="PPL_FLW_MBR_ID" constraintName="PKkrew_ppl_flw_mbr_t" tableName="krew_ppl_flw_mbr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00485">
+        <addPrimaryKey columnNames="PPL_FLW_ID" constraintName="PKkrew_ppl_flw_t" tableName="krew_ppl_flw_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00486">
+        <addPrimaryKey columnNames="RTE_BRCH_PROTO_ID" constraintName="PKkrew_rte_brch_proto_t" tableName="krew_rte_brch_proto_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00487">
+        <addPrimaryKey columnNames="RTE_BRCH_ST_ID" constraintName="PKkrew_rte_brch_st_t" tableName="krew_rte_brch_st_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00488">
+        <addPrimaryKey columnNames="RTE_BRCH_ID" constraintName="PKkrew_rte_brch_t" tableName="krew_rte_brch_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00489">
+        <addPrimaryKey columnNames="RTE_NODE_CFG_PARM_ID" constraintName="PKkrew_rte_node_cfg_parm_t" tableName="krew_rte_node_cfg_parm_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00490">
+        <addPrimaryKey columnNames="FROM_RTE_NODE_INSTN_ID, TO_RTE_NODE_INSTN_ID" constraintName="PKkrew_rte_node_instn_lnk_t" tableName="krew_rte_node_instn_lnk_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00491">
+        <addPrimaryKey columnNames="RTE_NODE_INSTN_ST_ID" constraintName="PKkrew_rte_node_instn_st_t" tableName="krew_rte_node_instn_st_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00492">
+        <addPrimaryKey columnNames="RTE_NODE_INSTN_ID" constraintName="PKkrew_rte_node_instn_t" tableName="krew_rte_node_instn_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00493">
+        <addPrimaryKey columnNames="FROM_RTE_NODE_ID, TO_RTE_NODE_ID" constraintName="PKkrew_rte_node_lnk_t" tableName="krew_rte_node_lnk_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00494">
+        <addPrimaryKey columnNames="RTE_NODE_ID" constraintName="PKkrew_rte_node_t" tableName="krew_rte_node_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00495">
+        <addPrimaryKey columnNames="RULE_ATTR_ID" constraintName="PKkrew_rule_attr_t" tableName="krew_rule_attr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00496">
+        <addPrimaryKey columnNames="RULE_EXPR_ID" constraintName="PKkrew_rule_expr_t" tableName="krew_rule_expr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00497">
+        <addPrimaryKey columnNames="RULE_EXT_ID" constraintName="PKkrew_rule_ext_t" tableName="krew_rule_ext_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00498">
+        <addPrimaryKey columnNames="RULE_EXT_VAL_ID" constraintName="PKkrew_rule_ext_val_t" tableName="krew_rule_ext_val_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00499">
+        <addPrimaryKey columnNames="RULE_RSP_ID" constraintName="PKkrew_rule_rsp_t" tableName="krew_rule_rsp_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00500">
+        <addPrimaryKey columnNames="RULE_ID" constraintName="PKkrew_rule_t" tableName="krew_rule_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00501">
+        <addPrimaryKey columnNames="RULE_TMPL_ATTR_ID" constraintName="PKkrew_rule_tmpl_attr_t" tableName="krew_rule_tmpl_attr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00502">
+        <addPrimaryKey columnNames="RULE_TMPL_OPTN_ID" constraintName="PKkrew_rule_tmpl_optn_t" tableName="krew_rule_tmpl_optn_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00503">
+        <addPrimaryKey columnNames="RULE_TMPL_ID" constraintName="PKkrew_rule_tmpl_t" tableName="krew_rule_tmpl_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00504">
+        <addPrimaryKey columnNames="TYP_ATTR_ID" constraintName="PKkrew_typ_attr_t" tableName="krew_typ_attr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00505">
+        <addPrimaryKey columnNames="TYP_ID" constraintName="PKkrew_typ_t" tableName="krew_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00506">
+        <addPrimaryKey columnNames="PRNCPL_ID, PRSN_OPTN_ID" constraintName="PKkrew_usr_optn_t" tableName="krew_usr_optn_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00507">
+        <addPrimaryKey columnNames="ADDR_TYP_CD" constraintName="PKkrim_addr_typ_t" tableName="krim_addr_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00508">
+        <addPrimaryKey columnNames="AFLTN_TYP_CD" constraintName="PKkrim_afltn_typ_t" tableName="krim_afltn_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00509">
+        <addPrimaryKey columnNames="KIM_ATTR_DEFN_ID" constraintName="PKkrim_attr_defn_t" tableName="krim_attr_defn_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00510">
+        <addPrimaryKey columnNames="CTZNSHP_STAT_CD" constraintName="PKkrim_ctznshp_stat_t" tableName="krim_ctznshp_stat_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00511">
+        <addPrimaryKey columnNames="ATTR_DATA_ID" constraintName="PKkrim_dlgn_mbr_attr_data_t" tableName="krim_dlgn_mbr_attr_data_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00512">
+        <addPrimaryKey columnNames="DLGN_MBR_ID" constraintName="PKkrim_dlgn_mbr_t" tableName="krim_dlgn_mbr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00513">
+        <addPrimaryKey columnNames="DLGN_ID" constraintName="PKkrim_dlgn_t" tableName="krim_dlgn_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00514">
+        <addPrimaryKey columnNames="EMAIL_TYP_CD" constraintName="PKkrim_email_typ_t" tableName="krim_email_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00515">
+        <addPrimaryKey columnNames="EMP_STAT_CD" constraintName="PKkrim_emp_stat_t" tableName="krim_emp_stat_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00516">
+        <addPrimaryKey columnNames="EMP_TYP_CD" constraintName="PKkrim_emp_typ_t" tableName="krim_emp_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00517">
+        <addPrimaryKey columnNames="ENT_NM_TYP_CD" constraintName="PKkrim_ent_nm_typ_t" tableName="krim_ent_nm_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00518">
+        <addPrimaryKey columnNames="ENT_TYP_CD" constraintName="PKkrim_ent_typ_t" tableName="krim_ent_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00519">
+        <addPrimaryKey columnNames="ENTITY_ADDR_ID" constraintName="PKkrim_entity_addr_t" tableName="krim_entity_addr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00520">
+        <addPrimaryKey columnNames="ENTITY_AFLTN_ID" constraintName="PKkrim_entity_afltn_t" tableName="krim_entity_afltn_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00521">
+        <addPrimaryKey columnNames="ENTITY_ID" constraintName="PKkrim_entity_bio_t" tableName="krim_entity_bio_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00522">
+        <addPrimaryKey columnNames="ENTITY_ID" constraintName="PKkrim_entity_cache_t" tableName="krim_entity_cache_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00523">
+        <addPrimaryKey columnNames="ENTITY_CTZNSHP_ID" constraintName="PKkrim_entity_ctznshp_t" tableName="krim_entity_ctznshp_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00524">
+        <addPrimaryKey columnNames="ENTITY_EMAIL_ID" constraintName="PKkrim_entity_email_t" tableName="krim_entity_email_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00525">
+        <addPrimaryKey columnNames="ENTITY_EMP_ID" constraintName="PKkrim_entity_emp_info_t" tableName="krim_entity_emp_info_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00526">
+        <addPrimaryKey columnNames="ENT_TYP_CD, ENTITY_ID" constraintName="PKkrim_entity_ent_typ_t" tableName="krim_entity_ent_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00527">
+        <addPrimaryKey columnNames="ID" constraintName="PKkrim_entity_ethnic_t" tableName="krim_entity_ethnic_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00528">
+        <addPrimaryKey columnNames="ENTITY_EXT_ID_ID" constraintName="PKkrim_entity_ext_id_t" tableName="krim_entity_ext_id_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00529">
+        <addPrimaryKey columnNames="ENTITY_NM_ID" constraintName="PKkrim_entity_nm_t" tableName="krim_entity_nm_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00530">
+        <addPrimaryKey columnNames="ENTITY_PHONE_ID" constraintName="PKkrim_entity_phone_t" tableName="krim_entity_phone_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00531">
+        <addPrimaryKey columnNames="ENTITY_ID" constraintName="PKkrim_entity_priv_pref_t" tableName="krim_entity_priv_pref_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00532">
+        <addPrimaryKey columnNames="ID" constraintName="PKkrim_entity_residency_t" tableName="krim_entity_residency_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00533">
+        <addPrimaryKey columnNames="ENTITY_ID" constraintName="PKkrim_entity_t" tableName="krim_entity_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00534">
+        <addPrimaryKey columnNames="ID" constraintName="PKkrim_entity_visa_t" tableName="krim_entity_visa_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00535">
+        <addPrimaryKey columnNames="EXT_ID_TYP_CD" constraintName="PKkrim_ext_id_typ_t" tableName="krim_ext_id_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00536">
+        <addPrimaryKey columnNames="ATTR_DATA_ID" constraintName="PKkrim_grp_attr_data_t" tableName="krim_grp_attr_data_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00537">
+        <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKkrim_grp_document_t" tableName="krim_grp_document_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00538">
+        <addPrimaryKey columnNames="GRP_MBR_ID" constraintName="PKkrim_grp_mbr_t" tableName="krim_grp_mbr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00539">
+        <addPrimaryKey columnNames="GRP_ID" constraintName="PKkrim_grp_t" tableName="krim_grp_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00540">
+        <addPrimaryKey columnNames="ATTR_DATA_ID" constraintName="PKkrim_perm_attr_data_t" tableName="krim_perm_attr_data_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00541">
+        <addPrimaryKey columnNames="PERM_ID" constraintName="PKkrim_perm_t" tableName="krim_perm_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00542">
+        <addPrimaryKey columnNames="PERM_TMPL_ID" constraintName="PKkrim_perm_tmpl_t" tableName="krim_perm_tmpl_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00543">
+        <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKkrim_person_document_t" tableName="krim_person_document_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00544">
+        <addPrimaryKey columnNames="PHONE_TYP_CD" constraintName="PKkrim_phone_typ_t" tableName="krim_phone_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00545">
+        <addPrimaryKey columnNames="FDOC_NBR, ENTITY_ADDR_ID" constraintName="PKkrim_pnd_addr_mt" tableName="krim_pnd_addr_mt"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00546">
+        <addPrimaryKey columnNames="FDOC_NBR, ENTITY_AFLTN_ID" constraintName="PKkrim_pnd_afltn_mt" tableName="krim_pnd_afltn_mt"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00547">
+        <addPrimaryKey columnNames="FDOC_NBR, ENTITY_CTZNSHP_ID" constraintName="PKkrim_pnd_ctznshp_mt" tableName="krim_pnd_ctznshp_mt"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00548">
+        <addPrimaryKey columnNames="FDOC_NBR, ATTR_DATA_ID" constraintName="PKkrim_pnd_dlgn_mbr_attr_data" tableName="krim_pnd_dlgn_mbr_attr_data_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00549">
+        <addPrimaryKey columnNames="FDOC_NBR, DLGN_MBR_ID" constraintName="PKkrim_pnd_dlgn_mbr_t" tableName="krim_pnd_dlgn_mbr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00550">
+        <addPrimaryKey columnNames="FDOC_NBR, DLGN_ID" constraintName="PKkrim_pnd_dlgn_t" tableName="krim_pnd_dlgn_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00551">
+        <addPrimaryKey columnNames="FDOC_NBR, ENTITY_EMAIL_ID" constraintName="PKkrim_pnd_email_mt" tableName="krim_pnd_email_mt"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00552">
+        <addPrimaryKey columnNames="FDOC_NBR, ENTITY_EMP_ID" constraintName="PKkrim_pnd_emp_info_mt" tableName="krim_pnd_emp_info_mt"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00553">
+        <addPrimaryKey columnNames="FDOC_NBR, ATTR_DATA_ID" constraintName="PKkrim_pnd_grp_attr_data_t" tableName="krim_pnd_grp_attr_data_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00554">
+        <addPrimaryKey columnNames="FDOC_NBR, GRP_MBR_ID" constraintName="PKkrim_pnd_grp_mbr_t" tableName="krim_pnd_grp_mbr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00555">
+        <addPrimaryKey columnNames="GRP_MBR_ID, FDOC_NBR" constraintName="PKkrim_pnd_grp_prncpl_mt" tableName="krim_pnd_grp_prncpl_mt"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00556">
+        <addPrimaryKey columnNames="FDOC_NBR, ENTITY_NM_ID" constraintName="PKkrim_pnd_nm_mt" tableName="krim_pnd_nm_mt"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00557">
+        <addPrimaryKey columnNames="FDOC_NBR, ENTITY_PHONE_ID" constraintName="PKkrim_pnd_phone_mt" tableName="krim_pnd_phone_mt"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00558">
+        <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKkrim_pnd_priv_pref_mt" tableName="krim_pnd_priv_pref_mt"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00559">
+        <addPrimaryKey columnNames="FDOC_NBR, ATTR_DATA_ID" constraintName="PKkrim_pnd_role_mbr_attr_data" tableName="krim_pnd_role_mbr_attr_data_mt"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00560">
+        <addPrimaryKey columnNames="FDOC_NBR, ROLE_MBR_ID" constraintName="PKkrim_pnd_role_mbr_mt" tableName="krim_pnd_role_mbr_mt"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00561">
+        <addPrimaryKey columnNames="FDOC_NBR, ROLE_ID" constraintName="PKkrim_pnd_role_mt" tableName="krim_pnd_role_mt"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00562">
+        <addPrimaryKey columnNames="FDOC_NBR, ROLE_PERM_ID" constraintName="PKkrim_pnd_role_perm_t" tableName="krim_pnd_role_perm_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00563">
+        <addPrimaryKey columnNames="ROLE_RSP_ACTN_ID, FDOC_NBR" constraintName="PKkrim_pnd_role_rsp_actn_mt" tableName="krim_pnd_role_rsp_actn_mt"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00564">
+        <addPrimaryKey columnNames="FDOC_NBR, ROLE_RSP_ID" constraintName="PKkrim_pnd_role_rsp_t" tableName="krim_pnd_role_rsp_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00565">
+        <addPrimaryKey columnNames="PRNCPL_ID" constraintName="PKkrim_prncpl_t" tableName="krim_prncpl_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00566">
+        <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKkrim_role_document_t" tableName="krim_role_document_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00567">
+        <addPrimaryKey columnNames="ATTR_DATA_ID" constraintName="PKkrim_role_mbr_attr_data_t" tableName="krim_role_mbr_attr_data_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00568">
+        <addPrimaryKey columnNames="ROLE_MBR_ID" constraintName="PKkrim_role_mbr_t" tableName="krim_role_mbr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00569">
+        <addPrimaryKey columnNames="ROLE_PERM_ID" constraintName="PKkrim_role_perm_t" tableName="krim_role_perm_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00570">
+        <addPrimaryKey columnNames="ROLE_RSP_ACTN_ID" constraintName="PKkrim_role_rsp_actn_t" tableName="krim_role_rsp_actn_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00571">
+        <addPrimaryKey columnNames="ROLE_RSP_ID" constraintName="PKkrim_role_rsp_t" tableName="krim_role_rsp_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00572">
+        <addPrimaryKey columnNames="ROLE_ID" constraintName="PKkrim_role_t" tableName="krim_role_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00573">
+        <addPrimaryKey columnNames="ATTR_DATA_ID" constraintName="PKkrim_rsp_attr_data_t" tableName="krim_rsp_attr_data_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00574">
+        <addPrimaryKey columnNames="RSP_ID" constraintName="PKkrim_rsp_t" tableName="krim_rsp_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00575">
+        <addPrimaryKey columnNames="RSP_TMPL_ID" constraintName="PKkrim_rsp_tmpl_t" tableName="krim_rsp_tmpl_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00576">
+        <addPrimaryKey columnNames="KIM_TYP_ATTR_ID" constraintName="PKkrim_typ_attr_t" tableName="krim_typ_attr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00577">
+        <addPrimaryKey columnNames="KIM_TYP_ID" constraintName="PKkrim_typ_t" tableName="krim_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00578">
+        <addPrimaryKey columnNames="CAMPUS_CD" constraintName="PKkrlc_cmp_t" tableName="krlc_cmp_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00579">
+        <addPrimaryKey columnNames="CAMPUS_TYP_CD" constraintName="PKkrlc_cmp_typ_t" tableName="krlc_cmp_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00580">
+        <addPrimaryKey columnNames="POSTAL_CNTRY_CD" constraintName="PKkrlc_cntry_t" tableName="krlc_cntry_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00581">
+        <addPrimaryKey columnNames="COUNTY_CD, STATE_CD, POSTAL_CNTRY_CD" constraintName="PKkrlc_cnty_t" tableName="krlc_cnty_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00582">
+        <addPrimaryKey columnNames="POSTAL_CD, POSTAL_CNTRY_CD" constraintName="PKkrlc_pstl_cd_t" tableName="krlc_pstl_cd_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00583">
+        <addPrimaryKey columnNames="POSTAL_STATE_CD, POSTAL_CNTRY_CD" constraintName="PKkrlc_st_t" tableName="krlc_st_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00584">
+        <addPrimaryKey columnNames="ACTN_ATTR_DATA_ID" constraintName="PKkrms_actn_attr_t" tableName="krms_actn_attr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00585">
+        <addPrimaryKey columnNames="ACTN_ID" constraintName="PKkrms_actn_t" tableName="krms_actn_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00586">
+        <addPrimaryKey columnNames="AGENDA_ATTR_ID" constraintName="PKkrms_agenda_attr_t" tableName="krms_agenda_attr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00587">
+        <addPrimaryKey columnNames="AGENDA_ITM_ID" constraintName="PKkrms_agenda_itm_t" tableName="krms_agenda_itm_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00588">
+        <addPrimaryKey columnNames="AGENDA_ID" constraintName="PKkrms_agenda_t" tableName="krms_agenda_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00589">
+        <addPrimaryKey columnNames="ATTR_DEFN_ID" constraintName="PKkrms_attr_defn_t" tableName="krms_attr_defn_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00590">
+        <addPrimaryKey columnNames="CMPND_PROP_ID, PROP_ID" constraintName="PKkrms_cmpnd_prop_props_t" tableName="krms_cmpnd_prop_props_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00591">
+        <addPrimaryKey columnNames="CNTXT_ATTR_ID" constraintName="PKkrms_cntxt_attr_t" tableName="krms_cntxt_attr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00592">
+        <addPrimaryKey columnNames="CNTXT_ID" constraintName="PKkrms_cntxt_t" tableName="krms_cntxt_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00593">
+        <addPrimaryKey columnNames="CNTXT_VLD_ACTN_ID" constraintName="PKkrms_cntxt_vld_actn_typ_t" tableName="krms_cntxt_vld_actn_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00594">
+        <addPrimaryKey columnNames="CNTXT_VLD_AGENDA_ID" constraintName="PKkrms_cntxt_vld_agenda_typ_t" tableName="krms_cntxt_vld_agenda_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00595">
+        <addPrimaryKey columnNames="CNTXT_VLD_FUNC_ID" constraintName="PKkrms_cntxt_vld_func_t" tableName="krms_cntxt_vld_func_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00596">
+        <addPrimaryKey columnNames="CNTXT_VLD_RULE_ID" constraintName="PKkrms_cntxt_vld_rule_typ_t" tableName="krms_cntxt_vld_rule_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00597">
+        <addPrimaryKey columnNames="CNTXT_TERM_SPEC_PREREQ_ID" constraintName="PKkrms_cntxt_vld_term_spec_t" tableName="krms_cntxt_vld_term_spec_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00598">
+        <addPrimaryKey columnNames="CTGRY_ID" constraintName="PKkrms_ctgry_t" tableName="krms_ctgry_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00599">
+        <addPrimaryKey columnNames="FUNC_ID, CTGRY_ID" constraintName="PKkrms_func_ctgry_t" tableName="krms_func_ctgry_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00600">
+        <addPrimaryKey columnNames="FUNC_PARM_ID" constraintName="PKkrms_func_parm_t" tableName="krms_func_parm_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00601">
+        <addPrimaryKey columnNames="FUNC_ID" constraintName="PKkrms_func_t" tableName="krms_func_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00602">
+        <addPrimaryKey columnNames="NL_TMPL_ATTR_ID" constraintName="PKkrms_nl_tmpl_attr_t" tableName="krms_nl_tmpl_attr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00603">
+        <addPrimaryKey columnNames="NL_TMPL_ID" constraintName="PKkrms_nl_tmpl_t" tableName="krms_nl_tmpl_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00604">
+        <addPrimaryKey columnNames="NL_USAGE_ATTR_ID" constraintName="PKkrms_nl_usage_attr_t" tableName="krms_nl_usage_attr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00605">
+        <addPrimaryKey columnNames="NL_USAGE_ID" constraintName="PKkrms_nl_usage_t" tableName="krms_nl_usage_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00606">
+        <addPrimaryKey columnNames="PROP_PARM_ID" constraintName="PKkrms_prop_parm_t" tableName="krms_prop_parm_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00607">
+        <addPrimaryKey columnNames="PROP_ID" constraintName="PKkrms_prop_t" tableName="krms_prop_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00608">
+        <addPrimaryKey columnNames="REF_OBJ_KRMS_OBJ_ID" constraintName="PKkrms_ref_obj_krms_obj_t" tableName="krms_ref_obj_krms_obj_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00609">
+        <addPrimaryKey columnNames="RULE_ATTR_ID" constraintName="PKkrms_rule_attr_t" tableName="krms_rule_attr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00610">
+        <addPrimaryKey columnNames="RULE_ID" constraintName="PKkrms_rule_t" tableName="krms_rule_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00611">
+        <addPrimaryKey columnNames="TERM_PARM_ID" constraintName="PKkrms_term_parm_t" tableName="krms_term_parm_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00612">
+        <addPrimaryKey columnNames="TERM_RSLVR_ATTR_ID" constraintName="PKkrms_term_rslvr_attr_t" tableName="krms_term_rslvr_attr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00613">
+        <addPrimaryKey columnNames="TERM_SPEC_ID, TERM_RSLVR_ID" constraintName="PKkrms_term_rslvr_input_spec_t" tableName="krms_term_rslvr_input_spec_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00614">
+        <addPrimaryKey columnNames="TERM_RSLVR_PARM_SPEC_ID" constraintName="PKkrms_term_rslvr_parm_spec_t" tableName="krms_term_rslvr_parm_spec_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00615">
+        <addPrimaryKey columnNames="TERM_RSLVR_ID" constraintName="PKkrms_term_rslvr_t" tableName="krms_term_rslvr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00616">
+        <addPrimaryKey columnNames="TERM_SPEC_ID, CTGRY_ID" constraintName="PKkrms_term_spec_ctgry_t" tableName="krms_term_spec_ctgry_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00617">
+        <addPrimaryKey columnNames="TERM_SPEC_ID" constraintName="PKkrms_term_spec_t" tableName="krms_term_spec_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00618">
+        <addPrimaryKey columnNames="TERM_ID" constraintName="PKkrms_term_t" tableName="krms_term_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00619">
+        <addPrimaryKey columnNames="TYP_ATTR_ID" constraintName="PKkrms_typ_attr_t" tableName="krms_typ_attr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00620">
+        <addPrimaryKey columnNames="TYP_RELN_ID" constraintName="PKkrms_typ_reln_t" tableName="krms_typ_reln_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00621">
+        <addPrimaryKey columnNames="TYP_ID" constraintName="PKkrms_typ_t" tableName="krms_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00622">
+        <addPrimaryKey columnNames="RECIP_TYP_CD, ACTN_RQST_CD, ACTN_RQST_RECIP_ID, DOC_HDR_ID" constraintName="PKkrns_adhoc_rte_actn_recip_t" tableName="krns_adhoc_rte_actn_recip_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00623">
+        <addPrimaryKey columnNames="NTE_ID" constraintName="PKkrns_att_t" tableName="krns_att_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00624">
+        <addPrimaryKey columnNames="DOC_HDR_ID" constraintName="PKkrns_doc_hdr_t" tableName="krns_doc_hdr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00625">
+        <addPrimaryKey columnNames="LOOKUP_RSLT_ID" constraintName="PKkrns_lookup_rslt_t" tableName="krns_lookup_rslt_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00626">
+        <addPrimaryKey columnNames="LOOKUP_RSLT_ID" constraintName="PKkrns_lookup_sel_t" tableName="krns_lookup_sel_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00627">
+        <addPrimaryKey columnNames="ATT_ID" constraintName="PKkrns_maint_doc_att_lst_t" tableName="krns_maint_doc_att_lst_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00628">
+        <addPrimaryKey columnNames="DOC_HDR_ID" constraintName="PKkrns_maint_doc_att_t" tableName="krns_maint_doc_att_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00629">
+        <addPrimaryKey columnNames="DOC_HDR_ID" constraintName="PKkrns_maint_doc_t" tableName="krns_maint_doc_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00630">
+        <addPrimaryKey columnNames="MAINT_LOCK_ID" constraintName="PKkrns_maint_lock_t" tableName="krns_maint_lock_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00631">
+        <addPrimaryKey columnNames="NTE_ID" constraintName="PKkrns_nte_t" tableName="krns_nte_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00632">
+        <addPrimaryKey columnNames="NTE_TYP_CD" constraintName="PKkrns_nte_typ_t" tableName="krns_nte_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00633">
+        <addPrimaryKey columnNames="PESSIMISTIC_LOCK_ID" constraintName="PKkrns_pessimistic_lock_t" tableName="krns_pessimistic_lock_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00634">
+        <addPrimaryKey columnNames="SESN_DOC_ID, DOC_HDR_ID, PRNCPL_ID, IP_ADDR" constraintName="PKkrns_sesn_doc_t" tableName="krns_sesn_doc_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00635">
+        <addPrimaryKey columnNames="BAM_PARM_ID" constraintName="PKkrsb_bam_parm_t" tableName="krsb_bam_parm_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00636">
+        <addPrimaryKey columnNames="BAM_ID" constraintName="PKkrsb_bam_t" tableName="krsb_bam_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00637">
+        <addPrimaryKey columnNames="MSG_QUE_ID" constraintName="PKkrsb_msg_pyld_t" tableName="krsb_msg_pyld_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00638">
+        <addPrimaryKey columnNames="MSG_QUE_ID" constraintName="PKkrsb_msg_que_t" tableName="krsb_msg_que_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00639">
+        <addPrimaryKey columnNames="TRIGGER_NAME, TRIGGER_GROUP" constraintName="PKkrsb_qrtz_blob_triggers" tableName="krsb_qrtz_blob_triggers"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00640">
+        <addPrimaryKey columnNames="CALENDAR_NAME" constraintName="PKkrsb_qrtz_calendars" tableName="krsb_qrtz_calendars"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00641">
+        <addPrimaryKey columnNames="TRIGGER_NAME, TRIGGER_GROUP" constraintName="PKkrsb_qrtz_cron_triggers" tableName="krsb_qrtz_cron_triggers"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00642">
+        <addPrimaryKey columnNames="ENTRY_ID" constraintName="PKkrsb_qrtz_fired_triggers" tableName="krsb_qrtz_fired_triggers"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00643">
+        <addPrimaryKey columnNames="JOB_NAME, JOB_GROUP" constraintName="PKkrsb_qrtz_job_details" tableName="krsb_qrtz_job_details"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00644">
+        <addPrimaryKey columnNames="JOB_NAME, JOB_GROUP, JOB_LISTENER" constraintName="PKkrsb_qrtz_job_listeners" tableName="krsb_qrtz_job_listeners"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00645">
+        <addPrimaryKey columnNames="LOCK_NAME" constraintName="PKkrsb_qrtz_locks" tableName="krsb_qrtz_locks"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00646">
+        <addPrimaryKey columnNames="TRIGGER_GROUP" constraintName="PKkrsb_qrtz_paused_trigger_gr" tableName="krsb_qrtz_paused_trigger_grps"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00647">
+        <addPrimaryKey columnNames="INSTANCE_NAME" constraintName="PKkrsb_qrtz_scheduler_state" tableName="krsb_qrtz_scheduler_state"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00648">
+        <addPrimaryKey columnNames="TRIGGER_NAME, TRIGGER_GROUP" constraintName="PKkrsb_qrtz_simple_triggers" tableName="krsb_qrtz_simple_triggers"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00649">
+        <addPrimaryKey columnNames="TRIGGER_NAME, TRIGGER_GROUP, TRIGGER_LISTENER" constraintName="PKkrsb_qrtz_trigger_listeners" tableName="krsb_qrtz_trigger_listeners"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00650">
+        <addPrimaryKey columnNames="TRIGGER_NAME, TRIGGER_GROUP" constraintName="PKkrsb_qrtz_triggers" tableName="krsb_qrtz_triggers"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00651">
+        <addPrimaryKey columnNames="SVC_DEF_ID" constraintName="PKkrsb_svc_def_t" tableName="krsb_svc_def_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00652">
+        <addPrimaryKey columnNames="SVC_DSCRPTR_ID" constraintName="PKkrsb_svc_dscrptr_t" tableName="krsb_svc_dscrptr_t"/>
+    </changeSet>
+</databaseChangeLog>

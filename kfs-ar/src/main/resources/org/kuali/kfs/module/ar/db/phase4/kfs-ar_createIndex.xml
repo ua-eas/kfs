@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="783">
+        <createIndex indexName="AR_BILL_TI1" tableName="AR_BILL_T">
+            <column name="PRPSL_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="784">
+        <createIndex indexName="AR_CLCTN_EVNT_TR1" tableName="AR_CLCTN_EVNT_T">
+            <column name="INV_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="785">
+        <createIndex indexName="AR_CSH_CTRL_DTL_TI2" tableName="AR_CSH_CTRL_DTL_T">
+            <column name="CUST_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="786">
+        <createIndex indexName="AR_CSH_CTRL_DTL_TI3" tableName="AR_CSH_CTRL_DTL_T">
+            <column name="FDOC_REF_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="787">
+        <createIndex indexName="AR_CSH_CTRL_TR1" tableName="AR_CSH_CTRL_T">
+            <column name="UNIV_FISCAL_YR"/>
+            <column name="UNIV_FISCAL_PRD_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="788">
+        <createIndex indexName="AR_CSH_CTRL_TR3" tableName="AR_CSH_CTRL_T">
+            <column name="BNK_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="789">
+        <createIndex indexName="AR_CST_CTGRY_FIN_CONSOLDTN_TR3" tableName="AR_CST_CTGRY_FIN_CONSOLDTN_T">
+            <column name="FIN_COA_CD"/>
+            <column name="FIN_CONS_OBJ_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="790">
+        <createIndex indexName="AR_CST_CTGRY_FIN_OBJ_CD_TR2" tableName="AR_CST_CTGRY_FIN_OBJ_CD_T">
+            <column name="FIN_COA_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="791">
+        <createIndex indexName="AR_CST_CTGRY_FIN_OBJ_LEVEL_TR3" tableName="AR_CST_CTGRY_FIN_OBJ_LEVEL_T">
+            <column name="FIN_COA_CD"/>
+            <column name="FIN_OBJ_LEVEL_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="792">
+        <createIndex indexName="AR_CUST_ADDR_TR1" tableName="AR_CUST_ADDR_T">
+            <column name="CUST_ADDR_TYPE_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="793">
+        <createIndex indexName="AR_CUST_TR1" tableName="AR_CUST_T">
+            <column name="CUST_PARENT_CO_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="794">
+        <createIndex indexName="AR_CUST_TR2" tableName="AR_CUST_T">
+            <column name="CUST_TYP_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="795">
+        <createIndex indexName="AR_DOC_HDR_TI2" tableName="AR_DOC_HDR_T">
+            <column name="CUST_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="796">
+        <createIndex indexName="AR_DOC_HDR_TR4" tableName="AR_DOC_HDR_T">
+            <column name="PRCS_FIN_COA_CD"/>
+            <column name="PRCS_ORG_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="797">
+        <createIndex indexName="AR_DOC_RCURRNC_TR2" tableName="AR_DOC_RCURRNC_T">
+            <column name="CUST_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="798">
+        <createIndex indexName="AR_INV_DOC_ERROR_MSG_TR1" tableName="AR_INV_DOC_ERROR_MSG_T">
+            <column name="ERROR_LOG_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="799">
+        <createIndex indexName="AR_INV_DOC_TR1" tableName="AR_INV_DOC_T">
+            <column name="CUST_SPCL_PRCS_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="800">
+        <createIndex indexName="AR_INV_DOC_TR3" tableName="AR_INV_DOC_T">
+            <column name="UNIV_FISCAL_YR"/>
+            <column name="UNIV_FISCAL_PRD_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="801">
+        <createIndex indexName="AR_INV_DOC_TR5" tableName="AR_INV_DOC_T">
+            <column name="AR_BILL_BY_COA_CD"/>
+            <column name="AR_BILL_BY_ORG_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="802">
+        <createIndex indexName="AR_INV_DTL_TR3" tableName="AR_INV_DTL_T">
+            <column name="FDOC_POST_YR"/>
+            <column name="FIN_COA_CD"/>
+            <column name="FIN_OBJECT_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="803">
+        <createIndex indexName="AR_INV_DTL_TR5" tableName="AR_INV_DTL_T">
+            <column name="FDOC_POST_YR"/>
+            <column name="FIN_COA_CD"/>
+            <column name="FIN_AR_OBJ_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="804">
+        <createIndex indexName="AR_INV_DTL_TR6" tableName="AR_INV_DTL_T">
+            <column name="FIN_COA_CD"/>
+            <column name="ACCOUNT_NBR"/>
+            <column name="SUB_ACCT_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="805">
+        <createIndex indexName="AR_INV_DTL_TR7" tableName="AR_INV_DTL_T">
+            <column name="FDOC_POST_YR"/>
+            <column name="FIN_COA_CD"/>
+            <column name="ACCOUNT_NBR"/>
+            <column name="FIN_OBJECT_CD"/>
+            <column name="FIN_SUB_OBJ_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="806">
+        <createIndex indexName="AR_INV_DTL_TR8" tableName="AR_INV_DTL_T">
+            <column name="FDOC_POST_YR"/>
+            <column name="FIN_COA_CD"/>
+            <column name="ACCOUNT_NBR"/>
+            <column name="FIN_AR_OBJ_CD"/>
+            <column name="FIN_AR_SUB_OBJ_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="807">
+        <createIndex indexName="AR_INV_DTL_TR9" tableName="AR_INV_DTL_T">
+            <column name="PROJECT_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="808">
+        <createIndex indexName="AR_INV_ITM_CODE_TR4" tableName="AR_INV_ITM_CODE_T">
+            <column name="INV_FIN_COA_CD"/>
+            <column name="INV_ACCT_NBR"/>
+            <column name="INV_SUB_ACCT_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="809">
+        <createIndex indexName="AR_INV_ITM_CODE_TR6" tableName="AR_INV_ITM_CODE_T">
+            <column name="INV_PROJECT_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="810">
+        <createIndex indexName="AR_INV_PD_APLD_TI2" tableName="AR_INV_PD_APLD_T">
+            <column name="FDOC_REF_INV_NBR"/>
+            <column name="AR_INV_ITM_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="811">
+        <createIndex indexName="AR_INV_PD_APLD_TR3" tableName="AR_INV_PD_APLD_T">
+            <column name="UNIV_FISCAL_YR"/>
+            <column name="UNIV_FISCAL_PRD_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="812">
+        <createIndex indexName="AR_LOCKBOX_TR1" tableName="AR_LOCKBOX_T">
+            <column name="CUST_PMT_MEDIUM_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="813">
+        <createIndex indexName="AR_LOCKBOX_TR2" tableName="AR_LOCKBOX_T">
+            <column name="BNK_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="814">
+        <createIndex indexName="AR_MLSTN_TI1" tableName="AR_MLSTN_T">
+            <column name="PRPSL_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="815">
+        <createIndex indexName="AR_NON_APLD_DIST_TR1" tableName="AR_NON_APLD_DIST_T">
+            <column name="UNIV_FISCAL_YR"/>
+            <column name="UNIV_FISCAL_PRD_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="816">
+        <createIndex indexName="AR_NON_APLD_DIST_TR2" tableName="AR_NON_APLD_DIST_T">
+            <column name="FDOC_REF_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="817">
+        <createIndex indexName="AR_NON_APLD_HLDG_TI2" tableName="AR_NON_APLD_HLDG_T">
+            <column name="CUST_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="818">
+        <createIndex indexName="AR_NON_INV_DIST_TI2" tableName="AR_NON_INV_DIST_T">
+            <column name="FDOC_REF_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="819">
+        <createIndex indexName="AR_NON_INV_TR3" tableName="AR_NON_INV_T">
+            <column name="FDOC_POST_YR"/>
+            <column name="FIN_COA_CD"/>
+            <column name="FIN_OBJECT_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="820">
+        <createIndex indexName="AR_NON_INV_TR4" tableName="AR_NON_INV_T">
+            <column name="PROJECT_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="821">
+        <createIndex indexName="AR_NON_INV_TR6" tableName="AR_NON_INV_T">
+            <column name="FIN_COA_CD"/>
+            <column name="ACCOUNT_NBR"/>
+            <column name="SUB_ACCT_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="822">
+        <createIndex indexName="AR_NON_INV_TR7" tableName="AR_NON_INV_T">
+            <column name="FDOC_POST_YR"/>
+            <column name="FIN_COA_CD"/>
+            <column name="ACCOUNT_NBR"/>
+            <column name="FIN_OBJECT_CD"/>
+            <column name="FIN_SUB_OBJ_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="823">
+        <createIndex indexName="AR_ORG_ACCTGDFLT_TR1" tableName="AR_ORG_ACCTGDFLT_T">
+            <column name="FIN_COA_CD"/>
+            <column name="ORG_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="824">
+        <createIndex indexName="AR_ORG_ACCTGDFLT_TR10" tableName="AR_ORG_ACCTGDFLT_T">
+            <column name="INV_FIN_COA_CD"/>
+            <column name="INV_ACCT_NBR"/>
+            <column name="INV_SUB_ACCT_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="825">
+        <createIndex indexName="AR_ORG_ACCTGDFLT_TR11" tableName="AR_ORG_ACCTGDFLT_T">
+            <column name="UNIV_FISCAL_YR"/>
+            <column name="FIN_COA_CD"/>
+            <column name="ORG_LT_CHRG_OBJ_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="826">
+        <createIndex indexName="AR_ORG_ACCTGDFLT_TR12" tableName="AR_ORG_ACCTGDFLT_T">
+            <column name="UNIV_FISCAL_YR"/>
+            <column name="INV_FIN_COA_CD"/>
+            <column name="INV_FIN_OBJ_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="827">
+        <createIndex indexName="AR_ORG_ACCTGDFLT_TR13" tableName="AR_ORG_ACCTGDFLT_T">
+            <column name="UNIV_FISCAL_YR"/>
+            <column name="INV_FIN_COA_CD"/>
+            <column name="INV_ACCT_NBR"/>
+            <column name="INV_FIN_OBJ_CD"/>
+            <column name="INV_FIN_SUB_OBJ_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="828">
+        <createIndex indexName="AR_ORG_ACCTGDFLT_TR15" tableName="AR_ORG_ACCTGDFLT_T">
+            <column name="UNIV_FISCAL_YR"/>
+            <column name="PMT_FIN_COA_CD"/>
+            <column name="PMT_FIN_OBJ_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="829">
+        <createIndex indexName="AR_ORG_ACCTGDFLT_TR16" tableName="AR_ORG_ACCTGDFLT_T">
+            <column name="UNIV_FISCAL_YR"/>
+            <column name="PMT_FIN_COA_CD"/>
+            <column name="PMT_ACCT_NBR"/>
+            <column name="PMT_FIN_OBJ_CD"/>
+            <column name="PMT_FIN_SUB_OBJ_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="830">
+        <createIndex indexName="AR_ORG_ACCTGDFLT_TR19" tableName="AR_ORG_ACCTGDFLT_T">
+            <column name="WRITEOFF_FIN_COA_CD"/>
+            <column name="WRITEOFF_ACCT_NBR"/>
+            <column name="WRITEOFF_SUB_ACCT_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="831">
+        <createIndex indexName="AR_ORG_ACCTGDFLT_TR20" tableName="AR_ORG_ACCTGDFLT_T">
+            <column name="UNIV_FISCAL_YR"/>
+            <column name="WRITEOFF_FIN_COA_CD"/>
+            <column name="WRITEOFF_FIN_OBJ_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="832">
+        <createIndex indexName="AR_ORG_ACCTGDFLT_TR21" tableName="AR_ORG_ACCTGDFLT_T">
+            <column name="UNIV_FISCAL_YR"/>
+            <column name="WRITEOFF_FIN_COA_CD"/>
+            <column name="WRITEOFF_ACCT_NBR"/>
+            <column name="WRITEOFF_FIN_OBJ_CD"/>
+            <column name="WRITEOFF_FIN_SUB_OBJ_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="833">
+        <createIndex indexName="AR_ORG_ACCTGDFLT_TR22" tableName="AR_ORG_ACCTGDFLT_T">
+            <column name="WRITEOFF_PROJECT_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="834">
+        <createIndex indexName="AR_ORG_ACCTGDFLT_TR5" tableName="AR_ORG_ACCTGDFLT_T">
+            <column name="PMT_PROJECT_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="835">
+        <createIndex indexName="AR_ORG_ACCTGDFLT_TR8" tableName="AR_ORG_ACCTGDFLT_T">
+            <column name="INV_PROJECT_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="836">
+        <createIndex indexName="AR_ORG_ACCTGDFLT_TR9" tableName="AR_ORG_ACCTGDFLT_T">
+            <column name="PMT_FIN_COA_CD"/>
+            <column name="PMT_ACCT_NBR"/>
+            <column name="PMT_SUB_ACCT_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="837">
+        <createIndex indexName="AR_ORG_OPTION_TR4" tableName="AR_ORG_OPTION_T">
+            <column name="PRCS_FIN_COA_CD"/>
+            <column name="PRCS_ORG_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="838">
+        <createIndex indexName="AR_WRITEOFF_DOC_TR4" tableName="AR_WRITEOFF_DOC_T">
+            <column name="FIN_COA_CD"/>
+            <column name="ACCOUNT_NBR"/>
+            <column name="SUB_ACCT_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="839">
+        <createIndex indexName="AR_WRITEOFF_DOC_TR5" tableName="AR_WRITEOFF_DOC_T">
+            <column name="PROJECT_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="840">
+        <createIndex indexName="AR_WRITEOFF_DOC_TR6" tableName="AR_WRITEOFF_DOC_T">
+            <column name="FDOC_POST_YR"/>
+            <column name="FIN_COA_CD"/>
+            <column name="FIN_OBJECT_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="841">
+        <createIndex indexName="AR_WRITEOFF_DOC_TR7" tableName="AR_WRITEOFF_DOC_T">
+            <column name="FDOC_POST_YR"/>
+            <column name="FIN_COA_CD"/>
+            <column name="ACCOUNT_NBR"/>
+            <column name="FIN_OBJECT_CD"/>
+            <column name="FIN_SUB_OBJ_CD"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

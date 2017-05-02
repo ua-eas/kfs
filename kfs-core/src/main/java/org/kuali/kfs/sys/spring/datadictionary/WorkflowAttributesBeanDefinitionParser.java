@@ -1,41 +1,41 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.spring.datadictionary;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.krad.datadictionary.DocumentCollectionPath;
-import org.kuali.rice.krad.datadictionary.DocumentValuePathGroup;
-import org.kuali.rice.krad.datadictionary.RoutingAttribute;
-import org.kuali.rice.krad.datadictionary.RoutingTypeDefinition;
-import org.kuali.rice.krad.datadictionary.SearchingAttribute;
-import org.kuali.rice.krad.datadictionary.SearchingTypeDefinition;
-import org.kuali.rice.krad.datadictionary.WorkflowAttributeMetadata;
+import org.kuali.kfs.krad.datadictionary.DocumentCollectionPath;
+import org.kuali.kfs.krad.datadictionary.DocumentValuePathGroup;
+import org.kuali.kfs.krad.datadictionary.RoutingAttribute;
+import org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition;
+import org.kuali.kfs.krad.datadictionary.SearchingAttribute;
+import org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition;
+import org.kuali.kfs.krad.datadictionary.WorkflowAttributeMetadata;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.xml.ParserContext;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class WorkflowAttributesBeanDefinitionParser extends KualiBeanDefinitionParserBase {
     private static final String SEARCHING_ATTRIBUTE = "searchingAttribute";
@@ -55,30 +55,30 @@ public class WorkflowAttributesBeanDefinitionParser extends KualiBeanDefinitionP
         NodeList children = workflowAttributeElement.getChildNodes();
         List<SearchingTypeDefinition> searchingAttributesMap = parseSearchableAttributes(children);
         bean.addPropertyValue("searchingTypeDefinitions", searchingAttributesMap);
-        
+
         Map<String, RoutingTypeDefinition> routingTypesMap = parseRoutingTypes(children);
         bean.addPropertyValue("routingTypeDefinitions", routingTypesMap);
     }
-    
+
     protected List<SearchingTypeDefinition> parseSearchableAttributes(NodeList workflowAttributesChildren) {
         List<SearchingTypeDefinition> searchingAttributesMap = new ArrayList<SearchingTypeDefinition>();
         for (int i = 0; i < workflowAttributesChildren.getLength(); i++) {
             Node workflowAttributesChild = workflowAttributesChildren.item(i);
             if (workflowAttributesChild.getNodeType() == Node.ELEMENT_NODE) {
                 if (((Element) workflowAttributesChild).getLocalName().equals(SEARCHING_TYPES_ELEMENT)) {
-                    
+
                     SearchingTypeDefinition searchingTypeDefinition = parseSearchingTypes(workflowAttributesChild.getChildNodes());
-                    
+
                     searchingAttributesMap.add(searchingTypeDefinition);
                 }
             }
         }
         return searchingAttributesMap;
     }
-    
+
     protected List<Element> extractWorkflowAttributeElements(NodeList nodes, String attributeElementName) {
         List<Element> results = new ArrayList<Element>();
-        
+
         for (int i = 0; i < nodes.getLength(); i++) {
             Node node = nodes.item(i);
             if (node.getNodeType() == Node.ELEMENT_NODE) {
@@ -89,37 +89,38 @@ public class WorkflowAttributesBeanDefinitionParser extends KualiBeanDefinitionP
         }
         return results;
     }
-    
+
     protected SearchingTypeDefinition parseSearchingTypes(NodeList workflowAttributesChildren) {
-        SearchingTypeDefinition  searchingTypeDefinition  = new SearchingTypeDefinition();
-        
+        SearchingTypeDefinition searchingTypeDefinition = new SearchingTypeDefinition();
+
         for (int i = 0; i < workflowAttributesChildren.getLength(); i++) {
             Node workflowAttributesChild = workflowAttributesChildren.item(i);
             if (workflowAttributesChild.getNodeType() == Node.ELEMENT_NODE) {
-                if (((Element) workflowAttributesChild).getLocalName().equals(SEARCHING_ATTRIBUTE)){
-                    searchingTypeDefinition.setSearchingAttribute((SearchingAttribute)parseAttributeDefinition((Element) workflowAttributesChild));
-                }else if(((Element) workflowAttributesChild).getLocalName().equals(DOCUMENT_VALUE_ATTRIBUTE)){
-                    if(searchingTypeDefinition.getDocumentValues() == null){
+                if (((Element) workflowAttributesChild).getLocalName().equals(SEARCHING_ATTRIBUTE)) {
+                    searchingTypeDefinition.setSearchingAttribute((SearchingAttribute) parseAttributeDefinition((Element) workflowAttributesChild));
+                } else if (((Element) workflowAttributesChild).getLocalName().equals(DOCUMENT_VALUE_ATTRIBUTE)) {
+                    if (searchingTypeDefinition.getDocumentValues() == null) {
                         searchingTypeDefinition.setDocumentValues(new ArrayList<String>());
                     }
                     searchingTypeDefinition.getDocumentValues().addAll(parseDocumentValueAttributeDefinition((Element) workflowAttributesChild));
                 }
             }
         }
-        
+
         return searchingTypeDefinition;
     }
+
     protected WorkflowAttributeMetadata parseAttributeDefinition(Element workflowAttributeDefinitionElement) {
         WorkflowAttributeMetadata workflowAttributeMetadata = null;
-        if(workflowAttributeDefinitionElement.getLocalName().equals(SEARCHING_ATTRIBUTE)){
+        if (workflowAttributeDefinitionElement.getLocalName().equals(SEARCHING_ATTRIBUTE)) {
             return parseSearchingAttribute(workflowAttributeDefinitionElement);
-        }else if(workflowAttributeDefinitionElement.getLocalName().equals(ROUTING_ATTRIBUTE)){
+        } else if (workflowAttributeDefinitionElement.getLocalName().equals(ROUTING_ATTRIBUTE)) {
             return parseRoutingAttribute(workflowAttributeDefinitionElement);
         }
         return workflowAttributeMetadata;
     }
-    
-    
+
+
     protected WorkflowAttributeMetadata parseSearchingAttribute(Element workflowAttributeDefinitionElement) {
         SearchingAttribute workflowAttributeMetadata = new SearchingAttribute();
 
@@ -128,8 +129,7 @@ public class WorkflowAttributesBeanDefinitionParser extends KualiBeanDefinitionP
             try {
                 Class.forName(businessObjectClassName);
                 workflowAttributeMetadata.setBusinessObjectClassName(businessObjectClassName);
-            }
-            catch (ClassNotFoundException e) {
+            } catch (ClassNotFoundException e) {
                 throw new RuntimeException("Unable to find class of name " + businessObjectClassName + " when parsing workflowAttribute");
             }
         }
@@ -137,10 +137,10 @@ public class WorkflowAttributesBeanDefinitionParser extends KualiBeanDefinitionP
         if (StringUtils.isNotBlank(attributeName)) {
             workflowAttributeMetadata.setAttributeName(attributeName);
         }
-        
+
         return workflowAttributeMetadata;
     }
-    
+
     protected WorkflowAttributeMetadata parseRoutingAttribute(Element workflowAttributeDefinitionElement) {
         RoutingAttribute workflowAttributeMetadata = new RoutingAttribute();
 
@@ -148,41 +148,41 @@ public class WorkflowAttributesBeanDefinitionParser extends KualiBeanDefinitionP
         if (StringUtils.isNotBlank(attributeName)) {
             workflowAttributeMetadata.setQualificationAttributeName(attributeName);
         }
-        
+
         return workflowAttributeMetadata;
     }
-    
+
     protected List<String> parseDocumentValueAttributeDefinition(Element workflowAttributeDefinitionElement) {
 
-        List<String>paths = new ArrayList<String>();
+        List<String> paths = new ArrayList<String>();
         paths.add(workflowAttributeDefinitionElement.getAttribute("path"));
-       
+
         return paths;
     }
+
     protected Map<String, RoutingTypeDefinition> parseRoutingTypes(NodeList workflowAttributesChildren) {
         Map<String, RoutingTypeDefinition> routingTypesMap = new HashMap<String, RoutingTypeDefinition>();
-        
+
         for (int i = 0; i < workflowAttributesChildren.getLength(); i++) {
             Node workflowAttributesChild = workflowAttributesChildren.item(i);
             if (workflowAttributesChild.getNodeType() == Node.ELEMENT_NODE) {
                 if (((Element) workflowAttributesChild).getLocalName().equals(ROUTING_TYPES_ELEMENT)) {
                     RoutingTypeDefinition routingTypeDefinition = new RoutingTypeDefinition();
                     Element routingTypeElement = (Element) workflowAttributesChild;
-                    
+
                     String name = routingTypeElement.getAttribute("nodeName");
-                    
+
                     List<RoutingAttribute> routingAttributes = new ArrayList<RoutingAttribute>();
                     List<DocumentValuePathGroup> documentValuePathGroups = new ArrayList<DocumentValuePathGroup>();
                     List<Element> workflowAttributeList = extractWorkflowAttributeElements(routingTypeElement.getChildNodes(), "");
                     for (int j = 0; j < workflowAttributeList.size(); j++) {
                         Element workflowAttributeDefinitionElement = (Element) workflowAttributeList.get(j);
-                        if(workflowAttributeDefinitionElement.getLocalName().equals("routingAttributes")){
+                        if (workflowAttributeDefinitionElement.getLocalName().equals("routingAttributes")) {
                             List<Element> routingAttributeList = extractWorkflowAttributeElements(workflowAttributeDefinitionElement.getChildNodes(), "routingAttribute");
-                            for(Element routingAttribute:routingAttributeList){
-                                routingAttributes.add((RoutingAttribute)parseAttributeDefinition(routingAttribute));
+                            for (Element routingAttribute : routingAttributeList) {
+                                routingAttributes.add((RoutingAttribute) parseAttributeDefinition(routingAttribute));
                             }
-                        }
-                        else if(workflowAttributeDefinitionElement.getLocalName().equals("documentValuePathGroup")){
+                        } else if (workflowAttributeDefinitionElement.getLocalName().equals("documentValuePathGroup")) {
                             documentValuePathGroups.add(parseDocumentValuesPathGroup(workflowAttributeDefinitionElement));
                         }
                     }
@@ -192,42 +192,43 @@ public class WorkflowAttributesBeanDefinitionParser extends KualiBeanDefinitionP
                 }
             }
         }
-        
+
         return routingTypesMap;
     }
-    
+
     protected DocumentCollectionPath parseDocumentCollectionPath(Element workflowAttributeDefinitionElement) {
         DocumentCollectionPath documentCollectionPath = new DocumentCollectionPath();
-        for(Element element:extractWorkflowAttributeElements(workflowAttributeDefinitionElement.getChildNodes(), "documentCollectionPath")){
+        for (Element element : extractWorkflowAttributeElements(workflowAttributeDefinitionElement.getChildNodes(), "documentCollectionPath")) {
             documentCollectionPath.setNestedCollection(parseDocumentCollectionPath(element));
         }
-        List<String>paths = new ArrayList<String>();
-        for(Element element:extractWorkflowAttributeElements(workflowAttributeDefinitionElement.getChildNodes(), "documentValue")){
+        List<String> paths = new ArrayList<String>();
+        for (Element element : extractWorkflowAttributeElements(workflowAttributeDefinitionElement.getChildNodes(), "documentValue")) {
             paths.addAll(parseDocumentValueAttributeDefinition(element));
         }
         documentCollectionPath.setDocumentValues(paths);
-        
+
         String collectionName = workflowAttributeDefinitionElement.getAttribute("path");
         documentCollectionPath.setCollectionPath(collectionName);
-        
+
         return documentCollectionPath;
     }
+
     protected DocumentValuePathGroup parseDocumentValuesPathGroup(Element workflowAttributeDefinitionElement) {
         DocumentValuePathGroup documentValuePathGroup = new DocumentValuePathGroup();
-        
+
         List<Element> documentCollectionPathElements = extractWorkflowAttributeElements(workflowAttributeDefinitionElement.getChildNodes(), "documentCollectionPath");
-        if( documentCollectionPathElements.size() > 0){
+        if (documentCollectionPathElements.size() > 0) {
             documentValuePathGroup.setDocumentCollectionPath(parseDocumentCollectionPath(documentCollectionPathElements.get(0)));
         }
-        List<String>paths = new ArrayList<String>();
-        for(Element element:extractWorkflowAttributeElements(workflowAttributeDefinitionElement.getChildNodes(), "documentValue")){
+        List<String> paths = new ArrayList<String>();
+        for (Element element : extractWorkflowAttributeElements(workflowAttributeDefinitionElement.getChildNodes(), "documentValue")) {
             paths.addAll(parseDocumentValueAttributeDefinition(element));
         }
         documentValuePathGroup.setDocumentValues(paths);
 
         return documentValuePathGroup;
     }
-    
+
     @Override
     protected String getBaseBeanTypeParent(Element element) {
         return "WorkflowAttributes";

@@ -1,23 +1,34 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.coa.businessobject;
+
+import org.kuali.kfs.coa.service.ChartService;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.bo.GlobalBusinessObject;
+import org.kuali.kfs.krad.bo.GlobalBusinessObjectDetail;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.businessobject.SystemOptions;
+import org.kuali.kfs.sys.context.SpringContext;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -26,20 +37,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.kuali.kfs.coa.service.ChartService;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.businessobject.SystemOptions;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.krad.bo.DocumentHeader;
-import org.kuali.rice.krad.bo.GlobalBusinessObject;
-import org.kuali.rice.krad.bo.GlobalBusinessObjectDetail;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.rice.krad.service.BusinessObjectService;
 
-/**
- *
- */
 public class ObjectCodeGlobal extends PersistableBusinessObjectBase implements GlobalBusinessObject {
 
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ObjectCodeGlobal.class);
@@ -654,7 +652,7 @@ public class ObjectCodeGlobal extends PersistableBusinessObjectBase implements G
      * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
      */
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
-        LinkedHashMap<String,String> m = new LinkedHashMap<String,String>();
+        LinkedHashMap<String, String> m = new LinkedHashMap<String, String>();
         m.put(KFSPropertyConstants.DOCUMENT_NUMBER, this.documentNumber);
         return m;
     }
@@ -770,7 +768,7 @@ public class ObjectCodeGlobal extends PersistableBusinessObjectBase implements G
     public List<Collection<PersistableBusinessObject>> buildListOfDeletionAwareLists() {
         List<Collection<PersistableBusinessObject>> managedLists = super.buildListOfDeletionAwareLists();
 
-        managedLists.add( new ArrayList<PersistableBusinessObject>( getObjectCodeGlobalDetails() ) );
+        managedLists.add(new ArrayList<PersistableBusinessObject>(getObjectCodeGlobalDetails()));
 
         return managedLists;
     }

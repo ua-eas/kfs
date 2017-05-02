@@ -1,26 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.batch.service.impl;
-
-import java.sql.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.A21SubAccount;
@@ -49,6 +45,7 @@ import org.kuali.kfs.gl.businessobject.ExpenditureTransaction;
 import org.kuali.kfs.gl.businessobject.Reversal;
 import org.kuali.kfs.gl.businessobject.SufficientFundBalances;
 import org.kuali.kfs.gl.businessobject.Transaction;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.batch.service.AbstractBatchTransactionalCachingService;
 import org.kuali.kfs.sys.businessobject.OriginationCode;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
@@ -56,8 +53,10 @@ import org.kuali.kfs.sys.businessobject.UniversityDate;
 import org.kuali.kfs.sys.document.service.FinancialSystemDocumentTypeService;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.krad.service.SequenceAccessorService;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.sql.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AccountingCycleCachingServiceImpl extends AbstractBatchTransactionalCachingService implements AccountingCycleCachingService {
     private static final String GL_ENTTRY_ID_SEQ = "GL_ENTRY_ID_SEQ";
@@ -65,7 +64,8 @@ public class AccountingCycleCachingServiceImpl extends AbstractBatchTransactiona
     protected org.kuali.kfs.sys.batch.dataaccess.LedgerReferenceValuePreparedStatementCachingDao systemReferenceValueDao;
     protected org.kuali.kfs.coa.batch.dataaccess.LedgerReferenceValuePreparedStatementCachingDao chartReferenceValueDao;
     protected LedgerPreparedStatementCachingDao ledgerDao;
-    protected Map<String,Boolean> documentTypeValidCache;
+    protected Map<String, Boolean> documentTypeValidCache;
+
     protected UniversityDateService universityDateService;
     protected FinancialSystemDocumentTypeService financialSystemDocumentTypeService;
     protected DateTimeService dateTimeService;
@@ -76,7 +76,7 @@ public class AccountingCycleCachingServiceImpl extends AbstractBatchTransactiona
         systemReferenceValueDao.initialize();
         chartReferenceValueDao.initialize();
         ledgerDao.initialize();
-        documentTypeValidCache = new HashMap<String,Boolean>();
+        documentTypeValidCache = new HashMap<String, Boolean>();
         previousValueCache.put(Balance.class, new PreviousValueReference<Balance>());
         previousValueCache.put(Encumbrance.class, new PreviousValueReference<Encumbrance>());
         previousValueCache.put(ExpenditureTransaction.class, new PreviousValueReference<ExpenditureTransaction>());
@@ -107,8 +107,10 @@ public class AccountingCycleCachingServiceImpl extends AbstractBatchTransactiona
             protected OriginationCode useDao() {
                 return systemReferenceValueDao.getOriginationCode(financialSystemOriginationCode);
             }
+
             @Override
-            protected void retrieveReferences(OriginationCode originationCode) {}
+            protected void retrieveReferences(OriginationCode originationCode) {
+            }
         }.get(OriginationCode.class, financialSystemOriginationCode);
     }
 
@@ -118,8 +120,10 @@ public class AccountingCycleCachingServiceImpl extends AbstractBatchTransactiona
             protected SystemOptions useDao() {
                 return systemReferenceValueDao.getSystemOptions(fiscalYear);
             }
+
             @Override
-            protected void retrieveReferences(SystemOptions systemOptions) {}
+            protected void retrieveReferences(SystemOptions systemOptions) {
+            }
         }.get(SystemOptions.class, fiscalYear);
     }
 
@@ -129,25 +133,28 @@ public class AccountingCycleCachingServiceImpl extends AbstractBatchTransactiona
             protected UniversityDate useDao() {
                 return systemReferenceValueDao.getUniversityDate(date);
             }
+
             @Override
             protected void retrieveReferences(UniversityDate universityDate) {
                 universityDate.setAccountingPeriod(getAccountingPeriod(universityDate.getUniversityFiscalYear(), universityDate.getUniversityFiscalAccountingPeriod()));
             }
         }.get(UniversityDate.class, date);
     }
-    
+
     public A21SubAccount getA21SubAccount(final String chartOfAccountsCode, final String accountNumber, final String subAccountNumber) {
         return new ReferenceValueRetriever<A21SubAccount>() {
             @Override
             protected A21SubAccount useDao() {
                 A21SubAccount a21 = chartReferenceValueDao.getA21SubAccount(chartOfAccountsCode, accountNumber, subAccountNumber);
-                if (ObjectUtils.isNotNull(a21)){
+                if (ObjectUtils.isNotNull(a21)) {
                     a21.setA21IndirectCostRecoveryAccounts(chartReferenceValueDao.getA21IndirectCostRecoveryAccounts(chartOfAccountsCode, accountNumber, subAccountNumber));
                 }
                 return a21;
             }
+
             @Override
-            protected void retrieveReferences(A21SubAccount a21SubAccount) {}
+            protected void retrieveReferences(A21SubAccount a21SubAccount) {
+            }
         }.get(A21SubAccount.class, chartOfAccountsCode, accountNumber, subAccountNumber);
     }
 
@@ -157,8 +164,10 @@ public class AccountingCycleCachingServiceImpl extends AbstractBatchTransactiona
             protected Account useDao() {
                 return chartReferenceValueDao.getAccount(chartCode, accountNumber);
             }
+
             @Override
-            protected void retrieveReferences(Account account) {}
+            protected void retrieveReferences(Account account) {
+            }
         }.get(Account.class, chartCode, accountNumber);
     }
 
@@ -168,8 +177,10 @@ public class AccountingCycleCachingServiceImpl extends AbstractBatchTransactiona
             protected AccountingPeriod useDao() {
                 return chartReferenceValueDao.getAccountingPeriod(fiscalYear, fiscalPeriodCode);
             }
+
             @Override
-            protected void retrieveReferences(AccountingPeriod accountingPeriod) {}
+            protected void retrieveReferences(AccountingPeriod accountingPeriod) {
+            }
         }.get(AccountingPeriod.class, fiscalYear, fiscalPeriodCode);
     }
 
@@ -179,8 +190,10 @@ public class AccountingCycleCachingServiceImpl extends AbstractBatchTransactiona
             protected BalanceType useDao() {
                 return chartReferenceValueDao.getBalanceType(financialBalanceTypeCode);
             }
+
             @Override
-            protected void retrieveReferences(BalanceType balanceType) {}
+            protected void retrieveReferences(BalanceType balanceType) {
+            }
         }.get(BalanceType.class, financialBalanceTypeCode);
     }
 
@@ -190,6 +203,7 @@ public class AccountingCycleCachingServiceImpl extends AbstractBatchTransactiona
             protected Chart useDao() {
                 return chartReferenceValueDao.getChart(chartOfAccountsCode);
             }
+
             @Override
             protected void retrieveReferences(Chart chart) {
                 chart.setFundBalanceObject(getObjectCode(universityDateService.getCurrentFiscalYear(), chart.getChartOfAccountsCode(), chart.getFundBalanceObjectCode()));
@@ -203,8 +217,10 @@ public class AccountingCycleCachingServiceImpl extends AbstractBatchTransactiona
             protected IndirectCostRecoveryType useDao() {
                 return chartReferenceValueDao.getIndirectCostRecoveryType(accountIcrTypeCode);
             }
+
             @Override
-            protected void retrieveReferences(IndirectCostRecoveryType indirectCostRecoveryType) {}
+            protected void retrieveReferences(IndirectCostRecoveryType indirectCostRecoveryType) {
+            }
         }.get(IndirectCostRecoveryType.class, accountIcrTypeCode);
     }
 
@@ -214,8 +230,10 @@ public class AccountingCycleCachingServiceImpl extends AbstractBatchTransactiona
             protected ObjectCode useDao() {
                 return chartReferenceValueDao.getObjectCode(universityFiscalYear, chartOfAccountsCode, financialObjectCode);
             }
+
             @Override
-            protected void retrieveReferences(ObjectCode objectCode) {}
+            protected void retrieveReferences(ObjectCode objectCode) {
+            }
         }.get(ObjectCode.class, universityFiscalYear, chartOfAccountsCode, financialObjectCode);
     }
 
@@ -225,8 +243,10 @@ public class AccountingCycleCachingServiceImpl extends AbstractBatchTransactiona
             protected ObjectLevel useDao() {
                 return chartReferenceValueDao.getObjectLevel(chartOfAccountsCode, financialObjectLevelCode);
             }
+
             @Override
-            protected void retrieveReferences(ObjectLevel objectLevel) {}
+            protected void retrieveReferences(ObjectLevel objectLevel) {
+            }
         }.get(ObjectLevel.class, chartOfAccountsCode, financialObjectLevelCode);
     }
 
@@ -236,8 +256,10 @@ public class AccountingCycleCachingServiceImpl extends AbstractBatchTransactiona
             protected ObjectType useDao() {
                 return chartReferenceValueDao.getObjectType(financialObjectTypeCode);
             }
+
             @Override
-            protected void retrieveReferences(ObjectType objectType) {}
+            protected void retrieveReferences(ObjectType objectType) {
+            }
         }.get(ObjectType.class, financialObjectTypeCode);
     }
 
@@ -247,6 +269,7 @@ public class AccountingCycleCachingServiceImpl extends AbstractBatchTransactiona
             protected OffsetDefinition useDao() {
                 return chartReferenceValueDao.getOffsetDefinition(universityFiscalYear, chartOfAccountsCode, financialDocumentTypeCode, financialBalanceTypeCode);
             }
+
             @Override
             protected void retrieveReferences(OffsetDefinition offsetDefinition) {
                 offsetDefinition.setFinancialObject(getObjectCode(universityFiscalYear, chartOfAccountsCode, offsetDefinition.getFinancialObjectCode()));
@@ -260,8 +283,10 @@ public class AccountingCycleCachingServiceImpl extends AbstractBatchTransactiona
             protected Organization useDao() {
                 return chartReferenceValueDao.getOrganization(chartOfAccountsCode, organizationCode);
             }
+
             @Override
-            protected void retrieveReferences(Organization organization) {}
+            protected void retrieveReferences(Organization organization) {
+            }
         }.get(Organization.class, chartOfAccountsCode, organizationCode);
     }
 
@@ -271,8 +296,10 @@ public class AccountingCycleCachingServiceImpl extends AbstractBatchTransactiona
             protected ProjectCode useDao() {
                 return chartReferenceValueDao.getProjectCode(financialSystemProjectCode);
             }
+
             @Override
-            protected void retrieveReferences(ProjectCode projectCode) {}
+            protected void retrieveReferences(ProjectCode projectCode) {
+            }
         }.get(ProjectCode.class, financialSystemProjectCode);
     }
 
@@ -282,6 +309,7 @@ public class AccountingCycleCachingServiceImpl extends AbstractBatchTransactiona
             protected SubAccount useDao() {
                 return chartReferenceValueDao.getSubAccount(chartOfAccountsCode, accountNumber, subAccountNumber);
             }
+
             @Override
             protected void retrieveReferences(SubAccount subAccount) {
                 subAccount.setA21SubAccount(getA21SubAccount(chartOfAccountsCode, accountNumber, subAccountNumber));
@@ -295,8 +323,10 @@ public class AccountingCycleCachingServiceImpl extends AbstractBatchTransactiona
             protected SubFundGroup useDao() {
                 return chartReferenceValueDao.getSubFundGroup(subFundGroupCode);
             }
+
             @Override
-            protected void retrieveReferences(SubFundGroup subFundGroup) {}
+            protected void retrieveReferences(SubFundGroup subFundGroup) {
+            }
         }.get(SubFundGroup.class, subFundGroupCode);
     }
 
@@ -306,8 +336,10 @@ public class AccountingCycleCachingServiceImpl extends AbstractBatchTransactiona
             protected SubObjectCode useDao() {
                 return chartReferenceValueDao.getSubObjectCode(universityFiscalYear, chartOfAccountsCode, accountNumber, financialObjectCode, financialSubObjectCode);
             }
+
             @Override
-            protected void retrieveReferences(SubObjectCode subObjectCode) {}
+            protected void retrieveReferences(SubObjectCode subObjectCode) {
+            }
         }.get(SubObjectCode.class, universityFiscalYear, chartOfAccountsCode, accountNumber, financialObjectCode, financialSubObjectCode);
     }
 
@@ -315,7 +347,7 @@ public class AccountingCycleCachingServiceImpl extends AbstractBatchTransactiona
     public int getMaxSequenceNumber(Transaction t) {
         return ledgerDao.getMaxSequenceNumber(t);
     }
-    
+
     public AccountBalance getAccountBalance(final Transaction t) {
         return new PreviousValueRetriever<AccountBalance>() {
             @Override
@@ -330,7 +362,7 @@ public class AccountingCycleCachingServiceImpl extends AbstractBatchTransactiona
             @Override
             protected Balance useDao() {
                 return ledgerDao.getBalance(t);
-            }            
+            }
         }.get(Balance.class, t.getUniversityFiscalYear(), t.getChartOfAccountsCode(), t.getAccountNumber(), t.getSubAccountNumber(), t.getFinancialObjectCode(), t.getFinancialSubObjectCode(), t.getFinancialBalanceTypeCode(), t.getFinancialObjectTypeCode());
     }
 
@@ -339,7 +371,7 @@ public class AccountingCycleCachingServiceImpl extends AbstractBatchTransactiona
             @Override
             protected Encumbrance useDao() {
                 return ledgerDao.getEncumbrance(entry);
-            }            
+            }
         }.get(Encumbrance.class, entry.getUniversityFiscalYear(), entry.getChartOfAccountsCode(), entry.getAccountNumber(), entry.getSubAccountNumber(), entry.getFinancialObjectCode(), entry.getFinancialSubObjectCode(), entry.getFinancialBalanceTypeCode(), entry.getFinancialDocumentTypeCode(), entry.getFinancialSystemOriginationCode(), entry.getDocumentNumber());
     }
 
@@ -357,7 +389,7 @@ public class AccountingCycleCachingServiceImpl extends AbstractBatchTransactiona
             @Override
             protected SufficientFundBalances useDao() {
                 return ledgerDao.getSufficientFundBalances(universityFiscalYear, chartOfAccountsCode, accountNumber, financialObjectCode);
-            }            
+            }
         }.get(SufficientFundBalances.class, universityFiscalYear, chartOfAccountsCode, accountNumber, financialObjectCode);
     }
 
@@ -368,7 +400,7 @@ public class AccountingCycleCachingServiceImpl extends AbstractBatchTransactiona
     }
 
     public void updateAccountBalance(AccountBalance accountBalance) {
-        ledgerDao.updateAccountBalance(accountBalance, dateTimeService.getCurrentTimestamp());        
+        ledgerDao.updateAccountBalance(accountBalance, dateTimeService.getCurrentTimestamp());
         previousValueCache.get(AccountBalance.class).update(accountBalance, accountBalance.getUniversityFiscalYear(), accountBalance.getChartOfAccountsCode(), accountBalance.getAccountNumber(), accountBalance.getSubAccountNumber(), accountBalance.getObjectCode(), accountBalance.getSubObjectCode());
     }
 
@@ -388,7 +420,7 @@ public class AccountingCycleCachingServiceImpl extends AbstractBatchTransactiona
     }
 
     public void updateEncumbrance(Encumbrance encumbrance) {
-        ledgerDao.updateEncumbrance(encumbrance, dateTimeService.getCurrentTimestamp());        
+        ledgerDao.updateEncumbrance(encumbrance, dateTimeService.getCurrentTimestamp());
         previousValueCache.get(Encumbrance.class).update(encumbrance, encumbrance.getUniversityFiscalYear(), encumbrance.getChartOfAccountsCode(), encumbrance.getAccountNumber(), encumbrance.getSubAccountNumber(), encumbrance.getObjectCode(), encumbrance.getSubObjectCode(), encumbrance.getBalanceTypeCode(), encumbrance.getDocumentTypeCode(), encumbrance.getOriginCode(), encumbrance.getDocumentNumber());
     }
 
@@ -398,7 +430,7 @@ public class AccountingCycleCachingServiceImpl extends AbstractBatchTransactiona
     }
 
     public void updateExpenditureTransaction(ExpenditureTransaction expenditureTransaction) {
-        ledgerDao.updateExpenditureTransaction(expenditureTransaction);        
+        ledgerDao.updateExpenditureTransaction(expenditureTransaction);
         previousValueCache.get(ExpenditureTransaction.class).update(expenditureTransaction, expenditureTransaction.getUniversityFiscalYear(), expenditureTransaction.getChartOfAccountsCode(), expenditureTransaction.getAccountNumber(), expenditureTransaction.getSubAccountNumber(), expenditureTransaction.getObjectCode(), expenditureTransaction.getSubObjectCode(), expenditureTransaction.getBalanceTypeCode(), expenditureTransaction.getObjectTypeCode(), expenditureTransaction.getUniversityFiscalAccountingPeriod(), expenditureTransaction.getProjectCode(), expenditureTransaction.getOrganizationReferenceId());
     }
 
@@ -408,7 +440,7 @@ public class AccountingCycleCachingServiceImpl extends AbstractBatchTransactiona
     }
 
     public void updateSufficientFundBalances(SufficientFundBalances sufficientFundBalances) {
-        ledgerDao.updateSufficientFundBalances(sufficientFundBalances, dateTimeService.getCurrentTimestamp());        
+        ledgerDao.updateSufficientFundBalances(sufficientFundBalances, dateTimeService.getCurrentTimestamp());
         previousValueCache.get(SufficientFundBalances.class).update(sufficientFundBalances, sufficientFundBalances.getUniversityFiscalYear(), sufficientFundBalances.getChartOfAccountsCode(), sufficientFundBalances.getAccountNumber(), sufficientFundBalances.getFinancialObjectCode());
     }
 
@@ -421,9 +453,9 @@ public class AccountingCycleCachingServiceImpl extends AbstractBatchTransactiona
     }
 
     public void insertReversal(Reversal reversal) {
-        ledgerDao.insertReversal(reversal);        
+        ledgerDao.insertReversal(reversal);
     }
-    
+
     public void setSystemReferenceValueDao(org.kuali.kfs.sys.batch.dataaccess.LedgerReferenceValuePreparedStatementCachingDao systemReferenceValueDao) {
         this.systemReferenceValueDao = systemReferenceValueDao;
     }
@@ -442,6 +474,7 @@ public class AccountingCycleCachingServiceImpl extends AbstractBatchTransactiona
 
     /**
      * Sets the financialSystemDocumentTypeService attribute value.
+     *
      * @param financialSystemDocumentTypeService The financialSystemDocumentTypeService to set.
      */
     public void setFinancialSystemDocumentTypeService(FinancialSystemDocumentTypeService financialSystemDocumentTypeService) {
@@ -450,7 +483,7 @@ public class AccountingCycleCachingServiceImpl extends AbstractBatchTransactiona
 
     /**
      * Sets the dateTimeService.
-     * 
+     *
      * @param dateTimeService
      */
     public void setDateTimeService(DateTimeService dateTimeService) {

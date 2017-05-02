@@ -1,36 +1,36 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.businessobject;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.krad.bo.DocumentHeader;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.workflow.service.WorkflowDocumentService;
+
+import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * This class is a custom {@link DocumentHeader} class used by KFS to facilitate custom data fields and a few UI fields
@@ -46,10 +46,10 @@ public class FinancialSystemDocumentHeader extends DocumentHeader {
     protected String initiatorPrincipalId;
     protected String workflowDocumentTypeName;
     protected Timestamp workflowCreateDate;
+    protected Timestamp processedDate;
 
     /**
      * Constructor - creates empty instances of dependent objects
-     *
      */
     public FinancialSystemDocumentHeader() {
         super();
@@ -58,6 +58,7 @@ public class FinancialSystemDocumentHeader extends DocumentHeader {
 
     /**
      * Gets the financialDocumentTotalAmount attribute.
+     *
      * @return Returns the financialDocumentTotalAmount.
      */
     public KualiDecimal getFinancialDocumentTotalAmount() {
@@ -66,6 +67,7 @@ public class FinancialSystemDocumentHeader extends DocumentHeader {
 
     /**
      * Sets the financialDocumentTotalAmount attribute value.
+     *
      * @param financialDocumentTotalAmount The financialDocumentTotalAmount to set.
      */
     public void setFinancialDocumentTotalAmount(KualiDecimal financialDocumentTotalAmount) {
@@ -74,6 +76,7 @@ public class FinancialSystemDocumentHeader extends DocumentHeader {
 
     /**
      * Gets the correctedByDocumentId attribute.
+     *
      * @return Returns the correctedByDocumentId.
      */
     public String getCorrectedByDocumentId() {
@@ -82,6 +85,7 @@ public class FinancialSystemDocumentHeader extends DocumentHeader {
 
     /**
      * Sets the correctedByDocumentId attribute value.
+     *
      * @param correctedByDocumentId The correctedByDocumentId to set.
      */
     public void setCorrectedByDocumentId(String correctedByDocumentId) {
@@ -90,6 +94,7 @@ public class FinancialSystemDocumentHeader extends DocumentHeader {
 
     /**
      * Gets the financialDocumentInErrorNumber attribute.
+     *
      * @return Returns the financialDocumentInErrorNumber.
      */
     public String getFinancialDocumentInErrorNumber() {
@@ -98,6 +103,7 @@ public class FinancialSystemDocumentHeader extends DocumentHeader {
 
     /**
      * Sets the financialDocumentInErrorNumber attribute value.
+     *
      * @param financialDocumentInErrorNumber The financialDocumentInErrorNumber to set.
      */
     public void setFinancialDocumentInErrorNumber(String financialDocumentInErrorNumber) {
@@ -106,6 +112,7 @@ public class FinancialSystemDocumentHeader extends DocumentHeader {
 
     /**
      * Gets the financialDocumentStatusCode attribute.
+     *
      * @return Returns the financialDocumentStatusCode.
      */
     public String getFinancialDocumentStatusCode() {
@@ -114,6 +121,7 @@ public class FinancialSystemDocumentHeader extends DocumentHeader {
 
     /**
      * Sets the financialDocumentStatusCode attribute value.
+     *
      * @param financialDocumentStatusCode The financialDocumentStatusCode to set.
      */
     public void setFinancialDocumentStatusCode(String financialDocumentStatusCode) {
@@ -146,6 +154,7 @@ public class FinancialSystemDocumentHeader extends DocumentHeader {
 
     /**
      * Gets the documentFinalDate attribute.
+     *
      * @return Returns the documentFinalDate.
      */
     public Date getDocumentFinalDate() {
@@ -153,7 +162,7 @@ public class FinancialSystemDocumentHeader extends DocumentHeader {
         if (workflowDoc == null || (workflowDoc.getDateFinalized() == null)) {
             return null;
         }
-        return  new java.sql.Date(workflowDoc.getDateFinalized().getMillis());
+        return new java.sql.Date(workflowDoc.getDateFinalized().getMillis());
     }
 
     /**
@@ -196,13 +205,12 @@ public class FinancialSystemDocumentHeader extends DocumentHeader {
             if (workflowDocument != null) {
                 return workflowDocument;
             }
-            if ( StringUtils.isNotBlank(getDocumentNumber()) ) {
+            if (StringUtils.isNotBlank(getDocumentNumber())) {
                 workflowDocument = SpringContext.getBean(WorkflowDocumentService.class).loadWorkflowDocument(getDocumentNumber(), GlobalVariables.getUserSession().getPerson());
             } else {
-                throw new RuntimeException("Document number is blank/null.  Unable to load a WorkflowDocument" );
+                throw new RuntimeException("Document number is blank/null.  Unable to load a WorkflowDocument");
             }
-        }
-        catch (WorkflowException we) {
+        } catch (WorkflowException we) {
             throw new RuntimeException("Unable to load a WorkflowDocument object for " + getDocumentNumber(), we);
         }
 
@@ -216,9 +224,9 @@ public class FinancialSystemDocumentHeader extends DocumentHeader {
      * @throws WorkflowException
      */
     public void updateAndSaveAppDocStatus(String applicationDocumentStatus) throws WorkflowException {
-       setApplicationDocumentStatus(applicationDocumentStatus);
-       SpringContext.getBean(WorkflowDocumentService.class).saveRoutingData(getWorkflowDocument());
-       SpringContext.getBean(BusinessObjectService.class).save(this);
+        setApplicationDocumentStatus(applicationDocumentStatus);
+        SpringContext.getBean(WorkflowDocumentService.class).saveRoutingData(getWorkflowDocument());
+        SpringContext.getBean(BusinessObjectService.class).save(this);
     }
 
     public Timestamp getWorkflowCreateDate() {
@@ -227,5 +235,13 @@ public class FinancialSystemDocumentHeader extends DocumentHeader {
 
     public void setWorkflowCreateDate(Timestamp workflowCreateDate) {
         this.workflowCreateDate = workflowCreateDate;
+    }
+
+    public Timestamp getProcessedDate() {
+        return processedDate;
+    }
+
+    public void setProcessedDate(Timestamp processedDate) {
+        this.processedDate = processedDate;
     }
 }

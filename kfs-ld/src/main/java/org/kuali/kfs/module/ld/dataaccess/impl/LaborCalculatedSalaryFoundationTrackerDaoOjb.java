@@ -1,28 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ld.dataaccess.impl;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.Query;
@@ -39,6 +33,12 @@ import org.kuali.kfs.module.ld.util.ConsolidationUtil;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.ObjectUtil;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This is the data access object for calculated salary foundation tracker
@@ -65,8 +65,7 @@ public class LaborCalculatedSalaryFoundationTrackerDaoOjb extends PlatformAwareD
             while (queryResults != null && queryResults.hasNext()) {
                 csfTrackerCollection.add(this.marshalCSFTracker(queryResults.next()));
             }
-        }
-        else {
+        } else {
             csfTrackerCollection.addAll(findDetailedCSFTrackerRawData(fieldValues));
         }
         return csfTrackerCollection;
@@ -92,7 +91,7 @@ public class LaborCalculatedSalaryFoundationTrackerDaoOjb extends PlatformAwareD
 
     /**
      * @see org.kuali.kfs.module.ld.dataaccess.LaborCalculatedSalaryFoundationTrackerDao#findCSFTrackersAsEmployeeFunding(java.util.Map,
-     *      boolean)
+     * boolean)
      */
     @Override
     public List<EmployeeFunding> findCSFTrackersAsEmployeeFunding(Map fieldValues, boolean isConsolidated) {
@@ -201,8 +200,7 @@ public class LaborCalculatedSalaryFoundationTrackerDaoOjb extends PlatformAwareD
         if (!isAttributeNameNeeded) {
             attributeList.add(ConsolidationUtil.sum(KFSPropertyConstants.CSF_FULL_TIME_EMPLOYMENT_QUANTITY));
             attributeList.add(ConsolidationUtil.sum(KFSPropertyConstants.CSF_AMOUNT));
-        }
-        else {
+        } else {
             attributeList.add(KFSPropertyConstants.CSF_FULL_TIME_EMPLOYMENT_QUANTITY);
             attributeList.add(KFSPropertyConstants.CSF_AMOUNT);
         }

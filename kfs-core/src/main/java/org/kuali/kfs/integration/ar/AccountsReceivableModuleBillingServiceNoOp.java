@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.integration.ar;
 
-import java.sql.Date;
-import java.util.List;
-
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.sql.Date;
+import java.util.List;
 
 public class AccountsReceivableModuleBillingServiceNoOp implements AccountsReceivableModuleBillingService {
     private org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AccountsReceivableModuleBillingServiceNoOp.class);
@@ -40,7 +40,7 @@ public class AccountsReceivableModuleBillingServiceNoOp implements AccountsRecei
      * @see org.kuali.kfs.integration.ar.AccountsReceivableModuleService#calculateTotalPaymentsToDateByAward(java.lang.Long)
      */
     @Override
-    public KualiDecimal calculateTotalPaymentsToDateByAward(Long proposalNumber) {
+    public KualiDecimal calculateTotalPaymentsToDateByAward(String proposalNumber) {
         LOG.warn("Using No-Op " + getClass().getSimpleName() + " service.");
         return null;
     }
@@ -70,13 +70,13 @@ public class AccountsReceivableModuleBillingServiceNoOp implements AccountsRecei
     }
 
     @Override
-    public boolean hasPredeterminedBillingSchedule(Long proposalNumber) {
+    public boolean hasPredeterminedBillingSchedule(String proposalNumber) {
         LOG.warn("Using No-Op " + getClass().getSimpleName() + " service.");
         return false;
     }
 
     @Override
-    public boolean hasMilestoneSchedule(Long proposalNumber) {
+    public boolean hasMilestoneSchedule(String proposalNumber) {
         LOG.warn("Using No-Op " + getClass().getSimpleName() + " service.");
         return false;
     }
@@ -119,13 +119,13 @@ public class AccountsReceivableModuleBillingServiceNoOp implements AccountsRecei
     }
 
     @Override
-    public boolean hasActiveMilestones(Long proposalNumber) {
+    public boolean hasActiveMilestones(String proposalNumber) {
         LOG.warn("Using No-Op " + getClass().getSimpleName() + " service.");
         return false;
     }
 
     @Override
-    public boolean hasActiveBills(Long proposalNumber) {
+    public boolean hasActiveBills(String proposalNumber) {
         LOG.warn("Using No-Op " + getClass().getSimpleName() + " service.");
         return false;
     }

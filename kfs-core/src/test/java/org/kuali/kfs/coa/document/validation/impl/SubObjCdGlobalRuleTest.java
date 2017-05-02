@@ -1,34 +1,34 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.coa.document.validation.impl;
-
-import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapEmpty;
-import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapSize;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import org.kuali.kfs.coa.businessobject.AccountGlobalDetail;
 import org.kuali.kfs.coa.businessobject.SubObjectCodeGlobal;
 import org.kuali.kfs.coa.businessobject.SubObjectCodeGlobalDetail;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.TestUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapEmpty;
+import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapSize;
 
 @ConfigureContext
 public class SubObjCdGlobalRuleTest extends ChartRuleTestBase {
@@ -42,7 +42,7 @@ public class SubObjCdGlobalRuleTest extends ChartRuleTestBase {
             public static int getFiscalYear_GOOD1() {
                 return TestUtils.getFiscalYearForTesting().intValue();
             }
-            
+
             public static int getFiscalYear_BAD1() {
                 return 0;
             }
@@ -206,7 +206,7 @@ public class SubObjCdGlobalRuleTest extends ChartRuleTestBase {
         SubObjectCodeGlobal socChangeDocument = new SubObjectCodeGlobal();
         SubObjectCodeGlobalDetail socChangeDetail = new SubObjectCodeGlobalDetail();
 
-        socChangeDocument.setUniversityFiscalYear(TestUtils.getFiscalYearForTesting()-1);
+        socChangeDocument.setUniversityFiscalYear(TestUtils.getFiscalYearForTesting() - 1);
         socChangeDocument.refreshNonUpdateableReferences();
 
         socChangeDetail.setUniversityFiscalYear(TestUtils.getFiscalYearForTesting());
@@ -260,7 +260,7 @@ public class SubObjCdGlobalRuleTest extends ChartRuleTestBase {
         socChangeDetail.setUniversityFiscalYear(TestUtils.getFiscalYearForTesting());
         socChangeDetail.refreshNonUpdateableReferences();
 
-        socChangeDetail2.setUniversityFiscalYear(TestUtils.getFiscalYearForTesting()-1);
+        socChangeDetail2.setUniversityFiscalYear(TestUtils.getFiscalYearForTesting() - 1);
         socChangeDetail2.refreshNonUpdateableReferences();
 
         List<SubObjectCodeGlobalDetail> socDetails = new ArrayList<SubObjectCodeGlobalDetail>();

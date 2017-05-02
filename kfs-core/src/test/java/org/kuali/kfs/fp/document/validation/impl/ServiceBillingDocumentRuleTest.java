@@ -1,28 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.dfogle;
-import static org.kuali.kfs.sys.service.IsDebitTestUtils.Amount.NEGATIVE;
-import static org.kuali.kfs.sys.service.IsDebitTestUtils.Amount.POSITIVE;
-
 import org.kuali.kfs.fp.document.ServiceBillingDocument;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
@@ -32,8 +30,10 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.service.IsDebitTestUtils;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.service.DocumentService;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.dfogle;
+import static org.kuali.kfs.sys.service.IsDebitTestUtils.Amount.NEGATIVE;
+import static org.kuali.kfs.sys.service.IsDebitTestUtils.Amount.POSITIVE;
 
 /**
  * This class tests the business rules of the service billing document. This is not implemented yet and needs to extend
@@ -52,8 +52,7 @@ public class ServiceBillingDocumentRuleTest extends KualiTestBase {
 
         try {
             SpringContext.getBean(DocumentService.class).saveDocument(null);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             failedAsExpected = true;
         }
 

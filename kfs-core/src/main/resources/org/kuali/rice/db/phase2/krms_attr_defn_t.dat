@@ -1,0 +1,6 @@
+HEADER[~&~	~&~ATTR_DEFN_ID::VARCHAR~&~	~&~NM::VARCHAR~&~	~&~NMSPC_CD::VARCHAR~&~	~&~LBL::VARCHAR~&~	~&~ACTV::VARCHAR~&~	~&~CMPNT_NM::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~DESC_TXT::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'1000'~&~	~&~'peopleFlowId'~&~	~&~'KR-RULE'~&~	~&~'PeopleFlow'~&~	~&~'Y'~&~	~&~NULL~&~	~&~'0'~&~	~&~'An identifier for a PeopleFlow'~&~	~&~]RECORD
+RECORD[~&~	~&~'1001'~&~	~&~'ruleTypeCode'~&~	~&~'KR-RULE'~&~	~&~'Invalid Rule'~&~	~&~'Y'~&~	~&~NULL~&~	~&~'1'~&~	~&~'If true, execute the action'~&~	~&~]RECORD
+RECORD[~&~	~&~'1004'~&~	~&~'actionTypeCode'~&~	~&~'KR-RULE'~&~	~&~'Error Action'~&~	~&~'Y'~&~	~&~NULL~&~	~&~'1'~&~	~&~'Error'~&~	~&~]RECORD
+RECORD[~&~	~&~'1005'~&~	~&~'actionMessage'~&~	~&~'KR-RULE'~&~	~&~'Action Message'~&~	~&~'Y'~&~	~&~NULL~&~	~&~'1'~&~	~&~'Message validation action returns'~&~	~&~]RECORD
+RECORD[~&~	~&~'1006'~&~	~&~'peopleFlowName'~&~	~&~'KR_RULE'~&~	~&~'PeopleFlow Name'~&~	~&~'Y'~&~	~&~NULL~&~	~&~'1'~&~	~&~'PeopleFlow Name'~&~	~&~]RECORD

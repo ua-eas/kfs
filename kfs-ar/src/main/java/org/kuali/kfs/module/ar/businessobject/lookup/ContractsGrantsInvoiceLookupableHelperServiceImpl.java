@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,20 +18,22 @@
  */
 package org.kuali.kfs.module.ar.businessobject.lookup;
 
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsModuleBillingService;
+import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.web.comparator.CellComparatorHelper;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.kns.web.ui.Column;
+import org.kuali.kfs.kns.web.ui.ResultRow;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.lookup.LookupUtils;
+import org.kuali.kfs.krad.util.BeanPropertyComparator;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.ContractsGrantsInvoiceLookupResult;
 import org.kuali.kfs.module.ar.report.service.ContractsGrantsInvoiceReportService;
@@ -44,19 +46,17 @@ import org.kuali.rice.core.web.format.Formatter;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.services.IdentityManagementService;
-import org.kuali.rice.kns.document.authorization.BusinessObjectRestrictions;
-import org.kuali.rice.kns.lookup.HtmlData;
-import org.kuali.rice.kns.web.comparator.CellComparatorHelper;
-import org.kuali.rice.kns.web.struts.form.LookupForm;
-import org.kuali.rice.kns.web.ui.Column;
-import org.kuali.rice.kns.web.ui.ResultRow;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.rice.krad.lookup.CollectionIncomplete;
-import org.kuali.rice.krad.util.BeanPropertyComparator;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Defines a lookupable helper service class for Contracts & Grants Invoices.
@@ -71,11 +71,10 @@ public class ContractsGrantsInvoiceLookupableHelperServiceImpl extends AccountsR
     /**
      * This method performs the lookup and returns a collection of lookup items
      *
-     * @param lookupForm
-     * @param kualiLookupable
-     * @param resultTable
-     * @param bounded
-     * @return
+     * @param lookupForm  struts form
+     * @param resultTable table to add the result rows to
+     * @param bounded     boolean whether the results should be bounded or not
+     * @return collection of search results
      */
     @Override
     public Collection performLookup(LookupForm lookupForm, Collection resultTable, boolean bounded) {
@@ -98,17 +97,17 @@ public class ContractsGrantsInvoiceLookupableHelperServiceImpl extends AccountsR
 
             BusinessObjectRestrictions businessObjectRestrictions = getBusinessObjectAuthorizationService().getLookupResultRestrictions(result, user);
             // add list of awards to sub Result rows
-            List<ResultRow> subResultRows = new ArrayList<ResultRow>();
+            List<ResultRow> subResultRows = new ArrayList<>();
             for (ContractsAndGrantsBillingAward award : result.getAwards()) {
 
-                List<Column> subResultColumns = new ArrayList<Column>();
+                List<Column> subResultColumns = new ArrayList<>();
 
                 for (String propertyName : awardAttributesForDisplay) {
                     subResultColumns.add(setupResultsColumn(award, propertyName, businessObjectRestrictions));
                 }
 
                 ResultRow subResultRow = new ResultRow(subResultColumns, "", "");
-                subResultRow.setObjectId(((PersistableBusinessObjectBase) award).getObjectId());
+                subResultRow.setObjectId(award.getObjectId());
                 subResultRows.add(subResultRow);
             }
 
@@ -125,13 +124,13 @@ public class ContractsGrantsInvoiceLookupableHelperServiceImpl extends AccountsR
     /**
      * overriding this method to convert the list of awards to a list of ContratcsGrantsInvoiceLookupResult
      *
-     * @see org.kuali.core.lookup.Lookupable#getSearchResults(java.util.Map)
+     * @see org.kuali.kfs.kns.lookup.Lookupable#getSearchResultsUnbounded(java.util.Map)
      */
     @Override
     public List<? extends BusinessObject> getSearchResultsUnbounded(Map<String, String> fieldValues) {
         Collection searchResultsCollection;
         // Get the list of awards
-        searchResultsCollection = getSearchResultsHelper(org.kuali.rice.krad.lookup.LookupUtils.forceUppercase(getBusinessObjectClass(), fieldValues), true);
+        searchResultsCollection = getSearchResultsHelper(LookupUtils.forceUppercase(getBusinessObjectClass(), fieldValues), true);
         // Convert to suitable list
         searchResultsCollection = getContractsGrantsInvoiceReportService().getPopulatedContractsGrantsInvoiceLookupResults(searchResultsCollection);
         filterSearchResults(searchResultsCollection);
@@ -142,7 +141,7 @@ public class ContractsGrantsInvoiceLookupableHelperServiceImpl extends AccountsR
      * build the search result list from the given collection and the number of all qualified search results
      *
      * @param searchResultsCollection the given search results, which may be a subset of the qualified search results
-     * @param actualSize the number of all qualified search results
+     * @param actualSize              the number of all qualified search results
      * @return the search result list with the given results and actual size
      */
     protected List buildSearchResultList(Collection searchResultsCollection, Long actualSize) {
@@ -158,7 +157,7 @@ public class ContractsGrantsInvoiceLookupableHelperServiceImpl extends AccountsR
     }
 
     /**
-     * @see org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl#getSearchResultsHelper(java.util.Map, boolean)
+     * @see org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl#getSearchResultsHelper(java.util.Map, boolean)
      */
     @Override
     protected List<? extends BusinessObject> getSearchResultsHelper(Map<String, String> fieldValues, boolean unbounded) {
@@ -175,9 +174,9 @@ public class ContractsGrantsInvoiceLookupableHelperServiceImpl extends AccountsR
         permissionDetails.put(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME, ArConstants.ArDocumentTypeCodes.CONTRACTS_GRANTS_INVOICE);
         Map<String, String> qualificationDetails = new HashMap<String, String>();
 
-        for (Iterator<ContractsGrantsInvoiceLookupResult> searchResultsIterator = searchResultsCollection.iterator(); searchResultsIterator.hasNext();) {
+        for (Iterator<ContractsGrantsInvoiceLookupResult> searchResultsIterator = searchResultsCollection.iterator(); searchResultsIterator.hasNext(); ) {
             ContractsGrantsInvoiceLookupResult contractsGrantsInvoiceLookupResult = searchResultsIterator.next();
-            for (Iterator<ContractsAndGrantsBillingAward> awardIterator = contractsGrantsInvoiceLookupResult.getAwards().iterator(); awardIterator.hasNext();) {
+            for (Iterator<ContractsAndGrantsBillingAward> awardIterator = contractsGrantsInvoiceLookupResult.getAwards().iterator(); awardIterator.hasNext(); ) {
                 ContractsAndGrantsBillingAward award = awardIterator.next();
                 qualificationDetails.put(KFSPropertyConstants.PROPOSAL_NUMBER, award.getProposalNumber().toString());
 
@@ -243,11 +242,9 @@ public class ContractsGrantsInvoiceLookupableHelperServiceImpl extends AccountsR
             if (StringUtils.isNotBlank(propValue)) {
                 col.setColumnAnchor(getInquiryUrl(element, col.getPropertyName()));
             }
-        }
-        catch (InstantiationException ie) {
+        } catch (InstantiationException ie) {
             throw new RuntimeException("Unable to get new instance of formatter class for property " + col.getPropertyName(), ie);
-        }
-        catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
+        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
             throw new RuntimeException("Cannot access PropertyType for property " + "'" + col.getPropertyName() + "' " + " on an instance of '" + element.getClass().getName() + "'.", ex);
         }
         return col;

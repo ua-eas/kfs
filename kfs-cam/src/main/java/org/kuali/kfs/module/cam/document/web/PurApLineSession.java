@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  * 
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.cam.document.web;
 
+import org.kuali.kfs.module.cam.businessobject.GeneralLedgerEntry;
+import org.kuali.kfs.module.cam.businessobject.PurchasingAccountsPayableActionHistory;
+import org.kuali.kfs.module.cam.businessobject.PurchasingAccountsPayableItemAsset;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.kuali.kfs.module.cab.businessobject.GeneralLedgerEntry;
-import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableActionHistory;
-import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableItemAsset;
 
 public class PurApLineSession {
     private List<PurchasingAccountsPayableActionHistory> actionsTakenHistory;
@@ -39,6 +39,7 @@ public class PurApLineSession {
 
     /**
      * Gets the processedDocuments attribute. 
+     *
      * @return Returns the processedDocuments.
      */
     public List<PurchasingAccountsPayableItemAsset> getProcessedItems() {
@@ -48,6 +49,7 @@ public class PurApLineSession {
 
     /**
      * Gets the glEntryList attribute. 
+     *
      * @return Returns the glEntryList.
      */
     public List<GeneralLedgerEntry> getGlEntryUpdateList() {
@@ -57,6 +59,7 @@ public class PurApLineSession {
 
     /**
      * Sets the glEntryList attribute value.
+     *
      * @param glEntryList The glEntryList to set.
      */
     public void setGlEntryUpdateList(List<GeneralLedgerEntry> glEntryList) {

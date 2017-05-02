@@ -1,0 +1,494 @@
+/*
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+#view_div {
+    min-width: 900px;
+}
+
+.headerarea-small h1 span.glyphicon {
+    font-size: 22px;
+}
+
+.inst-config-sidebar {
+    padding-top: 50px;
+}
+
+.inst-config-sidebar > ul {
+    width: 320px;
+}
+
+#sidebar .nav li.panel div.indicator.active {
+    background-color: rgba(255, 255, 255, 0.4);
+    width: 5px;
+    height: 100%;
+    margin-right: -1px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.main {
+    padding: 20px;
+}
+
+.menu-config {
+    margin-bottom: 60px;
+}
+
+.menu-config.add-new {
+    margin-bottom: 250px;
+}
+
+.nav-config {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: row-reverse;
+    padding-bottom: 60px;
+}
+
+ul#item-list,
+div#sub-item-list {
+    width: 50%;
+}
+
+#item-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 45%;
+    order: 2;
+}
+
+#sub-item-list div.add-custom-link {
+    height: 30px;
+    position: relative;
+}
+
+#sub-item-list div.add-custom-link > button {
+    float: right;
+    color: #555555;
+    text-transform: uppercase;
+}
+
+#item-list li.item {
+    background-color: #6B6B6B;
+    text-transform: uppercase;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 13px 10px;
+    margin: 0 3px 3px 3px;
+    border-radius: 3px;
+    cursor: pointer;
+    border-top: 1px solid #6B6B6B;
+    border-left: 1px solid #6B6B6B;
+    border-bottom: 1px solid #6B6B6B;
+    position: relative;
+}
+
+.menu-config #item-list li.item {
+    text-transform: none;
+}
+
+#item-list li.item.new {
+    background-color: #A7A7A7;
+    text-align: center;
+    border: 1px solid #A7A7A7;
+    text-transform: uppercase;
+}
+
+#item-list li.item.new div.add-new-button {
+    cursor: pointer;
+}
+
+#item-list li.item.ui-sortable-helper,
+#item-list li.item.ui-sortable-helper span.move {
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+    cursor: grabbing;
+}
+
+#item-list li.item.active {
+    background-color: #F4F4F4;
+    color: #555555;
+    border-top: 1px solid #ACACAC;
+    border-left: 1px solid #ACACAC;
+    border-bottom: 1px solid #ACACAC;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+
+}
+
+#item-list li.item.active {
+    margin-right: -1px;
+    padding-right: 14px;
+}
+
+#item-list li.item span.move {
+    margin-right: 10px;
+    margin-bottom: -8px;
+    height: 23px;
+    width: 18px;
+    background-image: url('../static/images/move.png');
+    display: inline-block;
+    background-size: 23px 18px;
+    background-repeat: no-repeat;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+    cursor: grab;
+}
+
+#item-list li.item input[type=text] {
+    color: #555555;
+    text-transform: uppercase;
+    width: 59%;
+}
+
+#item-list li.item .actions {
+    float: right;
+}
+
+#item-list li.item .actions button {
+    background-color: #7C7C7C;
+    border: 1px solid #757575;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    height: 30px;
+    min-width: 30px;
+    margin-top: -3px;
+    border-radius: 2px;
+    color: #C5C5C5;
+    padding: 4px;
+    margin-left: 10px;
+    float: left;
+}
+
+#item-list li.item .actions #saveGroupLabelButton,
+#item-list li.item .actions #cancelGroupLabelButton {
+    padding: 2px 5px;
+    margin-top: 0;
+}
+
+#item-list li.item .actions button span {
+    display: inline-block;
+    width: 16px;
+    height: 30px;
+    background-size: 16px;
+    background-repeat: no-repeat;
+    padding: 0;
+}
+
+#item-list li.item .actions button {
+    padding-top: 6px;
+}
+
+#item-list li.item .actions button .edit {
+    background-image: url("../static/images/edit.png");
+}
+
+#item-list li.item .actions button .delete {
+    background-image: url("../static/images/trash.png");
+}
+
+#item-list li.item .actions button .save,
+#item-list li.item .actions button .cancel {
+    width: inherit;
+}
+
+.nav-config div.admin-sublinks {
+    background-color: #F4F4F4;
+    border: 1px solid #ACACAC;
+    border-radius: 3px;
+    padding: 20px;
+}
+
+.nav-config .top-selected div.admin-sublinks {
+    border-top-left-radius: 0;
+}
+
+.nav-config div.admin-sublinks ul {
+    padding: 0;
+}
+
+.nav-config div.admin-sublinks li {
+    list-style: none;
+    padding: 1px 0;
+    cursor: hand;
+}
+
+.nav-config div.admin-sublinks li.ui-sortable-helper,
+.nav-config div.admin-sublinks li.ui-sortable-helper span.move {
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+    cursor: grabbing;
+}
+
+.nav-config div.admin-sublinks h4 {
+    padding-top: 15px;
+    padding-bottom: 5px;
+    color: #767676;
+    font-size: 16px;
+    margin: 0;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.nav-config div.admin-sublinks li .list-group-item {
+    padding: 2px 8px;
+    color: #555555;
+}
+
+.nav-config div.admin-sublinks li .list-group-item.empty {
+    height: 32px;
+    border-style: dashed;
+    background-color: inherit;
+    cursor: default;
+}
+
+.nav-config div.admin-sublinks li .list-group-item .editLink {
+    cursor: pointer;
+}
+
+.nav-config div.admin-sublinks li .list-group-item .deleteLink {
+    cursor: pointer;
+}
+
+.nav-config div.admin-sublinks li span.move {
+    margin-right: 10px;
+    margin-bottom: -6px;
+    height: 18px;
+    width: 14px;
+    background-image: url('../static/images/small-move.png');
+    display: inline-block;
+    background-size: 18px 14px;
+    background-repeat: no-repeat;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+    cursor: grab;
+}
+
+.nav-config div.admin-sublinks li .list-group-item .actions {
+    float: right;
+    color: #767676;
+}
+
+.nav-config div.admin-sublinks li .list-group-item .actions .editLink {
+    background-image: url('../static/images/small-edit.png');
+    background-size: 13px 12px;
+    background-position: 0 4px;
+    background-repeat: no-repeat;
+    padding-left: 14px;
+}
+
+.nav-config div.admin-sublinks li .list-group-item .actions .deleteLink {
+    background-image: url('../static/images/small-trash.png');
+    background-size: 13px 12px;
+    background-position: 0 4px;
+    background-repeat: no-repeat;
+    padding-left: 14px;
+}
+
+.logo-upload {
+    color: #777;
+}
+
+.logo-upload h4 {
+    margin: 0 0 3px 0;
+    font-size: 16px;
+}
+
+.logo-upload .preview-box {
+    border: 1px solid #D7D7D7;
+    height: 60px;
+    font-size: 26px;
+    line-height: 35px;
+    padding: 13px 40px;
+    color: #767676;
+    width: 100%;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.logo-upload .preview-box img {
+    float: left;
+}
+
+.logo-upload .preview-box .logo-right {
+    border-left: 1px solid #767676;
+    margin-left: 15px;
+    padding-left: 15px;
+}
+
+.logo-upload .instructions {
+    width: 65%;
+    margin: 0 auto;
+    font-size: 16px;
+    text-align: center;
+}
+
+.logo-upload .dropzone > div {
+    width: 50% !important;
+    height: 100px !important;
+    border-color: #D7D7D7 !important;
+    margin: 40px auto 20px auto;
+    padding: 35px 0;
+    text-align: center;
+    cursor: pointer;
+}
+
+.logo-upload .dropzone > div:hover {
+    background-color: #F8F8F8;
+}
+
+.logo-upload .dropzone p {
+    margin: 0;
+}
+
+.logo-upload .error {
+    text-align: center;
+    color: #C47965;
+}
+
+.buttonbar {
+    padding: 15px 0 15px 0;
+    width: calc(100% - 360px);
+    position: fixed;
+    bottom: 0px;
+    height: 80px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.901961);
+}
+
+.buttonbar .btn {
+    padding: 15px 45px;
+}
+
+div.form {
+    position: absolute;
+    right: 0;
+    top: 55px;
+    z-index: 100;
+    background-color: #fff;
+    border: 1px solid #BBBBBB;
+    border-radius: 3px;
+    padding: 15px 20px;
+    color: #666666;
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.20);
+}
+
+div.form:after, div.form:before {
+    border: solid transparent;
+    content: ' ';
+    height: 0;
+    left: 50%;
+    position: absolute;
+    width: 0;
+}
+
+div.form:after {
+    border-width: 14px;
+    border-bottom-color: #fff;
+    top: -28px;
+}
+
+div.form:before {
+    border-width: 14px;
+    border-bottom-color: #BBB;
+    top: -29px;
+}
+
+div.form.hidden {
+    display: none;
+}
+
+div.form.edit-form:after,
+div.form.edit-form:before {
+    left: 79%;
+}
+
+div.form.delete-form:after,
+div.form.delete-form:before {
+    left: 90%;
+}
+
+div.form.customLinkForm:after,
+div.form.customLinkForm:before {
+    left: 70%;
+}
+
+div.form.add-new-form {
+    right: calc(50% - 187px);
+}
+
+div.form {
+    width: 390px;
+}
+
+div.form div {
+    display: table;
+    width: 100%;
+    text-align: left;
+}
+
+div.form input,
+div.form select {
+    margin-bottom: 25px;
+    text-transform: none !important;
+}
+
+div.form input[type=text],
+div.form select {
+    width: 345px !important;
+}
+
+div.form input[type=radio],
+div.form input[type=checkbox] {
+    margin-right: 7px;
+}
+
+div.form ul.errorMessages {
+    color: #C47965;
+    text-align: left;
+    padding: 0 0 10px 0;
+    text-transform: none;
+}
+
+div.form ul.errorMessages li {
+    list-style: none;
+}
+
+div.form input.error {
+    border-color: #C47965;
+}
+
+div.form label {
+    margin-right: 15px;
+    font-weight: 400;
+}
+
+div.form button {
+    float: right;
+    margin-left: 10px;
+}
+
+div.form.delete-form label {
+    padding-bottom: 15px;
+    text-transform: none;
+}

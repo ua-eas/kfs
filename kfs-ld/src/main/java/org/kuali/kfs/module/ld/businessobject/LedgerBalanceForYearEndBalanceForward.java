@@ -1,31 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ld.businessobject;
 
-import java.sql.Timestamp;
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Chart;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+
+import java.sql.Timestamp;
+import java.util.LinkedHashMap;
 
 public class LedgerBalanceForYearEndBalanceForward extends PersistableBusinessObjectBase {
 
@@ -51,7 +51,7 @@ public class LedgerBalanceForYearEndBalanceForward extends PersistableBusinessOb
 
     /**
      * Gets the universityFiscalYear attribute.
-     * 
+     *
      * @return Returns the universityFiscalYear.
      */
     public Integer getUniversityFiscalYear() {
@@ -60,7 +60,7 @@ public class LedgerBalanceForYearEndBalanceForward extends PersistableBusinessOb
 
     /**
      * Sets the universityFiscalYear attribute value.
-     * 
+     *
      * @param universityFiscalYear The universityFiscalYear to set.
      */
     public void setUniversityFiscalYear(Integer universityFiscalYear) {
@@ -69,7 +69,7 @@ public class LedgerBalanceForYearEndBalanceForward extends PersistableBusinessOb
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode.
      */
     public String getChartOfAccountsCode() {
@@ -78,7 +78,7 @@ public class LedgerBalanceForYearEndBalanceForward extends PersistableBusinessOb
 
     /**
      * Sets the chartOfAccountsCode attribute value.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -87,7 +87,7 @@ public class LedgerBalanceForYearEndBalanceForward extends PersistableBusinessOb
 
     /**
      * Gets the accountNumber attribute.
-     * 
+     *
      * @return Returns the accountNumber.
      */
     public String getAccountNumber() {
@@ -96,7 +96,7 @@ public class LedgerBalanceForYearEndBalanceForward extends PersistableBusinessOb
 
     /**
      * Sets the accountNumber attribute value.
-     * 
+     *
      * @param accountNumber The accountNumber to set.
      */
     public void setAccountNumber(String accountNumber) {
@@ -105,7 +105,7 @@ public class LedgerBalanceForYearEndBalanceForward extends PersistableBusinessOb
 
     /**
      * Gets the subAccountNumber attribute.
-     * 
+     *
      * @return Returns the subAccountNumber.
      */
     public String getSubAccountNumber() {
@@ -114,7 +114,7 @@ public class LedgerBalanceForYearEndBalanceForward extends PersistableBusinessOb
 
     /**
      * Sets the subAccountNumber attribute value.
-     * 
+     *
      * @param subAccountNumber The subAccountNumber to set.
      */
     public void setSubAccountNumber(String subAccountNumber) {
@@ -123,7 +123,7 @@ public class LedgerBalanceForYearEndBalanceForward extends PersistableBusinessOb
 
     /**
      * Gets the financialObjectCode attribute.
-     * 
+     *
      * @return Returns the financialObjectCode.
      */
     public String getFinancialObjectCode() {
@@ -132,7 +132,7 @@ public class LedgerBalanceForYearEndBalanceForward extends PersistableBusinessOb
 
     /**
      * Sets the financialObjectCode attribute value.
-     * 
+     *
      * @param financialObjectCode The financialObjectCode to set.
      */
     public void setFinancialObjectCode(String financialObjectCode) {
@@ -141,7 +141,7 @@ public class LedgerBalanceForYearEndBalanceForward extends PersistableBusinessOb
 
     /**
      * Gets the financialSubObjectCode attribute.
-     * 
+     *
      * @return Returns the financialSubObjectCode.
      */
     public String getFinancialSubObjectCode() {
@@ -150,7 +150,7 @@ public class LedgerBalanceForYearEndBalanceForward extends PersistableBusinessOb
 
     /**
      * Sets the financialSubObjectCode attribute value.
-     * 
+     *
      * @param financialSubObjectCode The financialSubObjectCode to set.
      */
     public void setFinancialSubObjectCode(String financialSubObjectCode) {
@@ -159,7 +159,7 @@ public class LedgerBalanceForYearEndBalanceForward extends PersistableBusinessOb
 
     /**
      * Gets the financialBalanceTypeCode attribute.
-     * 
+     *
      * @return Returns the financialBalanceTypeCode.
      */
     public String getFinancialBalanceTypeCode() {
@@ -168,7 +168,7 @@ public class LedgerBalanceForYearEndBalanceForward extends PersistableBusinessOb
 
     /**
      * Sets the financialBalanceTypeCode attribute value.
-     * 
+     *
      * @param financialBalanceTypeCode The financialBalanceTypeCode to set.
      */
     public void setFinancialBalanceTypeCode(String financialBalanceTypeCode) {
@@ -177,7 +177,7 @@ public class LedgerBalanceForYearEndBalanceForward extends PersistableBusinessOb
 
     /**
      * Gets the financialObjectTypeCode attribute.
-     * 
+     *
      * @return Returns the financialObjectTypeCode.
      */
     public String getFinancialObjectTypeCode() {
@@ -186,7 +186,7 @@ public class LedgerBalanceForYearEndBalanceForward extends PersistableBusinessOb
 
     /**
      * Sets the financialObjectTypeCode attribute value.
-     * 
+     *
      * @param financialObjectTypeCode The financialObjectTypeCode to set.
      */
     public void setFinancialObjectTypeCode(String financialObjectTypeCode) {
@@ -195,7 +195,7 @@ public class LedgerBalanceForYearEndBalanceForward extends PersistableBusinessOb
 
     /**
      * Gets the positionNumber attribute.
-     * 
+     *
      * @return Returns the positionNumber.
      */
     public String getPositionNumber() {
@@ -204,7 +204,7 @@ public class LedgerBalanceForYearEndBalanceForward extends PersistableBusinessOb
 
     /**
      * Sets the positionNumber attribute value.
-     * 
+     *
      * @param positionNumber The positionNumber to set.
      */
     public void setPositionNumber(String positionNumber) {
@@ -213,7 +213,7 @@ public class LedgerBalanceForYearEndBalanceForward extends PersistableBusinessOb
 
     /**
      * Gets the emplid attribute.
-     * 
+     *
      * @return Returns the emplid.
      */
     public String getEmplid() {
@@ -222,7 +222,7 @@ public class LedgerBalanceForYearEndBalanceForward extends PersistableBusinessOb
 
     /**
      * Sets the emplid attribute value.
-     * 
+     *
      * @param emplid The emplid to set.
      */
     public void setEmplid(String emplid) {
@@ -231,7 +231,7 @@ public class LedgerBalanceForYearEndBalanceForward extends PersistableBusinessOb
 
     /**
      * Gets the financialObjectFringeOrSalaryCode attribute.
-     * 
+     *
      * @return Returns the financialObjectFringeOrSalaryCode.
      */
     public String getFinancialObjectFringeOrSalaryCode() {
@@ -240,7 +240,7 @@ public class LedgerBalanceForYearEndBalanceForward extends PersistableBusinessOb
 
     /**
      * Sets the financialObjectFringeOrSalaryCode attribute value.
-     * 
+     *
      * @param financialObjectFringeOrSalaryCode The financialObjectFringeOrSalaryCode to set.
      */
     public void setFinancialObjectFringeOrSalaryCode(String financialObjectFringeOrSalaryCode) {
@@ -249,7 +249,7 @@ public class LedgerBalanceForYearEndBalanceForward extends PersistableBusinessOb
 
     /**
      * Gets the accountLineAnnualBalanceAmount attribute.
-     * 
+     *
      * @return Returns the accountLineAnnualBalanceAmount.
      */
     public KualiDecimal getAccountLineAnnualBalanceAmount() {
@@ -258,7 +258,7 @@ public class LedgerBalanceForYearEndBalanceForward extends PersistableBusinessOb
 
     /**
      * Sets the accountLineAnnualBalanceAmount attribute value.
-     * 
+     *
      * @param accountLineAnnualBalanceAmount The accountLineAnnualBalanceAmount to set.
      */
     public void setAccountLineAnnualBalanceAmount(KualiDecimal accountLineAnnualBalanceAmount) {
@@ -267,7 +267,7 @@ public class LedgerBalanceForYearEndBalanceForward extends PersistableBusinessOb
 
     /**
      * Gets the financialBeginningBalanceLineAmount attribute.
-     * 
+     *
      * @return Returns the financialBeginningBalanceLineAmount.
      */
     public KualiDecimal getFinancialBeginningBalanceLineAmount() {
@@ -276,7 +276,7 @@ public class LedgerBalanceForYearEndBalanceForward extends PersistableBusinessOb
 
     /**
      * Sets the financialBeginningBalanceLineAmount attribute value.
-     * 
+     *
      * @param financialBeginningBalanceLineAmount The financialBeginningBalanceLineAmount to set.
      */
     public void setFinancialBeginningBalanceLineAmount(KualiDecimal financialBeginningBalanceLineAmount) {
@@ -285,7 +285,7 @@ public class LedgerBalanceForYearEndBalanceForward extends PersistableBusinessOb
 
     /**
      * Gets the contractsGrantsBeginningBalanceAmount attribute.
-     * 
+     *
      * @return Returns the contractsGrantsBeginningBalanceAmount.
      */
     public KualiDecimal getContractsGrantsBeginningBalanceAmount() {
@@ -294,7 +294,7 @@ public class LedgerBalanceForYearEndBalanceForward extends PersistableBusinessOb
 
     /**
      * Sets the contractsGrantsBeginningBalanceAmount attribute value.
-     * 
+     *
      * @param contractsGrantsBeginningBalanceAmount The contractsGrantsBeginningBalanceAmount to set.
      */
     public void setContractsGrantsBeginningBalanceAmount(KualiDecimal contractsGrantsBeginningBalanceAmount) {
@@ -303,7 +303,7 @@ public class LedgerBalanceForYearEndBalanceForward extends PersistableBusinessOb
 
     /**
      * Gets the transactionDateTimeStamp attribute.
-     * 
+     *
      * @return Returns the transactionDateTimeStamp.
      */
     public Timestamp getTransactionDateTimeStamp() {
@@ -312,7 +312,7 @@ public class LedgerBalanceForYearEndBalanceForward extends PersistableBusinessOb
 
     /**
      * Sets the transactionDateTimeStamp attribute value.
-     * 
+     *
      * @param transactionDateTimeStamp The transactionDateTimeStamp to set.
      */
     public void setTransactionDateTimeStamp(Timestamp transactionDateTimeStamp) {
@@ -321,7 +321,7 @@ public class LedgerBalanceForYearEndBalanceForward extends PersistableBusinessOb
 
     /**
      * Gets the chartOfAccounts attribute.
-     * 
+     *
      * @return Returns the chartOfAccounts.
      */
     public Chart getChartOfAccounts() {
@@ -330,7 +330,7 @@ public class LedgerBalanceForYearEndBalanceForward extends PersistableBusinessOb
 
     /**
      * Sets the chartOfAccounts attribute value.
-     * 
+     *
      * @param chartOfAccounts The chartOfAccounts to set.
      */
     public void setChartOfAccounts(Chart chartOfAccounts) {
@@ -339,7 +339,7 @@ public class LedgerBalanceForYearEndBalanceForward extends PersistableBusinessOb
 
     /**
      * Gets the account attribute.
-     * 
+     *
      * @return Returns the account.
      */
     public Account getAccount() {
@@ -348,7 +348,7 @@ public class LedgerBalanceForYearEndBalanceForward extends PersistableBusinessOb
 
     /**
      * Sets the account attribute value.
-     * 
+     *
      * @param account The account to set.
      */
     public void setAccount(Account account) {
@@ -357,7 +357,7 @@ public class LedgerBalanceForYearEndBalanceForward extends PersistableBusinessOb
 
     /**
      * Gets the option attribute.
-     * 
+     *
      * @return Returns the option.
      */
     public SystemOptions getOption() {
@@ -366,14 +366,14 @@ public class LedgerBalanceForYearEndBalanceForward extends PersistableBusinessOb
 
     /**
      * Sets the option attribute value.
-     * 
+     *
      * @param option The option to set.
      */
     public void setOption(SystemOptions option) {
         this.option = option;
     }
 
-    
+
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
         // TODO Auto-generated method stub
         return null;

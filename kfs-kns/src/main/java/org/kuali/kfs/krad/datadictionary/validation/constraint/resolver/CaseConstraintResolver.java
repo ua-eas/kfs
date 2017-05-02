@@ -1,0 +1,39 @@
+/*
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+package org.kuali.kfs.krad.datadictionary.validation.constraint.resolver;
+
+import org.kuali.kfs.krad.datadictionary.validation.capability.CaseConstrainable;
+import org.kuali.kfs.krad.datadictionary.validation.constraint.Constraint;
+
+import java.util.Collections;
+import java.util.List;
+
+/**
+ * An object that returns the case constraint as a list for a definition implementing the capability {@link CaseConstrainable}.
+ */
+public class CaseConstraintResolver<T extends CaseConstrainable> implements ConstraintResolver<T> {
+
+    @Override
+    public <C extends Constraint> List<C> resolve(T definition) {
+        @SuppressWarnings("unchecked")
+        C caseConstraint = (C) definition.getCaseConstraint();
+        return (caseConstraint == null) ? null : Collections.<C>singletonList(caseConstraint);
+    }
+
+}

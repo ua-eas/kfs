@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -19,12 +19,12 @@
 
 package org.kuali.kfs.module.cg.businessobject;
 
-import java.sql.Date;
-import java.util.LinkedHashMap;
-
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.bo.TransientBusinessObjectBase;
+
+import java.sql.Date;
+import java.util.LinkedHashMap;
 
 /**
  * Defines a Contracts & Grants Award Balances Report object.
@@ -42,7 +42,7 @@ public class ContractsGrantsAwardBalancesReport extends TransientBusinessObjectB
 
     private KualiDecimal awardTotalAmountForReport;
     private static final String AWARD_INQUIRY_TITLE_PROPERTY = "message.inquiry.award.title";
-    private Long proposalNumber;
+    private String proposalNumber;
     private Date awardBeginningDate;
     private Date awardEndingDate;
 
@@ -145,11 +145,11 @@ public class ContractsGrantsAwardBalancesReport extends TransientBusinessObjectB
         this.awardTotalAmountForReport = awardTotalAmountForReport;
     }
 
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

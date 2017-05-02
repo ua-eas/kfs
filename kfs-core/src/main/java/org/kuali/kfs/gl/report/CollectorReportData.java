@@ -1,22 +1,32 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.report;
+
+import org.kuali.kfs.gl.batch.CollectorBatch;
+import org.kuali.kfs.gl.batch.service.impl.DocumentGroupData;
+import org.kuali.kfs.gl.batch.service.impl.OriginEntryTotals;
+import org.kuali.kfs.gl.businessobject.CollectorDetail;
+import org.kuali.kfs.gl.businessobject.DemergerReportData;
+import org.kuali.kfs.gl.businessobject.Transaction;
+import org.kuali.kfs.gl.service.ScrubberReportData;
+import org.kuali.kfs.krad.util.MessageMap;
+import org.kuali.kfs.sys.Message;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -30,16 +40,6 @@ import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.TreeSet;
-
-import org.kuali.kfs.gl.batch.CollectorBatch;
-import org.kuali.kfs.gl.batch.service.impl.DocumentGroupData;
-import org.kuali.kfs.gl.batch.service.impl.OriginEntryTotals;
-import org.kuali.kfs.gl.businessobject.CollectorDetail;
-import org.kuali.kfs.gl.businessobject.DemergerReportData;
-import org.kuali.kfs.gl.businessobject.Transaction;
-import org.kuali.kfs.gl.service.ScrubberReportData;
-import org.kuali.kfs.sys.Message;
-import org.kuali.rice.krad.util.MessageMap;
 
 /**
  * This class aggregates all of the status information together from all of the collector-related processes. Note: this code assumes
@@ -66,7 +66,7 @@ public class CollectorReportData {
 
     private LedgerSummaryReport ledgerSummaryReport;
     private PreScrubberReportData preScrubberReportData;
-    
+
     private int numPersistedBatches;
     private int numNotPersistedBatches;
     private int numNotPersistedOriginEntryRecords;
@@ -100,7 +100,7 @@ public class CollectorReportData {
     /**
      * Adds a batch to this report data object. If the batch (identified using batch.getBatchName()) has already been added, then an
      * exception is thrown.
-     * 
+     *
      * @param batch collector batch from xml input
      */
     public void addBatch(CollectorBatch batch) {
@@ -112,7 +112,7 @@ public class CollectorReportData {
 
     /**
      * Returns whether a batch has already been added
-     * 
+     *
      * @param batch collector batch from xml input
      * @return true if batch has already been added
      */
@@ -122,7 +122,7 @@ public class CollectorReportData {
 
     /**
      * Returns the number of batches that have been added using the {@link #addBatch(CollectorBatch)} method
-     * 
+     *
      * @return number of added batches
      */
     public int getNumberOfAddedBatches() {
@@ -131,7 +131,7 @@ public class CollectorReportData {
 
     /**
      * Throws exception if batch has not been added
-     * 
+     *
      * @param batch
      */
     protected void throwExceptionIfBatchNotAdded(CollectorBatch batch) {
@@ -143,8 +143,8 @@ public class CollectorReportData {
     /**
      * Stores the errors encountered trying to scrub the InterDepartmentalBilling records in the given batch. This method must be
      * called after addBatch has been called with the same batch. Previously saved errors for this batch will be overwritten.
-     * 
-     * @param batch collector batch from input xml
+     *
+     * @param batch     collector batch from input xml
      * @param errorsMap contains a map of all errors encountered while trying to scrub InterDepartmentalBilling records
      */
     public void setBatchDetailScrubberErrors(CollectorBatch batch, Map<CollectorDetail, List<Message>> errorsMap) {
@@ -156,8 +156,8 @@ public class CollectorReportData {
     /**
      * Stores the errors encountered trying to scrub the InterDepartmentalBilling records in the given batch. This method must be
      * called after addBatch has been called with the same batch. Previously saved errors for this batch will be overwritten.
-     * 
-     * @param batch collector batch from input xml
+     *
+     * @param batch     collector batch from input xml
      * @param errorsMap
      */
     public void setBatchOriginEntryScrubberErrors(CollectorBatch batch, Map<Transaction, List<Message>> errorsMap) {
@@ -168,7 +168,7 @@ public class CollectorReportData {
 
     /**
      * Returns the scrubber errors related to a batch
-     * 
+     *
      * @param batch collector batch from input xml
      * @return Map returns a map containing a list of error messages for each transaction
      */
@@ -219,14 +219,14 @@ public class CollectorReportData {
     public Iterator<CollectorBatch> getAddedBatches() {
         return addedBatches.values().iterator();
     }
-    
+
     public Map<String, String> getEmailSendingStatus() {
         return emailSendingStatus;
     }
 
     /**
      * Sets the number of times the details in a batch have had their account numbers changed
-     * 
+     *
      * @param batch collector batch from input xml
      */
     public void setNumDetailAccountValuesChanged(CollectorBatch batch, Integer numDetailAccountValuesChanged) {
@@ -256,10 +256,10 @@ public class CollectorReportData {
     /**
      * Stores the totals or all origin entries in the input group that match the document group (doc #, doc type, origination code)
      * of at least one origin entry in the error group, which is generated by the scrubber
-     * 
-     * @param batch collector batch from input xml
+     *
+     * @param batch  collector batch from input xml
      * @param totals a map such that the key is a document group (doc #, doc type, origination code) and the value is the totals of
-     *        the origin entry of all those
+     *               the origin entry of all those
      */
     public void setTotalsOnInputOriginEntriesAssociatedWithErrorGroup(CollectorBatch batch, Map<DocumentGroupData, OriginEntryTotals> totals) {
         throwExceptionIfBatchNotAdded(batch);
@@ -270,9 +270,9 @@ public class CollectorReportData {
     /**
      * Returns the totals or all origin entries in the input group that match the document group (doc #, doc type, origination code)
      * of at least one origin entry in the error group, which is generated by the scrubber
-     * 
+     *
      * @param batch return a map such that the key is a document group (doc #, doc type, origination code) and the value is the
-     *        totals of the origin entry of all those
+     *              totals of the origin entry of all those
      */
     public Map<DocumentGroupData, OriginEntryTotals> getTotalsOnInputOriginEntriesAssociatedWithErrorGroup(CollectorBatch batch) {
         throwExceptionIfBatchNotAdded(batch);
@@ -311,7 +311,7 @@ public class CollectorReportData {
 
     /**
      * Gets the numPersistedBatches attribute.
-     * 
+     *
      * @return Returns the numPersistedBatches.
      */
     public int getNumPersistedBatches() {
@@ -324,7 +324,7 @@ public class CollectorReportData {
 
     /**
      * Gets the numNotPersistedBatches attribute.
-     * 
+     *
      * @return Returns the numNotPersistedBatches.
      */
     public int getNumNotPersistedBatches() {
@@ -334,7 +334,7 @@ public class CollectorReportData {
     public void incrementNumNotPersistedOriginEntryRecords(int records) {
         numNotPersistedOriginEntryRecords += records;
     }
-    
+
     public int getNumNotPersistedOriginEntryRecords() {
         return numNotPersistedOriginEntryRecords;
     }
@@ -342,15 +342,15 @@ public class CollectorReportData {
     public void incrementNumNotPersistedCollectorDetailRecords(int records) {
         numNotPersistedCollectorDetailRecords += records;
     }
-    
+
     public int getNumNotPersistedCollectorDetailRecords() {
         return numNotPersistedCollectorDetailRecords;
     }
-    
+
     /**
      * Marks whether or not a batch is valid or not
-     * 
-     * @param batch collector batch from input xml
+     *
+     * @param batch       collector batch from input xml
      * @param validStatus valid status fro batch
      */
     public void markValidationStatus(CollectorBatch batch, boolean validStatus) {
@@ -361,7 +361,7 @@ public class CollectorReportData {
 
     /**
      * Returns true if batch is valid; False if invalid
-     * 
+     *
      * @param batch collector batch from input xml
      * @return true if batch is valid
      */
@@ -372,7 +372,8 @@ public class CollectorReportData {
     }
 
     /**
-     * Gets the ledgerSummaryReport attribute. 
+     * Gets the ledgerSummaryReport attribute.
+     *
      * @return Returns the ledgerSummaryReport.
      */
     public LedgerSummaryReport getLedgerSummaryReport() {
@@ -391,7 +392,7 @@ public class CollectorReportData {
         }
         return messageMap;
     }
-    
+
     public Collection<String> getLoadedfileNames() {
         return loadedfileNames;
     }

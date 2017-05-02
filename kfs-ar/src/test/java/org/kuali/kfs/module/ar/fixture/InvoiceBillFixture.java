@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.ar.fixture;
 
-import java.sql.Date;
-
 import org.kuali.kfs.module.ar.businessobject.InvoiceBill;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.sql.Date;
 
 /**
  * Fixture class for InvoiceBill

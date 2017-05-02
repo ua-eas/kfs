@@ -1,37 +1,35 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cg.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
 import org.kuali.kfs.module.cg.businessobject.SubContractor;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase;
 import org.kuali.rice.location.api.country.Country;
 import org.kuali.rice.location.api.country.CountryService;
 import org.kuali.rice.location.api.state.State;
 import org.kuali.rice.location.api.state.StateService;
 
-/**
- *
- */
+
 public class SubcontractorRule extends MaintenanceDocumentRuleBase {
 
     protected SubContractor newSubcontractor;
@@ -68,11 +66,11 @@ public class SubcontractorRule extends MaintenanceDocumentRuleBase {
         boolean valid = true;
 
         // Perform lookup for state code provided
-        if ( StringUtils.isNotBlank(stateCode) && StringUtils.isNotBlank(countryCode) ) {
+        if (StringUtils.isNotBlank(stateCode) && StringUtils.isNotBlank(countryCode)) {
             State state = SpringContext.getBean(StateService.class).getState(countryCode, stateCode);
 
             // If no values returned, state code is invalid, throw error
-            if (state== null) {
+            if (state == null) {
                 putFieldError("subcontractorStateCode", KFSKeyConstants.ERROR_STATE_CODE_INVALID, stateCode);
                 valid = false;
             }
@@ -91,7 +89,7 @@ public class SubcontractorRule extends MaintenanceDocumentRuleBase {
     protected boolean validateCountryCode(String countryCode) {
         boolean valid = true;
 
-        if ( StringUtils.isNotBlank(countryCode) ) {
+        if (StringUtils.isNotBlank(countryCode)) {
             Country country = SpringContext.getBean(CountryService.class).getCountry(countryCode);
 
             // If no values returned, country code is invalid, throw error

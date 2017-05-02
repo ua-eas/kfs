@@ -1,31 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.batch;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
 
 import org.apache.commons.io.filefilter.AndFileFilter;
 import org.apache.commons.io.filefilter.IOFileFilter;
@@ -42,6 +33,15 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.kim.api.identity.Person;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+
 /**
  * This class provides metadata for the batch upload screen to work for files associated with the enterprise feeder.
  */
@@ -53,7 +53,7 @@ public class EnterpriseFeederFileSetType implements BatchInputFileSetType {
 
     /**
      * Returns directory path for EnterpriseFeederService
-     * 
+     *
      * @param fileType file type (not used)
      * @see org.kuali.kfs.sys.batch.BatchInputFileSetType#getDirectoryPath(java.lang.String)
      */
@@ -66,7 +66,7 @@ public class EnterpriseFeederFileSetType implements BatchInputFileSetType {
 
     /**
      * Get all relevant file types for Enterprise Feeder File Set
-     * 
+     *
      * @return List<String> including "DATA", "RECON" file types
      * @see org.kuali.kfs.sys.batch.BatchInputFileSetType#getFileTypes()
      */
@@ -79,7 +79,7 @@ public class EnterpriseFeederFileSetType implements BatchInputFileSetType {
 
     /**
      * Returns the file extension depending on the file type
-     * 
+     *
      * @param fileType the file type (returned in {@link #getFileTypes()})
      * @return the file extension
      */
@@ -95,7 +95,7 @@ public class EnterpriseFeederFileSetType implements BatchInputFileSetType {
 
     /**
      * Returns a map with the enterprise feeder file type descriptions
-     * 
+     *
      * @return a map containing the following key/description pairs: DATA/Data Files, RECON/Reconciliation File
      * @see org.kuali.kfs.sys.batch.BatchInputFileSetType#getFileTypeDescription()
      */
@@ -108,12 +108,12 @@ public class EnterpriseFeederFileSetType implements BatchInputFileSetType {
 
     /**
      * Return the file name based on information from user and file user identifier
-     * 
-     * @param user Person object representing user who uploaded file
+     *
+     * @param user              Person object representing user who uploaded file
      * @param fileUserIdentifer String representing user who uploaded file
      * @return String enterprise feeder formated file name string using information from user and file user identifier
      * @see org.kuali.kfs.sys.batch.BatchInputFileSetType#getFileName(java.lang.String, org.kuali.rice.kim.api.identity.Person,
-     *      java.lang.String)
+     * java.lang.String)
      */
     public String getFileName(String fileType, String principalName, String fileUserIdentifer, Date creationDate) {
         DateTimeService dateTimeService = SpringContext.getBean(DateTimeService.class);
@@ -121,9 +121,9 @@ public class EnterpriseFeederFileSetType implements BatchInputFileSetType {
         fileUserIdentifer = StringUtils.deleteWhitespace(fileUserIdentifer);
         fileUserIdentifer = StringUtils.remove(fileUserIdentifer, FILE_NAME_PART_DELIMITER);
         buf.append(FILE_NAME_PREFIX).append(FILE_NAME_PART_DELIMITER).append(principalName)
-                .append(FILE_NAME_PART_DELIMITER).append(fileUserIdentifer)
-                .append(FILE_NAME_PART_DELIMITER).append(dateTimeService.toDateTimeStringForFilename(creationDate))
-                .append(getFileExtension(fileType));
+            .append(FILE_NAME_PART_DELIMITER).append(fileUserIdentifer)
+            .append(FILE_NAME_PART_DELIMITER).append(dateTimeService.toDateTimeStringForFilename(creationDate))
+            .append(getFileExtension(fileType));
         return buf.toString();
     }
 
@@ -151,7 +151,7 @@ public class EnterpriseFeederFileSetType implements BatchInputFileSetType {
 
     /**
      * Return true if file is required
-     * 
+     *
      * @param fileType type of file
      * @return true if file type is required
      * @see org.kuali.kfs.sys.batch.BatchInputFileSetType#isFileRequired(java.lang.String)
@@ -179,8 +179,8 @@ public class EnterpriseFeederFileSetType implements BatchInputFileSetType {
 
     /**
      * Returns done file name for a specific user and file user identifier
-     * 
-     * @param user the user who uploaded or will upload the file
+     *
+     * @param user               the user who uploaded or will upload the file
      * @param fileUserIdentifier the file identifier
      * @return String done file name
      * @see org.kuali.kfs.sys.batch.BatchInputFileSetType#getDoneFileName(org.kuali.rice.kim.api.identity.Person, java.lang.String)
@@ -191,16 +191,16 @@ public class EnterpriseFeederFileSetType implements BatchInputFileSetType {
         fileUserIdentifer = StringUtils.deleteWhitespace(fileUserIdentifer);
         fileUserIdentifer = StringUtils.remove(fileUserIdentifer, FILE_NAME_PART_DELIMITER);
         buf.append(FILE_NAME_PREFIX).append(FILE_NAME_PART_DELIMITER).append(user.getPrincipalName())
-                .append(FILE_NAME_PART_DELIMITER).append(fileUserIdentifer)
-                .append(FILE_NAME_PART_DELIMITER).append(dateTimeService.toDateTimeStringForFilename(creationDate))
-                .append(getDoneFileExtension());
+            .append(FILE_NAME_PART_DELIMITER).append(fileUserIdentifer)
+            .append(FILE_NAME_PART_DELIMITER).append(dateTimeService.toDateTimeStringForFilename(creationDate))
+            .append(getDoneFileExtension());
         return buf.toString();
     }
 
     /**
      * Return set of file user identifiers from a list of files
-     * 
-     * @param user user who uploaded or will upload file
+     *
+     * @param user  user who uploaded or will upload file
      * @param files list of files objects
      * @return Set containing all user identifiers from list of files
      * @see org.kuali.kfs.sys.batch.BatchInputFileSetType#extractFileUserIdentifiers(org.kuali.rice.kim.api.identity.Person, java.util.List)
@@ -222,11 +222,9 @@ public class EnterpriseFeederFileSetType implements BatchInputFileSetType {
                 String fileName = file.getName();
                 if (fileName.endsWith(EnterpriseFeederService.DATA_FILE_SUFFIX)) {
                     extractedFileUserIdentifiers.add(StringUtils.substringBetween(fileName, prefixString, EnterpriseFeederService.DATA_FILE_SUFFIX));
-                }
-                else if (fileName.endsWith(EnterpriseFeederService.RECON_FILE_SUFFIX)) {
+                } else if (fileName.endsWith(EnterpriseFeederService.RECON_FILE_SUFFIX)) {
                     extractedFileUserIdentifiers.add(StringUtils.substringBetween(fileName, prefixString, EnterpriseFeederService.RECON_FILE_SUFFIX));
-                }
-                else {
+                } else {
                     LOG.error("Unable to determine file user identifier for file name: " + fileName);
                     throw new RuntimeException("Unable to determine file user identifier for file name: " + fileName);
                 }

@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,16 +18,14 @@
  */
 package org.kuali.kfs.module.ar.service.impl;
 
-import java.sql.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.integration.ar.AccountsReceivableMilestoneSchedule;
 import org.kuali.kfs.integration.ar.AccountsReceivableModuleBillingService;
 import org.kuali.kfs.integration.ar.AccountsReceivablePredeterminedBillingSchedule;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.Bill;
 import org.kuali.kfs.module.ar.businessobject.DunningCampaign;
@@ -40,10 +38,11 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.KualiModuleService;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.sql.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class AccountsReceivableModuleBillingServiceImpl implements AccountsReceivableModuleBillingService {
     protected BusinessObjectService businessObjectService;
@@ -54,29 +53,28 @@ public class AccountsReceivableModuleBillingServiceImpl implements AccountsRecei
 
     /**
      * If milestone or pre-determined billing billing frequency on the award, adds up the milestones or the bills which have been billed; otherwise looks at the amount billed so far against the award based on the AwardAccountObjectCodeTotalBilled table
+     *
      * @see org.kuali.kfs.integration.ar.AccountsReceivableModuleBillingService#getAwardBilledToDateAmountForAward(org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward)
      */
     @Override
     public KualiDecimal getAwardBilledToDateAmount(ContractsAndGrantsBillingAward award) {
-        if (StringUtils.equalsIgnoreCase(award.getBillingFrequencyCode(), ArConstants.MILESTONE_BILLING_SCHEDULE_CODE)) {
+        if (ArConstants.BillingFrequencyValues.isMilestone(award)) {
             return getContractsGrantsInvoiceDocumentService().getMilestonesBilledToDateAmount(award.getProposalNumber());
-        }
-        else if (StringUtils.equalsIgnoreCase(award.getBillingFrequencyCode(),ArConstants.PREDETERMINED_BILLING_SCHEDULE_CODE)) {
+        } else if (ArConstants.BillingFrequencyValues.isPredeterminedBilling(award)) {
             return getContractsGrantsInvoiceDocumentService().getPredeterminedBillingBilledToDateAmount(award.getProposalNumber());
-        }
-        else {
+        } else {
             return getContractsGrantsInvoiceDocumentService().getAwardBilledToDateAmountByProposalNumber(award.getProposalNumber());
         }
     }
 
     /**
-     * @see org.kuali.kfs.integration.ar.AccountsReceivableModuleService#calculateTotalPaymentsToDateByAward(java.lang.Long) This
-     *      method calculates total payments to date by Award using ContractsGrantsInvoiceDocumentService
      * @param proposalNumber
      * @return
+     * @see org.kuali.kfs.integration.ar.AccountsReceivableModuleService#calculateTotalPaymentsToDateByAward(java.lang.Long) This
+     * method calculates total payments to date by Award using ContractsGrantsInvoiceDocumentService
      */
     @Override
-    public KualiDecimal calculateTotalPaymentsToDateByAward(Long proposalNumber) {
+    public KualiDecimal calculateTotalPaymentsToDateByAward(String proposalNumber) {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put(KFSPropertyConstants.PROPOSAL_NUMBER, proposalNumber);
 
@@ -110,8 +108,8 @@ public class AccountsReceivableModuleBillingServiceImpl implements AccountsRecei
     }
 
     @Override
-    public boolean hasPredeterminedBillingSchedule(Long proposalNumber) {
-        Map<String, Object> map = new HashMap<String, Object>();
+    public boolean hasPredeterminedBillingSchedule(String proposalNumber) {
+        Map<String, Object> map = new HashMap<>();
         map.put(KFSPropertyConstants.PROPOSAL_NUMBER, proposalNumber);
 
         PredeterminedBillingSchedule schedule = getBusinessObjectService().findByPrimaryKey(PredeterminedBillingSchedule.class, map);
@@ -119,8 +117,8 @@ public class AccountsReceivableModuleBillingServiceImpl implements AccountsRecei
     }
 
     @Override
-    public boolean hasMilestoneSchedule(Long proposalNumber) {
-        Map<String, Object> map = new HashMap<String, Object>();
+    public boolean hasMilestoneSchedule(String proposalNumber) {
+        Map<String, Object> map = new HashMap<>();
         map.put(KFSPropertyConstants.PROPOSAL_NUMBER, proposalNumber);
 
         MilestoneSchedule schedule = getBusinessObjectService().findByPrimaryKey(MilestoneSchedule.class, map);
@@ -128,13 +126,13 @@ public class AccountsReceivableModuleBillingServiceImpl implements AccountsRecei
     }
 
     @Override
-    public boolean hasActiveBills(Long proposalNumber) {
-        Map<String, Object> map = new HashMap<String, Object>();
+    public boolean hasActiveBills(String proposalNumber) {
+        Map<String, Object> map = new HashMap<>();
         map.put(KFSPropertyConstants.PROPOSAL_NUMBER, proposalNumber);
 
         PredeterminedBillingSchedule schedule = getBusinessObjectService().findByPrimaryKey(PredeterminedBillingSchedule.class, map);
         if (ObjectUtils.isNotNull(schedule)) {
-            for (Bill bill: schedule.getBills()) {
+            for (Bill bill : schedule.getBills()) {
                 if (bill.isActive()) {
                     return true;
                 }
@@ -145,13 +143,13 @@ public class AccountsReceivableModuleBillingServiceImpl implements AccountsRecei
     }
 
     @Override
-    public boolean hasActiveMilestones(Long proposalNumber) {
-        Map<String, Object> map = new HashMap<String, Object>();
+    public boolean hasActiveMilestones(String proposalNumber) {
+        Map<String, Object> map = new HashMap<>();
         map.put(KFSPropertyConstants.PROPOSAL_NUMBER, proposalNumber);
 
         MilestoneSchedule schedule = getBusinessObjectService().findByPrimaryKey(MilestoneSchedule.class, map);
         if (ObjectUtils.isNotNull(schedule)) {
-            for (Milestone milestone: schedule.getMilestones()) {
+            for (Milestone milestone : schedule.getMilestones()) {
                 if (milestone.isActive()) {
                     return true;
                 }
@@ -173,17 +171,17 @@ public class AccountsReceivableModuleBillingServiceImpl implements AccountsRecei
 
     @Override
     public String getDefaultDunningCampaignCode() {
-        return getParameterService().getParameterValueAsString(DunningCampaign.class, ArConstants.DEFAULT_DUNNING_CAMPAIGN_PARAMETER,"");
+        return getParameterService().getParameterValueAsString(DunningCampaign.class, ArConstants.DEFAULT_DUNNING_CAMPAIGN_PARAMETER, "");
     }
 
     @Override
     public String getDefaultBillingFrequency() {
-        return getParameterService().getParameterValueAsString(ContractsGrantsInvoiceDocument.class, ArConstants.DEFAULT_BILLING_FREQUENCY_PARAMETER,"");
+        return getParameterService().getParameterValueAsString(ContractsGrantsInvoiceDocument.class, ArConstants.DEFAULT_BILLING_FREQUENCY_PARAMETER, "");
     }
 
     @Override
     public String getDefaultInvoicingOption() {
-        return getParameterService().getParameterValueAsString(ContractsGrantsInvoiceDocument.class, ArConstants.DEFAULT_INVOICING_OPTION_PARAMETER,"");
+        return getParameterService().getParameterValueAsString(ContractsGrantsInvoiceDocument.class, ArConstants.DEFAULT_INVOICING_OPTION_PARAMETER, "");
     }
 
     public BusinessObjectService getBusinessObjectService() {

@@ -1,31 +1,33 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.module.purap.document;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.List;
-import java.util.Set;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapConstants.CREDIT_MEMO_TYPE_LABELS;
 import org.kuali.kfs.module.purap.PurapConstants.CreditMemoStatuses;
@@ -48,16 +50,14 @@ import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.bo.Note;
-import org.kuali.rice.krad.rules.rule.event.KualiDocumentEvent;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
-import org.kuali.rice.krad.workflow.service.WorkflowDocumentService;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Credit Memo Document Business Object. Contains the fields associated with the main document table.
@@ -103,13 +103,12 @@ public class VendorCreditMemoDocument extends AccountsPayableDocumentBase {
      */
     @Override
     public boolean isInquiryRendered() {
-        if ( isPostingYearPrior() &&
-             ( getApplicationDocumentStatus().equals(PurapConstants.CreditMemoStatuses.APPDOC_COMPLETE) ||
-               getApplicationDocumentStatus().equals(PurapConstants.PaymentRequestStatuses.APPDOC_CANCELLED_POST_AP_APPROVE) ||
-               getApplicationDocumentStatus().equals(PurapConstants.PaymentRequestStatuses.APPDOC_CANCELLED_IN_PROCESS) ) )  {
-               return false;
-        }
-        else {
+        if (isPostingYearPrior() &&
+            (getApplicationDocumentStatus().equals(PurapConstants.CreditMemoStatuses.APPDOC_COMPLETE) ||
+                getApplicationDocumentStatus().equals(PurapConstants.PaymentRequestStatuses.APPDOC_CANCELLED_POST_AP_APPROVE) ||
+                getApplicationDocumentStatus().equals(PurapConstants.PaymentRequestStatuses.APPDOC_CANCELLED_IN_PROCESS))) {
+            return false;
+        } else {
             return true;
         }
     }
@@ -121,8 +120,7 @@ public class VendorCreditMemoDocument extends AccountsPayableDocumentBase {
         LOG.debug("initiateDocument() started");
         try {
             updateAndSaveAppDocStatus(PurapConstants.CreditMemoStatuses.APPDOC_INITIATE);
-        }
-        catch (WorkflowException e) {
+        } catch (WorkflowException e) {
             logAndThrowRuntimeException("Error saving routing data while saving document with id " + getDocumentNumber(), e);
         }
 
@@ -161,8 +159,7 @@ public class VendorCreditMemoDocument extends AccountsPayableDocumentBase {
         String type = CREDIT_MEMO_TYPE_LABELS.TYPE_VENDOR;
         if (isSourceDocumentPaymentRequest()) {
             type = CREDIT_MEMO_TYPE_LABELS.TYPE_PREQ;
-        }
-        else if (isSourceDocumentPurchaseOrder()) {
+        } else if (isSourceDocumentPurchaseOrder()) {
             type = CREDIT_MEMO_TYPE_LABELS.TYPE_PO;
         }
         return type;
@@ -195,8 +192,7 @@ public class VendorCreditMemoDocument extends AccountsPayableDocumentBase {
     protected String getTitleIndicator() {
         if (isHoldIndicator()) {
             return PurapConstants.PaymentRequestIndicatorText.HOLD;
-        }
-        else {
+        } else {
             return "";
         }
     }
@@ -228,7 +224,7 @@ public class VendorCreditMemoDocument extends AccountsPayableDocumentBase {
                 }
                 if (StringUtils.isNotBlank(disapprovalStatus)) {
                     SpringContext.getBean(AccountsPayableService.class).cancelAccountsPayableDocument(this, nodeName);
-                }else{
+                } else {
                     logAndThrowRuntimeException("No status found to set for document being disapproved in node '" + nodeName + "'");
                 }
             }
@@ -240,8 +236,7 @@ public class VendorCreditMemoDocument extends AccountsPayableDocumentBase {
                     SpringContext.getBean(AccountsPayableService.class).cancelAccountsPayableDocument(this, currentNodeName);
                 }
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             logAndThrowRuntimeException("Error saving routing data while saving document with id " + getDocumentNumber(), e);
         }
     }
@@ -325,8 +320,7 @@ public class VendorCreditMemoDocument extends AccountsPayableDocumentBase {
         PurchasingAccountsPayableDocument sourceDocument = null;
         if (isSourceDocumentPaymentRequest()) {
             sourceDocument = getPaymentRequestDocument();
-        }
-        else if (isSourceDocumentPurchaseOrder()) {
+        } else if (isSourceDocumentPurchaseOrder()) {
             sourceDocument = getPurchaseOrderDocument();
         }
         return sourceDocument;
@@ -397,9 +391,9 @@ public class VendorCreditMemoDocument extends AccountsPayableDocumentBase {
             if (item.getTotalAmount() != null) {
                 // make sure restocking fee is negative
                 if (StringUtils.equals(PurapConstants.ItemTypeCodes.ITEM_TYPE_RESTCK_FEE_CODE, item.getItemTypeCode())) {
-                    if( ObjectUtils.isNotNull(item.getExtendedPrice()) ){
+                    if (ObjectUtils.isNotNull(item.getExtendedPrice())) {
                         item.setExtendedPrice(item.getExtendedPrice().abs().negated());
-                    }else{
+                    } else {
                         item.setExtendedPrice(KualiDecimal.ZERO);
                     }
                 }
@@ -457,12 +451,12 @@ public class VendorCreditMemoDocument extends AccountsPayableDocumentBase {
     }
 
     public KualiDecimal getGrandPreTaxTotalExcludingRestockingFee() {
-        String[] restockingFeeCode = new String[] { PurapConstants.ItemTypeCodes.ITEM_TYPE_RESTCK_FEE_CODE };
+        String[] restockingFeeCode = new String[]{PurapConstants.ItemTypeCodes.ITEM_TYPE_RESTCK_FEE_CODE};
         return this.getTotalPreTaxDollarAmountWithExclusions(restockingFeeCode, true);
     }
 
     public KualiDecimal getGrandTotalExcludingRestockingFee() {
-        String[] restockingFeeCode = new String[] { PurapConstants.ItemTypeCodes.ITEM_TYPE_RESTCK_FEE_CODE };
+        String[] restockingFeeCode = new String[]{PurapConstants.ItemTypeCodes.ITEM_TYPE_RESTCK_FEE_CODE};
         return this.getTotalDollarAmountWithExclusions(restockingFeeCode, true);
     }
 
@@ -530,8 +524,7 @@ public class VendorCreditMemoDocument extends AccountsPayableDocumentBase {
             // do not blank out input, instead throw an error
             // setPaymentRequestIdentifier(null);
             this.paymentRequestDocument = null;
-        }
-        else {
+        } else {
             setPaymentRequestIdentifier(paymentRequestDocument.getPurapDocumentIdentifier());
             this.paymentRequestDocument = paymentRequestDocument;
         }
@@ -642,7 +635,7 @@ public class VendorCreditMemoDocument extends AccountsPayableDocumentBase {
     public void customizeExplicitGeneralLedgerPendingEntry(GeneralLedgerPendingEntrySourceDetail postable, GeneralLedgerPendingEntry explicitEntry) {
         super.customizeExplicitGeneralLedgerPendingEntry(postable, explicitEntry);
 
-        SpringContext.getBean(PurapGeneralLedgerService.class).customizeGeneralLedgerPendingEntry(this, (AccountingLine)postable, explicitEntry, getPurchaseOrderIdentifier(), getDebitCreditCodeForGLEntries(), PurapDocTypeCodes.CREDIT_MEMO_DOCUMENT, isGenerateEncumbranceEntries());
+        SpringContext.getBean(PurapGeneralLedgerService.class).customizeGeneralLedgerPendingEntry(this, (AccountingLine) postable, explicitEntry, getPurchaseOrderIdentifier(), getDebitCreditCodeForGLEntries(), PurapDocTypeCodes.CREDIT_MEMO_DOCUMENT, isGenerateEncumbranceEntries());
 
         // CMs do not wait for document final approval to post GL entries; here we are forcing them to be APPROVED
         explicitEntry.setFinancialDocumentApprovedCode(KFSConstants.PENDING_ENTRY_APPROVED_STATUS_CODE.APPROVED);
@@ -666,6 +659,7 @@ public class VendorCreditMemoDocument extends AccountsPayableDocumentBase {
     /**
      * Provides answers to the following splits:
      * RequiresInvoiceAttachment
+     *
      * @see org.kuali.kfs.sys.document.FinancialSystemTransactionalDocumentBase#answerSplitNodeQuestion(java.lang.String)
      */
     @Override
@@ -673,10 +667,10 @@ public class VendorCreditMemoDocument extends AccountsPayableDocumentBase {
         if (nodeName.equals(PurapWorkflowConstants.REQUIRES_IMAGE_ATTACHMENT)) {
             return requiresAccountsPayableReviewRouting();
         }
-        throw new UnsupportedOperationException("Cannot answer split question for this node you call \""+nodeName+"\"");
+        throw new UnsupportedOperationException("Cannot answer split question for this node you call \"" + nodeName + "\"");
     }
 
-    public String getPaidIndicatorForResult(){
+    public String getPaidIndicatorForResult() {
         return getCreditMemoPaidTimestamp() != null ? "Yes" : "No";
     }
 

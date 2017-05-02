@@ -1,147 +1,144 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:p="http://www.springframework.org/schema/p"
-    xmlns:dd="http://rice.kuali.org/dd"
-    xsi:schemaLocation="
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
-http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-	<bean id="ContractsGrantsInvoiceDetail" parent="ContractsGrantsInvoiceDetail-parentBean" />
+    <bean id="ContractsGrantsInvoiceDetail" parent="ContractsGrantsInvoiceDetail-parentBean"/>
 
-	<bean id="ContractsGrantsInvoiceDetail-parentBean" abstract="true" parent="BusinessObjectEntry">
-		<property name="businessObjectClass" value="org.kuali.kfs.module.ar.businessobject.ContractsGrantsInvoiceDetail" />
-		<property name="objectLabel" value="Contracts &amp; Grants Invoice Detail" />
-		<property name="attributes">
-			<list>
-				<ref bean="ContractsGrantsInvoiceDetail-invoiceDetailIdentifier" />
-				<ref bean="ContractsGrantsInvoiceDetail-documentNumber" />
-				<ref bean="ContractsGrantsInvoiceDetail-categoryCode" />
-				<ref bean="ContractsGrantsInvoiceDetail-totalBudget" />
-				<ref bean="ContractsGrantsInvoiceDetail-invoiceAmount" />
-				<ref bean="ContractsGrantsInvoiceDetail-cumulativeExpenditures" />
-				<ref bean="ContractsGrantsInvoiceDetail-budgetRemaining" />
-				<ref bean="ContractsGrantsInvoiceDetail-totalPreviouslyBilled" />
-				<ref bean="ContractsGrantsInvoiceDetail-totalAmountBilledToDate" />
-				<ref bean="ContractsGrantsInvoiceDetail-amountRemainingToBill" />
-				<ref bean="ContractsGrantsInvoiceDetail-costCategory.categoryName"/>
-			</list>
-		</property>
-	</bean>
+    <bean id="ContractsGrantsInvoiceDetail-parentBean" abstract="true" parent="BusinessObjectEntry">
+        <property name="businessObjectClass" value="org.kuali.kfs.module.ar.businessobject.ContractsGrantsInvoiceDetail"/>
+        <property name="objectLabel" value="Contracts &amp; Grants Invoice Detail"/>
+        <property name="attributes">
+            <list>
+                <ref bean="ContractsGrantsInvoiceDetail-invoiceDetailIdentifier"/>
+                <ref bean="ContractsGrantsInvoiceDetail-documentNumber"/>
+                <ref bean="ContractsGrantsInvoiceDetail-categoryCode"/>
+                <ref bean="ContractsGrantsInvoiceDetail-totalBudget"/>
+                <ref bean="ContractsGrantsInvoiceDetail-invoiceAmount"/>
+                <ref bean="ContractsGrantsInvoiceDetail-cumulativeExpenditures"/>
+                <ref bean="ContractsGrantsInvoiceDetail-budgetRemaining"/>
+                <ref bean="ContractsGrantsInvoiceDetail-totalPreviouslyBilled"/>
+                <ref bean="ContractsGrantsInvoiceDetail-totalAmountBilledToDate"/>
+                <ref bean="ContractsGrantsInvoiceDetail-amountRemainingToBill"/>
+                <ref bean="ContractsGrantsInvoiceDetail-costCategory.categoryName"/>
+            </list>
+        </property>
+    </bean>
 
-	<!-- Attribute Definitions -->
+    <!-- Attribute Definitions -->
 
-	<bean id="ContractsGrantsInvoiceDetail-documentNumber" parent="ContractsGrantsInvoiceDetail-documentNumber-parentBean" />
+    <bean id="ContractsGrantsInvoiceDetail-documentNumber" parent="ContractsGrantsInvoiceDetail-documentNumber-parentBean"/>
 
-	<bean id="ContractsGrantsInvoiceDetail-documentNumber-parentBean" abstract="true" parent="DocumentHeader-documentNumber">
-		<property name="forceUppercase" value="true" />
-	</bean>
+    <bean id="ContractsGrantsInvoiceDetail-documentNumber-parentBean" abstract="true" parent="DocumentHeader-documentNumber">
+        <property name="forceUppercase" value="true"/>
+    </bean>
 
-	<bean id="ContractsGrantsInvoiceDetail-invoiceDetailIdentifier" parent="ContractsGrantsInvoiceDetail-invoiceDetailIdentifier-parentBean" />
+    <bean id="ContractsGrantsInvoiceDetail-invoiceDetailIdentifier" parent="ContractsGrantsInvoiceDetail-invoiceDetailIdentifier-parentBean"/>
 
-	<bean id="ContractsGrantsInvoiceDetail-invoiceDetailIdentifier-parentBean" abstract="true" parent="AttributeDefinition">
-		<property name="name" value="invoiceDetailIdentifier" />
-		<property name="label" value="Invoice Detail Identifier" />
-		<property name="shortLabel" value="Invoice Detail Identifier" />
-		<property name="maxLength" value="12" />
-		<property name="validationPattern">
-			<ref bean="NumericValidation" />
-		</property>
-		<property name="control">
-			<ref bean="HiddenControl" />
-		</property>
-	</bean>
+    <bean id="ContractsGrantsInvoiceDetail-invoiceDetailIdentifier-parentBean" abstract="true" parent="AttributeDefinition">
+        <property name="name" value="invoiceDetailIdentifier"/>
+        <property name="label" value="Invoice Detail Identifier"/>
+        <property name="shortLabel" value="Invoice Detail Identifier"/>
+        <property name="maxLength" value="12"/>
+        <property name="validationPattern">
+            <ref bean="NumericValidation"/>
+        </property>
+        <property name="control">
+            <ref bean="HiddenControl"/>
+        </property>
+    </bean>
 
-	<bean id="ContractsGrantsInvoiceDetail-categoryCode" parent="ContractsGrantsInvoiceDetail-categoryCode-parentBean" />
+    <bean id="ContractsGrantsInvoiceDetail-categoryCode" parent="ContractsGrantsInvoiceDetail-categoryCode-parentBean"/>
 
-	<bean id="ContractsGrantsInvoiceDetail-categoryCode-parentBean" abstract="true" parent="AttributeDefinition">
-		<property name="name" value="categoryCode" />
-		<property name="forceUppercase" value="false" />
-		<property name="label" value="Cost Category Code" />
-		<property name="shortLabel" value="Cost Category Code" />
-		<property name="maxLength" value="4" />
-		<property name="required" value="false" />
-		<property name="control">
-			<bean parent="TextControlDefinition" p:size="6" />
-		</property>
-	</bean>
+    <bean id="ContractsGrantsInvoiceDetail-categoryCode-parentBean" abstract="true" parent="AttributeDefinition">
+        <property name="name" value="categoryCode"/>
+        <property name="forceUppercase" value="false"/>
+        <property name="label" value="Cost Category Code"/>
+        <property name="shortLabel" value="Cost Category Code"/>
+        <property name="maxLength" value="4"/>
+        <property name="required" value="false"/>
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="6"/>
+        </property>
+    </bean>
 
-	<bean id="ContractsGrantsInvoiceDetail-totalBudget" parent="ContractsGrantsInvoiceDetail-totalBudget-parentBean" />
-	<bean id="ContractsGrantsInvoiceDetail-totalBudget-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
-		<property name="name" value="totalBudget" />
-		<property name="required" value="false" />
-		<property name="label" value="Total Budget" />
-		<property name="shortLabel" value="Total Budget" />
-	</bean>
+    <bean id="ContractsGrantsInvoiceDetail-totalBudget" parent="ContractsGrantsInvoiceDetail-totalBudget-parentBean"/>
+    <bean id="ContractsGrantsInvoiceDetail-totalBudget-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
+        <property name="name" value="totalBudget"/>
+        <property name="required" value="false"/>
+        <property name="label" value="Total Budget"/>
+        <property name="shortLabel" value="Total Budget"/>
+    </bean>
 
-	<bean id="ContractsGrantsInvoiceDetail-invoiceAmount" parent="ContractsGrantsInvoiceDetail-invoiceAmount-parentBean" />
-	<bean id="ContractsGrantsInvoiceDetail-invoiceAmount-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
-		<property name="name" value="invoiceAmount" />
-		<property name="required" value="false" />
-		<property name="label" value="Invoice Amount" />
-		<property name="shortLabel" value="Invoice Amount" />
-	</bean>
+    <bean id="ContractsGrantsInvoiceDetail-invoiceAmount" parent="ContractsGrantsInvoiceDetail-invoiceAmount-parentBean"/>
+    <bean id="ContractsGrantsInvoiceDetail-invoiceAmount-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
+        <property name="name" value="invoiceAmount"/>
+        <property name="required" value="false"/>
+        <property name="label" value="Invoice Amount"/>
+        <property name="shortLabel" value="Invoice Amount"/>
+    </bean>
 
-	<bean id="ContractsGrantsInvoiceDetail-cumulativeExpenditures" parent="ContractsGrantsInvoiceDetail-cumulativeExpenditures-parentBean" />
-	<bean id="ContractsGrantsInvoiceDetail-cumulativeExpenditures-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
-		<property name="name" value="cumulativeExpenditures" />
-		<property name="required" value="false" />
-		<property name="label" value="Cumulative Expenditures" />
-		<property name="shortLabel" value="Cumulative Expenditures" />
-	</bean>
+    <bean id="ContractsGrantsInvoiceDetail-cumulativeExpenditures" parent="ContractsGrantsInvoiceDetail-cumulativeExpenditures-parentBean"/>
+    <bean id="ContractsGrantsInvoiceDetail-cumulativeExpenditures-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
+        <property name="name" value="cumulativeExpenditures"/>
+        <property name="required" value="false"/>
+        <property name="label" value="Cumulative Expenditures"/>
+        <property name="shortLabel" value="Cumulative Expenditures"/>
+    </bean>
 
-	<bean id="ContractsGrantsInvoiceDetail-budgetRemaining" parent="ContractsGrantsInvoiceDetail-budgetRemaining-parentBean" />
-	<bean id="ContractsGrantsInvoiceDetail-budgetRemaining-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
-		<property name="name" value="budgetRemaining" />
-		<property name="required" value="false" />
-		<property name="label" value="Budget Remaining" />
-		<property name="shortLabel" value="Budget Remaining" />
-	</bean>
+    <bean id="ContractsGrantsInvoiceDetail-budgetRemaining" parent="ContractsGrantsInvoiceDetail-budgetRemaining-parentBean"/>
+    <bean id="ContractsGrantsInvoiceDetail-budgetRemaining-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
+        <property name="name" value="budgetRemaining"/>
+        <property name="required" value="false"/>
+        <property name="label" value="Budget Remaining"/>
+        <property name="shortLabel" value="Budget Remaining"/>
+    </bean>
 
-	<bean id="ContractsGrantsInvoiceDetail-totalPreviouslyBilled" parent="ContractsGrantsInvoiceDetail-totalPreviouslyBilled-parentBean" />
-	<bean id="ContractsGrantsInvoiceDetail-totalPreviouslyBilled-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
-		<property name="name" value="totalPreviouslyBilled" />
-		<property name="required" value="false" />
-		<property name="label" value="Total Previously Billed" />
-		<property name="shortLabel" value="Total Previously Billed" />
-	</bean>
+    <bean id="ContractsGrantsInvoiceDetail-totalPreviouslyBilled" parent="ContractsGrantsInvoiceDetail-totalPreviouslyBilled-parentBean"/>
+    <bean id="ContractsGrantsInvoiceDetail-totalPreviouslyBilled-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
+        <property name="name" value="totalPreviouslyBilled"/>
+        <property name="required" value="false"/>
+        <property name="label" value="Total Previously Billed"/>
+        <property name="shortLabel" value="Total Previously Billed"/>
+    </bean>
 
-	<bean id="ContractsGrantsInvoiceDetail-totalAmountBilledToDate" parent="ContractsGrantsInvoiceDetail-totalAmountBilledToDate-parentBean" />
-	<bean id="ContractsGrantsInvoiceDetail-totalAmountBilledToDate-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
-		<property name="name" value="totalAmountBilledToDate" />
-		<property name="required" value="false" />
-		<property name="label" value="Total Amount Billed To Date" />
-		<property name="shortLabel" value="Total Amount Billed To Date" />
-	</bean>
+    <bean id="ContractsGrantsInvoiceDetail-totalAmountBilledToDate" parent="ContractsGrantsInvoiceDetail-totalAmountBilledToDate-parentBean"/>
+    <bean id="ContractsGrantsInvoiceDetail-totalAmountBilledToDate-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
+        <property name="name" value="totalAmountBilledToDate"/>
+        <property name="required" value="false"/>
+        <property name="label" value="Total Amount Billed To Date"/>
+        <property name="shortLabel" value="Total Amount Billed To Date"/>
+    </bean>
 
-	<bean id="ContractsGrantsInvoiceDetail-amountRemainingToBill" parent="ContractsGrantsInvoiceDetail-amountRemainingToBill-parentBean" />
-	<bean id="ContractsGrantsInvoiceDetail-amountRemainingToBill-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
-		<property name="name" value="amountRemainingToBill" />
-		<property name="required" value="false" />
-		<property name="label" value="Amount Remaining To Bill" />
-		<property name="shortLabel" value="Amount Remaining To Bill" />
-	</bean>
-	
-	<bean id="ContractsGrantsInvoiceDetail-costCategory.categoryName" parent="ContractsGrantsInvoiceDetail-costCategory.categoryName-parentBean"/>
-	<bean id="ContractsGrantsInvoiceDetail-costCategory.categoryName-parentBean" abstract="true" parent="CostCategory-categoryName">
-		<property name="name" value="costCategory.categoryName"/>
-	</bean>
+    <bean id="ContractsGrantsInvoiceDetail-amountRemainingToBill" parent="ContractsGrantsInvoiceDetail-amountRemainingToBill-parentBean"/>
+    <bean id="ContractsGrantsInvoiceDetail-amountRemainingToBill-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
+        <property name="name" value="amountRemainingToBill"/>
+        <property name="required" value="false"/>
+        <property name="label" value="Amount Remaining To Bill"/>
+        <property name="shortLabel" value="Amount Remaining To Bill"/>
+    </bean>
+
+    <bean id="ContractsGrantsInvoiceDetail-costCategory.categoryName" parent="ContractsGrantsInvoiceDetail-costCategory.categoryName-parentBean"/>
+    <bean id="ContractsGrantsInvoiceDetail-costCategory.categoryName-parentBean" abstract="true" parent="CostCategory-categoryName">
+        <property name="name" value="costCategory.categoryName"/>
+    </bean>
 </beans>

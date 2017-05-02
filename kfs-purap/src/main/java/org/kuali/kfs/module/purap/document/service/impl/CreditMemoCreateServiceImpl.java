@@ -1,23 +1,24 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document.service.impl;
 
+import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.module.purap.document.service.AccountsPayableService;
 import org.kuali.kfs.module.purap.document.service.CreditMemoCreateService;
 import org.kuali.kfs.module.purap.document.service.CreditMemoService;
@@ -26,7 +27,6 @@ import org.kuali.kfs.module.purap.document.service.PurapService;
 import org.kuali.kfs.module.purap.document.service.PurchaseOrderService;
 import org.kuali.kfs.module.purap.service.PurapAccountingService;
 import org.kuali.kfs.vnd.document.service.VendorService;
-import org.kuali.rice.kns.service.DataDictionaryService;
 
 
 /**
@@ -42,7 +42,7 @@ public class CreditMemoCreateServiceImpl implements CreditMemoCreateService {
     private PaymentRequestService paymentRequestService;
     private DataDictionaryService dataDictionaryService;
     private PurapAccountingService purapAccountingService;
-    
+
     public void setCreditMemoService(CreditMemoService creditMemoService) {
         this.creditMemoService = creditMemoService;
     }
@@ -66,7 +66,7 @@ public class CreditMemoCreateServiceImpl implements CreditMemoCreateService {
     public void setPurapAccountingService(PurapAccountingService purapAccountingService) {
         this.purapAccountingService = purapAccountingService;
     }
-    
-    
+
+
 }
 

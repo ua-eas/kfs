@@ -1,31 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.sys.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 /**
  * This class is used to represent a Wire Charge business object, which is a method of payment to an institution.
@@ -55,7 +55,7 @@ public class WireCharge extends PersistableBusinessObjectBase implements FiscalY
 
     /**
      * Gets the universityFiscalYear attribute.
-     * 
+     *
      * @return Returns the universityFiscalYear
      */
     public Integer getUniversityFiscalYear() {
@@ -65,7 +65,7 @@ public class WireCharge extends PersistableBusinessObjectBase implements FiscalY
 
     /**
      * Sets the universityFiscalYear attribute.
-     * 
+     *
      * @param universityFiscalYear The universityFiscalYear to set.
      */
     public void setUniversityFiscalYear(Integer universityFiscalYear) {
@@ -74,7 +74,7 @@ public class WireCharge extends PersistableBusinessObjectBase implements FiscalY
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode
      */
     public String getChartOfAccountsCode() {
@@ -84,7 +84,7 @@ public class WireCharge extends PersistableBusinessObjectBase implements FiscalY
 
     /**
      * Sets the chartOfAccountsCode attribute.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -93,7 +93,7 @@ public class WireCharge extends PersistableBusinessObjectBase implements FiscalY
 
     /**
      * Gets the accountNumber attribute.
-     * 
+     *
      * @return Returns the accountNumber
      */
     public String getAccountNumber() {
@@ -103,7 +103,7 @@ public class WireCharge extends PersistableBusinessObjectBase implements FiscalY
 
     /**
      * Sets the accountNumber attribute.
-     * 
+     *
      * @param accountNumber The accountNumber to set.
      */
     public void setAccountNumber(String accountNumber) {
@@ -112,7 +112,7 @@ public class WireCharge extends PersistableBusinessObjectBase implements FiscalY
 
     /**
      * Gets the incomeFinancialObjectCode attribute.
-     * 
+     *
      * @return Returns the incomeFinancialObjectCode
      */
     public String getIncomeFinancialObjectCode() {
@@ -122,7 +122,7 @@ public class WireCharge extends PersistableBusinessObjectBase implements FiscalY
 
     /**
      * Sets the incomeFinancialObjectCode attribute.
-     * 
+     *
      * @param incomeFinancialObjectCode The incomeFinancialObjectCode to set.
      */
     public void setIncomeFinancialObjectCode(String incomeFinancialObjectCode) {
@@ -131,7 +131,7 @@ public class WireCharge extends PersistableBusinessObjectBase implements FiscalY
 
     /**
      * Gets the expenseFinancialObjectCode attribute.
-     * 
+     *
      * @return Returns the expenseFinancialObjectCode
      */
     public String getExpenseFinancialObjectCode() {
@@ -141,7 +141,7 @@ public class WireCharge extends PersistableBusinessObjectBase implements FiscalY
 
     /**
      * Sets the expenseFinancialObjectCode attribute.
-     * 
+     *
      * @param expenseFinancialObjectCode The expenseFinancialObjectCode to set.
      */
     public void setExpenseFinancialObjectCode(String expenseFinancialObjectCode) {
@@ -150,7 +150,7 @@ public class WireCharge extends PersistableBusinessObjectBase implements FiscalY
 
     /**
      * Gets the domesticChargeAmt attribute.
-     * 
+     *
      * @return Returns the domesticChargeAmt
      */
     public KualiDecimal getDomesticChargeAmt() {
@@ -160,7 +160,7 @@ public class WireCharge extends PersistableBusinessObjectBase implements FiscalY
 
     /**
      * Sets the domesticChargeAmt attribute.
-     * 
+     *
      * @param domesticChargeAmt The domesticChargeAmt to set.
      */
     public void setDomesticChargeAmt(KualiDecimal domesticChargeAmt) {
@@ -169,7 +169,7 @@ public class WireCharge extends PersistableBusinessObjectBase implements FiscalY
 
     /**
      * Gets the foreignChargeAmt attribute.
-     * 
+     *
      * @return Returns the foreignChargeAmt
      */
     public KualiDecimal getForeignChargeAmt() {
@@ -179,7 +179,7 @@ public class WireCharge extends PersistableBusinessObjectBase implements FiscalY
 
     /**
      * Sets the foreignChargeAmt attribute.
-     * 
+     *
      * @param foreignChargeAmt The foreignChargeAmt to set.
      */
     public void setForeignChargeAmt(KualiDecimal foreignChargeAmt) {
@@ -188,7 +188,7 @@ public class WireCharge extends PersistableBusinessObjectBase implements FiscalY
 
     /**
      * Gets the chartOfAccounts attribute.
-     * 
+     *
      * @return Returns the chartOfAccounts
      */
     public Chart getChartOfAccounts() {
@@ -198,7 +198,7 @@ public class WireCharge extends PersistableBusinessObjectBase implements FiscalY
 
     /**
      * Sets the chartOfAccounts attribute.
-     * 
+     *
      * @param chartOfAccounts The chartOfAccounts to set.
      * @deprecated
      */
@@ -208,7 +208,7 @@ public class WireCharge extends PersistableBusinessObjectBase implements FiscalY
 
     /**
      * Gets the incomeFinancialObject attribute.
-     * 
+     *
      * @return Returns the incomeFinancialObject
      */
     public ObjectCode getIncomeFinancialObject() {
@@ -218,7 +218,7 @@ public class WireCharge extends PersistableBusinessObjectBase implements FiscalY
 
     /**
      * Sets the incomeFinancialObject attribute.
-     * 
+     *
      * @param incomeFinancialObject The incomeFinancialObject to set.
      * @deprecated
      */
@@ -228,7 +228,7 @@ public class WireCharge extends PersistableBusinessObjectBase implements FiscalY
 
     /**
      * Gets the expenseFinancialObject attribute.
-     * 
+     *
      * @return Returns the expenseFinancialObject
      */
     public ObjectCode getExpenseFinancialObject() {
@@ -238,7 +238,7 @@ public class WireCharge extends PersistableBusinessObjectBase implements FiscalY
 
     /**
      * Sets the expenseFinancialObject attribute.
-     * 
+     *
      * @param expenseFinancialObject The expenseFinancialObject to set.
      * @deprecated
      */
@@ -248,7 +248,7 @@ public class WireCharge extends PersistableBusinessObjectBase implements FiscalY
 
     /**
      * Gets the account attribute.
-     * 
+     *
      * @return Returns the account
      */
     public Account getAccount() {
@@ -258,7 +258,7 @@ public class WireCharge extends PersistableBusinessObjectBase implements FiscalY
 
     /**
      * Sets the account attribute.
-     * 
+     *
      * @param account The account to set.
      * @deprecated
      */
@@ -284,7 +284,7 @@ public class WireCharge extends PersistableBusinessObjectBase implements FiscalY
     /**
      * This method (a hack by any other name...) returns a string so that an wire charge can have a link to view its own
      * inquiry page after a look up
-     * 
+     *
      * @return the String "View Wire Charge"
      */
     public String getWireChargeViewer() {

@@ -1,41 +1,33 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ld.businessobject.lookup;
 
-import static org.kuali.kfs.module.ld.LaborConstants.BalanceInquiries.EMPLOYEE_FUNDING_EXPENSE_OBJECT_TYPE_CODE;
-import static org.kuali.kfs.module.ld.LaborConstants.BalanceInquiries.EMPLOYEE_FUNDING_NORMAL_OP_EXPENSE_OBJECT_TYPE_CODE;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.math.BigDecimal;
-
 import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.ObjectUtils;
-
+import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.gl.Constant;
 import org.kuali.kfs.integration.ld.businessobject.inquiry.AbstractPositionDataDetailsInquirableImpl;
+import org.kuali.kfs.kns.lookup.AbstractLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.util.BeanPropertyComparator;
 import org.kuali.kfs.module.ld.businessobject.EmployeeFunding;
 import org.kuali.kfs.module.ld.businessobject.LaborLedgerPendingEntry;
 import org.kuali.kfs.module.ld.businessobject.inquiry.EmployeeFundingInquirableImpl;
@@ -48,12 +40,19 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.ObjectUtil;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl;
-import org.kuali.rice.kns.lookup.HtmlData;
-import org.kuali.rice.kns.lookup.HtmlData.AnchorHtmlData;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.lookup.CollectionIncomplete;
-import org.kuali.rice.krad.util.BeanPropertyComparator;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import static org.kuali.kfs.module.ld.LaborConstants.BalanceInquiries.EMPLOYEE_FUNDING_EXPENSE_OBJECT_TYPE_CODE;
+import static org.kuali.kfs.module.ld.LaborConstants.BalanceInquiries.EMPLOYEE_FUNDING_NORMAL_OP_EXPENSE_OBJECT_TYPE_CODE;
 
 /**
  * The EmployeeFundingLookupableHelperServiceImpl class is the front-end for all Employee Funding balance inquiry processing.
@@ -108,9 +107,9 @@ public class EmployeeFundingLookupableHelperServiceImpl extends AbstractLookupab
             Collection<EmployeeFunding> tempSearchResultsCollection = new ArrayList<EmployeeFunding>();
             for (EmployeeFunding employeeFunding : searchResultsCollection) {
                 // KFSCNTRB-1534- Properly group CSF Items and show all CSF items that should be shown
-                if( employeeFunding.getCurrentAmount().isNonZero() ||
+                if (employeeFunding.getCurrentAmount().isNonZero() ||
                     employeeFunding.getOutstandingEncumbrance().isNonZero() ||
-                    (employeeFunding.getCsfAmount() != null && employeeFunding.getCsfAmount().isNonZero()) ){
+                    (employeeFunding.getCsfAmount() != null && employeeFunding.getCsfAmount().isNonZero())) {
                     tempSearchResultsCollection.add(employeeFunding);
                 }
             }
@@ -135,9 +134,9 @@ public class EmployeeFundingLookupableHelperServiceImpl extends AbstractLookupab
     private Collection<EmployeeFunding> consolidateObjectTypeCode(Collection<EmployeeFunding> searchResultsCollection) {
         // KFSCNTRB-1534- Properly group CSF Items and show all CSF items that should be shown
         Collection<EmployeeFunding> ret = new ArrayList<EmployeeFunding>(searchResultsCollection.size());
-        for(EmployeeFunding empFunding : searchResultsCollection) {
+        for (EmployeeFunding empFunding : searchResultsCollection) {
             EmployeeFunding temp = findEmployeeFunding(ret, empFunding);
-            if (temp == null){
+            if (temp == null) {
                 ret.add(empFunding);
             } else {
                 /*we need to act on `temp' because that's the one from the collection.*/
@@ -151,48 +150,46 @@ public class EmployeeFundingLookupableHelperServiceImpl extends AbstractLookupab
         return ret;
     }
 
-    /** 
+    /**
      * Searches the given collection for an element that is equal to the given exhibit for purposes of consolidation.
      *
-     * @param coll The collection to search for a like element.
+     * @param coll    The collection to search for a like element.
      * @param exhibit The search criteria.
-     *
-     * @return The element from the collection that matches the exhibit or null if 1) no items match or 
-     *   the 2) exhibit is null.
-     *
+     * @return The element from the collection that matches the exhibit or null if 1) no items match or
+     * the 2) exhibit is null.
      */
-    private static EmployeeFunding findEmployeeFunding(Collection<EmployeeFunding> coll, EmployeeFunding exhibit){
-        if (exhibit == null){
+    private static EmployeeFunding findEmployeeFunding(Collection<EmployeeFunding> coll, EmployeeFunding exhibit) {
+        if (exhibit == null) {
             return null;
         }
 
-        for (EmployeeFunding temp : coll){
-            if (temp == null){
+        for (EmployeeFunding temp : coll) {
+            if (temp == null) {
                 continue;
             }
 
-            if (ObjectUtils.notEqual(temp.getEmplid(), exhibit.getEmplid())){
+            if (ObjectUtils.notEqual(temp.getEmplid(), exhibit.getEmplid())) {
                 continue;
             }
-            if (ObjectUtils.notEqual(temp.getUniversityFiscalYear(), exhibit.getUniversityFiscalYear())){
+            if (ObjectUtils.notEqual(temp.getUniversityFiscalYear(), exhibit.getUniversityFiscalYear())) {
                 continue;
             }
-            if (ObjectUtils.notEqual(temp.getChartOfAccountsCode(), exhibit.getChartOfAccountsCode())){
+            if (ObjectUtils.notEqual(temp.getChartOfAccountsCode(), exhibit.getChartOfAccountsCode())) {
                 continue;
             }
-            if (ObjectUtils.notEqual(temp.getAccountNumber(), exhibit.getAccountNumber())){
+            if (ObjectUtils.notEqual(temp.getAccountNumber(), exhibit.getAccountNumber())) {
                 continue;
             }
-            if (ObjectUtils.notEqual(temp.getSubAccountNumber(), exhibit.getSubAccountNumber())){
+            if (ObjectUtils.notEqual(temp.getSubAccountNumber(), exhibit.getSubAccountNumber())) {
                 continue;
             }
-            if (ObjectUtils.notEqual(temp.getFinancialObjectCode(), exhibit.getFinancialObjectCode())){
+            if (ObjectUtils.notEqual(temp.getFinancialObjectCode(), exhibit.getFinancialObjectCode())) {
                 continue;
             }
-            if (ObjectUtils.notEqual(temp.getFinancialSubObjectCode(), exhibit.getFinancialSubObjectCode())){
+            if (ObjectUtils.notEqual(temp.getFinancialSubObjectCode(), exhibit.getFinancialSubObjectCode())) {
                 continue;
             }
-            if (ObjectUtils.notEqual(temp.getPositionNumber(), exhibit.getPositionNumber())){
+            if (ObjectUtils.notEqual(temp.getPositionNumber(), exhibit.getPositionNumber())) {
                 continue;
             }
             return temp;
@@ -208,18 +205,17 @@ public class EmployeeFundingLookupableHelperServiceImpl extends AbstractLookupab
      * @param one The first KualiDecimal to add.
      * @param two The second KualiDecimal to add.
      * @return The sum of the two KualiDecimals.
-     *
      */
     private static KualiDecimal add(KualiDecimal one, KualiDecimal two) {
-            if (one == null){
-                    return two;
-            }
-            if (two == null){
-                    return one;
-            }
-            return one.add(two);
+        if (one == null) {
+            return two;
+        }
+        if (two == null) {
+            return one;
+        }
+        return one.add(two);
     }
-    
+
     /**
      * Adds two BigDecimal objects. If one of them is null, the other is returned, otherwise,
      * a new BigDecimal containing their sum is returned.
@@ -227,16 +223,15 @@ public class EmployeeFundingLookupableHelperServiceImpl extends AbstractLookupab
      * @param one The first BigDecimal to add.
      * @param two The second BigDecimal to add.
      * @return The sum of the two BigDecimals.
-     *
      */
     private static BigDecimal add(BigDecimal one, BigDecimal two) {
-            if (one == null){
-                    return two;
-            }
-            if (two == null){
-                    return one;
-            }
-            return one.add(two);
+        if (one == null) {
+            return two;
+        }
+        if (two == null) {
+            return one;
+        }
+        return one.add(two);
     }
 
     private boolean showBlankLines(Map fieldValues) {
@@ -248,7 +243,7 @@ public class EmployeeFundingLookupableHelperServiceImpl extends AbstractLookupab
      * build the serach result list from the given collection and the number of all qualified search results
      *
      * @param searchResultsCollection the given search results, which may be a subset of the qualified search results
-     * @param actualSize the number of all qualified search results
+     * @param actualSize              the number of all qualified search results
      * @return the serach result list with the given results and actual size
      */
     protected List buildSearchResultList(Collection searchResultsCollection, Long actualSize) {
@@ -265,22 +260,21 @@ public class EmployeeFundingLookupableHelperServiceImpl extends AbstractLookupab
 
     /**
      * @see org.kuali.kfs.module.ld.service.LaborInquiryOptionsService#updateByPendingLedgerEntry(java.util.Collection,
-     *      java.util.Map, java.lang.String, boolean)
+     * java.util.Map, java.lang.String, boolean)
      */
     public void updateByPendingLedgerEntry(Collection entryCollection, Map fieldValues, String pendingEntryOption, boolean isConsolidated) {
 
         // determine if search results need to be updated by pending ledger entries
         if (Constant.ALL_PENDING_ENTRY.equals(pendingEntryOption)) {
             updateEntryCollection(entryCollection, fieldValues, false, isConsolidated);
-        }
-        else if (Constant.APPROVED_PENDING_ENTRY.equals(pendingEntryOption)) {
+        } else if (Constant.APPROVED_PENDING_ENTRY.equals(pendingEntryOption)) {
             updateEntryCollection(entryCollection, fieldValues, true, isConsolidated);
         }
     }
 
     /**
      * @see org.kuali.kfs.module.ld.service.LaborInquiryOptionsService#updateEntryCollection(java.util.Collection, java.util.Map,
-     *      boolean, boolean)
+     * boolean, boolean)
      */
     public void updateEntryCollection(Collection entryCollection, Map fieldValues, boolean isApproved, boolean isConsolidated) {
         // go through the pending entries to update the balance collection
@@ -305,8 +299,7 @@ public class EmployeeFundingLookupableHelperServiceImpl extends AbstractLookupab
                 ledgerBalance = new EmployeeFunding();
                 ObjectUtil.buildObject(ledgerBalance, pendingEntry);
                 entryCollection.add(ledgerBalance);
-            }
-            else {
+            } else {
                 laborLedgerBalanceService.updateLedgerBalance(ledgerBalance, pendingEntry);
             }
             updateAmount(ledgerBalance, pendingEntry);
@@ -317,7 +310,7 @@ public class EmployeeFundingLookupableHelperServiceImpl extends AbstractLookupab
      * update the amount of the given employee funding with the given pending entry
      *
      * @param employeeFunding the given employee funding
-     * @param pendingEntry the given pending entry
+     * @param pendingEntry    the given pending entry
      */
     private void updateAmount(EmployeeFunding employeeFunding, LaborLedgerPendingEntry pendingEntry) {
         String balanceTypeCode = pendingEntry.getFinancialBalanceTypeCode();
@@ -326,8 +319,7 @@ public class EmployeeFundingLookupableHelperServiceImpl extends AbstractLookupab
 
         if (StringUtils.equals(balanceTypeCode, KFSConstants.BALANCE_TYPE_ACTUAL)) {
             employeeFunding.setCurrentAmount(amount.add(employeeFunding.getCurrentAmount()));
-        }
-        else if (StringUtils.equals(balanceTypeCode, KFSConstants.BALANCE_TYPE_INTERNAL_ENCUMBRANCE)) {
+        } else if (StringUtils.equals(balanceTypeCode, KFSConstants.BALANCE_TYPE_INTERNAL_ENCUMBRANCE)) {
             employeeFunding.setOutstandingEncumbrance(amount.add(employeeFunding.getOutstandingEncumbrance()));
         }
     }
@@ -343,7 +335,7 @@ public class EmployeeFundingLookupableHelperServiceImpl extends AbstractLookupab
 
         if (StringUtils.equals(balanceTypeCode, KFSConstants.BALANCE_TYPE_ACTUAL)) {
             String objectTypeCode = pendingEntry.getFinancialObjectTypeCode();
-            String[] objectTypeCodes = { EMPLOYEE_FUNDING_EXPENSE_OBJECT_TYPE_CODE, EMPLOYEE_FUNDING_NORMAL_OP_EXPENSE_OBJECT_TYPE_CODE };
+            String[] objectTypeCodes = {EMPLOYEE_FUNDING_EXPENSE_OBJECT_TYPE_CODE, EMPLOYEE_FUNDING_NORMAL_OP_EXPENSE_OBJECT_TYPE_CODE};
 
             return ArrayUtils.contains(objectTypeCodes, objectTypeCode) ? true : false;
         }

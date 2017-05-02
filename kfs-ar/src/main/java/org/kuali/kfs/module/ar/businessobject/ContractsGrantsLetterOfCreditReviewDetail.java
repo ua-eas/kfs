@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import java.sql.Date;
-import java.util.LinkedHashMap;
-
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.module.ar.document.ContractsGrantsLetterOfCreditReviewDocument;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+
+import java.sql.Date;
+import java.util.LinkedHashMap;
 
 /**
  * Defines a detail in the Contracts & Grants Letter of Credit Review Document.
@@ -32,7 +32,7 @@ import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 public class ContractsGrantsLetterOfCreditReviewDetail extends PersistableBusinessObjectBase {
 
     private String documentNumber;
-    private Long proposalNumber;
+    private String proposalNumber;
     private Long letterOfCreditReviewDetailIdentifier;
     private Date awardBeginningDate;
     private Date awardEndingDate;
@@ -47,11 +47,11 @@ public class ContractsGrantsLetterOfCreditReviewDetail extends PersistableBusine
     private KualiDecimal claimOnCashBalance = KualiDecimal.ZERO;
     private KualiDecimal amountToDraw = KualiDecimal.ZERO;
     private KualiDecimal hiddenAmountToDraw = KualiDecimal.ZERO;// This would be used for comparision with AmountToDraw field when
-                                                                // user modifies it - not persisted
+    // user modifies it - not persisted
     private KualiDecimal fundsNotDrawn = KualiDecimal.ZERO; // Difference between amountToDraw and hiddenAmountToDraw.
     private KualiDecimal letterOfCreditAmount = KualiDecimal.ZERO;// This field would be visible only for the contract control account row.
     private KualiDecimal amountAvailableToDraw = KualiDecimal.ZERO;// This field would be visible only for the contract control
-                                                                   // account row.
+    // account row.
     private ContractsGrantsLetterOfCreditReviewDocument contractsGrantsLOCReviewDocument;
 
     /**
@@ -79,7 +79,7 @@ public class ContractsGrantsLetterOfCreditReviewDetail extends PersistableBusine
      *
      * @return Returns the proposalNumber.
      */
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -89,7 +89,7 @@ public class ContractsGrantsLetterOfCreditReviewDetail extends PersistableBusine
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

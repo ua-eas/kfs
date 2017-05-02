@@ -1,36 +1,36 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.batch;
-
-import java.util.Date;
 
 import org.kuali.kfs.module.purap.service.PdpExtractService;
 import org.kuali.kfs.sys.batch.AbstractStep;
 import org.kuali.kfs.sys.util.KfsDateUtils;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 
+import java.util.Date;
+
 public class ExtractPdpStep extends AbstractStep {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ExtractPdpStep.class);
 
     private PdpExtractService pdpExtractService;
     private DateTimeService dateTimeService;
-    
+
     public ExtractPdpStep() {
         super();
     }
@@ -48,12 +48,10 @@ public class ExtractPdpStep extends AbstractStep {
     public boolean execute() throws InterruptedException {
         try {
             return execute(null, dateTimeService.getCurrentDate());
-        }
-        catch (InterruptedException e) {
+        } catch (InterruptedException e) {
             LOG.error("Exception occured executing step", e);
             throw e;
-        }
-        catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             LOG.error("Exception occured executing step", e);
             throw e;
         }

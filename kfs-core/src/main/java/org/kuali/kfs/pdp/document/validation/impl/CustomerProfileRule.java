@@ -1,29 +1,33 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.pdp.document.validation.impl;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.MessageMap;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.pdp.PdpConstants;
 import org.kuali.kfs.pdp.PdpKeyConstants;
 import org.kuali.kfs.pdp.PdpPropertyConstants;
@@ -31,16 +35,12 @@ import org.kuali.kfs.pdp.businessobject.CustomerBank;
 import org.kuali.kfs.pdp.businessobject.CustomerProfile;
 import org.kuali.kfs.sys.businessobject.Bank;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.MessageMap;
-import org.kuali.rice.krad.util.ObjectUtils;
 import org.kuali.rice.location.api.postalcode.PostalCode;
 import org.kuali.rice.location.api.postalcode.PostalCodeService;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CustomerProfileRule extends MaintenanceDocumentRuleBase {
     protected static Logger LOG = org.apache.log4j.Logger.getLogger(CustomerProfileRule.class);
@@ -58,7 +58,7 @@ public class CustomerProfileRule extends MaintenanceDocumentRuleBase {
         if (isValid) {
             if (collectionName.equals(PdpPropertyConstants.CustomerProfile.CUSTOMER_PROFILE_BANKS)) {
                 CustomerBank newCustomerBank = (CustomerBank) line;
-                if(newCustomerBank.getDisbursementTypeCode()!=null){
+                if (newCustomerBank.getDisbursementTypeCode() != null) {
                     // does the same disbursement type code exist?
                     CustomerProfile customerProfile = (CustomerProfile) document.getNewMaintainableObject().getBusinessObject();
                     for (CustomerBank bank : customerProfile.getCustomerBanks()) {
@@ -68,7 +68,7 @@ public class CustomerProfileRule extends MaintenanceDocumentRuleBase {
                         }
                     }
                 }
-                if(newCustomerBank.getBank()!=null){
+                if (newCustomerBank.getBank() != null) {
                     // check if the bank code type is allowed
                     newCustomerBank.refreshReferenceObject(PdpPropertyConstants.CUSTOMER_BANK);
                     Bank newBank = newCustomerBank.getBank();
@@ -91,9 +91,10 @@ public class CustomerProfileRule extends MaintenanceDocumentRuleBase {
      * This method checks if the Disbursement Bank information is provided in the Customer profile.
      * If Bank information is provided; It's required that a Check bank is present.
      * If the Customer profile has ACH disbursement type information provided, it should have an ACH bank Information as well.
-     * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomRouteDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
-     * @param MaintenanceDocument  - CustomerProfileMaintenanceDocument
+     *
+     * @param MaintenanceDocument - CustomerProfileMaintenanceDocument
      * @return boolean - true if business rules are satisfied; false otherwise.
+     * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomRouteDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
     protected boolean processCustomRouteDocumentBusinessRules(MaintenanceDocument document) {
@@ -115,12 +116,12 @@ public class CustomerProfileRule extends MaintenanceDocumentRuleBase {
         boolean customerHasACHType = customerProfile.getAchTransactionType() != null ? true : false;
 
         //Check if customer profile has bank information
-        if (customerProfile.getCustomerBanks().isEmpty()){
-            putFieldError(KRADConstants.MAINTENANCE_ADD_PREFIX+"customerBanks."+PdpPropertyConstants.DISBURSEMENT_TYPE_CODE, PdpKeyConstants.Format.ErrorMessages.ERROR_FORMAT_BANK_MISSING, customerProfile.getId().toString());
+        if (customerProfile.getCustomerBanks().isEmpty()) {
+            putFieldError(KRADConstants.MAINTENANCE_ADD_PREFIX + "customerBanks." + PdpPropertyConstants.DISBURSEMENT_TYPE_CODE, PdpKeyConstants.Format.ErrorMessages.ERROR_FORMAT_BANK_MISSING, customerProfile.getId().toString());
 
             isValid = false;
-        }else{
-            for (CustomerBank customerBank : customerProfile.getCustomerBanks()){
+        } else {
+            for (CustomerBank customerBank : customerProfile.getCustomerBanks()) {
 
                 // check if the bank code type is allowed
                 Bank bank = customerBank.getBank();
@@ -134,28 +135,28 @@ public class CustomerProfileRule extends MaintenanceDocumentRuleBase {
                 }
 
                 //Check if customer profile has Check type Bank information
-                if(customerBank.getDisbursementTypeCode().equalsIgnoreCase(PdpConstants.DisbursementTypeCodes.CHECK)){
+                if (customerBank.getDisbursementTypeCode().equalsIgnoreCase(PdpConstants.DisbursementTypeCodes.CHECK)) {
                     checkBankPresent = true;
                 }
                 //Check if customer profile has ACH type Bank information
-                if(customerBank.getDisbursementTypeCode().equalsIgnoreCase(PdpConstants.DisbursementTypeCodes.ACH)){
-                        ACHBankPresent = true;
-                 }
-                if(checkBankPresent && ACHBankPresent){
+                if (customerBank.getDisbursementTypeCode().equalsIgnoreCase(PdpConstants.DisbursementTypeCodes.ACH)) {
+                    ACHBankPresent = true;
+                }
+                if (checkBankPresent && ACHBankPresent) {
                     break;
                 }
             }
 
             //Generate error message if check bank is not present.
-            if(!checkBankPresent){
+            if (!checkBankPresent) {
                 isValid = false;
-                putFieldError(KRADConstants.MAINTENANCE_ADD_PREFIX+"customerBanks."+PdpPropertyConstants.DISBURSEMENT_TYPE_CODE, PdpKeyConstants.ERROR_PDP_CHECK_BANK_REQUIRED);
+                putFieldError(KRADConstants.MAINTENANCE_ADD_PREFIX + "customerBanks." + PdpPropertyConstants.DISBURSEMENT_TYPE_CODE, PdpKeyConstants.ERROR_PDP_CHECK_BANK_REQUIRED);
             }
 
             //Generate error message if ACH bank is not present for profile with ACH disbursement type.
-            if(customerHasACHType && !ACHBankPresent){
+            if (customerHasACHType && !ACHBankPresent) {
                 isValid = false;
-                putFieldError(KRADConstants.MAINTENANCE_ADD_PREFIX+"customerBanks."+PdpPropertyConstants.DISBURSEMENT_TYPE_CODE, PdpKeyConstants.ERROR_PDP_ACH_BANK_REQUIRED);
+                putFieldError(KRADConstants.MAINTENANCE_ADD_PREFIX + "customerBanks." + PdpPropertyConstants.DISBURSEMENT_TYPE_CODE, PdpKeyConstants.ERROR_PDP_ACH_BANK_REQUIRED);
             }
 
         }
@@ -169,14 +170,15 @@ public class CustomerProfileRule extends MaintenanceDocumentRuleBase {
     }
 
     //KFSMI-8330
+
     /**
      * sets city name and state code on the form
      *
      * @param customerProfile
      */
     protected void setStateFromZip(CustomerProfile customerProfile) {
-        if (StringUtils.isNotBlank(customerProfile.getZipCode()) && StringUtils.isNotBlank(customerProfile.getCountryCode()) ) {
-            PostalCode zip = SpringContext.getBean(PostalCodeService.class).getPostalCode( customerProfile.getCountryCode(), customerProfile.getZipCode() );
+        if (StringUtils.isNotBlank(customerProfile.getZipCode()) && StringUtils.isNotBlank(customerProfile.getCountryCode())) {
+            PostalCode zip = SpringContext.getBean(PostalCodeService.class).getPostalCode(customerProfile.getCountryCode(), customerProfile.getZipCode());
 
             // If user enters a valid zip code, override city name and state code entered by user
             if (ObjectUtils.isNotNull(zip)) { // override old user inputs
@@ -188,6 +190,7 @@ public class CustomerProfileRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Verifies that the chart/unit/sub-unit combination on this customer profile is unique
+     *
      * @param customerProfile the customer profile to check
      * @return true if the chart/unit/sub-unit is unique, false otherwise
      */
@@ -204,7 +207,7 @@ public class CustomerProfileRule extends MaintenanceDocumentRuleBase {
             final Collection foundCustomerProfiles = businessObjectService.findMatching(CustomerProfile.class, searchKeys);
             if (foundCustomerProfiles != null && foundCustomerProfiles.size() > 0) {
                 result = false;
-                putFieldError(PdpPropertyConstants.CustomerProfile.CUSTOMER_PROFILE_UNIT_CODE, PdpKeyConstants.ERROR_CUSTOMER_PROFILE_CHART_UNIT_SUB_UNIT_NOT_UNIQUE, new String[] { customerProfile.getChartCode(), customerProfile.getUnitCode(), customerProfile.getSubUnitCode()});
+                putFieldError(PdpPropertyConstants.CustomerProfile.CUSTOMER_PROFILE_UNIT_CODE, PdpKeyConstants.ERROR_CUSTOMER_PROFILE_CHART_UNIT_SUB_UNIT_NOT_UNIQUE, new String[]{customerProfile.getChartCode(), customerProfile.getUnitCode(), customerProfile.getSubUnitCode()});
             }
         }
 

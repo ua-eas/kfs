@@ -1,27 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.dataaccess.impl;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.dataaccess.AccountBalanceObjectDao;
@@ -32,6 +27,11 @@ import org.kuali.kfs.sys.businessobject.UniversityDate;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Calculate Balance By Object Balance Inquiry Screen
  */
@@ -41,18 +41,18 @@ public class AccountBalanceObjectDaoJdbc extends AccountBalanceDaoJdbcBase imple
     /**
      * Returns a collection of report data for the account balance by object inquiry
      *
-     * @param universityFiscalYear the university fiscal year of reported on account balances
-     * @param chartOfAccountsCode the chart of accounts code of reported on account balances
-     * @param accountNumber the account number of reported on account balances
-     * @param financialObjectLevelCode the object level code of reported on account balances
+     * @param universityFiscalYear       the university fiscal year of reported on account balances
+     * @param chartOfAccountsCode        the chart of accounts code of reported on account balances
+     * @param accountNumber              the account number of reported on account balances
+     * @param financialObjectLevelCode   the object level code of reported on account balances
      * @param financialReportingSortCode the sort code for reported results
-     * @param isCostShareExcluded whether cost share account balances should be excluded from the query or not
-     * @param isConsolidated whether the results of the query should be consolidated
-     * @param pendingEntriesCode whether this query should account for no pending entries, approved pending entries, or all pending
-     *        entries
+     * @param isCostShareExcluded        whether cost share account balances should be excluded from the query or not
+     * @param isConsolidated             whether the results of the query should be consolidated
+     * @param pendingEntriesCode         whether this query should account for no pending entries, approved pending entries, or all pending
+     *                                   entries
      * @return a List of Maps with the results of the query
      * @see org.kuali.kfs.gl.dataaccess.AccountBalanceDao#findAccountBalanceByObject(java.lang.Integer, java.lang.String,
-     *      java.lang.String, java.lang.String, java.lang.String, boolean, boolean, int)
+     * java.lang.String, java.lang.String, java.lang.String, boolean, boolean, int)
      */
     @Override
     public List findAccountBalanceByObject(Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber, String financialObjectLevelCode, String financialReportingSortCode, boolean isCostShareExcluded, boolean isConsolidated, int pendingEntriesCode, UniversityDate today, SystemOptions options) {
@@ -65,7 +65,7 @@ public class AccountBalanceObjectDaoJdbc extends AccountBalanceDaoJdbcBase imple
             clearTempTable("FP_BAL_BY_OBJ_MT", "SESID", sessionId);
             clearTempTable("FP_INTERIM1_OBJ_MT", "SESID", sessionId);
             clearTempTable("FP_INTERIM2_OBJ_MT", "SESID", sessionId);
-            
+
             // Add in all the data we need
             getSimpleJdbcTemplate().update("INSERT INTO FP_INTERIM1_OBJ_MT (UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR,FIN_OBJECT_CD, FIN_SUB_OBJ_CD, CURR_BDLN_BAL_AMT," + " ACLN_ACTLS_BAL_AMT, ACLN_ENCUM_BAL_AMT, TIMESTAMP,SESID) " + " SELECT a.UNIV_FISCAL_YR, a.FIN_COA_CD, a.ACCOUNT_NBR, a.SUB_ACCT_NBR," + " a.FIN_OBJECT_CD, a.FIN_SUB_OBJ_CD, a.CURR_BDLN_BAL_AMT,a.ACLN_ACTLS_BAL_AMT, a.ACLN_ENCUM_BAL_AMT, a.TIMESTAMP, ?" + " FROM GL_ACCT_BALANCES_T a, CA_OBJECT_CODE_T o WHERE a.univ_fiscal_yr = ? " + " AND a.fin_coa_cd = ?" + " AND a.account_nbr = ?" + " AND a.univ_fiscal_yr = o.univ_fiscal_yr AND a.fin_coa_cd = o.fin_coa_cd AND a.fin_object_cd = o.fin_object_cd " + "AND o.fin_obj_level_cd = ?", sessionId, universityFiscalYear, chartOfAccountsCode, accountNumber, financialObjectLevelCode);
 
@@ -75,19 +75,19 @@ public class AccountBalanceObjectDaoJdbc extends AccountBalanceDaoJdbcBase imple
                     summarizePendingEntriesByObject(options, sessionId);
                 }
             }
-            
+
             // Add some reference data
             getSimpleJdbcTemplate().update(
-                    "INSERT INTO FP_INTERIM2_OBJ_MT (UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR, FIN_OBJECT_CD, FIN_SUB_OBJ_CD, CURR_BDLN_BAL_AMT, ACLN_ACTLS_BAL_AMT, " + "ACLN_ENCUM_BAL_AMT, TIMESTAMP, SESID, FIN_REPORT_SORT_CD, ACCTG_CTGRY_CD ) " + 
-                            " SELECT a.UNIV_FISCAL_YR, a.FIN_COA_CD, a.ACCOUNT_NBR, a.SUB_ACCT_NBR,a.FIN_OBJECT_CD, a.FIN_SUB_OBJ_CD, a.CURR_BDLN_BAL_AMT, a.ACLN_ACTLS_BAL_AMT, " + "a.ACLN_ENCUM_BAL_AMT, a.TIMESTAMP, a.SESID, t.fin_report_sort_cd, t.acctg_ctgry_cd" + 
-                            " FROM FP_INTERIM1_OBJ_MT a, CA_OBJECT_CODE_T o, CA_OBJ_TYPE_T t " +
-                            " WHERE a.univ_fiscal_yr = o.univ_fiscal_yr " + 
-                            " AND a.fin_coa_cd = o.fin_coa_cd " +
-                            " AND a.fin_object_cd = o.fin_object_cd " +
-                            " AND o.fin_obj_typ_cd = t.fin_obj_typ_cd " + 
-                            " AND o.univ_fiscal_yr = ?" + 
-                            " AND o.fin_coa_cd = ?" + 
-                            " AND a.SESID = ?", universityFiscalYear, chartOfAccountsCode, sessionId);
+                "INSERT INTO FP_INTERIM2_OBJ_MT (UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR, FIN_OBJECT_CD, FIN_SUB_OBJ_CD, CURR_BDLN_BAL_AMT, ACLN_ACTLS_BAL_AMT, " + "ACLN_ENCUM_BAL_AMT, TIMESTAMP, SESID, FIN_REPORT_SORT_CD, ACCTG_CTGRY_CD ) " +
+                    " SELECT a.UNIV_FISCAL_YR, a.FIN_COA_CD, a.ACCOUNT_NBR, a.SUB_ACCT_NBR,a.FIN_OBJECT_CD, a.FIN_SUB_OBJ_CD, a.CURR_BDLN_BAL_AMT, a.ACLN_ACTLS_BAL_AMT, " + "a.ACLN_ENCUM_BAL_AMT, a.TIMESTAMP, a.SESID, t.fin_report_sort_cd, t.acctg_ctgry_cd" +
+                    " FROM FP_INTERIM1_OBJ_MT a, CA_OBJECT_CODE_T o, CA_OBJ_TYPE_T t " +
+                    " WHERE a.univ_fiscal_yr = o.univ_fiscal_yr " +
+                    " AND a.fin_coa_cd = o.fin_coa_cd " +
+                    " AND a.fin_object_cd = o.fin_object_cd " +
+                    " AND o.fin_obj_typ_cd = t.fin_obj_typ_cd " +
+                    " AND o.univ_fiscal_yr = ?" +
+                    " AND o.fin_coa_cd = ?" +
+                    " AND a.SESID = ?", universityFiscalYear, chartOfAccountsCode, sessionId);
 
 
             // Delete what we don't need
@@ -98,15 +98,13 @@ public class AccountBalanceObjectDaoJdbc extends AccountBalanceDaoJdbcBase imple
             // Summarize
             if (isConsolidated) {
                 getSimpleJdbcTemplate().update("INSERT INTO FP_BAL_BY_OBJ_MT (SUB_ACCT_NBR, FIN_OBJECT_CD, ACCTG_CTGRY_CD, CURR_BDLN_BAL_AMT, ACLN_ACTLS_BAL_AMT, ACLN_ENCUM_BAL_AMT, FIN_REPORT_SORT_CD, " + "SESID) SELECT  '*ALL*',fin_object_cd, acctg_ctgry_cd, SUM(curr_bdln_bal_amt),SUM(acln_actls_bal_amt), SUM(acln_encum_bal_amt)," + " fin_report_sort_cd, ? " + " FROM FP_INTERIM2_OBJ_MT WHERE SESID  = ?" + " GROUP BY fin_object_cd, fin_report_sort_cd, acctg_ctgry_cd", sessionId, sessionId);
-            }
-            else {
+            } else {
                 getSimpleJdbcTemplate().update("INSERT INTO FP_BAL_BY_OBJ_MT (SUB_ACCT_NBR, FIN_OBJECT_CD, ACCTG_CTGRY_CD, CURR_BDLN_BAL_AMT, ACLN_ACTLS_BAL_AMT, ACLN_ENCUM_BAL_AMT, FIN_REPORT_SORT_CD, " + "SESID) SELECT  sub_acct_nbr, fin_object_cd, acctg_ctgry_cd, SUM(curr_bdln_bal_amt), SUM(acln_actls_bal_amt),SUM(acln_encum_bal_amt), " + " fin_report_sort_cd, ? " + " FROM FP_INTERIM2_OBJ_MT WHERE SESID = ? " + " GROUP BY sub_acct_nbr, fin_object_cd, fin_report_sort_cd, acctg_ctgry_cd", sessionId, sessionId);
             }
 
             // Here's the data
             data = getSimpleJdbcTemplate().queryForList("select SUB_ACCT_NBR, FIN_OBJECT_CD, CURR_BDLN_BAL_AMT, ACLN_ACTLS_BAL_AMT, ACLN_ENCUM_BAL_AMT, ACCTG_CTGRY_CD, FIN_REPORT_SORT_CD from FP_BAL_BY_OBJ_MT " + " where SESID = ? " + " order by fin_object_cd", sessionId);
-        }
-        finally {
+        } finally {
             // Clean up everything
             clearTempTable("FP_BAL_BY_OBJ_MT", "SESID", sessionId);
             clearTempTable("FP_INTERIM1_OBJ_MT", "SESID", sessionId);
@@ -120,7 +118,7 @@ public class AccountBalanceObjectDaoJdbc extends AccountBalanceDaoJdbcBase imple
      * Summarizes all the pending ledger entries that would need to be reported on by this inquiry, and saves all of that data to a
      * temporary table
      *
-     * @param options a set of system options
+     * @param options   a set of system options
      * @param sessionId the unique web id of the currently inquiring user, used as a key for the temp table
      */
     protected void summarizePendingEntriesByObject(SystemOptions options, String sessionId) {
@@ -134,7 +132,7 @@ public class AccountBalanceObjectDaoJdbc extends AccountBalanceDaoJdbcBase imple
 
             String insertBalanceStatementSql = "INSERT INTO FP_INTERIM1_OBJ_MT (UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR, FIN_OBJECT_CD, " + "FIN_SUB_OBJ_CD, CURR_BDLN_BAL_AMT, ACLN_ACTLS_BAL_AMT, ACLN_ENCUM_BAL_AMT, TIMESTAMP, SESID) " + "VALUES (?,?,?,?,?,?,?,?,?," + getDbPlatform().getCurTimeFunction() + ",?)";
 
-            SqlRowSet pendingEntryRowSet = getJdbcTemplate().queryForRowSet("SELECT b.FIN_OFFST_GNRTN_CD,t.FIN_OBJTYP_DBCR_CD,e.* " + "FROM GL_PENDING_ENTRY_MT e,CA_OBJ_TYPE_T t,CA_BALANCE_TYPE_T b " + "WHERE e.SESID = ?" + " AND e.FIN_OBJ_TYP_CD = t.FIN_OBJ_TYP_CD AND e.fin_balance_typ_cd = b.fin_balance_typ_cd " + "ORDER BY e.univ_fiscal_yr,e.account_nbr,e.sub_acct_nbr,e.fin_object_cd,e.fin_sub_obj_cd,e.fin_obj_typ_cd", new Object[] { sessionId });
+            SqlRowSet pendingEntryRowSet = getJdbcTemplate().queryForRowSet("SELECT b.FIN_OFFST_GNRTN_CD,t.FIN_OBJTYP_DBCR_CD,e.* " + "FROM GL_PENDING_ENTRY_MT e,CA_OBJ_TYPE_T t,CA_BALANCE_TYPE_T b " + "WHERE e.SESID = ?" + " AND e.FIN_OBJ_TYP_CD = t.FIN_OBJ_TYP_CD AND e.fin_balance_typ_cd = b.fin_balance_typ_cd " + "ORDER BY e.univ_fiscal_yr,e.account_nbr,e.sub_acct_nbr,e.fin_object_cd,e.fin_sub_obj_cd,e.fin_obj_typ_cd", new Object[]{sessionId});
 
 
             int updateCount = 0;
@@ -144,8 +142,7 @@ public class AccountBalanceObjectDaoJdbc extends AccountBalanceDaoJdbcBase imple
                 Map<String, Object> balance = null;
                 try {
                     balance = getSimpleJdbcTemplate().queryForMap(balanceStatementSql, sessionId, pendingEntryRowSet.getInt(GeneralLedgerConstants.ColumnNames.UNIVERSITY_FISCAL_YEAR), pendingEntryRowSet.getString(GeneralLedgerConstants.ColumnNames.CHART_OF_ACCOUNTS_CODE), pendingEntryRowSet.getString(GeneralLedgerConstants.ColumnNames.ACCOUNT_NUMBER), pendingEntryRowSet.getString(GeneralLedgerConstants.ColumnNames.SUB_ACCOUNT_NUMBER), pendingEntryRowSet.getString(GeneralLedgerConstants.ColumnNames.OBJECT_CODE), pendingEntryRowSet.getString(GeneralLedgerConstants.ColumnNames.SUB_OBJECT_CODE));
-                }
-                catch (IncorrectResultSizeDataAccessException ex) {
+                } catch (IncorrectResultSizeDataAccessException ex) {
                     if (ex.getActualSize() != 0) {
                         LOG.error("balance request sql returned more than one row, aborting", ex);
                         throw ex;
@@ -167,28 +164,23 @@ public class AccountBalanceObjectDaoJdbc extends AccountBalanceDaoJdbcBase imple
 
                     if (balanceType.equals(options.getBudgetCheckingBalanceTypeCd())) {
                         budget = budget.add(pendingEntryRowSet.getBigDecimal(GeneralLedgerConstants.ColumnNames.TRANSACTION_LEDGER_ENTRY_AMOUNT));
-                    }
-                    else if (balanceType.equals(options.getActualFinancialBalanceTypeCd())) {
+                    } else if (balanceType.equals(options.getActualFinancialBalanceTypeCd())) {
                         if (debitCreditCode.equals(objectTypeDebitCreditCode) || (("N".equals(offsetGenerationCode) && KFSConstants.GL_BUDGET_CODE.equals(debitCreditCode)))) {
                             actual = actual.add(pendingEntryRowSet.getBigDecimal(GeneralLedgerConstants.ColumnNames.TRANSACTION_LEDGER_ENTRY_AMOUNT));
-                        }
-                        else {
+                        } else {
                             actual = actual.subtract(pendingEntryRowSet.getBigDecimal(GeneralLedgerConstants.ColumnNames.TRANSACTION_LEDGER_ENTRY_AMOUNT));
                         }
-                    }
-                    else if (balanceType.equals(options.getExtrnlEncumFinBalanceTypCd()) || balanceType.equals(options.getIntrnlEncumFinBalanceTypCd()) || balanceType.equals(options.getPreencumbranceFinBalTypeCd()) || "CE".equals(balanceType)) {
+                    } else if (balanceType.equals(options.getExtrnlEncumFinBalanceTypCd()) || balanceType.equals(options.getIntrnlEncumFinBalanceTypCd()) || balanceType.equals(options.getPreencumbranceFinBalTypeCd()) || "CE".equals(balanceType)) {
                         if (debitCreditCode.equals(objectTypeDebitCreditCode) || (("N".equals(offsetGenerationCode) && KFSConstants.GL_BUDGET_CODE.equals(debitCreditCode)))) {
                             encumb = encumb.add(pendingEntryRowSet.getBigDecimal(GeneralLedgerConstants.ColumnNames.TRANSACTION_LEDGER_ENTRY_AMOUNT));
-                        }
-                        else {
+                        } else {
                             encumb = encumb.subtract(pendingEntryRowSet.getBigDecimal(GeneralLedgerConstants.ColumnNames.TRANSACTION_LEDGER_ENTRY_AMOUNT));
                         }
                     }
 
                     // A balance exists, so we need to update it
                     getSimpleJdbcTemplate().update(updateBalanceStatementSql, budget, actual, encumb, sessionId, pendingEntryRowSet.getInt(GeneralLedgerConstants.ColumnNames.UNIVERSITY_FISCAL_YEAR), pendingEntryRowSet.getString(GeneralLedgerConstants.ColumnNames.CHART_OF_ACCOUNTS_CODE), pendingEntryRowSet.getString(GeneralLedgerConstants.ColumnNames.ACCOUNT_NUMBER), pendingEntryRowSet.getString(GeneralLedgerConstants.ColumnNames.SUB_ACCOUNT_NUMBER), pendingEntryRowSet.getString(GeneralLedgerConstants.ColumnNames.OBJECT_CODE), pendingEntryRowSet.getString(GeneralLedgerConstants.ColumnNames.SUB_OBJECT_CODE));
-                }
-                else {
+                } else {
                     insertCount++;
 
                     BigDecimal budget = new BigDecimal("0");
@@ -197,20 +189,16 @@ public class AccountBalanceObjectDaoJdbc extends AccountBalanceDaoJdbcBase imple
 
                     if (balanceType.equals(options.getBudgetCheckingBalanceTypeCd())) {
                         budget = pendingEntryRowSet.getBigDecimal(GeneralLedgerConstants.ColumnNames.TRANSACTION_LEDGER_ENTRY_AMOUNT);
-                    }
-                    else if (balanceType.equals(options.getActualFinancialBalanceTypeCd())) {
+                    } else if (balanceType.equals(options.getActualFinancialBalanceTypeCd())) {
                         if (debitCreditCode.equals(objectTypeDebitCreditCode) || (("N".equals(offsetGenerationCode) && KFSConstants.GL_BUDGET_CODE.equals(debitCreditCode)))) {
                             actual = pendingEntryRowSet.getBigDecimal(GeneralLedgerConstants.ColumnNames.TRANSACTION_LEDGER_ENTRY_AMOUNT);
-                        }
-                        else {
+                        } else {
                             actual = pendingEntryRowSet.getBigDecimal(GeneralLedgerConstants.ColumnNames.TRANSACTION_LEDGER_ENTRY_AMOUNT).negate();
                         }
-                    }
-                    else if (balanceType.equals(options.getExtrnlEncumFinBalanceTypCd()) || balanceType.equals(options.getIntrnlEncumFinBalanceTypCd()) || balanceType.equals(options.getPreencumbranceFinBalTypeCd()) || "CE".equals(balanceType)) {
+                    } else if (balanceType.equals(options.getExtrnlEncumFinBalanceTypCd()) || balanceType.equals(options.getIntrnlEncumFinBalanceTypCd()) || balanceType.equals(options.getPreencumbranceFinBalTypeCd()) || "CE".equals(balanceType)) {
                         if (debitCreditCode.equals(objectTypeDebitCreditCode) || (("N".equals(offsetGenerationCode) && KFSConstants.GL_BUDGET_CODE.equals(debitCreditCode)))) {
                             encumb = pendingEntryRowSet.getBigDecimal(GeneralLedgerConstants.ColumnNames.TRANSACTION_LEDGER_ENTRY_AMOUNT);
-                        }
-                        else {
+                        } else {
                             encumb = pendingEntryRowSet.getBigDecimal(GeneralLedgerConstants.ColumnNames.TRANSACTION_LEDGER_ENTRY_AMOUNT).negate();
                         }
                     }
@@ -221,8 +209,7 @@ public class AccountBalanceObjectDaoJdbc extends AccountBalanceDaoJdbcBase imple
             }
             LOG.info("summarizePendingEntriesByObject() INSERTS: " + insertCount);
             LOG.info("summarizePendingEntriesByObject() UPDATES: " + updateCount);
-        }
-        catch (RuntimeException ex) {
+        } catch (RuntimeException ex) {
             LOG.error("summarizePendingEntriesByObject() Exception running sql", ex);
             throw ex;
         }
@@ -231,11 +218,11 @@ public class AccountBalanceObjectDaoJdbc extends AccountBalanceDaoJdbcBase imple
     /**
      * Get any matching pending entries. Return true if there were some, false if not.
      *
-     * @param universityFiscalYear the university fiscal year of pending entries to summarize
-     * @param chartOfAccountsCode the chart of accounts code of pending entries to summarize
-     * @param accountNumber the account number of pending entries to summarize
+     * @param universityFiscalYear     the university fiscal year of pending entries to summarize
+     * @param chartOfAccountsCode      the chart of accounts code of pending entries to summarize
+     * @param accountNumber            the account number of pending entries to summarize
      * @param financialObjectLevelCode the object level code of pending entries to summarize
-     * @param pendingEntriesCode whether to summarize all, approved, or no pending entries
+     * @param pendingEntriesCode       whether to summarize all, approved, or no pending entries
      * @return true if any matching pending entries were found, false otherwise
      */
     protected boolean getMatchingPendingEntriesByObject(SystemOptions options, Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber, String financialObjectLevelCode, boolean isCostShareExcluded, int pendingEntriesCode, String sessionId, UniversityDate today) {
@@ -254,7 +241,7 @@ public class AccountBalanceObjectDaoJdbc extends AccountBalanceDaoJdbcBase imple
         String insertSql = "insert into GL_PENDING_ENTRY_MT (SESID, FS_ORIGIN_CD, FDOC_NBR, TRN_ENTR_SEQ_NBR, " + "FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR, FIN_OBJECT_CD, FIN_SUB_OBJ_CD, FIN_BALANCE_TYP_CD," + "FIN_OBJ_TYP_CD, UNIV_FISCAL_YR, UNIV_FISCAL_PRD_CD, TRN_LDGR_ENTR_DESC, TRN_LDGR_ENTR_AMT, TRN_DEBIT_CRDT_CD," + "TRANSACTION_DT, FDOC_TYP_CD, ORG_DOC_NBR, PROJECT_CD, ORG_REFERENCE_ID, FDOC_REF_TYP_CD, FS_REF_ORIGIN_CD,FDOC_REF_NBR, " + "FDOC_REVERSAL_DT, TRN_ENCUM_UPDT_CD, FDOC_APPROVED_CD, ACCT_SF_FINOBJ_CD, TRN_ENTR_OFST_CD,TRNENTR_PROCESS_TM) ";
 
         String selectSql = "SELECT ?, p.FS_ORIGIN_CD, p.FDOC_NBR, p.TRN_ENTR_SEQ_NBR, p.FIN_COA_CD, p.ACCOUNT_NBR, " + getDbPlatform().getIsNullFunction("p.SUB_ACCT_NBR", "'-----'") + ", " + " p.FIN_OBJECT_CD, " + getDbPlatform().getIsNullFunction("p.FIN_SUB_OBJ_CD", "'---'") + ", p.FIN_BALANCE_TYP_CD,p.FIN_OBJ_TYP_CD, p.UNIV_FISCAL_YR, " + " p.UNIV_FISCAL_PRD_CD, p.TRN_LDGR_ENTR_DESC, p.TRN_LDGR_ENTR_AMT, p.TRN_DEBIT_CRDT_CD," + "p.TRANSACTION_DT, p.FDOC_TYP_CD, p.ORG_DOC_NBR, PROJECT_CD, p.ORG_REFERENCE_ID, p.FDOC_REF_TYP_CD, p.FS_REF_ORIGIN_CD,p.FDOC_REF_NBR, p.FDOC_REVERSAL_DT, p.TRN_ENCUM_UPDT_CD, p.FDOC_APPROVED_CD, p.ACCT_SF_FINOBJ_CD, p.TRN_ENTR_OFST_CD,p.TRNENTR_PROCESS_TM " + "FROM GL_PENDING_ENTRY_T p,CA_OBJECT_CODE_T o,KRNS_DOC_HDR_T d,FS_DOC_HEADER_T fd " + "WHERE o.FIN_COA_CD = p.FIN_COA_CD AND o.FIN_OBJECT_CD = p.FIN_OBJECT_CD AND o.FIN_OBJ_LEVEL_CD = ?" + " AND p.fdoc_nbr = d.DOC_HDR_ID AND d.DOC_HDR_ID = fd.fdoc_nbr AND " + " p.FIN_COA_CD = ?"
-                + " and p.account_nbr = ?" + " and o.univ_fiscal_yr = ?";
+            + " and p.account_nbr = ?" + " and o.univ_fiscal_yr = ?";
         params.add(sessionId);
         params.add(financialObjectLevelCode);
         params.add(chartOfAccountsCode);
@@ -263,8 +250,7 @@ public class AccountBalanceObjectDaoJdbc extends AccountBalanceDaoJdbcBase imple
 
         if (pendingEntriesCode == AccountBalanceService.PENDING_ALL) {
             selectSql = selectSql + " AND fd.fdoc_status_cd <> '" + KFSConstants.DocumentStatusCodes.DISAPPROVED + "' ";
-        }
-        else {
+        } else {
             selectSql = selectSql + " AND fd.fdoc_status_cd = '" + KFSConstants.DocumentStatusCodes.APPROVED + "' ";
         }
         selectSql = selectSql + " AND fd.fdoc_status_cd <> '" + KFSConstants.DocumentStatusCodes.CANCELLED + "' ";
@@ -273,8 +259,7 @@ public class AccountBalanceObjectDaoJdbc extends AccountBalanceDaoJdbcBase imple
         if (today.getUniversityFiscalYear().equals(universityFiscalYear)) {
             selectSql = selectSql + "AND (p.univ_fiscal_yr is null OR p.univ_fiscal_yr = ? )";
             params.add(universityFiscalYear);
-        }
-        else {
+        } else {
             selectSql = selectSql + "AND p.univ_fiscal_yr = ?";
             params.add(universityFiscalYear);
         }

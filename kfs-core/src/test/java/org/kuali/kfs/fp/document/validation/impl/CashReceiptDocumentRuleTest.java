@@ -1,28 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.mhkozlow;
-import static org.kuali.kfs.sys.service.IsDebitTestUtils.Amount.NEGATIVE;
-import static org.kuali.kfs.sys.service.IsDebitTestUtils.Amount.POSITIVE;
-
 import org.kuali.kfs.fp.document.CashReceiptDocument;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
@@ -31,8 +29,10 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.service.IsDebitTestUtils;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.service.DocumentService;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.mhkozlow;
+import static org.kuali.kfs.sys.service.IsDebitTestUtils.Amount.NEGATIVE;
+import static org.kuali.kfs.sys.service.IsDebitTestUtils.Amount.POSITIVE;
 
 
 /**
@@ -43,7 +43,7 @@ public class CashReceiptDocumentRuleTest extends KualiTestBase {
 
     /**
      * test that an <code>IllegalStateException</code> gets thrown for an error correction document
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_errorCorrection() throws Exception {
@@ -55,7 +55,7 @@ public class CashReceiptDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests false is returned for a positive income
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_income_positveAmount() throws Exception {
@@ -67,7 +67,7 @@ public class CashReceiptDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests true is returned for a negative income
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_income_negativeAmount() throws Exception {
@@ -80,7 +80,7 @@ public class CashReceiptDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests an <code>IllegalStateException</code> is thrown for a zero income
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_income_zeroAmount() throws Exception {
@@ -92,7 +92,7 @@ public class CashReceiptDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests true is returned for a positive expense
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_expense_positveAmount() throws Exception {
@@ -104,7 +104,7 @@ public class CashReceiptDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests false is returned for a negative expense
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_expense_negativeAmount() throws Exception {
@@ -117,7 +117,7 @@ public class CashReceiptDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests an <code>IllegalStateException</code> is thrown for a zero expense
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_expense_zeroAmount() throws Exception {
@@ -129,7 +129,7 @@ public class CashReceiptDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests true is returned for a positive asset
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_asset_positveAmount() throws Exception {
@@ -140,7 +140,7 @@ public class CashReceiptDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests false is returned for a negative asset
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_asset_negativeAmount() throws Exception {
@@ -152,7 +152,7 @@ public class CashReceiptDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests an <code>IllegalStateException</code> is thrown for a zero asset
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_asset_zeroAmount() throws Exception {
@@ -164,7 +164,7 @@ public class CashReceiptDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests false is returned for aity
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_liability_positveAmount() throws Exception {
@@ -175,7 +175,7 @@ public class CashReceiptDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests true is returned for a negative liability
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_liability_negativeAmount() throws Exception {
@@ -187,7 +187,7 @@ public class CashReceiptDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests an <code>IllegalStateException</code> is thrown for a zero liability
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_liability_zeroAmount() throws Exception {

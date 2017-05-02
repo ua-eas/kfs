@@ -1,33 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.batch.service.impl;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.service.AccountService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.batch.SufficientFundsAccountUpdateStep;
 import org.kuali.kfs.gl.batch.service.SufficientFundsAccountUpdateService;
@@ -38,6 +31,7 @@ import org.kuali.kfs.gl.dataaccess.BalanceDao;
 import org.kuali.kfs.gl.dataaccess.SufficientFundBalancesDao;
 import org.kuali.kfs.gl.dataaccess.SufficientFundRebuildDao;
 import org.kuali.kfs.gl.service.SufficientFundsService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -48,9 +42,15 @@ import org.kuali.kfs.sys.service.ReportWriterService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.krad.service.BusinessObjectService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * The default implementation of SufficientFundsAccountUpdateService
@@ -98,7 +98,7 @@ public class SufficientFundsAccountUpdateServiceImpl implements SufficientFundsA
 
     /**
      * Returns the fiscal year, set in a parameter, of sufficient funds to rebuild
-     * 
+     *
      * @return the fiscal year
      */
     protected Integer getFiscalYear() {
@@ -108,27 +108,28 @@ public class SufficientFundsAccountUpdateServiceImpl implements SufficientFundsA
 
     /**
      * Rebuilds all necessary sufficient funds balances.
+     *
      * @see org.kuali.kfs.gl.batch.service.SufficientFundsAccountUpdateService#rebuildSufficientFunds()
      */
     public void rebuildSufficientFunds() { // driver
-        List <SufficientFundRebuild> rebuildSfrbList = new ArrayList<SufficientFundRebuild>(); 
-        
+        List<SufficientFundRebuild> rebuildSfrbList = new ArrayList<SufficientFundRebuild>();
+
         LOG.debug("rebuildSufficientFunds() started");
 
         universityFiscalYear = getFiscalYear();
         initService();
-        
+
         //need to add time info - batch util?
         runDate = dateTimeService.getCurrentSqlDate();
-        
+
         // Get all the O types and convert them to A types
         if (LOG.isDebugEnabled()) {
             LOG.debug("rebuildSufficientFunds() Converting O types to A types");
         }
         Map criteria = new HashMap();
         criteria.put(KFSPropertyConstants.ACCOUNT_FINANCIAL_OBJECT_TYPE_CODE, KFSConstants.SF_TYPE_OBJECT);
-        
-        for (Iterator iter = boService.findMatching(SufficientFundRebuild.class, criteria).iterator(); iter.hasNext();) {
+
+        for (Iterator iter = boService.findMatching(SufficientFundRebuild.class, criteria).iterator(); iter.hasNext(); ) {
             SufficientFundRebuild sfrb = (SufficientFundRebuild) iter.next();
             ++sfrbRecordsReadCount;
 
@@ -140,15 +141,15 @@ public class SufficientFundsAccountUpdateServiceImpl implements SufficientFundsA
                 reportWriterService.writeError(sfrb, transactionErrors);
                 rebuildSfrbList.add(sfrb);
             }
-          }
+        }
         criteria.clear();
-        
+
         // Get all the A types and process them
         LOG.debug("rebuildSufficientFunds() Calculating SF balances for all A types");
-        
+
         criteria.put(KFSPropertyConstants.ACCOUNT_FINANCIAL_OBJECT_TYPE_CODE, KFSConstants.SF_TYPE_ACCOUNT);
 
-        for (Iterator iter = boService.findMatching(SufficientFundRebuild.class, criteria).iterator(); iter.hasNext();) {
+        for (Iterator iter = boService.findMatching(SufficientFundRebuild.class, criteria).iterator(); iter.hasNext(); ) {
             SufficientFundRebuild sfrb = (SufficientFundRebuild) iter.next();
             ++sfrbRecordsReadCount;
 
@@ -163,12 +164,12 @@ public class SufficientFundsAccountUpdateServiceImpl implements SufficientFundsA
 
         }
         sufficientFundRebuildDao.purgeSufficientFundRebuild();
-        boService.save( rebuildSfrbList);
+        boService.save(rebuildSfrbList);
 
         // Look at all the left over rows. There shouldn't be any left if all are O's and A's without error.
         // Write out error messages for any that aren't A or O
         LOG.debug("rebuildSufficientFunds() Handle any non-A and non-O types");
-        for (Iterator iter = boService.findAll(SufficientFundRebuild.class).iterator(); iter.hasNext();) {
+        for (Iterator iter = boService.findAll(SufficientFundRebuild.class).iterator(); iter.hasNext(); ) {
             SufficientFundRebuild sfrb = (SufficientFundRebuild) iter.next();
 
             if ((!KFSConstants.SF_TYPE_ACCOUNT.equals(sfrb.getAccountFinancialObjectTypeCode())) && (!KFSConstants.SF_TYPE_OBJECT.equals(sfrb.getAccountFinancialObjectTypeCode()))) {
@@ -185,7 +186,7 @@ public class SufficientFundsAccountUpdateServiceImpl implements SufficientFundsA
         if (LOG.isDebugEnabled()) {
             LOG.debug("rebuildSufficientFunds() Create report");
         }
-        
+
         // write out statistics
         reportWriterService.writeStatisticLine("                                   SFRB RECORDS CONVERTED FROM OBJECT TO ACCOUNT  %,9d\n", sfrbRecordsConvertedCount);
         reportWriterService.writeStatisticLine("                                   POST CONVERSION SFRB RECORDS READ              %,9d\n", sfrbRecordsReadCount);
@@ -205,7 +206,7 @@ public class SufficientFundsAccountUpdateServiceImpl implements SufficientFundsA
 
         runDate = new Date(dateTimeService.getCurrentDate().getTime());
 
-        options = (SystemOptions)boService.findBySinglePrimaryKey(SystemOptions.class, universityFiscalYear);
+        options = (SystemOptions) boService.findBySinglePrimaryKey(SystemOptions.class, universityFiscalYear);
 
         if (options == null) {
             throw new IllegalStateException(kualiConfigurationService.getPropertyValueAsString(KFSKeyConstants.ERROR_UNIV_DATE_NOT_FOUND));
@@ -215,21 +216,21 @@ public class SufficientFundsAccountUpdateServiceImpl implements SufficientFundsA
     /**
      * Given an O SF rebuild type, it will look up all of the matching balances in the table and add each account it finds as an A
      * SF rebuild type.
-     * 
+     *
      * @param sfrb the sufficient fund rebuild record to convert
      */
     public void convertOtypeToAtypes(SufficientFundRebuild sfrb) {
         ++sfrbRecordsConvertedCount;
         Collection fundBalances = sufficientFundBalancesDao.getByObjectCode(universityFiscalYear, sfrb.getChartOfAccountsCode(), sfrb.getAccountNumberFinancialObjectCode());
         Map criteria = new HashMap();
-        
-        for (Iterator fundBalancesIter = fundBalances.iterator(); fundBalancesIter.hasNext();) {
+
+        for (Iterator fundBalancesIter = fundBalances.iterator(); fundBalancesIter.hasNext(); ) {
             SufficientFundBalances sfbl = (SufficientFundBalances) fundBalancesIter.next();
             criteria.put(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, sfbl.getChartOfAccountsCode());
             criteria.put(KFSPropertyConstants.ACCOUNT_FINANCIAL_OBJECT_TYPE_CODE, KFSConstants.SF_TYPE_ACCOUNT);
             criteria.put(KFSPropertyConstants.ACCOUNT_NUMBER_FINANCIAL_OBJECT_CODE, sfbl.getAccountNumber());
-            
-            SufficientFundRebuild altSfrb = (SufficientFundRebuild)boService.findByPrimaryKey(SufficientFundRebuild.class, criteria);
+
+            SufficientFundRebuild altSfrb = (SufficientFundRebuild) boService.findByPrimaryKey(SufficientFundRebuild.class, criteria);
             if (altSfrb == null) {
                 altSfrb = new SufficientFundRebuild();
                 altSfrb.setAccountFinancialObjectTypeCode(KFSConstants.SF_TYPE_ACCOUNT);
@@ -243,7 +244,7 @@ public class SufficientFundsAccountUpdateServiceImpl implements SufficientFundsA
 
     /**
      * Updates sufficient funds balances for the given account
-     * 
+     *
      * @param sfrb the sufficient fund rebuild record, with a chart and account number
      */
     public void calculateSufficientFundsByAccount(SufficientFundRebuild sfrb) {
@@ -253,15 +254,15 @@ public class SufficientFundsAccountUpdateServiceImpl implements SufficientFundsA
             LOG.error(msg);
             throw new RuntimeException(msg);
         }
-        if ((sfrbAccount.getAccountSufficientFundsCode() != null) 
-                && (KFSConstants.SF_TYPE_ACCOUNT.equals(sfrbAccount.getAccountSufficientFundsCode()) 
-                        || KFSConstants.SF_TYPE_CASH_AT_ACCOUNT.equals(sfrbAccount.getAccountSufficientFundsCode()) 
-                        || KFSConstants.SF_TYPE_CONSOLIDATION.equals(sfrbAccount.getAccountSufficientFundsCode()) 
-                        || KFSConstants.SF_TYPE_LEVEL.equals(sfrbAccount.getAccountSufficientFundsCode()) 
-                        || KFSConstants.SF_TYPE_OBJECT.equals(sfrbAccount.getAccountSufficientFundsCode()) 
-                        || KFSConstants.SF_TYPE_NO_CHECKING.equals(sfrbAccount.getAccountSufficientFundsCode()))) {
+        if ((sfrbAccount.getAccountSufficientFundsCode() != null)
+            && (KFSConstants.SF_TYPE_ACCOUNT.equals(sfrbAccount.getAccountSufficientFundsCode())
+            || KFSConstants.SF_TYPE_CASH_AT_ACCOUNT.equals(sfrbAccount.getAccountSufficientFundsCode())
+            || KFSConstants.SF_TYPE_CONSOLIDATION.equals(sfrbAccount.getAccountSufficientFundsCode())
+            || KFSConstants.SF_TYPE_LEVEL.equals(sfrbAccount.getAccountSufficientFundsCode())
+            || KFSConstants.SF_TYPE_OBJECT.equals(sfrbAccount.getAccountSufficientFundsCode())
+            || KFSConstants.SF_TYPE_NO_CHECKING.equals(sfrbAccount.getAccountSufficientFundsCode()))) {
             ++sfrbRecordsDeletedCount;
-             sfblDeletedCount += sufficientFundBalancesDao.deleteByAccountNumber(universityFiscalYear, sfrb.getChartOfAccountsCode(), sfrbAccount.getAccountNumber());
+            sfblDeletedCount += sufficientFundBalancesDao.deleteByAccountNumber(universityFiscalYear, sfrb.getChartOfAccountsCode(), sfrbAccount.getAccountNumber());
 
             if (KFSConstants.SF_TYPE_NO_CHECKING.equalsIgnoreCase(sfrbAccount.getAccountSufficientFundsCode())) {
                 // nothing to do here, no errors either, just return
@@ -302,16 +303,13 @@ public class SufficientFundsAccountUpdateServiceImpl implements SufficientFundsA
                     currentSfbl.setCurrentBudgetBalanceAmount(KualiDecimal.ZERO);
                 }
 
-                if (sfrbAccount.isForContractsAndGrants()) {
-                    balance.setAccountLineAnnualBalanceAmount(balance.getAccountLineAnnualBalanceAmount().add(balance.getContractsGrantsBeginningBalanceAmount()));
-                }
+                balance.setAccountLineAnnualBalanceAmount(balance.getAccountLineAnnualBalanceAmount().add(balance.getContractsGrantsBeginningBalanceAmount()));
 
                 if (KFSConstants.SF_TYPE_CASH_AT_ACCOUNT.equals(sfrbAccount.getAccountSufficientFundsCode())) {
                     processCash(sfrbAccount, balance);
-                 }
-                else {
+                } else {
                     processObjectOrAccount(sfrbAccount, balance);
-                 }
+                }
             }
 
             // save the last one
@@ -319,8 +317,7 @@ public class SufficientFundsAccountUpdateServiceImpl implements SufficientFundsA
                 boService.save(currentSfbl);
                 ++sfblInsertedCount;
             }
-         }
-        else {
+        } else {
             addTransactionError(kualiConfigurationService.getPropertyValueAsString(KFSKeyConstants.ERROR_INVALID_ACCOUNT_SF_CODE_FOR));
             ++warningCount;
             ++sfrbNotDeletedCount;
@@ -330,7 +327,7 @@ public class SufficientFundsAccountUpdateServiceImpl implements SufficientFundsA
 
     /**
      * Determines if all sums associated with a sufficient funds balance are zero
-     * 
+     *
      * @param sfbl the sufficient funds balance to check
      * @return true if all sums in the balance are zero, false otherwise
      */
@@ -344,19 +341,17 @@ public class SufficientFundsAccountUpdateServiceImpl implements SufficientFundsA
 
     /**
      * Determines how best to process the given balance
-     * 
+     *
      * @param sfrbAccount the account of the current sufficient funds balance rebuild record
-     * @param balance the cash encumbrance balance to update the sufficient funds balance with
+     * @param balance     the cash encumbrance balance to update the sufficient funds balance with
      */
     protected void processObjectOrAccount(Account sfrbAccount, Balance balance) {
         if (options.getFinObjTypeExpenditureexpCd().equals(balance.getObjectTypeCode()) || options.getFinObjTypeExpendNotExpCode().equals(balance.getObjectTypeCode()) || options.getFinObjTypeExpNotExpendCode().equals(balance.getObjectTypeCode()) || options.getFinancialObjectTypeTransferExpenseCd().equals(balance.getObjectTypeCode())) {
             if (options.getActualFinancialBalanceTypeCd().equals(balance.getBalanceTypeCode())) {
                 processObjtAcctActual(balance);
-            }
-            else if (options.getExtrnlEncumFinBalanceTypCd().equals(balance.getBalanceTypeCode()) || options.getIntrnlEncumFinBalanceTypCd().equals(balance.getBalanceTypeCode()) || options.getPreencumbranceFinBalTypeCd().equals(balance.getBalanceTypeCode()) || options.getCostShareEncumbranceBalanceTypeCd().equals(balance.getBalanceTypeCode())) {
+            } else if (options.getExtrnlEncumFinBalanceTypCd().equals(balance.getBalanceTypeCode()) || options.getIntrnlEncumFinBalanceTypCd().equals(balance.getBalanceTypeCode()) || options.getPreencumbranceFinBalTypeCd().equals(balance.getBalanceTypeCode()) || options.getCostShareEncumbranceBalanceTypeCd().equals(balance.getBalanceTypeCode())) {
                 processObjtAcctEncmbrnc(balance);
-            }
-            else if (options.getBudgetCheckingBalanceTypeCd().equals(balance.getBalanceTypeCode())) {
+            } else if (options.getBudgetCheckingBalanceTypeCd().equals(balance.getBalanceTypeCode())) {
                 processObjtAcctBudget(balance);
             }
         }
@@ -364,7 +359,7 @@ public class SufficientFundsAccountUpdateServiceImpl implements SufficientFundsA
 
     /**
      * Updates the current sufficient fund balance record with a non-cash actual balance
-     * 
+     *
      * @param balance the cash encumbrance balance to update the sufficient funds balance with
      */
     protected void processObjtAcctActual(Balance balance) {
@@ -373,7 +368,7 @@ public class SufficientFundsAccountUpdateServiceImpl implements SufficientFundsA
 
     /**
      * Updates the current sufficient fund balance record with a non-cash encumbrance balance
-     * 
+     *
      * @param balance the cash encumbrance balance to update the sufficient funds balance with
      */
     protected void processObjtAcctEncmbrnc(Balance balance) {
@@ -383,7 +378,7 @@ public class SufficientFundsAccountUpdateServiceImpl implements SufficientFundsA
 
     /**
      * Updates the current sufficient fund balance record with a non-cash budget balance
-     * 
+     *
      * @param balance the cash encumbrance balance to update the sufficient funds balance with
      */
     protected void processObjtAcctBudget(Balance balance) {
@@ -393,17 +388,16 @@ public class SufficientFundsAccountUpdateServiceImpl implements SufficientFundsA
 
     /**
      * Determines how best to process a cash balance
-     * 
+     *
      * @param sfrbAccount the account of the current sufficient funds balance record
-     * @param balance the cash encumbrance balance to update the sufficient funds balance with
+     * @param balance     the cash encumbrance balance to update the sufficient funds balance with
      */
     protected void processCash(Account sfrbAccount, Balance balance) {
         if (balance.getBalanceTypeCode().equals(options.getActualFinancialBalanceTypeCd())) {
             if (balance.getObjectCode().equals(sfrbAccount.getChartOfAccounts().getFinancialCashObjectCode()) || balance.getObjectCode().equals(sfrbAccount.getChartOfAccounts().getFinAccountsPayableObjectCode())) {
                 processCashActual(sfrbAccount, balance);
             }
-        }
-        else if (balance.getBalanceTypeCode().equals(options.getExtrnlEncumFinBalanceTypCd()) || balance.getBalanceTypeCode().equals(options.getIntrnlEncumFinBalanceTypCd()) || balance.getBalanceTypeCode().equals(options.getPreencumbranceFinBalTypeCd()) || options.getCostShareEncumbranceBalanceTypeCd().equals(balance.getBalanceTypeCode())) {
+        } else if (balance.getBalanceTypeCode().equals(options.getExtrnlEncumFinBalanceTypCd()) || balance.getBalanceTypeCode().equals(options.getIntrnlEncumFinBalanceTypCd()) || balance.getBalanceTypeCode().equals(options.getPreencumbranceFinBalTypeCd()) || options.getCostShareEncumbranceBalanceTypeCd().equals(balance.getBalanceTypeCode())) {
             if (balance.getObjectTypeCode().equals(options.getFinObjTypeExpenditureexpCd()) || balance.getObjectTypeCode().equals(options.getFinObjTypeExpendNotExpCode()) || options.getFinancialObjectTypeTransferExpenseCd().equals(balance.getObjectTypeCode()) || options.getFinObjTypeExpNotExpendCode().equals(balance.getObjectTypeCode())) {
                 processCashEncumbrance(balance);
             }
@@ -412,9 +406,9 @@ public class SufficientFundsAccountUpdateServiceImpl implements SufficientFundsA
 
     /**
      * Updates the current sufficient fund balance record with a cash actual balance
-     * 
+     *
      * @param sfrbAccount the account of the current sufficient funds balance record
-     * @param balance the cash encumbrance balance to update the sufficient funds balance with
+     * @param balance     the cash encumbrance balance to update the sufficient funds balance with
      */
     protected void processCashActual(Account sfrbAccount, Balance balance) {
         if (balance.getObjectCode().equals(sfrbAccount.getChartOfAccounts().getFinancialCashObjectCode())) {
@@ -429,7 +423,7 @@ public class SufficientFundsAccountUpdateServiceImpl implements SufficientFundsA
 
     /**
      * Updates the current sufficient funds balance with a cash encumbrance balance
-     * 
+     *
      * @param balance the cash encumbrance balance to update the sufficient funds balance with
      */
     protected void processCashEncumbrance(Balance balance) {
@@ -439,6 +433,7 @@ public class SufficientFundsAccountUpdateServiceImpl implements SufficientFundsA
 
     /**
      * Adds an error message to this instance's List of error messages
+     *
      * @param errorMessage the error message to keep
      */
     protected void addTransactionError(String errorMessage) {
@@ -472,11 +467,11 @@ public class SufficientFundsAccountUpdateServiceImpl implements SufficientFundsA
     public void setSufficientFundsService(SufficientFundsService sfs) {
         sufficientFundsService = sfs;
     }
-    
+
     public void setBusinessObjectService(BusinessObjectService bos) {
         boService = bos;
     }
-    
+
     public void setSufficientFundRebuildDao(SufficientFundRebuildDao sufficientFundRebuildDao) {
         this.sufficientFundRebuildDao = sufficientFundRebuildDao;
     }

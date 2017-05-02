@@ -1,34 +1,38 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.batch;
 
-import java.io.*;
-
 import org.apache.commons.io.IOUtils;
+import org.kuali.kfs.kns.bo.Step;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.batch.BatchDirectoryHelper;
 import org.kuali.kfs.sys.batch.BatchSpringContext;
-import org.kuali.kfs.sys.batch.Step;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.ProxyUtils;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * Tests the CollecterStep. DEPENDENCIES: Collector card xml file transaction1.xml must be in /opt/kuali/dev/staging/collector/ this
@@ -54,16 +58,16 @@ public class CollectorStepTest extends KualiTestBase {
 
     /**
      * Creates originEntry directory if needed and .done file for test input file.
-     * 
+     *
      * @see junit.framework.TestCase#setUp()
      */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
 
-        originEntryBatchDirectoryHelper = new BatchDirectoryHelper("gl","originEntry");
+        originEntryBatchDirectoryHelper = new BatchDirectoryHelper("gl", "originEntry");
         originEntryBatchDirectoryHelper.createBatchDirectory();
-        collectorXmlBatchDirectoryHelper = new BatchDirectoryHelper("gl","collectorXml");
+        collectorXmlBatchDirectoryHelper = new BatchDirectoryHelper("gl", "collectorXml");
         collectorXmlBatchDirectoryHelper.createBatchDirectory();
 
         // copy fixture files to directory
@@ -139,7 +143,7 @@ public class CollectorStepTest extends KualiTestBase {
 
     /**
      * Determines if the .done file with the expected file name exists
-     * 
+     *
      * @return true if the done file exists, false otherwise
      */
     protected boolean isDoneFileExists() {
@@ -149,7 +153,7 @@ public class CollectorStepTest extends KualiTestBase {
 
     /**
      * Generates the standard name of the .done file to check
-     * 
+     *
      * @return the full path and name of the done file to check
      */
     protected String generateDoneFileName() {
@@ -164,15 +168,14 @@ public class CollectorStepTest extends KualiTestBase {
         try {
             Step step = BatchSpringContext.getStep("collectorStep");
             CollectorStep collectorStep = (CollectorStep) ProxyUtils.getTargetIfProxied(step);
-            
+
             DateTimeService dateTimeService = SpringContext.getBean(DateTimeService.class);
 
             boolean goodExit = collectorStep.execute(getClass().getName(), dateTimeService.getCurrentDate());
 
             assertTrue("collector step did not exit with pass", goodExit);
             assertFalse("done file was not removed", isDoneFileExists());
-        }
-        finally {
+        } finally {
             deleteDoneFile();
         }
     }

@@ -1,33 +1,34 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.batch;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.log4j.Logger;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.bo.Step;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.beans.factory.InitializingBean;
 
-public abstract class AbstractStep extends InitiateDirectoryBase implements Step, BeanNameAware, InitializingBean, InitiateDirectory{
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class AbstractStep extends InitiateDirectoryBase implements Step, BeanNameAware, InitializingBean, InitiateDirectory {
 
     private static final Logger LOG = Logger.getLogger(AbstractStep.class);
 
@@ -51,7 +52,7 @@ public abstract class AbstractStep extends InitiateDirectoryBase implements Step
 
     /**
      * By default it should use batchInpeutFile (single file) directory path as the required directory name.
-     *
+     * <p>
      * Subclasses should override this function to provide any custom required directory list.
      *
      * @see org.kuali.kfs.sys.batch.service.InitiateDirectoryInterface#getRequiredDirectoryNames()
@@ -59,7 +60,7 @@ public abstract class AbstractStep extends InitiateDirectoryBase implements Step
     @Override
     public List<String> getRequiredDirectoryNames() {
         List<String> requiredDirectoryList = new ArrayList<String>();
-        if (batchInputFileType != null){
+        if (batchInputFileType != null) {
             LOG.info(batchInputFileType.getClass().getName() + " ==> " + batchInputFileType.getDirectoryPath());
             requiredDirectoryList.add(batchInputFileType.getDirectoryPath());
         }

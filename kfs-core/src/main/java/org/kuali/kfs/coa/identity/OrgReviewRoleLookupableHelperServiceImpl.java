@@ -1,34 +1,32 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.coa.identity;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.service.OrgReviewRoleService;
+import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import edu.arizona.kfs.sys.identity.KfsKimAttributes;
@@ -46,14 +44,17 @@ import org.kuali.rice.kim.api.role.RoleMember;
 import org.kuali.rice.kim.api.role.RoleMemberQueryResults;
 import org.kuali.rice.kim.api.role.RoleQueryResults;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.rice.kns.document.authorization.BusinessObjectRestrictions;
-import org.kuali.rice.kns.lookup.HtmlData;
-import org.kuali.rice.kns.lookup.HtmlData.AnchorHtmlData;
-import org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.rice.kns.web.struts.form.LookupForm;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.UrlFactory;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+
 public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHelperServiceImpl {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(OrgReviewRoleLookupableHelperServiceImpl.class);
 
@@ -63,23 +64,22 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
     protected static final String MEMBER_ATTRIBUTE_NAME_KEY = "attributeDetails.kimAttribute.attributeName";
     protected static final String MEMBER_ATTRIBUTE_VALUE_KEY = "attributeDetails.attributeValue";
 
-    protected static final Map<String,Map<DelegationType,String>> DELEGATION_ID_CACHE = new HashMap<String, Map<DelegationType,String>>(2);
+    protected static final Map<String, Map<DelegationType, String>> DELEGATION_ID_CACHE = new HashMap<String, Map<DelegationType, String>>(2);
 
     protected static final String DELEGATE_SEARCH_IND = "delegate";
 
     @Override
     public Collection performLookup(LookupForm lookupForm, Collection resultTable, boolean bounded) {
         lookupForm.setShowMaintenanceLinks(true);
-        lookupForm.setSuppressActions(false);
         lookupForm.setHideReturnLink(true);
         return super.performLookup(lookupForm, resultTable, bounded);
     }
 
     @Override
-    public List<HtmlData> getCustomActionUrls(BusinessObject businessObject, List pkNames){
-        OrgReviewRole orr = (OrgReviewRole)businessObject;
+    public List<HtmlData> getCustomActionUrls(BusinessObject businessObject, List pkNames) {
+        OrgReviewRole orr = (OrgReviewRole) businessObject;
         List<HtmlData> htmlDataList = super.getCustomActionUrls(businessObject, pkNames);
-        if(StringUtils.isNotBlank(getMaintenanceDocumentTypeName()) && allowsMaintenanceEditAction(businessObject) && !orr.isDelegate()) {
+        if (StringUtils.isNotBlank(getMaintenanceDocumentTypeName()) && allowsMaintenanceEditAction(businessObject) && !orr.isDelegate()) {
             HtmlData createDelegationUrl = getCreateDelegationUrl(businessObject, pkNames);
             //createDelegationUrl.setDisplayText(KFSConstants.COAConstants.ORG_REVIEW_ROLE_CREATE_DELEGATION_DISPLAY_TEXT);
             htmlDataList.add(createDelegationUrl);
@@ -87,13 +87,13 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
         return htmlDataList;
     }
 
-    protected AnchorHtmlData getCreateDelegationUrl(BusinessObject businessObject, List pkNames){
-        OrgReviewRole orr = (OrgReviewRole)businessObject;
+    protected AnchorHtmlData getCreateDelegationUrl(BusinessObject businessObject, List pkNames) {
+        OrgReviewRole orr = (OrgReviewRole) businessObject;
         Properties parameters = new Properties();
         parameters.put(OrgReviewRole.ORIGINAL_DELEGATION_MEMBER_ID_TO_MODIFY, OrgReviewRole.NEW_DELEGATION_ID_KEY_VALUE);
         parameters.put(KFSConstants.DISPATCH_REQUEST_PARAMETER, KRADConstants.MAINTENANCE_EDIT_METHOD_TO_CALL);
         parameters.put(KRADConstants.BUSINESS_OBJECT_CLASS_ATTRIBUTE, businessObject.getClass().getName());
-        parameters.put(KRADConstants.COPY_KEYS, OrgReviewRole.ORIGINAL_DELEGATION_MEMBER_ID_TO_MODIFY+","+OrgReviewRole.ORIGINAL_ROLE_MEMBER_ID_TO_MODIFY+","+KRADConstants.DISPATCH_REQUEST_PARAMETER);
+        parameters.put(KRADConstants.COPY_KEYS, OrgReviewRole.ORIGINAL_DELEGATION_MEMBER_ID_TO_MODIFY + "," + OrgReviewRole.ORIGINAL_ROLE_MEMBER_ID_TO_MODIFY + "," + KRADConstants.DISPATCH_REQUEST_PARAMETER);
         parameters.put(OrgReviewRole.ORIGINAL_ROLE_MEMBER_ID_TO_MODIFY, orr.getRoleMemberId());
         String href = UrlFactory.parameterizeUrl(KRADConstants.MAINTENANCE_ACTION, parameters);
 
@@ -101,25 +101,25 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
     }
 
     @Override
-    protected String getActionUrlHref(BusinessObject businessObject, String methodToCall, List pkNames){
-        OrgReviewRole orr = (OrgReviewRole)businessObject;
+    protected String getActionUrlHref(BusinessObject businessObject, String methodToCall, List pkNames) {
+        OrgReviewRole orr = (OrgReviewRole) businessObject;
         Properties parameters = new Properties();
         parameters.put(KRADConstants.DISPATCH_REQUEST_PARAMETER, methodToCall);
         parameters.put(KRADConstants.BUSINESS_OBJECT_CLASS_ATTRIBUTE, OrgReviewRole.class.getName());
 
-        if(orr.isDelegate()){
-            parameters.put(KRADConstants.COPY_KEYS, OrgReviewRole.ORIGINAL_DELEGATION_MEMBER_ID_TO_MODIFY+","+KRADConstants.DISPATCH_REQUEST_PARAMETER);
+        if (orr.isDelegate()) {
+            parameters.put(KRADConstants.COPY_KEYS, OrgReviewRole.ORIGINAL_DELEGATION_MEMBER_ID_TO_MODIFY + "," + KRADConstants.DISPATCH_REQUEST_PARAMETER);
             parameters.put(OrgReviewRole.ORIGINAL_DELEGATION_MEMBER_ID_TO_MODIFY, orr.getDelegationMemberId());
         } else {
-            parameters.put(KRADConstants.COPY_KEYS, OrgReviewRole.ORIGINAL_DELEGATION_MEMBER_ID_TO_MODIFY+","+OrgReviewRole.ORIGINAL_ROLE_MEMBER_ID_TO_MODIFY+","+KRADConstants.DISPATCH_REQUEST_PARAMETER);
+            parameters.put(KRADConstants.COPY_KEYS, OrgReviewRole.ORIGINAL_DELEGATION_MEMBER_ID_TO_MODIFY + "," + OrgReviewRole.ORIGINAL_ROLE_MEMBER_ID_TO_MODIFY + "," + KRADConstants.DISPATCH_REQUEST_PARAMETER);
             parameters.put(OrgReviewRole.ORIGINAL_ROLE_MEMBER_ID_TO_MODIFY, orr.getRoleMemberId());
         }
         return UrlFactory.parameterizeUrl(KRADConstants.MAINTENANCE_ACTION, parameters);
     }
 
-    protected List<String> getOverridePKNamesForActionLinks(OrgReviewRole orr){
+    protected List<String> getOverridePKNamesForActionLinks(OrgReviewRole orr) {
         List overridePKNames = new ArrayList<String>();
-        if(orr.isDelegate()) {
+        if (orr.isDelegate()) {
             overridePKNames.add(KimConstants.PrimaryKeyConstants.DELEGATION_MEMBER_ID);
         } else {
             overridePKNames.add(KimConstants.PrimaryKeyConstants.ROLE_MEMBER_ID);
@@ -128,13 +128,13 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
     }
 
     @Override
-    protected String getActionUrlTitleText(BusinessObject businessObject, String displayText, List pkNames, BusinessObjectRestrictions businessObjectRestrictions){
-        OrgReviewRole orr = (OrgReviewRole)businessObject;
+    protected String getActionUrlTitleText(BusinessObject businessObject, String displayText, List pkNames, BusinessObjectRestrictions businessObjectRestrictions) {
+        OrgReviewRole orr = (OrgReviewRole) businessObject;
         return super.getActionUrlTitleText(businessObject, displayText, getOverridePKNamesForActionLinks(orr), businessObjectRestrictions);
     }
 
     @Override
-    public List<? extends BusinessObject> getSearchResults(Map<String,String> fieldValues) {
+    public List<? extends BusinessObject> getSearchResults(Map<String, String> fieldValues) {
         return getMemberSearchResults(fieldValues);
     }
 
@@ -143,11 +143,11 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
      */
     @Override
     public List<? extends BusinessObject> getSearchResultsUnbounded(
-            Map<String, String> fieldValues) {
+        Map<String, String> fieldValues) {
         return getMemberSearchResults(fieldValues);
     }
 
-    protected List<? extends BusinessObject> getMemberSearchResults(Map<String, String> fieldValues){
+    protected List<? extends BusinessObject> getMemberSearchResults(Map<String, String> fieldValues) {
         String delegateSearchIndicator = fieldValues.get(DELEGATE_SEARCH_IND);
         String documentTypeName = fieldValues.get(KfsKimAttributes.FINANCIAL_SYSTEM_DOCUMENT_TYPE_CODE);
         List<KfsKimDocDelegateMember> searchResultsDelegationMembers = new ArrayList<KfsKimDocDelegateMember>();
@@ -155,15 +155,15 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
 
         boolean delegateBoolean = getBooleanValueForString(delegateSearchIndicator, false);
 
-        if(StringUtils.isBlank(delegateSearchIndicator) || delegateBoolean ) {
+        if (StringUtils.isBlank(delegateSearchIndicator) || delegateBoolean) {
             Map<String, String> searchCriteriaDelegations = buildOrgReviewRoleSearchCriteriaForDelegations(documentTypeName, fieldValues);
-            if ( searchCriteriaDelegations != null ) {
+            if (searchCriteriaDelegations != null) {
                 searchResultsDelegationMembers.addAll(searchDelegations(searchCriteriaDelegations));
             }
         }
-        if(StringUtils.isBlank(delegateSearchIndicator) || !delegateBoolean ) {
+        if (StringUtils.isBlank(delegateSearchIndicator) || !delegateBoolean) {
             Map<String, String> searchCriteriaRoleMembers = buildOrgReviewRoleSearchCriteria(documentTypeName, fieldValues);
-            if ( searchCriteriaRoleMembers != null ) {
+            if (searchCriteriaRoleMembers != null) {
                 searchResultsRoleMembers.addAll(searchRoleMembers(searchCriteriaRoleMembers));
             }
         }
@@ -193,66 +193,66 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
         return principalIds;
     }
 
-    protected List<String> getGroupIdsForWildcardedGroupName( String namespaceCode, String groupName ) {
+    protected List<String> getGroupIdsForWildcardedGroupName(String namespaceCode, String groupName) {
         Map<String, String> searchCriteria = new HashMap<String, String>(2);
-        if( StringUtils.isNotBlank(namespaceCode) ) {
+        if (StringUtils.isNotBlank(namespaceCode)) {
             searchCriteria.put(KimConstants.UniqueKeyConstants.NAMESPACE_CODE, namespaceCode);
         }
-        if( StringUtils.isNotBlank(groupName) ) {
+        if (StringUtils.isNotBlank(groupName)) {
             searchCriteria.put(KimConstants.UniqueKeyConstants.GROUP_NAME, getWildcardValue(groupName));
         }
-        if ( searchCriteria.isEmpty() ) {
+        if (searchCriteria.isEmpty()) {
             return Collections.emptyList();
         }
-        return KimApiServiceLocator.getGroupService().findGroupIds( QueryByCriteria.Builder.fromPredicates(PredicateUtils.convertMapToPredicate(searchCriteria) ) );
+        return KimApiServiceLocator.getGroupService().findGroupIds(QueryByCriteria.Builder.fromPredicates(PredicateUtils.convertMapToPredicate(searchCriteria)));
     }
 
-    protected List<String> getRoleIdsForWildcardedRoleName( String namespaceCode, String roleName ) {
+    protected List<String> getRoleIdsForWildcardedRoleName(String namespaceCode, String roleName) {
         Map<String, String> searchCriteria = new HashMap<String, String>(2);
-        if( StringUtils.isNotBlank(namespaceCode) ) {
+        if (StringUtils.isNotBlank(namespaceCode)) {
             searchCriteria.put(KimConstants.UniqueKeyConstants.NAMESPACE_CODE, namespaceCode);
         }
-        if( StringUtils.isNotBlank(roleName) ) {
+        if (StringUtils.isNotBlank(roleName)) {
             searchCriteria.put(KimConstants.UniqueKeyConstants.NAME, getWildcardValue(roleName));
         }
-        if ( searchCriteria.isEmpty() ) {
+        if (searchCriteria.isEmpty()) {
             return Collections.emptyList();
         }
-        RoleQueryResults results = KimApiServiceLocator.getRoleService().findRoles( QueryByCriteria.Builder.fromPredicates(PredicateUtils.convertMapToPredicate(searchCriteria) ) );
+        RoleQueryResults results = KimApiServiceLocator.getRoleService().findRoles(QueryByCriteria.Builder.fromPredicates(PredicateUtils.convertMapToPredicate(searchCriteria)));
         List<String> roleIds = new ArrayList<String>(results.getResults().size());
-        for ( Role role : results.getResults() ) {
-            roleIds.add( role.getId() );
+        for (Role role : results.getResults()) {
+            roleIds.add(role.getId());
         }
         return roleIds;
     }
 
-    protected void filterOrgReview(Map<String, String> fieldValues, List<OrgReviewRole> searchResults){
-        if ( LOG.isDebugEnabled() ) {
-            LOG.debug( "Performing local filtering of search results" );
-            LOG.debug( "Criteria: " + fieldValues );
-            LOG.debug( "Initial Results: " + searchResults );
+    protected void filterOrgReview(Map<String, String> fieldValues, List<OrgReviewRole> searchResults) {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Performing local filtering of search results");
+            LOG.debug("Criteria: " + fieldValues);
+            LOG.debug("Initial Results: " + searchResults);
         }
 
         List<String> principalIds = null;
         List<String> groupIds = null;
         List<String> roleIds = null;
 
-        if ( StringUtils.isNotBlank(fieldValues.get(OrgReviewRole.PRINCIPAL_NAME_FIELD_NAME)) ) {
+        if (StringUtils.isNotBlank(fieldValues.get(OrgReviewRole.PRINCIPAL_NAME_FIELD_NAME))) {
             principalIds = getPrincipalIdsForWildcardedPrincipalName(fieldValues.get(OrgReviewRole.PRINCIPAL_NAME_FIELD_NAME));
         }
 
-        if ( StringUtils.isNotBlank(fieldValues.get(OrgReviewRole.GROUP_NAME_FIELD_NAMESPACE_CODE))
-                || StringUtils.isNotBlank(fieldValues.get(OrgReviewRole.GROUP_NAME_FIELD_NAME)) ) {
+        if (StringUtils.isNotBlank(fieldValues.get(OrgReviewRole.GROUP_NAME_FIELD_NAMESPACE_CODE))
+            || StringUtils.isNotBlank(fieldValues.get(OrgReviewRole.GROUP_NAME_FIELD_NAME))) {
             groupIds = getGroupIdsForWildcardedGroupName(
-                    fieldValues.get(OrgReviewRole.GROUP_NAME_FIELD_NAMESPACE_CODE),
-                    fieldValues.get(OrgReviewRole.GROUP_NAME_FIELD_NAME));
+                fieldValues.get(OrgReviewRole.GROUP_NAME_FIELD_NAMESPACE_CODE),
+                fieldValues.get(OrgReviewRole.GROUP_NAME_FIELD_NAME));
         }
 
-        if ( StringUtils.isNotBlank(fieldValues.get(OrgReviewRole.ROLE_NAME_FIELD_NAMESPACE_CODE))
-                || StringUtils.isNotBlank(fieldValues.get(OrgReviewRole.ROLE_NAME_FIELD_NAME)) ) {
+        if (StringUtils.isNotBlank(fieldValues.get(OrgReviewRole.ROLE_NAME_FIELD_NAMESPACE_CODE))
+            || StringUtils.isNotBlank(fieldValues.get(OrgReviewRole.ROLE_NAME_FIELD_NAME))) {
             roleIds = getRoleIdsForWildcardedRoleName(
-                    fieldValues.get(OrgReviewRole.ROLE_NAME_FIELD_NAMESPACE_CODE),
-                    fieldValues.get(OrgReviewRole.ROLE_NAME_FIELD_NAME));
+                fieldValues.get(OrgReviewRole.ROLE_NAME_FIELD_NAMESPACE_CODE),
+                fieldValues.get(OrgReviewRole.ROLE_NAME_FIELD_NAME));
         }
 
         String financialSystemDocumentTypeCode = fieldValues.get(KfsKimAttributes.FINANCIAL_SYSTEM_DOCUMENT_TYPE_CODE);
@@ -265,19 +265,19 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
         //Loop through org review roles and remove rows where necessary
         Iterator<OrgReviewRole> it = searchResults.iterator();
 
-    	while ( it.hasNext() ) {
+        while (it.hasNext()) {
             OrgReviewRole orgReviewRole = it.next();
             boolean remove = false;
 
-    	    //check member attribute parameters
-    	    if(StringUtils.isNotBlank(organizationCode)){
-    	        //filter by chart/document type if they exist
-    	        if(StringUtils.isNotBlank(chartOfAccountsCode)){
-    	            if(!chartOfAccountsCode.equals(orgReviewRole.getChartOfAccountsCode())){
-    	                LOG.debug( "Removing RoleMember because chart does not match" );
-    	                remove = true;
-    	            }
-    	        }
+            //check member attribute parameters
+            if (StringUtils.isNotBlank(organizationCode)) {
+                //filter by chart/document type if they exist
+                if (StringUtils.isNotBlank(chartOfAccountsCode)) {
+                    if (!chartOfAccountsCode.equals(orgReviewRole.getChartOfAccountsCode())) {
+                        LOG.debug("Removing RoleMember because chart does not match");
+                        remove = true;
+                    }
+                }
 
     	        if(StringUtils.isNotBlank(financialSystemDocumentTypeCode)){
     	            if(!financialSystemDocumentTypeCode.equals(orgReviewRole.getFinancialSystemDocumentTypeCode())){
@@ -291,9 +291,9 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
     	        }
             }else if(StringUtils.isNotBlank(chartOfAccountsCode)){
                 //filter by document type if it exists
-                if(StringUtils.isNotBlank(financialSystemDocumentTypeCode)){
-                    if(!financialSystemDocumentTypeCode.equals(orgReviewRole.getFinancialSystemDocumentTypeCode())){
-                        LOG.debug( "Removing RoleMember because document type does not match" );
+                if (StringUtils.isNotBlank(financialSystemDocumentTypeCode)) {
+                    if (!financialSystemDocumentTypeCode.equals(orgReviewRole.getFinancialSystemDocumentTypeCode())) {
+                        LOG.debug("Removing RoleMember because document type does not match");
                         remove = true;
                     }
                 }
@@ -323,64 +323,64 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
             	}
             }
 
-    	    List<String> items = new ArrayList<String>();
+            List<String> items = new ArrayList<String>();
 
-    	    //check member id parameters, and only if it hasn't already been marked for removal.
-    	    if(!remove){
-                if(roleIds!=null){
-                    if(groupIds!=null){
-                        items.addAll( groupIds );
-                        if(!items.contains(orgReviewRole.getGroupMemberGroupId())){
-                            LOG.debug( "Removing RoleMember because group member id does not match" );
+            //check member id parameters, and only if it hasn't already been marked for removal.
+            if (!remove) {
+                if (roleIds != null) {
+                    if (groupIds != null) {
+                        items.addAll(groupIds);
+                        if (!items.contains(orgReviewRole.getGroupMemberGroupId())) {
+                            LOG.debug("Removing RoleMember because group member id does not match");
                             remove = true;
                         }
                     }
-                    if(principalIds!=null){
-                        items.addAll( principalIds );
-                        if(!items.contains(orgReviewRole.getPrincipalMemberPrincipalId())){
-                            LOG.debug( "Removing RoleMember because principal id does not match" );
+                    if (principalIds != null) {
+                        items.addAll(principalIds);
+                        if (!items.contains(orgReviewRole.getPrincipalMemberPrincipalId())) {
+                            LOG.debug("Removing RoleMember because principal id does not match");
                             remove = true;
                         }
                     }
 
-                }else if(groupIds!=null){
-                    if(principalIds!=null){
-                        items.addAll( principalIds );
-                        if(!items.contains(orgReviewRole.getPrincipalMemberPrincipalId())){
-                            LOG.debug( "Removing RoleMember because principal id does not match" );
+                } else if (groupIds != null) {
+                    if (principalIds != null) {
+                        items.addAll(principalIds);
+                        if (!items.contains(orgReviewRole.getPrincipalMemberPrincipalId())) {
+                            LOG.debug("Removing RoleMember because principal id does not match");
                             remove = true;
                         }
                     }
                 }
-    	    }
+            }
 
-    	    //remove if necessary
-            if(remove){
+            //remove if necessary
+            if (remove) {
                 it.remove();
             }
-    	}
+        }
     }
 
-    protected String getDelegationIdByRoleAndDelegationType( String roleId, DelegationType type ) {
-        if ( StringUtils.isBlank( roleId ) || type == null ) {
+    protected String getDelegationIdByRoleAndDelegationType(String roleId, DelegationType type) {
+        if (StringUtils.isBlank(roleId) || type == null) {
             return null;
         }
-        Map<DelegationType,String> tempCache = DELEGATION_ID_CACHE.get(roleId);
-        if ( tempCache == null ) {
+        Map<DelegationType, String> tempCache = DELEGATION_ID_CACHE.get(roleId);
+        if (tempCache == null) {
             tempCache = new HashMap<DelegationType, String>(2);
             DelegateType dt = KimApiServiceLocator.getRoleService().getDelegateTypeByRoleIdAndDelegateTypeCode(roleId, type);
-            if ( dt != null ) {
-                tempCache.put(type, dt.getDelegationId() );
+            if (dt != null) {
+                tempCache.put(type, dt.getDelegationId());
             }
             synchronized (DELEGATION_ID_CACHE) {
                 DELEGATION_ID_CACHE.put(roleId, tempCache);
             }
         } else {
-            if ( !tempCache.containsKey(type) ) {
+            if (!tempCache.containsKey(type)) {
                 DelegateType dt = KimApiServiceLocator.getRoleService().getDelegateTypeByRoleIdAndDelegateTypeCode(roleId, type);
-                if ( dt != null ) {
+                if (dt != null) {
                     synchronized (DELEGATION_ID_CACHE) {
-                        tempCache.put(type, dt.getDelegationId() );
+                        tempCache.put(type, dt.getDelegationId());
                     }
                 }
             }
@@ -388,89 +388,88 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
         return tempCache.get(type);
     }
 
-    protected void addDelegationsToDelegationMemberSearchCriteria(String documentTypeName, Map<String, String> searchCriteria){
+    protected void addDelegationsToDelegationMemberSearchCriteria(String documentTypeName, Map<String, String> searchCriteria) {
         List<String> roleNamesToSearchInto = orgReviewRoleService.getRolesToConsider(documentTypeName);
-        if(roleNamesToSearchInto!=null){
+        if (roleNamesToSearchInto != null) {
             StringBuilder rolesQueryString = new StringBuilder();
             boolean firstItem = true;
-            for( String roleName : roleNamesToSearchInto ) {
+            for (String roleName : roleNamesToSearchInto) {
                 String roleId = KimApiServiceLocator.getRoleService().getRoleIdByNamespaceCodeAndName(KFSConstants.SysKimApiConstants.ORGANIZATION_REVIEWER_ROLE_NAMESPACECODE, roleName);
-                if ( roleId != null ) {
-                    for ( DelegationType type : DelegationType.values() ) {
+                if (roleId != null) {
+                    for (DelegationType type : DelegationType.values()) {
                         String delegationId = getDelegationIdByRoleAndDelegationType(roleId, type);
-                        if ( delegationId != null ) {
-                            if ( !firstItem ) {
-                                rolesQueryString.append( KimConstants.KimUIConstants.OR_OPERATOR );
+                        if (delegationId != null) {
+                            if (!firstItem) {
+                                rolesQueryString.append(KimConstants.KimUIConstants.OR_OPERATOR);
                             } else {
                                 firstItem = false;
                             }
-                            rolesQueryString.append( delegationId );
+                            rolesQueryString.append(delegationId);
                         }
                     }
                 }
             }
-            if ( rolesQueryString.length() > 0 ) {
+            if (rolesQueryString.length() > 0) {
                 searchCriteria.put("delegationId", rolesQueryString.toString());
             }
         }
     }
 
-    protected void addRolesToRoleMemberSearchCriteria(String documentTypeName, Map<String, String> searchCriteria){
+    protected void addRolesToRoleMemberSearchCriteria(String documentTypeName, Map<String, String> searchCriteria) {
         List<String> roleNamesToSearchInto = orgReviewRoleService.getRolesToConsider(documentTypeName);
-        if( roleNamesToSearchInto != null) {
+        if (roleNamesToSearchInto != null) {
             StringBuilder rolesQueryString = new StringBuilder();
             boolean firstItem = true;
-            for ( String roleName : roleNamesToSearchInto ) {
+            for (String roleName : roleNamesToSearchInto) {
                 String roleId = KimApiServiceLocator.getRoleService().getRoleIdByNamespaceCodeAndName(KFSConstants.SysKimApiConstants.ORGANIZATION_REVIEWER_ROLE_NAMESPACECODE, roleName);
-                if ( roleId != null ) {
-                    if ( !firstItem ) {
-                        rolesQueryString.append( KimConstants.KimUIConstants.OR_OPERATOR );
+                if (roleId != null) {
+                    if (!firstItem) {
+                        rolesQueryString.append(KimConstants.KimUIConstants.OR_OPERATOR);
                     } else {
                         firstItem = false;
                     }
-                    rolesQueryString.append( roleId );
+                    rolesQueryString.append(roleId);
                 }
             }
-            if ( rolesQueryString.length() > 0 ) {
+            if (rolesQueryString.length() > 0) {
                 searchCriteria.put("roleId", rolesQueryString.toString());
             }
         }
     }
 
-    protected List<RoleMember> searchRoleMembers(Map<String, String> searchCriteriaRoleMembers){
-        if ( searchCriteriaRoleMembers == null ) {
+    protected List<RoleMember> searchRoleMembers(Map<String, String> searchCriteriaRoleMembers) {
+        if (searchCriteriaRoleMembers == null) {
             return Collections.emptyList();
         }
-        if ( LOG.isDebugEnabled() ) {
+        if (LOG.isDebugEnabled()) {
             LOG.debug("About to perform Role lookup.  Criteria: " + searchCriteriaRoleMembers);
         }
-        RoleMemberQueryResults results = KimApiServiceLocator.getRoleService().findRoleMembers( QueryByCriteria.Builder.fromPredicates( PredicateUtils.convertMapToPredicate(searchCriteriaRoleMembers)));
-        if ( LOG.isDebugEnabled() ) {
-            LOG.debug( "Role Member Lookup Results from KIM: " + results );
+        RoleMemberQueryResults results = KimApiServiceLocator.getRoleService().findRoleMembers(QueryByCriteria.Builder.fromPredicates(PredicateUtils.convertMapToPredicate(searchCriteriaRoleMembers)));
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Role Member Lookup Results from KIM: " + results);
         }
-        if ( results == null ) {
+        if (results == null) {
             return Collections.emptyList();
         }
         return results.getResults();
     }
 
-    protected List<KfsKimDocDelegateMember> searchDelegations(Map<String, String> searchCriteriaDelegateMembers){
-        DelegateMemberQueryResults queryResults = KimApiServiceLocator.getRoleService().findDelegateMembers(QueryByCriteria.Builder.fromPredicates( PredicateUtils.convertMapToPredicate(searchCriteriaDelegateMembers)));
+    protected List<KfsKimDocDelegateMember> searchDelegations(Map<String, String> searchCriteriaDelegateMembers) {
+        DelegateMemberQueryResults queryResults = KimApiServiceLocator.getRoleService().findDelegateMembers(QueryByCriteria.Builder.fromPredicates(PredicateUtils.convertMapToPredicate(searchCriteriaDelegateMembers)));
         List<DelegateMember> tmpResults = queryResults.getResults();
         Integer totalRowCount = tmpResults.size();
         ArrayList<KfsKimDocDelegateMember> results = new ArrayList<KfsKimDocDelegateMember>(totalRowCount);
-        if ( totalRowCount > 0 ) {
-            for ( DelegateMember dm : tmpResults ) {
-                results.add( new KfsKimDocDelegateMember( dm ) );
+        if (totalRowCount > 0) {
+            for (DelegateMember dm : tmpResults) {
+                results.add(new KfsKimDocDelegateMember(dm));
             }
         }
         return results;
     }
 
 
+    private static final String[] TRUE_VALUES = new String[]{"true", "yes", "t", "y"};
 
-
-    private static final String[] TRUE_VALUES = new String[] { "true", "yes", "t", "y" };
     public static boolean getBooleanValueForString(String value, boolean defaultValue) {
         if (!StringUtils.isBlank(value)) {
             for (String trueValue : TRUE_VALUES) {
@@ -483,48 +482,48 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
         return defaultValue;
     }
 
-    protected List<OrgReviewRole> flattenToOrgReviewMembers(String active, String documentTypeName, List<RoleMember> members){
-        LOG.debug( "\"flattening\" RoleMember objects to OrgReviewRole object" );
-        if(members==null || members.isEmpty() ) {
+    protected List<OrgReviewRole> flattenToOrgReviewMembers(String active, String documentTypeName, List<RoleMember> members) {
+        LOG.debug("\"flattening\" RoleMember objects to OrgReviewRole object");
+        if (members == null || members.isEmpty()) {
             return Collections.emptyList();
         }
 
         boolean activeInd = getBooleanValueForString(active, true);
         List<OrgReviewRole> orgReviewRoles = new ArrayList<OrgReviewRole>();
-        for(RoleMember member: members){
-            if ( LOG.isDebugEnabled() ) {
-                LOG.debug( "Converting Role Member: " + member );
+        for (RoleMember member : members) {
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Converting Role Member: " + member);
             }
-            if(StringUtils.isBlank(active) || activeInd == member.isActive() ) {
+            if (StringUtils.isBlank(active) || activeInd == member.isActive()) {
                 OrgReviewRole orgReviewRole = new OrgReviewRole();
                 orgReviewRole.setRoleMember(member);
                 orgReviewRole.setFundGroupCode(orgReviewRole.getAttributeValue(KfsKimAttributes.FUND_GROUP_CODE));
                 orgReviewRole.setSubFundGroupCode(orgReviewRole.getAttributeValue(KfsKimAttributes.SUB_FUND_GROUP_CODE));
                 orgReviewRole.setFinancialObjectSubTypeCode(orgReviewRole.getAttributeValue(KfsKimAttributes.OBJECT_SUB_TYPE_CODE));
 
-                if ( LOG.isDebugEnabled() ) {
-                    LOG.debug( "Converted To OrgReviewRole: " + orgReviewRole );
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug("Converted To OrgReviewRole: " + orgReviewRole);
                 }
                 orgReviewRoles.add(orgReviewRole);
             } else {
-                LOG.debug( "RoleMember skipped because it did not match the active flag on the lookup" );
+                LOG.debug("RoleMember skipped because it did not match the active flag on the lookup");
             }
         }
         return orgReviewRoles;
     }
 
-    protected List<OrgReviewRole> flattenToOrgReviewDelegationMembers(String active, String documentTypeName, List<KfsKimDocDelegateMember> delegationMembers){
-        if( delegationMembers == null ) {
+    protected List<OrgReviewRole> flattenToOrgReviewDelegationMembers(String active, String documentTypeName, List<KfsKimDocDelegateMember> delegationMembers) {
+        if (delegationMembers == null) {
             return Collections.emptyList();
         }
 
         List<OrgReviewRole> orgReviewRoles = new ArrayList<OrgReviewRole>();
         boolean activeInd = getBooleanValueForString(active, true);
-        for(KfsKimDocDelegateMember member: delegationMembers){
-            if ( LOG.isDebugEnabled() ) {
-                LOG.debug( "Converting Delegation Member: " + member );
+        for (KfsKimDocDelegateMember member : delegationMembers) {
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Converting Delegation Member: " + member);
             }
-            if( StringUtils.isBlank(active) || activeInd == member.isActive() ) {
+            if (StringUtils.isBlank(active) || activeInd == member.isActive()) {
                 OrgReviewRole orr = new OrgReviewRole();
                 orgReviewRoleService.populateOrgReviewRoleFromDelegationMember(orr, member.getRoleMemberId(), member.getDelegationMemberId());
                 orr.setFundGroupCode(orr.getAttributeValue(KfsKimAttributes.FUND_GROUP_CODE));
@@ -543,38 +542,38 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
         if(StringUtils.isBlank(parameter)) {
             return KFSConstants.WILDCARD_CHARACTER;
         } else {
-            return KFSConstants.WILDCARD_CHARACTER+parameter+KFSConstants.WILDCARD_CHARACTER;
+            return KFSConstants.WILDCARD_CHARACTER + parameter + KFSConstants.WILDCARD_CHARACTER;
         }
     }
 
-    protected Map<String, String> buildOrgReviewRoleSearchCriteria(String documentTypeName, Map<String, String> fieldValues){
+    protected Map<String, String> buildOrgReviewRoleSearchCriteria(String documentTypeName, Map<String, String> fieldValues) {
         List<String> principalIds = null;
         List<String> groupIds = null;
         List<String> roleIds = null;
 
-        if ( StringUtils.isNotBlank(fieldValues.get(OrgReviewRole.PRINCIPAL_NAME_FIELD_NAME)) ) {
+        if (StringUtils.isNotBlank(fieldValues.get(OrgReviewRole.PRINCIPAL_NAME_FIELD_NAME))) {
             principalIds = getPrincipalIdsForWildcardedPrincipalName(fieldValues.get(OrgReviewRole.PRINCIPAL_NAME_FIELD_NAME));
-            if( principalIds.isEmpty() ) {
+            if (principalIds.isEmpty()) {
                 return null;
             }
         }
 
-        if ( StringUtils.isNotBlank(fieldValues.get(OrgReviewRole.GROUP_NAME_FIELD_NAMESPACE_CODE))
-                || StringUtils.isNotBlank(fieldValues.get(OrgReviewRole.GROUP_NAME_FIELD_NAME)) ) {
+        if (StringUtils.isNotBlank(fieldValues.get(OrgReviewRole.GROUP_NAME_FIELD_NAMESPACE_CODE))
+            || StringUtils.isNotBlank(fieldValues.get(OrgReviewRole.GROUP_NAME_FIELD_NAME))) {
             groupIds = getGroupIdsForWildcardedGroupName(
-                    fieldValues.get(OrgReviewRole.GROUP_NAME_FIELD_NAMESPACE_CODE),
-                    fieldValues.get(OrgReviewRole.GROUP_NAME_FIELD_NAME));
-            if( groupIds.isEmpty() ) {
+                fieldValues.get(OrgReviewRole.GROUP_NAME_FIELD_NAMESPACE_CODE),
+                fieldValues.get(OrgReviewRole.GROUP_NAME_FIELD_NAME));
+            if (groupIds.isEmpty()) {
                 return null;
             }
         }
 
-        if ( StringUtils.isNotBlank(fieldValues.get(OrgReviewRole.ROLE_NAME_FIELD_NAMESPACE_CODE))
-                || StringUtils.isNotBlank(fieldValues.get(OrgReviewRole.ROLE_NAME_FIELD_NAME)) ) {
+        if (StringUtils.isNotBlank(fieldValues.get(OrgReviewRole.ROLE_NAME_FIELD_NAMESPACE_CODE))
+            || StringUtils.isNotBlank(fieldValues.get(OrgReviewRole.ROLE_NAME_FIELD_NAME))) {
             roleIds = getRoleIdsForWildcardedRoleName(
-                    fieldValues.get(OrgReviewRole.ROLE_NAME_FIELD_NAMESPACE_CODE),
-                    fieldValues.get(OrgReviewRole.ROLE_NAME_FIELD_NAME));
-            if( roleIds.isEmpty() ) {
+                fieldValues.get(OrgReviewRole.ROLE_NAME_FIELD_NAMESPACE_CODE),
+                fieldValues.get(OrgReviewRole.ROLE_NAME_FIELD_NAME));
+            if (roleIds.isEmpty()) {
                 return null;
             }
         }
@@ -590,15 +589,15 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
 
         // Yes, the lines below overwrite each other.  We are essentially attempting to use the most-selective one present.
         // Complete filtering will be performed later, after the results are retrieved
-        if(StringUtils.isNotBlank(chartOfAccountsCode)){
+        if (StringUtils.isNotBlank(chartOfAccountsCode)) {
             searchCriteriaMain.put(MEMBER_ATTRIBUTE_NAME_KEY, KfsKimAttributes.CHART_OF_ACCOUNTS_CODE);
             searchCriteriaMain.put(MEMBER_ATTRIBUTE_VALUE_KEY, chartOfAccountsCode);
         }
-        if(StringUtils.isNotBlank(financialSystemDocumentTypeCode)){
+        if (StringUtils.isNotBlank(financialSystemDocumentTypeCode)) {
             searchCriteriaMain.put(MEMBER_ATTRIBUTE_NAME_KEY, KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME);
             searchCriteriaMain.put(MEMBER_ATTRIBUTE_VALUE_KEY, financialSystemDocumentTypeCode);
         }
-        if(StringUtils.isNotBlank(organizationCode)){
+        if (StringUtils.isNotBlank(organizationCode)) {
             searchCriteriaMain.put(MEMBER_ATTRIBUTE_NAME_KEY, KfsKimAttributes.ORGANIZATION_CODE);
             searchCriteriaMain.put(MEMBER_ATTRIBUTE_VALUE_KEY, organizationCode);
         }
@@ -616,56 +615,56 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
         }
 
         String memberIdString = buildMemberIdLookupString(principalIds, groupIds, roleIds);
-        if ( StringUtils.isNotBlank(memberIdString) ) {
-            searchCriteriaMain.put(MEMBER_ID, memberIdString );
+        if (StringUtils.isNotBlank(memberIdString)) {
+            searchCriteriaMain.put(MEMBER_ID, memberIdString);
         }
         addRolesToRoleMemberSearchCriteria(documentTypeName, searchCriteriaMain);
         return searchCriteriaMain;
     }
 
-    protected String buildMemberIdLookupString( List<String> principalIds, List<String> groupIds, List<String> roleIds ) {
+    protected String buildMemberIdLookupString(List<String> principalIds, List<String> groupIds, List<String> roleIds) {
         Collection<String> allMemberIds = new ArrayList<String>();
-        if(principalIds!=null){
+        if (principalIds != null) {
             allMemberIds.addAll(principalIds);
         }
-        if(groupIds!=null){
+        if (groupIds != null) {
             allMemberIds.addAll(groupIds);
         }
-        if(roleIds!=null){
+        if (roleIds != null) {
             allMemberIds.addAll(roleIds);
         }
         return StringUtils.join(allMemberIds, KimConstants.KimUIConstants.OR_OPERATOR);
     }
 
-    protected Map<String, String> buildOrgReviewRoleSearchCriteriaForDelegations(String documentTypeName, Map<String, String> fieldValues){
+    protected Map<String, String> buildOrgReviewRoleSearchCriteriaForDelegations(String documentTypeName, Map<String, String> fieldValues) {
         List<String> principalIds = null;
         List<String> groupIds = null;
         List<String> roleIds = null;
 
         String principalName = fieldValues.get(OrgReviewRole.PRINCIPAL_NAME_FIELD_NAME);
-        if ( StringUtils.isNotBlank(principalName) ) {
+        if (StringUtils.isNotBlank(principalName)) {
             principalIds = getPrincipalIdsForWildcardedPrincipalName(principalName);
-            if( principalIds.isEmpty() ) {
+            if (principalIds.isEmpty()) {
                 return null;
             }
         }
 
-        if ( StringUtils.isNotBlank(fieldValues.get(OrgReviewRole.GROUP_NAME_FIELD_NAMESPACE_CODE))
-                || StringUtils.isNotBlank(fieldValues.get(OrgReviewRole.GROUP_NAME_FIELD_NAME)) ) {
+        if (StringUtils.isNotBlank(fieldValues.get(OrgReviewRole.GROUP_NAME_FIELD_NAMESPACE_CODE))
+            || StringUtils.isNotBlank(fieldValues.get(OrgReviewRole.GROUP_NAME_FIELD_NAME))) {
             groupIds = getGroupIdsForWildcardedGroupName(
-                    fieldValues.get(OrgReviewRole.GROUP_NAME_FIELD_NAMESPACE_CODE),
-                    fieldValues.get(OrgReviewRole.GROUP_NAME_FIELD_NAME));
-            if( groupIds.isEmpty() ) {
+                fieldValues.get(OrgReviewRole.GROUP_NAME_FIELD_NAMESPACE_CODE),
+                fieldValues.get(OrgReviewRole.GROUP_NAME_FIELD_NAME));
+            if (groupIds.isEmpty()) {
                 return null;
             }
         }
 
-        if ( StringUtils.isNotBlank(fieldValues.get(OrgReviewRole.ROLE_NAME_FIELD_NAMESPACE_CODE))
-                || StringUtils.isNotBlank(fieldValues.get(OrgReviewRole.ROLE_NAME_FIELD_NAME)) ) {
+        if (StringUtils.isNotBlank(fieldValues.get(OrgReviewRole.ROLE_NAME_FIELD_NAMESPACE_CODE))
+            || StringUtils.isNotBlank(fieldValues.get(OrgReviewRole.ROLE_NAME_FIELD_NAME))) {
             roleIds = getRoleIdsForWildcardedRoleName(
-                    fieldValues.get(OrgReviewRole.ROLE_NAME_FIELD_NAMESPACE_CODE),
-                    fieldValues.get(OrgReviewRole.ROLE_NAME_FIELD_NAME));
-            if( roleIds.isEmpty() ) {
+                fieldValues.get(OrgReviewRole.ROLE_NAME_FIELD_NAMESPACE_CODE),
+                fieldValues.get(OrgReviewRole.ROLE_NAME_FIELD_NAME));
+            if (roleIds.isEmpty()) {
                 return null;
             }
         }
@@ -681,15 +680,15 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
         // Yes, the lines below overwrite each other.  We are essentially attempting to use the most-selective one present.
         // Complete filtering will be performed later, after the results are retrieved
         Map<String, String> searchCriteriaMain = new HashMap<String, String>();
-        if(StringUtils.isNotBlank(chartOfAccountsCode)){
+        if (StringUtils.isNotBlank(chartOfAccountsCode)) {
             searchCriteriaMain.put(MEMBER_ATTRIBUTE_NAME_KEY, KfsKimAttributes.CHART_OF_ACCOUNTS_CODE);
             searchCriteriaMain.put(MEMBER_ATTRIBUTE_VALUE_KEY, chartOfAccountsCode);
         }
-        if(StringUtils.isNotBlank(financialSystemDocumentTypeCode)){
+        if (StringUtils.isNotBlank(financialSystemDocumentTypeCode)) {
             searchCriteriaMain.put(MEMBER_ATTRIBUTE_NAME_KEY, KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME);
             searchCriteriaMain.put(MEMBER_ATTRIBUTE_VALUE_KEY, financialSystemDocumentTypeCode);
         }
-        if(StringUtils.isNotBlank(organizationCode)){
+        if (StringUtils.isNotBlank(organizationCode)) {
             searchCriteriaMain.put(MEMBER_ATTRIBUTE_NAME_KEY, KfsKimAttributes.ORGANIZATION_CODE);
             searchCriteriaMain.put(MEMBER_ATTRIBUTE_VALUE_KEY, organizationCode);
         }
@@ -707,8 +706,8 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
         }
 
         String memberIdString = buildMemberIdLookupString(principalIds, groupIds, roleIds);
-        if ( StringUtils.isNotBlank(memberIdString) ) {
-            searchCriteriaMain.put(MEMBER_ID, memberIdString );
+        if (StringUtils.isNotBlank(memberIdString)) {
+            searchCriteriaMain.put(MEMBER_ID, memberIdString);
         }
         addDelegationsToDelegationMemberSearchCriteria(documentTypeName, searchCriteriaMain);
         return searchCriteriaMain;
@@ -716,8 +715,8 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
 
     @Override
     public void validateSearchParameters(Map fieldValues) {
-        if ( fieldValues != null ) {
-            orgReviewRoleService.validateDocumentType((String)fieldValues.get(KfsKimAttributes.FINANCIAL_SYSTEM_DOCUMENT_TYPE_CODE));
+        if (fieldValues != null) {
+            orgReviewRoleService.validateDocumentType((String) fieldValues.get(KfsKimAttributes.FINANCIAL_SYSTEM_DOCUMENT_TYPE_CODE));
         }
         super.validateSearchParameters(fieldValues);
     }

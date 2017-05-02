@@ -1,0 +1,6 @@
+HEADER[~&~	~&~VNDR_ADDR_TYP_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~VNDR_ADDR_TYP_DESC::VARCHAR~&~	~&~VNDR_DFLT_IND::VARCHAR~&~	~&~DOBJ_MAINT_CD_ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'PO'~&~	~&~'4312253E-2D1D-8E8C-67D1-5C17AF11E0DA'~&~	~&~'2'~&~	~&~'PURCHASE ORDER'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'QT'~&~	~&~'85CE50E2-9AB8-41E6-5268-D0BEF6D4B43B'~&~	~&~'5'~&~	~&~'QUOTE'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'RM'~&~	~&~'41FC8A59-00CF-8376-8E87-AFCC7CB0D93A'~&~	~&~'3'~&~	~&~'REMIT'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'RT'~&~	~&~'2AC59814-9872-2523-2B6C-69234E48AFE1'~&~	~&~'2'~&~	~&~'RETURN GOODS'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'TX'~&~	~&~'0343CC39-00A2-0040-01B8-C6E1E2B4ADC9'~&~	~&~'2'~&~	~&~'TAX'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD

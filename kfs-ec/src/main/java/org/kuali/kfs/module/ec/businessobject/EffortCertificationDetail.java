@@ -1,26 +1,23 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.module.ec.businessobject;
-
-import java.util.Collection;
-import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
@@ -30,6 +27,8 @@ import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.service.AccountService;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsModuleService;
 import org.kuali.kfs.integration.ld.LaborModuleService;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ec.document.EffortCertificationDocument;
 import org.kuali.kfs.module.ec.util.EffortCertificationParameterFinder;
 import org.kuali.kfs.module.ec.util.PayrollAmountHolder;
@@ -39,8 +38,9 @@ import org.kuali.kfs.sys.businessobject.AccountingLineOverride;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Business Object for the Effort Certification Detail Table.
@@ -88,14 +88,14 @@ public class EffortCertificationDetail extends PersistableBusinessObjectBase {
     private Boolean federalOrFederalPassThroughIndicator = null;
 
     protected String effectiveDate;
-    
+
     /**
      * Default constructor.
      */
     public EffortCertificationDetail() {
         super();
 
-        if ( SpringContext.isInitialized() ) {
+        if (SpringContext.isInitialized()) {
             subAccountNumber = KFSConstants.getDashSubAccountNumber();
         }
 
@@ -589,14 +589,15 @@ public class EffortCertificationDetail extends PersistableBusinessObjectBase {
      * @return Returns the federalOrFederalPassThroughIndicator.
      */
     public boolean isFederalOrFederalPassThroughIndicator() {
-        if(this.federalOrFederalPassThroughIndicator != null){
+        if (this.federalOrFederalPassThroughIndicator != null) {
             return this.federalOrFederalPassThroughIndicator;
         }
         if (this.getAccount() != null) {
             Collection<String> federalAgencyTypeCodes = EffortCertificationParameterFinder.getFederalAgencyTypeCodes();
-            this.federalOrFederalPassThroughIndicator =  SpringContext.getBean(ContractsAndGrantsModuleService.class).isAwardedByFederalAgency(
-                    getAccount().getChartOfAccountsCode(), getAccount().getAccountNumber(), federalAgencyTypeCodes);
-            return this.federalOrFederalPassThroughIndicator;        }
+            this.federalOrFederalPassThroughIndicator = SpringContext.getBean(ContractsAndGrantsModuleService.class).isAwardedByFederalAgency(
+                getAccount().getChartOfAccountsCode(), getAccount().getAccountNumber(), federalAgencyTypeCodes);
+            return this.federalOrFederalPassThroughIndicator;
+        }
 
         return false;
     }
@@ -899,6 +900,7 @@ public class EffortCertificationDetail extends PersistableBusinessObjectBase {
 
     /**
      * Gets the persistedEffortPercent attribute.
+     *
      * @return Returns the persistedEffortPercent.
      */
     public Integer getPersistedEffortPercent() {
@@ -907,6 +909,7 @@ public class EffortCertificationDetail extends PersistableBusinessObjectBase {
 
     /**
      * Sets the persistedEffortPercent attribute value.
+     *
      * @param persistedEffortPercent The persistedEffortPercent to set.
      */
     public void setPersistedEffortPercent(Integer persistedEffortPercent) {
@@ -915,6 +918,7 @@ public class EffortCertificationDetail extends PersistableBusinessObjectBase {
 
     /**
      * Gets the groupId attribute.
+     *
      * @return Returns the groupId.
      */
     public String getGroupId() {
@@ -923,14 +927,12 @@ public class EffortCertificationDetail extends PersistableBusinessObjectBase {
 
     /**
      * Sets the groupId attribute value.
+     *
      * @param groupId The groupId to set.
      */
     public void setGroupId(String groupId) {
         this.groupId = groupId;
     }
-
-
-
 
 
 }

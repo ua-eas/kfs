@@ -1,25 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document.web.struts;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
@@ -27,6 +24,9 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.kuali.kfs.fp.document.AuxiliaryVoucherDocument;
 import org.kuali.kfs.sys.KFSConstants;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -37,9 +37,9 @@ import org.kuali.kfs.sys.KFSConstants;
 public class AuxiliaryVoucherAction extends VoucherAction {
     /**
      * Overrides the parent and then calls the super method after checking to see if the user just changed the voucher type.
-     * 
+     *
      * @see org.kuali.rice.kns.web.struts.action.KualiAction#execute(ActionMapping mapping, ActionForm form, HttpServletRequest request,
-     *      HttpServletResponse response)
+     * HttpServletResponse response)
      */
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -52,8 +52,7 @@ public class AuxiliaryVoucherAction extends VoucherAction {
         ActionForward returnForward;
         if (StringUtils.isNotBlank(avForm.getOriginalVoucherType()) && !avForm.getAuxiliaryVoucherDocument().getTypeCode().equals(avForm.getOriginalVoucherType())) {
             returnForward = super.dispatchMethod(mapping, form, request, response, KFSConstants.AuxiliaryVoucher.CHANGE_VOUCHER_TYPE);
-        }
-        else { // otherwise call the super
+        } else { // otherwise call the super
             returnForward = super.execute(mapping, avForm, request, response);
         }
         return returnForward;
@@ -62,7 +61,7 @@ public class AuxiliaryVoucherAction extends VoucherAction {
     /**
      * This action method is responsible for clearing the GLPEs for an AV after the voucher type changes, since a voucher type
      * change makes any previously generated GLPEs inaccurate.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -86,7 +85,7 @@ public class AuxiliaryVoucherAction extends VoucherAction {
 
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#docHandler(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward docHandler(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {

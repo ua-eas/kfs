@@ -1,36 +1,33 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ec.document;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.sql.DataSource;
-
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.NoteService;
+import org.kuali.kfs.krad.service.XmlObjectSerializerService;
+import org.kuali.kfs.krad.workflow.DocumentInitiator;
+import org.kuali.kfs.krad.workflow.KualiDocumentXmlMaterializer;
+import org.kuali.kfs.krad.workflow.KualiTransactionalDocumentInformation;
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationDetail;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.DocumentTestUtils;
@@ -41,16 +38,18 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.bo.DocumentHeader;
-import org.kuali.rice.krad.bo.Note;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.service.NoteService;
-import org.kuali.rice.krad.service.XmlObjectSerializerService;
-import org.kuali.rice.krad.workflow.DocumentInitiator;
-import org.kuali.rice.krad.workflow.KualiDocumentXmlMaterializer;
-import org.kuali.rice.krad.workflow.KualiTransactionalDocumentInformation;
+
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 
 @ConfigureContext(session = khuntley)
@@ -85,15 +84,12 @@ public class EffortCertificationRoutingTest extends KualiTestBase {
             query = query + "and exists (select * from KREW_RTE_NODE_LNK_T ";
             query = query + "where to_rte_node_id=nd.rte_node_id) ";
             dbAnswer = dbAsk.executeQuery(query);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             try {
                 dbCon.close();
-            }
-            catch (SQLException sqle2) {
+            } catch (SQLException sqle2) {
                 sqle2.printStackTrace();
             }
         }
@@ -129,7 +125,7 @@ public class EffortCertificationRoutingTest extends KualiTestBase {
         Note testNote = new Note();
         testNote.setNoteText("This is a nice note.");
         testNote.setAuthorUniversalIdentifier(document.getDocumentHeader().getWorkflowDocument().getInitiatorPrincipalId());
-        SpringContext.getBean(NoteService.class).createNote(testNote, document.getDocumentHeader(),document.getDocumentHeader().getWorkflowDocument().getInitiatorPrincipalId() );
+        SpringContext.getBean(NoteService.class).createNote(testNote, document.getDocumentHeader(), document.getDocumentHeader().getWorkflowDocument().getInitiatorPrincipalId());
         effortCertificationDetailLines.add(testDetailLine);
         testDetailLine = new EffortCertificationDetail();
         testDetailLine.setAccountNumber("4631483");
@@ -160,8 +156,7 @@ public class EffortCertificationRoutingTest extends KualiTestBase {
             String initiatorPrincipalId = documentHeader.getWorkflowDocument().getInitiatorPrincipalId();
             Person initiatorUser = SpringContext.getBean(PersonService.class).getPersonByPrincipalName(initiatorPrincipalId);
             initiatior.setPerson(initiatorUser);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
 

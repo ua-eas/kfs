@@ -1,22 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.batch.dataaccess.impl;
+
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.batch.dataaccess.PreparedStatementCachingDao;
+import org.kuali.rice.core.framework.persistence.jdbc.dao.PlatformAwareDaoBaseJdbc;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,10 +29,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.kfs.sys.batch.dataaccess.PreparedStatementCachingDao;
-import org.kuali.rice.core.framework.persistence.jdbc.dao.PlatformAwareDaoBaseJdbc;
-import org.kuali.rice.krad.util.ObjectUtils;
 
 public abstract class AbstractPreparedStatementCachingDaoJdbc extends PlatformAwareDaoBaseJdbc implements PreparedStatementCachingDao {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AbstractPreparedStatementCachingDaoJdbc.class);
@@ -44,8 +44,7 @@ public abstract class AbstractPreparedStatementCachingDaoJdbc extends PlatformAw
             try {
                 populateStatement(preparedStatement);
                 preparedStatement.executeUpdate();
-            }
-            catch (SQLException e) {
+            } catch (SQLException e) {
                 throw new RuntimeException("AbstractUpdatingPreparedStatementCachingDaoJdbc.UpdatingJdbcWrapper encountered exception during getObject method for type: " + type, e);
             }
         }
@@ -67,8 +66,7 @@ public abstract class AbstractPreparedStatementCachingDaoJdbc extends PlatformAw
                     }
                 }
                 resultSet.close();
-            }
-            catch (SQLException e) {
+            } catch (SQLException e) {
                 throw new RuntimeException("AbstractRetrievingPreparedStatementCachingDaoJdbc.RetrievingJdbcWrapper encountered exception during getObject method for type: " + type, e);
             }
             return value;
@@ -91,8 +89,7 @@ public abstract class AbstractPreparedStatementCachingDaoJdbc extends PlatformAw
                     resultList.add(extractResult(resultSet));
                 }
                 resultSet.close();
-            }
-            catch (SQLException e) {
+            } catch (SQLException e) {
                 throw new RuntimeException("AbstractRetrievingPreparedStatementCachingDaoJdbc.RetrievingListJdbcWrapper encountered exception during getObject method for type: " + type, e);
             }
             return resultList;
@@ -121,8 +118,7 @@ public abstract class AbstractPreparedStatementCachingDaoJdbc extends PlatformAw
             for (String statementKey : getSql().keySet()) {
                 preparedStatementCache.put(statementKey, getConnection().prepareStatement(getSql().get(statementKey)));
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException("Caught exception preparing statements in CachingDaoJdbc initialize method", e);
         }
     }
@@ -138,8 +134,7 @@ public abstract class AbstractPreparedStatementCachingDaoJdbc extends PlatformAw
                 preparedStatement.close();
             }
             preparedStatementCache = null;
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException("Caught exception closing statements in CachingDaoJdbc destroy method", e);
         }
     }

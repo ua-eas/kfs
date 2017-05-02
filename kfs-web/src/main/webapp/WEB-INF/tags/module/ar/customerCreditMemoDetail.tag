@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -46,28 +46,28 @@
 	    	&nbsp;
 	    </c:if>
 		${rowHeader}:
-			
-	<!--  Quantity -->	
+
+	<!--  Quantity -->
 	<td class="${cssClass}" style="text-align:right" >
 		<kul:htmlControlAttribute
 			attributeEntry="${customerInvoiceDetailAttributes.invoiceItemQuantity}"
 			property="${invPropertyName}.invoiceItemQuantity"
 			readOnly="true" />
-	
-	<!--  Item Code -->		
+
+	<!--  Item Code -->
 	<td class="${cssClass}" style="text-align:center" >
 		<kul:htmlControlAttribute
 			attributeEntry="${customerInvoiceDetailAttributes.invoiceItemCode}"
 			property="${invPropertyName}.invoiceItemCode"
 			readOnly="true" />
-			
+
 	<!--  UOM -->
 	<td class="${cssClass}" >
 		<kul:htmlControlAttribute
 			attributeEntry="${customerInvoiceDetailAttributes.invoiceItemUnitOfMeasureCode}"
 			property="${invPropertyName}.invoiceItemUnitOfMeasureCode"
 			readOnly="true" />
-			
+
 	<!--  Description -->
 	<td class="${cssClass}" >
 		<kul:htmlControlAttribute
@@ -81,14 +81,14 @@
 			attributeEntry="${customerInvoiceDetailAttributes.invoiceItemUnitPrice}"
 			property="${invPropertyName}.invoiceItemUnitPrice"
 			readOnly="true" />
-			
+
 	<!--  Item Amount -->
 	<td class="${cssClass}" style="text-align:right" >
 		<kul:htmlControlAttribute
 			attributeEntry="${customerInvoiceDetailAttributes.amount}"
 			property="${invPropertyName}.invoiceItemPreTaxAmount"
 			readOnly="true" />
-			
+
 	<!--  Tax Amount -->
 	<c:if test="${salesTaxEnabled}">
 		<td class="${cssClass}" style="text-align:right" >
@@ -103,14 +103,14 @@
 			attributeEntry="${customerCreditMemoDetailAttributes.invoiceLineTotalAmount}"
 			property="${crmPropertyName}.invoiceLineTotalAmount"
 			readOnly="true" />
-			
-	<!--  Open Invoice Quantity --> 
+
+	<!--  Open Invoice Quantity -->
 	<td class="${cssClass}" style="text-align:right" >
 		<kul:htmlControlAttribute
 			attributeEntry="${customerCreditMemoDetailAttributes.invoiceOpenItemQuantity}"
 			property="${crmPropertyName}.invoiceOpenItemQuantity"
 			readOnly="true" />
-	
+
 	<!--  Open Invoice Amount -->
 	<td class="${cssClass}" style="text-align:right" >
 		<kul:htmlControlAttribute
@@ -122,24 +122,24 @@
 	<c:if test="${not readOnly}" >
 		<!--  Actions -->
 		<td rowspan="4"><div align="center" class="middle" >
-			<html:image property="methodToCall.${recalculateMethod}"
-	    		src="${ConfigProperties.externalizable.images.url}tinybutton-recalculate.gif"
+			<html:submit property="methodToCall.${recalculateMethod}"
+	    		value="Recalculate"
 	    		title="Recalculate Credit Memo Line Amounts"
 	    		alt="Recalculate Credit Memo Line Amounts"
-	        	styleClass="tinybutton" />
+				styleClass="btn btn-default small" />
 	    	&nbsp;
-			<html:image property="methodToCall.${refreshMethod}"
-	    		src="${ConfigProperties.externalizable.images.url}tinybutton-refresh.gif"
+			<html:submit property="methodToCall.${refreshMethod}"
+	    		value="Refresh"
 	    		title="Refresh Credit Memo Line"
 	    		alt="Refresh Credit Memo Line"
-	        	styleClass="tinybutton" />
-		</div>     
+				styleClass="btn btn-default small" />
+		</div>
 		</td>
 	</c:if>
 </tr>
 <tr>
 	<!--  If not readOnly mode -> make "Quantity" editable -->
-	<c:if test="${not readOnly && not isInvoiceOpenItemQuantityZero}" >			
+	<c:if test="${not readOnly && not isInvoiceOpenItemQuantityZero}" >
 		<!--  CRM Quantity -->
 		<td class="${cssClass}" style="text-align:right" >
 			<kul:htmlControlAttribute
@@ -148,7 +148,7 @@
 				readOnly="false" />
 		</td>
 	</c:if>
-	<c:if test="${not readOnly && isInvoiceOpenItemQuantityZero}" >			
+	<c:if test="${not readOnly && isInvoiceOpenItemQuantityZero}" >
 		<!--  CRM Quantity -->
 		<td class="${cssClass}" style="text-align:right" >
 			<kul:htmlControlAttribute
@@ -167,7 +167,7 @@
 				readOnly="true" />
 		</td>
 	</c:if>
-	
+
 	<!--  CRM 4 empty columns -->
 	<td class="${cssClass}" />
 	<td class="${cssClass}" />
@@ -175,7 +175,7 @@
 	<td class="${cssClass}" />
 
 	<!--  If not readOnly mode -> make "Amount" editable -->
-	<c:if test="${not readOnly && not isInvoiceOpenItemQuantityZero}" >	
+	<c:if test="${not readOnly && not isInvoiceOpenItemQuantityZero}" >
 		<!--  CRM Item Amount -->
 		<td class="${cssClass}" style="text-align:right" >
 			<kul:htmlControlAttribute
@@ -184,7 +184,7 @@
 				readOnly="false" />
 		</td>
 	</c:if>
-	<c:if test="${not readOnly && isInvoiceOpenItemQuantityZero}" >			
+	<c:if test="${not readOnly && isInvoiceOpenItemQuantityZero}" >
 		<!--  CRM Item Amount -->
 		<td class="${cssClass}" style="text-align:right" >
 			<kul:htmlControlAttribute
@@ -203,7 +203,7 @@
 				readOnly="true" />
 		</td>
 	</c:if>
-	
+
 	<!--  CRM Tax Amount -->
 	<c:if test="${salesTaxEnabled}">
 	<td class="${cssClass}" style="text-align:right" >
@@ -213,15 +213,15 @@
 			readOnly="true" />
 	</td>
 	</c:if>
-	
+
 	<!--  CRM Total Amount -->
 	<td class="${cssClass}" style="text-align:right" colspan="1" >
-		<kul:htmlControlAttribute 
+		<kul:htmlControlAttribute
 			attributeEntry="${customerCreditMemoDetailAttributes.creditMemoLineTotalAmount}"
 			property="${crmPropertyName}.creditMemoLineTotalAmount"
 			readOnly="true" />
 	</td>
-	
+
 	<!--  CRM 2 empty columns -->
 	<td class="${cssClass}" />
 	<td class="${cssClass}" />

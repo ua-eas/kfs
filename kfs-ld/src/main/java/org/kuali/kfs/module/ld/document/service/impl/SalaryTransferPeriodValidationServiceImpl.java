@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -22,6 +22,11 @@ import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.A21SubAccount;
 import org.kuali.kfs.integration.ec.EffortCertificationModuleService;
 import org.kuali.kfs.integration.ec.EffortCertificationReport;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.NoteService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ld.LaborKeyConstants;
 import org.kuali.kfs.module.ld.businessobject.ExpenseTransferAccountingLine;
 import org.kuali.kfs.module.ld.businessobject.ExpenseTransferSourceAccountingLine;
@@ -33,11 +38,6 @@ import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.principal.Principal;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.rice.krad.bo.Note;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.service.NoteService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -99,8 +99,7 @@ public class SalaryTransferPeriodValidationServiceImpl implements SalaryTransfer
 
                 // add line amount for validation later
                 addAccountTransferAmount(accountPeriodTransfer, transferLine, emplidReport);
-            }
-            else {
+            } else {
                 // if employee does not have a report, transfer lines cannot use CG accounts
                 if (transferLine.getAccount().isForContractsAndGrants()) {
                     EffortCertificationReport openReport = getOpenReportingPeriod(transferLine);
@@ -115,7 +114,7 @@ public class SalaryTransferPeriodValidationServiceImpl implements SalaryTransfer
             KualiDecimal transfer = accountPeriodTransfer.get(transferKey);
             if (transfer.isNonZero()) {
                 String[] keyFields = StringUtils.split(transferKey, ",");
-                GlobalVariables.getMessageMap().putError(KFSPropertyConstants.SOURCE_ACCOUNTING_LINES, LaborKeyConstants.ERROR_EFFORT_OPEN_PERIOD_ACCOUNTS_NOT_BALANCED, new String[] { keyFields[4], keyFields[0], keyFields[1] });
+                GlobalVariables.getMessageMap().putError(KFSPropertyConstants.SOURCE_ACCOUNTING_LINES, LaborKeyConstants.ERROR_EFFORT_OPEN_PERIOD_ACCOUNTS_NOT_BALANCED, new String[]{keyFields[4], keyFields[0], keyFields[1]});
                 return false;
             }
         }
@@ -130,7 +129,7 @@ public class SalaryTransferPeriodValidationServiceImpl implements SalaryTransfer
     public void disapproveSalaryExpenseDocument(SalaryExpenseTransferDocument document) throws Exception {
         // create note explaining why the document was disapproved
         String message = kualiConfigurationService.getPropertyValueAsString(LaborKeyConstants.EFFORT_AUTO_DISAPPROVE_MESSAGE);
-        Note cancelNote = documentService.createNoteFromDocument( document, message);
+        Note cancelNote = documentService.createNoteFromDocument(document, message);
 
         Principal principal = KimApiServiceLocator.getIdentityService().getPrincipalByPrincipalName(KFSConstants.SYSTEM_USER);
         cancelNote.setAuthorUniversalIdentifier(principal.getPrincipalId());
@@ -221,7 +220,7 @@ public class SalaryTransferPeriodValidationServiceImpl implements SalaryTransfer
      * those open reports.
      *
      * @param transferLine - line to find open reports for
-     * @param emplid - emplid to check for certification
+     * @param emplid       - emplid to check for certification
      * @return report which emplid has certification, or null
      */
     protected EffortCertificationReport isEmployeeWithOpenCertification(ExpenseTransferAccountingLine transferLine, String emplid) {
@@ -235,11 +234,11 @@ public class SalaryTransferPeriodValidationServiceImpl implements SalaryTransfer
      * Adds the line amount to the given map that contains the total transfer amount for the account and period.
      *
      * @param accountPeriodTransfer - map holding the total transfers
-     * @param effortReport - open report for transfer line
-     * @param transferLine - line with amount to add
+     * @param effortReport          - open report for transfer line
+     * @param transferLine          - line with amount to add
      */
     protected void addAccountTransferAmount(Map<String, KualiDecimal> accountPeriodTransfer, ExpenseTransferAccountingLine transferLine, EffortCertificationReport effortReport) {
-        String transferKey = StringUtils.join(new Object[] { transferLine.getPayrollEndDateFiscalYear(), transferLine.getPayrollEndDateFiscalPeriodCode(), transferLine.getChartOfAccountsCode(), transferLine.getAccountNumber(), effortReport.getUniversityFiscalYear()+ "-" + effortReport.getEffortCertificationReportNumber() }, ",");
+        String transferKey = StringUtils.join(new Object[]{transferLine.getPayrollEndDateFiscalYear(), transferLine.getPayrollEndDateFiscalPeriodCode(), transferLine.getChartOfAccountsCode(), transferLine.getAccountNumber(), effortReport.getUniversityFiscalYear() + "-" + effortReport.getEffortCertificationReportNumber()}, ",");
 
         KualiDecimal transferAmount = transferLine.getAmount().abs();
         if (transferLine instanceof ExpenseTransferSourceAccountingLine) {
@@ -292,9 +291,9 @@ public class SalaryTransferPeriodValidationServiceImpl implements SalaryTransfer
      * Determines whether the error should be associated with the source or target lines, and builds up parameters for error
      * message.
      *
-     * @param errorKey - key for the error message
+     * @param errorKey     - key for the error message
      * @param transferLine - transfer line which had error
-     * @param report - report which conflicted with line
+     * @param report       - report which conflicted with line
      */
     protected void putError(String errorKey, ExpenseTransferAccountingLine transferLine, EffortCertificationReport report) {
         String errorLines = KFSPropertyConstants.TARGET_ACCOUNTING_LINES;

@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns='http://www.liquibase.org/xml/ns/dbchangelog'
+                   xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+                   xsi:schemaLocation='http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd'>
+
+  <changeSet author="KFS601" id="FINI-299_ADD_AWARD_NUMBER_SEQUENCE_NUMBER_TO_INVOICE_GENERAL_DETAIL_TABLE" context="bootstrap,demo,unit">
+    <addColumn tableName="AR_INV_GNRL_DTL_T">
+      <column name="AWARD_NUMBER" type="VARCHAR(12)"/>
+      <column name="SEQUENCE_NUMBER" type="DECIMAL(4)"/>
+    </addColumn>
+  </changeSet>
+
+  <changeSet author="KFS601" id="FINI-319_CHANGE_PRPSL_NBR_TYPE_TO_VARCHAR_FROM_DECIMALa" context="bootstrap,demo,unit">
+    <dropForeignKeyConstraint baseTableName="AR_BILL_T" constraintName="AR_BILL_TR1"/>
+    <dropForeignKeyConstraint baseTableName="AR_MLSTN_T" constraintName="AR_MLSTN_TR1"/>
+    <dropForeignKeyConstraint baseTableName="AR_LTRCR_RVW_DTL_T" constraintName="AR_LTRCR_RVW_DTL_TR1"/>
+  </changeSet>
+
+  <changeSet author="KFS601" id="FINI-319_CHANGE_PRPSL_NBR_TYPE_TO_VARCHAR_FROM_DECIMALb" context="bootstrap,demo,unit">
+    <addColumn tableName="AR_CSH_CTRL_T">
+      <column name="PRPSL_NBR_NEW" type="VARCHAR(12)"/>
+    </addColumn>
+    <sql>UPDATE AR_CSH_CTRL_T SET PRPSL_NBR_NEW = PRPSL_NBR</sql>
+    <dropColumn columnName="PRPSL_NBR" tableName="AR_CSH_CTRL_T"/>
+    <renameColumn columnDataType="VARCHAR(12)" newColumnName="PRPSL_NBR" oldColumnName="PRPSL_NBR_NEW" tableName="AR_CSH_CTRL_T"/>
+  </changeSet>
+
+  <changeSet author="KFS601" id="FINI-319_CHANGE_PRPSL_NBR_TYPE_TO_VARCHAR_FROM_DECIMALc" context="bootstrap,demo,unit">
+    <addColumn tableName="AR_CGB_CLCTN_ACTVY_DOC_T">
+      <column name="PRPSL_NBR_NEW" type="VARCHAR(12)"/>
+    </addColumn>
+    <sql>UPDATE AR_CGB_CLCTN_ACTVY_DOC_T SET PRPSL_NBR_NEW = PRPSL_NBR</sql>
+    <dropColumn columnName="PRPSL_NBR" tableName="AR_CGB_CLCTN_ACTVY_DOC_T"/>
+    <renameColumn columnDataType="VARCHAR(12)" newColumnName="PRPSL_NBR" oldColumnName="PRPSL_NBR_NEW" tableName="AR_CGB_CLCTN_ACTVY_DOC_T"/>
+  </changeSet>
+
+  <changeSet author="KFS601" id="FINI-319_CHANGE_PRPSL_NBR_TYPE_TO_VARCHAR_FROM_DECIMALd" context="bootstrap,demo,unit">
+    <addColumn tableName="AR_APPLICATION_DOC_T">
+      <column name="PRPSL_NBR_NEW" type="VARCHAR(12)"/>
+    </addColumn>
+    <sql>UPDATE AR_APPLICATION_DOC_T SET PRPSL_NBR_NEW = PRPSL_NBR</sql>
+    <dropColumn columnName="PRPSL_NBR" tableName="AR_APPLICATION_DOC_T"/>
+    <renameColumn columnDataType="VARCHAR(12)" newColumnName="PRPSL_NBR" oldColumnName="PRPSL_NBR_NEW" tableName="AR_APPLICATION_DOC_T"/>
+  </changeSet>
+
+  <changeSet author="KFS601" id="FINI-319_CHANGE_PRPSL_NBR_TYPE_TO_VARCHAR_FROM_DECIMALe" context="bootstrap,demo,unit">
+    <addColumn tableName="AR_INV_GNRL_DTL_T">
+      <column name="PRPSL_NBR_NEW" type="VARCHAR(12)"/>
+    </addColumn>
+    <sql>UPDATE AR_INV_GNRL_DTL_T SET PRPSL_NBR_NEW = PRPSL_NBR</sql>
+    <dropColumn columnName="PRPSL_NBR" tableName="AR_INV_GNRL_DTL_T"/>
+    <renameColumn columnDataType="VARCHAR(12)" newColumnName="PRPSL_NBR" oldColumnName="PRPSL_NBR_NEW" tableName="AR_INV_GNRL_DTL_T"/>
+  </changeSet>
+
+  <changeSet author="KFS601" id="FINI-319_CHANGE_PRPSL_NBR_TYPE_TO_VARCHAR_FROM_DECIMALf" context="bootstrap,demo,unit">
+    <createTable tableName="AR_INV_DTL_ACCT_OBJ_CD_T2">
+      <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
+          <constraints nullable="false"/>
+      </column>
+      <column defaultValueNumeric="0" name="PRPSL_NBR" type="VARCHAR(12)">
+          <constraints nullable="false"/>
+      </column>
+      <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+          <constraints nullable="false"/>
+      </column>
+      <column defaultValue="" name="ACCOUNT_NBR" type="VARCHAR(7)">
+          <constraints nullable="false"/>
+      </column>
+      <column defaultValue="" name="FIN_OBJ_CD" type="VARCHAR(4)">
+          <constraints nullable="false"/>
+      </column>
+      <column name="OBJ_ID" type="VARCHAR(36)">
+          <constraints nullable="false"/>
+      </column>
+      <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+          <constraints nullable="false"/>
+      </column>
+      <column name="CTGRY_CD" type="VARCHAR(4)"/>
+      <column name="TOT_BILLED_AMT" type="DECIMAL(19, 2)">
+          <constraints nullable="false"/>
+      </column>
+      <column name="CURR_EXPND_AMT" type="DECIMAL(19, 2)">
+          <constraints nullable="false"/>
+      </column>
+      <column name="CUM_EXPND_AMT" type="DECIMAL(19, 2)">
+          <constraints nullable="false"/>
+      </column>
+    </createTable>
+    <sql>INSERT INTO AR_INV_DTL_ACCT_OBJ_CD_T2 SELECT * FROM AR_INV_DTL_ACCT_OBJ_CD_T</sql>
+    <dropTable tableName="AR_INV_DTL_ACCT_OBJ_CD_T"/>
+    <renameTable oldTableName="AR_INV_DTL_ACCT_OBJ_CD_T2" newTableName="AR_INV_DTL_ACCT_OBJ_CD_T"/>
+    <addPrimaryKey columnNames="FDOC_NBR, PRPSL_NBR, FIN_COA_CD, ACCOUNT_NBR, FIN_OBJ_CD" constraintName="PKAR_INV_DTL_ACCT_OBJ_CD_T" tableName="AR_INV_DTL_ACCT_OBJ_CD_T"/>
+    <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_INV_DTL_ACCT_OBJ_CD_TC0" tableName="AR_INV_DTL_ACCT_OBJ_CD_T"/>
+  </changeSet>
+
+  <changeSet author="KFS601" id="FINI-319_CHANGE_PRPSL_NBR_TYPE_TO_VARCHAR_FROM_DECIMALg" context="bootstrap,demo,unit">
+    <createTable tableName="AR_INV_ACCT_DTL_T2">
+          <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
+              <constraints nullable="false"/>
+          </column>
+          <column defaultValueNumeric="0" name="PRPSL_NBR" type="VARCHAR(12)">
+              <constraints nullable="false"/>
+          </column>
+          <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+              <constraints nullable="false"/>
+          </column>
+          <column defaultValue="" name="ACCOUNT_NBR" type="VARCHAR(7)">
+              <constraints nullable="false"/>
+          </column>
+          <column name="OBJ_ID" type="VARCHAR(36)">
+              <constraints nullable="false"/>
+          </column>
+          <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+              <constraints nullable="false"/>
+          </column>
+          <column name="CONTR_CTRLACCT_NBR" type="VARCHAR(7)"/>
+          <column name="TOT_BDGT_AMT" type="DECIMAL(19, 2)"/>
+          <column name="INV_AMT" type="DECIMAL(19, 2)"/>
+          <column name="CUM_EXPND_AMT" type="DECIMAL(19, 2)"/>
+          <column name="CNTRCT_CNTRL_ACCT_NBR" type="VARCHAR(7)"/>
+          <column name="TOT_PREV_BILLED_AMT" type="DECIMAL(19, 2)"/>
+    </createTable>
+    <sql>INSERT INTO AR_INV_ACCT_DTL_T2 SELECT * FROM AR_INV_ACCT_DTL_T</sql>
+    <dropTable tableName="AR_INV_ACCT_DTL_T"/>
+    <renameTable oldTableName="AR_INV_ACCT_DTL_T2" newTableName="AR_INV_ACCT_DTL_T"/>
+    <addPrimaryKey columnNames="FDOC_NBR, PRPSL_NBR, FIN_COA_CD, ACCOUNT_NBR" constraintName="PKAR_INV_ACCT_DTL_T" tableName="AR_INV_ACCT_DTL_T"/>
+    <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_INV_ACCT_DTL_TC0" tableName="AR_INV_ACCT_DTL_T"/>
+  </changeSet>
+
+  <changeSet author="KFS601" id="FINI-319_CHANGE_PRPSL_NBR_TYPE_TO_VARCHAR_FROM_DECIMALh" context="bootstrap,demo,unit">
+    <createTable tableName="AR_LTRCR_RVW_DTL_T2">
+          <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
+              <constraints nullable="false"/>
+          </column>
+          <column defaultValueNumeric="0" name="LTRCR_RVW_DTL_ID" type="DECIMAL(12)">
+              <constraints nullable="false"/>
+          </column>
+          <column name="OBJ_ID" type="VARCHAR(36)">
+              <constraints nullable="false"/>
+          </column>
+          <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+              <constraints nullable="false"/>
+          </column>
+          <column name="PRPSL_NBR" type="VARCHAR(12)"/>
+          <column name="FIN_COA_CD" type="VARCHAR(2)"/>
+          <column name="ACCOUNT_NBR" type="VARCHAR(7)"/>
+          <column name="AWD_BDGT_AMT" type="DECIMAL(19, 2)"/>
+          <column name="DRW_AMT" type="DECIMAL(19, 2)"/>
+          <column name="AVAIL_DRW_AMT" type="DECIMAL(19, 2)"/>
+          <column name="AWD_FDOC_NBR" type="VARCHAR(14)"/>
+          <column name="ACCOUNT_DESC" type="VARCHAR(45)"/>
+          <column name="ACCT_EXP_DT" type="DATE"/>
+          <column name="CLM_ON_CSH_BAL_AMT" type="DECIMAL(19, 2)"/>
+          <column name="FND_NOT_DRWN_AMT" type="DECIMAL(19, 2)"/>
+          <column name="LTRCR_AMT" type="DECIMAL(19, 2)"/>
+          <column name="AWD_BEG_DT" type="DATE"/>
+          <column name="AWD_END_DT" type="DATE"/>
+          <column name="CG_AGENCY_NBR" type="VARCHAR(6)"/>
+          <column name="CUST_NBR" type="VARCHAR(9)"/>
+    </createTable>
+    <modifySql dbms="mysql">
+          <replace replace="date" with="datetime"/>
+    </modifySql>
+  </changeSet>
+
+  <changeSet author="KFS601" id="FINI-319_CHANGE_PRPSL_NBR_TYPE_TO_VARCHAR_FROM_DECIMALhb" context="bootstrap,demo,unit">
+    <sql>INSERT INTO AR_LTRCR_RVW_DTL_T2 SELECT * FROM AR_LTRCR_RVW_DTL_T</sql>
+    <dropTable tableName="AR_LTRCR_RVW_DTL_T"/>
+    <renameTable oldTableName="AR_LTRCR_RVW_DTL_T2" newTableName="AR_LTRCR_RVW_DTL_T"/>
+    <addPrimaryKey columnNames="FDOC_NBR, LTRCR_RVW_DTL_ID" constraintName="PKAR_LTRCR_RVW_DTL_T" tableName="AR_LTRCR_RVW_DTL_T"/>
+    <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_LTRCR_RVW_DTL_TC0" tableName="AR_LTRCR_RVW_DTL_T"/>
+  </changeSet>
+
+  <changeSet author="KFS601" id="FINI-319_CHANGE_PRPSL_NBR_TYPE_TO_VARCHAR_FROM_DECIMALi" context="bootstrap,demo,unit">
+    <addColumn tableName="AR_MLSTN_T">
+      <column name="PRPSL_NBR_NEW" type="VARCHAR(12)"/>
+    </addColumn>
+    <sql>UPDATE AR_MLSTN_T SET PRPSL_NBR_NEW = PRPSL_NBR</sql>
+    <dropColumn columnName="PRPSL_NBR" tableName="AR_MLSTN_T"/>
+    <renameColumn columnDataType="VARCHAR(12)" newColumnName="PRPSL_NBR" oldColumnName="PRPSL_NBR_NEW" tableName="AR_MLSTN_T"/>
+  </changeSet>
+
+  <changeSet author="KFS601" id="FINI-319_CHANGE_PRPSL_NBR_TYPE_TO_VARCHAR_FROM_DECIMALj" context="bootstrap,demo,unit">
+    <createTable tableName="AR_MLSTN_SCHDL_T2">
+          <column defaultValueNumeric="0" name="PRPSL_NBR" type="VARCHAR(12)">
+              <constraints nullable="false"/>
+          </column>
+          <column name="OBJ_ID" type="VARCHAR(36)">
+              <constraints nullable="false"/>
+          </column>
+          <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+              <constraints nullable="false"/>
+          </column>
+    </createTable>
+    <sql>INSERT INTO AR_MLSTN_SCHDL_T2 SELECT * FROM AR_MLSTN_SCHDL_T</sql>
+    <dropTable tableName="AR_MLSTN_SCHDL_T"/>
+    <renameTable oldTableName="AR_MLSTN_SCHDL_T2" newTableName="AR_MLSTN_SCHDL_T"/>
+    <addPrimaryKey columnNames="PRPSL_NBR" constraintName="PKAR_MLSTN_SCHDL_T" tableName="AR_MLSTN_SCHDL_T"/>
+    <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_MLSTN_SCHDL_TC0" tableName="AR_MLSTN_SCHDL_T"/>
+  </changeSet>
+
+  <changeSet author="KFS601" id="FINI-319_CHANGE_PRPSL_NBR_TYPE_TO_VARCHAR_FROM_DECIMALk" context="bootstrap,demo,unit">
+    <createTable tableName="AR_PRDTRMND_BILL_SCHDL_T2">
+          <column defaultValueNumeric="0" name="PRPSL_NBR" type="VARCHAR(12)">
+              <constraints nullable="false"/>
+          </column>
+          <column name="OBJ_ID" type="VARCHAR(36)">
+              <constraints nullable="false"/>
+          </column>
+          <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+              <constraints nullable="false"/>
+          </column>
+    </createTable>
+    <sql>INSERT INTO AR_PRDTRMND_BILL_SCHDL_T2 SELECT * FROM AR_PRDTRMND_BILL_SCHDL_T</sql>
+    <dropTable tableName="AR_PRDTRMND_BILL_SCHDL_T"/>
+    <renameTable oldTableName="AR_PRDTRMND_BILL_SCHDL_T2" newTableName="AR_PRDTRMND_BILL_SCHDL_T"/>
+    <addPrimaryKey columnNames="PRPSL_NBR" constraintName="PKAR_PRDTRMND_BILL_SCHDL_T" tableName="AR_PRDTRMND_BILL_SCHDL_T"/>
+    <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_PRDTRMND_BILL_SCHDL_TC0" tableName="AR_PRDTRMND_BILL_SCHDL_T"/>
+  </changeSet>
+
+  <changeSet author="KFS601" id="FINI-319_CHANGE_PRPSL_NBR_TYPE_TO_VARCHAR_FROM_DECIMALl" context="bootstrap,demo,unit">
+    <addColumn tableName="AR_BILL_T">
+      <column name="PRPSL_NBR_NEW" type="VARCHAR(12)"/>
+    </addColumn>
+    <sql>UPDATE AR_BILL_T SET PRPSL_NBR_NEW = PRPSL_NBR</sql>
+    <dropColumn columnName="PRPSL_NBR" tableName="AR_BILL_T"/>
+    <renameColumn columnDataType="VARCHAR(12)" newColumnName="PRPSL_NBR" oldColumnName="PRPSL_NBR_NEW" tableName="AR_BILL_T"/>
+  </changeSet>
+
+  <changeSet author="KFS601" id="FINI-319_CHANGE_PRPSL_NBR_TYPE_TO_VARCHAR_FROM_DECIMALm" context="bootstrap,demo,unit">
+    <addColumn tableName="AR_INV_DOC_ERROR_LOG_T">
+      <column name="PRPSL_NBR_NEW" type="VARCHAR(12)"/>
+    </addColumn>
+    <sql>UPDATE AR_INV_DOC_ERROR_LOG_T SET PRPSL_NBR_NEW = PRPSL_NBR</sql>
+    <dropColumn columnName="PRPSL_NBR" tableName="AR_INV_DOC_ERROR_LOG_T"/>
+    <renameColumn columnDataType="VARCHAR(12)" newColumnName="PRPSL_NBR" oldColumnName="PRPSL_NBR_NEW" tableName="AR_INV_DOC_ERROR_LOG_T"/>
+  </changeSet>
+
+  <changeSet author="KFS601" id="FINI-319_CHANGE_PRPSL_NBR_TYPE_TO_VARCHAR_FROM_DECIMALn" context="bootstrap,demo,unit">
+      <createTable tableName="AR_AWD_ACCT_OBJ_TOT_BLLD_T2">
+          <column defaultValueNumeric="0" name="PRPSL_NBR" type="VARCHAR(12)">
+              <constraints nullable="false"/>
+          </column>
+          <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+              <constraints nullable="false"/>
+          </column>
+          <column defaultValue="" name="ACCOUNT_NBR" type="VARCHAR(7)">
+              <constraints nullable="false"/>
+          </column>
+          <column defaultValue="" name="FIN_OBJ_CD" type="VARCHAR(4)">
+              <constraints nullable="false"/>
+          </column>
+          <column name="OBJ_ID" type="VARCHAR(36)">
+              <constraints nullable="false"/>
+          </column>
+          <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+              <constraints nullable="false"/>
+          </column>
+          <column name="TOT_BILLED_AMT" type="DECIMAL(19, 2)">
+              <constraints nullable="false"/>
+          </column>
+      </createTable>
+      <sql>INSERT INTO AR_AWD_ACCT_OBJ_TOT_BLLD_T2 SELECT * FROM AR_AWD_ACCT_OBJ_TOT_BLLD_T</sql>
+      <dropTable tableName="AR_AWD_ACCT_OBJ_TOT_BLLD_T"/>
+      <renameTable oldTableName="AR_AWD_ACCT_OBJ_TOT_BLLD_T2" newTableName="AR_AWD_ACCT_OBJ_TOT_BLLD_T"/>
+      <addPrimaryKey columnNames="PRPSL_NBR, FIN_COA_CD, ACCOUNT_NBR, FIN_OBJ_CD" constraintName="PKAR_AWD_ACCT_OBJ_TOT_BLLD_T" tableName="AR_AWD_ACCT_OBJ_TOT_BLLD_T"/>
+      <addUniqueConstraint columnNames="OBJ_ID" constraintName="AR_AWD_ACCT_OBJ_TOT_BLLD_TC0" tableName="AR_AWD_ACCT_OBJ_TOT_BLLD_T"/>
+  </changeSet>
+
+  <changeSet author="KFS601" id="FINI-319_CHANGE_PRPSL_NBR_TYPE_TO_VARCHAR_FROM_DECIMALo" context="bootstrap,demo,unit">
+    <addForeignKeyConstraint baseColumnNames="PRPSL_NBR" baseTableName="AR_BILL_T" constraintName="AR_BILL_TR1"
+                             deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                             referencedColumnNames="PRPSL_NBR" referencedTableName="AR_PRDTRMND_BILL_SCHDL_T"/>
+    <addForeignKeyConstraint baseColumnNames="PRPSL_NBR" baseTableName="AR_MLSTN_T" constraintName="AR_MLSTN_TR1"
+                             deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                             referencedColumnNames="PRPSL_NBR" referencedTableName="AR_MLSTN_SCHDL_T"/>
+    <addForeignKeyConstraint baseColumnNames="FDOC_NBR" baseTableName="AR_LTRCR_RVW_DTL_T"
+                             constraintName="AR_LTRCR_RVW_DTL_TR1" deferrable="false" initiallyDeferred="false"
+                             onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FDOC_NBR"
+                             referencedTableName="AR_LTRCR_RVW_DOC_T"/>
+  </changeSet>
+</databaseChangeLog>

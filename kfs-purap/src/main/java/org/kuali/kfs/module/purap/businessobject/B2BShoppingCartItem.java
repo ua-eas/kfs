@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -22,13 +22,13 @@
  */
 package org.kuali.kfs.module.purap.businessobject;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-
 public class B2BShoppingCartItem {
-    
+
     private String quantity;
     private String supplierPartId;
     private String supplierPartAuxiliaryId;
@@ -38,9 +38,9 @@ public class B2BShoppingCartItem {
     private String unitOfMeasure;
     private String manufacturerPartID;
     private String manufacturerName;
-    private Map<String,String> classification = new HashMap<String,String>();
-    private Map<String,String> extrinsic = new HashMap<String,String>();
-    private Map<String,String> supplier = new HashMap<String,String>();
+    private Map<String, String> classification = new HashMap<String, String>();
+    private Map<String, String> extrinsic = new HashMap<String, String>();
+    private Map<String, String> supplier = new HashMap<String, String>();
 
     public B2BShoppingCartItem() {
     }
@@ -73,7 +73,7 @@ public class B2BShoppingCartItem {
         extrinsic.put(domain, value);
     }
 
-    public Map<String,String> getExtrinsic() {
+    public Map<String, String> getExtrinsic() {
         return extrinsic;
     }
 
@@ -93,7 +93,7 @@ public class B2BShoppingCartItem {
         supplier.put(domain, value);
     }
 
-    public Map<String,String> getSupplier() {
+    public Map<String, String> getSupplier() {
         return supplier;
     }
 
@@ -152,9 +152,9 @@ public class B2BShoppingCartItem {
     public void setManufacturerName(String manufacturerName) {
         this.manufacturerName = manufacturerName;
     }
-    
+
     public String toString() {
-        
+
         ToStringBuilder toString = new ToStringBuilder(this);
         toString.append("quantity", quantity);
         toString.append("supplierPartId", supplierPartId);

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -23,8 +23,14 @@ import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.Organization;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.integration.purap.CapitalAssetSystem;
 import org.kuali.kfs.integration.purap.ItemCapitalAsset;
+import org.kuali.kfs.krad.rules.rule.event.ApproveDocumentEvent;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.krad.rules.rule.event.RouteDocumentEvent;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapParameterConstants;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
@@ -60,12 +66,6 @@ import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.kfs.vnd.document.service.VendorService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.krad.rules.rule.event.ApproveDocumentEvent;
-import org.kuali.rice.krad.rules.rule.event.KualiDocumentEvent;
-import org.kuali.rice.krad.rules.rule.event.RouteDocumentEvent;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
 import org.kuali.rice.location.api.country.Country;
 import org.kuali.rice.location.api.country.CountryService;
 
@@ -209,6 +209,7 @@ public abstract class PurchasingDocumentBase extends PurchasingAccountsPayableDo
             this.setVendorCustomerNumber("");
         }
     }
+
     /**
      * @see org.kuali.kfs.module.purap.document.PurchasingDocument#templateVendorContract(org.kuali.kfs.vnd.businessobject.VendorContract)
      */
@@ -268,8 +269,7 @@ public abstract class PurchasingDocumentBase extends PurchasingAccountsPayableDo
             this.setReceivingPostalCode(receivingAddress.getReceivingPostalCode());
             this.setReceivingCountryCode(receivingAddress.getReceivingCountryCode());
             this.setAddressToVendorIndicator(receivingAddress.isUseReceivingIndicator());
-        }
-        else {
+        } else {
             this.setReceivingName(null);
             this.setReceivingLine1Address(null);
             this.setReceivingLine2Address(null);
@@ -316,7 +316,7 @@ public abstract class PurchasingDocumentBase extends PurchasingAccountsPayableDo
      * @return the PurchasingCapitalAssetItem if a match is found, else null.
      */
     public PurchasingCapitalAssetItem getPurchasingCapitalAssetItemByItemIdentifier(int itemIdentifier) {
-        for (Iterator iter = purchasingCapitalAssetItems.iterator(); iter.hasNext();) {
+        for (Iterator iter = purchasingCapitalAssetItems.iterator(); iter.hasNext(); ) {
             PurchasingCapitalAssetItem camsItem = (PurchasingCapitalAssetItem) iter.next();
             if (camsItem.getItemIdentifier().intValue() == itemIdentifier) {
                 return camsItem;
@@ -362,7 +362,7 @@ public abstract class PurchasingDocumentBase extends PurchasingAccountsPayableDo
     @Override
     public void populateDocumentForRouting() {
         commodityCodesForRouting = new ArrayList<CommodityCode>();
-        for (PurchasingItemBase item : (List<PurchasingItemBase>)this.getItems()) {
+        for (PurchasingItemBase item : (List<PurchasingItemBase>) this.getItems()) {
             if (item.getCommodityCode() != null && !commodityCodesForRouting.contains(item.getCommodityCode())) {
                 commodityCodesForRouting.add(item.getCommodityCode());
             }
@@ -416,7 +416,7 @@ public abstract class PurchasingDocumentBase extends PurchasingAccountsPayableDo
 
     @Override
     public String getBillingCountryName() {
-        if ( StringUtils.isNotBlank(getBillingCountryCode()) ) {
+        if (StringUtils.isNotBlank(getBillingCountryCode())) {
             Country country = SpringContext.getBean(CountryService.class).getCountry(getBillingCountryCode());
             if (country != null) {
                 return country.getName();
@@ -515,7 +515,7 @@ public abstract class PurchasingDocumentBase extends PurchasingAccountsPayableDo
 
     @Override
     public String getReceivingCountryName() {
-        if ( StringUtils.isNotBlank(getReceivingCountryCode()) ) {
+        if (StringUtils.isNotBlank(getReceivingCountryCode())) {
             Country country = SpringContext.getBean(CountryService.class).getCountry(getReceivingCountryCode());
             if (country != null) {
                 return country.getName();
@@ -681,7 +681,7 @@ public abstract class PurchasingDocumentBase extends PurchasingAccountsPayableDo
 
     @Override
     public String getDeliveryCountryName() {
-        if ( StringUtils.isNotBlank(getDeliveryCountryCode()) ) {
+        if (StringUtils.isNotBlank(getDeliveryCountryCode())) {
             Country country = SpringContext.getBean(CountryService.class).getCountry(getDeliveryCountryCode());
             if (country != null) {
                 return country.getName();
@@ -1019,8 +1019,7 @@ public abstract class PurchasingDocumentBase extends PurchasingAccountsPayableDo
         getVendorContract();
         if (ObjectUtils.isNull(vendorContract)) {
             return "";
-        }
-        else {
+        } else {
             return vendorContract.getVendorContractName();
         }
     }
@@ -1286,6 +1285,7 @@ public abstract class PurchasingDocumentBase extends PurchasingAccountsPayableDo
 
     /**
      * Gets the receivingDocumentRequiredIndicator attribute.
+     *
      * @return Returns the receivingDocumentRequiredIndicator.
      */
     @Override
@@ -1295,6 +1295,7 @@ public abstract class PurchasingDocumentBase extends PurchasingAccountsPayableDo
 
     /**
      * Sets the receivingDocumentRequiredIndicator attribute value.
+     *
      * @param receivingDocumentRequiredIndicator The receivingDocumentRequiredIndicator to set.
      */
     @Override
@@ -1302,8 +1303,7 @@ public abstract class PurchasingDocumentBase extends PurchasingAccountsPayableDo
         // if receivingDocumentRequiredIndicator functionality is disabled, always set it to false, overriding the passed-in value
         if (!isEnableReceivingDocumentRequiredIndicator()) {
             receivingDocumentRequiredIndicator = false;
-        }
-        else {
+        } else {
             this.receivingDocumentRequiredIndicator = receivingDocumentRequiredIndicator;
         }
     }
@@ -1318,8 +1318,7 @@ public abstract class PurchasingDocumentBase extends PurchasingAccountsPayableDo
         // if paymentRequestPositiveApprovalIndicator functionality is disabled, always set it to false, overriding the passed-in value
         if (!isEnablePaymentRequestPositiveApprovalIndicator()) {
             paymentRequestPositiveApprovalIndicator = false;
-        }
-        else {
+        } else {
             this.paymentRequestPositiveApprovalIndicator = paymentRequestPositiveApprovalIndicator;
         }
     }
@@ -1354,6 +1353,7 @@ public abstract class PurchasingDocumentBase extends PurchasingAccountsPayableDo
 
     /**
      * Gets the justification attribute.
+     *
      * @return Returns the justification.
      */
     public String getJustification() {
@@ -1362,6 +1362,7 @@ public abstract class PurchasingDocumentBase extends PurchasingAccountsPayableDo
 
     /**
      * Sets the justification attribute value.
+     *
      * @param justification The justification to set.
      */
     public void setJustification(String justification) {
@@ -1370,7 +1371,7 @@ public abstract class PurchasingDocumentBase extends PurchasingAccountsPayableDo
 
     @Override
     public CapitalAssetSystemType getCapitalAssetSystemType() {
-        if(ObjectUtils.isNull(capitalAssetSystemType)){
+        if (ObjectUtils.isNull(capitalAssetSystemType)) {
             this.refreshReferenceObject("capitalAssetSystemType");
         }
         return capitalAssetSystemType;
@@ -1383,7 +1384,7 @@ public abstract class PurchasingDocumentBase extends PurchasingAccountsPayableDo
 
     @Override
     public CapitalAssetSystemState getCapitalAssetSystemState() {
-        if(ObjectUtils.isNull(capitalAssetSystemState)){
+        if (ObjectUtils.isNull(capitalAssetSystemState)) {
             this.refreshReferenceObject("capitalAssetSystemState");
         }
         return capitalAssetSystemState;
@@ -1421,16 +1422,16 @@ public abstract class PurchasingDocumentBase extends PurchasingAccountsPayableDo
     public abstract Class getPurchasingCapitalAssetSystemClass();
 
     @Override
-    public PurchasingItem getPurchasingItem(Integer itemIdentifier){
+    public PurchasingItem getPurchasingItem(Integer itemIdentifier) {
 
-        if(ObjectUtils.isNull(itemIdentifier)) {
+        if (ObjectUtils.isNull(itemIdentifier)) {
             return null;
         }
 
         PurchasingItem item = null;
 
-        for(PurchasingItem pi: (List<PurchasingItem>)this.getItems()){
-            if(itemIdentifier.equals(pi.getItemIdentifier())){
+        for (PurchasingItem pi : (List<PurchasingItem>) this.getItems()) {
+            if (itemIdentifier.equals(pi.getItemIdentifier())) {
                 item = pi;
                 break;
             }
@@ -1440,16 +1441,16 @@ public abstract class PurchasingDocumentBase extends PurchasingAccountsPayableDo
     }
 
     @Override
-    public PurchasingCapitalAssetItem getPurchasingCapitalAssetItem(Integer itemIdentifier){
+    public PurchasingCapitalAssetItem getPurchasingCapitalAssetItem(Integer itemIdentifier) {
 
-        if(ObjectUtils.isNull(itemIdentifier)) {
+        if (ObjectUtils.isNull(itemIdentifier)) {
             return null;
         }
 
         PurchasingCapitalAssetItem item = null;
 
-        for(PurchasingCapitalAssetItem pcai: this.getPurchasingCapitalAssetItems()){
-            if(itemIdentifier.equals(pcai.getItemIdentifier())){
+        for (PurchasingCapitalAssetItem pcai : this.getPurchasingCapitalAssetItems()) {
+            if (itemIdentifier.equals(pcai.getItemIdentifier())) {
                 item = pcai;
                 break;
             }
@@ -1468,7 +1469,7 @@ public abstract class PurchasingDocumentBase extends PurchasingAccountsPayableDo
         managedLists.add(getDeletionAwareUseTaxItems());
         if (allowDeleteAwareCollection) {
             List<ItemCapitalAsset> assetLists = new ArrayList<ItemCapitalAsset>();
-            if (StringUtils.equals(this.getCapitalAssetSystemTypeCode(),PurapConstants.CapitalAssetSystemTypes.INDIVIDUAL)) {
+            if (StringUtils.equals(this.getCapitalAssetSystemTypeCode(), PurapConstants.CapitalAssetSystemTypes.INDIVIDUAL)) {
                 for (PurchasingCapitalAssetItem capitalAssetItem : this.getPurchasingCapitalAssetItems()) {
                     //We only need to add the itemCapitalAssets to assetLists if the system is not null, otherwise
                     //just let the assetLists be empty ArrayList.
@@ -1476,8 +1477,7 @@ public abstract class PurchasingDocumentBase extends PurchasingAccountsPayableDo
                         assetLists.addAll(capitalAssetItem.getPurchasingCapitalAssetSystem().getItemCapitalAssets());
                     }
                 }
-            }
-            else {
+            } else {
                 for (CapitalAssetSystem system : this.getPurchasingCapitalAssetSystems()) {
                     assetLists.addAll(system.getItemCapitalAssets());
                 }
@@ -1544,11 +1544,11 @@ public abstract class PurchasingDocumentBase extends PurchasingAccountsPayableDo
         return receivingDocumentRequiredIndicator;
     }
 
-    public String getDocumentChartOfAccountsCodeForSearching(){
+    public String getDocumentChartOfAccountsCodeForSearching() {
         return chartOfAccountsCode;
     }
 
-    public String getDocumentOrganizationCodeForSearching(){
+    public String getDocumentOrganizationCodeForSearching() {
         return organizationCode;
     }
 
@@ -1557,11 +1557,11 @@ public abstract class PurchasingDocumentBase extends PurchasingAccountsPayableDo
         return true;
     }
 
-    public String getChartAndOrgCodeForResult(){
+    public String getChartAndOrgCodeForResult() {
         return getChartOfAccountsCode() + "-" + getOrganizationCode();
     }
 
-    public String getDeliveryCampusCodeForSearch(){
+    public String getDeliveryCampusCodeForSearch() {
         return getDeliveryCampusCode();
     }
 
@@ -1570,8 +1570,7 @@ public abstract class PurchasingDocumentBase extends PurchasingAccountsPayableDo
             refreshReferenceObject(VendorPropertyConstants.VENDOR_DETAIL);
             String campusCode = GlobalVariables.getUserSession().getPerson().getCampusCode();
             VendorDetail vendorDetail = getVendorDetail();
-            if (vendorDetail == null || StringUtils.isEmpty(campusCode))
-             {
+            if (vendorDetail == null || StringUtils.isEmpty(campusCode)) {
                 return false; // this should never happen
             }
             return SpringContext.getBean(VendorService.class).getVendorB2BContract(vendorDetail, campusCode) != null;

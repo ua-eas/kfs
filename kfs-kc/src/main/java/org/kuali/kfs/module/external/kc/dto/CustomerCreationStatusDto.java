@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,11 +18,10 @@
  */
 package org.kuali.kfs.module.external.kc.dto;
 
-import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
+import java.util.List;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "customerCreationStatusDto", propOrder = {
@@ -36,12 +35,15 @@ public class CustomerCreationStatusDto {
     public List<String> getErrors() {
         return errors;
     }
+
     public void setErrors(List<String> errors) {
         this.errors = errors;
     }
+
     public String getCustomerNumber() {
         return customerNumber;
     }
+
     public void setCustomerNumber(String customerNumber) {
         this.customerNumber = customerNumber;
     }

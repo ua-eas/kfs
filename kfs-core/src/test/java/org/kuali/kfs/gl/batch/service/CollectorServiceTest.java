@@ -1,35 +1,35 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.batch.service;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.batch.CollectorStep;
 import org.kuali.kfs.gl.batch.MockCollectorBatch;
 import org.kuali.kfs.gl.businessobject.CollectorDetail;
 import org.kuali.kfs.gl.businessobject.OriginEntryFull;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.KFSConstants.SystemGroupParameterNames;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.krad.util.GlobalVariables;
 
 // import org.kuali.kfs.suite.RelatesTo;
 
@@ -43,6 +43,7 @@ public class CollectorServiceTest extends KualiTestBase {
 
     /**
      * Initializes services needed by this test
+     *
      * @see junit.framework.TestCase#setUp()
      */
     @Override
@@ -61,7 +62,7 @@ public class CollectorServiceTest extends KualiTestBase {
         String subject = parameterService.getParameterValueAsString(CollectorStep.class, SystemGroupParameterNames.COLLECTOR_VALIDATOR_EMAIL_SUBJECT_PARAMETER_NAME);
         assertTrue("system parameter " + SystemGroupParameterNames.COLLECTOR_VALIDATOR_EMAIL_SUBJECT_PARAMETER_NAME + " is not setup or is empty", StringUtils.isNotBlank(subject));
 
-        String[] documentTypes = parameterService.getParameterValuesAsString(CollectorStep.class, SystemGroupParameterNames.COLLECTOR_EQUAL_DC_TOTAL_DOCUMENT_TYPES).toArray(new String[] {});
+        String[] documentTypes = parameterService.getParameterValuesAsString(CollectorStep.class, SystemGroupParameterNames.COLLECTOR_EQUAL_DC_TOTAL_DOCUMENT_TYPES).toArray(new String[]{});
         assertTrue("system parameter " + SystemGroupParameterNames.COLLECTOR_EQUAL_DC_TOTAL_DOCUMENT_TYPES + " is not setup or is empty", documentTypes.length > 0);
     }
 
@@ -102,6 +103,7 @@ public class CollectorServiceTest extends KualiTestBase {
         mockCollectorBatch.setMailingAddress("Somewhere");
         mockCollectorBatch.setDepartmentName("Some Dept");
     }
+
     /**
      * Verifies an error is added when a collector detail key does not have a matching gl entry. Note: Actual test values do have to
      * be valid, only need to be different from the gl record to the detail

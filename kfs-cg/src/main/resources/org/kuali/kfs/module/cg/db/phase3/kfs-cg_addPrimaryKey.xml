@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="kfs" id="2594" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CG_AGENCY_NBR, CG_AGENCY_ADDR_ID" constraintName="PKCG_AGENCY_ADDR_T" tableName="CG_AGENCY_ADDR_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2595" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CG_AGENCY_NBR" constraintName="PKCG_AGENCY_T" tableName="CG_AGENCY_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2596" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CG_AGENCY_TYP_CD" constraintName="PKCG_AGENCY_TYP_T" tableName="CG_AGENCY_TYP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2597" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CGPRPSL_NBR, FIN_COA_CD, ACCOUNT_NBR" constraintName="PKCG_AWD_ACCT_T" tableName="CG_AWD_ACCT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2598" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="PERSON_UNVL_ID, CGPRPSL_NBR" constraintName="PKCG_AWD_FNDMGR_T" tableName="CG_AWD_FNDMGR_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2599" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FIN_COA_CD, ORG_CD, CGPRPSL_NBR" constraintName="PKCG_AWD_ORG_T" tableName="CG_AWD_ORG_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2600" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="PERSON_UNVL_ID, CGPRPSL_NBR" constraintName="PKCG_AWD_PRJDR_T" tableName="CG_AWD_PRJDR_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2601" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CGAWD_STAT_CD" constraintName="PKCG_AWD_STAT_T" tableName="CG_AWD_STAT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2602" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="AWD_SUBCN_AMND_NBR, CGAWD_SUBCN_NBR, CG_SUBCNR_NBR, CGPRPSL_NBR" constraintName="PKCG_AWD_SUBCN_T" tableName="CG_AWD_SUBCN_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2603" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CGPRPSL_NBR" constraintName="PKCG_AWD_T" tableName="CG_AWD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2604" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="BILL_FREQ_CD" constraintName="PKCG_BILL_FREQ_T" tableName="CG_BILL_FREQ_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2605" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CG_CFDA_NBR" constraintName="PKCG_CFDA_REF_T" tableName="CG_CFDA_REF_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2606" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CG_GRANT_DESC_CD" constraintName="PKCG_GRANT_DESC_T" tableName="CG_GRANT_DESC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2607" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="INSTRMNT_TYP_CD" constraintName="PKCG_INSTRMNT_TYP_T" tableName="CG_INSTRMNT_TYP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2608" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CG_LTRCR_FNDGRP_CD" constraintName="PKCG_LTRCR_FNDGRP_T" tableName="CG_LTRCR_FNDGRP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2609" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CG_LTRCR_FND_CD" constraintName="PKCG_LTRCR_FND_T" tableName="CG_LTRCR_FND_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2610" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CGPRPSL_AWD_TYP_CD" constraintName="PKCG_PRPSL_AWD_TYP_T" tableName="CG_PRPSL_AWD_TYP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2611" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CG_PRPSL_CLOSE_NBR" constraintName="PKCG_PRPSL_CLOSE_T" tableName="CG_PRPSL_CLOSE_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2612" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FIN_COA_CD, ORG_CD, CGPRPSL_NBR" constraintName="PKCG_PRPSL_ORG_T" tableName="CG_PRPSL_ORG_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2613" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="PERSON_UNVL_ID, CGPRPSL_NBR" constraintName="PKCG_PRPSL_PRJDR_T" tableName="CG_PRPSL_PRJDR_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2614" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CGPRPSL_PURPOSE_CD" constraintName="PKCG_PRPSL_PURPOSE_T" tableName="CG_PRPSL_PURPOSE_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2615" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CGPRPSL_NBR, RSRCH_RSK_TYP_CD" constraintName="PKCG_PRPSL_RSRCH_RSK_T" tableName="CG_PRPSL_RSRCH_RSK_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2616" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CGPRPSL_STAT_CD" constraintName="PKCG_PRPSL_STAT_T" tableName="CG_PRPSL_STAT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2617" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CGPRPSL_SUBCN_NBR, CGPRPSL_NBR, CG_SUBCNR_NBR" constraintName="PKCG_PRPSL_SUBCN_T" tableName="CG_PRPSL_SUBCN_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2618" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CGPRPSL_NBR" constraintName="PKCG_PRPSL_T" tableName="CG_PRPSL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2619" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CG_SUBCNR_NBR" constraintName="PKCG_SUBCNR_T" tableName="CG_SUBCNR_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2620" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CTRL_ATTRIB_TYP_CD" constraintName="PKER_CTRL_ATTRIB_TYP_T" tableName="ER_CTRL_ATTRIB_TYP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2621" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="RSRCH_RSK_TYP_CD" constraintName="PKER_RSRCH_RSK_TYP_T" tableName="ER_RSRCH_RSK_TYP_T"/>
+    </changeSet>
+</databaseChangeLog>

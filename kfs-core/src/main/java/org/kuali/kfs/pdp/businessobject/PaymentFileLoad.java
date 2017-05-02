@@ -1,36 +1,36 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.pdp.businessobject;
 
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 import org.kuali.kfs.pdp.PdpPropertyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.rice.krad.bo.TransientBusinessObjectBase;
+
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * Represents the parsed contents of an incoming payment file.
@@ -102,7 +102,7 @@ public class PaymentFileLoad extends TransientBusinessObjectBase {
 
     /**
      * Gets the chart attribute.
-     * 
+     *
      * @return Returns the chart.
      */
     public String getChart() {
@@ -111,7 +111,7 @@ public class PaymentFileLoad extends TransientBusinessObjectBase {
 
     /**
      * Sets the chart attribute value.
-     * 
+     *
      * @param chart The chart to set.
      */
     public void setChart(String chart) {
@@ -120,7 +120,7 @@ public class PaymentFileLoad extends TransientBusinessObjectBase {
 
     /**
      * Gets the unit attribute.
-     * 
+     *
      * @return Returns the unit.
      */
     public String getUnit() {
@@ -129,7 +129,7 @@ public class PaymentFileLoad extends TransientBusinessObjectBase {
 
     /**
      * Sets the unit attribute value.
-     * 
+     *
      * @param unit The unit to set.
      */
     public void setUnit(String unit) {
@@ -138,7 +138,7 @@ public class PaymentFileLoad extends TransientBusinessObjectBase {
 
     /**
      * Gets the subUnit attribute.
-     * 
+     *
      * @return Returns the subUnit.
      */
     public String getSubUnit() {
@@ -147,7 +147,7 @@ public class PaymentFileLoad extends TransientBusinessObjectBase {
 
     /**
      * Sets the subUnit attribute value.
-     * 
+     *
      * @param subUnit The subUnit to set.
      */
     public void setSubUnit(String subUnit) {
@@ -156,7 +156,7 @@ public class PaymentFileLoad extends TransientBusinessObjectBase {
 
     /**
      * Gets the creationDate attribute.
-     * 
+     *
      * @return Returns the creationDate.
      */
     public Timestamp getCreationDate() {
@@ -165,31 +165,30 @@ public class PaymentFileLoad extends TransientBusinessObjectBase {
 
     /**
      * Sets the creationDate attribute value.
-     * 
+     *
      * @param creationDate The creationDate to set.
      */
     public void setCreationDate(Timestamp creationDate) {
         this.creationDate = creationDate;
     }
-    
+
     /**
      * Takes a <code>String</code> and attempt to format as <code>Timestamp</code for setting the
      * creationDate field
-     * 
+     *
      * @param creationDate Timestamp as string
      */
     public void setCreationDate(String creationDate) {
         try {
             this.creationDate = SpringContext.getBean(DateTimeService.class).convertToSqlTimestamp(creationDate);
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             throw new RuntimeException("Unable to convert create timestamp value " + creationDate + " :" + e.getMessage(), e);
         }
     }
 
     /**
      * Gets the paymentCount attribute.
-     * 
+     *
      * @return Returns the paymentCount.
      */
     public int getPaymentCount() {
@@ -198,7 +197,7 @@ public class PaymentFileLoad extends TransientBusinessObjectBase {
 
     /**
      * Sets the paymentCount attribute value.
-     * 
+     *
      * @param paymentCount The paymentCount to set.
      */
     public void setPaymentCount(int paymentCount) {
@@ -207,7 +206,7 @@ public class PaymentFileLoad extends TransientBusinessObjectBase {
 
     /**
      * Helper method to set the paymentCount int from a string.
-     * 
+     *
      * @param paymentCount String payment count
      */
     public void setPaymentCount(String paymentCount) {
@@ -216,7 +215,7 @@ public class PaymentFileLoad extends TransientBusinessObjectBase {
 
     /**
      * Gets the paymentTotalAmount attribute.
-     * 
+     *
      * @return Returns the paymentTotalAmount.
      */
     public KualiDecimal getPaymentTotalAmount() {
@@ -225,20 +224,20 @@ public class PaymentFileLoad extends TransientBusinessObjectBase {
 
     /**
      * Sets the paymentTotalAmount attribute value.
-     * 
+     *
      * @param paymentTotalAmount The paymentTotalAmount to set.
      */
     public void setPaymentTotalAmount(KualiDecimal paymentTotalAmount) {
         this.paymentTotalAmount = paymentTotalAmount;
     }
-    
+
     public void setPaymentTotalAmount(String paymentTotalAmount) {
         this.paymentTotalAmount = new KualiDecimal(paymentTotalAmount);
     }
 
     /**
      * Gets the paymentGroups attribute.
-     * 
+     *
      * @return Returns the paymentGroups.
      */
     public List<PaymentGroup> getPaymentGroups() {
@@ -247,7 +246,7 @@ public class PaymentFileLoad extends TransientBusinessObjectBase {
 
     /**
      * Sets the paymentGroups attribute value.
-     * 
+     *
      * @param paymentGroups The paymentGroups to set.
      */
     public void setPaymentGroups(List<PaymentGroup> paymentGroups) {
@@ -256,7 +255,7 @@ public class PaymentFileLoad extends TransientBusinessObjectBase {
 
     /**
      * Adds a <code>PaymentGroup</code> to the group <code>List</code>
-     * 
+     *
      * @param paymentGroup <code>PaymentGroup</code> to add
      */
     public void addPaymentGroup(PaymentGroup paymentGroup) {
@@ -265,7 +264,7 @@ public class PaymentFileLoad extends TransientBusinessObjectBase {
 
     /**
      * Gets the fileThreshold attribute.
-     * 
+     *
      * @return Returns the fileThreshold.
      */
     public boolean isFileThreshold() {
@@ -274,7 +273,7 @@ public class PaymentFileLoad extends TransientBusinessObjectBase {
 
     /**
      * Sets the fileThreshold attribute value.
-     * 
+     *
      * @param fileThreshold The fileThreshold to set.
      */
     public void setFileThreshold(boolean fileThreshold) {
@@ -283,7 +282,7 @@ public class PaymentFileLoad extends TransientBusinessObjectBase {
 
     /**
      * Gets the detailThreshold attribute.
-     * 
+     *
      * @return Returns the detailThreshold.
      */
     public boolean isDetailThreshold() {
@@ -292,7 +291,7 @@ public class PaymentFileLoad extends TransientBusinessObjectBase {
 
     /**
      * Sets the detailThreshold attribute value.
-     * 
+     *
      * @param detailThreshold The detailThreshold to set.
      */
     public void setDetailThreshold(boolean detailThreshold) {
@@ -302,7 +301,7 @@ public class PaymentFileLoad extends TransientBusinessObjectBase {
 
     /**
      * Gets the batchId attribute.
-     * 
+     *
      * @return Returns the batchId.
      */
     public KualiInteger getBatchId() {
@@ -311,7 +310,7 @@ public class PaymentFileLoad extends TransientBusinessObjectBase {
 
     /**
      * Sets the batchId attribute value.
-     * 
+     *
      * @param batchId The batchId to set.
      */
     public void setBatchId(KualiInteger batchId) {
@@ -320,7 +319,7 @@ public class PaymentFileLoad extends TransientBusinessObjectBase {
 
     /**
      * Gets the taxEmailRequired attribute.
-     * 
+     *
      * @return Returns the taxEmailRequired.
      */
     public boolean isTaxEmailRequired() {
@@ -329,7 +328,7 @@ public class PaymentFileLoad extends TransientBusinessObjectBase {
 
     /**
      * Sets the taxEmailRequired attribute value.
-     * 
+     *
      * @param taxEmailRequired The taxEmailRequired to set.
      */
     public void setTaxEmailRequired(boolean taxEmailRequired) {
@@ -338,7 +337,7 @@ public class PaymentFileLoad extends TransientBusinessObjectBase {
 
     /**
      * Gets the thresholdPaymentDetails attribute.
-     * 
+     *
      * @return Returns the thresholdPaymentDetails.
      */
     public List<PaymentDetail> getThresholdPaymentDetails() {
@@ -347,7 +346,7 @@ public class PaymentFileLoad extends TransientBusinessObjectBase {
 
     /**
      * Sets the thresholdPaymentDetails attribute value.
-     * 
+     *
      * @param thresholdPaymentDetails The thresholdPaymentDetails to set.
      */
     public void setThresholdPaymentDetails(List<PaymentDetail> thresholdPaymentDetails) {
@@ -356,7 +355,7 @@ public class PaymentFileLoad extends TransientBusinessObjectBase {
 
     /**
      * Gets the passedValidation attribute.
-     * 
+     *
      * @return Returns the passedValidation.
      */
     public boolean isPassedValidation() {
@@ -365,7 +364,7 @@ public class PaymentFileLoad extends TransientBusinessObjectBase {
 
     /**
      * Sets the passedValidation attribute value.
-     * 
+     *
      * @param passedValidation The passedValidation to set.
      */
     public void setPassedValidation(boolean passedValidation) {
@@ -375,7 +374,7 @@ public class PaymentFileLoad extends TransientBusinessObjectBase {
 
     /**
      * Gets the customer attribute.
-     * 
+     *
      * @return Returns the customer.
      */
     public CustomerProfile getCustomer() {
@@ -384,14 +383,14 @@ public class PaymentFileLoad extends TransientBusinessObjectBase {
 
     /**
      * Sets the customer attribute value.
-     * 
+     *
      * @param customer The customer to set.
      */
     public void setCustomer(CustomerProfile customer) {
         this.customer = customer;
     }
 
-    
+
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
         LinkedHashMap m = new LinkedHashMap();
 

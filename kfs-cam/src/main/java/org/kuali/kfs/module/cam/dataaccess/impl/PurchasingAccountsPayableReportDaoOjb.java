@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  * 
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,31 +18,31 @@
  */
 package org.kuali.kfs.module.cam.dataaccess.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
 import org.apache.ojb.broker.query.QueryFactory;
 import org.apache.ojb.broker.query.ReportQueryByCriteria;
 import org.kuali.kfs.gl.OJBUtility;
-import org.kuali.kfs.module.cab.CabConstants;
-import org.kuali.kfs.module.cab.CabPropertyConstants;
-import org.kuali.kfs.module.cab.businessobject.GeneralLedgerEntry;
-import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableDocument;
-import org.kuali.kfs.module.cab.dataaccess.PurchasingAccountsPayableReportDao;
+import org.kuali.kfs.module.cam.CamsConstants;
+import org.kuali.kfs.module.cam.CamsPropertyConstants;
+import org.kuali.kfs.module.cam.businessobject.GeneralLedgerEntry;
+import org.kuali.kfs.module.cam.businessobject.PurchasingAccountsPayableDocument;
+import org.kuali.kfs.module.cam.dataaccess.PurchasingAccountsPayableReportDao;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class PurchasingAccountsPayableReportDaoOjb extends PlatformAwareDaoBaseOjb implements PurchasingAccountsPayableReportDao {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PurchasingAccountsPayableReportDaoOjb.class);
 
     /**
-     * @see org.kuali.kfs.module.cab.dataaccess.PurchasingAccountsPayableReportDao#findPurchasingAccountsPayableDocuments(java.util.Map)
+     * @see PurchasingAccountsPayableReportDao#findPurchasingAccountsPayableDocuments(Map)
      */
     @Override
     public Collection findPurchasingAccountsPayableDocuments(Map fieldValues) {
@@ -53,7 +53,7 @@ public class PurchasingAccountsPayableReportDaoOjb extends PlatformAwareDaoBaseO
 
 
     /**
-     * @see org.kuali.kfs.module.cab.dataaccess.PurchasingAccountsPayableReportDao#findGeneralLedgers(java.util.Map)
+     * @see PurchasingAccountsPayableReportDao#findGeneralLedgers(Map)
      */
     @Override
     public Iterator findGeneralLedgers(Map fieldValues) {
@@ -76,11 +76,11 @@ public class PurchasingAccountsPayableReportDaoOjb extends PlatformAwareDaoBaseO
 
         // set document type code criteria
         if (!docTypeCodes.isEmpty()) {
-            criteria.addIn(CabPropertyConstants.GeneralLedgerEntry.FINANCIAL_DOCUMENT_TYPE_CODE, docTypeCodes);
+            criteria.addIn(CamsPropertyConstants.GeneralLedgerEntry.FINANCIAL_DOCUMENT_TYPE_CODE, docTypeCodes);
         }
         // set activity status code criteria
         if (!activityStatusCodes.isEmpty()) {
-            criteria.addIn(CabPropertyConstants.GeneralLedgerEntry.ACTIVITY_STATUS_CODE, activityStatusCodes);
+            criteria.addIn(CamsPropertyConstants.GeneralLedgerEntry.ACTIVITY_STATUS_CODE, activityStatusCodes);
         }
         ReportQueryByCriteria query = QueryFactory.newReportQuery(GeneralLedgerEntry.class, criteria);
 
@@ -102,14 +102,14 @@ public class PurchasingAccountsPayableReportDaoOjb extends PlatformAwareDaoBaseO
     protected Collection getActivityStatusCode(Map fieldValues) {
         Collection activityStatusCodes = new ArrayList<String>();
 
-        if (fieldValues.containsKey(CabPropertyConstants.GeneralLedgerEntry.ACTIVITY_STATUS_CODE)) {
-            String fieldValue = (String) fieldValues.get(CabPropertyConstants.GeneralLedgerEntry.ACTIVITY_STATUS_CODE);
+        if (fieldValues.containsKey(CamsPropertyConstants.GeneralLedgerEntry.ACTIVITY_STATUS_CODE)) {
+            String fieldValue = (String) fieldValues.get(CamsPropertyConstants.GeneralLedgerEntry.ACTIVITY_STATUS_CODE);
             if (KFSConstants.NON_ACTIVE_INDICATOR.equalsIgnoreCase(fieldValue)) {
                 // when selected as 'N', search for active lines as 'M'-modified by CAB user,'N'- new
-                activityStatusCodes.add(CabConstants.ActivityStatusCode.NEW);
-                activityStatusCodes.add(CabConstants.ActivityStatusCode.MODIFIED);
+                activityStatusCodes.add(CamsConstants.ActivityStatusCode.NEW);
+                activityStatusCodes.add(CamsConstants.ActivityStatusCode.MODIFIED);
             }
-            fieldValues.remove(CabPropertyConstants.GeneralLedgerEntry.ACTIVITY_STATUS_CODE);
+            fieldValues.remove(CamsPropertyConstants.GeneralLedgerEntry.ACTIVITY_STATUS_CODE);
         }
         return activityStatusCodes;
     }
@@ -124,17 +124,16 @@ public class PurchasingAccountsPayableReportDaoOjb extends PlatformAwareDaoBaseO
     protected Collection getDocumentType(Map fieldValues) {
         Collection docTypeCodes = new ArrayList<String>();
 
-        if (fieldValues.containsKey(CabPropertyConstants.GeneralLedgerEntry.FINANCIAL_DOCUMENT_TYPE_CODE)) {
-            String fieldValue = (String) fieldValues.get(CabPropertyConstants.GeneralLedgerEntry.FINANCIAL_DOCUMENT_TYPE_CODE);
+        if (fieldValues.containsKey(CamsPropertyConstants.GeneralLedgerEntry.FINANCIAL_DOCUMENT_TYPE_CODE)) {
+            String fieldValue = (String) fieldValues.get(CamsPropertyConstants.GeneralLedgerEntry.FINANCIAL_DOCUMENT_TYPE_CODE);
             if (StringUtils.isEmpty(fieldValue)) {
-                docTypeCodes.add(CabConstants.PREQ);
-                docTypeCodes.add(CabConstants.CM);
-            }
-            else {
+                docTypeCodes.add(CamsConstants.PREQ);
+                docTypeCodes.add(CamsConstants.CM);
+            } else {
                 docTypeCodes.add(fieldValue);
             }
             // truncate the non-property filed
-            fieldValues.remove(CabPropertyConstants.GeneralLedgerEntry.FINANCIAL_DOCUMENT_TYPE_CODE);
+            fieldValues.remove(CamsPropertyConstants.GeneralLedgerEntry.FINANCIAL_DOCUMENT_TYPE_CODE);
         }
 
         return docTypeCodes;
@@ -150,19 +149,19 @@ public class PurchasingAccountsPayableReportDaoOjb extends PlatformAwareDaoBaseO
     protected List<String> buildAttributeList(boolean isExtended) {
         List attributeList = new ArrayList();
 
-        attributeList.add(CabPropertyConstants.GeneralLedgerEntry.UNIVERSITY_FISCAL_YEAR);
-        attributeList.add(CabPropertyConstants.GeneralLedgerEntry.UNIVERSITY_FISCAL_PERIOD_CODE);
-        attributeList.add(CabPropertyConstants.GeneralLedgerEntry.CHART_OF_ACCOUNTS_CODE);
-        attributeList.add(CabPropertyConstants.GeneralLedgerEntry.ACCOUNT_NUMBER);
-        attributeList.add(CabPropertyConstants.GeneralLedgerEntry.FINANCIAL_OBJECT_CODE);
-        attributeList.add(CabPropertyConstants.GeneralLedgerEntry.FINANCIAL_DOCUMENT_TYPE_CODE);
-        attributeList.add(CabPropertyConstants.GeneralLedgerEntry.DOCUMENT_NUMBER);
-        attributeList.add(CabPropertyConstants.GeneralLedgerEntry.TRANSACTION_DEBIT_CREDIT_CODE);
-        attributeList.add(CabPropertyConstants.GeneralLedgerEntry.TRANSACTION_LEDGER_ENTRY_AMOUNT);
-        attributeList.add(CabPropertyConstants.GeneralLedgerEntry.REFERENCE_FINANCIAL_DOCUMENT_NUMBER);
-        attributeList.add(CabPropertyConstants.GeneralLedgerEntry.TRANSACTION_DATE);
-        attributeList.add(CabPropertyConstants.GeneralLedgerEntry.TRANSACTION_LEDGER_SUBMIT_AMOUNT);
-        attributeList.add(CabPropertyConstants.GeneralLedgerEntry.ACTIVITY_STATUS_CODE);
+        attributeList.add(CamsPropertyConstants.GeneralLedgerEntry.UNIVERSITY_FISCAL_YEAR);
+        attributeList.add(CamsPropertyConstants.GeneralLedgerEntry.UNIVERSITY_FISCAL_PERIOD_CODE);
+        attributeList.add(CamsPropertyConstants.GeneralLedgerEntry.CHART_OF_ACCOUNTS_CODE);
+        attributeList.add(CamsPropertyConstants.GeneralLedgerEntry.ACCOUNT_NUMBER);
+        attributeList.add(CamsPropertyConstants.GeneralLedgerEntry.FINANCIAL_OBJECT_CODE);
+        attributeList.add(CamsPropertyConstants.GeneralLedgerEntry.FINANCIAL_DOCUMENT_TYPE_CODE);
+        attributeList.add(CamsPropertyConstants.GeneralLedgerEntry.DOCUMENT_NUMBER);
+        attributeList.add(CamsPropertyConstants.GeneralLedgerEntry.TRANSACTION_DEBIT_CREDIT_CODE);
+        attributeList.add(CamsPropertyConstants.GeneralLedgerEntry.TRANSACTION_LEDGER_ENTRY_AMOUNT);
+        attributeList.add(CamsPropertyConstants.GeneralLedgerEntry.REFERENCE_FINANCIAL_DOCUMENT_NUMBER);
+        attributeList.add(CamsPropertyConstants.GeneralLedgerEntry.TRANSACTION_DATE);
+        attributeList.add(CamsPropertyConstants.GeneralLedgerEntry.TRANSACTION_LEDGER_SUBMIT_AMOUNT);
+        attributeList.add(CamsPropertyConstants.GeneralLedgerEntry.ACTIVITY_STATUS_CODE);
         return attributeList;
     }
 

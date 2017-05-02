@@ -1,28 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document.service;
 
-import java.util.List;
-
 import org.kuali.kfs.fp.businessobject.DisbursementVoucherNonResidentAlienTax;
 import org.kuali.kfs.fp.businessobject.DisbursementVoucherPayeeDetail;
 import org.kuali.kfs.fp.document.DisbursementVoucherDocument;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
@@ -30,13 +30,13 @@ import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.util.GlobalVariables;
+
+import java.util.List;
 
 /**
  * This class tests the DisbursementVoucherTax service.
  */
-@ConfigureContext(session=UserNameFixture.khuntley)
+@ConfigureContext(session = UserNameFixture.khuntley)
 public class DisbursementVoucherTaxServiceTest extends KualiTestBase {
     private DisbursementVoucherDocument dvDocument;
 
@@ -194,7 +194,7 @@ public class DisbursementVoucherTaxServiceTest extends KualiTestBase {
 
         SpringContext.getBean(DisbursementVoucherTaxService.class).processNonResidentAlienTax(dvDocument);
         List newTaxNumbers = SpringContext.getBean(DisbursementVoucherTaxService.class).getNRATaxLineNumbers(dvDocument.getDvNonResidentAlienTax().getFinancialDocumentAccountingLineText());
-        assertEquals( "Number of new tax lines is incorrect.", 3, newTaxNumbers.size() );
+        assertEquals("Number of new tax lines is incorrect.", 3, newTaxNumbers.size());
         assertEquals("Check total does not match original amount", checkAmount, dvDocument.getDisbVchrCheckTotalAmount());
         assertEquals("Source total does not match original amount", checkAmount, dvDocument.getSourceTotal());
         SpringContext.getBean(DisbursementVoucherTaxService.class).clearNRATaxLines(dvDocument);

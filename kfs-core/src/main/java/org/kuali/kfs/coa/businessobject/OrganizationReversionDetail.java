@@ -1,34 +1,32 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.coa.businessobject;
 
-import java.util.LinkedHashMap;
-
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.sys.businessobject.FiscalYearBasedBusinessObject;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 
-/**
- * 
- */
+import java.util.LinkedHashMap;
+
+
 public class OrganizationReversionDetail extends PersistableBusinessObjectBase implements MutableInactivatable, OrganizationReversionCategoryInfo, FiscalYearBasedBusinessObject {
 
     private Integer universityFiscalYear;
@@ -55,7 +53,7 @@ public class OrganizationReversionDetail extends PersistableBusinessObjectBase i
 
     /**
      * Gets the universityFiscalYear attribute.
-     * 
+     *
      * @return Returns the universityFiscalYear
      */
     public Integer getUniversityFiscalYear() {
@@ -64,7 +62,7 @@ public class OrganizationReversionDetail extends PersistableBusinessObjectBase i
 
     /**
      * Sets the universityFiscalYear attribute.
-     * 
+     *
      * @param universityFiscalYear The universityFiscalYear to set.
      */
     public void setUniversityFiscalYear(Integer universityFiscalYear) {
@@ -74,7 +72,7 @@ public class OrganizationReversionDetail extends PersistableBusinessObjectBase i
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode
      */
     public String getChartOfAccountsCode() {
@@ -83,7 +81,7 @@ public class OrganizationReversionDetail extends PersistableBusinessObjectBase i
 
     /**
      * Sets the chartOfAccountsCode attribute.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -93,7 +91,7 @@ public class OrganizationReversionDetail extends PersistableBusinessObjectBase i
 
     /**
      * Gets the organizationCode attribute.
-     * 
+     *
      * @return Returns the organizationCode
      */
     public String getOrganizationCode() {
@@ -102,7 +100,7 @@ public class OrganizationReversionDetail extends PersistableBusinessObjectBase i
 
     /**
      * Sets the organizationCode attribute.
-     * 
+     *
      * @param organizationCode The organizationCode to set.
      */
     public void setOrganizationCode(String organizationCode) {
@@ -112,7 +110,7 @@ public class OrganizationReversionDetail extends PersistableBusinessObjectBase i
 
     /**
      * Gets the organizationReversionCategoryCode attribute.
-     * 
+     *
      * @return Returns the organizationReversionCategoryCode
      */
     public String getOrganizationReversionCategoryCode() {
@@ -121,7 +119,7 @@ public class OrganizationReversionDetail extends PersistableBusinessObjectBase i
 
     /**
      * Sets the organizationReversionCategoryCode attribute.
-     * 
+     *
      * @param organizationReversionCategoryCode The organizationReversionCategoryCode to set.
      */
     public void setOrganizationReversionCategoryCode(String organizationReversionCategoryCode) {
@@ -130,7 +128,7 @@ public class OrganizationReversionDetail extends PersistableBusinessObjectBase i
 
     /**
      * Gets the organizationReversionCode attribute.
-     * 
+     *
      * @return Returns the organizationReversionCode
      */
     public String getOrganizationReversionCode() {
@@ -139,7 +137,7 @@ public class OrganizationReversionDetail extends PersistableBusinessObjectBase i
 
     /**
      * Sets the organizationReversionCode attribute.
-     * 
+     *
      * @param organizationReversionCode The organizationReversionCode to set.
      */
     public void setOrganizationReversionCode(String organizationReversionCode) {
@@ -149,7 +147,7 @@ public class OrganizationReversionDetail extends PersistableBusinessObjectBase i
 
     /**
      * Gets the organizationReversionObjectCode attribute.
-     * 
+     *
      * @return Returns the organizationReversionObjectCode
      */
     public String getOrganizationReversionObjectCode() {
@@ -158,7 +156,7 @@ public class OrganizationReversionDetail extends PersistableBusinessObjectBase i
 
     /**
      * Sets the organizationReversionObjectCode attribute.
-     * 
+     *
      * @param organizationReversionObjectCode The organizationReversionObjectCode to set.
      */
     public void setOrganizationReversionObjectCode(String organizationReversionObjectCode) {
@@ -168,7 +166,7 @@ public class OrganizationReversionDetail extends PersistableBusinessObjectBase i
 
     /**
      * Gets the organizationReversionObject attribute.
-     * 
+     *
      * @return Returns the organizationReversionObject
      */
     public ObjectCode getOrganizationReversionObject() {
@@ -177,7 +175,7 @@ public class OrganizationReversionDetail extends PersistableBusinessObjectBase i
 
     /**
      * Sets the organizationReversionObject attribute.
-     * 
+     *
      * @param organizationReversionObject The organizationReversionObject to set.
      * @deprecated
      */
@@ -187,7 +185,7 @@ public class OrganizationReversionDetail extends PersistableBusinessObjectBase i
 
     /**
      * Gets the organization attribute.
-     * 
+     *
      * @return Returns the organization
      */
     public Organization getOrganization() {
@@ -196,7 +194,7 @@ public class OrganizationReversionDetail extends PersistableBusinessObjectBase i
 
     /**
      * Sets the organization attribute.
-     * 
+     *
      * @param organization The organization to set.
      * @deprecated
      */
@@ -206,7 +204,7 @@ public class OrganizationReversionDetail extends PersistableBusinessObjectBase i
 
     /**
      * Gets the chartOfAccounts attribute.
-     * 
+     *
      * @return Returns the chartOfAccounts
      */
     public Chart getChartOfAccounts() {
@@ -215,7 +213,7 @@ public class OrganizationReversionDetail extends PersistableBusinessObjectBase i
 
     /**
      * Sets the chartOfAccounts attribute.
-     * 
+     *
      * @param chartOfAccounts The chartOfAccounts to set.
      * @deprecated
      */
@@ -225,7 +223,7 @@ public class OrganizationReversionDetail extends PersistableBusinessObjectBase i
 
     /**
      * Gets the organizationReversionCategory attribute.
-     * 
+     *
      * @return Returns the organizationReversionCategory.
      */
     public OrganizationReversionCategory getOrganizationReversionCategory() {
@@ -234,7 +232,7 @@ public class OrganizationReversionDetail extends PersistableBusinessObjectBase i
 
     /**
      * Sets the organizationReversionCategory attribute value.
-     * 
+     *
      * @param organizationReversionCategory The organizationReversionCategory to set.
      */
     public void setOrganizationReversionCategory(OrganizationReversionCategory organizationReversionCategory) {
@@ -243,7 +241,7 @@ public class OrganizationReversionDetail extends PersistableBusinessObjectBase i
 
     /**
      * Gets the universityFiscal attribute.
-     * 
+     *
      * @return Returns the universityFiscal.
      */
     public SystemOptions getUniversityFiscal() {
@@ -252,16 +250,16 @@ public class OrganizationReversionDetail extends PersistableBusinessObjectBase i
 
     /**
      * Sets the universityFiscal attribute value.
-     * 
+     *
      * @param universityFiscal The universityFiscal to set.
      */
     public void setUniversityFiscal(SystemOptions universityFiscal) {
         this.universityFiscal = universityFiscal;
     }
-    
+
     /**
      * Gets the organizationReversion attribute.
-     * 
+     *
      * @return Returns the organizationReversion.
      */
     public OrganizationReversion getOrganizationReversion() {
@@ -270,7 +268,7 @@ public class OrganizationReversionDetail extends PersistableBusinessObjectBase i
 
     /**
      * Sets the organizationReversion attribute value.
-     * 
+     *
      * @param organizationReversion The organizationReversion to set.
      */
     public void setOrganizationReversion(OrganizationReversion organizationReversion) {
@@ -278,7 +276,8 @@ public class OrganizationReversionDetail extends PersistableBusinessObjectBase i
     }
 
     /**
-     * Gets the active attribute. 
+     * Gets the active attribute.
+     *
      * @return Returns the active.
      */
     public boolean isActive() {
@@ -287,6 +286,7 @@ public class OrganizationReversionDetail extends PersistableBusinessObjectBase i
 
     /**
      * Sets the active attribute value.
+     *
      * @param active The active to set.
      */
     public void setActive(boolean active) {

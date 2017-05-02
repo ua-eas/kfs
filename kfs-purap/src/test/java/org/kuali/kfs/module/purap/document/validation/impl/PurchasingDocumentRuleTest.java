@@ -1,29 +1,27 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.kns.util.MessageList;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
-import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.PurapRuleConstants;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLine;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderItem;
@@ -32,27 +30,22 @@ import org.kuali.kfs.module.purap.businessobject.RequisitionItem;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
 import org.kuali.kfs.module.purap.document.PurchasingDocument;
 import org.kuali.kfs.module.purap.document.RequisitionDocument;
-import org.kuali.kfs.module.purap.document.service.PurchasingService;
 import org.kuali.kfs.module.purap.document.validation.PurapRuleTestBase;
 import org.kuali.kfs.module.purap.fixture.ItemFieldsFixture;
-import org.kuali.kfs.module.purap.fixture.PurchaseOrderDocumentFixture;
 import org.kuali.kfs.module.purap.fixture.PurchaseOrderDocumentWithCommodityCodeFixture;
 import org.kuali.kfs.module.purap.fixture.RecurringPaymentBeginEndDatesFixture;
-import org.kuali.kfs.module.purap.fixture.RequisitionDocumentFixture;
-import org.kuali.kfs.module.purap.fixture.RequisitionDocumentWithCapitalAssetItemsFixture;
 import org.kuali.kfs.module.purap.fixture.RequisitionDocumentWithCommodityCodeFixture;
 import org.kuali.kfs.sys.ConfigureContext;
-import org.kuali.kfs.sys.KFSKeyConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.TestUtils;
 import org.kuali.kfs.sys.document.validation.Validation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEventBase;
 import org.kuali.kfs.sys.document.validation.impl.CompositeValidation;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
-import org.kuali.rice.kns.util.KNSGlobalVariables;
-import org.kuali.rice.kns.util.MessageList;
-import org.kuali.rice.krad.util.GlobalVariables;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class contains tests of the rule validation methods present in PurchasingDocumentRuleBase. These should include any tests
@@ -84,57 +77,57 @@ public class PurchasingDocumentRuleTest extends PurapRuleTestBase {
     public void testProcessPaymentInfoValidation_Req_RightOrder() {
         PurchasingDocument document = RecurringPaymentBeginEndDatesFixture.REQ_RIGHT_ORDER.populateDocument();
 
-        PurchasingPaymentInfoValidation validation = (PurchasingPaymentInfoValidation)validations.get("Purchasing-paymentInfoValidation-test");
-        assertTrue( validation.validate(new AttributedDocumentEventBase("", "", document)) );
+        PurchasingPaymentInfoValidation validation = (PurchasingPaymentInfoValidation) validations.get("Purchasing-paymentInfoValidation-test");
+        assertTrue(validation.validate(new AttributedDocumentEventBase("", "", document)));
     }
 
     public void testProcessPaymentInfoValidation_Req_WrongOrder() {
         PurchasingDocument document = RecurringPaymentBeginEndDatesFixture.REQ_WRONG_ORDER.populateDocument();
 
-        PurchasingPaymentInfoValidation validation = (PurchasingPaymentInfoValidation)validations.get("Purchasing-paymentInfoValidation-test");
-        assertFalse( validation.validate(new AttributedDocumentEventBase("", "", document)) );
+        PurchasingPaymentInfoValidation validation = (PurchasingPaymentInfoValidation) validations.get("Purchasing-paymentInfoValidation-test");
+        assertFalse(validation.validate(new AttributedDocumentEventBase("", "", document)));
     }
 
     public void testProcessPaymentInfoValidation_Req_Sequential_Next_FY() {
         PurchasingDocument document = RecurringPaymentBeginEndDatesFixture.REQ_SEQUENTIAL_NEXT_FY.populateDocument();
 
-        PurchasingPaymentInfoValidation validation = (PurchasingPaymentInfoValidation)validations.get("Purchasing-paymentInfoValidation-test");
-        assertTrue( validation.validate(new AttributedDocumentEventBase("", "", document)) );
+        PurchasingPaymentInfoValidation validation = (PurchasingPaymentInfoValidation) validations.get("Purchasing-paymentInfoValidation-test");
+        assertTrue(validation.validate(new AttributedDocumentEventBase("", "", document)));
     }
 
     public void testProcessPaymentInfoValidation_Req_Non_Sequential_Next_FY() {
         PurchasingDocument document = RecurringPaymentBeginEndDatesFixture.REQ_NON_SEQUENTIAL_NEXT_FY.populateDocument();
 
-        PurchasingPaymentInfoValidation validation = (PurchasingPaymentInfoValidation)validations.get("Purchasing-paymentInfoValidation-test");
-        assertFalse( validation.validate(new AttributedDocumentEventBase("", "", document)) );
+        PurchasingPaymentInfoValidation validation = (PurchasingPaymentInfoValidation) validations.get("Purchasing-paymentInfoValidation-test");
+        assertFalse(validation.validate(new AttributedDocumentEventBase("", "", document)));
     }
 
     public void testProcessPaymentInfoValidation_PO_RightOrder() {
         PurchasingDocument document = RecurringPaymentBeginEndDatesFixture.PO_RIGHT_ORDER.populateDocument();
 
-        PurchasingPaymentInfoValidation validation = (PurchasingPaymentInfoValidation)validations.get("Purchasing-paymentInfoValidation-test");
-        assertTrue( validation.validate(new AttributedDocumentEventBase("", "", document)) );
+        PurchasingPaymentInfoValidation validation = (PurchasingPaymentInfoValidation) validations.get("Purchasing-paymentInfoValidation-test");
+        assertTrue(validation.validate(new AttributedDocumentEventBase("", "", document)));
     }
 
     public void testProcessPaymentInfoValidation_PO_WrongOrder() {
         PurchasingDocument document = RecurringPaymentBeginEndDatesFixture.PO_WRONG_ORDER.populateDocument();
 
-        PurchasingPaymentInfoValidation validation = (PurchasingPaymentInfoValidation)validations.get("Purchasing-paymentInfoValidation-test");
-        assertFalse( validation.validate(new AttributedDocumentEventBase("", "", document)) );
+        PurchasingPaymentInfoValidation validation = (PurchasingPaymentInfoValidation) validations.get("Purchasing-paymentInfoValidation-test");
+        assertFalse(validation.validate(new AttributedDocumentEventBase("", "", document)));
     }
 
     public void testProcessPaymentInfoValidation_PO_Sequential_Next_FY() {
         PurchasingDocument document = RecurringPaymentBeginEndDatesFixture.PO_SEQUENTIAL_NEXT_FY.populateDocument();
 
-        PurchasingPaymentInfoValidation validation = (PurchasingPaymentInfoValidation)validations.get("Purchasing-paymentInfoValidation-test");
-        assertTrue( validation.validate(new AttributedDocumentEventBase("", "", document)) );
+        PurchasingPaymentInfoValidation validation = (PurchasingPaymentInfoValidation) validations.get("Purchasing-paymentInfoValidation-test");
+        assertTrue(validation.validate(new AttributedDocumentEventBase("", "", document)));
     }
 
     public void testProcessPaymentInfoValidation_PO_Non_Sequential_Next_FY() {
         PurchasingDocument document = RecurringPaymentBeginEndDatesFixture.PO_NON_SEQUENTIAL_NEXT_FY.populateDocument();
 
-        PurchasingPaymentInfoValidation validation = (PurchasingPaymentInfoValidation)validations.get("Purchasing-paymentInfoValidation-test");
-        assertFalse( validation.validate(new AttributedDocumentEventBase("", "", document)) );
+        PurchasingPaymentInfoValidation validation = (PurchasingPaymentInfoValidation) validations.get("Purchasing-paymentInfoValidation-test");
+        assertFalse(validation.validate(new AttributedDocumentEventBase("", "", document)));
     }
 
     // Tests of validateItemQuantity
@@ -142,33 +135,33 @@ public class PurchasingDocumentRuleTest extends PurapRuleTestBase {
     public void testValidateItemQuantity_WithQuantity_QuantityBased() {
         RequisitionItem item = ItemFieldsFixture.ALL_FIELDS_ABOVE_QUANTITY_BASED.populateRequisitionItem();
 
-        PurchasingItemQuantityValidation validation = (PurchasingItemQuantityValidation)validations.get("Purchasing-itemQuantityValidation");
+        PurchasingItemQuantityValidation validation = (PurchasingItemQuantityValidation) validations.get("Purchasing-itemQuantityValidation");
         validation.setItemForValidation(item);
-        assertTrue( validation.validate(null) );
+        assertTrue(validation.validate(null));
     }
 
     public void testValidateItemQuantity_WithoutQuantity_QuantityBased() {
         RequisitionItem item = ItemFieldsFixture.NO_QUANTITY_ABOVE_QUANTITY_BASED.populateRequisitionItem();
 
-        PurchasingItemQuantityValidation validation = (PurchasingItemQuantityValidation)validations.get("Purchasing-itemQuantityValidation");
+        PurchasingItemQuantityValidation validation = (PurchasingItemQuantityValidation) validations.get("Purchasing-itemQuantityValidation");
         validation.setItemForValidation(item);
-        assertFalse( validation.validate(null) );
+        assertFalse(validation.validate(null));
     }
 
     public void testValidateItemQuantity_WithQuantity_Service() {
         RequisitionItem item = ItemFieldsFixture.ALL_FIELDS_ABOVE_SERVICE.populateRequisitionItem();
 
-        PurchasingItemQuantityValidation validation = (PurchasingItemQuantityValidation)validations.get("Purchasing-itemQuantityValidation");
+        PurchasingItemQuantityValidation validation = (PurchasingItemQuantityValidation) validations.get("Purchasing-itemQuantityValidation");
         validation.setItemForValidation(item);
-        assertFalse( validation.validate(null) );
+        assertFalse(validation.validate(null));
     }
 
     public void testValidateItemQuantity_WithoutQuantity_Service() {
         RequisitionItem item = ItemFieldsFixture.NO_QUANTITY_ABOVE_SERVICE.populateRequisitionItem();
 
-        PurchasingItemQuantityValidation validation = (PurchasingItemQuantityValidation)validations.get("Purchasing-itemQuantityValidation");
+        PurchasingItemQuantityValidation validation = (PurchasingItemQuantityValidation) validations.get("Purchasing-itemQuantityValidation");
         validation.setItemForValidation(item);
-        assertTrue( validation.validate(null) );
+        assertTrue(validation.validate(null));
     }
 
     // Tests of validateUnitOfMeasure
@@ -176,25 +169,25 @@ public class PurchasingDocumentRuleTest extends PurapRuleTestBase {
     public void testValidateUnitOfMeasure_WithUOM_QuantityBased() {
         RequisitionItem item = ItemFieldsFixture.ALL_FIELDS_ABOVE_QUANTITY_BASED.populateRequisitionItem();
 
-        PurchasingUnitOfMeasureValidation validation = (PurchasingUnitOfMeasureValidation)validations.get("Purchasing-unitOfMeasureValidation");
+        PurchasingUnitOfMeasureValidation validation = (PurchasingUnitOfMeasureValidation) validations.get("Purchasing-unitOfMeasureValidation");
         validation.setItemForValidation(item);
-        assertTrue( validation.validate(null) );
+        assertTrue(validation.validate(null));
     }
 
     public void testValidateUnitOfMeasure_WithoutUOM_QuantityBased() {
         RequisitionItem item = ItemFieldsFixture.NO_UOM_ABOVE_QUANTITY_BASED.populateRequisitionItem();
 
-        PurchasingUnitOfMeasureValidation validation = (PurchasingUnitOfMeasureValidation)validations.get("Purchasing-unitOfMeasureValidation");
+        PurchasingUnitOfMeasureValidation validation = (PurchasingUnitOfMeasureValidation) validations.get("Purchasing-unitOfMeasureValidation");
         validation.setItemForValidation(item);
-        assertFalse( validation.validate(null) );
+        assertFalse(validation.validate(null));
     }
 
     public void testValidateUnitOfMeasure_WithoutUOM_Service() {
         RequisitionItem item = ItemFieldsFixture.NO_UOM_ABOVE_SERVICE.populateRequisitionItem();
 
-        PurchasingUnitOfMeasureValidation validation = (PurchasingUnitOfMeasureValidation)validations.get("Purchasing-unitOfMeasureValidation");
+        PurchasingUnitOfMeasureValidation validation = (PurchasingUnitOfMeasureValidation) validations.get("Purchasing-unitOfMeasureValidation");
         validation.setItemForValidation(item);
-        assertTrue( validation.validate(null) );
+        assertTrue(validation.validate(null));
     }
 
     // Tests of validateItemDescription
@@ -202,17 +195,17 @@ public class PurchasingDocumentRuleTest extends PurapRuleTestBase {
     public void testValidateItemDescription_WithDescription_Above() {
         RequisitionItem item = ItemFieldsFixture.ALL_FIELDS_ABOVE_QUANTITY_BASED.populateRequisitionItem();
 
-        PurchasingItemDescriptionValidation validation = (PurchasingItemDescriptionValidation)validations.get("Purchasing-itemDescriptionValidation");
+        PurchasingItemDescriptionValidation validation = (PurchasingItemDescriptionValidation) validations.get("Purchasing-itemDescriptionValidation");
         validation.setItemForValidation(item);
-        assertTrue( validation.validate(null) );
+        assertTrue(validation.validate(null));
     }
 
     public void testValidateItemDescription_WithoutDescription_Above() {
         RequisitionItem item = ItemFieldsFixture.NO_DESC_ABOVE_QUANTITY_BASED.populateRequisitionItem();
 
-        PurchasingItemDescriptionValidation validation = (PurchasingItemDescriptionValidation)validations.get("Purchasing-itemDescriptionValidation");
+        PurchasingItemDescriptionValidation validation = (PurchasingItemDescriptionValidation) validations.get("Purchasing-itemDescriptionValidation");
         validation.setItemForValidation(item);
-        assertFalse( validation.validate(null) );
+        assertFalse(validation.validate(null));
     }
 
     // Tests of validateCommodityCodes.
@@ -227,12 +220,12 @@ public class PurchasingDocumentRuleTest extends PurapRuleTestBase {
         TestUtils.setSystemParameter(RequisitionDocument.class, PurapRuleConstants.ITEMS_REQUIRE_COMMODITY_CODE_IND, "Y");
         RequisitionDocumentWithCommodityCodeFixture fixture = RequisitionDocumentWithCommodityCodeFixture.REQ_VALID_ACTIVE_COMMODITY_CODE;
 
-        CompositeValidation validation = (CompositeValidation)validations.get("Requisition-newProcessItemValidation");
+        CompositeValidation validation = (CompositeValidation) validations.get("Requisition-newProcessItemValidation");
         RequisitionDocument req = fixture.createRequisitionDocument();
-        AttributedDocumentEventBase event = new AttributedDocumentEventBase("","", req);
+        AttributedDocumentEventBase event = new AttributedDocumentEventBase("", "", req);
         boolean valid = true;
 
-        for(RequisitionItem item : (List<RequisitionItem>)req.getItems()) {
+        for (RequisitionItem item : (List<RequisitionItem>) req.getItems()) {
             event.setIterationSubject(item);
             valid &= validation.validate(event);
         }
@@ -241,12 +234,12 @@ public class PurchasingDocumentRuleTest extends PurapRuleTestBase {
         TestUtils.setSystemParameter(PurchaseOrderDocument.class, PurapRuleConstants.ITEMS_REQUIRE_COMMODITY_CODE_IND, "Y");
         PurchaseOrderDocumentWithCommodityCodeFixture poFixture = PurchaseOrderDocumentWithCommodityCodeFixture.PO_VALID_ACTIVE_COMMODITY_CODE;
 
-        validation = (CompositeValidation)validations.get("PurchaseOrder-newProcessItemValidation");
+        validation = (CompositeValidation) validations.get("PurchaseOrder-newProcessItemValidation");
         PurchaseOrderDocument po = poFixture.createPurchaseOrderDocument();
-        event = new AttributedDocumentEventBase("","", po);
+        event = new AttributedDocumentEventBase("", "", po);
         valid = true;
 
-        for(PurchaseOrderItem item : (List<PurchaseOrderItem>)po.getItems()) {
+        for (PurchaseOrderItem item : (List<PurchaseOrderItem>) po.getItems()) {
             event.setIterationSubject(item);
             valid &= validation.validate(event);
         }
@@ -263,11 +256,11 @@ public class PurchasingDocumentRuleTest extends PurapRuleTestBase {
         TestUtils.setSystemParameter(RequisitionDocument.class, PurapRuleConstants.ITEMS_REQUIRE_COMMODITY_CODE_IND, "Y");
         RequisitionDocumentWithCommodityCodeFixture fixture = RequisitionDocumentWithCommodityCodeFixture.REQ_VALID_INACTIVE_COMMODITY_CODE;
 
-        CompositeValidation validation = (CompositeValidation)validations.get("Requisition-newProcessItemValidation");
+        CompositeValidation validation = (CompositeValidation) validations.get("Requisition-newProcessItemValidation");
         RequisitionDocument req = fixture.createRequisitionDocument();
-        AttributedDocumentEventBase event = new AttributedDocumentEventBase("","", req);
+        AttributedDocumentEventBase event = new AttributedDocumentEventBase("", "", req);
 
-        for(RequisitionItem item : (List<RequisitionItem>)req.getItems()) {
+        for (RequisitionItem item : (List<RequisitionItem>) req.getItems()) {
             event.setIterationSubject(item);
             validation.validate(event);
         }
@@ -276,11 +269,11 @@ public class PurchasingDocumentRuleTest extends PurapRuleTestBase {
         TestUtils.setSystemParameter(PurchaseOrderDocument.class, PurapRuleConstants.ITEMS_REQUIRE_COMMODITY_CODE_IND, "Y");
         PurchaseOrderDocumentWithCommodityCodeFixture poFixture = PurchaseOrderDocumentWithCommodityCodeFixture.PO_VALID_INACTIVE_COMMODITY_CODE;
 
-        validation = (CompositeValidation)validations.get("PurchaseOrder-newProcessItemValidation");
+        validation = (CompositeValidation) validations.get("PurchaseOrder-newProcessItemValidation");
         PurchaseOrderDocument po = poFixture.createPurchaseOrderDocument();
-        event = new AttributedDocumentEventBase("","", po);
+        event = new AttributedDocumentEventBase("", "", po);
 
-        for(PurchaseOrderItem item : (List<PurchaseOrderItem>)po.getItems()) {
+        for (PurchaseOrderItem item : (List<PurchaseOrderItem>) po.getItems()) {
             event.setIterationSubject(item);
             validation.validate(event);
         }
@@ -297,11 +290,11 @@ public class PurchasingDocumentRuleTest extends PurapRuleTestBase {
         TestUtils.setSystemParameter(RequisitionDocument.class, PurapRuleConstants.ITEMS_REQUIRE_COMMODITY_CODE_IND, "Y");
         RequisitionDocumentWithCommodityCodeFixture fixture = RequisitionDocumentWithCommodityCodeFixture.REQ_NON_EXISTENCE_COMMODITY_CODE;
 
-        CompositeValidation validation = (CompositeValidation)validations.get("Requisition-newProcessItemValidation");
+        CompositeValidation validation = (CompositeValidation) validations.get("Requisition-newProcessItemValidation");
         RequisitionDocument req = fixture.createRequisitionDocument();
-        AttributedDocumentEventBase event = new AttributedDocumentEventBase("","", req);
+        AttributedDocumentEventBase event = new AttributedDocumentEventBase("", "", req);
 
-        for(RequisitionItem item : (List<RequisitionItem>)req.getItems()) {
+        for (RequisitionItem item : (List<RequisitionItem>) req.getItems()) {
             event.setIterationSubject(item);
             validation.validate(event);
         }
@@ -310,11 +303,11 @@ public class PurchasingDocumentRuleTest extends PurapRuleTestBase {
         TestUtils.setSystemParameter(PurchaseOrderDocument.class, PurapRuleConstants.ITEMS_REQUIRE_COMMODITY_CODE_IND, "Y");
         PurchaseOrderDocumentWithCommodityCodeFixture poFixture = PurchaseOrderDocumentWithCommodityCodeFixture.PO_NON_EXISTENCE_COMMODITY_CODE;
 
-        validation = (CompositeValidation)validations.get("PurchaseOrder-newProcessItemValidation");
+        validation = (CompositeValidation) validations.get("PurchaseOrder-newProcessItemValidation");
         PurchaseOrderDocument po = poFixture.createPurchaseOrderDocument();
-        event = new AttributedDocumentEventBase("","", po);
+        event = new AttributedDocumentEventBase("", "", po);
 
-        for(PurchaseOrderItem item : (List<PurchaseOrderItem>)po.getItems()) {
+        for (PurchaseOrderItem item : (List<PurchaseOrderItem>) po.getItems()) {
             event.setIterationSubject(item);
             validation.validate(event);
         }
@@ -327,49 +320,49 @@ public class PurchasingDocumentRuleTest extends PurapRuleTestBase {
     public void testValidateItemUnitPrice_Positive_Above() {
         RequisitionItem item = ItemFieldsFixture.ALL_FIELDS_ABOVE_QUANTITY_BASED.populateRequisitionItem();
 
-        PurchasingItemUnitPriceValidation validation = (PurchasingItemUnitPriceValidation)validations.get("Purchasing-itemUnitPriceValidation");
+        PurchasingItemUnitPriceValidation validation = (PurchasingItemUnitPriceValidation) validations.get("Purchasing-itemUnitPriceValidation");
         validation.setItemForValidation(item);
-        assertTrue( validation.validate(null) );
+        assertTrue(validation.validate(null));
     }
 
     public void testValidateItemUnitPrice_Negative_Above() {
         RequisitionItem item = ItemFieldsFixture.NEGATIVE_UNIT_PRICE_QUANTITY_BASED.populateRequisitionItem();
 
-        PurchasingItemUnitPriceValidation validation = (PurchasingItemUnitPriceValidation)validations.get("Purchasing-itemUnitPriceValidation");
+        PurchasingItemUnitPriceValidation validation = (PurchasingItemUnitPriceValidation) validations.get("Purchasing-itemUnitPriceValidation");
         validation.setItemForValidation(item);
-        assertFalse( validation.validate(null) );
+        assertFalse(validation.validate(null));
     }
 
     public void testValidateItemUnitPrice_Positive_Discount() {
         RequisitionItem item = ItemFieldsFixture.POSITIVE_UNIT_PRICE_DISCOUNT.populateRequisitionItem();
 
-        PurchasingItemUnitPriceValidation validation = (PurchasingItemUnitPriceValidation)validations.get("Purchasing-itemUnitPriceValidation");
+        PurchasingItemUnitPriceValidation validation = (PurchasingItemUnitPriceValidation) validations.get("Purchasing-itemUnitPriceValidation");
         validation.setItemForValidation(item);
-        assertFalse( validation.validate(null) );
+        assertFalse(validation.validate(null));
     }
 
     public void testValidateItemUnitPrice_Negative_Discount() {
         RequisitionItem item = ItemFieldsFixture.NEGATIVE_UNIT_PRICE_DISCOUNT.populateRequisitionItem();
 
-        PurchasingItemUnitPriceValidation validation = (PurchasingItemUnitPriceValidation)validations.get("Purchasing-itemUnitPriceValidation");
+        PurchasingItemUnitPriceValidation validation = (PurchasingItemUnitPriceValidation) validations.get("Purchasing-itemUnitPriceValidation");
         validation.setItemForValidation(item);
-        assertTrue( validation.validate(null) );
+        assertTrue(validation.validate(null));
     }
 
     public void testValidateItemUnitPrice_Positive_TradeIn() {
         RequisitionItem item = ItemFieldsFixture.POSITIVE_UNIT_PRICE_TRADEIN.populateRequisitionItem();
 
-        PurchasingItemUnitPriceValidation validation = (PurchasingItemUnitPriceValidation)validations.get("Purchasing-itemUnitPriceValidation");
+        PurchasingItemUnitPriceValidation validation = (PurchasingItemUnitPriceValidation) validations.get("Purchasing-itemUnitPriceValidation");
         validation.setItemForValidation(item);
-        assertFalse( validation.validate(null) );
+        assertFalse(validation.validate(null));
     }
 
     public void testValidateItemUnitPrice_Negative_TradeIn() {
         RequisitionItem item = ItemFieldsFixture.NEGATIVE_UNIT_PRICE_TRADEIN.populateRequisitionItem();
 
-        PurchasingItemUnitPriceValidation validation = (PurchasingItemUnitPriceValidation)validations.get("Purchasing-itemUnitPriceValidation");
+        PurchasingItemUnitPriceValidation validation = (PurchasingItemUnitPriceValidation) validations.get("Purchasing-itemUnitPriceValidation");
         validation.setItemForValidation(item);
-        assertTrue( validation.validate(null) );
+        assertTrue(validation.validate(null));
     }
 
     // Tests of validateBelowTheLineItemNoUnitCost
@@ -380,9 +373,9 @@ public class PurchasingDocumentRuleTest extends PurapRuleTestBase {
         accountingLines.add(new RequisitionAccount());
         item.setSourceAccountingLines(accountingLines);
 
-        PurchasingBelowTheLineItemNoUnitCostValidation validation = (PurchasingBelowTheLineItemNoUnitCostValidation)validations.get("Purchasing-belowTheLineItemNoUnitCostValidation");
+        PurchasingBelowTheLineItemNoUnitCostValidation validation = (PurchasingBelowTheLineItemNoUnitCostValidation) validations.get("Purchasing-belowTheLineItemNoUnitCostValidation");
         validation.setItemForValidation(item);
-        assertTrue( validation.validate(null) );
+        assertTrue(validation.validate(null));
     }
 
     public void testValidateBelowTheLineItemNoUnitCost_NoUnitCost() {
@@ -391,9 +384,9 @@ public class PurchasingDocumentRuleTest extends PurapRuleTestBase {
         accountingLines.add(new RequisitionAccount());
         item.setSourceAccountingLines(accountingLines);
 
-        PurchasingBelowTheLineItemNoUnitCostValidation validation = (PurchasingBelowTheLineItemNoUnitCostValidation)validations.get("Purchasing-belowTheLineItemNoUnitCostValidation");
+        PurchasingBelowTheLineItemNoUnitCostValidation validation = (PurchasingBelowTheLineItemNoUnitCostValidation) validations.get("Purchasing-belowTheLineItemNoUnitCostValidation");
         validation.setItemForValidation(item);
-        assertFalse( validation.validate(null) );
+        assertFalse(validation.validate(null));
     }
 
 }

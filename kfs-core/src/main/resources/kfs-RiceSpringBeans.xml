@@ -1,60 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
 
-	<bean id="coreConfigurer" class="org.kuali.rice.core.impl.config.module.CoreConfigurer">
-		<property name="dataSource" ref="dataSource" />
-		<property name="serverDataSource" ref="riceDataSource" />
-		<property name="nonTransactionalDataSource" ref="nonTransactionalDataSource" />
-		<property name="transactionManager" ref="jtaTransactionManager" />
-		<property name="userTransaction" ref="jtaUserTransaction" />
-	</bean>
+    <bean id="coreConfigurer" class="org.kuali.rice.core.impl.config.module.CoreConfigurer">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="serverDataSource" ref="riceDataSource"/>
+        <property name="nonTransactionalDataSource" ref="nonTransactionalDataSource"/>
+        <property name="transactionManager" ref="jtaTransactionManager"/>
+        <property name="userTransaction" ref="jtaUserTransaction"/>
+    </bean>
 
-	<bean id="ksbConfigurer" class="org.kuali.rice.ksb.messaging.config.KSBConfigurer">
-		<property name="registryDataSource" ref="riceDataSource" /><!-- only used when KSB running in LOCAL mode -->
-		<property name="bamDataSource" ref="riceDataSource" />
-		<!-- These datasources correspond to the local message buffering done on each KSB client system -->
-		<property name="messageDataSource" ref="dataSource" />
-		<property name="nonTransactionalMessageDataSource" ref="nonTransactionalDataSource" />
-	</bean>
+    <bean id="ksbConfigurer" class="org.kuali.rice.ksb.messaging.config.KSBConfigurer">
+        <property name="registryDataSource" ref="riceDataSource"/><!-- only used when KSB running in LOCAL mode -->
+        <property name="bamDataSource" ref="riceDataSource"/>
+        <!-- These datasources correspond to the local message buffering done on each KSB client system -->
+        <property name="messageDataSource" ref="dataSource"/>
+        <property name="nonTransactionalMessageDataSource" ref="nonTransactionalDataSource"/>
+    </bean>
 
-	<bean id="kradConfigurer" class="org.kuali.rice.krad.config.KRADConfigurer">
-		<property name="applicationDataSource" ref="dataSource" />
-		<property name="includeKnsSpringBeans" value="true" />
-	</bean>
 
-	<bean id="coreServiceConfigurer"
-		class="org.kuali.rice.coreservice.impl.config.CoreServiceConfigurer" />
+    <bean id="kradConfigurer" class="org.kuali.rice.krad.config.KRADConfigurer">
+        <property name="applicationDataSource" ref="dataSource"/>
+        <property name="includeKnsSpringBeans" value="true"/>
+    </bean>
 
-	<bean id="kimConfigurer" class="org.kuali.rice.kim.config.KIMConfigurer" />
+    <bean id="kfs.kradConfigurer" class="org.kuali.kfs.krad.config.KRADConfigurer">
+        <property name="applicationDataSource" ref="dataSource"/>
+    </bean>
 
-	<bean id="kewConfigurer" class="org.kuali.rice.kew.config.KEWConfigurer">
-		<property name="dataSource" ref="riceDataSource" />
-	</bean>
-	<!-- <bean id="kenConfigurer" class="org.kuali.rice.ken.impl.config.KENConfigurer"/> 
-		<bean id="edlConfigurer" class="org.kuali.rice.edl.impl.config.EDLConfigurer"/> 
-		<bean id="krmsConfigurer" class="org.kuali.rice.krms.config.KRMSConfigurer"/> -->
-	<bean id="locationConfigurer" class="org.kuali.rice.location.impl.config.LocationConfigurer" />
+    <bean id="coreServiceConfigurer" class="org.kuali.rice.coreservice.impl.config.CoreServiceConfigurer"/>
+
+    <bean id="kimConfigurer" class="org.kuali.rice.kim.config.KIMConfigurer"/>
+
+    <bean id="kewConfigurer" class="org.kuali.rice.kew.config.KEWConfigurer">
+        <property name="dataSource" ref="riceDataSource"/>
+    </bean>
+    <!-- <bean id="kenConfigurer" class="org.kuali.rice.ken.impl.config.KENConfigurer"/>
+        <bean id="edlConfigurer" class="org.kuali.rice.edl.impl.config.EDLConfigurer"/>
+        <bean id="krmsConfigurer" class="org.kuali.rice.krms.config.KRMSConfigurer"/> -->
+    <bean id="locationConfigurer" class="org.kuali.rice.location.impl.config.LocationConfigurer"/>
 
 </beans>

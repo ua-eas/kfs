@@ -1,28 +1,33 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cam.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
+import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.lookup.LookupUtils;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.krad.document.DocumentAuthorizer;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.service.DocumentDictionaryService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
 import org.kuali.kfs.module.cam.businessobject.AssetAcquisitionType;
@@ -30,17 +35,12 @@ import org.kuali.kfs.module.cam.businessobject.AssetGlobal;
 import org.kuali.kfs.module.cam.document.service.AssetGlobalService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kns.document.authorization.BusinessObjectRestrictions;
-import org.kuali.rice.kns.lookup.HtmlData;
-import org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.rice.kns.lookup.LookupUtils;
-import org.kuali.rice.kns.web.struts.form.LookupForm;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.document.DocumentAuthorizer;
-import org.kuali.rice.krad.lookup.CollectionIncomplete;
-import org.kuali.rice.krad.service.DocumentDictionaryService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * This class overrides the getReturnUrl, setFieldConversions and getActionUrls for {@link OrganizationRoutingModelName}
@@ -58,8 +58,8 @@ public class AssetAcquisitionTypeLookupableHelperServiceImpl extends KualiLookup
      * </ul>
      * {@link KFSConstants.DISPATCH_REQUEST_PARAMETER}
      *
-     * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#getReturnUrl(org.kuali.rice.krad.bo.BusinessObject,
-     *      java.util.Map, java.lang.String)
+     * @see org.kuali.kfs.kns.lookup.AbstractLookupableHelperServiceImpl#getReturnUrl(org.kuali.rice.krad.bo.BusinessObject,
+     * java.util.Map, java.lang.String)
      */
     @Override
     public HtmlData getReturnUrl(BusinessObject businessObject, LookupForm lookupForm, List returnKeys, BusinessObjectRestrictions businessObjectRestrictions) {
@@ -69,8 +69,7 @@ public class AssetAcquisitionTypeLookupableHelperServiceImpl extends KualiLookup
             // no return URL if we are initializing asset global and the record is inactive
             return getEmptyAnchorHtmlData();
 
-        }
-        else if (assetGlobalService.getNewAcquisitionTypeCode().equalsIgnoreCase(assetAcquisitionType.getAcquisitionTypeCode())) {
+        } else if (assetGlobalService.getNewAcquisitionTypeCode().equalsIgnoreCase(assetAcquisitionType.getAcquisitionTypeCode())) {
             // no return if the user is not authorized to initiate 'New' acquisition type.
             DocumentAuthorizer documentAuthorizer = SpringContext.getBean(DocumentDictionaryService.class).getDocumentAuthorizer(CamsConstants.DocumentTypeName.ASSET_ADD_GLOBAL);
             boolean isAuthorized = documentAuthorizer.isAuthorized(businessObject, CamsConstants.CAM_MODULE_CODE, CamsConstants.PermissionNames.USE_ACQUISITION_TYPE_NEW, GlobalVariables.getUserSession().getPerson().getPrincipalId());
@@ -102,7 +101,7 @@ public class AssetAcquisitionTypeLookupableHelperServiceImpl extends KualiLookup
      * P-Pre-asset tagging - this acquisition type code is assigned in CAB to assets that are created with a pre-tagging record.
      * C-Fabrication - this acquisition type is assigned to assets created via the fabrication document.
      *
-     * @see org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl#getSearchResults(java.util.Map)
+     * @see org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl#getSearchResults(java.util.Map)
      */
     @Override
     public List<? extends BusinessObject> getSearchResults(Map<String, String> fieldValues) {
@@ -130,7 +129,7 @@ public class AssetAcquisitionTypeLookupableHelperServiceImpl extends KualiLookup
     /**
      * Overrides base implementation to determine whether or not we are dealing with looking up the model or editing it
      *
-     * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#setFieldConversions(java.util.Map)
+     * @see org.kuali.kfs.kns.lookup.AbstractLookupableHelperServiceImpl#setFieldConversions(java.util.Map)
      */
     @Override
     public void setFieldConversions(Map fieldConversions) {
@@ -143,15 +142,14 @@ public class AssetAcquisitionTypeLookupableHelperServiceImpl extends KualiLookup
     /**
      * Overrides base implementation to remove the action urls if we are initializing the asset retirement reason
      *
-     * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#getCustomActionUrls(org.kuali.rice.krad.bo.BusinessObject,
-     *      List pkNames)
+     * @see org.kuali.kfs.kns.lookup.AbstractLookupableHelperServiceImpl#getCustomActionUrls(org.kuali.rice.krad.bo.BusinessObject,
+     * List pkNames)
      */
     @Override
     public List<HtmlData> getCustomActionUrls(BusinessObject businessObject, List pkNames) {
         if (!initializingAssetGlobal) {
             return super.getCustomActionUrls(businessObject, pkNames);
-        }
-        else {
+        } else {
             return super.getEmptyActionUrls();
         }
     }

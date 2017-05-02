@@ -1,50 +1,49 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.pdp.web.struts;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.web.struts.form.KualiForm;
 import org.kuali.kfs.pdp.businessobject.CustomerProfile;
 import org.kuali.kfs.pdp.businessobject.DisbursementNumberFormatter;
 import org.kuali.kfs.pdp.businessobject.DisbursementNumberRange;
 import org.kuali.kfs.pdp.businessobject.FormatProcessSummary;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
-import org.kuali.rice.kns.web.struts.form.KualiForm;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Struts Action Form for Format Checks/ACH
  */
 public class FormatForm extends KualiForm {
 
-    private String campus;
-    private String paymentDate;
-    private String paymentTypes;
-    private String initiatorEmail;
+    protected String campus;
+    protected String paymentDate;
+    protected String paymentTypes;
+    protected String initiatorEmail;
 
-    private FormatProcessSummary formatProcessSummary;
+    protected FormatProcessSummary formatProcessSummary;
 
-    private List<CustomerProfile> customers;
-    private List<DisbursementNumberRange> ranges;
+    protected List<CustomerProfile> customers;
+    protected List<DisbursementNumberRange> ranges;
 
     /**
      * Constructs a FormatForm.
@@ -54,7 +53,7 @@ public class FormatForm extends KualiForm {
         customers = new ArrayList<CustomerProfile>();
         ranges = new ArrayList<DisbursementNumberRange>();
 
-         this.setFormatterType("range.lastAssignedDisbNbr", DisbursementNumberFormatter.class);
+        this.setFormatterType("range.lastAssignedDisbNbr", DisbursementNumberFormatter.class);
     }
 
     /**
@@ -137,7 +136,7 @@ public class FormatForm extends KualiForm {
     /**
      * This method sets a customer profile.
      *
-     * @param key the index of the value
+     * @param key   the index of the value
      * @param value the new value
      */
     public void setCustomer(int key, CustomerProfile value) {

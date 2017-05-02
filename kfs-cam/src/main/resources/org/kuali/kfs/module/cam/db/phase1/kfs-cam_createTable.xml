@@ -1,0 +1,1170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="kfs" id="2352" context="bootstrap,demo,unit">
+        <createTable tableName="CB_AST_TRN_TYP_T">
+            <column defaultValue="" name="CPTL_AST_TRN_TYP_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CPTL_AST_TRN_TYP_DESC" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CPTL_AST_NON_QTY_DRVN_ALLW_IND" type="VARCHAR(1)"/>
+            <column name="DOBJ_MAINT_CD_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CPTLAST_QTY_SUBTYP_REQ_TXT" type="VARCHAR(100)"/>
+            <column name="CPTLAST_NONQTY_SUBTYP_REQ_TXT" type="VARCHAR(100)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2353" context="bootstrap,demo,unit">
+        <createTable tableName="CB_GL_ENTRY_AST_T">
+            <column defaultValueNumeric="0" name="CB_GL_ACCT_ID" type="DECIMAL(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="CB_LN_NBR" type="DECIMAL(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CM_FDOC_NBR" type="VARCHAR(14)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2354" context="bootstrap,demo,unit">
+        <createTable tableName="CB_GL_ENTRY_T">
+            <column defaultValueNumeric="0" name="CB_GL_ACCT_ID" type="DECIMAL(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UNIV_FISCAL_YR" type="DECIMAL(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ACCOUNT_NBR" type="VARCHAR(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SUB_ACCT_NBR" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FIN_OBJECT_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FIN_SUB_OBJ_CD" type="VARCHAR(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FIN_BALANCE_TYP_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FIN_OBJ_TYP_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UNIV_FISCAL_PRD_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FDOC_TYP_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FS_ORIGIN_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FDOC_NBR" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TRN_ENTR_SEQ_NBR" type="DECIMAL(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TRN_LDGR_ENTR_DESC" type="VARCHAR(40)"/>
+            <column name="TRN_LDGR_ENTR_AMT" type="DECIMAL(19, 2)"/>
+            <column name="ORG_REFERENCE_ID" type="VARCHAR(8)"/>
+            <column name="FS_REF_ORIGIN_CD" type="VARCHAR(2)"/>
+            <column name="FDOC_REF_NBR" type="VARCHAR(14)"/>
+            <column name="TRN_DEBIT_CRDT_CD" type="VARCHAR(1)"/>
+            <column name="TRANSACTION_DT" type="DATE"/>
+            <column name="ORG_DOC_NBR" type="VARCHAR(10)"/>
+            <column name="PROJECT_CD" type="VARCHAR(10)"/>
+            <column name="TRN_POST_DT" type="DATE"/>
+            <column name="TIMESTAMP" type="DATE"/>
+            <column name="ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TRN_LDGR_SUBMIT_AMT" type="DECIMAL(19, 2)"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="kfs" id="2355" context="bootstrap,demo,unit">
+        <createTable tableName="CB_PRTG_DTL_T">
+            <column defaultValue="" name="PO_NUMBER" type="VARCHAR(9)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="ITM_LN_NBR" type="DECIMAL(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="CPTLAST_TAG_NBR" type="VARCHAR(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CPTLAST_SERIAL_NBR" type="VARCHAR(25)"/>
+            <column name="CPTLAST_ORGTAG_NBR" type="VARCHAR(8)"/>
+            <column name="CAMPUS_CD" type="VARCHAR(2)"/>
+            <column name="BLDG_CD" type="VARCHAR(10)"/>
+            <column name="BLDG_ROOM_NBR" type="VARCHAR(8)"/>
+            <column name="BLDG_SUB_ROOM_NBR" type="VARCHAR(2)"/>
+            <column name="AST_PRTGTAG_CRT_DT" type="DATE"/>
+            <column name="CPTL_AST_GOV_TAG_NBR" type="VARCHAR(12)"/>
+            <column name="CPTL_AST_NTL_STOCK_NBR" type="VARCHAR(25)"/>
+            <column name="ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="kfs" id="2356" context="bootstrap,demo,unit">
+        <createTable tableName="CB_PRTG_T">
+            <column defaultValue="" name="PO_NUMBER" type="VARCHAR(9)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="ITM_LN_NBR" type="DECIMAL(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CPTLAST_INV_QTY" type="DECIMAL(11, 2)"/>
+            <column name="CPTLAST_TYP_CD" type="VARCHAR(7)"/>
+            <column name="CPTLAST_MFR_NM" type="VARCHAR(45)"/>
+            <column name="CPTLAST_MFRMDL_NBR" type="VARCHAR(25)"/>
+            <column name="VENDOR_NAME" type="VARCHAR(45)"/>
+            <column name="CPTLAST_TOPS_DESC" type="VARCHAR(4000)"/>
+            <column name="CPTLAST_ORG_TXT" type="VARCHAR(255)"/>
+            <column name="ORG_INVN_NM" type="VARCHAR(40)"/>
+            <column name="AST_REP_UNVL_ID" type="VARCHAR(40)"/>
+            <column name="FIN_COA_CD" type="VARCHAR(2)"/>
+            <column name="CM_PRTG_CRT_DT" type="DATE"/>
+            <column name="ORG_CD" type="VARCHAR(4)"/>
+            <column name="ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="kfs" id="2357" context="bootstrap,demo,unit">
+        <createTable tableName="CB_PUR_ACTN_HIST_T">
+            <column defaultValueNumeric="0" name="ACTN_ID" type="DECIMAL(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ACTN_TYP_CD" type="VARCHAR(20)"/>
+            <column name="FRM_FDOC_NBR" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FRM_PUR_ITM_ID" type="DECIMAL(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FRM_CB_LN_NBR" type="DECIMAL(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TO_FDOC_NBR" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TO_PUR_ITM_ID" type="DECIMAL(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TO_CB_LN_NBR" type="DECIMAL(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CB_GL_ACCT_ID" type="DECIMAL(12)"/>
+            <column name="ITM_ACCT_TOT_AMT" type="DECIMAL(19, 2)"/>
+            <column name="PUR_ITM_QTY" type="DECIMAL(11, 2)"/>
+            <column name="ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2358" context="bootstrap,demo,unit">
+        <createTable tableName="CB_PUR_DOC_T">
+            <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PO_ITM_ID" type="DECIMAL(10)"/>
+            <column name="PO_ID" type="DECIMAL(9)"/>
+            <column name="ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DOC_TYP_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2359" context="bootstrap,demo,unit">
+        <createTable tableName="CB_PUR_ITM_AST_T">
+            <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="PUR_ITM_ID" type="DECIMAL(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="CB_LN_NBR" type="DECIMAL(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PUR_ITM_DESC" type="VARCHAR(4000)"/>
+            <column name="PUR_ITM_QTY" type="DECIMAL(11, 2)"/>
+            <column name="CM_FDOC_NBR" type="VARCHAR(14)"/>
+            <column name="ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2360" context="bootstrap,demo,unit">
+        <createTable tableName="CB_PUR_LN_AST_ACCT_T">
+            <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="PUR_ITM_ID" type="DECIMAL(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="CB_LN_NBR" type="DECIMAL(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="CB_GL_ACCT_ID" type="DECIMAL(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ITM_ACCT_TOT_AMT" type="DECIMAL(19, 2)"/>
+            <column name="ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2361" context="bootstrap,demo,unit">
+        <createTable tableName="CM_ACQ_TYPE_T">
+            <column defaultValue="" name="CPTLAST_ACQ_TYP_CD" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CPTLAST_ACQ_TYP_NM" type="VARCHAR(40)"/>
+            <column name="CPTLAST_INC_OBJ_CD" type="VARCHAR(4)"/>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2362" context="bootstrap,demo,unit">
+        <createTable tableName="CM_ASSET_TYPE_T">
+            <column defaultValue="" name="CPTLAST_TYP_CD" type="VARCHAR(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CPTLAST_TYP_DESC" type="VARCHAR(70)"/>
+            <column name="CPTLAST_DEPRLF_LMT" type="DECIMAL(5)"/>
+            <column name="CPTLAST_MOVING_CD" type="VARCHAR(1)"/>
+            <column name="CPTLAST_RQDBLDG_CD" type="VARCHAR(1)"/>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2363" context="bootstrap,demo,unit">
+        <createTable tableName="CM_AST_COMPONENT_T">
+            <column defaultValueNumeric="0" name="CPTLAST_NBR" type="DECIMAL(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="CACMP_NBR" type="DECIMAL(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CACMP_DESC" type="VARCHAR(255)"/>
+            <column name="CACMP_CNTCTPHN_NBR" type="VARCHAR(10)"/>
+            <column name="CACMP_COND_CD" type="VARCHAR(1)"/>
+            <column name="CACMP_EST_LFTM_LMT" type="DECIMAL(5)"/>
+            <column name="CACMP_MFR_NM" type="VARCHAR(45)"/>
+            <column name="CACMP_MFR_MDL_NBR" type="VARCHAR(25)"/>
+            <column name="CACMP_SERIAL_NBR" type="VARCHAR(25)"/>
+            <column name="CACMP_ORG_TAG_NBR" type="VARCHAR(8)"/>
+            <column name="CACMP_ORG_TXT" type="VARCHAR(255)"/>
+            <column name="CACMP_REPLACE_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CACMP_VENDOR_NM" type="VARCHAR(45)"/>
+            <column name="CACMP_WRNTY_NBR" type="VARCHAR(25)"/>
+            <column name="CACMP_WRNTYPHN_NBR" type="VARCHAR(13)"/>
+            <column name="CACMP_WRNTYCNTC_NM" type="VARCHAR(123)"/>
+            <column name="CACMP_WRNTY_PO_NBR" type="VARCHAR(9)"/>
+            <column name="CACMP_WRNTY_BEG_DT" type="DATE"/>
+            <column name="CACMP_WRNTY_END_DT" type="DATE"/>
+            <column name="CACMP_WRNTY_TXT" type="VARCHAR(40)"/>
+            <column name="CPTL_AST_GOV_TAG_NBR" type="VARCHAR(12)"/>
+            <column name="CPTL_AST_NTL_STOCK_NBR" type="VARCHAR(25)"/>
+            <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="kfs" id="2364" context="bootstrap,demo,unit">
+        <createTable tableName="CM_AST_CONDITION_T">
+            <column defaultValue="" name="CPTLAST_COND_CD" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CPTLAST_COND_NM" type="VARCHAR(40)"/>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2365" context="bootstrap,demo,unit">
+        <createTable tableName="CM_AST_DEPR_CNVNTN_T">
+            <column defaultValue="" name="FIN_OBJ_SUB_TYPE_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CPTL_AST_DEPR_CNVNTN_CD" type="VARCHAR(2)"/>
+            <column name="ACTV_IND" type="VARCHAR(1)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2366" context="bootstrap,demo,unit">
+        <createTable tableName="CM_AST_DEPR_MTHD_T">
+            <column defaultValue="" name="AST_DEPR_METHOD_CD" type="VARCHAR(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="AST_DEPR_METHOD_NM" type="VARCHAR(40)"/>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2367" context="bootstrap,demo,unit">
+        <createTable tableName="CM_AST_LOC_DOC_T">
+            <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2368" context="bootstrap,demo,unit">
+        <createTable tableName="CM_AST_LOC_DTL_T">
+            <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="CPTLAST_NBR" type="DECIMAL(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CAMPUS_CD" type="VARCHAR(2)"/>
+            <column name="BLDG_CD" type="VARCHAR(10)"/>
+            <column name="BLDG_ROOM_NBR" type="VARCHAR(8)"/>
+            <column name="BLDG_SUB_ROOM_NBR" type="VARCHAR(2)"/>
+            <column name="CPTLAST_TAG_NBR" type="VARCHAR(8)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2369" context="bootstrap,demo,unit">
+        <createTable tableName="CM_AST_LOC_T">
+            <column defaultValueNumeric="0" name="CPTLAST_NBR" type="DECIMAL(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="AST_LOC_TYP_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="AST_LOC_CNTCT_NM" type="VARCHAR(123)"/>
+            <column name="AST_LOC_CNTCT_ID" type="VARCHAR(40)"/>
+            <column name="AST_LOC_INST_NM" type="VARCHAR(50)"/>
+            <column name="AST_LOC_PHN_NBR" type="VARCHAR(13)"/>
+            <column name="AST_LOC_STRT_ADDR" type="VARCHAR(50)"/>
+            <column name="AST_LOC_CITY_NM" type="VARCHAR(50)"/>
+            <column name="AST_LOC_STATE_CD" type="VARCHAR(2)"/>
+            <column name="AST_LOC_CNTRY_CD" type="VARCHAR(2)"/>
+            <column name="AST_LOC_ZIP_CD" type="VARCHAR(20)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2370" context="bootstrap,demo,unit">
+        <createTable tableName="CM_AST_LOC_TYP_T">
+            <column defaultValue="" name="CPTLAST_LOC_TYP_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CPTLAST_LOC_TYP_NM" type="VARCHAR(30)"/>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2371" context="bootstrap,demo,unit">
+        <createTable tableName="CM_AST_ORG_T">
+            <column defaultValueNumeric="0" name="CPTLAST_NBR" type="DECIMAL(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ORG_CPTLAST_TYP_ID" type="VARCHAR(20)"/>
+            <column name="CPTLAST_ORGTAG_NBR" type="VARCHAR(8)"/>
+            <column name="ORG_TXT" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2372" context="bootstrap,demo,unit">
+        <createTable tableName="CM_AST_PAYMENT_T">
+            <column defaultValueNumeric="0" name="CPTLAST_NBR" type="DECIMAL(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="AST_PMT_SEQ_NBR" type="DECIMAL(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FIN_COA_CD" type="VARCHAR(2)"/>
+            <column name="ACCOUNT_NBR" type="VARCHAR(7)"/>
+            <column name="SUB_ACCT_NBR" type="VARCHAR(5)"/>
+            <column name="FIN_OBJECT_CD" type="VARCHAR(4)"/>
+            <column name="FIN_SUB_OBJ_CD" type="VARCHAR(3)"/>
+            <column name="FS_ORIGIN_CD" type="VARCHAR(2)"/>
+            <column name="FDOC_TYP_CD" type="VARCHAR(4)"/>
+            <column name="FDOC_NBR" type="VARCHAR(14)"/>
+            <column name="FDOC_POST_YR" type="DECIMAL(4)"/>
+            <column name="FDOC_POST_PRD_CD" type="VARCHAR(2)"/>
+            <column name="FDOC_POST_DT" type="DATE"/>
+            <column name="PROJECT_CD" type="VARCHAR(10)"/>
+            <column name="ORG_REFERENCE_ID" type="VARCHAR(8)"/>
+            <column name="ACCT_CHARGE_AMT" type="DECIMAL(19, 2)"/>
+            <column name="PO_NUMBER" type="VARCHAR(9)"/>
+            <column name="REQUISITION_NBR" type="VARCHAR(8)"/>
+            <column name="AST_DEPR1_BASE_AMT" type="DECIMAL(19, 2)"/>
+            <column name="AST_ACUM_DEPR1_AMT" type="DECIMAL(19, 2)"/>
+            <column name="AST_PRVYRDEPR1_AMT" type="DECIMAL(19, 2)"/>
+            <column name="AST_PRD1_DEPR1_AMT" type="DECIMAL(19, 2)"/>
+            <column name="AST_PRD2_DEPR1_AMT" type="DECIMAL(19, 2)"/>
+            <column name="AST_PRD3_DEPR1_AMT" type="DECIMAL(19, 2)"/>
+            <column name="AST_PRD4_DEPR1_AMT" type="DECIMAL(19, 2)"/>
+            <column name="AST_PRD5_DEPR1_AMT" type="DECIMAL(19, 2)"/>
+            <column name="AST_PRD6_DEPR1_AMT" type="DECIMAL(19, 2)"/>
+            <column name="AST_PRD7_DEPR1_AMT" type="DECIMAL(19, 2)"/>
+            <column name="AST_PRD8_DEPR1_AMT" type="DECIMAL(19, 2)"/>
+            <column name="AST_PRD9_DEPR1_AMT" type="DECIMAL(19, 2)"/>
+            <column name="AST_PRD10DEPR1_AMT" type="DECIMAL(19, 2)"/>
+            <column name="AST_PRD11DEPR1_AMT" type="DECIMAL(19, 2)"/>
+            <column name="AST_PRD12DEPR1_AMT" type="DECIMAL(19, 2)"/>
+            <column name="AST_TRNFR_PMT_CD" type="VARCHAR(1)"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="kfs" id="2373" context="bootstrap,demo,unit">
+        <createTable tableName="CM_AST_PMT_AST_DTL_T">
+            <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="CPTLAST_NBR" type="DECIMAL(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CPTLAST_PREV_TOT_CST_AMT" type="DECIMAL(19, 2)"/>
+            <column defaultValueNumeric="0.00" name="CPTLAST_ALLOC_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CPTLAST_ALLOC_VAL" type="DECIMAL(19, 2)"/>
+            <column name="CPTLAST_ALLOC_VAL_PCT" type="DECIMAL(19, 6)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2374" context="bootstrap,demo,unit">
+        <createTable tableName="CM_AST_PMT_DOC_T">
+            <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NXT_AST_PMT_LN_NBR" type="DECIMAL(7)"/>
+            <column name="CB_ORIGIN_IND" type="VARCHAR(1)"/>
+            <column defaultValue="2" name="AST_PMT_DST_CD" type="VARCHAR(1)"/>
+            <column defaultValue="N" name="AST_PMT_DIST_CD_FROM_FP_IND" type="VARCHAR(1)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2375" context="bootstrap,demo,unit">
+        <createTable tableName="CM_AST_PMT_DOC_TYP_T">
+            <column defaultValueNumeric="0" name="DOC_TYP_ID" type="DECIMAL(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DOC_TYP_NM" type="VARCHAR(4)"/>
+            <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2376" context="bootstrap,demo,unit">
+        <createTable tableName="CM_AST_PMT_DST_CD_T">
+            <column defaultValue="" name="AST_PMT_DST_CD" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="AST_PMT_DST_NM" type="VARCHAR(40)"/>
+            <column name="AST_PMT_DST_COL_NM" type="VARCHAR(40)"/>
+            <column name="AST_PMT_DST_EDT" type="VARCHAR(1)"/>
+            <column defaultValue="Y" name="ROW_ACTV_IND" type="VARCHAR(1)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2377" context="bootstrap,demo,unit">
+        <createTable tableName="CM_AST_PMT_DTL_T">
+            <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="FDOC_LINE_NBR" type="DECIMAL(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FDOC_POST_YR" type="DECIMAL(4)"/>
+            <column name="FDOC_POST_PRD_CD" type="VARCHAR(2)"/>
+            <column name="FIN_COA_CD" type="VARCHAR(2)"/>
+            <column name="ACCOUNT_NBR" type="VARCHAR(7)"/>
+            <column name="SUB_ACCT_NBR" type="VARCHAR(5)"/>
+            <column name="FIN_OBJECT_CD" type="VARCHAR(4)"/>
+            <column name="FIN_SUB_OBJ_CD" type="VARCHAR(3)"/>
+            <column name="PROJECT_CD" type="VARCHAR(10)"/>
+            <column name="ORG_REFERENCE_ID" type="VARCHAR(8)"/>
+            <column name="ACCT_CHARGE_AMT" type="DECIMAL(19, 2)"/>
+            <column name="EXPND_FS_ORIGIN_CD" type="VARCHAR(2)"/>
+            <column name="EXPND_FDOC_NBR" type="VARCHAR(14)"/>
+            <column name="EXPND_FDOC_TYP_CD" type="VARCHAR(4)"/>
+            <column name="EXPND_FDOC_POST_DT" type="DATE"/>
+            <column name="PO_NUMBER" type="VARCHAR(9)"/>
+            <column name="REQUISITION_NBR" type="VARCHAR(8)"/>
+            <column name="FDOC_OVERRIDE_CD" type="VARCHAR(100)"/>
+            <column name="AST_TRNFR_PMT_CD" type="VARCHAR(1)"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="kfs" id="2378" context="bootstrap,demo,unit">
+        <createTable tableName="CM_AST_RETIRE_DOC_T">
+            <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MERGED_TGT_CPTLAST_NBR" type="DECIMAL(12)"/>
+            <column name="AST_RETIRE_REAS_CD" type="VARCHAR(1)"/>
+            <column name="CPTLAST_RETIRE_DT" type="DATE"/>
+            <column name="MERGED_TGT_CPTLAST_DESC" type="VARCHAR(4000)"/>
+            <column name="AST_RETIR_COA_CD" type="VARCHAR(2)"/>
+            <column name="AST_RETIR_ACCT_NBR" type="VARCHAR(7)"/>
+            <column name="AST_RETIR_CNTCT_NM" type="VARCHAR(123)"/>
+            <column name="AST_RETIR_INST_NM" type="VARCHAR(50)"/>
+            <column name="AST_RETIRSTRT_ADDR" type="VARCHAR(50)"/>
+            <column name="AST_RETIR_CITY_NM" type="VARCHAR(50)"/>
+            <column name="AST_RETIR_STATE_CD" type="VARCHAR(2)"/>
+            <column name="AST_RETIR_ZIP_CD" type="VARCHAR(20)"/>
+            <column name="AST_RETIR_CNTRY_CD" type="VARCHAR(2)"/>
+            <column name="AST_RETIR_PHN_NBR" type="VARCHAR(13)"/>
+            <column name="AST_EST_SELL_PRC" type="DECIMAL(19, 2)"/>
+            <column name="CPTLAST_SALE_PRC" type="DECIMAL(19, 2)"/>
+            <column name="CASH_RCPT_FDOC_NBR" type="VARCHAR(14)"/>
+            <column name="AST_HANDLG_FEE_AMT" type="DECIMAL(19, 2)"/>
+            <column name="AST_PRVNTMAINT_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CPTLAST_BUYER_DESC" type="VARCHAR(25)"/>
+            <column name="AST_PD_CASE_NBR" type="VARCHAR(14)"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="kfs" id="2379" context="bootstrap,demo,unit">
+        <createTable tableName="CM_AST_RETIRE_DTL_T">
+            <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="CPTLAST_NBR" type="DECIMAL(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2380" context="bootstrap,demo,unit">
+        <createTable tableName="CM_AST_RPR_HIST_T">
+            <column defaultValueNumeric="0" name="CPTLAST_NBR" type="DECIMAL(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CPTLAST_INCIDNT_DT" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CPTLAST_PRBLM_DESC" type="VARCHAR(255)"/>
+            <column name="CPTLAST_RPRCNTC_NM" type="VARCHAR(123)"/>
+            <column name="CPTLAST_RPR_NT_TXT" type="VARCHAR(255)"/>
+            <column name="CPTLAST_EST_RPR_DT" type="DATE"/>
+            <column name="CPTLAST_RPR_DT" type="DATE"/>
+            <column name="CPTLAST_RPR_AMT" type="DECIMAL(19, 2)"/>
+            <column name="AST_RPR_SOLN_DESC" type="VARCHAR(255)"/>
+            <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="kfs" id="2381" context="bootstrap,demo,unit">
+        <createTable tableName="CM_AST_STATUS_T">
+            <column defaultValue="" name="AST_INVN_STAT_CD" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="AST_INVN_STAT_NM" type="VARCHAR(40)"/>
+            <column defaultValue="Y" name="ROW_ACTV_IND" type="VARCHAR(1)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2382" context="bootstrap,demo,unit">
+        <createTable tableName="CM_AST_TRNFR_DOC_T">
+            <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="AST_REP_UNVL_ID" type="VARCHAR(40)"/>
+            <column name="CAMPUS_CD" type="VARCHAR(2)"/>
+            <column name="BLDG_CD" type="VARCHAR(10)"/>
+            <column name="BLDG_ROOM_NBR" type="VARCHAR(8)"/>
+            <column name="BLDG_SUB_ROOM_NBR" type="VARCHAR(2)"/>
+            <column name="CPTLAST_ORGTAG_NBR" type="VARCHAR(8)"/>
+            <column name="ORG_OWNER_COA_CD" type="VARCHAR(2)"/>
+            <column name="ORG_OWNER_ACCT_NBR" type="VARCHAR(7)"/>
+            <column name="ORG_TXT" type="VARCHAR(255)"/>
+            <column name="ORG_INVN_NM" type="VARCHAR(40)"/>
+            <column name="TRNFR_FND_FDOC_NBR" type="VARCHAR(14)"/>
+            <column name="AST_OFFCMP_ADDR" type="VARCHAR(45)"/>
+            <column name="AST_OFFCMP_CITY_NM" type="VARCHAR(25)"/>
+            <column name="AST_OFFCMP_ST_CD" type="VARCHAR(2)"/>
+            <column name="AST_OFFCMP_ZIP_CD" type="VARCHAR(20)"/>
+            <column name="AST_INTRDPTSALE_CD" type="CHAR(1)"/>
+            <column name="CPTLAST_NBR" type="DECIMAL(12)"/>
+            <column name="OLD_ORG_OWNER_COA_CD" type="VARCHAR(2)"/>
+            <column name="OLD_ORG_OWNER_ACCT_NBR" type="VARCHAR(7)"/>
+            <column name="AST_OFFCMP_NM" type="VARCHAR(123)"/>
+            <column name="AST_OFFCMP_CNTRY_CD" type="VARCHAR(2)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2383" context="bootstrap,demo,unit">
+        <createTable tableName="CM_AST_WRNTY_T">
+            <column defaultValueNumeric="0" name="CPTLAST_NBR" type="DECIMAL(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="AST_WRNTY_CNTCT_NM" type="VARCHAR(123)"/>
+            <column name="AST_WRNTYPHN_NBR" type="VARCHAR(13)"/>
+            <column name="AST_WRNTY_BEG_DT" type="DATE"/>
+            <column name="AST_WRNTY_END_DT" type="DATE"/>
+            <column name="AST_WRNTY_NBR" type="VARCHAR(25)"/>
+            <column name="AST_WRNTY_PO_NBR" type="VARCHAR(9)"/>
+            <column name="AST_WRNTY_TXT" type="VARCHAR(40)"/>
+            <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="kfs" id="1007" context="bootstrap,demo,unit">
+        <createTable tableName="CM_CPTLAST_T">
+            <column defaultValueNumeric="0" name="CPTLAST_NBR" type="DECIMAL(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CPTLAST_DESC" type="VARCHAR(4000)"/>
+            <column name="CPTLAST_TYP_CD" type="VARCHAR(7)"/>
+            <column name="CPTLAST_COND_CD" type="VARCHAR(1)"/>
+            <column name="CPTLAST_CRT_DT" type="DATE"/>
+            <column name="CPTLAST_RECEIVE_DT" type="DATE"/>
+            <column name="CPTLAST_LN_RTRN_DT" type="DATE"/>
+            <column name="CPTLAST_LOAN_DT" type="DATE"/>
+            <column name="AST_EXPCTRETURN_DT" type="DATE"/>
+            <column name="FDOC_POST_PRD_CD" type="VARCHAR(2)"/>
+            <column name="FDOC_POST_YR" type="DECIMAL(4)"/>
+            <column name="ORG_OWNER_ACCT_NBR" type="VARCHAR(7)"/>
+            <column name="ORG_OWNER_COA_CD" type="VARCHAR(2)"/>
+            <column name="CPTLAST_VENDOR_NM" type="VARCHAR(45)"/>
+            <column name="CPTLAST_ACQ_TYP_CD" type="VARCHAR(1)"/>
+            <column name="CPTLAST_TOTCST_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CPTLAST_RPLC_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CPTLAST_SALE_PRC" type="DECIMAL(19, 2)"/>
+            <column name="AST_EST_SELL_PRC" type="DECIMAL(19, 2)"/>
+            <column name="CPTLAST_SALVAG_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CAMPUS_CD" type="VARCHAR(2)"/>
+            <column name="BLDG_CD" type="VARCHAR(10)"/>
+            <column name="BLDG_ROOM_NBR" type="VARCHAR(8)"/>
+            <column name="BLDG_SUB_ROOM_NBR" type="VARCHAR(2)"/>
+            <column name="AST_RETIR_COA_CD" type="VARCHAR(2)"/>
+            <column name="AST_RETIR_ACCT_NBR" type="VARCHAR(7)"/>
+            <column name="AST_RETIRE_REAS_CD" type="VARCHAR(1)"/>
+            <column name="AST_RETIR_PRD_CD" type="VARCHAR(2)"/>
+            <column name="AST_RETIR_FSCL_YR" type="DECIMAL(4)"/>
+            <column name="CASH_RCPT_FDOC_NBR" type="VARCHAR(14)"/>
+            <column name="AST_DEPR_MTHD1_CD" type="VARCHAR(3)"/>
+            <column name="AST_ESTFABRCMPL_DT" type="DATE"/>
+            <column name="AST_FABRESTTOT_AMT" type="DECIMAL(19, 2)"/>
+            <column name="TRNFR_FND_FDOC_NBR" type="VARCHAR(14)"/>
+            <column name="AST_INVN_STAT_CD" type="VARCHAR(1)"/>
+            <column name="CPTLAST_TAG_NBR" type="VARCHAR(8)"/>
+            <column name="CPTLAST_LSTINVN_DT" type="DATE"/>
+            <column name="ORG_INVN_NM" type="VARCHAR(40)"/>
+            <column name="CPTLAST_OLDTAG_NBR" type="VARCHAR(8)"/>
+            <column name="CPTLAST_MFR_NM" type="VARCHAR(45)"/>
+            <column name="CPTLAST_MFRMDL_NBR" type="VARCHAR(25)"/>
+            <column name="CPTLAST_SERIAL_NBR" type="VARCHAR(25)"/>
+            <column name="AST_REP_UNVL_ID" type="VARCHAR(40)"/>
+            <column name="CG_AGENCY_NBR" type="VARCHAR(6)"/>
+            <column name="AST_PD_CASE_NBR" type="VARCHAR(14)"/>
+            <column name="AST_INVN_SCAN_CD" type="VARCHAR(1)"/>
+            <column name="CPTL_AST_IN_SRVC_DT" type="DATE"/>
+            <column name="CPTL_AST_GOV_TAG_NBR" type="VARCHAR(12)"/>
+            <column name="CPTL_AST_NTL_STOCK_NBR" type="VARCHAR(25)"/>
+            <column name="CPTL_AST_LAND_CNTY_NM" type="VARCHAR(20)"/>
+            <column name="CPTL_AST_LAND_ACRG_SZ" type="DECIMAL(7)"/>
+            <column name="CPTL_AST_LAND_PRCL_NBR" type="VARCHAR(30)"/>
+            <column name="CPTL_AST_DEPR_DT" type="DATE"/>
+            <column name="FIN_OBJ_SUB_TYP_CD" type="VARCHAR(2)"/>
+            <column name="AST_FABR_EST_RETN_YRS" type="DECIMAL(5)"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="kfs" id="2384" context="bootstrap,demo,unit">
+        <createTable tableName="CM_CPTLAST_DOC_T">
+            <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FDOC_NXT_LINE_NBR" type="DECIMAL(7)"/>
+            <column name="CPTLAST_ACQ_TYP_CD" type="VARCHAR(1)"/>
+            <column name="CPTLAST_DESC" type="VARCHAR(4000)"/>
+            <column name="AST_INVN_STAT_CD" type="VARCHAR(1)"/>
+            <column name="CPTLAST_COND_CD" type="VARCHAR(1)"/>
+            <column name="CPTLAST_TYP_CD" type="VARCHAR(7)"/>
+            <column name="CPTLAST_MFR_NM" type="VARCHAR(45)"/>
+            <column name="CPTLAST_MFRMDL_NBR" type="VARCHAR(25)"/>
+            <column name="CPTLAST_TOTCST_AMT" type="DECIMAL(19, 2)"/>
+            <column name="CPTL_AST_LAND_CNTY_NM" type="VARCHAR(20)"/>
+            <column name="CPTL_AST_LAND_ACRG_SZ" type="DECIMAL(7)"/>
+            <column name="CPTL_AST_LAND_PRCL_NBR" type="VARCHAR(30)"/>
+            <column name="CPTLAST_VENDOR_NM" type="VARCHAR(45)"/>
+            <column name="ORG_TXT" type="VARCHAR(255)"/>
+            <column name="CPTLAST_CRT_DT" type="DATE"/>
+            <column name="CPTL_AST_IN_SRVC_DT" type="DATE"/>
+            <column name="CPTL_AST_DEPR_DT" type="DATE"/>
+            <column name="AST_REP_UNVL_ID" type="VARCHAR(40)"/>
+            <column name="ORG_OWNER_COA_CD" type="VARCHAR(2)"/>
+            <column name="ORG_OWNER_ACCT_NBR" type="VARCHAR(7)"/>
+            <column name="CG_AGENCY_NBR" type="VARCHAR(6)"/>
+            <column name="FDOC_TYP_CD" type="VARCHAR(4)"/>
+            <column name="SEP_SRC_CPTLAST_NBR" type="DECIMAL(12)"/>
+            <column name="SEP_SRC_AST_PMT_SEQ_NBR" type="DECIMAL(12)"/>
+            <column name="CB_ORIGIN_IND" type="VARCHAR(1)"/>
+            <column name="FDOC_POST_YR" type="DECIMAL(4)"/>
+            <column name="FDOC_POST_PRD_CD" type="VARCHAR(2)"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="kfs" id="2385" context="bootstrap,demo,unit">
+        <createTable tableName="CM_CPTLAST_DTL_T">
+            <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="CPTLAST_NBR" type="DECIMAL(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CAMPUS_CD" type="VARCHAR(2)"/>
+            <column name="BLDG_CD" type="VARCHAR(10)"/>
+            <column name="CPTLAST_SERIAL_NBR" type="VARCHAR(25)"/>
+            <column name="BLDG_ROOM_NBR" type="VARCHAR(8)"/>
+            <column name="BLDG_SUB_ROOM_NBR" type="VARCHAR(2)"/>
+            <column name="CPTLAST_TAG_NBR" type="VARCHAR(8)"/>
+            <column name="ORG_INVN_NM" type="VARCHAR(40)"/>
+            <column name="ORG_CPTLAST_TYP_ID" type="VARCHAR(20)"/>
+            <column name="AST_OFFCMP_NM" type="VARCHAR(123)"/>
+            <column name="AST_OFFCMP_ADDR" type="VARCHAR(45)"/>
+            <column name="AST_OFFCMP_CITY_NM" type="VARCHAR(45)"/>
+            <column name="AST_OFFCMP_ST_CD" type="VARCHAR(2)"/>
+            <column name="AST_OFFCMP_ZIP_CD" type="VARCHAR(20)"/>
+            <column name="AST_OFFCMP_CNTRY_CD" type="VARCHAR(2)"/>
+            <column name="CPTL_AST_GOV_TAG_NBR" type="VARCHAR(12)"/>
+            <column name="CPTL_AST_NTL_STOCK_NBR" type="VARCHAR(25)"/>
+            <column name="AST_REP_UNVL_ID" type="VARCHAR(40)"/>
+            <column name="CPTLAST_TYP_CD" type="VARCHAR(7)"/>
+            <column name="CPTLAST_DESC" type="VARCHAR(4000)"/>
+            <column name="CPTLAST_MFR_NM" type="VARCHAR(45)"/>
+            <column name="ORG_TXT" type="VARCHAR(255)"/>
+            <column name="CPTLAST_MFRMDL_NBR" type="VARCHAR(25)"/>
+            <column name="SEP_SRC_AMT" type="DECIMAL(19, 2)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2386" context="bootstrap,demo,unit">
+        <createTable tableName="CM_CPTLAST_LOCK_T">
+            <column defaultValue="" name="DOC_HDR_ID" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="CPTLAST_NBR" type="DECIMAL(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="LOCK_INFO_TXT" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DOC_TYP_NM" type="VARCHAR(10)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2387" context="bootstrap,demo,unit">
+        <createTable tableName="CM_CPTLAST_OBJ_T">
+            <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_OBJ_SUB_TYPE_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CPTLZTN_FOBJ_CD" type="VARCHAR(4)"/>
+            <column name="ACCUM_DEPR_FOBJ_CD" type="VARCHAR(4)"/>
+            <column name="DEPR_EXP_FOBJ_CD" type="VARCHAR(4)"/>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2388" context="bootstrap,demo,unit">
+        <createTable tableName="CM_EQPLNRTRN_DOC_T">
+            <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CPTLAST_LOAN_DT" type="DATE"/>
+            <column name="AST_EXPCTRETURN_DT" type="DATE"/>
+            <column name="CPTLAST_LN_RTRN_DT" type="DATE"/>
+            <column name="AST_BORWR_UNVL_ID" type="VARCHAR(40)"/>
+            <column name="AST_BORWR_ADDR" type="VARCHAR(30)"/>
+            <column name="AST_BORWR_CITY_NM" type="VARCHAR(25)"/>
+            <column name="AST_BORWR_STATE_CD" type="VARCHAR(2)"/>
+            <column name="AST_BORWR_ZIP_CD" type="VARCHAR(20)"/>
+            <column name="AST_BORWR_CNTRY_CD" type="VARCHAR(2)"/>
+            <column name="AST_BORWR_PHN_NBR" type="VARCHAR(13)"/>
+            <column name="AST_BORWRSTRG_ADDR" type="VARCHAR(30)"/>
+            <column name="AST_BORWRSTRGCT_NM" type="VARCHAR(25)"/>
+            <column name="AST_BORWRSTRGST_CD" type="VARCHAR(2)"/>
+            <column name="AST_BORWRSTRGZP_CD" type="VARCHAR(20)"/>
+            <column name="AST_BORWRSTRCNT_CD" type="VARCHAR(2)"/>
+            <column name="AST_BORWRSTRPH_NBR" type="VARCHAR(13)"/>
+            <column name="CPTLAST_NBR" type="DECIMAL(12)"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="kfs" id="2389" context="bootstrap,demo,unit">
+        <createTable tableName="CM_FSCL_YR_END_DEPR_DTL_T">
+            <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="CPTLAST_NBR" type="DECIMAL(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="Y" name="YEAR_END_DEPR_DTL_ACTV_IND" type="VARCHAR(1)"/>
+            <column defaultValue="N" name="YEAR_END_DEPR_DTL_PROC_IND" type="VARCHAR(1)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2390" context="bootstrap,demo,unit">
+        <createTable tableName="CM_FSCL_YR_END_DEPR_HDR_T">
+            <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="YEAR_END_DEPR_RUN_DATE" type="DATE"/>
+            <column defaultValue="Y" name="YEAR_END_DEPR_ACTV_IND" type="VARCHAR(1)"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="kfs" id="2391" context="bootstrap,demo,unit">
+        <createTable tableName="CM_INVN_ERR_DOC_T">
+            <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="AST_UPLDR_UNVL_ID" type="VARCHAR(40)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="2392" context="bootstrap,demo,unit">
+        <createTable tableName="CM_INVN_ERR_DTL_T">
+            <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="AST_UPLD_ROW_NBR" type="DECIMAL(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="AST_ERRCOR_STAT_CD" type="VARCHAR(1)"/>
+            <column name="AST_COR_UNVL_ID" type="VARCHAR(40)"/>
+            <column name="AST_INVN_COR_TS" type="DATE"/>
+            <column name="CPTLAST_TAG_NBR" type="VARCHAR(8)"/>
+            <column name="AST_UPLD_SCAN_IND" type="VARCHAR(1)"/>
+            <column name="AST_UPLD_SCAN_TS" type="DATE"/>
+            <column name="CAMPUS_CD" type="VARCHAR(2)"/>
+            <column name="BLDG_CD" type="VARCHAR(10)"/>
+            <column name="BLDG_ROOM_NBR" type="VARCHAR(8)"/>
+            <column name="BLDG_SUB_ROOM_NBR" type="VARCHAR(2)"/>
+            <column name="CPTLAST_COND_CD" type="VARCHAR(1)"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="kfs" id="2393" context="bootstrap,demo,unit">
+        <createTable tableName="CM_RETIRE_REAS_T">
+            <column defaultValue="" name="AST_RETIRE_REAS_CD" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="AST_RETIRE_REAS_NM" type="VARCHAR(40)"/>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="AST_RETIRE_REAS_RSTR_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

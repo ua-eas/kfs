@@ -1,25 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.batch;
-
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 import org.kuali.kfs.gl.batch.service.EncumbranceClosingOriginEntryGenerationService;
 import org.kuali.kfs.gl.batch.service.impl.OriginEntryOffsetPair;
@@ -30,6 +27,9 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.TestUtils;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  * Tests that the forward encumbrance process is generating cost share encumbrance forwarding origin entries correctly
@@ -61,12 +61,13 @@ public class ForwardEncumbranceTest extends OriginEntryTestBase {
 
         /**
          * Constructs a ForwardEncumbranceTest.ENCUMBRANCE_FIXTURE
-         * @param chart the chart of the encumbrance
-         * @param accountNumber the account of the encumbrance
+         *
+         * @param chart            the chart of the encumbrance
+         * @param accountNumber    the account of the encumbrance
          * @param subAccountNumber the sub account of the encumbrance
-         * @param objectCode the object code of the encumbrance
-         * @param balanceType the balance type code of the encumbrance
-         * @param objectTypeCode the object type code of the encumbrance
+         * @param objectCode       the object code of the encumbrance
+         * @param balanceType      the balance type code of the encumbrance
+         * @param objectTypeCode   the object type code of the encumbrance
          */
         private ENCUMBRANCE_FIXTURE(String chart, String accountNumber, String subAccountNumber, String objectCode, String balanceType, String objectTypeCode) {
             this.chart = chart;
@@ -79,7 +80,7 @@ public class ForwardEncumbranceTest extends OriginEntryTestBase {
 
         /**
          * Converts one of the members of this enum to an actual Encumbrance
-         * 
+         *
          * @return a real encumbrance!
          */
         public Encumbrance convertToEncumbrance() {
@@ -106,7 +107,7 @@ public class ForwardEncumbranceTest extends OriginEntryTestBase {
 
         /**
          * Returns the object type code of this enum
-         * 
+         *
          * @return this enum's object type code
          */
         public String getObjectType() {
@@ -125,7 +126,7 @@ public class ForwardEncumbranceTest extends OriginEntryTestBase {
 
     /**
      * Tests that the expted fixtures would be selected for cost share entry/offset generation by the forward encumbrance process
-     * 
+     *
      * @throws Exception thrown if something goes wrong
      */
     public void testCostShareSelection() throws Exception {
@@ -138,7 +139,7 @@ public class ForwardEncumbranceTest extends OriginEntryTestBase {
         assertTrue(encumbranceClosingOriginEntryGenerationService.shouldForwardCostShareForEncumbrance(entryPair.getEntry(), entryPair.getOffset(), encumbrance, ENCUMBRANCE_FIXTURE.COST_SHARE_ENCUMBRANCE.getObjectType()));
 
         OriginEntryOffsetPair costShareEntryPair = encumbranceClosingOriginEntryGenerationService.createCostShareBeginningBalanceEntryOffsetPair(encumbrance, new java.sql.Date(new GregorianCalendar().getTimeInMillis()));
-        assertFalse( "Should not have had a fatal error: " + costShareEntryPair, costShareEntryPair.isFatalErrorFlag() );
+        assertFalse("Should not have had a fatal error: " + costShareEntryPair, costShareEntryPair.isFatalErrorFlag());
         LOG.info(costShareEntryPair.getEntry().getLine());
         LOG.info(costShareEntryPair.getOffset().getLine());
 

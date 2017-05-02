@@ -1,43 +1,43 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.dataaccess.impl;
 
+import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.log4j.Logger;
+import org.apache.ojb.broker.metadata.ClassDescriptor;
+import org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbKualiEncryptDecryptFieldConversion;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.sys.dataaccess.FieldMetaData;
+import org.kuali.rice.krad.bo.BusinessObject;
+import org.springframework.jdbc.support.DatabaseMetaDataCallback;
+import org.springframework.jdbc.support.MetaDataAccessException;
+
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.log4j.Logger;
-import org.apache.ojb.broker.metadata.ClassDescriptor;
-import org.kuali.kfs.sys.dataaccess.FieldMetaData;
-import org.kuali.rice.core.framework.persistence.ojb.conversion.OjbKualiEncryptDecryptFieldConversion;
-import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.springframework.jdbc.support.DatabaseMetaDataCallback;
-import org.springframework.jdbc.support.MetaDataAccessException;
-
 public class FieldMetaDataImpl implements DatabaseMetaDataCallback, FieldMetaData {
     private static final Logger LOG = Logger.getLogger(FieldMetaDataImpl.class);
-    
+
     private Class businessObjectClass;
     private String propertyName;
-    
+
     private String tableName;
     private String columnName;
     private String dataType;
@@ -56,19 +56,16 @@ public class FieldMetaDataImpl implements DatabaseMetaDataCallback, FieldMetaDat
         while (workingPropertyName.contains(".")) {
             try {
                 workingBusinessObjectClass = org.apache.ojb.broker.metadata.MetadataManager.getInstance().getGlobalRepository().getDescriptorFor(workingBusinessObjectClass).getObjectReferenceDescriptorByName(workingPropertyName.substring(0, workingPropertyName.indexOf("."))).getItemClass();
-            }
-            catch (Exception e1) {
+            } catch (Exception e1) {
                 LOG.debug(new StringBuffer("Unable to get property type via reference descriptor for property ").append(workingPropertyName.substring(0, workingPropertyName.indexOf("."))).append(" of BusinessObject class ").append(workingBusinessObjectClass).toString(), e1);
                 try {
-                    workingBusinessObjectClass = org.apache.ojb.broker.metadata.MetadataManager.getInstance().getGlobalRepository().getDescriptorFor(workingBusinessObjectClass).getCollectionDescriptorByName(workingPropertyName.substring(0, workingPropertyName.indexOf("."))).getItemClass();                        
-                }
-                catch (Exception e2) {
+                    workingBusinessObjectClass = org.apache.ojb.broker.metadata.MetadataManager.getInstance().getGlobalRepository().getDescriptorFor(workingBusinessObjectClass).getCollectionDescriptorByName(workingPropertyName.substring(0, workingPropertyName.indexOf("."))).getItemClass();
+                } catch (Exception e2) {
                     LOG.debug(new StringBuffer("Unable to get property type via collection descriptor of property ").append(workingPropertyName.substring(0, workingPropertyName.indexOf("."))).append(" of BusinessObject class ").append(workingBusinessObjectClass).toString(), e2);
                     BusinessObject businessObject = null;
                     try {
-                        businessObject = (BusinessObject)workingBusinessObjectClass.newInstance();
-                    }
-                    catch (Exception e3) {
+                        businessObject = (BusinessObject) workingBusinessObjectClass.newInstance();
+                    } catch (Exception e3) {
                         if (LOG.isDebugEnabled()) {
                             LOG.debug("Unable to instantiate BusinessObject class " + workingBusinessObjectClass, e3);
                         }
@@ -76,8 +73,7 @@ public class FieldMetaDataImpl implements DatabaseMetaDataCallback, FieldMetaDat
                     }
                     try {
                         workingBusinessObjectClass = PropertyUtils.getPropertyType(businessObject, workingPropertyName.substring(0, workingPropertyName.indexOf(".")));
-                    }
-                    catch (Exception e4) {
+                    } catch (Exception e4) {
                         LOG.debug(new StringBuffer("Unable to get type of property ").append(workingPropertyName.substring(0, workingPropertyName.indexOf("."))).append(" for BusinessObject class ").append(workingBusinessObjectClass).toString(), e4);
                         return populateAndReturnNonPersistableInstance();
                     }
@@ -85,8 +81,7 @@ public class FieldMetaDataImpl implements DatabaseMetaDataCallback, FieldMetaDat
             }
             if (workingBusinessObjectClass == null) {
                 return populateAndReturnNonPersistableInstance();
-            }
-            else {
+            } else {
                 workingPropertyName = workingPropertyName.substring(workingPropertyName.indexOf(".") + 1);
             }
         }
@@ -112,7 +107,7 @@ public class FieldMetaDataImpl implements DatabaseMetaDataCallback, FieldMetaDat
         resultSet.close();
         return this;
     }
-    
+
     protected FieldMetaData populateAndReturnNonPersistableInstance() {
         tableName = "N/A";
         columnName = tableName;

@@ -1,27 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sec.businessobject.lookup;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.service.ObjectTypeService;
@@ -29,18 +24,20 @@ import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.businessobject.AccountBalance;
 import org.kuali.kfs.gl.businessobject.TransientBalanceInquiryAttributes;
 import org.kuali.kfs.gl.businessobject.lookup.AccountBalanceByConsolidationLookupableHelperServiceImpl;
-import org.kuali.kfs.gl.service.AccountBalanceService;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sec.SecKeyConstants;
 import org.kuali.kfs.sec.service.AccessSecurityService;
-import org.kuali.kfs.sec.util.SecUtil;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.lookup.CollectionIncomplete;
-import org.kuali.rice.krad.util.GlobalVariables;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -54,13 +51,13 @@ public class AccessSecurityAccountBalanceByConsolidationLookupableHelperServiceI
     /**
      * Checks security on the detail balance records, if user does not have access to view any of those records they are removed and total lines
      * are updated
-     * 
+     *
      * @see org.kuali.kfs.gl.businessobject.lookup.AccountBalanceByConsolidationLookupableHelperServiceImpl#getSearchResults(java.util.Map)
      */
     @Override
     public List<? extends BusinessObject> getSearchResults(Map fieldValues) {
         AccountBalanceByConsolidationLookupableHelperServiceImpl helperServiceImpl = new AccountBalanceByConsolidationLookupableHelperServiceImpl();
-        helperServiceImpl.setAccountBalanceService(SpringContext.getBean(AccountBalanceService.class));
+        helperServiceImpl.setAccountBalanceService(accountBalanceService);
         List<? extends BusinessObject> results = helperServiceImpl.getSearchResults(fieldValues);
 
         // first 7 items of results are total lines, so we need to check any detail lines after than
@@ -97,11 +94,11 @@ public class AccessSecurityAccountBalanceByConsolidationLookupableHelperServiceI
 
     /**
      * Rebuilds the account balance total lines, logic mostly duplicated from AccountBalanceServiceImpl:findAccountBalanceByConsolidation
-     * 
-     * @param balanceDetails List of AccountBalance detail lines
+     *
+     * @param balanceDetails       List of AccountBalance detail lines
      * @param universityFiscalYear Fiscal Year being searched
-     * @param subAccountNumber Sub Account number being searched 
-     * @param dbo TransientBalanceInquiryAttributes object that will be set on total lines
+     * @param subAccountNumber     Sub Account number being searched
+     * @param dbo                  TransientBalanceInquiryAttributes object that will be set on total lines
      * @return List of AccountBalance total lines
      */
     protected List buildAccountBalanceTotals(List balanceDetails, Integer universityFiscalYear, String subAccountNumber, TransientBalanceInquiryAttributes dbo) {
@@ -129,7 +126,7 @@ public class AccessSecurityAccountBalanceByConsolidationLookupableHelperServiceI
         totals.add(total);
 
         // set the dummy business object that was built in super lookupable
-        for (Iterator iterator = totals.iterator(); iterator.hasNext();) {
+        for (Iterator iterator = totals.iterator(); iterator.hasNext(); ) {
             AccountBalance totalBalance = (AccountBalance) iterator.next();
             total.setDummyBusinessObject(dbo);
         }
@@ -137,7 +134,7 @@ public class AccessSecurityAccountBalanceByConsolidationLookupableHelperServiceI
         boolean subAccountBlank = StringUtils.isBlank(subAccountNumber);
 
         // iterate over details and update total line based on object type
-        for (Iterator iterator = balanceDetails.iterator(); iterator.hasNext();) {
+        for (Iterator iterator = balanceDetails.iterator(); iterator.hasNext(); ) {
             AccountBalance detail = (AccountBalance) iterator.next();
             String objectType = detail.getFinancialObject().getFinancialObjectTypeCode();
 
@@ -145,8 +142,7 @@ public class AccessSecurityAccountBalanceByConsolidationLookupableHelperServiceI
                 String transferExpenseCode = detail.getFinancialObject().getFinancialObjectLevel().getFinancialConsolidationObject().getFinConsolidationObjectCode();
                 if (!subAccountBlank && transferExpenseCode.equals(GeneralLedgerConstants.INCOME_OR_EXPENSE_TRANSFER_CONSOLIDATION_CODE)) {
                     incomeTransfers.add(detail);
-                }
-                else {
+                } else {
                     income.add(detail);
                 }
 
@@ -162,8 +158,7 @@ public class AccessSecurityAccountBalanceByConsolidationLookupableHelperServiceI
                 String transferExpenseCode = detail.getFinancialObject().getFinancialObjectLevel().getFinancialConsolidationObject().getFinConsolidationObjectCode();
                 if (!subAccountBlank && transferExpenseCode.equals(GeneralLedgerConstants.INCOME_OR_EXPENSE_TRANSFER_CONSOLIDATION_CODE)) {
                     expenseTransfers.add(detail);
-                }
-                else {
+                } else {
                     expense.add(detail);
                 }
 
@@ -192,7 +187,7 @@ public class AccessSecurityAccountBalanceByConsolidationLookupableHelperServiceI
 
     /**
      * Sets the accessSecurityService attribute value.
-     * 
+     *
      * @param accessSecurityService The accessSecurityService to set.
      */
     public void setAccessSecurityService(AccessSecurityService accessSecurityService) {
@@ -201,7 +196,7 @@ public class AccessSecurityAccountBalanceByConsolidationLookupableHelperServiceI
 
     /**
      * Sets the objectTypeService attribute value.
-     * 
+     *
      * @param objectTypeService The objectTypeService to set.
      */
     public void setObjectTypeService(ObjectTypeService objectTypeService) {
@@ -210,11 +205,10 @@ public class AccessSecurityAccountBalanceByConsolidationLookupableHelperServiceI
 
     /**
      * Sets the kualiConfigurationService attribute value.
-     * 
+     *
      * @param kualiConfigurationService The kualiConfigurationService to set.
      */
     public void setConfigurationService(ConfigurationService kualiConfigurationService) {
         this.kualiConfigurationService = kualiConfigurationService;
     }
-
 }

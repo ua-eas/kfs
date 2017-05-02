@@ -1,0 +1,1594 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="kfs" id="KREN_CHNL_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREN_CHNL_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREN_CHNL_S">
+            <column name="id" value="1000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREN_CHNL_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREN_CHNL_S" startValue="1000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREN_CHNL_SUBSCRP_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREN_CHNL_SUBSCRP_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREN_CHNL_SUBSCRP_S">
+            <column name="id" value="1020"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREN_CHNL_SUBSCRP_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREN_CHNL_SUBSCRP_S" startValue="1020"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREN_CNTNT_TYP_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREN_CNTNT_TYP_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREN_CNTNT_TYP_S">
+            <column name="id" value="1000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREN_CNTNT_TYP_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREN_CNTNT_TYP_S" startValue="1000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREN_MSG_DELIV_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREN_MSG_DELIV_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREN_MSG_DELIV_S">
+            <column name="id" value="1000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREN_MSG_DELIV_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREN_MSG_DELIV_S" startValue="1000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREN_MSG_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREN_MSG_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREN_MSG_S">
+            <column name="id" value="1000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREN_MSG_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREN_MSG_S" startValue="1000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREN_NTFCTN_MSG_DELIV_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREN_NTFCTN_MSG_DELIV_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREN_NTFCTN_MSG_DELIV_S">
+            <column name="id" value="1000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREN_NTFCTN_MSG_DELIV_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREN_NTFCTN_MSG_DELIV_S" startValue="1000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREN_NTFCTN_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREN_NTFCTN_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREN_NTFCTN_S">
+            <column name="id" value="1000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREN_NTFCTN_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREN_NTFCTN_S" startValue="1000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREN_PRIO_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREN_PRIO_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREN_PRIO_S">
+            <column name="id" value="1000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREN_PRIO_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREN_PRIO_S" startValue="1000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREN_PRODCR_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREN_PRODCR_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREN_PRODCR_S">
+            <column name="id" value="1000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREN_PRODCR_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREN_PRODCR_S" startValue="1000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREN_RECIP_DELIV_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREN_RECIP_DELIV_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREN_RECIP_DELIV_S">
+            <column name="id" value="1000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREN_RECIP_DELIV_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREN_RECIP_DELIV_S" startValue="1000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREN_RECIP_LIST_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREN_RECIP_LIST_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREN_RECIP_LIST_S">
+            <column name="id" value="1000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREN_RECIP_LIST_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREN_RECIP_LIST_S" startValue="1000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREN_RECIP_PREF_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREN_RECIP_PREF_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREN_RECIP_PREF_S">
+            <column name="id" value="1000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREN_RECIP_PREF_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREN_RECIP_PREF_S" startValue="1000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREN_RECIP_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREN_RECIP_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREN_RECIP_S">
+            <column name="id" value="1000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREN_RECIP_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREN_RECIP_S" startValue="1000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREN_RVWER_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREN_RVWER_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREN_RVWER_S">
+            <column name="id" value="1000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREN_RVWER_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREN_RVWER_S" startValue="1000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREN_SNDR_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREN_SNDR_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREN_SNDR_S">
+            <column name="id" value="1000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREN_SNDR_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREN_SNDR_S" startValue="1000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_ACTN_ITM_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREW_ACTN_ITM_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREW_ACTN_ITM_S">
+            <column name="id" value="10226"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_ACTN_ITM_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREW_ACTN_ITM_S" startValue="10226"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_ACTN_LIST_OPTN_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREW_ACTN_LIST_OPTN_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREW_ACTN_LIST_OPTN_S">
+            <column name="id" value="1269"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_ACTN_LIST_OPTN_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREW_ACTN_LIST_OPTN_S" startValue="1269"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_ACTN_RQST_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREW_ACTN_RQST_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREW_ACTN_RQST_S">
+            <column name="id" value="2369"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_ACTN_RQST_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREW_ACTN_RQST_S" startValue="2369"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_ACTN_TKN_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREW_ACTN_TKN_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREW_ACTN_TKN_S">
+            <column name="id" value="2329"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_ACTN_TKN_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREW_ACTN_TKN_S" startValue="2329"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_ATTR_DEFN_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREW_ATTR_DEFN_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREW_ATTR_DEFN_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_ATTR_DEFN_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREW_ATTR_DEFN_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_DOC_HDR_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREW_DOC_HDR_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREW_DOC_HDR_S">
+            <column name="id" value="3046"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_DOC_HDR_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREW_DOC_HDR_S" startValue="3046"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_DOC_LNK_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREW_DOC_LNK_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREW_DOC_LNK_S">
+            <column name="id" value="2000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_DOC_LNK_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREW_DOC_LNK_S" startValue="2000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_DOC_NTE_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREW_DOC_NTE_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREW_DOC_NTE_S">
+            <column name="id" value="2020"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_DOC_NTE_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREW_DOC_NTE_S" startValue="2020"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_DOC_TYP_ATTR_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREW_DOC_TYP_ATTR_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREW_DOC_TYP_ATTR_S">
+            <column name="id" value="2011"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_DOC_TYP_ATTR_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREW_DOC_TYP_ATTR_S" startValue="2011"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_EDL_FLD_DMP_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREW_EDL_FLD_DMP_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREW_EDL_FLD_DMP_S">
+            <column name="id" value="5000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_EDL_FLD_DMP_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREW_EDL_FLD_DMP_S" startValue="5000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_EDL_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREW_EDL_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREW_EDL_S">
+            <column name="id" value="2022"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_EDL_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREW_EDL_S" startValue="2022"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_OUT_BOX_ITM_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREW_OUT_BOX_ITM_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREW_OUT_BOX_ITM_S">
+            <column name="id" value="10043"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_OUT_BOX_ITM_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREW_OUT_BOX_ITM_S" startValue="10043"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_PPL_FLW_ATTR_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREW_PPL_FLW_ATTR_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREW_PPL_FLW_ATTR_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_PPL_FLW_ATTR_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREW_PPL_FLW_ATTR_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_PPL_FLW_DLGT_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREW_PPL_FLW_DLGT_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREW_PPL_FLW_DLGT_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_PPL_FLW_DLGT_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREW_PPL_FLW_DLGT_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_PPL_FLW_MBR_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREW_PPL_FLW_MBR_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREW_PPL_FLW_MBR_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_PPL_FLW_MBR_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREW_PPL_FLW_MBR_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_PPL_FLW_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREW_PPL_FLW_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREW_PPL_FLW_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_PPL_FLW_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREW_PPL_FLW_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_RSP_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREW_RSP_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREW_RSP_S">
+            <column name="id" value="2065"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_RSP_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREW_RSP_S" startValue="2065"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_RTE_NODE_CFG_PARM_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREW_RTE_NODE_CFG_PARM_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREW_RTE_NODE_CFG_PARM_S">
+            <column name="id" value="2643"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_RTE_NODE_CFG_PARM_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREW_RTE_NODE_CFG_PARM_S" startValue="2643"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_RTE_NODE_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREW_RTE_NODE_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREW_RTE_NODE_S">
+            <column name="id" value="2986"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_RTE_NODE_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREW_RTE_NODE_S" startValue="2986"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_RTE_TMPL_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREW_RTE_TMPL_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREW_RTE_TMPL_S">
+            <column name="id" value="1645"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_RTE_TMPL_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREW_RTE_TMPL_S" startValue="1645"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_RULE_EXPR_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREW_RULE_EXPR_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREW_RULE_EXPR_S">
+            <column name="id" value="2002"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_RULE_EXPR_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREW_RULE_EXPR_S" startValue="2002"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_RULE_TMPL_OPTN_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREW_RULE_TMPL_OPTN_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREW_RULE_TMPL_OPTN_S">
+            <column name="id" value="2020"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_RULE_TMPL_OPTN_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREW_RULE_TMPL_OPTN_S" startValue="2020"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_SRCH_ATTR_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREW_SRCH_ATTR_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREW_SRCH_ATTR_S">
+            <column name="id" value="2060"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_SRCH_ATTR_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREW_SRCH_ATTR_S" startValue="2060"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_TYP_ATTR_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREW_TYP_ATTR_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREW_TYP_ATTR_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_TYP_ATTR_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREW_TYP_ATTR_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_TYP_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREW_TYP_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREW_TYP_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_TYP_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREW_TYP_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_USR_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KREW_USR_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KREW_USR_S">
+            <column name="id" value="100000000000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KREW_USR_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KREW_USR_S" startValue="100000000000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ATTR_DATA_ID_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRIM_ATTR_DATA_ID_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRIM_ATTR_DATA_ID_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ATTR_DATA_ID_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRIM_ATTR_DATA_ID_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ATTR_DEFN_ID_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRIM_ATTR_DEFN_ID_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRIM_ATTR_DEFN_ID_S">
+            <column name="id" value="10003"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ATTR_DEFN_ID_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRIM_ATTR_DEFN_ID_S" startValue="10003"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_DLGN_ID_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRIM_DLGN_ID_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRIM_DLGN_ID_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_DLGN_ID_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRIM_DLGN_ID_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_DLGN_MBR_ID_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRIM_DLGN_MBR_ID_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRIM_DLGN_MBR_ID_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_DLGN_MBR_ID_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRIM_DLGN_MBR_ID_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ENTITY_ADDR_ID_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRIM_ENTITY_ADDR_ID_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRIM_ENTITY_ADDR_ID_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ENTITY_ADDR_ID_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRIM_ENTITY_ADDR_ID_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ENTITY_AFLTN_ID_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRIM_ENTITY_AFLTN_ID_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRIM_ENTITY_AFLTN_ID_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ENTITY_AFLTN_ID_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRIM_ENTITY_AFLTN_ID_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ENTITY_CTZNSHP_ID_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRIM_ENTITY_CTZNSHP_ID_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRIM_ENTITY_CTZNSHP_ID_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ENTITY_CTZNSHP_ID_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRIM_ENTITY_CTZNSHP_ID_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ENTITY_EMAIL_ID_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRIM_ENTITY_EMAIL_ID_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRIM_ENTITY_EMAIL_ID_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ENTITY_EMAIL_ID_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRIM_ENTITY_EMAIL_ID_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ENTITY_EMP_ID_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRIM_ENTITY_EMP_ID_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRIM_ENTITY_EMP_ID_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ENTITY_EMP_ID_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRIM_ENTITY_EMP_ID_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ENTITY_ETHNIC_ID_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRIM_ENTITY_ETHNIC_ID_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRIM_ENTITY_ETHNIC_ID_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ENTITY_ETHNIC_ID_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRIM_ENTITY_ETHNIC_ID_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ENTITY_EXT_ID_ID_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRIM_ENTITY_EXT_ID_ID_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRIM_ENTITY_EXT_ID_ID_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ENTITY_EXT_ID_ID_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRIM_ENTITY_EXT_ID_ID_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ENTITY_ID_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRIM_ENTITY_ID_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRIM_ENTITY_ID_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ENTITY_ID_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRIM_ENTITY_ID_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ENTITY_NM_ID_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRIM_ENTITY_NM_ID_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRIM_ENTITY_NM_ID_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ENTITY_NM_ID_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRIM_ENTITY_NM_ID_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ENTITY_PHONE_ID_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRIM_ENTITY_PHONE_ID_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRIM_ENTITY_PHONE_ID_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ENTITY_PHONE_ID_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRIM_ENTITY_PHONE_ID_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ENTITY_RESIDENCY_ID_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRIM_ENTITY_RESIDENCY_ID_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRIM_ENTITY_RESIDENCY_ID_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ENTITY_RESIDENCY_ID_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRIM_ENTITY_RESIDENCY_ID_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ENTITY_VISA_ID_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRIM_ENTITY_VISA_ID_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRIM_ENTITY_VISA_ID_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ENTITY_VISA_ID_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRIM_ENTITY_VISA_ID_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_GRP_ATTR_DATA_ID_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRIM_GRP_ATTR_DATA_ID_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRIM_GRP_ATTR_DATA_ID_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_GRP_ATTR_DATA_ID_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRIM_GRP_ATTR_DATA_ID_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_GRP_ID_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRIM_GRP_ID_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRIM_GRP_ID_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_GRP_ID_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRIM_GRP_ID_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_GRP_MBR_ID_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRIM_GRP_MBR_ID_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRIM_GRP_MBR_ID_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_GRP_MBR_ID_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRIM_GRP_MBR_ID_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_PERM_ID_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRIM_PERM_ID_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRIM_PERM_ID_S">
+            <column name="id" value="10003"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_PERM_ID_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRIM_PERM_ID_S" startValue="10003"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_PERM_RQRD_ATTR_ID_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRIM_PERM_RQRD_ATTR_ID_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRIM_PERM_RQRD_ATTR_ID_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_PERM_RQRD_ATTR_ID_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRIM_PERM_RQRD_ATTR_ID_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_PERM_TMPL_ID_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRIM_PERM_TMPL_ID_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRIM_PERM_TMPL_ID_S">
+            <column name="id" value="10002"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_PERM_TMPL_ID_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRIM_PERM_TMPL_ID_S" startValue="10002"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_PRNCPL_ID_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRIM_PRNCPL_ID_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRIM_PRNCPL_ID_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_PRNCPL_ID_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRIM_PRNCPL_ID_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ROLE_ID_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRIM_ROLE_ID_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRIM_ROLE_ID_S">
+            <column name="id" value="10003"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ROLE_ID_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRIM_ROLE_ID_S" startValue="10003"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ROLE_MBR_ID_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRIM_ROLE_MBR_ID_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRIM_ROLE_MBR_ID_S">
+            <column name="id" value="10003"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ROLE_MBR_ID_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRIM_ROLE_MBR_ID_S" startValue="10003"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ROLE_PERM_ID_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRIM_ROLE_PERM_ID_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRIM_ROLE_PERM_ID_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ROLE_PERM_ID_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRIM_ROLE_PERM_ID_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ROLE_RSP_ACTN_ID_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRIM_ROLE_RSP_ACTN_ID_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRIM_ROLE_RSP_ACTN_ID_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ROLE_RSP_ACTN_ID_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRIM_ROLE_RSP_ACTN_ID_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ROLE_RSP_ID_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRIM_ROLE_RSP_ID_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRIM_ROLE_RSP_ID_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_ROLE_RSP_ID_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRIM_ROLE_RSP_ID_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_RSP_ID_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRIM_RSP_ID_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRIM_RSP_ID_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_RSP_ID_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRIM_RSP_ID_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_RSP_RQRD_ATTR_ID_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRIM_RSP_RQRD_ATTR_ID_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRIM_RSP_RQRD_ATTR_ID_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_RSP_RQRD_ATTR_ID_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRIM_RSP_RQRD_ATTR_ID_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_RSP_TMPL_ID_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRIM_RSP_TMPL_ID_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRIM_RSP_TMPL_ID_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_RSP_TMPL_ID_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRIM_RSP_TMPL_ID_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_TYP_ATTR_ID_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRIM_TYP_ATTR_ID_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRIM_TYP_ATTR_ID_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_TYP_ATTR_ID_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRIM_TYP_ATTR_ID_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_TYP_ID_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRIM_TYP_ID_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRIM_TYP_ID_S">
+            <column name="id" value="10002"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRIM_TYP_ID_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRIM_TYP_ID_S" startValue="10002"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_ACTN_ATTR_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRMS_ACTN_ATTR_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRMS_ACTN_ATTR_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_ACTN_ATTR_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRMS_ACTN_ATTR_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_ACTN_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRMS_ACTN_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRMS_ACTN_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_ACTN_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRMS_ACTN_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_AGENDA_ATTR_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRMS_AGENDA_ATTR_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRMS_AGENDA_ATTR_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_AGENDA_ATTR_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRMS_AGENDA_ATTR_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_AGENDA_ITM_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRMS_AGENDA_ITM_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRMS_AGENDA_ITM_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_AGENDA_ITM_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRMS_AGENDA_ITM_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_AGENDA_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRMS_AGENDA_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRMS_AGENDA_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_AGENDA_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRMS_AGENDA_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_ATTR_DEFN_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRMS_ATTR_DEFN_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRMS_ATTR_DEFN_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_ATTR_DEFN_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRMS_ATTR_DEFN_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_CMPND_PROP_PROPS_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRMS_CMPND_PROP_PROPS_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRMS_CMPND_PROP_PROPS_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_CMPND_PROP_PROPS_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRMS_CMPND_PROP_PROPS_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_CNTXT_ATTR_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRMS_CNTXT_ATTR_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRMS_CNTXT_ATTR_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_CNTXT_ATTR_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRMS_CNTXT_ATTR_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_CNTXT_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRMS_CNTXT_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRMS_CNTXT_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_CNTXT_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRMS_CNTXT_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_CNTXT_VLD_ACTN_TYP_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRMS_CNTXT_VLD_ACTN_TYP_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRMS_CNTXT_VLD_ACTN_TYP_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_CNTXT_VLD_ACTN_TYP_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRMS_CNTXT_VLD_ACTN_TYP_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_CNTXT_VLD_AGENDA_TYP_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRMS_CNTXT_VLD_AGENDA_TYP_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRMS_CNTXT_VLD_AGENDA_TYP_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_CNTXT_VLD_AGENDA_TYP_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRMS_CNTXT_VLD_AGENDA_TYP_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_CNTXT_VLD_FUNC_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRMS_CNTXT_VLD_FUNC_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRMS_CNTXT_VLD_FUNC_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_CNTXT_VLD_FUNC_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRMS_CNTXT_VLD_FUNC_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_CNTXT_VLD_RULE_TYP_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRMS_CNTXT_VLD_RULE_TYP_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRMS_CNTXT_VLD_RULE_TYP_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_CNTXT_VLD_RULE_TYP_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRMS_CNTXT_VLD_RULE_TYP_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_CNTXT_VLD_TERM_SPEC_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRMS_CNTXT_VLD_TERM_SPEC_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRMS_CNTXT_VLD_TERM_SPEC_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_CNTXT_VLD_TERM_SPEC_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRMS_CNTXT_VLD_TERM_SPEC_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_CTGRY_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRMS_CTGRY_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRMS_CTGRY_S">
+            <column name="id" value="1"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_CTGRY_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRMS_CTGRY_S" startValue="1"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_FUNC_PARM_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRMS_FUNC_PARM_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRMS_FUNC_PARM_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_FUNC_PARM_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRMS_FUNC_PARM_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_FUNC_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRMS_FUNC_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRMS_FUNC_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_FUNC_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRMS_FUNC_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_NL_TMPL_ATTR_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRMS_NL_TMPL_ATTR_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRMS_NL_TMPL_ATTR_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_NL_TMPL_ATTR_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRMS_NL_TMPL_ATTR_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_NL_TMPL_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRMS_NL_TMPL_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRMS_NL_TMPL_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_NL_TMPL_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRMS_NL_TMPL_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_NL_USAGE_ATTR_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRMS_NL_USAGE_ATTR_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRMS_NL_USAGE_ATTR_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_NL_USAGE_ATTR_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRMS_NL_USAGE_ATTR_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_NL_USAGE_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRMS_NL_USAGE_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRMS_NL_USAGE_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_NL_USAGE_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRMS_NL_USAGE_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_PROP_PARM_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRMS_PROP_PARM_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRMS_PROP_PARM_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_PROP_PARM_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRMS_PROP_PARM_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_PROP_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRMS_PROP_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRMS_PROP_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_PROP_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRMS_PROP_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_REF_OBJ_KRMS_OBJ_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRMS_REF_OBJ_KRMS_OBJ_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRMS_REF_OBJ_KRMS_OBJ_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_REF_OBJ_KRMS_OBJ_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRMS_REF_OBJ_KRMS_OBJ_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_RULE_ATTR_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRMS_RULE_ATTR_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRMS_RULE_ATTR_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_RULE_ATTR_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRMS_RULE_ATTR_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_RULE_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRMS_RULE_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRMS_RULE_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_RULE_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRMS_RULE_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_TERM_PARM_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRMS_TERM_PARM_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRMS_TERM_PARM_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_TERM_PARM_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRMS_TERM_PARM_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_TERM_RSLVR_ATTR_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRMS_TERM_RSLVR_ATTR_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRMS_TERM_RSLVR_ATTR_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_TERM_RSLVR_ATTR_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRMS_TERM_RSLVR_ATTR_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_TERM_RSLVR_INPUT_SPEC_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRMS_TERM_RSLVR_INPUT_SPEC_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRMS_TERM_RSLVR_INPUT_SPEC_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_TERM_RSLVR_INPUT_SPEC_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRMS_TERM_RSLVR_INPUT_SPEC_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_TERM_RSLVR_PARM_SPEC_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRMS_TERM_RSLVR_PARM_SPEC_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRMS_TERM_RSLVR_PARM_SPEC_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_TERM_RSLVR_PARM_SPEC_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRMS_TERM_RSLVR_PARM_SPEC_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_TERM_RSLVR_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRMS_TERM_RSLVR_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRMS_TERM_RSLVR_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_TERM_RSLVR_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRMS_TERM_RSLVR_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_TERM_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRMS_TERM_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRMS_TERM_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_TERM_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRMS_TERM_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_TERM_SPEC_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRMS_TERM_SPEC_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRMS_TERM_SPEC_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_TERM_SPEC_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRMS_TERM_SPEC_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_TYP_ATTR_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRMS_TYP_ATTR_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRMS_TYP_ATTR_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_TYP_ATTR_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRMS_TYP_ATTR_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_TYP_RELN_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRMS_TYP_RELN_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRMS_TYP_RELN_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_TYP_RELN_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRMS_TYP_RELN_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_TYP_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRMS_TYP_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRMS_TYP_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRMS_TYP_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRMS_TYP_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRNS_DOC_TYP_ATTR_S" dbms="mysql" context="bootstrap,demo">
+        <createTable tableName="KRNS_DOC_TYP_ATTR_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRNS_DOC_TYP_ATTR_S">
+            <column name="id" value="1000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRNS_DOC_TYP_ATTR_S" dbms="oracle" context="bootstrap,demo">
+        <createSequence sequenceName="KRNS_DOC_TYP_ATTR_S" startValue="1000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRNS_LOCK_S" dbms="mysql" context="bootstrap,demo">
+        <createTable tableName="KRNS_LOCK_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRNS_LOCK_S">
+            <column name="id" value="2000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRNS_LOCK_S" dbms="oracle" context="bootstrap,demo">
+        <createSequence sequenceName="KRNS_LOCK_S" startValue="2000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRNS_LOOKUP_RSLT_S" dbms="mysql" context="bootstrap,demo">
+        <createTable tableName="KRNS_LOOKUP_RSLT_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRNS_LOOKUP_RSLT_S">
+            <column name="id" value="2000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRNS_LOOKUP_RSLT_S" dbms="oracle" context="bootstrap,demo">
+        <createSequence sequenceName="KRNS_LOOKUP_RSLT_S" startValue="2000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRNS_MAINT_DOC_ATT_S" dbms="mysql" context="bootstrap,demo">
+        <createTable tableName="KRNS_MAINT_DOC_ATT_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRNS_MAINT_DOC_ATT_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRNS_MAINT_DOC_ATT_S" dbms="oracle" context="bootstrap,demo">
+        <createSequence sequenceName="KRNS_MAINT_DOC_ATT_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRNS_MAINT_LOCK_S" dbms="mysql" context="bootstrap,demo">
+        <createTable tableName="KRNS_MAINT_LOCK_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRNS_MAINT_LOCK_S">
+            <column name="id" value="2020"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRNS_MAINT_LOCK_S" dbms="oracle" context="bootstrap,demo">
+        <createSequence sequenceName="KRNS_MAINT_LOCK_S" startValue="2020"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRNS_NTE_S" dbms="mysql" context="bootstrap,demo">
+        <createTable tableName="KRNS_NTE_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRNS_NTE_S">
+            <column name="id" value="2020"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRNS_NTE_S" dbms="oracle" context="bootstrap,demo">
+        <createSequence sequenceName="KRNS_NTE_S" startValue="2020"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRSB_BAM_PARM_S" dbms="mysql" context="bootstrap,demo">
+        <createTable tableName="KRSB_BAM_PARM_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRSB_BAM_PARM_S">
+            <column name="id" value="2000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRSB_BAM_PARM_S" dbms="oracle" context="bootstrap,demo">
+        <createSequence sequenceName="KRSB_BAM_PARM_S" startValue="2000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRSB_BAM_S" dbms="mysql" context="bootstrap,demo">
+        <createTable tableName="KRSB_BAM_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRSB_BAM_S">
+            <column name="id" value="2000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRSB_BAM_S" dbms="oracle" context="bootstrap,demo">
+        <createSequence sequenceName="KRSB_BAM_S" startValue="2000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRSB_MSG_QUE_S" dbms="mysql" context="bootstrap,demo">
+        <createTable tableName="KRSB_MSG_QUE_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRSB_MSG_QUE_S">
+            <column name="id" value="467"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRSB_MSG_QUE_S" dbms="oracle" context="bootstrap,demo">
+        <createSequence sequenceName="KRSB_MSG_QUE_S" startValue="467"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRSB_SVC_DEF_S" dbms="mysql" context="bootstrap,demo">
+        <createTable tableName="KRSB_SVC_DEF_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRSB_SVC_DEF_S">
+            <column name="id" value="10105"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRSB_SVC_DEF_S" dbms="oracle" context="bootstrap,demo">
+        <createSequence sequenceName="KRSB_SVC_DEF_S" startValue="10105"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRSB_SVC_DSCRPTR_S" dbms="mysql" context="bootstrap,demo">
+        <createTable tableName="KRSB_SVC_DSCRPTR_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRSB_SVC_DSCRPTR_S">
+            <column name="id" value="10105"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRSB_SVC_DSCRPTR_S" dbms="oracle" context="bootstrap,demo">
+        <createSequence sequenceName="KRSB_SVC_DSCRPTR_S" startValue="10105"/>
+    </changeSet>
+</databaseChangeLog>

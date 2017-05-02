@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -37,62 +37,65 @@
 
 <kul:tab tabTitle="Quote" defaultOpen="false" tabErrorKey="${PurapConstants.QUOTE_TAB_ERRORS}">
 	<div class="tab-container" align=center>
-	<table cellpadding="0" cellspacing="0" class="datatable" summary="Quotes Section">			
-	 	
+	<table cellpadding="0" cellspacing="0" class="datatable" summary="Quotes Section">
+
 		<!--  if quote tab is open, then display the contents -->
 	  	<c:if test="${quoteOpen}">
-		
+
 		<tr>
 			<td colspan="4" class="subhead">
 				<span class="subhead-left">General Information</span>
 				<c:if test="${fullEntryMode}">
 					<span class="subhead-right">
-						<html:image property="methodToCall.printPoQuoteList"
-								src="${ConfigProperties.externalizable.images.url}tinybutton-prntquolist.gif"
-								alt="print quote list" title="print quote list"
-								styleClass="tinybutton" onclick="excludeSubmitRestriction=true"/>
+						<html:submit
+								styleClass="btn btn-default small"
+								property="methodToCall.printPoQuoteList"
+								alt="print quote list"
+								title="print quote list"
+								value="Print Quote List"
+								onclick="excludeSubmitRestriction=true"/>
 					</span>
 				</c:if>
 			</td>
 		</tr>
-		
+
         <tr>
              <th align=right valign=middle class="bord-l-b">
                  <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.purchaseOrderQuoteInitializationDate}" /></div>
              </th>
              <td align=left valign=middle class="datacell">
-                 <kul:htmlControlAttribute attributeEntry="${documentAttributes.purchaseOrderQuoteInitializationDate}" 
+                 <kul:htmlControlAttribute attributeEntry="${documentAttributes.purchaseOrderQuoteInitializationDate}"
                  	property="document.purchaseOrderQuoteInitializationDate" readOnly="true" />
              </td>
              <th align=right valign=middle class="bord-l-b" rowspan="3">
                  <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.purchaseOrderQuoteVendorNoteText}" /></div>
              </th>
              <td align=left valign=middle class="datacell" rowspan="3">
-                 <kul:htmlControlAttribute 
-                 	attributeEntry="${documentAttributes.purchaseOrderQuoteVendorNoteText}" property="document.purchaseOrderQuoteVendorNoteText" 
+                 <kul:htmlControlAttribute
+                 	attributeEntry="${documentAttributes.purchaseOrderQuoteVendorNoteText}" property="document.purchaseOrderQuoteVendorNoteText"
                  	readOnly="${!quoteEditable}" tabindexOverride="${tabindexOverrideBase + 3}"/>
              </td>
         </tr>
-        
+
         <tr>
              <th align=right valign=middle class="bord-l-b">
                  <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.purchaseOrderQuoteDueDate}" /></div>
              </th>
              <td align=left valign=middle class="datacell">
-                 <kul:htmlControlAttribute 
-                 	attributeEntry="${documentAttributes.purchaseOrderQuoteDueDate}" property="document.purchaseOrderQuoteDueDate" 
+                 <kul:htmlControlAttribute
+                 	attributeEntry="${documentAttributes.purchaseOrderQuoteDueDate}" property="document.purchaseOrderQuoteDueDate"
                  	readOnly="${!quoteEditable}" tabindexOverride="${tabindexOverrideBase + 0}"/>
              </td>
         </tr>
-        
+
         <tr>
              <th align=right valign=middle class="bord-l-b">
                  <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.purchaseOrderQuoteTypeCode}" /></div>
              </th>
              <td align=left valign=middle class="datacell">
-                 <kul:htmlControlAttribute 
-                 	attributeEntry="${documentAttributes.purchaseOrderQuoteTypeCode}" 
-                 	property="document.purchaseOrderQuoteTypeCode" 
+                 <kul:htmlControlAttribute
+                 	attributeEntry="${documentAttributes.purchaseOrderQuoteTypeCode}"
+                 	property="document.purchaseOrderQuoteTypeCode"
                  	extraReadOnlyProperty="document.purchaseOrderQuoteTypeDescription"
                  	readOnly="${!quoteEditable}" tabindexOverride="${tabindexOverrideBase + 0}"/>
              </td>
@@ -104,10 +107,12 @@
 				<!--  if quote tab is editable, then display the quote list lookup -->
 				<c:if test="${quoteEditable}">
 				<span class="subhead-right">
-					<html:image property="methodToCall.performLookup.(!!org.kuali.kfs.module.purap.businessobject.PurchaseOrderQuoteList!!).(((purchaseOrderQuoteListIdentifier:document.purchaseOrderQuoteListIdentifier)))" 
-								src="${ConfigProperties.externalizable.images.url}tinybutton-selquolist.gif" 
-								alt="Search for a Quote List" border="0"
-								styleClass="tinybutton" align="middle" />
+					<html:submit
+							styleClass="btn btn-default small"
+							property="methodToCall.performLookup.(!!org.kuali.kfs.module.purap.businessobject.PurchaseOrderQuoteList!!).(((purchaseOrderQuoteListIdentifier:document.purchaseOrderQuoteListIdentifier)))"
+							alt="Search for a Quote List"
+							title="search for a quote list"
+							value="Select Quote List"/>
 				</span>
 				</c:if>
 			</td>
@@ -119,21 +124,24 @@
 			<td colspan="4" class="subhead">
 				<span class="subhead-left">New Vendor</span>
 				<span class="subhead-right">
-	            	<html:image property="methodToCall.addVendor"
-								src="${ConfigProperties.externalizable.images.url}tinybutton-addvendor.gif"
-								alt="add vendor" title="add vendor"
-								styleClass="tinybutton" align="middle" />
-			</td>			
+	            	<html:submit
+							styleClass="btn btn-default small"
+							property="methodToCall.addVendor"
+							alt="add vendor"
+							title="add vendor"
+							value="Add Vendor"
+							/>
+			</td>
         </tr>
         <tr>
             <th align=right valign=middle class="bord-l-b">
                 <div align="right"><kul:htmlAttributeLabel attributeEntry="${vendorQuoteAttributes.vendorName}" /></div>
             </th>
             <td align=left valign=middle class="datacell">
-                <kul:htmlControlAttribute 
-                	attributeEntry="${vendorQuoteAttributes.vendorName}" property="newPurchaseOrderVendorQuote.vendorName" 
+                <kul:htmlControlAttribute
+                	attributeEntry="${vendorQuoteAttributes.vendorName}" property="newPurchaseOrderVendorQuote.vendorName"
                 	tabindexOverride="${tabindexOverrideBase + 5}"/>
-                <kul:lookup  boClassName="org.kuali.kfs.vnd.businessobject.VendorDetail" 
+                <kul:lookup  boClassName="org.kuali.kfs.vnd.businessobject.VendorDetail"
                     lookupParameters="'Y':activeIndicator, 'PO':vendorHeader.vendorTypeCode"
                     fieldConversions="vendorName:newPurchaseOrderVendorQuote.vendorName,vendorHeaderGeneratedIdentifier:newPurchaseOrderVendorQuote.vendorHeaderGeneratedIdentifier,vendorDetailAssignedIdentifier:newPurchaseOrderVendorQuote.vendorDetailAssignedIdentifier,defaultAddressLine1:newPurchaseOrderVendorQuote.vendorLine1Address,defaultAddressLine2:newPurchaseOrderVendorQuote.vendorLine2Address,defaultAddressCity:newPurchaseOrderVendorQuote.vendorCityName,defaultAddressPostalCode:newPurchaseOrderVendorQuote.vendorPostalCode,defaultAddressStateCode:newPurchaseOrderVendorQuote.vendorStateCode"/>
             </td>
@@ -149,22 +157,22 @@
                 <div align="right"><kul:htmlAttributeLabel attributeEntry="${vendorQuoteAttributes.vendorLine1Address}" /></div>
             </th>
             <td align=left valign=middle class="datacell">
-                <kul:htmlControlAttribute 
-                	attributeEntry="${vendorQuoteAttributes.vendorLine1Address}" property="newPurchaseOrderVendorQuote.vendorLine1Address" 
+                <kul:htmlControlAttribute
+                	attributeEntry="${vendorQuoteAttributes.vendorLine1Address}" property="newPurchaseOrderVendorQuote.vendorLine1Address"
                 	tabindexOverride="${tabindexOverrideBase + 5}"/>
-                <c:if test="${quoteEditable and (not empty KualiForm.newPurchaseOrderVendorQuote.vendorLine1Address)}">                
-				   <kul:lookup  boClassName="org.kuali.kfs.vnd.businessobject.VendorAddress" 
+                <c:if test="${quoteEditable and (not empty KualiForm.newPurchaseOrderVendorQuote.vendorLine1Address)}">
+				   <kul:lookup  boClassName="org.kuali.kfs.vnd.businessobject.VendorAddress"
 		              readOnlyFields="active, vendorHeaderGeneratedIdentifier,vendorDetailAssignedIdentifier" autoSearch="yes"
 		              lookupParameters="'Y':active,newPurchaseOrderVendorQuote.vendorHeaderGeneratedIdentifier:vendorHeaderGeneratedIdentifier,newPurchaseOrderVendorQuote.vendorDetailAssignedIdentifier:vendorDetailAssignedIdentifier"
                       fieldConversions="vendorAddressGeneratedIdentifier:newPurchaseOrderVendorQuote.vendorAddressGeneratedIdentifier,vendorLine1Address:newPurchaseOrderVendorQuote.vendorLine1Address,vendorLine2Address:newPurchaseOrderVendorQuote.vendorLine2Address,vendorCityName:newPurchaseOrderVendorQuote.vendorCityName,vendorStateCode:newPurchaseOrderVendorQuote.vendorStateCode,vendorZipCode:newPurchaseOrderVendorQuote.vendorPostalCode,vendorCountryCode:newPurchaseOrderVendorQuote.vendorCountryCode,vendorFaxNumber:newPurchaseOrderVendorQuote.vendorFaxNumber,vendorAttentionName:newPurchaseOrderVendorQuote.vendorAttentionName"/>
-  		    	</c:if>		
+  		    	</c:if>
             </td>
             <th align=right valign=middle class="bord-l-b">
                 <div align="right"><kul:htmlAttributeLabel attributeEntry="${vendorQuoteAttributes.vendorPhoneNumber}" /></div>
             </th>
             <td align=left valign=middle class="datacell">
-                <kul:htmlControlAttribute 
-                	attributeEntry="${vendorQuoteAttributes.vendorPhoneNumber}" property="newPurchaseOrderVendorQuote.vendorPhoneNumber" 
+                <kul:htmlControlAttribute
+                	attributeEntry="${vendorQuoteAttributes.vendorPhoneNumber}" property="newPurchaseOrderVendorQuote.vendorPhoneNumber"
                 	tabindexOverride="${tabindexOverrideBase + 7}"/>
             </td>
         </tr>
@@ -173,16 +181,16 @@
                 <div align="right"><kul:htmlAttributeLabel attributeEntry="${vendorQuoteAttributes.vendorLine2Address}" /></div>
             </th>
             <td align=left valign=middle class="datacell">
-                <kul:htmlControlAttribute 
-                	attributeEntry="${vendorQuoteAttributes.vendorLine2Address}" property="newPurchaseOrderVendorQuote.vendorLine2Address" 
+                <kul:htmlControlAttribute
+                	attributeEntry="${vendorQuoteAttributes.vendorLine2Address}" property="newPurchaseOrderVendorQuote.vendorLine2Address"
                 	tabindexOverride="${tabindexOverrideBase + 5}"/>
             </td>
             <th align=right valign=middle class="bord-l-b">
                 <div align="right"><kul:htmlAttributeLabel attributeEntry="${vendorQuoteAttributes.vendorFaxNumber}" /></div>
             </th>
             <td align=left valign=middle class="datacell">
-                <kul:htmlControlAttribute 
-                	attributeEntry="${vendorQuoteAttributes.vendorFaxNumber}" property="newPurchaseOrderVendorQuote.vendorFaxNumber" 
+                <kul:htmlControlAttribute
+                	attributeEntry="${vendorQuoteAttributes.vendorFaxNumber}" property="newPurchaseOrderVendorQuote.vendorFaxNumber"
                 	tabindexOverride="${tabindexOverrideBase + 7}"/>
             </td>
         </tr>
@@ -192,19 +200,19 @@
                 <div align="right"><kul:htmlAttributeLabel attributeEntry="${vendorQuoteAttributes.vendorStateCode}" />
             </th>
             <td align=left valign=middle class="datacell">
-                <kul:htmlControlAttribute 
-                	attributeEntry="${vendorQuoteAttributes.vendorCityName}" property="newPurchaseOrderVendorQuote.vendorCityName" 
+                <kul:htmlControlAttribute
+                	attributeEntry="${vendorQuoteAttributes.vendorCityName}" property="newPurchaseOrderVendorQuote.vendorCityName"
                 	tabindexOverride="${tabindexOverrideBase + 5}"/>/
-                <kul:htmlControlAttribute 
-                	attributeEntry="${vendorQuoteAttributes.vendorStateCode}" property="newPurchaseOrderVendorQuote.vendorStateCode" 
+                <kul:htmlControlAttribute
+                	attributeEntry="${vendorQuoteAttributes.vendorStateCode}" property="newPurchaseOrderVendorQuote.vendorStateCode"
                 	tabindexOverride="${tabindexOverrideBase + 5}"/>
             </td>
             <th align=right valign=middle class="bord-l-b">
                 <div align="right"><kul:htmlAttributeLabel attributeEntry="${vendorQuoteAttributes.vendorAttentionName}" />
             </th>
             <td align=left valign=middle class="datacell">
-                <kul:htmlControlAttribute 
-                	attributeEntry="${vendorQuoteAttributes.vendorAttentionName}" property="newPurchaseOrderVendorQuote.vendorAttentionName" 
+                <kul:htmlControlAttribute
+                	attributeEntry="${vendorQuoteAttributes.vendorAttentionName}" property="newPurchaseOrderVendorQuote.vendorAttentionName"
                 	tabindexOverride="${tabindexOverrideBase + 5}"/>
             </td>
         </tr>
@@ -214,11 +222,11 @@
                 <div align="right"><kul:htmlAttributeLabel attributeEntry="${vendorQuoteAttributes.vendorCountryCode}" />
             </th>
             <td align=left valign=middle class="datacell">
-                <kul:htmlControlAttribute 
-                	attributeEntry="${vendorQuoteAttributes.vendorPostalCode}" property="newPurchaseOrderVendorQuote.vendorPostalCode" 
+                <kul:htmlControlAttribute
+                	attributeEntry="${vendorQuoteAttributes.vendorPostalCode}" property="newPurchaseOrderVendorQuote.vendorPostalCode"
                 	tabindexOverride="${tabindexOverrideBase + 5}"/>
-                <kul:htmlControlAttribute 
-                	attributeEntry="${vendorQuoteAttributes.vendorCountryCode}" property="newPurchaseOrderVendorQuote.vendorCountryCode" 
+                <kul:htmlControlAttribute
+                	attributeEntry="${vendorQuoteAttributes.vendorCountryCode}" property="newPurchaseOrderVendorQuote.vendorCountryCode"
                 	tabindexOverride="${tabindexOverrideBase + 5}"/>
             </td>
             <td colspan="2">&nbsp;</td>
@@ -237,7 +245,7 @@
 				isTransmitPrintDisplayed="${quoteLine.transmitPrintDisplayed}"
 				isTrasnmitted="${not empty quoteLine.purchaseOrderQuoteTransmitTimestamp}"
 				isPdfDisplayedToUserOnce="${quoteLine.pdfDisplayedToUserOnce}"
-		        ctr="${ctr}" /> 
+		        ctr="${ctr}" />
 		</logic:iterate>
 
 		<!--  if quote tab is editable, then display the complete quote button -->
@@ -245,15 +253,19 @@
 		<tr>
 			<td colspan="5">
 				<div align="center">
-					<html:image property="methodToCall.completeQuote"
-								src="${ConfigProperties.externalizable.images.url}tinybutton-completequote.gif"
-								alt="complete quote" title="complete quote"
-								styleClass="tinybutton" />
+					<html:submit
+							styleClass="btn btn-default small"
+							property="methodToCall.completeQuote"
+							alt="complete quote"
+							title="complete quote"
+							value="Complete Quote"/>
 					<c:if test="${not isAnyQuoteTransmitted}">
-					<html:image property="methodToCall.cancelQuote"
-								src="${ConfigProperties.externalizable.images.url}tinybutton-cancelquote.gif"
-								alt="cancel quote" title="cancel quote"
-								styleClass="tinybutton" />
+					<html:submit
+							styleClass="btn btn-default small"
+							property="methodToCall.cancelQuote"
+							alt="cancel quote"
+							title="cancel quote"
+							value="Cancel Quote"/>
 					</c:if>
 				</div>
 			</td>
@@ -265,12 +277,14 @@
 		<!--  only if PO is in process and editable to the user, display the init quote button -->
 		<c:if test="${quoteInitable}">
 		<tr>
-			<td colspan="5" class="subhead"> 
+			<td colspan="5" class="subhead">
 				<span class="subhead-right">
-					<html:image property="methodToCall.initiateQuote"
-								src="${ConfigProperties.externalizable.images.url}tinybutton-initiatequote.gif"
-								alt="initiate quote" title="initiate quote"
-								styleClass="tinybutton" />
+					<html:submit
+							styleClass="btn btn-default small"
+							property="methodToCall.initiateQuote"
+							alt="initiate quote"
+							title="initiate quote"
+							value="Initiate Quote" />
 				</span>
 			</td>
 		</tr>

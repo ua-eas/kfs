@@ -1,31 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.service.impl;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLineBase;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -68,7 +68,7 @@ public class PurapAccountRevisionGroup {
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode
      */
     public String getChartOfAccountsCode() {
@@ -77,7 +77,7 @@ public class PurapAccountRevisionGroup {
 
     /**
      * Sets the chartOfAccountsCode attribute.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -86,7 +86,7 @@ public class PurapAccountRevisionGroup {
 
     /**
      * Gets the accountNumber attribute.
-     * 
+     *
      * @return Returns the accountNumber
      */
     public String getAccountNumber() {
@@ -95,7 +95,7 @@ public class PurapAccountRevisionGroup {
 
     /**
      * Sets the accountNumber attribute.
-     * 
+     *
      * @param accountNumber The accountNumber to set.
      */
     public void setAccountNumber(String accountNumber) {
@@ -104,7 +104,7 @@ public class PurapAccountRevisionGroup {
 
     /**
      * Gets the subAccountNumber attribute.
-     * 
+     *
      * @return Returns the subAccountNumber
      */
     public String getSubAccountNumber() {
@@ -113,7 +113,7 @@ public class PurapAccountRevisionGroup {
 
     /**
      * Sets the subAccountNumber attribute.
-     * 
+     *
      * @param subAccountNumber The subAccountNumber to set.
      */
     public void setSubAccountNumber(String subAccountNumber) {
@@ -122,7 +122,7 @@ public class PurapAccountRevisionGroup {
 
     /**
      * Gets the financialObjectCode attribute.
-     * 
+     *
      * @return Returns the financialObjectCode
      */
     public String getFinancialObjectCode() {
@@ -131,7 +131,7 @@ public class PurapAccountRevisionGroup {
 
     /**
      * Sets the financialObjectCode attribute.
-     * 
+     *
      * @param financialObjectCode The financialObjectCode to set.
      */
     public void setFinancialObjectCode(String financialObjectCode) {
@@ -140,7 +140,7 @@ public class PurapAccountRevisionGroup {
 
     /**
      * Gets the financialSubObjectCode attribute.
-     * 
+     *
      * @return Returns the financialSubObjectCode
      */
     public String getFinancialSubObjectCode() {
@@ -149,7 +149,7 @@ public class PurapAccountRevisionGroup {
 
     /**
      * Sets the financialSubObjectCode attribute.
-     * 
+     *
      * @param financialSubObjectCode The financialSubObjectCode to set.
      */
     public void setFinancialSubObjectCode(String financialSubObjectCode) {
@@ -159,7 +159,7 @@ public class PurapAccountRevisionGroup {
 
     /**
      * Gets the postingYear attribute.
-     * 
+     *
      * @return Returns the postingYear.
      */
     public Integer getPostingYear() {
@@ -169,7 +169,7 @@ public class PurapAccountRevisionGroup {
 
     /**
      * Sets the postingYear attribute value.
-     * 
+     *
      * @param postingYear The postingYear to set.
      */
     public void setPostingYear(Integer postingYear) {
@@ -179,7 +179,7 @@ public class PurapAccountRevisionGroup {
 
     /**
      * Gets the postingPeriodCode attribute.
-     * 
+     *
      * @return Returns the postingPeriodCode.
      */
     public String getPostingPeriodCode() {
@@ -189,7 +189,7 @@ public class PurapAccountRevisionGroup {
 
     /**
      * Sets the postingPeriodCode attribute value.
-     * 
+     *
      * @param postingPeriodCode The postingPeriodCode to set.
      */
     public void setPostingPeriodCode(String postingPeriodCode) {
@@ -200,7 +200,7 @@ public class PurapAccountRevisionGroup {
     /**
      * Overridden so that group by statement can be easily implemented.
      * <li>DO NOT REMOVE this method, it is critical to reconciliation process</li>
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -242,7 +242,7 @@ public class PurapAccountRevisionGroup {
     /**
      * Overridden so that group by statement can be easily implemented.
      * <li>DO NOT REMOVE this method, it is critical to reconciliation process</li>
-     * 
+     *
      * @see java.lang.Object#hashCode(java.lang.Object)
      */
     @Override
@@ -263,7 +263,7 @@ public class PurapAccountRevisionGroup {
 
     /**
      * Gets the absAmout attribute.
-     * 
+     *
      * @return Returns the absAmout
      */
 
@@ -273,7 +273,7 @@ public class PurapAccountRevisionGroup {
 
     /**
      * Sets the amount attribute.
-     * 
+     *
      * @param amount The amount to set.
      */
 
@@ -288,7 +288,7 @@ public class PurapAccountRevisionGroup {
 
     /**
      * Gets the itemIdentifier attribute.
-     * 
+     *
      * @return Returns the itemIdentifier.
      */
     public Integer getItemIdentifier() {
@@ -297,7 +297,7 @@ public class PurapAccountRevisionGroup {
 
     /**
      * Sets the itemIdentifier attribute value.
-     * 
+     *
      * @param itemIdentifier The itemIdentifier to set.
      */
     public void setItemIdentifier(Integer itemIdentifier) {
@@ -306,7 +306,7 @@ public class PurapAccountRevisionGroup {
 
     /**
      * This method will combine multiple Purap account entries for the same account line group.
-     * 
+     *
      * @param entry PurApAccountingLineBase
      */
     public void combineEntry(PurApAccountingLineBase newEntry) {
@@ -316,7 +316,7 @@ public class PurapAccountRevisionGroup {
 
     /**
      * Gets the changeAmount attribute.
-     * 
+     *
      * @return Returns the changeAmount.
      */
     public KualiDecimal getChangeAmount() {
@@ -325,7 +325,7 @@ public class PurapAccountRevisionGroup {
 
     /**
      * Sets the changeAmount attribute value.
-     * 
+     *
      * @param changeAmount The changeAmount to set.
      */
     public void setChangeAmount(KualiDecimal changeAmount) {
@@ -335,7 +335,7 @@ public class PurapAccountRevisionGroup {
 
     /**
      * Gets the projectCode attribute.
-     * 
+     *
      * @return Returns the projectCode.
      */
     public String getProjectCode() {
@@ -344,7 +344,7 @@ public class PurapAccountRevisionGroup {
 
     /**
      * Sets the projectCode attribute value.
-     * 
+     *
      * @param projectCode The projectCode to set.
      */
     public void setProjectCode(String projectCode) {
@@ -353,7 +353,7 @@ public class PurapAccountRevisionGroup {
 
     /**
      * Gets the organizationReferenceId attribute.
-     * 
+     *
      * @return Returns the organizationReferenceId.
      */
     public String getOrganizationReferenceId() {
@@ -362,7 +362,7 @@ public class PurapAccountRevisionGroup {
 
     /**
      * Sets the organizationReferenceId attribute value.
-     * 
+     *
      * @param organizationReferenceId The organizationReferenceId to set.
      */
     public void setOrganizationReferenceId(String organizationReferenceId) {
@@ -372,7 +372,7 @@ public class PurapAccountRevisionGroup {
 
     /**
      * Gets the accountLinePercent attribute.
-     * 
+     *
      * @return Returns the accountLinePercent.
      */
     public BigDecimal getAccountLinePercent() {
@@ -381,7 +381,7 @@ public class PurapAccountRevisionGroup {
 
     /**
      * Sets the accountLinePercent attribute value.
-     * 
+     *
      * @param accountLinePercent The accountLinePercent to set.
      */
     public void setAccountLinePercent(BigDecimal accountLinePercent) {
@@ -404,8 +404,7 @@ public class PurapAccountRevisionGroup {
             histRecord.setPostingYear(this.getPostingYear());
             histRecord.setPostingPeriodCode(this.getPostingPeriodCode());
             histRecord.setAccountLinePercent(this.getAccountLinePercent());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
         return histRecord;

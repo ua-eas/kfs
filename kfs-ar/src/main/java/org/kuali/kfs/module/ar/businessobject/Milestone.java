@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,31 +18,31 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import java.sql.Date;
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsModuleBillingService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
+import java.sql.Date;
+import java.util.LinkedHashMap;
 
 /**
  * Milestone to be used for Milestone Schedule under Contracts & Grants
  */
 public class Milestone extends MilestoneBase implements MutableInactivatable {
 
-    private Long proposalNumber;
+    private String proposalNumber;
     private Date milestoneExpectedCompletionDate;
     private boolean billed = false;
     private boolean active;
 
     private ContractsAndGrantsBillingAward award;
 
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

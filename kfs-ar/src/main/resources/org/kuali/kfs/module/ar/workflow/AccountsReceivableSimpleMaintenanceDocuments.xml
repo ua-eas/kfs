@@ -1,0 +1,344 @@
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<data xmlns="ns:workflow" xsi:schemaLocation="ns:workflow resource:WorkflowData"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <documentTypes xmlns="ns:workflow/DocumentType"
+                   xsi:schemaLocation="ns:workflow/DocumentType resource:DocumentType">
+        <documentType>
+            <name>
+                CATY
+            </name>
+            <parent>
+                ARSM
+            </parent>
+            <label>
+                Customer Address Type
+            </label>
+            <helpDefinitionURL>
+                default.htm?turl=WordDocuments%2Fcustomeraddresstype.htm
+            </helpDefinitionURL>
+            <active>
+                true
+            </active>
+            <routingVersion>
+                2
+            </routingVersion>
+        </documentType>
+        <documentType>
+            <name>
+                CVNT
+            </name>
+            <parent>
+                ARSM
+            </parent>
+            <label>
+                Collection Event
+            </label>
+            <helpDefinitionURL>
+                default.htm?turl=WordDocuments%2Fcollectionevent.htm
+            </helpDefinitionURL>
+            <active>
+                true
+            </active>
+            <routingVersion>
+                2
+            </routingVersion>
+        </documentType>
+        <documentType>
+            <name>
+                IICO
+            </name>
+            <parent>
+                ARSM
+            </parent>
+            <label>
+                Customer Invoice Item Code
+            </label>
+            <helpDefinitionURL>
+                default.htm?turl=WordDocuments%2Fcustomerinvoiceitemcode.htm
+            </helpDefinitionURL>
+            <active>
+                true
+            </active>
+            <routingVersion>
+                2
+            </routingVersion>
+        </documentType>
+        <documentType>
+            <name>
+                CTY
+            </name>
+            <parent>
+                ARSM
+            </parent>
+            <label>
+                Customer Type
+            </label>
+            <helpDefinitionURL>
+                default.htm?turl=WordDocuments%2Fcustomertype.htm
+            </helpDefinitionURL>
+            <active>
+                true
+            </active>
+            <routingVersion>
+                2
+            </routingVersion>
+        </documentType>
+        <documentType>
+            <name>
+                CATP
+            </name>
+            <parent>
+                ARSM
+            </parent>
+            <label>
+                Collection Activity Type
+            </label>
+            <helpDefinitionURL>
+                default.htm?turl=WordDocuments%2Fcollectionactivitytype.htm
+            </helpDefinitionURL>
+            <active>
+                true
+            </active>
+            <routingVersion>
+                2
+            </routingVersion>
+        </documentType>
+        <documentType>
+            <name>
+                DLTM
+            </name>
+            <parent>
+                ARSM
+            </parent>
+            <label>
+                Dunning Letter Template
+            </label>
+            <helpDefinitionURL>
+                default.htm?turl=WordDocuments%2Fdunninglettertemplate.htm
+            </helpDefinitionURL>
+            <active>
+                true
+            </active>
+            <routingVersion>
+                2
+            </routingVersion>
+        </documentType>
+        <documentType>
+            <name>
+                DUNC
+            </name>
+            <parent>
+                ARSM
+            </parent>
+            <label>
+                Dunning Campaign
+            </label>
+            <helpDefinitionURL>
+                default.htm?turl=WordDocuments%2Fdunningcampaign.htm
+            </helpDefinitionURL>
+            <active>
+                true
+            </active>
+            <routingVersion>
+                2
+            </routingVersion>
+        </documentType>
+        <documentType>
+            <name>
+                PMED
+            </name>
+            <parent>
+                ARSM
+            </parent>
+            <label>
+                Payment Medium
+            </label>
+            <helpDefinitionURL>
+                default.htm?turl=WordDocuments%2Fpaymentmedium.htm
+            </helpDefinitionURL>
+            <active>
+                true
+            </active>
+            <routingVersion>
+                2
+            </routingVersion>
+        </documentType>
+        <documentType>
+            <name>
+                ARSI
+            </name>
+            <parent>
+                ARSM
+            </parent>
+            <label>
+                System Information
+            </label>
+            <helpDefinitionURL>
+                default.htm?turl=WordDocuments%2Fsysteminformation.htm
+            </helpDefinitionURL>
+            <active>
+                true
+            </active>
+            <routingVersion>
+                2
+            </routingVersion>
+        </documentType>
+        <documentType>
+            <name>
+                CAT
+            </name>
+            <parent>
+                ARSM
+            </parent>
+            <label>
+                Cost Category
+            </label>
+            <helpDefinitionURL>
+                default.htm?turl=WordDocuments%2Fcostcategory.htm
+            </helpDefinitionURL>
+            <active>
+                true
+            </active>
+            <routingVersion>
+                2
+            </routingVersion>
+        </documentType>
+        <documentType>
+            <name>
+                SCAT
+            </name>
+            <parent>
+                ARSM
+            </parent>
+            <label>
+                Suspension Category
+            </label>
+            <helpDefinitionURL>
+                default.htm?turl=WordDocuments%2Fsuspensioncategory.htm
+            </helpDefinitionURL>
+            <active>
+                true
+            </active>
+            <routingVersion>
+                2
+            </routingVersion>
+        </documentType>
+        <documentType>
+            <name>
+                MILE
+            </name>
+            <parent>
+                ARSM
+            </parent>
+            <label>
+                Milestone Schedule
+            </label>
+            <helpDefinitionURL>
+                default.htm?turl=WordDocuments%2Fmilestoneschedule.htm
+            </helpDefinitionURL>
+            <active>
+                true
+            </active>
+            <routingVersion>
+                2
+            </routingVersion>
+        </documentType>
+        <documentType>
+            <name>
+                PDBS
+            </name>
+            <parent>
+                ARSM
+            </parent>
+            <label>
+                Predetermined Billing Schedule
+            </label>
+            <helpDefinitionURL>
+                default.htm?turl=WordDocuments%2Fpredeterminedbillingschedule.htm
+            </helpDefinitionURL>
+            <active>
+                true
+            </active>
+            <routingVersion>
+                2
+            </routingVersion>
+        </documentType>
+        <documentType>
+            <name>
+                ITM
+            </name>
+            <parent>
+                ARSM
+            </parent>
+            <label>
+                Invoice Template
+            </label>
+            <helpDefinitionURL>
+                default.htm?turl=WordDocuments%2Finvoicetemplate.htm
+            </helpDefinitionURL>
+            <active>
+                true
+            </active>
+            <routingVersion>
+                2
+            </routingVersion>
+        </documentType>
+        <documentType>
+            <name>
+                IMTM
+            </name>
+            <parent>
+                ARSM
+            </parent>
+            <label>
+                Method of Invoice Transmission
+            </label>
+            <helpDefinitionURL>
+                default.htm?turl=WordDocuments%2Fmethodofinvoicetransmission.htm
+            </helpDefinitionURL>
+            <active>
+                true
+            </active>
+            <routingVersion>
+                2
+            </routingVersion>
+        </documentType>
+        <documentType>
+            <name>
+                BILF
+            </name>
+            <parent>
+                ARSM
+            </parent>
+            <label>
+                Billing Frequency
+            </label>
+            <helpDefinitionURL>
+                default.htm?turl=WordDocuments%2Fbillingfrequency.htm
+            </helpDefinitionURL>
+            <active>
+                true
+            </active>
+            <routingVersion>
+                2
+            </routingVersion>
+        </documentType>
+    </documentTypes>
+</data>

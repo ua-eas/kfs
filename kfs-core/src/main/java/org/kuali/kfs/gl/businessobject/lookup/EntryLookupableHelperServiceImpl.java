@@ -1,28 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.businessobject.lookup;
-
-import java.sql.Date;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.gl.Constant;
@@ -32,6 +26,11 @@ import org.kuali.kfs.gl.businessobject.inquiry.InquirableFinancialDocument;
 import org.kuali.kfs.gl.service.EntryService;
 import org.kuali.kfs.gl.service.ScrubberValidator;
 import org.kuali.kfs.integration.ld.LaborModuleService;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -40,12 +39,13 @@ import org.kuali.kfs.sys.businessobject.UniversityDate;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.kns.lookup.HtmlData;
-import org.kuali.rice.kns.lookup.HtmlData.AnchorHtmlData;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.exception.ValidationException;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
+
+import java.sql.Date;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * An extension of KualiLookupableImpl to support entry lookups
@@ -59,7 +59,7 @@ public class EntryLookupableHelperServiceImpl extends AbstractGeneralLedgerLooku
 
     /**
      * Validate the university fiscal year that has been queried on
-     * 
+     *
      * @param fieldValues the queried fields
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#validateSearchParameters(java.util.Map)
      */
@@ -71,46 +71,48 @@ public class EntryLookupableHelperServiceImpl extends AbstractGeneralLedgerLooku
         if (!StringUtils.isEmpty(valueFiscalYear)) {
             try {
                 int year = Integer.parseInt(valueFiscalYear);
-            }
-            catch (NumberFormatException e) {
-                GlobalVariables.getMessageMap().putError("universityFiscalYear", KFSKeyConstants.ERROR_CUSTOM, new String[] { "Fiscal Year must be a four-digit number" });
+            } catch (NumberFormatException e) {
+                GlobalVariables.getMessageMap().putError("universityFiscalYear", KFSKeyConstants.ERROR_CUSTOM, new String[]{"Fiscal Year must be a four-digit number"});
                 throw new ValidationException("errors in search criteria");
             }
         }
-        
+
         if (!allRequiredsForAccountSearch(fieldValues) && !allRequiredsForDocumentSearch(fieldValues)) {
-            GlobalVariables.getMessageMap().putError("universityFiscalYear", KFSKeyConstants.ERROR_GL_LOOKUP_ENTRY_NON_MATCHING_REQUIRED_FIELDS, new String[] {});
+            GlobalVariables.getMessageMap().putError("universityFiscalYear", KFSKeyConstants.ERROR_GL_LOOKUP_ENTRY_NON_MATCHING_REQUIRED_FIELDS, new String[]{});
             throw new ValidationException("errors in search criteria");
         }
     }
 
     /**
      * Determines if all the required values for an account based search are present - fiscal year, chart, account number, and fiscal period code
+     *
      * @param fieldValues field values to check
      * @return true if all the account-based required search fields are present; false otherwise
      */
     protected boolean allRequiredsForAccountSearch(Map fieldValues) {
-        final String fiscalYearAsString = (String)fieldValues.get("universityFiscalYear");
-        final String chartOfAccountsCode = (String)fieldValues.get("chartOfAccountsCode");
-        final String accountNumber = (String)fieldValues.get("accountNumber");
-        final String fiscalPeriodCode = (String)fieldValues.get("universityFiscalPeriodCode");
+        final String fiscalYearAsString = (String) fieldValues.get("universityFiscalYear");
+        final String chartOfAccountsCode = (String) fieldValues.get("chartOfAccountsCode");
+        final String accountNumber = (String) fieldValues.get("accountNumber");
+        final String fiscalPeriodCode = (String) fieldValues.get("universityFiscalPeriodCode");
         return !StringUtils.isBlank(fiscalYearAsString) && !StringUtils.isBlank(chartOfAccountsCode) && !StringUtils.isBlank(accountNumber) && !StringUtils.isBlank(fiscalPeriodCode);
     }
-    
+
     /**
      * Determines if all the required values for an document based search are present - fiscal year and document number
+     *
      * @param fieldValues field values to check
      * @return true if all the document-based required search fields are present; false otherwise
      */
     protected boolean allRequiredsForDocumentSearch(Map fieldValues) {
-        final String fiscalYearAsString = (String)fieldValues.get("universityFiscalYear");
-        final String documentNumber = (String)fieldValues.get("documentNumber");
+        final String fiscalYearAsString = (String) fieldValues.get("universityFiscalYear");
+        final String documentNumber = (String) fieldValues.get("documentNumber");
         return !StringUtils.isBlank(fiscalYearAsString) && !StringUtils.isBlank(documentNumber);
     }
 
     /**
      * Returns the url for any drill down links within the lookup
-     * @param bo the business object with a property being drilled down on
+     *
+     * @param bo           the business object with a property being drilled down on
      * @param propertyName the name of the property being drilled down on
      * @return a String with the URL of the property
      * @see org.kuali.rice.kns.lookup.Lookupable#getInquiryUrl(org.kuali.rice.kns.bo.BusinessObject, java.lang.String)
@@ -123,7 +125,7 @@ public class EntryLookupableHelperServiceImpl extends AbstractGeneralLedgerLooku
                 if (getLaborModuleService().getLaborLedgerGLOriginCodes() != null && !getLaborModuleService().getLaborLedgerGLOriginCodes().isEmpty() && getLaborModuleService().getLaborLedgerGLOriginCodes().contains(entry.getFinancialSystemOriginationCode())) {
                     return getLaborModuleService().getInquiryUrlForGeneralLedgerEntryDocumentNumber(entry);
                 }
-                return new AnchorHtmlData(new InquirableFinancialDocument().getInquirableDocumentUrl(entry), KRADConstants.EMPTY_STRING, "view entry "+entry.toString());
+                return new AnchorHtmlData(new InquirableFinancialDocument().getInquirableDocumentUrl(entry), KRADConstants.EMPTY_STRING, "view entry " + entry.toString());
             }
         }
         return (new EntryInquirableImpl()).getInquiryUrl(businessObject, propertyName);
@@ -131,6 +133,7 @@ public class EntryLookupableHelperServiceImpl extends AbstractGeneralLedgerLooku
 
     /**
      * Generates the list of search results for this inquiry
+     *
      * @param fieldValues the field values of the query to carry out
      * @return List the search results returned by the lookup
      * @see org.kuali.rice.kns.lookup.Lookupable#getSearchResults(java.util.Map)
@@ -143,7 +146,7 @@ public class EntryLookupableHelperServiceImpl extends AbstractGeneralLedgerLooku
         // get the pending entry option. This method must be prior to the get search results
         String pendingEntryOption = this.getSelectedPendingEntryOption(fieldValues);
 
-        String debitCreditOption  = this.getDebitCreditOption(fieldValues);
+        String debitCreditOption = this.getDebitCreditOption(fieldValues);
 
         // get the search result collection
         Collection searchResultsCollection = getLookupService().findCollectionBySearch(getBusinessObjectClass(), fieldValues);
@@ -154,7 +157,7 @@ public class EntryLookupableHelperServiceImpl extends AbstractGeneralLedgerLooku
 
         // get the actual size of all qualified search results
         Long actualSize = new Long(entryService.getEntryRecordCount(fieldValues));
-        
+
         // calculate how many pending entries were included in the original results
         int numPendingEntriesAdded = searchResultsCollection.size() - searchResultsCollectionSize;
         actualSize += numPendingEntriesAdded;
@@ -164,14 +167,14 @@ public class EntryLookupableHelperServiceImpl extends AbstractGeneralLedgerLooku
 
     /**
      * Updates pending entries before their results are included in the lookup results
-     * 
-     * @param entryCollection a collection of balance entries
-     * @param fieldValues the map containing the search fields and values
-     * @param isApproved flag whether the approved entries or all entries will be processed
-     * @param isConsolidated flag whether the results are consolidated or not
+     *
+     * @param entryCollection     a collection of balance entries
+     * @param fieldValues         the map containing the search fields and values
+     * @param isApproved          flag whether the approved entries or all entries will be processed
+     * @param isConsolidated      flag whether the results are consolidated or not
      * @param isCostShareExcluded flag whether the user selects to see the results with cost share subaccount
      * @see org.kuali.module.gl.web.lookupable.AbstractGLLookupableImpl#updateEntryCollection(java.util.Collection, java.util.Map,
-     *      boolean, boolean, boolean)
+     * boolean, boolean, boolean)
      */
     @Override
     protected void updateEntryCollection(Collection entryCollection, Map fieldValues, boolean isApproved, boolean isConsolidated, boolean isCostShareInclusive) {
@@ -202,20 +205,20 @@ public class EntryLookupableHelperServiceImpl extends AbstractGeneralLedgerLooku
             }
 
             scrubberValidator.validateForInquiry(pendingEntry);
-            
+
             Entry entry = new Entry(pendingEntry, postDate);
-            
+
             String approvedCode = pendingEntry.getFinancialDocumentApprovedCode();
             String description = Constant.DocumentApprovedCode.getDescription(approvedCode);
             entry.getDummyBusinessObject().setPendingEntryOption(description);
-            
+
             entryCollection.add(entry);
         }
     }
 
     /**
      * Sets the scrubberValidator attribute value.
-     * 
+     *
      * @param scrubberValidator The scrubberValidator to set.
      */
     public void setScrubberValidator(ScrubberValidator scrubberValidator) {
@@ -224,13 +227,13 @@ public class EntryLookupableHelperServiceImpl extends AbstractGeneralLedgerLooku
 
     /**
      * Sets the entryService attribute value.
-     * 
+     *
      * @param entryService The entryService to set.
      */
     public void setEntryService(EntryService entryService) {
         this.entryService = entryService;
     }
-    
+
     /**
      * @return the system's configured implementation of the LaborModuleService
      */

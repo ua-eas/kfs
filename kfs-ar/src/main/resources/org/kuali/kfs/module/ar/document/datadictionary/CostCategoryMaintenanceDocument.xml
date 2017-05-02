@@ -1,174 +1,174 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-	<bean id="CostCategoryMaintenanceDocument" parent="CostCategoryMaintenanceDocument-parentBean" />
+    <bean id="CostCategoryMaintenanceDocument" parent="CostCategoryMaintenanceDocument-parentBean"/>
 
-	<bean id="CostCategoryMaintenanceDocument-parentBean" abstract="true"
-		parent="MaintenanceDocumentEntry">
-		<property name="businessObjectClass" value="org.kuali.kfs.module.ar.businessobject.CostCategory" />
-		<property name="maintainableClass" value="org.kuali.kfs.module.ar.document.CostCategoryMaintainableImpl" />
-		<property name="maintainableSections">
-			<list>
-				<ref bean="CostCategoryMaintenanceDocument-EditCategory" />
-				<ref bean="CostCategoryMaintenanceDocument-EditObjectCodes"/>
-				<ref bean="CostCategoryMaintenanceDocument-EditObjectLevels"/>
-				<ref bean="CostCategoryMaintenanceDocument-EditObjectConsolidations"/>
-			</list>
-		</property>
-		<property name="lockingKeys">
-			<list>
-				<value>categoryCode</value>
-			</list>
-		</property>
-		<property name="documentTypeName" value="CAT" />
-		<property name="businessRulesClass" value="org.kuali.kfs.module.ar.document.validation.CostCategoryRule"/>
-		<property name="documentAuthorizerClass" value="org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentAuthorizerBase" />
-		<property name="documentPresentationControllerClass" value="org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentPresentationControllerBase" />
-		<property name="workflowAttributes">
-			<ref bean="CostCategoryMaintenanceDocument-workflowAttributes" />
-		</property>
-	</bean>
+    <bean id="CostCategoryMaintenanceDocument-parentBean" abstract="true"
+          parent="MaintenanceDocumentEntry">
+        <property name="businessObjectClass" value="org.kuali.kfs.module.ar.businessobject.CostCategory"/>
+        <property name="maintainableClass" value="org.kuali.kfs.module.ar.document.CostCategoryMaintainableImpl"/>
+        <property name="maintainableSections">
+            <list>
+                <ref bean="CostCategoryMaintenanceDocument-EditCategory"/>
+                <ref bean="CostCategoryMaintenanceDocument-EditObjectCodes"/>
+                <ref bean="CostCategoryMaintenanceDocument-EditObjectLevels"/>
+                <ref bean="CostCategoryMaintenanceDocument-EditObjectConsolidations"/>
+            </list>
+        </property>
+        <property name="lockingKeys">
+            <list>
+                <value>categoryCode</value>
+            </list>
+        </property>
+        <property name="documentTypeName" value="CAT"/>
+        <property name="businessRulesClass" value="org.kuali.kfs.module.ar.document.validation.CostCategoryRule"/>
+        <property name="documentAuthorizerClass" value="org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentAuthorizerBase"/>
+        <property name="documentPresentationControllerClass" value="org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentPresentationControllerBase"/>
+        <property name="workflowAttributes">
+            <ref bean="CostCategoryMaintenanceDocument-workflowAttributes"/>
+        </property>
+    </bean>
 
-	<bean id="CostCategoryMaintenanceDocument-EditCategory" parent="CostCategoryMaintenanceDocument-EditCategory-parentBean" />
-	<bean id="CostCategoryMaintenanceDocument-EditCategory-parentBean" abstract="true" parent="MaintainableSectionDefinition">
-		<property name="id" value="EditCategory" />
-		<property name="title" value="Edit Cost Category" />
-		<property name="maintainableItems">
-			<list>
-				<bean parent="MaintainableFieldDefinition" p:name="categoryCode" p:required="true" />
-				<bean parent="MaintainableFieldDefinition" p:name="categoryName" p:required="true" />
-				<bean parent="MaintainableFieldDefinition" p:name="indirectCostIndicator" />
-				<bean parent="MaintainableFieldDefinition" p:name="active" p:defaultValue="true" />
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="CostCategoryMaintenanceDocument-EditObjectCodes" parent="CostCategoryMaintenanceDocument-EditObjectCodes-parentBean" />
-	<bean id="CostCategoryMaintenanceDocument-EditObjectCodes-parentBean" abstract="true" parent="MaintainableSectionDefinition">
-		<property name="id" value="EditObjectCodes" />
-		<property name="title" value="Edit Object Codes" />
-		<property name="maintainableItems">
-			<list>
-				<bean parent="MaintainableCollectionDefinition">
-					<property name="name" value="objectCodes"/>
-					<property name="businessObjectClass" value="org.kuali.kfs.module.ar.businessobject.CostCategoryObjectCode"/>
-					<property name="sourceClassName" value="org.kuali.kfs.coa.businessobject.ObjectCode"/>
-					<property name="summaryTitle" value="Object Codes"/>
-					<property name="summaryFields">
-						<list>
-							<bean parent="MaintainableFieldDefinition" p:name="chartOfAccountsCode"/>
-							<bean parent="MaintainableFieldDefinition" p:name="financialObjectCode"/>
-						</list>
-					</property>
-					<property name="maintainableFields">
-						<list>
-							<bean parent="MaintainableFieldDefinition" p:name="chartOfAccountsCode" p:required="true" p:template="chartOfAccountsCode"/>
-							<bean parent="MaintainableFieldDefinition" p:name="financialObjectCode" p:required="true" p:template="financialObjectCode"/>
-							<bean parent="MaintainableFieldDefinition" p:name="active" p:defaultValue="true"/>
-						</list>
-					</property>
-					<property name="duplicateIdentificationFields">
-						<list>
-							<bean parent="MaintainableFieldDefinition" p:name="chartOfAccountsCode"/>
-							<bean parent="MaintainableFieldDefinition" p:name="financialObjectCode"/>
-						</list>
-					</property>
-				</bean>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="CostCategoryMaintenanceDocument-EditObjectLevels" parent="CostCategoryMaintenanceDocument-EditObjectLevels-parentBean" />
-	<bean id="CostCategoryMaintenanceDocument-EditObjectLevels-parentBean" abstract="true" parent="MaintainableSectionDefinition">
-		<property name="id" value="EditObjectLevels" />
-		<property name="title" value="Edit Object Levels" />
-		<property name="maintainableItems">
-			<list>
-				<bean parent="MaintainableCollectionDefinition">
-					<property name="name" value="objectLevels"/>
-					<property name="businessObjectClass" value="org.kuali.kfs.module.ar.businessobject.CostCategoryObjectLevel"/>
-					<property name="sourceClassName" value="org.kuali.kfs.coa.businessobject.ObjectLevel"/>
-					<property name="summaryTitle" value="Object Levels"/>
-					<property name="summaryFields">
-						<list>
-							<bean parent="MaintainableFieldDefinition" p:name="chartOfAccountsCode"/>
-							<bean parent="MaintainableFieldDefinition" p:name="financialObjectLevelCode"/>
-						</list>
-					</property>
-					<property name="maintainableFields">
-						<list>
-							<bean parent="MaintainableFieldDefinition" p:name="chartOfAccountsCode" p:required="true" p:template="chartOfAccountsCode"/>
-							<bean parent="MaintainableFieldDefinition" p:name="financialObjectLevelCode" p:required="true" p:template="financialObjectLevelCode"/>
-							<bean parent="MaintainableFieldDefinition" p:name="active" p:defaultValue="true"/>
-						</list>
-					</property>
-					<property name="duplicateIdentificationFields">
-						<list>
-							<bean parent="MaintainableFieldDefinition" p:name="chartOfAccountsCode"/>
-							<bean parent="MaintainableFieldDefinition" p:name="financialObjectLevelCode"/>
-						</list>
-					</property>
-				</bean>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="CostCategoryMaintenanceDocument-EditObjectConsolidations" parent="CostCategoryMaintenanceDocument-EditObjectConsolidations-parentBean" />
-	<bean id="CostCategoryMaintenanceDocument-EditObjectConsolidations-parentBean" abstract="true" parent="MaintainableSectionDefinition">
-		<property name="id" value="EditObjectConsolidations" />
-		<property name="title" value="Edit Object Consolidations" />
-		<property name="maintainableItems">
-			<list>
-				<bean parent="MaintainableCollectionDefinition">
-					<property name="name" value="objectConsolidations"/>
-					<property name="businessObjectClass" value="org.kuali.kfs.module.ar.businessobject.CostCategoryObjectConsolidation"/>
-					<property name="sourceClassName" value="org.kuali.kfs.coa.businessobject.ObjectConsolidation"/>
-					<property name="summaryTitle" value="Object Consolidations"/>
-					<property name="summaryFields">
-						<list>
-							<bean parent="MaintainableFieldDefinition" p:name="chartOfAccountsCode"/>
-							<bean parent="MaintainableFieldDefinition" p:name="finConsolidationObjectCode"/>
-						</list>
-					</property>
-					<property name="maintainableFields">
-						<list>
-							<bean parent="MaintainableFieldDefinition" p:name="chartOfAccountsCode" p:required="true" p:template="chartOfAccountsCode"/>
-							<bean parent="MaintainableFieldDefinition" p:name="finConsolidationObjectCode" p:required="true" p:template="finConsolidationObjectCode"/>
-							<bean parent="MaintainableFieldDefinition" p:name="active" p:defaultValue="true"/>
-						</list>
-					</property>
-					<property name="duplicateIdentificationFields">
-						<list>
-							<bean parent="MaintainableFieldDefinition" p:name="chartOfAccountsCode"/>
-							<bean parent="MaintainableFieldDefinition" p:name="finConsolidationObjectCode"/>
-						</list>
-					</property>
-				</bean>
-			</list>
-		</property>
-	</bean>
+    <bean id="CostCategoryMaintenanceDocument-EditCategory" parent="CostCategoryMaintenanceDocument-EditCategory-parentBean"/>
+    <bean id="CostCategoryMaintenanceDocument-EditCategory-parentBean" abstract="true" parent="MaintainableSectionDefinition">
+        <property name="id" value="EditCategory"/>
+        <property name="title" value="Edit Cost Category"/>
+        <property name="maintainableItems">
+            <list>
+                <bean parent="MaintainableFieldDefinition" p:name="categoryCode" p:required="true"/>
+                <bean parent="MaintainableFieldDefinition" p:name="categoryName" p:required="true"/>
+                <bean parent="MaintainableFieldDefinition" p:name="indirectCostIndicator"/>
+                <bean parent="MaintainableFieldDefinition" p:name="active" p:defaultValue="true"/>
+            </list>
+        </property>
+    </bean>
 
-	<bean id="CostCategoryMaintenanceDocument-workflowAttributes" parent="CostCategoryMaintenanceDocument-workflowAttributes-parentBean" />
-	<bean id="CostCategoryMaintenanceDocument-workflowAttributes-parentBean" class="org.kuali.rice.krad.datadictionary.WorkflowAttributes" abstract="true" />
+    <bean id="CostCategoryMaintenanceDocument-EditObjectCodes" parent="CostCategoryMaintenanceDocument-EditObjectCodes-parentBean"/>
+    <bean id="CostCategoryMaintenanceDocument-EditObjectCodes-parentBean" abstract="true" parent="MaintainableSectionDefinition">
+        <property name="id" value="EditObjectCodes"/>
+        <property name="title" value="Edit Object Codes"/>
+        <property name="maintainableItems">
+            <list>
+                <bean parent="MaintainableCollectionDefinition">
+                    <property name="name" value="objectCodes"/>
+                    <property name="businessObjectClass" value="org.kuali.kfs.module.ar.businessobject.CostCategoryObjectCode"/>
+                    <property name="sourceClassName" value="org.kuali.kfs.coa.businessobject.ObjectCode"/>
+                    <property name="summaryTitle" value="Object Codes"/>
+                    <property name="summaryFields">
+                        <list>
+                            <bean parent="MaintainableFieldDefinition" p:name="chartOfAccountsCode"/>
+                            <bean parent="MaintainableFieldDefinition" p:name="financialObjectCode"/>
+                        </list>
+                    </property>
+                    <property name="maintainableFields">
+                        <list>
+                            <bean parent="MaintainableFieldDefinition" p:name="chartOfAccountsCode" p:required="true" p:template="chartOfAccountsCode"/>
+                            <bean parent="MaintainableFieldDefinition" p:name="financialObjectCode" p:required="true" p:template="financialObjectCode"/>
+                            <bean parent="MaintainableFieldDefinition" p:name="active" p:defaultValue="true"/>
+                        </list>
+                    </property>
+                    <property name="duplicateIdentificationFields">
+                        <list>
+                            <bean parent="MaintainableFieldDefinition" p:name="chartOfAccountsCode"/>
+                            <bean parent="MaintainableFieldDefinition" p:name="financialObjectCode"/>
+                        </list>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="CostCategoryMaintenanceDocument-EditObjectLevels" parent="CostCategoryMaintenanceDocument-EditObjectLevels-parentBean"/>
+    <bean id="CostCategoryMaintenanceDocument-EditObjectLevels-parentBean" abstract="true" parent="MaintainableSectionDefinition">
+        <property name="id" value="EditObjectLevels"/>
+        <property name="title" value="Edit Object Levels"/>
+        <property name="maintainableItems">
+            <list>
+                <bean parent="MaintainableCollectionDefinition">
+                    <property name="name" value="objectLevels"/>
+                    <property name="businessObjectClass" value="org.kuali.kfs.module.ar.businessobject.CostCategoryObjectLevel"/>
+                    <property name="sourceClassName" value="org.kuali.kfs.coa.businessobject.ObjectLevel"/>
+                    <property name="summaryTitle" value="Object Levels"/>
+                    <property name="summaryFields">
+                        <list>
+                            <bean parent="MaintainableFieldDefinition" p:name="chartOfAccountsCode"/>
+                            <bean parent="MaintainableFieldDefinition" p:name="financialObjectLevelCode"/>
+                        </list>
+                    </property>
+                    <property name="maintainableFields">
+                        <list>
+                            <bean parent="MaintainableFieldDefinition" p:name="chartOfAccountsCode" p:required="true" p:template="chartOfAccountsCode"/>
+                            <bean parent="MaintainableFieldDefinition" p:name="financialObjectLevelCode" p:required="true" p:template="financialObjectLevelCode"/>
+                            <bean parent="MaintainableFieldDefinition" p:name="active" p:defaultValue="true"/>
+                        </list>
+                    </property>
+                    <property name="duplicateIdentificationFields">
+                        <list>
+                            <bean parent="MaintainableFieldDefinition" p:name="chartOfAccountsCode"/>
+                            <bean parent="MaintainableFieldDefinition" p:name="financialObjectLevelCode"/>
+                        </list>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="CostCategoryMaintenanceDocument-EditObjectConsolidations" parent="CostCategoryMaintenanceDocument-EditObjectConsolidations-parentBean"/>
+    <bean id="CostCategoryMaintenanceDocument-EditObjectConsolidations-parentBean" abstract="true" parent="MaintainableSectionDefinition">
+        <property name="id" value="EditObjectConsolidations"/>
+        <property name="title" value="Edit Object Consolidations"/>
+        <property name="maintainableItems">
+            <list>
+                <bean parent="MaintainableCollectionDefinition">
+                    <property name="name" value="objectConsolidations"/>
+                    <property name="businessObjectClass" value="org.kuali.kfs.module.ar.businessobject.CostCategoryObjectConsolidation"/>
+                    <property name="sourceClassName" value="org.kuali.kfs.coa.businessobject.ObjectConsolidation"/>
+                    <property name="summaryTitle" value="Object Consolidations"/>
+                    <property name="summaryFields">
+                        <list>
+                            <bean parent="MaintainableFieldDefinition" p:name="chartOfAccountsCode"/>
+                            <bean parent="MaintainableFieldDefinition" p:name="finConsolidationObjectCode"/>
+                        </list>
+                    </property>
+                    <property name="maintainableFields">
+                        <list>
+                            <bean parent="MaintainableFieldDefinition" p:name="chartOfAccountsCode" p:required="true" p:template="chartOfAccountsCode"/>
+                            <bean parent="MaintainableFieldDefinition" p:name="finConsolidationObjectCode" p:required="true" p:template="finConsolidationObjectCode"/>
+                            <bean parent="MaintainableFieldDefinition" p:name="active" p:defaultValue="true"/>
+                        </list>
+                    </property>
+                    <property name="duplicateIdentificationFields">
+                        <list>
+                            <bean parent="MaintainableFieldDefinition" p:name="chartOfAccountsCode"/>
+                            <bean parent="MaintainableFieldDefinition" p:name="finConsolidationObjectCode"/>
+                        </list>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="CostCategoryMaintenanceDocument-workflowAttributes" parent="CostCategoryMaintenanceDocument-workflowAttributes-parentBean"/>
+    <bean id="CostCategoryMaintenanceDocument-workflowAttributes-parentBean" class="org.kuali.kfs.krad.datadictionary.WorkflowAttributes" abstract="true"/>
 
 </beans>

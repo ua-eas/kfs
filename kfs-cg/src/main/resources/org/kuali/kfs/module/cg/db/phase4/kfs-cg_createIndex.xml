@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2650">
+        <createIndex indexName="CG_AGENCY_TI2" tableName="CG_AGENCY_T">
+            <column name="CG_RPTTO_AGNCY_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="2651">
+        <createIndex indexName="CG_AGENCY_TI3" tableName="CG_AGENCY_T">
+            <column name="CG_AGENCY_TYP_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2652">
+        <createIndex indexName="CG_AWD_ACCT_TI2" tableName="CG_AWD_ACCT_T">
+            <column name="FIN_COA_CD"/>
+            <column name="ACCOUNT_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2653">
+        <createIndex indexName="CG_AWD_ACCT_TI4" tableName="CG_AWD_ACCT_T">
+            <column name="PERSON_UNVL_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2654">
+        <createIndex indexName="CG_AWD_FNDMGR_TR1" tableName="CG_AWD_FNDMGR_T">
+            <column name="CGPRPSL_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2655">
+        <createIndex indexName="CG_AWD_ORG_TI2" tableName="CG_AWD_ORG_T">
+            <column name="CGPRPSL_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2656">
+        <createIndex indexName="CG_AWD_PRJDR_TI2" tableName="CG_AWD_PRJDR_T">
+            <column name="CGPRPSL_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2657">
+        <createIndex indexName="CG_AWD_SUBCN_TI2" tableName="CG_AWD_SUBCN_T">
+            <column name="CGPRPSL_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="2658">
+        <createIndex indexName="CG_AWD_SUBCN_TI3" tableName="CG_AWD_SUBCN_T">
+            <column name="CG_SUBCNR_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2659">
+        <createIndex indexName="CG_AWD_TI2" tableName="CG_AWD_T">
+            <column name="CG_AGENCY_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2660">
+        <createIndex indexName="CG_AWD_TI3" tableName="CG_AWD_T">
+            <column name="CGAWD_STAT_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2661">
+        <createIndex indexName="CG_AWD_TI4" tableName="CG_AWD_T">
+            <column name="CG_FEDPT_AGNCY_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2662">
+        <createIndex indexName="CG_AWD_TI5" tableName="CG_AWD_T">
+            <column name="CG_GRANT_DESC_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2663">
+        <createIndex indexName="CG_AWD_TI6" tableName="CG_AWD_T">
+            <column name="CG_LTRCR_FNDGRP_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2664">
+        <createIndex indexName="CG_AWD_TI7" tableName="CG_AWD_T">
+            <column name="CGPRPSL_AWD_TYP_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2665">
+        <createIndex indexName="CG_AWD_TI8" tableName="CG_AWD_T">
+            <column name="CGAWD_PURPOSE_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2666">
+        <createIndex indexName="CG_AWD_TR9" tableName="CG_AWD_T">
+            <column name="CG_LTRCR_FND_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2667">
+        <createIndex indexName="CG_LTRCR_FND_TR1" tableName="CG_LTRCR_FND_T">
+            <column name="CG_LTRCR_FNDGRP_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2668">
+        <createIndex indexName="CG_PRPSL_ORG_TI2" tableName="CG_PRPSL_ORG_T">
+            <column name="CGPRPSL_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2669">
+        <createIndex indexName="CG_PRPSL_PRJDR_TI2" tableName="CG_PRPSL_PRJDR_T">
+            <column name="CGPRPSL_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2670">
+        <createIndex indexName="CG_PRPSL_RSRCH_RSK_TR2" tableName="CG_PRPSL_RSRCH_RSK_T">
+            <column name="RSRCH_RSK_TYP_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2671">
+        <createIndex indexName="CG_PRPSL_SUBCN_TI2" tableName="CG_PRPSL_SUBCN_T">
+            <column name="CGPRPSL_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="2672">
+        <createIndex indexName="CG_PRPSL_SUBCN_TI3" tableName="CG_PRPSL_SUBCN_T">
+            <column name="CG_SUBCNR_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2673">
+        <createIndex indexName="CG_PRPSL_TI2" tableName="CG_PRPSL_T">
+            <column name="CG_AGENCY_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2674">
+        <createIndex indexName="CG_PRPSL_TI3" tableName="CG_PRPSL_T">
+            <column name="CGPRPSL_AWD_TYP_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2675">
+        <createIndex indexName="CG_PRPSL_TI4" tableName="CG_PRPSL_T">
+            <column name="CGPRPSL_PURPOSE_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2676">
+        <createIndex indexName="CG_PRPSL_TI5" tableName="CG_PRPSL_T">
+            <column name="CGPRPSL_STAT_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2677">
+        <createIndex indexName="CG_PRPSL_TI6" tableName="CG_PRPSL_T">
+            <column name="CG_FEDPT_AGNCY_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2678">
+        <createIndex indexName="CG_PRPSL_TR7" tableName="CG_PRPSL_T">
+            <column name="CG_CFDA_NBR"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

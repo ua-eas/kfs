@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="kfs" id="661" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKAR_APPLICATION_DOC_T" tableName="AR_APPLICATION_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="662" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="PRPSL_NBR, FIN_COA_CD, ACCOUNT_NBR, FIN_OBJ_CD" constraintName="PKAR_AWD_ACCT_OBJ_TOT_BLLD_T" tableName="AR_AWD_ACCT_OBJ_TOT_BLLD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="663" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="BILL_ID" constraintName="PKAR_BILL_T" tableName="AR_BILL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="664" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKAR_CGB_CLCTN_ACTVY_DOC_T" tableName="AR_CGB_CLCTN_ACTVY_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="665" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR, INV_FDOC_NBR" constraintName="PKAR_CGB_CLCTN_ACTVY_INV_DTL_T" tableName="AR_CGB_CLCTN_ACTVY_INV_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="666" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR, INV_DTL_ID" constraintName="PKAR_CGB_INV_DTL_T" tableName="AR_CGB_INV_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="667" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CLCTN_ACTVY_TYP_CD" constraintName="PKAR_CLCTN_ACTVY_TYP_T" tableName="AR_CLCTN_ACTVY_TYP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="668" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="ID" constraintName="PKAR_CLCTN_EVNT_T" tableName="AR_CLCTN_EVNT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="669" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKAR_CRDT_MEMO_DOC_T" tableName="AR_CRDT_MEMO_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="670" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR, REF_INV_ITM_NBR" constraintName="PKAR_CRDT_MEMO_DTL_T" tableName="AR_CRDT_MEMO_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="671" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR, FDOC_REF_NBR" constraintName="PKAR_CSH_CTRL_DTL_T" tableName="AR_CSH_CTRL_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="672" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKAR_CSH_CTRL_T" tableName="AR_CSH_CTRL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="673" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CTGRY_CD, FIN_COA_CD, FIN_CONS_OBJ_CD" constraintName="PKAR_CST_CTGRY_FIN_CONSOLDTN_T" tableName="AR_CST_CTGRY_FIN_CONSOLDTN_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="674" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CTGRY_CD, FIN_COA_CD, FIN_OBJECT_CD" constraintName="PKAR_CST_CTGRY_FIN_OBJ_CD_T" tableName="AR_CST_CTGRY_FIN_OBJ_CD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="675" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CTGRY_CD, FIN_COA_CD, FIN_OBJ_LEVEL_CD" constraintName="PKAR_CST_CTGRY_FIN_OBJ_LEVEL_T" tableName="AR_CST_CTGRY_FIN_OBJ_LEVEL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="676" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CTGRY_CD" constraintName="PKAR_CST_CTGRY_T" tableName="AR_CST_CTGRY_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="677" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CUST_NBR, CUST_ADDR_ID" constraintName="PKAR_CUST_ADDR_T" tableName="AR_CUST_ADDR_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="678" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CUST_ADDR_TYPE_CD" constraintName="PKAR_CUST_ADDR_TYP_T" tableName="AR_CUST_ADDR_TYP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="679" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CUST_NBR" constraintName="PKAR_CUST_BILLING_STMT_T" tableName="AR_CUST_BILLING_STMT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="680" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CUST_SPCL_PRCS_CD" constraintName="PKAR_CUST_PRCS_TYP_T" tableName="AR_CUST_PRCS_TYP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="681" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CUST_NBR" constraintName="PKAR_CUST_T" tableName="AR_CUST_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="682" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CUST_TYP_CD" constraintName="PKAR_CUST_TYP_T" tableName="AR_CUST_TYP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="683" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKAR_DOC_HDR_T" tableName="AR_DOC_HDR_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="684" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKAR_DOC_RCURRNC_T" tableName="AR_DOC_RCURRNC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="685" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CMPGN_ID" constraintName="PKAR_DUN_CMPGN_DOC_T" tableName="AR_DUN_CMPGN_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="686" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CMPGN_ID, DUN_LTR_DIST_ID" constraintName="PKAR_DUN_LTR_DIST_T" tableName="AR_DUN_LTR_DIST_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="687" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="DUN_LTR_TMPLT_CD" constraintName="PKAR_DUN_LTR_TMPLT_T" tableName="AR_DUN_LTR_TMPLT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="688" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKAR_FNL_BILLED_IND_DOC_T" tableName="AR_FNL_BILLED_IND_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="689" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="ENTRY_ID" constraintName="PKAR_FNL_BILLED_IND_ENTRY_T" tableName="AR_FNL_BILLED_IND_ENTRY_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="690" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR, PRPSL_NBR, FIN_COA_CD, ACCOUNT_NBR" constraintName="PKAR_INV_ACCT_DTL_T" tableName="AR_INV_ACCT_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="691" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR, CUST_NBR, CUST_ADDR_ID" constraintName="PKAR_INV_ADDR_DTL_T" tableName="AR_INV_ADDR_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="692" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR, BILL_ID" constraintName="PKAR_INV_BILL_T" tableName="AR_INV_BILL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="693" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="ERROR_LOG_ID" constraintName="PKAR_INV_DOC_ERROR_LOG_T" tableName="AR_INV_DOC_ERROR_LOG_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="694" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="ERROR_MSG_ID" constraintName="PKAR_INV_DOC_ERROR_MSG_T" tableName="AR_INV_DOC_ERROR_MSG_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="695" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKAR_INV_DOC_T" tableName="AR_INV_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="696" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR, PRPSL_NBR, FIN_COA_CD, ACCOUNT_NBR, FIN_OBJ_CD" constraintName="PKAR_INV_DTL_ACCT_OBJ_CD_T" tableName="AR_INV_DTL_ACCT_OBJ_CD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="697" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR, AR_INV_ITM_NBR" constraintName="PKAR_INV_DTL_T" tableName="AR_INV_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="698" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKAR_INV_GNRL_DTL_T" tableName="AR_INV_GNRL_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="699" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FIN_COA_CD, ORG_CD, AR_INV_ITM_CD" constraintName="PKAR_INV_ITM_CODE_T" tableName="AR_INV_ITM_CODE_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="700" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR, MLSTN_ID" constraintName="PKAR_INV_MLSTN_T" tableName="AR_INV_MLSTN_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="701" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR, AR_PD_APLD_ITM_NBR" constraintName="PKAR_INV_PD_APLD_T" tableName="AR_INV_PD_APLD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="702" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKAR_INV_RCURRNC_DTL_T" tableName="AR_INV_RCURRNC_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="703" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="SUSP_CTGRY_CD, FDOC_NBR" constraintName="PKAR_INV_SUSP_CTGRY_T" tableName="AR_INV_SUSP_CTGRY_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="704" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="INV_TMPLT_CD" constraintName="PKAR_INV_TMPLT_T" tableName="AR_INV_TMPLT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="705" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="INV_TRNS_MTHD_CD" constraintName="PKAR_INV_TRNS_MTHD_T" tableName="AR_INV_TRNS_MTHD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="706" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="AR_INV_SEQ_NBR" constraintName="PKAR_LOCKBOX_T" tableName="AR_LOCKBOX_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="707" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKAR_LTRCR_RVW_DOC_T" tableName="AR_LTRCR_RVW_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="708" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR, LTRCR_RVW_DTL_ID" constraintName="PKAR_LTRCR_RVW_DTL_T" tableName="AR_LTRCR_RVW_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="709" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="PRPSL_NBR" constraintName="PKAR_MLSTN_SCHDL_T" tableName="AR_MLSTN_SCHDL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="710" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="MLSTN_ID" constraintName="PKAR_MLSTN_T" tableName="AR_MLSTN_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="711" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR, AR_PD_APLD_ITM_NBR, FDOC_REF_NBR" constraintName="PKAR_NON_APLD_DIST_T" tableName="AR_NON_APLD_DIST_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="712" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_REF_NBR" constraintName="PKAR_NON_APLD_HLDG_T" tableName="AR_NON_APLD_HLDG_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="713" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR, FDOC_LINE_NBR, FDOC_REF_NBR" constraintName="PKAR_NON_INV_DIST_T" tableName="AR_NON_INV_DIST_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="714" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR, FDOC_LINE_NBR" constraintName="PKAR_NON_INV_T" tableName="AR_NON_INV_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="715" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="UNIV_FISCAL_YR, FIN_COA_CD, ORG_CD" constraintName="PKAR_ORG_ACCTGDFLT_T" tableName="AR_ORG_ACCTGDFLT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="716" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FIN_COA_CD, ORG_CD" constraintName="PKAR_ORG_OPTION_T" tableName="AR_ORG_OPTION_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="717" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="CUST_PMT_MEDIUM_CD" constraintName="PKAR_PMT_MEDIUM_T" tableName="AR_PMT_MEDIUM_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="718" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="PRPSL_NBR" constraintName="PKAR_PRDTRMND_BILL_SCHDL_T" tableName="AR_PRDTRMND_BILL_SCHDL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="719" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="AR_PRN_INV_IND" constraintName="PKAR_PRN_INV_OPTN_T" tableName="AR_PRN_INV_OPTN_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="720" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="UNIV_FISCAL_YR, PRCS_FIN_COA_CD, PRCS_ORG_CD" constraintName="PKAR_SYS_INFO_T" tableName="AR_SYS_INFO_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="721" context="bootstrap,demo,unit">
+        <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKAR_WRITEOFF_DOC_T" tableName="AR_WRITEOFF_DOC_T"/>
+    </changeSet>
+</databaseChangeLog>

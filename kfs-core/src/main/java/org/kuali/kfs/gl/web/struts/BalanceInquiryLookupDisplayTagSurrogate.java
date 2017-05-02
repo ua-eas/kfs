@@ -1,22 +1,35 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.web.struts;
+
+import org.apache.commons.beanutils.BeanComparator;
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.lookup.LookupResultsService;
+import org.kuali.kfs.kns.lookup.LookupUtils;
+import org.kuali.kfs.kns.lookup.Lookupable;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.kns.web.ui.Column;
+import org.kuali.kfs.kns.web.ui.ResultRow;
+import org.kuali.kfs.krad.service.SequenceAccessorService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.sys.context.SpringContext;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -24,19 +37,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.apache.commons.beanutils.BeanComparator;
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kns.lookup.LookupResultsService;
-import org.kuali.rice.kns.lookup.LookupUtils;
-import org.kuali.rice.kns.lookup.Lookupable;
-import org.kuali.rice.kns.web.struts.form.LookupForm;
-import org.kuali.rice.kns.web.ui.Column;
-import org.kuali.rice.kns.web.ui.ResultRow;
-import org.kuali.rice.krad.service.SequenceAccessorService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
 
 /**
  * This class serves as the struts action for implementing multiple value lookups
@@ -46,16 +46,16 @@ public class BalanceInquiryLookupDisplayTagSurrogate implements LookupDisplayTag
 
     /**
      * If there is no app param defined for the # rows/page, then this value will be used for the default
-     * 
+     *
      * @see KualiMultipleValueLookupAction#getMaxRowsPerPage(MultipleValueLookupForm)
      */
     public static final int DEFAULT_MAX_ROWS_PER_PAGE = 50;
 
     /**
-     * @see LookupDisplayTagSurrogate#performMultipleValueLookup(LookupResultsSelectable,LookupForm,List,boolean)
-     *
-     * KRAD Conversion: Lookupable performs customization of the results setting the sort order. 
-     * 
+     * @see LookupDisplayTagSurrogate#performMultipleValueLookup(LookupResultsSelectable, LookupForm, List, boolean)
+     * <p>
+     * KRAD Conversion: Lookupable performs customization of the results setting the sort order.
+     * <p>
      * Fields are in data dictionary for bo Balance.
      */
     public Collection performMultipleValueLookup(LookupResultsSelectable selectable, LookupForm form, List<ResultRow> resultTable, boolean bounded) {
@@ -78,8 +78,7 @@ public class BalanceInquiryLookupDisplayTagSurrogate implements LookupDisplayTag
                 }
             }
             selectable.setColumnToSortIndex(firstSortColumnIdx);
-        }
-        else {
+        } else {
             // don't know how results were sorted, so we just say -1
             selectable.setColumnToSortIndex(-1);
         }
@@ -93,8 +92,7 @@ public class BalanceInquiryLookupDisplayTagSurrogate implements LookupDisplayTag
         try {
             LookupResultsService lookupResultsService = SpringContext.getBean(LookupResultsService.class);
             lookupResultsService.persistResultsTable(lookupResultsSequenceNumber, resultTable, GlobalVariables.getUserSession().getPerson().getPrincipalId());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("error occured trying to persist multiple lookup results", e);
             throw new RuntimeException("error occured trying to persist multiple lookup results");
         }
@@ -106,10 +104,10 @@ public class BalanceInquiryLookupDisplayTagSurrogate implements LookupDisplayTag
     }
 
     /**
-     * @see LookupDisplayTagSurrogate#switchToPage(LookupResultsSelectable,int)
-     * 
+     * @see LookupDisplayTagSurrogate#switchToPage(LookupResultsSelectable, int)
+     * <p>
      * KRAD Conversion: Lookupable performs retrieving the data.
-     * 
+     * <p>
      * Fields are in data dictionary for bo Balance.
      */
     public List<ResultRow> switchToPage(LookupResultsSelectable selectable, int maxRowsPerPage) {
@@ -118,8 +116,7 @@ public class BalanceInquiryLookupDisplayTagSurrogate implements LookupDisplayTag
         List<ResultRow> resultTable = null;
         try {
             resultTable = SpringContext.getBean(LookupResultsService.class).retrieveResultsTable(lookupResultsSequenceNumber, GlobalVariables.getUserSession().getPerson().getPrincipalId());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("error occured trying to retrieve multiple lookup results", e);
             throw new RuntimeException("error occured trying to retrieve multiple lookup results");
         }
@@ -132,10 +129,10 @@ public class BalanceInquiryLookupDisplayTagSurrogate implements LookupDisplayTag
     }
 
     /**
-     * @see LookupDisplayTagSurrogate#sort(LookupResultsSelectable,int)
-     * 
+     * @see LookupDisplayTagSurrogate#sort(LookupResultsSelectable, int)
+     * <p>
      * KRAD Conversion: Lookupable performs retrieving the data and reverses the data if need to be sorted.
-     * 
+     * <p>
      * Fields are in data dictionary for bo Balance.
      */
     public List<ResultRow> sort(LookupResultsSelectable selectable, int maxRowsPerPage) {
@@ -146,8 +143,7 @@ public class BalanceInquiryLookupDisplayTagSurrogate implements LookupDisplayTag
         List<ResultRow> resultTable = null;
         try {
             resultTable = lookupResultsService.retrieveResultsTable(lookupResultsSequenceNumber, GlobalVariables.getUserSession().getPerson().getPrincipalId());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("error occured trying to retrieve multiple lookup results", e);
             throw new RuntimeException("error occured trying to retrieve multiple lookup results");
         }
@@ -161,8 +157,7 @@ public class BalanceInquiryLookupDisplayTagSurrogate implements LookupDisplayTag
         if (columnToSortOn == columnCurrentlySortedOn) {
             // we're already sorted on the same column that the user clicked on, so we reverse the list
             Collections.reverse(resultTable);
-        }
-        else {
+        } else {
             // sorting on a different column, so we have to sort
 
             // HACK ALERT for findBestValueComparatorForColumn, since there's no central place to know
@@ -173,8 +168,7 @@ public class BalanceInquiryLookupDisplayTagSurrogate implements LookupDisplayTag
         // repersist the list
         try {
             lookupResultsService.persistResultsTable(lookupResultsSequenceNumber, resultTable, GlobalVariables.getUserSession().getPerson().getPrincipalId());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("error occured trying to persist multiple lookup results", e);
             throw new RuntimeException("error occured trying to persist multiple lookup results");
         }
@@ -200,8 +194,7 @@ public class BalanceInquiryLookupDisplayTagSurrogate implements LookupDisplayTag
         try {
             LookupResultsService lookupResultsService = SpringContext.getBean(LookupResultsService.class);
             lookupResultsService.persistSelectedObjectIds(lookupResultsSequenceNumber, compositeObjectIds, GlobalVariables.getUserSession().getPerson().getPrincipalId());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("error occured trying to retrieve selected multiple lookup results", e);
             throw new RuntimeException("error occured trying to retrieve selected multiple lookup results");
         }
@@ -218,8 +211,7 @@ public class BalanceInquiryLookupDisplayTagSurrogate implements LookupDisplayTag
                 LookupResultsService lookupResultsService = SpringContext.getBean(LookupResultsService.class);
                 lookupResultsService.clearPersistedLookupResults(lookupResultsSequenceNumber);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             // not a big deal, continue on and purge w/ a batch job
             LOG.error("error occured trying to clear lookup results seq nbr " + lookupResultsSequenceNumber, e);
         }
@@ -227,9 +219,9 @@ public class BalanceInquiryLookupDisplayTagSurrogate implements LookupDisplayTag
 
     /**
      * @see LookupDisplayTagSurrogate#prepareToExport(LookupResultsSelectable)
-     * 
+     * <p>
      * KRAD Conversion: Lookupable performs retrieving the data.
-     * 
+     * <p>
      * Fields are in data dictionary for bo Balance.
      */
     public List<ResultRow> prepareToExport(LookupResultsSelectable selectable) {
@@ -239,8 +231,7 @@ public class BalanceInquiryLookupDisplayTagSurrogate implements LookupDisplayTag
         try {
             LookupResultsService lookupResultsService = SpringContext.getBean(LookupResultsService.class);
             resultTable = lookupResultsService.retrieveResultsTable(lookupResultsSequenceNumber, GlobalVariables.getUserSession().getPerson().getPrincipalId());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("error occured trying to export multiple lookup results", e);
             throw new RuntimeException("error occured trying to export multiple lookup results");
         }
@@ -250,9 +241,9 @@ public class BalanceInquiryLookupDisplayTagSurrogate implements LookupDisplayTag
 
     /**
      * @see LookupDisplayTagSurrogate#getMaxRowsPerPage(LookupResultsSelectable)
-     * 
+     * <p>
      * KRAD Conversion: Lookupable performs customization of the results.
-     * 
+     * <p>
      * Fields are in data dictionary for bo Balance.
      */
     public List<ResultRow> selectAll(LookupResultsSelectable selectable, int maxRowsPerPage) {
@@ -262,8 +253,7 @@ public class BalanceInquiryLookupDisplayTagSurrogate implements LookupDisplayTag
         try {
             LookupResultsService lookupResultsService = SpringContext.getBean(LookupResultsService.class);
             resultTable = lookupResultsService.retrieveResultsTable(lookupResultsSequenceNumber, GlobalVariables.getUserSession().getPerson().getPrincipalId());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("error occured trying to export multiple lookup results", e);
             throw new RuntimeException("error occured trying to export multiple lookup results");
         }
@@ -283,9 +273,9 @@ public class BalanceInquiryLookupDisplayTagSurrogate implements LookupDisplayTag
 
     /**
      * @see LookupDisplayTagSurrogate#getMaxRowsPerPage(LookupResultsSelectable)
-     * 
+     * <p>
      * KRAD Conversion: Lookupable performs customization of the results.
-     * 
+     * <p>
      * Fields are in data dictionary for bo Balance.
      */
     public List<ResultRow> unselectAll(LookupResultsSelectable selectable, int maxRowsPerPage) {
@@ -295,8 +285,7 @@ public class BalanceInquiryLookupDisplayTagSurrogate implements LookupDisplayTag
         try {
             LookupResultsService lookupResultsService = SpringContext.getBean(LookupResultsService.class);
             resultTable = lookupResultsService.retrieveResultsTable(lookupResultsSequenceNumber, GlobalVariables.getUserSession().getPerson().getPrincipalId());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("error occured trying to export multiple lookup results", e);
             throw new RuntimeException("error occured trying to export multiple lookup results");
         }

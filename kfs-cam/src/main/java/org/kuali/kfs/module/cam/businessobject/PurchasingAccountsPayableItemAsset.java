@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  * 
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,6 +18,22 @@
  */
 package org.kuali.kfs.module.cam.businessobject;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.kuali.kfs.integration.purap.ItemCapitalAsset;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.UrlFactory;
+import org.kuali.kfs.module.cam.CamsConstants;
+import org.kuali.kfs.module.cam.document.service.PurApLineService;
+import org.kuali.kfs.module.cam.CamsPropertyConstants;
+import org.kuali.kfs.module.purap.businessobject.PurchaseOrderItemCapitalAsset;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -26,28 +42,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.kuali.kfs.integration.purap.ItemCapitalAsset;
-import org.kuali.kfs.module.cab.CabConstants;
-import org.kuali.kfs.module.cab.CabPropertyConstants;
-import org.kuali.kfs.module.cab.document.service.PurApLineService;
-import org.kuali.kfs.module.cam.CamsPropertyConstants;
-import org.kuali.kfs.module.cam.businessobject.AssetGlobalDetail;
-import org.kuali.kfs.module.cam.businessobject.AssetPaymentAssetDetail;
-import org.kuali.kfs.module.purap.businessobject.PurchaseOrderItemCapitalAsset;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.util.ObjectUtils;
-import org.kuali.rice.krad.util.UrlFactory;
-
-/**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
- */
 public class PurchasingAccountsPayableItemAsset extends PersistableBusinessObjectBase implements Comparable<PurchasingAccountsPayableItemAsset> {
     private static final Logger LOG = Logger.getLogger(PurchasingAccountsPayableItemAsset.class);
 
@@ -124,6 +118,7 @@ public class PurchasingAccountsPayableItemAsset extends PersistableBusinessObjec
 
     /**
      * Gets the lockingInformation attribute.
+     *
      * @return Returns the lockingInformation.
      */
     public String getLockingInformation() {
@@ -132,6 +127,7 @@ public class PurchasingAccountsPayableItemAsset extends PersistableBusinessObjec
 
     /**
      * Sets the lockingInformation attribute value.
+     *
      * @param lockingInformation The lockingInformation to set.
      */
     public void setLockingInformation(String lockingInformation) {
@@ -503,8 +499,8 @@ public class PurchasingAccountsPayableItemAsset extends PersistableBusinessObjec
      * @return Returns the active.
      */
     public boolean isActive() {
-        return CabConstants.ActivityStatusCode.NEW.equalsIgnoreCase(this.getActivityStatusCode()) ||
-                CabConstants.ActivityStatusCode.MODIFIED.equalsIgnoreCase(this.getActivityStatusCode());
+        return CamsConstants.ActivityStatusCode.NEW.equalsIgnoreCase(this.getActivityStatusCode()) ||
+            CamsConstants.ActivityStatusCode.MODIFIED.equalsIgnoreCase(this.getActivityStatusCode());
     }
 
     /**
@@ -629,8 +625,8 @@ public class PurchasingAccountsPayableItemAsset extends PersistableBusinessObjec
                 Properties parameters = new Properties();
                 parameters.put(KFSConstants.DISPATCH_REQUEST_PARAMETER, KFSConstants.START_METHOD);
                 parameters.put(KFSConstants.BUSINESS_OBJECT_CLASS_ATTRIBUTE, Pretag.class.getName());
-                parameters.put(CabPropertyConstants.Pretag.PURCHASE_ORDER_NUMBER, purchaseOrderIdentifier.toString());
-                parameters.put(CabPropertyConstants.Pretag.ITEM_LINE_NUMBER, this.getItemLineNumber().toString());
+                parameters.put(CamsPropertyConstants.Pretag.PURCHASE_ORDER_NUMBER, purchaseOrderIdentifier.toString());
+                parameters.put(CamsPropertyConstants.Pretag.ITEM_LINE_NUMBER, this.getItemLineNumber().toString());
 
                 this.preTagInquiryUrl = UrlFactory.parameterizeUrl(baseUrl, parameters);
 
@@ -641,7 +637,7 @@ public class PurchasingAccountsPayableItemAsset extends PersistableBusinessObjec
     }
 
     /**
-     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     * @see Comparable#compareTo(Object)
      */
     @Override
     public int compareTo(PurchasingAccountsPayableItemAsset o) {
@@ -649,8 +645,7 @@ public class PurchasingAccountsPayableItemAsset extends PersistableBusinessObjec
         boolean o2ItemTypeBelowTheLine = o.isAdditionalChargeNonTradeInIndicator() || o.isTradeInAllowance();
         if (o1ItemTypeBelowTheLine && !o2ItemTypeBelowTheLine) {
             return 1;
-        }
-        else if (o2ItemTypeBelowTheLine && !o1ItemTypeBelowTheLine) {
+        } else if (o2ItemTypeBelowTheLine && !o1ItemTypeBelowTheLine) {
             return -1;
         }
         return 0;
@@ -664,12 +659,11 @@ public class PurchasingAccountsPayableItemAsset extends PersistableBusinessObjec
     public List<Long> getApprovedAssetNumbers() {
         if (this.approvedAssetNumbers != null && !this.approvedAssetNumbers.isEmpty()) {
             return this.approvedAssetNumbers;
-        }
-        else {
+        } else {
             this.approvedAssetNumbers = new ArrayList<Long>();
             if (!StringUtils.isEmpty(this.getCapitalAssetManagementDocumentNumber())) {
                 Map<String, String> fieldValues = new HashMap<String, String>();
-                if (CabConstants.ActivityStatusCode.PROCESSED_IN_CAMS.equalsIgnoreCase(this.getActivityStatusCode())) {
+                if (CamsConstants.ActivityStatusCode.PROCESSED_IN_CAMS.equalsIgnoreCase(this.getActivityStatusCode())) {
                     // get asset number from asset global add doc
                     fieldValues.put(CamsPropertyConstants.AssetGlobalDetail.DOCUMENT_NUMBER, this.getCapitalAssetManagementDocumentNumber());
                     Collection<AssetGlobalDetail> assetGlobalDetails = SpringContext.getBean(BusinessObjectService.class).findMatching(AssetGlobalDetail.class, fieldValues);
@@ -706,6 +700,7 @@ public class PurchasingAccountsPayableItemAsset extends PersistableBusinessObjec
 
     /**
      * Gets the paymentRequestIdentifier attribute.
+     *
      * @return Returns the paymentRequestIdentifier.
      */
     public Integer getPaymentRequestIdentifier() {
@@ -714,6 +709,7 @@ public class PurchasingAccountsPayableItemAsset extends PersistableBusinessObjec
 
     /**
      * Sets the paymentRequestIdentifier attribute value.
+     *
      * @param paymentRequestIdentifier The paymentRequestIdentifier to set.
      */
     public void setPaymentRequestIdentifier(Integer paymentRequestIdentifier) {

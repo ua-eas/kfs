@@ -1,0 +1,7 @@
+HEADER[~&~	~&~PAYEE_TYP_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~PAYEE_TYP_DESC::VARCHAR~&~	~&~ACH_ELGBL_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'E'~&~	~&~'59DD323FB195B3EFE0404F8189D83BC1'~&~	~&~'1'~&~	~&~'Employee ID'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'F'~&~	~&~'59DD323FB196B3EFE0404F8189D83BC1'~&~	~&~'1'~&~	~&~'Federal Employer Identification Number'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'S'~&~	~&~'59DD323FB194B3EFE0404F8189D83BC1'~&~	~&~'1'~&~	~&~'Social Security Number'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'T'~&~	~&~'695A5E10B3EFA53AE0404F8189D871CC'~&~	~&~'1'~&~	~&~'Entity ID'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'V'~&~	~&~'59DD323FB197B3EFE0404F8189D83BC1'~&~	~&~'1'~&~	~&~'Vendor Number'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'X'~&~	~&~'59DD323FB198B3EFE0404F8189D83BC1'~&~	~&~'1'~&~	~&~'Other'~&~	~&~'N'~&~	~&~]RECORD

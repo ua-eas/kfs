@@ -1,31 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ld.batch.service;
 
-import static org.kuali.kfs.gl.businessobject.OriginEntrySource.LABOR_YEAR_END_BALANCE_FORWARD;
-
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.PersistenceService;
 import org.kuali.kfs.module.ld.businessobject.LaborOriginEntry;
 import org.kuali.kfs.module.ld.businessobject.LedgerBalance;
 import org.kuali.kfs.module.ld.service.LaborOriginEntryGroupService;
@@ -36,8 +31,13 @@ import org.kuali.kfs.sys.ObjectUtil;
 import org.kuali.kfs.sys.TestDataPreparator;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.PersistenceService;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+
+import static org.kuali.kfs.gl.businessobject.OriginEntrySource.LABOR_YEAR_END_BALANCE_FORWARD;
 
 @ConfigureContext
 public class LaborYearEndBalanceForwardServiceTest extends KualiTestBase {
@@ -60,7 +60,7 @@ public class LaborYearEndBalanceForwardServiceTest extends KualiTestBase {
         String propertiesFileName = LaborTestDataPropertyConstants.TEST_DATA_PACKAGE_NAME + "/laborYearEndBalanceForwardService.properties";
 
         properties = TestDataPreparator.loadPropertiesFromClassPath(propertiesFileName);
-        
+
         fieldNames = properties.getProperty("fieldNames");
         transactionFieldNames = properties.getProperty("transactionFieldNames");
         deliminator = properties.getProperty("deliminator");

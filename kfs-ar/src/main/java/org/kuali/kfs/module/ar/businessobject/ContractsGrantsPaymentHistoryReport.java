@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import java.sql.Date;
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.bo.TransientBusinessObjectBase;
+
+import java.sql.Date;
+import java.util.LinkedHashMap;
 
 /**
  * Defines an entry in the Contracts & Grants Invoice Payment History Report.
@@ -38,7 +38,7 @@ public class ContractsGrantsPaymentHistoryReport extends TransientBusinessObject
     private KualiDecimal paymentAmount;
     private String invoiceNumber;
     private KualiDecimal invoiceAmount;
-    private Long awardNumber;
+    private String awardNumber;
     private boolean reversedIndicator;
     private boolean appliedIndicator;
     private Customer customer;
@@ -193,14 +193,13 @@ public class ContractsGrantsPaymentHistoryReport extends TransientBusinessObject
     }
 
 
-
     /**
      * Gets the awardNumber attribute.
      *
      * @return Returns the awardNumber
      */
 
-    public Long getAwardNumber() {
+    public String getAwardNumber() {
         return awardNumber;
     }
 
@@ -209,12 +208,13 @@ public class ContractsGrantsPaymentHistoryReport extends TransientBusinessObject
      *
      * @param awardNumber The awardNumber to set.
      */
-    public void setAwardNumber(Long awardNumber) {
+    public void setAwardNumber(String awardNumber) {
         this.awardNumber = awardNumber;
     }
 
     /**
      * Gets the reversedIndicator attribute.
+     *
      * @return the reversedIndicator
      */
     public boolean isReversedIndicator() {
@@ -223,6 +223,7 @@ public class ContractsGrantsPaymentHistoryReport extends TransientBusinessObject
 
     /**
      * Sets the reversedIndicator attribute value.
+     *
      * @param reversedIndicator the reversedIndicator to set
      */
     public void setReversedIndicator(boolean reversedIndicator) {
@@ -231,6 +232,7 @@ public class ContractsGrantsPaymentHistoryReport extends TransientBusinessObject
 
     /**
      * Gets the appliedIndicator attribute.
+     *
      * @return the appliedIndicator
      */
     public boolean isAppliedIndicator() {
@@ -239,6 +241,7 @@ public class ContractsGrantsPaymentHistoryReport extends TransientBusinessObject
 
     /**
      * Sets the appliedIndicator attribute value.
+     *
      * @param appliedIndicator the appliedIndicator to set
      */
     public void setAppliedIndicator(boolean appliedIndicator) {

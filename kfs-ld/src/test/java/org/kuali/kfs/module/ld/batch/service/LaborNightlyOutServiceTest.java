@@ -1,35 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ld.batch.service;
 
-import java.io.File;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.ld.LaborConstants;
-import org.kuali.kfs.module.ld.batch.service.impl.LaborNightlyOutServiceImpl;
 import org.kuali.kfs.module.ld.businessobject.LaborLedgerPendingEntry;
 import org.kuali.kfs.module.ld.businessobject.LaborOriginEntry;
 import org.kuali.kfs.module.ld.testdata.LaborTestDataPropertyConstants;
@@ -43,9 +36,14 @@ import org.kuali.kfs.sys.TestDataPreparator;
 import org.kuali.kfs.sys.batch.BatchDirectoryHelper;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.krad.bo.DocumentHeader;
-import org.kuali.rice.krad.service.BusinessObjectService;
+
+import java.io.File;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 @ConfigureContext
 public class LaborNightlyOutServiceTest extends KualiTestBase {
@@ -85,7 +83,7 @@ public class LaborNightlyOutServiceTest extends KualiTestBase {
         fieldValues.remove(KFSPropertyConstants.FINANCIAL_DOCUMENT_APPROVED_CODE); // this test isn't expecting the document approved code to be set, so let's simply remove it
         businessObjectService.deleteMatching(LaborLedgerPendingEntry.class, fieldValues);
 
-        batchDirectoryHelper = new BatchDirectoryHelper("ld","originEntry");
+        batchDirectoryHelper = new BatchDirectoryHelper("ld", "originEntry");
         batchDirectoryHelper.createBatchDirectory();
 
         String nightlyOutputFileName = batchDirectoryHelper.getBatchFileDirectoryName() + File.separator + LaborConstants.BatchFileSystem.NIGHTLY_OUT_FILE + GeneralLedgerConstants.BatchFileSystem.EXTENSION;

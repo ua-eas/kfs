@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.integration.ar;
 
-import java.sql.Date;
-import java.util.List;
-
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.sql.Date;
+import java.util.List;
 
 /**
  * Methods needed for Contracts & Grants modules to interact with an Accounts Receivable module to perform Contracts & Grants Billing
@@ -45,7 +45,7 @@ public interface AccountsReceivableModuleBillingService {
      * @param proposalNumber
      * @return
      */
-    public KualiDecimal calculateTotalPaymentsToDateByAward(Long proposalNumber);
+    public KualiDecimal calculateTotalPaymentsToDateByAward(String proposalNumber);
 
     /**
      * This method returns a new instance of the MilestoneSchedule class.
@@ -68,7 +68,7 @@ public interface AccountsReceivableModuleBillingService {
      * @param proposalNumber proposalNumber for the Award use as key to look for MilestoneSchedule
      * @return true if there is an active MilestoneSchedule for this proposalNumber, false otherwise
      */
-    public boolean hasMilestoneSchedule(Long proposalNumber);
+    public boolean hasMilestoneSchedule(String proposalNumber);
 
     /**
      * Checks to see if the award corresponding to the passed in proposalNumber has a
@@ -77,7 +77,7 @@ public interface AccountsReceivableModuleBillingService {
      * @param proposalNumber proposalNumber for the Award use as key to look for PredeterminedBillingSchedule
      * @return true if there is an active PredeterminedBillingSchedule for this proposalNumber, false otherwise
      */
-    public boolean hasPredeterminedBillingSchedule(Long proposalNumber);
+    public boolean hasPredeterminedBillingSchedule(String proposalNumber);
 
     /**
      * Checks to see if the award corresponding to the passed in proposalNumber has active
@@ -86,7 +86,7 @@ public interface AccountsReceivableModuleBillingService {
      * @param proposalNumber proposalNumber for the Award use as key to look for MilestoneSchedule
      * @return true if there is at least one active Milestone for this proposalNumber, false otherwise
      */
-    public boolean hasActiveMilestones(Long proposalNumber);
+    public boolean hasActiveMilestones(String proposalNumber);
 
     /**
      * Checks to see if the award corresponding to the passed in proposalNumber has active
@@ -95,7 +95,7 @@ public interface AccountsReceivableModuleBillingService {
      * @param proposalNumber proposalNumber for the Award use as key to look for PredeterminedBillingSchedule
      * @return true if there is at least one active Bill for this proposalNumber, false otherwise
      */
-    public boolean hasActiveBills(Long proposalNumber);
+    public boolean hasActiveBills(String proposalNumber);
 
     /**
      * Calculate the lastBilledDate for the Award based on it's AwardAccounts

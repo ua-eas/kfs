@@ -1,28 +1,23 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.module.ld.businessobject;
-
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.LinkedHashMap;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
@@ -48,6 +43,11 @@ import org.kuali.rice.kew.api.doctype.DocumentType;
 import org.kuali.rice.kew.doctype.bo.DocumentTypeEBO;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
+
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.LinkedHashMap;
 
 /**
  * Labor business object for LedgerEntry
@@ -1183,15 +1183,16 @@ public class LedgerEntry extends Entry implements LaborLedgerEntry {
 
     /**
      * Gets the financialSystemDocumentTypeCode attribute.
+     *
      * @return Returns the financialSystemDocumentTypeCode.
      */
     @Override
     public DocumentTypeEBO getFinancialSystemDocumentTypeCode() {
-        if ( financialSystemDocumentTypeCode == null || !StringUtils.equals(financialSystemDocumentTypeCode.getName(), financialDocumentTypeCode) ) {
+        if (financialSystemDocumentTypeCode == null || !StringUtils.equals(financialSystemDocumentTypeCode.getName(), financialDocumentTypeCode)) {
             financialSystemDocumentTypeCode = null;
-            if ( StringUtils.isNotBlank(financialDocumentTypeCode) ) {
+            if (StringUtils.isNotBlank(financialDocumentTypeCode)) {
                 DocumentType docType = KewApiServiceLocator.getDocumentTypeService().getDocumentTypeByName(financialDocumentTypeCode);
-                if ( docType != null ) {
+                if (docType != null) {
                     financialSystemDocumentTypeCode = org.kuali.rice.kew.doctype.bo.DocumentType.from(docType);
                 }
             }
@@ -1201,15 +1202,16 @@ public class LedgerEntry extends Entry implements LaborLedgerEntry {
 
     /**
      * Gets the referenceFinancialSystemDocumentTypeCode attribute.
+     *
      * @return Returns the referenceFinancialSystemDocumentTypeCode.
      */
     @Override
     public DocumentTypeEBO getReferenceFinancialSystemDocumentTypeCode() {
-        if ( referenceFinancialSystemDocumentTypeCode == null || !StringUtils.equals(referenceFinancialSystemDocumentTypeCode.getName(), referenceFinancialDocumentTypeCode) ) {
+        if (referenceFinancialSystemDocumentTypeCode == null || !StringUtils.equals(referenceFinancialSystemDocumentTypeCode.getName(), referenceFinancialDocumentTypeCode)) {
             referenceFinancialSystemDocumentTypeCode = null;
-            if ( StringUtils.isNotBlank(referenceFinancialDocumentTypeCode) ) {
+            if (StringUtils.isNotBlank(referenceFinancialDocumentTypeCode)) {
                 DocumentType docType = KewApiServiceLocator.getDocumentTypeService().getDocumentTypeByName(referenceFinancialDocumentTypeCode);
-                if ( docType != null ) {
+                if (docType != null) {
                     referenceFinancialSystemDocumentTypeCode = org.kuali.rice.kew.doctype.bo.DocumentType.from(docType);
                 }
             }
@@ -1431,11 +1433,9 @@ public class LedgerEntry extends Entry implements LaborLedgerEntry {
                 final Class<? extends Person> employeeClass = SpringContext.getBean(PersonService.class).getPersonImplementationClass();
                 try {
                     employee = employeeClass.newInstance();
-                }
-                catch (InstantiationException ie) {
+                } catch (InstantiationException ie) {
                     throw new RuntimeException("Could not instantiate empty Person object", ie);
-                }
-                catch (IllegalAccessException iae) {
+                } catch (IllegalAccessException iae) {
                     throw new RuntimeException("Could not instantiate empty Person object", iae);
                 }
             }
@@ -1445,6 +1445,7 @@ public class LedgerEntry extends Entry implements LaborLedgerEntry {
 
     /**
      * Sets the employee.
+     *
      * @param employee the employee to set
      */
     @Deprecated

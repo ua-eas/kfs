@@ -1,29 +1,37 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.vnd.document;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.maintenance.MaintenanceLock;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.KRADServiceLocator;
+import org.kuali.kfs.krad.service.NoteService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
@@ -37,22 +45,14 @@ import org.kuali.kfs.vnd.businessobject.VendorHeader;
 import org.kuali.kfs.vnd.businessobject.VendorTaxChange;
 import org.kuali.kfs.vnd.document.service.VendorService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.krad.bo.DocumentHeader;
-import org.kuali.rice.krad.bo.Note;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.maintenance.MaintenanceLock;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.service.KRADServiceLocator;
-import org.kuali.rice.krad.service.NoteService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class VendorMaintainableImpl extends FinancialSystemMaintainable {
     protected static final String VENDOR_REQUIRES_APPROVAL_SPLIT_NODE = "RequiresApproval";
@@ -61,7 +61,7 @@ public class VendorMaintainableImpl extends FinancialSystemMaintainable {
     /**
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#setGenerateDefaultValues(boolean)
      */
-	@Override
+    @Override
     public void setGenerateDefaultValues(String docTypeName) {
         super.setGenerateDefaultValues(docTypeName);
 
@@ -90,16 +90,14 @@ public class VendorMaintainableImpl extends FinancialSystemMaintainable {
             // We are overriding the standard with a Vendor-specific document title style.
             if (document.isOldBusinessObjectInDocument()) {
                 documentTitle = "Edit Vendor - ";
-            }
-            else {
+            } else {
                 documentTitle = "New Vendor - ";
             }
 
             try {
                 Person initUser = KimApiServiceLocator.getPersonService().getPerson(document.getDocumentHeader().getWorkflowDocument().getInitiatorPrincipalId());
                 documentTitle += initUser.getCampusCode();
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 throw new RuntimeException("Document Initiator not found " + e.getMessage());
             }
 
@@ -107,8 +105,7 @@ public class VendorMaintainableImpl extends FinancialSystemMaintainable {
 
             if (StringUtils.isNotBlank(newBo.getVendorName())) {
                 documentTitle += " '" + newBo.getVendorName() + "'";
-            }
-            else {
+            } else {
                 if (StringUtils.isNotBlank(newBo.getVendorFirstName())) {
                     documentTitle += " '" + newBo.getVendorFirstName() + " ";
                     if (StringUtils.isBlank(newBo.getVendorLastName())) {
@@ -131,8 +128,7 @@ public class VendorMaintainableImpl extends FinancialSystemMaintainable {
             if (!newBo.isVendorParentIndicator()) {
                 documentTitle += " (D)";
             }
-        }
-        else { // We are using the Kuali default document title.
+        } else { // We are using the Kuali default document title.
             documentTitle = super.getDocumentTitle(document);
         }
         return documentTitle;
@@ -152,8 +148,8 @@ public class VendorMaintainableImpl extends FinancialSystemMaintainable {
                 // We'll only need to do the following if the previousParent is not the same as the current vendorDetail, because
                 // the following lines are for vendor parent indicator changes.
                 if (vendorDetail.getVendorDetailAssignedIdentifier() == null ||
-                        previousParent.getVendorHeaderGeneratedIdentifier().intValue() != vendorDetail.getVendorHeaderGeneratedIdentifier().intValue() ||
-                        previousParent.getVendorDetailAssignedIdentifier().intValue() != vendorDetail.getVendorDetailAssignedIdentifier().intValue()) {
+                    previousParent.getVendorHeaderGeneratedIdentifier().intValue() != vendorDetail.getVendorHeaderGeneratedIdentifier().intValue() ||
+                    previousParent.getVendorDetailAssignedIdentifier().intValue() != vendorDetail.getVendorDetailAssignedIdentifier().intValue()) {
                     previousParent.setVendorParentIndicator(false);
                     addNoteForParentIndicatorChange(vendorDetail, previousParent, header.getDocumentNumber());
                     SpringContext.getBean(BusinessObjectService.class).save(previousParent);
@@ -189,8 +185,8 @@ public class VendorMaintainableImpl extends FinancialSystemMaintainable {
     /**
      * Add a note to the previous parent vendor to denote that parent vendor indicator change had occurred.
      *
-     * @param newVendorDetail The current vendor
-     * @param oldVendorDetail The parent vendor of the current vendor prior to this change.
+     * @param newVendorDetail     The current vendor
+     * @param oldVendorDetail     The parent vendor of the current vendor prior to this change.
      * @param getDocumentNumber() The document number of the document where we're attempting the parent vendor indicator change.
      */
     private void addNoteForParentIndicatorChange(VendorDetail newVendorDetail, VendorDetail oldVendorDetail, String docNumber) {
@@ -203,8 +199,7 @@ public class VendorMaintainableImpl extends FinancialSystemMaintainable {
             newBONote.setNotePostedTimestampToCurrent();
 
             noteService.save(newBONote);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException("Caught Exception While Trying To Add Note to Vendor", e);
         }
 
@@ -218,7 +213,7 @@ public class VendorMaintainableImpl extends FinancialSystemMaintainable {
      * lookup for a sold to vendor.
      *
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#refresh(java.lang.String, java.util.Map,
-     *      org.kuali.rice.kns.document.MaintenanceDocument)
+     * org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
     public void refresh(String refreshCaller, Map fieldValues, MaintenanceDocument document) {
@@ -283,12 +278,12 @@ public class VendorMaintainableImpl extends FinancialSystemMaintainable {
             Document document = SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(getDocumentNumber());
             VendorDetail vndDetail = (VendorDetail) ((MaintenanceDocument) document).getNewMaintainableObject().getBusinessObject();
             if (vndDetail.getVendorHeaderGeneratedIdentifier() == null
-                    || KFSConstants.MAINTENANCE_NEWWITHEXISTING_ACTION.equals(getMaintenanceAction())) {
+                || KFSConstants.MAINTENANCE_NEWWITHEXISTING_ACTION.equals(getMaintenanceAction())) {
                 ((MaintenanceDocument) document).getNewMaintainableObject().setBusinessObject(vendorDetail);
                 SpringContext.getBean(DocumentService.class).saveDocument(document);
             }
         } catch (Exception e) {
-            LOG.error("Vendor doc not saved successfully "+ e.getMessage());
+            LOG.error("Vendor doc not saved successfully " + e.getMessage());
         }
     }
 
@@ -296,7 +291,7 @@ public class VendorMaintainableImpl extends FinancialSystemMaintainable {
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#processAfterEdit()
      */
     @Override
-    public  void processAfterEdit( MaintenanceDocument document, Map<String,String[]> parameters ) {
+    public void processAfterEdit(MaintenanceDocument document, Map<String, String[]> parameters) {
 
         List<Note> notes = new ArrayList<Note>();
         if (document.getOldMaintainableObject().getBusinessObject().getObjectId() != null) {
@@ -313,7 +308,7 @@ public class VendorMaintainableImpl extends FinancialSystemMaintainable {
     /**
      * Checks whether the previous note was an "Add" with the same document number as this one
      *
-     * @param notes List of exisiting notes.
+     * @param notes  List of exisiting notes.
      * @param prefix String to determine if it is a note "Add" or a note "Change"
      */
     private void setVendorCreateAndUpdateNote(List<Note> notes, String prefix) {
@@ -322,7 +317,7 @@ public class VendorMaintainableImpl extends FinancialSystemMaintainable {
         if (prefix.equals(VendorConstants.VendorCreateAndUpdateNotePrefixes.CHANGE)) {
             // Check whether the previous note was an "Add" with the same document number as this one
             if (!notes.isEmpty()) {
-                Note previousNote = notes.get(notes.size() - 1 );
+                Note previousNote = notes.get(notes.size() - 1);
                 if (previousNote.getNoteText().contains(getDocumentNumber())) {
                     shouldAddNote = false;
                 }
@@ -345,8 +340,7 @@ public class VendorMaintainableImpl extends FinancialSystemMaintainable {
 
         try {
             newBoNote = SpringContext.getBean(NoteService.class).createNote(newBoNote, this.getBusinessObject(), GlobalVariables.getUserSession().getPrincipalId());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException("Caught Exception While Trying To Add Note to Vendor", e);
         }
 
@@ -410,8 +404,7 @@ public class VendorMaintainableImpl extends FinancialSystemMaintainable {
         // If this is a new parent, let's set the detail id to 0.
         if (ObjectUtils.isNull(vendorDetail.getVendorHeaderGeneratedIdentifier())) {
             vendorDetail.setVendorDetailAssignedIdentifier(new Integer(0));
-        }
-        else {
+        } else {
             // Try to get the count of all the vendor whose header id is the same as this header id.
             Map criterias = new HashMap();
             criterias.put(VendorPropertyConstants.VENDOR_HEADER_GENERATED_ID, vendorDetail.getVendorHeaderGeneratedIdentifier());
@@ -424,8 +417,7 @@ public class VendorMaintainableImpl extends FinancialSystemMaintainable {
                 if (result > 0) {
                     // increment the detail id by 1
                     count++;
-                }
-                else {
+                } else {
                     // count is a validId, so we'll use count as our vendor detail assigned id
                     validId = true;
                     vendorDetail.setVendorDetailAssignedIdentifier(new Integer(count));
@@ -445,8 +437,7 @@ public class VendorMaintainableImpl extends FinancialSystemMaintainable {
     public List<MaintenanceLock> generateMaintenanceLocks() {
         if (ObjectUtils.isNotNull(((VendorDetail) getBusinessObject()).getVendorDetailAssignedIdentifier())) {
             return super.generateMaintenanceLocks();
-        }
-        else {
+        } else {
             return new ArrayList();
         }
     }
@@ -459,7 +450,7 @@ public class VendorMaintainableImpl extends FinancialSystemMaintainable {
      * @see org.kuali.rice.kns.maintenance.Maintainable#setupNewFromExisting()
      */
     @Override
-    public void setupNewFromExisting( MaintenanceDocument document, Map<String,String[]> parameters ) {
+    public void setupNewFromExisting(MaintenanceDocument document, Map<String, String[]> parameters) {
         super.setupNewFromExisting(document, parameters);
 
         ((VendorDetail) super.getBusinessObject()).setVendorParentIndicator(false);

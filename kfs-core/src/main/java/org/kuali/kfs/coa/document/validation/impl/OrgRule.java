@@ -1,30 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.coa.document.validation.impl;
-
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -33,19 +25,27 @@ import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.Organization;
 import org.kuali.kfs.coa.service.ChartService;
 import org.kuali.kfs.coa.service.OrganizationService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.services.IdentityManagementService;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class implements the business rules specific to the {@link Org} Maintenance Document.
@@ -317,7 +317,7 @@ public class OrgRule extends MaintenanceDocumentRuleBase {
 
         // do not allow the org to be closed while there are active accounts tied
         // to this org
-        if ( checkForChildObjects ) {
+        if (checkForChildObjects) {
             List childAccounts = orgService.getActiveAccountsByOrg(newOrg.getChartOfAccountsCode(), newOrg.getOrganizationCode());
             if (childAccounts.size() > 0) {
 
@@ -325,7 +325,7 @@ public class OrgRule extends MaintenanceDocumentRuleBase {
                 StringBuffer childAccountList = new StringBuffer();
                 int count = 0;
                 String delim = "";
-                for (Iterator iter = childAccounts.iterator(); iter.hasNext();) {
+                for (Iterator iter = childAccounts.iterator(); iter.hasNext(); ) {
                     Account account = (Account) iter.next();
                     childAccountList.append(delim + account.getChartOfAccountsCode() + "-" + account.getAccountNumber());
                     count++;
@@ -353,7 +353,7 @@ public class OrgRule extends MaintenanceDocumentRuleBase {
                 StringBuffer childOrgsList = new StringBuffer();
                 int count = 0;
                 String delim = "";
-                for (Iterator iter = childOrgs.iterator(); iter.hasNext();) {
+                for (Iterator iter = childOrgs.iterator(); iter.hasNext(); ) {
                     Organization org = (Organization) iter.next();
                     childOrgsList.append(delim + org.getChartOfAccountsCode() + "-" + org.getOrganizationCode());
                     count++;
@@ -474,8 +474,7 @@ public class OrgRule extends MaintenanceDocumentRuleBase {
                 if ((newOrg.getReportsToChartOfAccountsCode().equals(newOrg.getChartOfAccountsCode())) && (newOrg.getReportsToOrganizationCode().equals(newOrg.getOrganizationCode()))) {
                     putFieldError("reportsToOrganizationCode", KFSKeyConstants.ERROR_DOCUMENT_ORGMAINT_REPORTING_ORG_CANNOT_BE_SAME_ORG);
                     success = false;
-                }
-                else {
+                } else {
                     // Don't allow a circular reference on Reports to Chart/Org
                     // terminate the search when a top-level org is found
                     lastReportsToChartOfAccountsCode = newOrg.getReportsToChartOfAccountsCode();
@@ -494,15 +493,13 @@ public class OrgRule extends MaintenanceDocumentRuleBase {
                                 putFieldError("reportsToOrganizationCode", KFSKeyConstants.ERROR_DOCUMENT_ORGMAINT_REPORTING_ORG_MUST_EXIST);
                                 success = false;
                             }
-                        }
-                        else {
+                        } else {
                             // on the first iteration, check whether the reports-to organization is active
                             if (loopCount == 1 && !tempOrg.isActive()) {
                                 putFieldError("reportsToOrganizationCode", KFSKeyConstants.ERROR_DOCUMENT_ORGMAINT_REPORTING_ORG_MUST_EXIST);
                                 success = false;
                                 continueSearch = false;
-                            }
-                            else {
+                            } else {
                                 // LOG.info("Found Org = " + lastReportsToChartOfAccountsCode + "/" +
                                 // lastReportsToOrganizationCode);
                                 lastReportsToChartOfAccountsCode = tempOrg.getReportsToChartOfAccountsCode();
@@ -525,8 +522,7 @@ public class OrgRule extends MaintenanceDocumentRuleBase {
 
                     } while (continueSearch == true);
                 } // end else (checking for circular ref)
-            }
-            else { // org must report to self (university level organization)
+            } else { // org must report to self (university level organization)
                 if (!(newOrg.getReportsToChartOfAccountsCode().equals(newOrg.getChartOfAccountsCode()) && newOrg.getReportsToOrganizationCode().equals(newOrg.getOrganizationCode()))) {
                     putFieldError("reportsToOrganizationCode", KFSKeyConstants.ERROR_DOCUMENT_ORGMAINT_REPORTING_ORG_MUST_BE_SAME_ORG);
                     success = false;
@@ -642,16 +638,16 @@ public class OrgRule extends MaintenanceDocumentRuleBase {
      * at the campus chart level when the plant fund attributes are null.
      *
      * @param user
-     * @parm propertyName
      * @param roleQualifiers
      * @return true if belongs to campus chart group else return false.
+     * @parm propertyName
      */
-    protected boolean isCampusChartManagerAuthorized(Person user, String propertyName, Map<String,String> roleQualifiers) {
+    protected boolean isCampusChartManagerAuthorized(Person user, String propertyName, Map<String, String> roleQualifiers) {
         String principalId = user.getPrincipalId();
         String namespaceCode = KFSConstants.ParameterNamespaces.KNS;
         String permissionTemplateName = KimConstants.PermissionTemplateNames.MODIFY_FIELD;
 
-        Map<String,String> permissionDetails = new HashMap<String,String>();
+        Map<String, String> permissionDetails = new HashMap<String, String>();
         permissionDetails.put(KimConstants.AttributeConstants.COMPONENT_NAME, Organization.class.getSimpleName());
         permissionDetails.put(KimConstants.AttributeConstants.PROPERTY_NAME, propertyName);
 
@@ -677,7 +673,7 @@ public class OrgRule extends MaintenanceDocumentRuleBase {
         String namespaceCode = KFSConstants.ParameterNamespaces.KNS;
         String permissionTemplateName = KimConstants.PermissionTemplateNames.MODIFY_FIELD;
 
-        Map<String,String> roleQualifiers = new HashMap<String,String>();
+        Map<String, String> roleQualifiers = new HashMap<String, String>();
 
         if (!isCampusChartManagerAuthorized(user, KFSPropertyConstants.CAMPUS_PLANT_CHART_CODE, roleQualifiers)) {
             LOG.info("User '" + user.getPrincipalName() + "' has no access to the Plant Chart.");

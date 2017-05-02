@@ -1,24 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ld.batch.service.impl;
-
-import java.sql.Date;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.BalanceType;
@@ -35,13 +33,15 @@ import org.kuali.kfs.sys.service.ReportWriterService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
+
 /**
  * This class is used to post a transaction into labor GL entry table
  */
 @Transactional
 public class LaborGLLedgerEntryPoster implements PostTransaction {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(LaborGLLedgerEntryPoster.class);
-    
+
     private LaborGeneralLedgerEntryService laborGeneralLedgerEntryService;
     private LaborAccountingCycleCachingService laborAccountingCycleCachingService;
 
@@ -56,15 +56,15 @@ public class LaborGLLedgerEntryPoster implements PostTransaction {
         laborGeneralLedgerEntry.setTransactionDate(new Date(postDate.getTime()));
 
         BalanceType balanceType = getBalanceType(transaction.getFinancialBalanceTypeCode());
-        if (balanceType.isFinancialOffsetGenerationIndicator()){
+        if (balanceType.isFinancialOffsetGenerationIndicator()) {
             laborGeneralLedgerEntry.setTransactionDebitCreditCode(this.getDebitCreditCode(transaction));
         } else {
             laborGeneralLedgerEntry.setTransactionDebitCreditCode(" ");
         }
         laborGeneralLedgerEntry.setTransactionLedgerEntryAmount(this.getTransactionAmount(transaction));
-        
+
         String encumbranceUpdateCode = this.getEncumbranceUpdateCode(transaction);
-        if(StringUtils.isNotEmpty(encumbranceUpdateCode)) {
+        if (StringUtils.isNotEmpty(encumbranceUpdateCode)) {
             laborGeneralLedgerEntry.setTransactionEncumbranceUpdateCode(encumbranceUpdateCode);
         }
 
@@ -72,17 +72,16 @@ public class LaborGLLedgerEntryPoster implements PostTransaction {
         laborGeneralLedgerEntry.setTransactionLedgerEntrySequenceNumber(sequenceNumber);
         try {
             laborGeneralLedgerEntryService.save(laborGeneralLedgerEntry);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
         return operationType;
     }
-    
+
     protected BalanceType getBalanceType(String balanceTypeCode) {
         return laborAccountingCycleCachingService.getBalanceType(balanceTypeCode);
     }
-    
+
     public void setLaborAccountingCycleCachingService(LaborAccountingCycleCachingService laborAccountingCycleCachingService) {
         this.laborAccountingCycleCachingService = laborAccountingCycleCachingService;
     }
@@ -123,7 +122,7 @@ public class LaborGLLedgerEntryPoster implements PostTransaction {
 
     /**
      * Sets the laborGeneralLedgerEntryService attribute value.
-     * 
+     *
      * @param laborGeneralLedgerEntryService The laborGeneralLedgerEntryService to set.
      */
     public void setLaborGeneralLedgerEntryService(LaborGeneralLedgerEntryService laborGeneralLedgerEntryService) {

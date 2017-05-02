@@ -1,26 +1,25 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.document.service.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.AccountsReceivableDocumentHeader;
 import org.kuali.kfs.module.ar.businessobject.OrganizationOptions;
@@ -30,9 +29,10 @@ import org.kuali.kfs.module.ar.document.service.SystemInformationService;
 import org.kuali.kfs.sys.businessobject.ChartOrgHolder;
 import org.kuali.kfs.sys.service.FinancialSystemUserService;
 import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.util.GlobalVariables;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Transactional
 public class AccountsReceivableDocumentHeaderServiceImpl implements AccountsReceivableDocumentHeaderService {
@@ -44,7 +44,7 @@ public class AccountsReceivableDocumentHeaderServiceImpl implements AccountsRece
 
     /**
      * @see org.kuali.kfs.module.ar.document.service.AccountsReceivableDocumentHeaderService#getNewAccountsReceivableDocumentHeader(java.lang.String,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Override
     public AccountsReceivableDocumentHeader getNewAccountsReceivableDocumentHeader(String chartOfAccountsCode, String organizationCode) {
@@ -69,7 +69,7 @@ public class AccountsReceivableDocumentHeaderServiceImpl implements AccountsRece
         //  If we get here, then we didnt find a matching BillingOrg or ProcessingOrg, so we have
         // no way to retrieve the document processing org.  This should never happen if the authorization
         // is working right, so we're going to puke and die right here.
-        throw new UnsupportedOperationException("Unable to create AR Document Header due to incomplete configuration. Missing or inactive SystemInformation and/or OrganizationOptions for: "+ chartOfAccountsCode +"-"+ organizationCode );
+        throw new UnsupportedOperationException("Unable to create AR Document Header due to incomplete configuration. Missing or inactive SystemInformation and/or OrganizationOptions for: " + chartOfAccountsCode + "-" + organizationCode);
     }
 
     protected OrganizationOptions getOrgOptionsIfExists(String chartOfAccountsCode, String organizationCode) {
@@ -82,6 +82,7 @@ public class AccountsReceivableDocumentHeaderServiceImpl implements AccountsRece
     protected SystemInformation getProcessingOrgIfExists(String chartOfAccountsCode, String organizationCode) {
         return sysInfoService.getByProcessingChartOrgAndFiscalYear(chartOfAccountsCode, organizationCode, universityDateService.getCurrentFiscalYear());
     }
+
     /**
      * @see org.kuali.kfs.module.ar.document.service.AccountsReceivableDocumentHeaderService#getNewAccountsReceivableDocumentHeaderForCurrentUser()
      */

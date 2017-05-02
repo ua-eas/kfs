@@ -1,34 +1,34 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ec.document.web.struts;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.service.DictionaryValidationService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ec.EffortConstants;
 import org.kuali.kfs.module.ec.EffortPropertyConstants;
 import org.kuali.kfs.module.ec.document.EffortCertificationDocument;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kns.service.DictionaryValidationService;
-import org.kuali.rice.krad.util.GlobalVariables;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * To define an action form for effrot certification recreate process
@@ -50,7 +50,7 @@ public class CertificationRecreateForm extends EffortCertificationForm {
 
     /**
      * Gets the importing field values.
-     * 
+     *
      * @return Returns the importing field values.
      */
     protected List<String> getImportingFields() {
@@ -65,7 +65,7 @@ public class CertificationRecreateForm extends EffortCertificationForm {
 
     /**
      * validate the importing field values
-     * 
+     *
      * @return true if the importing field values are valid; otherwsie, add errors into error map and return false
      */
     public boolean validateImportingFieldValues(EffortCertificationDocument document) {
@@ -89,7 +89,7 @@ public class CertificationRecreateForm extends EffortCertificationForm {
 
     /**
      * Gets the emplid attribute.
-     * 
+     *
      * @return Returns the emplid.
      */
     public String getEmplid() {
@@ -98,7 +98,7 @@ public class CertificationRecreateForm extends EffortCertificationForm {
 
     /**
      * Sets the emplid attribute value.
-     * 
+     *
      * @param emplid The emplid to set.
      */
     public void setEmplid(String emplid) {
@@ -107,7 +107,7 @@ public class CertificationRecreateForm extends EffortCertificationForm {
 
     /**
      * Gets the universityFiscalYear attribute.
-     * 
+     *
      * @return Returns the universityFiscalYear.
      */
     public Integer getUniversityFiscalYear() {
@@ -116,7 +116,7 @@ public class CertificationRecreateForm extends EffortCertificationForm {
 
     /**
      * Sets the universityFiscalYear attribute value.
-     * 
+     *
      * @param universityFiscalYear The universityFiscalYear to set.
      */
     public void setUniversityFiscalYear(Integer universityFiscalYear) {
@@ -125,7 +125,7 @@ public class CertificationRecreateForm extends EffortCertificationForm {
 
     /**
      * Gets the effortCertificationReportNumber attribute.
-     * 
+     *
      * @return Returns the effortCertificationReportNumber.
      */
     public String getEffortCertificationReportNumber() {
@@ -134,7 +134,7 @@ public class CertificationRecreateForm extends EffortCertificationForm {
 
     /**
      * Sets the effortCertificationReportNumber attribute value.
-     * 
+     *
      * @param effortCertificationReportNumber The effortCertificationReportNumber to set.
      */
     public void setEffortCertificationReportNumber(String effortCertificationReportNumber) {
@@ -143,7 +143,7 @@ public class CertificationRecreateForm extends EffortCertificationForm {
 
     /**
      * Gets the personName attribute.
-     * 
+     *
      * @return Returns the personName.
      */
     public String getName() {
@@ -152,7 +152,7 @@ public class CertificationRecreateForm extends EffortCertificationForm {
 
     /**
      * Sets the personName attribute value.
-     * 
+     *
      * @param personName The personName to set.
      */
     public void setName(String personName) {

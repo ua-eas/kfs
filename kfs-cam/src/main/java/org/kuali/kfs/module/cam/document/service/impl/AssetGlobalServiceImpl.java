@@ -1,29 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cam.document.service.impl;
-
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -31,8 +24,13 @@ import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.businessobject.OffsetDefinition;
 import org.kuali.kfs.coa.service.ObjectCodeService;
 import org.kuali.kfs.coa.service.OffsetDefinitionService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
+import org.kuali.kfs.module.cam.batch.AssetDepreciationStep;
 import org.kuali.kfs.module.cam.businessobject.Asset;
 import org.kuali.kfs.module.cam.businessobject.AssetAcquisitionType;
 import org.kuali.kfs.module.cam.businessobject.AssetGlobal;
@@ -53,13 +51,15 @@ import org.kuali.kfs.module.cam.util.KualiDecimalUtils;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.kfs.sys.service.impl.KfsParameterConstants.CAPITAL_ASSETS_BATCH;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 public class AssetGlobalServiceImpl implements AssetGlobalService {
 
@@ -72,7 +72,9 @@ public class AssetGlobalServiceImpl implements AssetGlobalService {
                 postable.setFinancialDocumentLineDescription(CamsConstants.AssetGlobal.LINE_DESCRIPTION_PAYMENT);
                 postable.setFinancialObjectCode(assetPaymentDetail.getFinancialObjectCode());
                 postable.setObjectCode(assetPaymentDetail.getObjectCode());
-            };
+            }
+
+            ;
 
         },
         PAYMENT_OFFSET {
@@ -82,7 +84,9 @@ public class AssetGlobalServiceImpl implements AssetGlobalService {
                 postable.setFinancialDocumentLineDescription(CamsConstants.AssetGlobal.LINE_DESCRIPTION_PAYMENT_OFFSET);
                 postable.setFinancialObjectCode(acquisitionType.getIncomeAssetObjectCode());
                 postable.setObjectCode(SpringContext.getBean(ObjectCodeService.class).getByPrimaryId(assetPaymentDetail.getPostingYear(), assetPaymentDetail.getChartOfAccountsCode(), acquisitionType.getIncomeAssetObjectCode()));
-            };
+            }
+
+            ;
 
         };
 
@@ -106,8 +110,8 @@ public class AssetGlobalServiceImpl implements AssetGlobalService {
      * Creates an instance of AssetGlpeSourceDetail depending on the source flag
      *
      * @param universityDateService University Date Service
-     * @param assetPayment Payment record for which postable is created
-     * @param isSource Indicates if postable is for source organization
+     * @param assetPayment          Payment record for which postable is created
+     * @param isSource              Indicates if postable is for source organization
      * @return GL Postable source detail
      */
     protected AssetGlpeSourceDetail createAssetGlpePostable(AssetGlobal document, AssetPaymentDetail assetPaymentDetail, AmountCategory amountCategory) {
@@ -218,8 +222,8 @@ public class AssetGlobalServiceImpl implements AssetGlobalService {
     }
 
     protected boolean isPaymentFinancialObjectActive(AssetPaymentDetail assetPayment) {
-        ObjectCode financialObjectCode = objectCodeService.getByPrimaryIdForCurrentYear(assetPayment.getChartOfAccountsCode(),assetPayment.getFinancialObjectCode());
-        if ( financialObjectCode != null ) {
+        ObjectCode financialObjectCode = objectCodeService.getByPrimaryIdForCurrentYear(assetPayment.getChartOfAccountsCode(), assetPayment.getFinancialObjectCode());
+        if (financialObjectCode != null) {
             return financialObjectCode.isActive();
         }
         return false;
@@ -322,8 +326,7 @@ public class AssetGlobalServiceImpl implements AssetGlobalService {
         for (AssetPayment assetPayment : separateSourceCapitalAsset.getAssetPayments()) {
             if (!this.isAssetSeparateByPayment(assetGlobal)) {
                 sourcePayments.add(assetPayment);
-            }
-            else if (assetPayment.getPaymentSequenceNumber().equals(assetGlobal.getSeparateSourcePaymentSequenceNumber())) {
+            } else if (assetPayment.getPaymentSequenceNumber().equals(assetGlobal.getSeparateSourcePaymentSequenceNumber())) {
                 // If this is separate by payment, then only add the payment that we are interested in
                 sourcePayments.add(assetPayment);
                 break;
@@ -337,10 +340,17 @@ public class AssetGlobalServiceImpl implements AssetGlobalService {
         }
         // adjust source asset amounts
         KualiDecimalUtils kualiDecimalUtils = new KualiDecimalUtils();
-        double separateRatio = 1 - (assetGlobal.getSeparateSourceTotalAmount().doubleValue() / assetGlobal.getSeparateSourceCapitalAsset().getTotalCostAmount().doubleValue());
-        separateSourceCapitalAsset.setSalvageAmount(kualiDecimalUtils.safeMultiply(assetGlobal.getSeparateSourceCapitalAsset().getSalvageAmount(), separateRatio));
-        separateSourceCapitalAsset.setReplacementAmount(kualiDecimalUtils.safeMultiply(assetGlobal.getSeparateSourceCapitalAsset().getReplacementAmount(), separateRatio));
-        separateSourceCapitalAsset.setFabricationEstimatedTotalAmount(kualiDecimalUtils.safeMultiply(assetGlobal.getSeparateSourceCapitalAsset().getFabricationEstimatedTotalAmount(), separateRatio));
+        KualiDecimal divisor = assetGlobal.getSeparateSourceCapitalAsset().getTotalCostAmount();
+        if (divisor.isZero()) {
+            separateSourceCapitalAsset.setSalvageAmount(KualiDecimal.ZERO);
+            separateSourceCapitalAsset.setReplacementAmount(KualiDecimal.ZERO);
+            separateSourceCapitalAsset.setFabricationEstimatedTotalAmount(KualiDecimal.ZERO);
+        } else {
+            double separateRatio = 1 - (assetGlobal.getSeparateSourceTotalAmount().doubleValue() / divisor.doubleValue());
+            separateSourceCapitalAsset.setSalvageAmount(kualiDecimalUtils.safeMultiply(assetGlobal.getSeparateSourceCapitalAsset().getSalvageAmount(), separateRatio));
+            separateSourceCapitalAsset.setReplacementAmount(kualiDecimalUtils.safeMultiply(assetGlobal.getSeparateSourceCapitalAsset().getReplacementAmount(), separateRatio));
+            separateSourceCapitalAsset.setFabricationEstimatedTotalAmount(kualiDecimalUtils.safeMultiply(assetGlobal.getSeparateSourceCapitalAsset().getFabricationEstimatedTotalAmount(), separateRatio));
+        }
 
         Integer maxSequenceNumber = assetPaymentService.getMaxSequenceNumber(separateSourceCapitalAsset.getCapitalAssetNumber());
         // Add to the save list
@@ -357,9 +367,9 @@ public class AssetGlobalServiceImpl implements AssetGlobalService {
     /**
      * Creates a new Asset appropriate for either create new or separate. This does not create the payments for this asset.
      *
-     * @param assetGlobal containing data for the asset to be created
+     * @param assetGlobal       containing data for the asset to be created
      * @param assetGlobalDetail containing data for the asset to be created
-     * @param separate indicating whether this is a separate and asset or not
+     * @param separate          indicating whether this is a separate and asset or not
      * @return set of assets appropriate for this creation without payments
      */
     protected Asset setupAsset(AssetGlobal assetGlobal, AssetGlobalDetail assetGlobalDetail, boolean separate) {
@@ -383,10 +393,17 @@ public class AssetGlobalServiceImpl implements AssetGlobalService {
 
         // set specific values for new assets if document is Asset Separate
         if (separate) {
-            double separateRatio = assetGlobalDetail.getSeparateSourceAmount().doubleValue() / assetGlobal.getSeparateSourceCapitalAsset().getTotalCostAmount().doubleValue();
-            asset.setSalvageAmount(kualiDecimalUtils.safeMultiply(assetGlobal.getSeparateSourceCapitalAsset().getSalvageAmount(), separateRatio));
-            asset.setReplacementAmount(kualiDecimalUtils.safeMultiply(assetGlobal.getSeparateSourceCapitalAsset().getReplacementAmount(), separateRatio));
-            asset.setFabricationEstimatedTotalAmount(kualiDecimalUtils.safeMultiply(assetGlobal.getSeparateSourceCapitalAsset().getFabricationEstimatedTotalAmount(), separateRatio));
+            KualiDecimal divisor = assetGlobal.getSeparateSourceCapitalAsset().getTotalCostAmount();
+            if (divisor.isZero()) {
+                asset.setSalvageAmount(KualiDecimal.ZERO);
+                asset.setReplacementAmount(KualiDecimal.ZERO);
+                asset.setFabricationEstimatedTotalAmount(KualiDecimal.ZERO);
+            } else {
+                double separateRatio = assetGlobalDetail.getSeparateSourceAmount().doubleValue() / divisor.doubleValue();
+                asset.setSalvageAmount(kualiDecimalUtils.safeMultiply(assetGlobal.getSeparateSourceCapitalAsset().getSalvageAmount(), separateRatio));
+                asset.setReplacementAmount(kualiDecimalUtils.safeMultiply(assetGlobal.getSeparateSourceCapitalAsset().getReplacementAmount(), separateRatio));
+                asset.setFabricationEstimatedTotalAmount(kualiDecimalUtils.safeMultiply(assetGlobal.getSeparateSourceCapitalAsset().getFabricationEstimatedTotalAmount(), separateRatio));
+            }
             Date lastInventoryDate = assetGlobal.getLastInventoryDate();
             if (lastInventoryDate != null) {
                 asset.setLastInventoryDate(new Timestamp(lastInventoryDate.getTime()));
@@ -400,7 +417,7 @@ public class AssetGlobalServiceImpl implements AssetGlobalService {
      * Off campus location appropriately set for this asset.
      *
      * @param assetGlobalDetail containing data for the location
-     * @param asset object that location is set in
+     * @param asset             object that location is set in
      */
     protected void setupAssetLocationOffCampus(AssetGlobalDetail assetGlobalDetail, Asset asset) {
         // We are not checking if it already exists since on a new asset it can't
@@ -426,11 +443,11 @@ public class AssetGlobalServiceImpl implements AssetGlobalService {
     /**
      * Creates a payment for an asset in create new mode.
      *
-     * @param capitalAssetNumber to use for the payment
-     * @param acquisitionTypeCode for logic in determining how dates are to be set
-     * @param assetGlobalDetailsSize for logic in determining depreciation amounts (if asset is depreciable)
+     * @param capitalAssetNumber      to use for the payment
+     * @param acquisitionTypeCode     for logic in determining how dates are to be set
+     * @param assetGlobalDetailsSize  for logic in determining depreciation amounts (if asset is depreciable)
      * @param assetGlobalDetailsIndex for logic in determining depreciation amounts (if asset is depreciable)
-     * @param assetPaymentDetail containing data for the payment
+     * @param assetPaymentDetail      containing data for the payment
      * @return payment for an asset in create new
      */
     protected AssetPayment setupCreateNewAssetPayment(Long capitalAssetNumber, String acquisitionTypeCode, int assetGlobalDetailsSize, int assetGlobalDetailsIndex, AssetPaymentDetail assetPaymentDetail) {
@@ -444,11 +461,10 @@ public class AssetGlobalServiceImpl implements AssetGlobalService {
         assetPayment.setAccountChargeAmount(amountBuckets[assetGlobalDetailsIndex]);
         ObjectCode objectCode = objectCodeService.getByPrimaryIdForCurrentYear(assetPayment.getChartOfAccountsCode(), assetPayment.getFinancialObjectCode());
 
-        boolean isDepreciablePayment = ObjectUtils.isNotNull(assetPaymentDetail.getObjectCode()) && !Arrays.asList(parameterService.getParameterValueAsString(CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.NON_DEPRECIABLE_FEDERALLY_OWNED_OBJECT_SUB_TYPES).split(";")).contains(objectCode.getFinancialObjectSubTypeCode());
+        boolean isDepreciablePayment = ObjectUtils.isNotNull(assetPaymentDetail.getObjectCode()) && !Arrays.asList(parameterService.getParameterValueAsString(AssetDepreciationStep.class, CamsConstants.Parameters.NON_DEPRECIABLE_FEDERALLY_OWNED_OBJECT_SUB_TYPES).split(";")).contains(objectCode.getFinancialObjectSubTypeCode());
         if (isDepreciablePayment) {
             assetPayment.setPrimaryDepreciationBaseAmount(amountBuckets[assetGlobalDetailsIndex]);
-        }
-        else {
+        } else {
             assetPayment.setPrimaryDepreciationBaseAmount(KualiDecimal.ZERO);
         }
 
@@ -465,23 +481,25 @@ public class AssetGlobalServiceImpl implements AssetGlobalService {
     @Override
     public String getNewAcquisitionTypeCode() {
         return parameterService.getParameterValueAsString(AssetGlobal.class,
-                CamsConstants.AssetGlobal.NEW_ACQUISITION_CODE_PARAM);
+            CamsConstants.AssetGlobal.NEW_ACQUISITION_CODE_PARAM);
     }
+
     /**
      * @return the parameter value for the capital object acquisition code group
      */
     @Override
     public String getCapitalObjectAcquisitionCodeGroup() {
         return parameterService.getParameterValueAsString(AssetGlobal.class,
-                CamsConstants.AssetGlobal.CAPITAL_OBJECT_ACQUISITION_CODE_PARAM);
+            CamsConstants.AssetGlobal.CAPITAL_OBJECT_ACQUISITION_CODE_PARAM);
     }
+
     /**
      * @return the parameter value for the not new acquisition code group
      */
     @Override
     public String getNonNewAcquisitionCodeGroup() {
         return parameterService.getParameterValueAsString(AssetGlobal.class,
-                CamsConstants.AssetGlobal.NON_NEW_ACQUISITION_GROUP_PARAM);
+            CamsConstants.AssetGlobal.NON_NEW_ACQUISITION_GROUP_PARAM);
     }
 
 

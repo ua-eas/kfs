@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -37,7 +37,7 @@ public class GeneralLedgerTestHelper {
 
     /**
      * Loads a file of String-formatted Origin Entries from the class path
-     * 
+     *
      * @param nameOfOutputOriginEntryFileFromFis the name of the file to load
      * @return a List of origin entries
      * @throws IOException thrown if the file cannot be read
@@ -50,10 +50,10 @@ public class GeneralLedgerTestHelper {
      * This method differs from OriginEntryServiceImpl.loadFlatFile in that it loads a file using a classloader instead of loading a
      * file from an absolute file path. This allows and in fact requires that the file from which the entries will be loaded be
      * checked into the source repository along with this test.
-     * 
+     *
      * @param nameOfOutputOriginEntryFileFromFis the name of the file to load
      * @return a List of origin entries
-     * @throws IOException  thrown if the file cannot be read
+     * @throws IOException thrown if the file cannot be read
      */
     static public List loadOutputOriginEntriesFromClasspath(String nameOfOutputOriginEntryFileFromFis, Date date) throws IOException {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
@@ -79,8 +79,7 @@ public class GeneralLedgerTestHelper {
                 // converts leading 0 characters for amount to spaces
                 if ('0' != lineChars[idx]) {
                     break;
-                }
-                else {
+                } else {
                     lineChars[idx] = ' ';
                 }
             } while (103 > idx++);

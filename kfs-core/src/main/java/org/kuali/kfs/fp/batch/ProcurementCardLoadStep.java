@@ -1,27 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.batch;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.fp.batch.service.ProcurementCardLoadTransactionsService;
@@ -30,6 +25,11 @@ import org.kuali.kfs.sys.batch.BatchInputFileType;
 import org.kuali.kfs.sys.batch.service.BatchInputFileService;
 import org.kuali.kfs.sys.batch.service.WrappingBatchService;
 import org.kuali.kfs.sys.service.ReportWriterService;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * This step will call a service method to load the kuali pcard xml file into the transaction table. Validates the data before the
@@ -48,7 +48,7 @@ public class ProcurementCardLoadStep extends AbstractStep {
 
     /**
      * custom get requiredDirectoryNames step- assign the passed in procurementInputFileType to the batchInputFileType
-     * 
+     *
      * @see org.kuali.kfs.sys.batch.AbstractStep#prepareStepDirectory()
      */
     @Override
@@ -56,7 +56,7 @@ public class ProcurementCardLoadStep extends AbstractStep {
         setBatchInputFileType(procurementCardInputFileType);
         return super.getRequiredDirectoryNames();
     }
-    
+
     /**
      * Controls the procurement card process.
      */
@@ -65,7 +65,7 @@ public class ProcurementCardLoadStep extends AbstractStep {
 
         List<String> fileNamesToLoad = batchInputFileService.listInputFileNamesWithDoneFile(procurementCardInputFileType);
         ((WrappingBatchService) reportWriterService).initialize();
-        
+
         boolean processSuccess = true;
         List<String> processedFiles = new ArrayList();
         for (String inputFileName : fileNamesToLoad) {
@@ -75,7 +75,7 @@ public class ProcurementCardLoadStep extends AbstractStep {
             }
         }
         ((WrappingBatchService) reportWriterService).destroy();
-        
+
         removeDoneFiles(fileNamesToLoad);
 
         return processSuccess;
@@ -115,7 +115,6 @@ public class ProcurementCardLoadStep extends AbstractStep {
     }
 
     /**
-     * 
      * @return
      */
     public ReportWriterService getReportWriterService() {
@@ -123,7 +122,6 @@ public class ProcurementCardLoadStep extends AbstractStep {
     }
 
     /**
-     * 
      * @param reportWriterService
      */
     public void setReportWriterService(ReportWriterService reportWriterService) {

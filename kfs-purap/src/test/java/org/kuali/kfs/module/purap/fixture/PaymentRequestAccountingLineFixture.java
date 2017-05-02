@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -26,13 +26,13 @@ import org.kuali.kfs.sys.fixture.AccountingLineFixture;
 
 public enum PaymentRequestAccountingLineFixture {
     BASIC_PREQ_ACCOUNT_1(PurApAccountingLineFixture.BASIC_ACCOUNT_1, // PurApAccountingLineFixture
-            AccountingLineFixture.LINE2 // AccountingLineFixture
+        AccountingLineFixture.LINE2 // AccountingLineFixture
     ),
     PREQ_APO_ACCOUNT_1(PurApAccountingLineFixture.BASIC_ACCOUNT_1, // PurApAccountingLineFixture
-            AccountingLineFixture.APO_LINE1 // AccountingLineFixture
+        AccountingLineFixture.APO_LINE1 // AccountingLineFixture
     ),
     PREQ_ACCOUNT_FOR_PO_CLOSE_DOC(PurApAccountingLineFixture.BASIC_ACCOUNT_1, // PurApAccountingLineFixture
-            AccountingLineFixture.PURAP_LINE1 // AccountingLineFixture
+        AccountingLineFixture.PURAP_LINE1 // AccountingLineFixture
     ),;
 
     private PurApAccountingLineFixture purApAccountingLineFixture;
@@ -60,7 +60,7 @@ public enum PaymentRequestAccountingLineFixture {
 
     /**
      * This method adds an account to an item
-     * 
+     *
      * @param document
      * @param purApItemFixture
      * @throws IllegalAccessException

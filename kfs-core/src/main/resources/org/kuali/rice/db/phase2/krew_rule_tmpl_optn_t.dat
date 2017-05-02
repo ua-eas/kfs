@@ -1,0 +1,7 @@
+HEADER[~&~	~&~RULE_TMPL_OPTN_ID::VARCHAR~&~	~&~RULE_TMPL_ID::VARCHAR~&~	~&~KEY_CD::VARCHAR~&~	~&~VAL::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~]HEADER
+RECORD[~&~	~&~'2000'~&~	~&~'1016'~&~	~&~'D'~&~	~&~'K'~&~	~&~'1'~&~	~&~]RECORD
+RECORD[~&~	~&~'2001'~&~	~&~'1016'~&~	~&~'A'~&~	~&~'true'~&~	~&~'1'~&~	~&~]RECORD
+RECORD[~&~	~&~'2002'~&~	~&~'1016'~&~	~&~'K'~&~	~&~'true'~&~	~&~'1'~&~	~&~]RECORD
+RECORD[~&~	~&~'2003'~&~	~&~'1016'~&~	~&~'F'~&~	~&~'true'~&~	~&~'1'~&~	~&~]RECORD
+RECORD[~&~	~&~'2004'~&~	~&~'1016'~&~	~&~'C'~&~	~&~'true'~&~	~&~'1'~&~	~&~]RECORD
+RECORD[~&~	~&~'2005'~&~	~&~'1016'~&~	~&~'I'~&~	~&~'some instructions'~&~	~&~'1'~&~	~&~]RECORD

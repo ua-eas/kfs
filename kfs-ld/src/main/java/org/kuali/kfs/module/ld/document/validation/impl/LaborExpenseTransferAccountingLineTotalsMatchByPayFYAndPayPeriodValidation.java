@@ -1,28 +1,25 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ld.document.validation.impl;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ld.LaborKeyConstants;
 import org.kuali.kfs.module.ld.businessobject.ExpenseTransferAccountingLine;
 import org.kuali.kfs.module.ld.document.LaborExpenseTransferDocumentBase;
@@ -30,29 +27,33 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.util.GlobalVariables;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * check to ensure totals of accounting lines in source and target sections match by pay FY + pay period
- * 
+ *
  * @param accountingDocument the given document
  * @return true if the given accounting lines in source and target match by pay fy and pp
  */
 public class LaborExpenseTransferAccountingLineTotalsMatchByPayFYAndPayPeriodValidation extends GenericValidation {
     private Document documentForValidation;
-    
+
     /**
-     * Validates before the document routes 
+     * Validates before the document routes
+     *
      * @see org.kuali.kfs.validation.Validation#validate(java.lang.Object[])
      */
     public boolean validate(AttributedDocumentEvent event) {
         boolean result = true;
-             
+
         Document documentForValidation = getDocumentForValidation();
-        
+
         LaborExpenseTransferDocumentBase expenseTransferDocument = (LaborExpenseTransferDocumentBase) documentForValidation;
-        
+
         List sourceLines = expenseTransferDocument.getSourceAccountingLines();
         List targetLines = expenseTransferDocument.getTargetAccountingLines();
 
@@ -62,13 +63,13 @@ public class LaborExpenseTransferAccountingLineTotalsMatchByPayFYAndPayPeriodVal
             return false;
         }
 
-        return result;       
+        return result;
     }
 
     /**
      * This method calls other methods to check if all source and target accounting lines match between each set by pay fiscal year
      * and pay period, returning true if the totals match, false otherwise.
-     * 
+     *
      * @param sourceLines
      * @param targetLines
      * @return
@@ -89,10 +90,10 @@ public class LaborExpenseTransferAccountingLineTotalsMatchByPayFYAndPayPeriodVal
 
         return isValid;
     }
-      
+
     /**
      * This method sums the totals of each accounting line, making an entry in a map for each unique pay fiscal year and pay period.
-     * 
+     *
      * @param accountingLines
      * @return
      */
@@ -104,7 +105,7 @@ public class LaborExpenseTransferAccountingLineTotalsMatchByPayFYAndPayPeriodVal
         String payFYPeriodKey = null;
 
         // go through source lines adding amounts to appropriate place in map
-        for (Iterator i = accountingLines.iterator(); i.hasNext();) {
+        for (Iterator i = accountingLines.iterator(); i.hasNext(); ) {
             // initialize
             line = (ExpenseTransferAccountingLine) i.next();
             linesAmount = KualiDecimal.ZERO;
@@ -124,10 +125,10 @@ public class LaborExpenseTransferAccountingLineTotalsMatchByPayFYAndPayPeriodVal
 
         return linesMap;
     }
-    
+
     /**
      * This method returns a String that is a concatenation of pay fiscal year and pay period code.
-     * 
+     *
      * @param payFiscalYear
      * @param payPeriodCode
      * @return
@@ -142,13 +143,13 @@ public class LaborExpenseTransferAccountingLineTotalsMatchByPayFYAndPayPeriodVal
         return payFYPeriodKey.toString();
     }
 
-    
+
     /**
      * This method checks that the total amount of labor ledger accounting lines in the document's FROM section is equal to the
      * total amount on the labor ledger accounting lines TO section for each unique combination of pay fiscal year and pay period. A
      * value of true is returned if all amounts for each unique combination between source and target accounting lines match, false
      * otherwise.
-     * 
+     *
      * @param sourceLinesMap
      * @param targetLinesMap
      * @return
@@ -163,7 +164,7 @@ public class LaborExpenseTransferAccountingLineTotalsMatchByPayFYAndPayPeriodVal
 
 
         // Loop through source lines comparing against target lines
-        for (Iterator i = sourceLinesMap.entrySet().iterator(); i.hasNext() && isValid;) {
+        for (Iterator i = sourceLinesMap.entrySet().iterator(); i.hasNext() && isValid; ) {
             // initialize
             entry = (Map.Entry) i.next();
             currentKey = (String) entry.getKey();
@@ -177,8 +178,7 @@ public class LaborExpenseTransferAccountingLineTotalsMatchByPayFYAndPayPeriodVal
                     isValid = false;
                 }
 
-            }
-            else {
+            } else {
                 isValid = false;
             }
         }
@@ -187,7 +187,7 @@ public class LaborExpenseTransferAccountingLineTotalsMatchByPayFYAndPayPeriodVal
          * Now loop through target lines comparing against source lines. This finds missing entries from either direction (source or
          * target)
          */
-        for (Iterator i = targetLinesMap.entrySet().iterator(); i.hasNext() && isValid;) {
+        for (Iterator i = targetLinesMap.entrySet().iterator(); i.hasNext() && isValid; ) {
             // initialize
             entry = (Map.Entry) i.next();
             currentKey = (String) entry.getKey();
@@ -201,8 +201,7 @@ public class LaborExpenseTransferAccountingLineTotalsMatchByPayFYAndPayPeriodVal
                     isValid = false;
                 }
 
-            }
-            else {
+            } else {
                 isValid = false;
             }
         }
@@ -210,7 +209,8 @@ public class LaborExpenseTransferAccountingLineTotalsMatchByPayFYAndPayPeriodVal
     }
 
     /**
-     * Gets the documentForValidation attribute. 
+     * Gets the documentForValidation attribute.
+     *
      * @return Returns the documentForValidation.
      */
     public Document getDocumentForValidation() {
@@ -219,9 +219,10 @@ public class LaborExpenseTransferAccountingLineTotalsMatchByPayFYAndPayPeriodVal
 
     /**
      * Sets the documentForValidation attribute value.
+     *
      * @param documentForValidation The documentForValidation to set.
      */
     public void setDocumentForValidation(Document documentForValidation) {
         this.documentForValidation = documentForValidation;
-    }    
+    }
 }

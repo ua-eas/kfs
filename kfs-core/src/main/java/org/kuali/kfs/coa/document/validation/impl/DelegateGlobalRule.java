@@ -1,44 +1,41 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.coa.document.validation.impl;
 
-import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.DateUtils;
 import org.kuali.kfs.coa.businessobject.AccountDelegateGlobal;
 import org.kuali.kfs.coa.businessobject.AccountDelegateGlobalDetail;
 import org.kuali.kfs.coa.businessobject.AccountGlobalDetail;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.service.FinancialSystemDocumentTypeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.util.List;
 
 /**
  * This class executes specific rules for the {@link DelegateGlobalMaintenanceDocument}
@@ -165,8 +162,7 @@ public class DelegateGlobalRule extends GlobalDocumentRuleBase {
         if (details.size() == 0) {
             putFieldError(KFSConstants.MAINTENANCE_ADD_PREFIX + "accountGlobalDetails.accountNumber", KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_ACCOUNT_NO_ACCOUNTS);
             success = false;
-        }
-        else {
+        } else {
             // check each account
             int index = 0;
             for (AccountGlobalDetail dtl : details) {
@@ -195,7 +191,7 @@ public class DelegateGlobalRule extends GlobalDocumentRuleBase {
         if (StringUtils.isNotBlank(dtl.getAccountNumber()) && StringUtils.isNotBlank(dtl.getChartOfAccountsCode())) {
             dtl.refreshReferenceObject("account");
             if (ObjectUtils.isNull(dtl.getAccount())) {
-                GlobalVariables.getMessageMap().putError("accountNumber", KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_ACCOUNT_INVALID_ACCOUNT, new String[] { dtl.getChartOfAccountsCode(), dtl.getAccountNumber() });
+                GlobalVariables.getMessageMap().putError("accountNumber", KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_ACCOUNT_INVALID_ACCOUNT, new String[]{dtl.getChartOfAccountsCode(), dtl.getAccountNumber()});
             }
         }
         success &= GlobalVariables.getMessageMap().getErrorCount() == originalErrorCount;
@@ -223,8 +219,7 @@ public class DelegateGlobalRule extends GlobalDocumentRuleBase {
         if (newDelegateGlobal.getDelegateGlobals().size() == 0) {
             putFieldError(KFSConstants.MAINTENANCE_ADD_PREFIX + KFSPropertyConstants.DELEGATE_GLOBALS + "." + KFSPropertyConstants.FINANCIAL_DOCUMENT_TYPE_CODE, KFSKeyConstants.ERROR_DOCUMENT_DELEGATE_CHANGE_NO_DELEGATE);
             success = false;
-        }
-        else {
+        } else {
             // check each delegate
             int i = 0;
             final FinancialSystemDocumentTypeService documentService = SpringContext.getBean(FinancialSystemDocumentTypeService.class);
@@ -247,7 +242,7 @@ public class DelegateGlobalRule extends GlobalDocumentRuleBase {
             }
             //KFSCNTRB-1730- check total number doesn't exceed parameter
             String maxAccountDelegatesString = getParameterService().getParameterValueAsString(AccountDelegateGlobal.class, KFSConstants.ChartApcParms.MAXIMUM_ACCOUNT_DELEGATES);
-            if(maxAccountDelegatesString != null && !maxAccountDelegatesString.isEmpty()){
+            if (maxAccountDelegatesString != null && !maxAccountDelegatesString.isEmpty()) {
                 int maxAccountDelegates = Integer.parseInt(maxAccountDelegatesString);
                 int sumAccountDelegates = newDelegateGlobal.getDelegateGlobals().size() * newDelegateGlobal.getAccountGlobalDetails().size();
                 if (sumAccountDelegates > maxAccountDelegates) {
@@ -291,8 +286,7 @@ public class DelegateGlobalRule extends GlobalDocumentRuleBase {
                 if (add) {
                     errorPath = KFSConstants.MAINTENANCE_ADD_PREFIX + DELEGATE_GLOBALS_PREFIX + "." + "approvalFromThisAmount";
                     putFieldError(errorPath, KFSKeyConstants.ERROR_DOCUMENT_ACCTDELEGATEMAINT_FROM_AMOUNT_NONNEGATIVE);
-                }
-                else {
+                } else {
                     errorPath = DELEGATE_GLOBALS_PREFIX + "[" + lineNum + "]." + "approvalFromThisAmount";
                     putFieldError(errorPath, KFSKeyConstants.ERROR_DOCUMENT_ACCTDELEGATEMAINT_FROM_AMOUNT_NONNEGATIVE);
                 }
@@ -322,8 +316,7 @@ public class DelegateGlobalRule extends GlobalDocumentRuleBase {
                     if (add) {
                         errorPath = KFSConstants.MAINTENANCE_ADD_PREFIX + DELEGATE_GLOBALS_PREFIX + "." + "approvalToThisAmount";
                         putFieldError(errorPath, KFSKeyConstants.ERROR_DOCUMENT_ACCTDELEGATEMAINT_TO_AMOUNT_MORE_THAN_FROM_OR_ZERO);
-                    }
-                    else {
+                    } else {
                         errorPath = DELEGATE_GLOBALS_PREFIX + "[" + lineNum + "]." + "approvalToThisAmount";
                         putFieldError(errorPath, KFSKeyConstants.ERROR_DOCUMENT_ACCTDELEGATEMAINT_TO_AMOUNT_MORE_THAN_FROM_OR_ZERO);
                     }
@@ -336,8 +329,7 @@ public class DelegateGlobalRule extends GlobalDocumentRuleBase {
                 if (add) {
                     errorPath = KFSConstants.MAINTENANCE_ADD_PREFIX + DELEGATE_GLOBALS_PREFIX + "." + "approvalToThisAmount";
                     putFieldError(errorPath, KFSKeyConstants.ERROR_DOCUMENT_ACCTDELEGATEMAINT_TO_AMOUNT_MORE_THAN_FROM_OR_ZERO);
-                }
-                else {
+                } else {
                     errorPath = DELEGATE_GLOBALS_PREFIX + "[" + lineNum + "]." + "approvalToThisAmount";
                     putFieldError(errorPath, KFSKeyConstants.ERROR_DOCUMENT_ACCTDELEGATEMAINT_TO_AMOUNT_MORE_THAN_FROM_OR_ZERO);
                 }
@@ -351,13 +343,13 @@ public class DelegateGlobalRule extends GlobalDocumentRuleBase {
      * Validates the document type code for the delegate, to make sure it is a Financial System document type code
      *
      * @param documentTypeCode the document type code to check
-     * @param delegateService a helpful instance of the delegate service, so new ones don't have to be created all the time
+     * @param delegateService  a helpful instance of the delegate service, so new ones don't have to be created all the time
      * @return true if the document type code is valid, false otherwise
      */
     protected boolean checkDelegateDocumentTypeCode(String documentTypeCode, FinancialSystemDocumentTypeService documentService) {
         if (!documentService.isFinancialSystemDocumentType(documentTypeCode)) {
             String errorPath = KFSConstants.MAINTENANCE_ADD_PREFIX + DELEGATE_GLOBALS_PREFIX + "." + KFSPropertyConstants.FINANCIAL_DOCUMENT_TYPE_CODE;
-            putFieldError(errorPath, KFSKeyConstants.ERROR_DOCUMENT_ACCTDELEGATEMAINT_INVALID_DOC_TYPE, new String[] { documentTypeCode, KFSConstants.ROOT_DOCUMENT_TYPE });
+            putFieldError(errorPath, KFSKeyConstants.ERROR_DOCUMENT_ACCTDELEGATEMAINT_INVALID_DOC_TYPE, new String[]{documentTypeCode, KFSConstants.ROOT_DOCUMENT_TYPE});
 
             return false;
         }
@@ -371,9 +363,9 @@ public class DelegateGlobalRule extends GlobalDocumentRuleBase {
      * return Null. It will only process the business rules if there is sufficient data to do so.
      *
      * @param delegateGlobalToTest A delegateGlobal line that you want to test against the list.
-     * @param delegateGlobals A List of delegateGlobal items that is being tested against.
+     * @param delegateGlobals      A List of delegateGlobal items that is being tested against.
      * @return Null if the business rule passes, or an Integer value greater than zero, representing the line that the new line is
-     *         conflicting with
+     * conflicting with
      */
     protected Integer checkPrimaryRoutePerDocType(AccountDelegateGlobalDetail delegateGlobalToTest, List<AccountDelegateGlobalDetail> delegateGlobals, Integer testLineNum) {
 
@@ -398,8 +390,7 @@ public class DelegateGlobalRule extends GlobalDocumentRuleBase {
                 if (docType.equalsIgnoreCase(delegateGlobal.getFinancialDocumentTypeCode())) {
                     if (testLineNum == null) {
                         return new Integer(lineNumber);
-                    }
-                    else if (!(testLineNum.intValue() == lineNumber)) {
+                    } else if (!(testLineNum.intValue() == lineNumber)) {
                         return new Integer(lineNumber);
                     }
                 }
@@ -431,8 +422,7 @@ public class DelegateGlobalRule extends GlobalDocumentRuleBase {
                 if (add) {
                     errorPath = KFSConstants.MAINTENANCE_ADD_PREFIX + DELEGATE_GLOBALS_PREFIX + "." + "financialDocumentTypeCode";
                     putFieldError(errorPath, KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_DELEGATEMAINT_PRIMARY_ROUTE_ALREADY_EXISTS_FOR_DOCTYPE);
-                }
-                else {
+                } else {
                     errorPath = DELEGATE_GLOBALS_PREFIX + "[" + lineNum.toString() + "]." + "financialDocumentTypeCode";
                     putFieldError(errorPath, KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_DELEGATEMAINT_PRIMARY_ROUTE_ALREADY_EXISTS_FOR_DOCTYPE);
                 }
@@ -459,22 +449,19 @@ public class DelegateGlobalRule extends GlobalDocumentRuleBase {
             if (add) {
                 errorPath = KFSConstants.MAINTENANCE_ADD_PREFIX + DELEGATE_GLOBALS_PREFIX + "." + "accountDelegate.principalName";
                 putFieldError(errorPath, KFSKeyConstants.ERROR_DOCUMENT_ACCTDELEGATEMAINT_USER_DOESNT_EXIST);
-            }
-            else {
+            } else {
                 errorPath = DELEGATE_GLOBALS_PREFIX + "[" + lineNum + "]." + "accountDelegate.principalName";
                 putFieldError(errorPath, KFSKeyConstants.ERROR_DOCUMENT_ACCTDELEGATEMAINT_USER_DOESNT_EXIST);
             }
 
             success &= false;
-        }
-        else if (!getDocumentHelperService().getDocumentAuthorizer(document).isAuthorized(document, KFSConstants.PermissionNames.SERVE_AS_FISCAL_OFFICER_DELEGATE.namespace, KFSConstants.PermissionNames.SERVE_AS_FISCAL_OFFICER_DELEGATE.name, accountDelegate.getPrincipalId())) {
+        } else if (!getDocumentHelperService().getDocumentAuthorizer(document).isAuthorized(document, KFSConstants.PermissionNames.SERVE_AS_FISCAL_OFFICER_DELEGATE.namespace, KFSConstants.PermissionNames.SERVE_AS_FISCAL_OFFICER_DELEGATE.name, accountDelegate.getPrincipalId())) {
             if (add) {
                 errorPath = KFSConstants.MAINTENANCE_ADD_PREFIX + DELEGATE_GLOBALS_PREFIX + "." + "accountDelegate.principalName";
-                putFieldError(errorPath, KFSKeyConstants.ERROR_USER_MISSING_PERMISSION, new String[] { accountDelegate.getName(), KFSConstants.PermissionNames.SERVE_AS_FISCAL_OFFICER_DELEGATE.namespace, KFSConstants.PermissionNames.SERVE_AS_FISCAL_OFFICER_DELEGATE.name });
-            }
-            else {
+                putFieldError(errorPath, KFSKeyConstants.ERROR_USER_MISSING_PERMISSION, new String[]{accountDelegate.getName(), KFSConstants.PermissionNames.SERVE_AS_FISCAL_OFFICER_DELEGATE.namespace, KFSConstants.PermissionNames.SERVE_AS_FISCAL_OFFICER_DELEGATE.name});
+            } else {
                 errorPath = DELEGATE_GLOBALS_PREFIX + "[" + lineNum + "]." + "accountDelegate.principalName";
-                putFieldError(errorPath, KFSKeyConstants.ERROR_USER_MISSING_PERMISSION, new String[] { accountDelegate.getName(), KFSConstants.PermissionNames.SERVE_AS_FISCAL_OFFICER_DELEGATE.namespace, KFSConstants.PermissionNames.SERVE_AS_FISCAL_OFFICER_DELEGATE.name });
+                putFieldError(errorPath, KFSKeyConstants.ERROR_USER_MISSING_PERMISSION, new String[]{accountDelegate.getName(), KFSConstants.PermissionNames.SERVE_AS_FISCAL_OFFICER_DELEGATE.namespace, KFSConstants.PermissionNames.SERVE_AS_FISCAL_OFFICER_DELEGATE.name});
             }
 
             success &= false;
@@ -500,7 +487,7 @@ public class DelegateGlobalRule extends GlobalDocumentRuleBase {
      * </ul>
      *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomAddCollectionLineBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument,
-     *      java.lang.String, org.kuali.rice.krad.bo.PersistableBusinessObject)
+     * java.lang.String, org.kuali.rice.krad.bo.PersistableBusinessObject)
      */
     @Override
     public boolean processCustomAddCollectionLineBusinessRules(MaintenanceDocument document, String collectionName, PersistableBusinessObject bo) {
@@ -519,8 +506,7 @@ public class DelegateGlobalRule extends GlobalDocumentRuleBase {
                 success &= false;
             }
             success &= checkAccountDetails(detail);
-        }
-        else if (bo instanceof AccountDelegateGlobalDetail) {
+        } else if (bo instanceof AccountDelegateGlobalDetail) {
             AccountDelegateGlobalDetail detail = (AccountDelegateGlobalDetail) bo;
             detail.refreshNonUpdateableReferences();
             KualiDecimal fromAmount = detail.getApprovalFromThisAmount();
@@ -546,9 +532,9 @@ public class DelegateGlobalRule extends GlobalDocumentRuleBase {
         return success;
     }
 
-    
+
     public ParameterService getParameterService() {
-        if ( parameterService == null ) {
+        if (parameterService == null) {
             parameterService = SpringContext.getBean(ParameterService.class);
         }
         return parameterService;

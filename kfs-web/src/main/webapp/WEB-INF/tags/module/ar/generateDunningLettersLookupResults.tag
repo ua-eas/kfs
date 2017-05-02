@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -20,8 +20,8 @@
 
 <%@ attribute name="resultsList" required="true" type="java.util.List" description="The rows of fields that we'll iterate to display."%>
 
-<c:if test="${empty resultsList && KualiForm.methodToCall != 'start' && KualiForm.methodToCall != 'refresh'}">
-	There were no eligible invoices retrieved.  
+<c:if test="${empty resultsList && KualiForm.methodToCall != 'start' && KualiForm.methodToCall != 'refresh' && KualiForm.methodToCall != 'clearValues'}">
+	<div class="search-message">There were no eligible invoices retrieved.</div>
 </c:if>
 
 <c:if test="${!empty resultsList}">
@@ -33,23 +33,31 @@
 	<input type="hidden" name="${Constants.TableRenderConstants.PREVIOUSLY_SORTED_COLUMN_INDEX_PARAM}" value="${KualiForm.columnToSortIndex}" />
 	${kfunc:registerEditableProperty(KualiForm, Constants.MULTIPLE_VALUE_LOOKUP_PREVIOUSLY_SELECTED_OBJ_IDS_PARAM)}
 	${kfunc:registerEditableProperty(KualiForm, Constants.TableRenderConstants.PREVIOUSLY_SORTED_COLUMN_INDEX_PARAM)}
-	
+
 	<p>
-		<html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_selectall.gif" alt="Select all rows" title="Select all rows"
-			styleClass="tinybutton"
-			property="methodToCall.selectAll.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}.x"
-			value="Select All Rows" />
-		<html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_unselall.gif" alt="Unselect all rows" title="Unselect all rows"
-			styleClass="tinybutton"
-			property="methodToCall.unselectAll.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}.x"
-			value="Unselect All Rows" />
-		<html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_retselected.gif" styleClass="tinybutton"
-			property="methodToCall.prepareToReturnSelectedResults.x" alt="Return selected results" title="Return selected results" />
+        <html:submit
+                alt="Select all rows"
+                title="Select all rows"
+                styleClass="btn btn-default"
+                property="methodToCall.selectAll.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}.x"
+                value="Select All" />
+        <html:submit
+                alt="Unselect all rows"
+                title="Unselect all rows"
+                styleClass="btn btn-default"
+                property="methodToCall.unselectAll.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}.x"
+                value="Unselect All" />
+		<html:submit
+                styleClass="btn btn-default"
+			    property="methodToCall.prepareToReturnSelectedResults.x"
+                alt="Return selected results"
+                title="Return selected results"
+                value="Return Selected"/>
 	</p>
 
 	<c:set var="numOfColumns" value="${fn:length(resultsList[0].columns)}" />
 
-	<table cellpadding="0" class="datatable-100" cellspacing="1" id="row">
+	<table class="datatable-100" cellspacing="1" id="row">
 		<thead>
 			<tr>
 				<c:forEach items="${resultsList[0].columns}" var="column" begin="0" end="${numOfColumns}" varStatus="columnLoopStatus">
@@ -83,15 +91,23 @@
 	</table>
 
 	<p>
-		<html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_selectall.gif" alt="Select all rows" title="Select all rows"
-			styleClass="tinybutton"
-			property="methodToCall.selectAll.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}.x"
-			value="Select All Rows" />
-		<html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_unselall.gif" alt="Unselect all rows" title="Unselect all rows"
-			styleClass="tinybutton"
-			property="methodToCall.unselectAll.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}.x"
-			value="Unselect All Rows" />
-		<html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_retselected.gif" styleClass="tinybutton"
-			property="methodToCall.prepareToReturnSelectedResults.x" alt="Return selected results" title="Return selected results" />
+		<html:submit
+                alt="Select all rows"
+                title="Select all rows"
+			    styleClass="btn btn-default"
+			    property="methodToCall.selectAll.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}.x"
+			    value="Select All" />
+		<html:submit
+                alt="Unselect all rows"
+                title="Unselect all rows"
+			    styleClass="btn btn-default"
+			    property="methodToCall.unselectAll.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}.x"
+			    value="Unselect All" />
+		<html:submit
+                alt="Return selected results"
+                title="Return selected results"
+                styleClass="btn btn-default"
+			    property="methodToCall.prepareToReturnSelectedResults.x"
+                value="Return Selected"/>
 	</p>
 </c:if>

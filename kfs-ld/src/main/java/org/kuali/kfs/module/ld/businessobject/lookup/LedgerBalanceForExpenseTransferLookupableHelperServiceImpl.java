@@ -1,29 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ld.businessobject.lookup;
-
-import java.beans.PropertyDescriptor;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
@@ -31,6 +24,16 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.kuali.kfs.integration.ld.SegmentedBusinessObject;
 import org.kuali.kfs.integration.ld.businessobject.inquiry.AbstractPositionDataDetailsInquirableImpl;
+import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.kns.web.comparator.CellComparatorHelper;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.kns.web.ui.Column;
+import org.kuali.kfs.kns.web.ui.ResultRow;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ld.businessobject.LedgerBalance;
 import org.kuali.kfs.module.ld.businessobject.inquiry.LedgerBalanceForExpenseTransferInquirableImpl;
 import org.kuali.kfs.module.ld.businessobject.inquiry.PositionDataDetailsInquirableImpl;
@@ -39,17 +42,14 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.web.format.BooleanFormatter;
 import org.kuali.rice.core.web.format.Formatter;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kns.document.authorization.BusinessObjectRestrictions;
-import org.kuali.rice.kns.lookup.HtmlData;
-import org.kuali.rice.kns.lookup.HtmlData.AnchorHtmlData;
-import org.kuali.rice.kns.web.comparator.CellComparatorHelper;
-import org.kuali.rice.kns.web.struts.form.LookupForm;
-import org.kuali.rice.kns.web.ui.Column;
-import org.kuali.rice.kns.web.ui.ResultRow;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.beans.PropertyDescriptor;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Service implementation of LedgerBalanceForExpenseTransferLookupableHelperService.
@@ -92,10 +92,8 @@ public abstract class LedgerBalanceForExpenseTransferLookupableHelperServiceImpl
      * @param lookupable
      * @param resultTable
      * @param bounded
-     * @return
-     *
-     * KRAD Conversion: Lookupable performs customization of the search results.
-     *
+     * @return KRAD Conversion: Lookupable performs customization of the search results.
+     * <p>
      * Uses data dictionary for meta data.
      */
     @Override
@@ -105,8 +103,7 @@ public abstract class LedgerBalanceForExpenseTransferLookupableHelperServiceImpl
         // call search method to get results
         if (bounded) {
             displayList = (Collection<BusinessObject>) getSearchResults(lookupForm.getFieldsForLookup());
-        }
-        else {
+        } else {
             displayList = (Collection<BusinessObject>) getSearchResultsUnbounded(lookupForm.getFieldsForLookup());
         }
 
@@ -136,8 +133,7 @@ public abstract class LedgerBalanceForExpenseTransferLookupableHelperServiceImpl
 
                     row.setObjectId(((PersistableBusinessObject) element).getObjectId());
                     resultTable.add(row);
-                }
-                else {
+                } else {
                     Collection<Column> columns = getColumns(element, businessObjectRestrictions);
 
                     ResultRow row = new ResultRow((List<Column>) columns, returnUrl, getActionUrls(element, pkNames, businessObjectRestrictions));
@@ -154,9 +150,9 @@ public abstract class LedgerBalanceForExpenseTransferLookupableHelperServiceImpl
      * @param element
      * @param attributeName
      * @return Column
-     *
+     * <p>
      * KRAD Conversion: Performs customization of the results columns.
-     *
+     * <p>
      * Uses data dictionary to get column properties.
      */
     protected Column setupResultsColumn(BusinessObject element, String attributeName, BusinessObjectRestrictions businessObjectRestrictions) {
@@ -177,12 +173,10 @@ public abstract class LedgerBalanceForExpenseTransferLookupableHelperServiceImpl
             try {
                 formatter = (Formatter) formatterClass.newInstance();
                 col.setFormatter(formatter);
-            }
-            catch (InstantiationException e) {
+            } catch (InstantiationException e) {
                 LOG.error("Unable to get new instance of formatter class: " + formatterClass.getName());
                 throw new RuntimeException("Unable to get new instance of formatter class: " + formatterClass.getName());
-            }
-            catch (IllegalAccessException e) {
+            } catch (IllegalAccessException e) {
                 LOG.error("Unable to get new instance of formatter class: " + formatterClass.getName());
                 throw new RuntimeException("Unable to get new instance of formatter class: " + formatterClass.getName());
             }
@@ -199,8 +193,7 @@ public abstract class LedgerBalanceForExpenseTransferLookupableHelperServiceImpl
             if (propDescriptor != null) {
                 propClass = propDescriptor.getPropertyType();
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException("Cannot access PropertyType for property " + "'" + col.getPropertyName() + "' " + " on an instance of '" + element.getClass().getName() + "'.", e);
         }
 
@@ -213,8 +206,7 @@ public abstract class LedgerBalanceForExpenseTransferLookupableHelperServiceImpl
 
             if (formatter != null) {
                 propValue = (String) formatter.format(prop);
-            }
-            else {
+            } else {
                 propValue = prop.toString();
             }
         }
@@ -239,9 +231,9 @@ public abstract class LedgerBalanceForExpenseTransferLookupableHelperServiceImpl
      *
      * @param bo
      * @return Collection<Column>
-     *
+     * <p>
      * KRAD Conversion: Performs customization of the columns.
-     *
+     * <p>
      * No uses data dictionary.
      */
     protected Collection<Column> getColumns(BusinessObject bo, BusinessObjectRestrictions businessObjectRestrictions) {

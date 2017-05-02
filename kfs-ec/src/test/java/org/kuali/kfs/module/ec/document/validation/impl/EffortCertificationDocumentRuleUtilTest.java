@@ -1,30 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ec.document.validation.impl;
-
-import static org.kuali.kfs.sys.businessobject.AccountingLineOverride.CODE.EXPIRED_ACCOUNT;
-import static org.kuali.kfs.sys.businessobject.AccountingLineOverride.CODE.EXPIRED_ACCOUNT_AND_NON_FRINGE_ACCOUNT_USED;
-import static org.kuali.kfs.sys.businessobject.AccountingLineOverride.CODE.NONE;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationDetail;
@@ -39,9 +31,17 @@ import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Properties;
+
+import static org.kuali.kfs.sys.businessobject.AccountingLineOverride.CODE.EXPIRED_ACCOUNT;
+import static org.kuali.kfs.sys.businessobject.AccountingLineOverride.CODE.EXPIRED_ACCOUNT_AND_NON_FRINGE_ACCOUNT_USED;
+import static org.kuali.kfs.sys.businessobject.AccountingLineOverride.CODE.NONE;
+
 /**
  * unit tests for the methods in EffortCertificationDocumentRuleUtil
- * 
+ *
  * @see org.kuali.kfs.module.ec.document.validation.impl.EffortCertificationDocumentRuleUtil
  */
 
@@ -384,14 +384,14 @@ public class EffortCertificationDocumentRuleUtilTest extends KualiTestBase {
         KualiDecimal originalTotalAmount = document.getTotalOriginalPayrollAmount();
         double limitOfLinePayrollAmountChange = Double.parseDouble(StringUtils.trim(properties.getProperty(testTarget + EffortTestDataPropertyConstants.LIMIT_OF_LINE_PAYROLL_AMOUNT_CHANGE)));
         List<EffortCertificationDetail> details = document.getEffortCertificationDetailLines();
-        
+
         int countOfOverChangedLine = 0;
         for (EffortCertificationDetail detailLine : details) {
-            if(EffortCertificationDocumentRuleUtil.isPayrollAmountOverChanged(detailLine, originalTotalAmount, limitOfLinePayrollAmountChange)) {
+            if (EffortCertificationDocumentRuleUtil.isPayrollAmountOverChanged(detailLine, originalTotalAmount, limitOfLinePayrollAmountChange)) {
                 countOfOverChangedLine++;
             }
         }
-        
+
         assertEquals("All line amounts are overchanged.", details.size(), countOfOverChangedLine);
     }
 
@@ -405,14 +405,14 @@ public class EffortCertificationDocumentRuleUtilTest extends KualiTestBase {
         KualiDecimal originalTotalAmount = document.getTotalOriginalPayrollAmount();
         double limitOfLinePayrollAmountChange = Double.parseDouble(StringUtils.trim(properties.getProperty(testTarget + EffortTestDataPropertyConstants.LIMIT_OF_LINE_PAYROLL_AMOUNT_CHANGE)));
         List<EffortCertificationDetail> details = document.getEffortCertificationDetailLines();
-        
+
         int countOfOverChangedLine = 0;
         for (EffortCertificationDetail detailLine : details) {
-            if(EffortCertificationDocumentRuleUtil.isPayrollAmountOverChanged(detailLine, originalTotalAmount, limitOfLinePayrollAmountChange)) {
+            if (EffortCertificationDocumentRuleUtil.isPayrollAmountOverChanged(detailLine, originalTotalAmount, limitOfLinePayrollAmountChange)) {
                 countOfOverChangedLine++;
             }
         }
-        
+
         assertEquals("There is no line whose amount is overchanged.", 0, countOfOverChangedLine);
     }
 
@@ -515,7 +515,7 @@ public class EffortCertificationDocumentRuleUtilTest extends KualiTestBase {
 
     /**
      * load test data into database before a test case starts
-     * 
+     *
      * @param testTarget the target test case
      */
     private EffortCertificationDocument loadEffortCertificationDocument(String testTarget) throws Exception {
@@ -540,7 +540,7 @@ public class EffortCertificationDocumentRuleUtilTest extends KualiTestBase {
 
     /**
      * build a report defintion object from the given test target
-     * 
+     *
      * @param testTarget the given test target that specifies the test data being used
      * @return a report defintion object
      */
@@ -550,7 +550,7 @@ public class EffortCertificationDocumentRuleUtilTest extends KualiTestBase {
 
     /**
      * build an Effort Certification Document object from the given test target
-     * 
+     *
      * @param testTarget the given test target that specifies the test data being used
      * @return an Effort Certification Document object
      */
@@ -560,7 +560,7 @@ public class EffortCertificationDocumentRuleUtilTest extends KualiTestBase {
 
     /**
      * build a list of detail lines for the specified test target
-     * 
+     *
      * @param testTarget the given test target that specifies the test data being used
      * @return a list of detail lines for the specified test target
      */
@@ -571,7 +571,7 @@ public class EffortCertificationDocumentRuleUtilTest extends KualiTestBase {
 
     /**
      * build a list of expected detail lines for the specified test target
-     * 
+     *
      * @param testTarget the given test target that specifies the test data being used
      * @return a list of expected detail lines for the specified test target
      */
@@ -582,8 +582,8 @@ public class EffortCertificationDocumentRuleUtilTest extends KualiTestBase {
 
     /**
      * build a detail lines for the specified test target
-     * 
-     * @param testTarget the given test target that specifies the test data being used
+     *
+     * @param testTarget   the given test target that specifies the test data being used
      * @param propertyName the name the specified property that contains the data being used to build a detail line
      * @return a detail lines for the specified test target with the given property
      */

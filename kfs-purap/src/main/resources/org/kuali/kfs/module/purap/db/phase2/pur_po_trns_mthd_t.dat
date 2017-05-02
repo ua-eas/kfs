@@ -1,0 +1,5 @@
+HEADER[~&~	~&~PO_TRNS_MTHD_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~PO_TRNS_MTHD_DESC::VARCHAR~&~	~&~DOBJ_MAINT_CD_ACTV_IND::VARCHAR~&~	~&~DISPLAY_TO_USER_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'ELEC'~&~	~&~'6C1578D5-2AC5-9E6F-5F2A-57A808DC79BF'~&~	~&~'2'~&~	~&~'ELECTRONIC'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'FAX'~&~	~&~'4D1BB005-9EA2-EAE2-B5FE-32942EE4FEC6'~&~	~&~'2'~&~	~&~'FAX'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'NOPR'~&~	~&~'73CA9EE5-F125-E94C-A3B3-BD0F981014F4'~&~	~&~'1'~&~	~&~'NO PRINT'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PRIN'~&~	~&~'4FB20242-1236-6533-137B-4F38C26C62E1'~&~	~&~'1'~&~	~&~'PRINT'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD

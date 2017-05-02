@@ -1,27 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document.dataaccess.impl;
-
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
@@ -32,10 +27,14 @@ import org.kuali.kfs.module.purap.document.VendorCreditMemoDocument;
 import org.kuali.kfs.module.purap.document.dataaccess.CreditMemoDao;
 import org.kuali.kfs.module.purap.util.VendorGroupingHelper;
 import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.util.TransactionalServiceUtils;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * OJB Implementation of CreditMemoDao. Provides persistence layer methods for the credit memo document.
@@ -55,27 +54,26 @@ public class CreditMemoDaoOjb extends PlatformAwareDaoBaseOjb implements CreditM
         criteria.addIsNull("extractedTimestamp");
         criteria.addEqualTo("holdIndicator", Boolean.FALSE);
 
-        return (List<VendorCreditMemoDocument>)getPersistenceBrokerTemplate().getCollectionByQuery(new QueryByCriteria(VendorCreditMemoDocument.class, criteria));
+        return (List<VendorCreditMemoDocument>) getPersistenceBrokerTemplate().getCollectionByQuery(new QueryByCriteria(VendorCreditMemoDocument.class, criteria));
     }
-    
+
     /**
      * @see org.kuali.kfs.module.purap.document.dataaccess.CreditMemoDao#getCreditMemosToExtractByVendor(java.lang.String, java.lang.Integer, java.lang.Integer)
      */
-    public Collection<VendorCreditMemoDocument> getCreditMemosToExtractByVendor(String chartCode, VendorGroupingHelper vendor ) {
+    public Collection<VendorCreditMemoDocument> getCreditMemosToExtractByVendor(String chartCode, VendorGroupingHelper vendor) {
         LOG.debug("getCreditMemosToExtractByVendor() started");
 
         Criteria criteria = new Criteria();
-        criteria.addEqualTo( "processingCampusCode", chartCode );
-        criteria.addIsNull( "extractedTimestamp" );
-        criteria.addEqualTo( "holdIndicator", Boolean.FALSE );
-        criteria.addEqualTo( "vendorHeaderGeneratedIdentifier", vendor.getVendorHeaderGeneratedIdentifier() );
-        criteria.addEqualTo( "vendorDetailAssignedIdentifier", vendor.getVendorDetailAssignedIdentifier() );
-        criteria.addEqualTo( "vendorCountryCode", vendor.getVendorCountry() );
-        criteria.addLike( "vendorPostalCode", vendor.getVendorPostalCode() + "%" );
+        criteria.addEqualTo("processingCampusCode", chartCode);
+        criteria.addIsNull("extractedTimestamp");
+        criteria.addEqualTo("holdIndicator", Boolean.FALSE);
+        criteria.addEqualTo("vendorHeaderGeneratedIdentifier", vendor.getVendorHeaderGeneratedIdentifier());
+        criteria.addEqualTo("vendorDetailAssignedIdentifier", vendor.getVendorDetailAssignedIdentifier());
+        criteria.addEqualTo("vendorCountryCode", vendor.getVendorCountry());
+        criteria.addLike("vendorPostalCode", vendor.getVendorPostalCode() + "%");
 
         return getPersistenceBrokerTemplate().getCollectionByQuery(new QueryByCriteria(VendorCreditMemoDocument.class, criteria));
     }
-
 
 
     /**
@@ -96,8 +94,7 @@ public class CreditMemoDaoOjb extends PlatformAwareDaoBaseOjb implements CreditM
         int cmCount = getPersistenceBrokerTemplate().getCount(new QueryByCriteria(VendorCreditMemoDocument.class, criteria));
         if (cmCount > 0) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -121,8 +118,7 @@ public class CreditMemoDaoOjb extends PlatformAwareDaoBaseOjb implements CreditM
         int cmCount = getPersistenceBrokerTemplate().getCount(new QueryByCriteria(VendorCreditMemoDocument.class, criteria));
         if (cmCount > 0) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -138,18 +134,18 @@ public class CreditMemoDaoOjb extends PlatformAwareDaoBaseOjb implements CreditM
 
     /**
      * Retrieves a document number for a credit memo by user defined criteria.
-     * 
+     *
      * @param criteria - holds field and value pairs defined by the calling method
      * @return - document number
      */
     protected String getDocumentNumberOfCreditMemoByCriteria(Criteria criteria) {
         LOG.debug("getDocumentNumberOfCreditMemoByCriteria() started");
-     //   Iterator<Object[]> iter = getDocumentNumbersOfCreditMemoByCriteria(criteria, false);
+        //   Iterator<Object[]> iter = getDocumentNumbersOfCreditMemoByCriteria(criteria, false);
         List<String> returnList = getDocumentNumbersOfCreditMemoByCriteria(criteria, false);
         if (returnList.isEmpty()) {
             return null;
         }
-        
+
         if (returnList.size() > 1) {
             String errorMsg = "Expected single document number for given criteria but multiple (at least 2) were returned";
             LOG.error(errorMsg);
@@ -162,8 +158,8 @@ public class CreditMemoDaoOjb extends PlatformAwareDaoBaseOjb implements CreditM
     /**
      * Retrieves a document number for a credit memo by user defined criteria and sorts the values ascending if orderByAscending
      * parameter is true, descending otherwise.
-     * 
-     * @param criteria - list of criteria to use in the retrieve
+     *
+     * @param criteria         - list of criteria to use in the retrieve
      * @param orderByAscending - boolean indicating results should be sorted ascending, descending otherwise
      * @return - Iterator of document numbers
      */
@@ -172,31 +168,30 @@ public class CreditMemoDaoOjb extends PlatformAwareDaoBaseOjb implements CreditM
         ReportQueryByCriteria rqbc = new ReportQueryByCriteria(VendorCreditMemoDocument.class, criteria);
         if (orderByAscending) {
             rqbc.addOrderByAscending(KFSPropertyConstants.DOCUMENT_NUMBER);
-        }
-        else {
+        } else {
             rqbc.addOrderByDescending(KFSPropertyConstants.DOCUMENT_NUMBER);
         }
-        
+
         List<VendorCreditMemoDocument> vcmds = (List<VendorCreditMemoDocument>) getPersistenceBrokerTemplate().getCollectionByQuery(rqbc);
-        
+
         List<String> returnList = new ArrayList<String>();
-        
+
         for (VendorCreditMemoDocument vcmd : vcmds) {
             returnList.add(vcmd.getDocumentNumber());
         }
         return returnList;
     }
 
-    public List<String> getActiveCreditMemoDocumentNumbersForPurchaseOrder(Integer purchaseOrderId){
+    public List<String> getActiveCreditMemoDocumentNumbersForPurchaseOrder(Integer purchaseOrderId) {
         LOG.debug("getActiveCreditmemoDocumentNumbersForPurchaseOrder() started");
-                
+
         List<String> returnList = new ArrayList<String>();
         Criteria criteria = new Criteria();
-        
+
         criteria.addEqualTo(PurapPropertyConstants.PURCHASE_ORDER_IDENTIFIER, purchaseOrderId);
         //criteria.addIn(PurapPropertyConstants.STATUS_CODE, Arrays.asList(CreditMemoStatuses.STATUSES_POTENTIALLY_ACTIVE));
         QueryByCriteria qbc = new QueryByCriteria(PaymentRequestDocument.class, criteria);
-        
+
         returnList = getDocumentNumbersOfCreditMemoByCriteria(criteria, false);
         return returnList;
     }

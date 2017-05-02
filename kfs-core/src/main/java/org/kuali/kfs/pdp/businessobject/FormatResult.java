@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -22,23 +22,20 @@
  */
 package org.kuali.kfs.pdp.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 import org.kuali.kfs.pdp.PdpConstants;
 import org.kuali.kfs.pdp.PdpPropertyConstants;
 import org.kuali.kfs.pdp.service.PaymentGroupService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.rice.krad.bo.TransientBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 
-/**
- * 
- */
 public class FormatResult extends TransientBusinessObjectBase implements Comparable {
     private Integer procId;
     private boolean pymtAttachment;
@@ -51,7 +48,7 @@ public class FormatResult extends TransientBusinessObjectBase implements Compara
     private int beginDisbursementNbr;
     private int endDisbursementNbr;
     private KualiInteger sortGroup;
-    
+
 
     public FormatResult() {
         super();
@@ -67,7 +64,7 @@ public class FormatResult extends TransientBusinessObjectBase implements Compara
     }
 
     public KualiInteger getSortGroupId() {
-        
+
         return sortGroup;
     }
 
@@ -164,12 +161,10 @@ public class FormatResult extends TransientBusinessObjectBase implements Compara
         if (getDisbursementType() != null) {
             if (PdpConstants.DisbursementTypeCodes.CHECK.equals(getDisbursementType().getCode())) {
                 sb.append("B");
-            }
-            else {
+            } else {
                 sb.append("A");
             }
-        }
-        else {
+        } else {
             sb.append("A");
         }
         sb.append(getSortGroupId());
@@ -201,22 +196,22 @@ public class FormatResult extends TransientBusinessObjectBase implements Compara
         return new ToStringBuilder(this).append("procId", procId).append("sortGroupId", getSortGroupId()).append("cust", cust).toString();
     }
 
-    
+
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
         LinkedHashMap m = new LinkedHashMap();
-        
+
         m.put(PdpPropertyConstants.FormatResult.PROC_ID, this.procId);
-        
+
         return m;
     }
-    
-    public String getSortGroupName(){
+
+    public String getSortGroupName() {
         PaymentGroupService paymentGroupService = SpringContext.getBean(PaymentGroupService.class);
         String sortGroupName = paymentGroupService.getSortGroupName(sortGroup.intValue());
         return sortGroupName;
-     }
-     
-     public void setSortGroupName(){
-         
-     }
+    }
+
+    public void setSortGroupName() {
+
+    }
 }

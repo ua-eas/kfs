@@ -1,22 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cam.document.dataaccess.impl;
+
+import org.kuali.kfs.module.cam.batch.AssetPaymentInfo;
+import org.kuali.kfs.module.cam.document.dataaccess.DepreciationBatchDao;
+import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -26,16 +32,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.kuali.kfs.module.cam.batch.AssetPaymentInfo;
-import org.kuali.kfs.module.cam.document.dataaccess.DepreciationBatchDao;
-import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.springframework.transaction.annotation.Transactional;
-
 @Transactional
 public class MockDepreciationBatchDao implements DepreciationBatchDao {
     private DepreciationBatchDao impl;
-    private List<String> assetPaymentsStr = new ArrayList<String>();
+    private List<String> assetPaymentsStr = new ArrayList<>();
 
     @Override
     public void updateAssetPayments(List<AssetPaymentInfo> assetPayments, Integer fiscalMonth) {
@@ -64,12 +64,6 @@ public class MockDepreciationBatchDao implements DepreciationBatchDao {
     @Override
     public void savePendingGLEntries(List<GeneralLedgerPendingEntry> glPendingEntries) {
         impl.savePendingGLEntries(glPendingEntries);
-
-    }
-
-    @Override
-    public void updateAssetsCreatedInLastFiscalPeriod(Integer fiscalMonth, Integer fiscalYear) {
-        impl.updateAssetsCreatedInLastFiscalPeriod(fiscalMonth, fiscalYear);
 
     }
 
@@ -140,11 +134,6 @@ public class MockDepreciationBatchDao implements DepreciationBatchDao {
     }
 
     @Override
-    public Collection<AssetPaymentInfo> getListOfDepreciableAssetPaymentInfoYearEnd(Integer fiscalYear, Integer fiscalMonth, Calendar depreciationDate, boolean includeRetired) {
-        return impl.getListOfDepreciableAssetPaymentInfoYearEnd(fiscalYear, fiscalMonth, depreciationDate, includeRetired);
-    }
-
-    @Override
     public List<Map<String, Object>> getAssetsByDepreciationConvention(Date lastFiscalYearDate, List<String> movableEquipmentObjectSubTypes, String depreciationConventionCd) {
         // TODO Auto-generated method stub
         return null;
@@ -154,5 +143,17 @@ public class MockDepreciationBatchDao implements DepreciationBatchDao {
     public void updateAssetInServiceAndDepreciationDate(List<String> selectedAssets, Date inServiceDate, Date depreciationDate) {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public Set<Long> getAssetsWithNoDepreciation() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Set<Long> getTransferDocPendingAssets() {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

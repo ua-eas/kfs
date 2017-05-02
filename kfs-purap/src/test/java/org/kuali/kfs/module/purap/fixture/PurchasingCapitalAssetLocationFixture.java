@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -22,22 +22,21 @@ import org.kuali.kfs.integration.purap.CapitalAssetLocation;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 public enum PurchasingCapitalAssetLocationFixture {
-  
-    LOCATION_BASIC ( 
-            null,  //capitalAssetSystemIdentifier
-            new KualiDecimal(1), //itemQuantity
-            "BL", //campusCode
-            false, //offCampusIndicator
-            "HTC", //buildingCode
-            "2", //buildingRoomNumber
-            "123 Hagadorn Rd", //capitalAssetLine1Address
-            "East Lansing", //capitalAssetCityName
-            "MI", //capitalAssetStateCode
-            "48823", //capitalAssetPostalCode
-            "US" //capitalAssetCountryCode
-            ),                       
-            ;
-    
+
+    LOCATION_BASIC(
+        null,  //capitalAssetSystemIdentifier
+        new KualiDecimal(1), //itemQuantity
+        "BL", //campusCode
+        false, //offCampusIndicator
+        "HTC", //buildingCode
+        "2", //buildingRoomNumber
+        "123 Hagadorn Rd", //capitalAssetLine1Address
+        "East Lansing", //capitalAssetCityName
+        "MI", //capitalAssetStateCode
+        "48823", //capitalAssetPostalCode
+        "US" //capitalAssetCountryCode
+    ),;
+
     private Integer capitalAssetSystemIdentifier;
     private KualiDecimal itemQuantity;
     private String campusCode;
@@ -49,8 +48,8 @@ public enum PurchasingCapitalAssetLocationFixture {
     private String capitalAssetStateCode;
     private String capitalAssetPostalCode;
     private String capitalAssetCountryCode;
-    
-    private PurchasingCapitalAssetLocationFixture (Integer capitalAssetSystemIdentifier, KualiDecimal itemQuantity, String campusCode, boolean offCampusIndicator, String buildingCode, String buildingRoomNumber, String capitalAssetLine1Address, String capitalAssetCityName, String capitalAssetStateCode, String capitalAssetPostalCode, String capitalAssetCountryCode) {
+
+    private PurchasingCapitalAssetLocationFixture(Integer capitalAssetSystemIdentifier, KualiDecimal itemQuantity, String campusCode, boolean offCampusIndicator, String buildingCode, String buildingRoomNumber, String capitalAssetLine1Address, String capitalAssetCityName, String capitalAssetStateCode, String capitalAssetPostalCode, String capitalAssetCountryCode) {
         this.capitalAssetSystemIdentifier = capitalAssetSystemIdentifier;
         this.itemQuantity = itemQuantity;
         this.campusCode = campusCode;
@@ -63,16 +62,14 @@ public enum PurchasingCapitalAssetLocationFixture {
         this.capitalAssetPostalCode = capitalAssetPostalCode;
         this.capitalAssetCountryCode = capitalAssetCountryCode;
     }
-    
+
     public CapitalAssetLocation createPurchasingCapitalAssetLocation(Class clazz) {
         CapitalAssetLocation location = null;
         try {
             location = (CapitalAssetLocation) clazz.newInstance();
-        }
-        catch (InstantiationException e) {
+        } catch (InstantiationException e) {
             throw new RuntimeException("location creation failed. class = " + clazz);
-        }
-        catch (IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
             throw new RuntimeException("location creation failed. class = " + clazz);
         }
         location.setCapitalAssetSystemIdentifier(capitalAssetSystemIdentifier);
@@ -86,7 +83,7 @@ public enum PurchasingCapitalAssetLocationFixture {
         location.setCapitalAssetStateCode(capitalAssetStateCode);
         location.setCapitalAssetPostalCode(capitalAssetPostalCode);
         location.setCapitalAssetCountryCode(capitalAssetCountryCode);
-        
+
         return location;
     }
 }

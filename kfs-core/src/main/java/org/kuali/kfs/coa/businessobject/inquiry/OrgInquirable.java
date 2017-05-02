@@ -1,45 +1,45 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.coa.businessobject.inquiry;
 
+import org.kuali.kfs.coa.businessobject.Organization;
+import org.kuali.kfs.coa.identity.OrgReviewRole;
+import org.kuali.kfs.kns.inquiry.KualiInquirableImpl;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.kns.web.ui.Field;
+import org.kuali.kfs.kns.web.ui.Row;
+import org.kuali.kfs.kns.web.ui.Section;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.UrlFactory;
+import org.kuali.kfs.sys.identity.KfsKimAttributes;
+import org.kuali.rice.kim.api.KimConstants;
+import org.kuali.rice.krad.bo.BusinessObject;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import org.kuali.kfs.coa.businessobject.Organization;
-import org.kuali.kfs.coa.identity.OrgReviewRole;
-import org.kuali.kfs.sys.businessobject.inquiry.KfsInquirableImpl;
-import org.kuali.kfs.sys.identity.KfsKimAttributes;
-import org.kuali.rice.kim.api.KimConstants;
-import org.kuali.rice.kns.lookup.HtmlData;
-import org.kuali.rice.kns.lookup.HtmlData.AnchorHtmlData;
-import org.kuali.rice.kns.web.ui.Field;
-import org.kuali.rice.kns.web.ui.Row;
-import org.kuali.rice.kns.web.ui.Section;
-import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.UrlFactory;
-
 /**
  * This class adds in some new sections for {@link Org} inquiries, specifically Org Hierarchy Org Review Hierarchy
  */
-public class OrgInquirable extends KfsInquirableImpl {
+public class OrgInquirable extends KualiInquirableImpl {
 
     /**
      * KRAD Conversion: Inquirable adds new fields to sections and then adds new sections.

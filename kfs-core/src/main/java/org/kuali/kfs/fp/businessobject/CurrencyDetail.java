@@ -1,30 +1,30 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.fp.businessobject;
 
-import java.util.LinkedHashMap;
-
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 /**
  * Represents a breakdown of currency amounts (i.e. $100, $50, $20, etc.)
@@ -550,64 +550,56 @@ public class CurrencyDetail extends PersistableBusinessObjectBase {
         if (detail.financialDocumentHundredDollarAmount != null) {
             if (this.financialDocumentHundredDollarAmount == null) {
                 this.financialDocumentHundredDollarAmount = KualiDecimal.ZERO.add(detail.financialDocumentHundredDollarAmount);
-            }
-            else {
+            } else {
                 this.financialDocumentHundredDollarAmount = this.financialDocumentHundredDollarAmount.add(detail.financialDocumentHundredDollarAmount);
             }
         }
         if (detail.financialDocumentFiftyDollarAmount != null) {
             if (this.financialDocumentFiftyDollarAmount == null) {
                 this.financialDocumentFiftyDollarAmount = KualiDecimal.ZERO.add(detail.financialDocumentFiftyDollarAmount);
-            }
-            else {
+            } else {
                 this.financialDocumentFiftyDollarAmount = this.financialDocumentFiftyDollarAmount.add(detail.financialDocumentFiftyDollarAmount);
             }
         }
         if (detail.financialDocumentTwentyDollarAmount != null) {
             if (this.financialDocumentTwentyDollarAmount == null) {
                 this.financialDocumentTwentyDollarAmount = KualiDecimal.ZERO.add(detail.financialDocumentTwentyDollarAmount);
-            }
-            else {
+            } else {
                 this.financialDocumentTwentyDollarAmount = this.financialDocumentTwentyDollarAmount.add(detail.financialDocumentTwentyDollarAmount);
             }
         }
         if (detail.financialDocumentTenDollarAmount != null) {
             if (this.financialDocumentTenDollarAmount == null) {
                 this.financialDocumentTenDollarAmount = KualiDecimal.ZERO.add(detail.financialDocumentTenDollarAmount);
-            }
-            else {
+            } else {
                 this.financialDocumentTenDollarAmount = this.financialDocumentTenDollarAmount.add(detail.financialDocumentTenDollarAmount);
             }
         }
         if (detail.financialDocumentFiveDollarAmount != null) {
             if (this.financialDocumentFiveDollarAmount == null) {
                 this.financialDocumentFiveDollarAmount = KualiDecimal.ZERO.add(detail.financialDocumentFiveDollarAmount);
-            }
-            else {
+            } else {
                 this.financialDocumentFiveDollarAmount = this.financialDocumentFiveDollarAmount.add(detail.financialDocumentFiveDollarAmount);
             }
         }
         if (detail.financialDocumentTwoDollarAmount != null) {
             if (this.financialDocumentTwoDollarAmount == null) {
                 this.financialDocumentTwoDollarAmount = KualiDecimal.ZERO.add(detail.financialDocumentTwoDollarAmount);
-            }
-            else {
+            } else {
                 this.financialDocumentTwoDollarAmount = this.financialDocumentTwoDollarAmount.add(detail.financialDocumentTwoDollarAmount);
             }
         }
         if (detail.financialDocumentOneDollarAmount != null) {
             if (this.financialDocumentOneDollarAmount == null) {
                 this.financialDocumentOneDollarAmount = KualiDecimal.ZERO.add(detail.financialDocumentOneDollarAmount);
-            }
-            else {
+            } else {
                 this.financialDocumentOneDollarAmount = this.financialDocumentOneDollarAmount.add(detail.financialDocumentOneDollarAmount);
             }
         }
         if (detail.financialDocumentOtherDollarAmount != null) {
             if (this.financialDocumentOtherDollarAmount == null) {
                 this.financialDocumentOtherDollarAmount = KualiDecimal.ZERO.add(detail.financialDocumentOtherDollarAmount);
-            }
-            else {
+            } else {
                 this.financialDocumentOtherDollarAmount = this.financialDocumentOtherDollarAmount.add(detail.financialDocumentOtherDollarAmount);
             }
         }
@@ -622,64 +614,56 @@ public class CurrencyDetail extends PersistableBusinessObjectBase {
         if (detail.financialDocumentHundredDollarAmount != null) {
             if (this.financialDocumentHundredDollarAmount == null) {
                 this.financialDocumentHundredDollarAmount = KualiDecimal.ZERO.subtract(detail.financialDocumentHundredDollarAmount);
-            }
-            else {
+            } else {
                 this.financialDocumentHundredDollarAmount = this.financialDocumentHundredDollarAmount.subtract(detail.financialDocumentHundredDollarAmount);
             }
         }
         if (detail.financialDocumentFiftyDollarAmount != null) {
             if (this.financialDocumentFiftyDollarAmount == null) {
                 this.financialDocumentFiftyDollarAmount = KualiDecimal.ZERO.subtract(detail.financialDocumentFiftyDollarAmount);
-            }
-            else {
+            } else {
                 this.financialDocumentFiftyDollarAmount = this.financialDocumentFiftyDollarAmount.subtract(detail.financialDocumentFiftyDollarAmount);
             }
         }
         if (detail.financialDocumentTwentyDollarAmount != null) {
             if (this.financialDocumentTwentyDollarAmount == null) {
                 this.financialDocumentTwentyDollarAmount = KualiDecimal.ZERO.subtract(detail.financialDocumentTwentyDollarAmount);
-            }
-            else {
+            } else {
                 this.financialDocumentTwentyDollarAmount = this.financialDocumentTwentyDollarAmount.subtract(detail.financialDocumentTwentyDollarAmount);
             }
         }
         if (detail.financialDocumentTenDollarAmount != null) {
             if (this.financialDocumentTenDollarAmount == null) {
                 this.financialDocumentTenDollarAmount = KualiDecimal.ZERO.subtract(detail.financialDocumentTenDollarAmount);
-            }
-            else {
+            } else {
                 this.financialDocumentTenDollarAmount = this.financialDocumentTenDollarAmount.subtract(detail.financialDocumentTenDollarAmount);
             }
         }
         if (detail.financialDocumentFiveDollarAmount != null) {
             if (this.financialDocumentFiveDollarAmount == null) {
                 this.financialDocumentFiveDollarAmount = KualiDecimal.ZERO.subtract(detail.financialDocumentFiveDollarAmount);
-            }
-            else {
+            } else {
                 this.financialDocumentFiveDollarAmount = this.financialDocumentFiveDollarAmount.subtract(detail.financialDocumentFiveDollarAmount);
             }
         }
         if (detail.financialDocumentTwoDollarAmount != null) {
             if (this.financialDocumentTwoDollarAmount == null) {
                 this.financialDocumentTwoDollarAmount = KualiDecimal.ZERO.subtract(detail.financialDocumentTwoDollarAmount);
-            }
-            else {
+            } else {
                 this.financialDocumentTwoDollarAmount = this.financialDocumentTwoDollarAmount.subtract(detail.financialDocumentTwoDollarAmount);
             }
         }
         if (detail.financialDocumentOneDollarAmount != null) {
             if (this.financialDocumentOneDollarAmount == null) {
                 this.financialDocumentOneDollarAmount = KualiDecimal.ZERO.subtract(detail.financialDocumentOneDollarAmount);
-            }
-            else {
+            } else {
                 this.financialDocumentOneDollarAmount = this.financialDocumentOneDollarAmount.subtract(detail.financialDocumentOneDollarAmount);
             }
         }
         if (detail.financialDocumentOtherDollarAmount != null) {
             if (this.financialDocumentOtherDollarAmount == null) {
                 this.financialDocumentOtherDollarAmount = KualiDecimal.ZERO.subtract(detail.financialDocumentOtherDollarAmount);
-            }
-            else {
+            } else {
                 this.financialDocumentOtherDollarAmount = this.financialDocumentOtherDollarAmount.subtract(detail.financialDocumentOtherDollarAmount);
             }
         }
@@ -692,28 +676,29 @@ public class CurrencyDetail extends PersistableBusinessObjectBase {
      */
     public boolean isEmpty() {
         return ((this.financialDocumentHundredDollarAmount == null || this.financialDocumentHundredDollarAmount.equals(KualiDecimal.ZERO)) &&
-                (this.financialDocumentFiftyDollarAmount == null || this.financialDocumentFiftyDollarAmount.equals(KualiDecimal.ZERO)) &&
-                (this.financialDocumentTwentyDollarAmount == null || this.financialDocumentTwentyDollarAmount.equals(KualiDecimal.ZERO)) &&
-                (this.financialDocumentTenDollarAmount == null || this.financialDocumentTenDollarAmount.equals(KualiDecimal.ZERO)) &&
-                (this.financialDocumentFiveDollarAmount == null || this.financialDocumentFiveDollarAmount.equals(KualiDecimal.ZERO)) &&
-                (this.financialDocumentTwoDollarAmount == null || this.financialDocumentTwoDollarAmount.equals(KualiDecimal.ZERO)) &&
-                (this.financialDocumentOneDollarAmount == null || this.financialDocumentOneDollarAmount.equals(KualiDecimal.ZERO)) &&
-                (this.financialDocumentOtherDollarAmount == null || this.financialDocumentOtherDollarAmount.equals(KualiDecimal.ZERO)));
+            (this.financialDocumentFiftyDollarAmount == null || this.financialDocumentFiftyDollarAmount.equals(KualiDecimal.ZERO)) &&
+            (this.financialDocumentTwentyDollarAmount == null || this.financialDocumentTwentyDollarAmount.equals(KualiDecimal.ZERO)) &&
+            (this.financialDocumentTenDollarAmount == null || this.financialDocumentTenDollarAmount.equals(KualiDecimal.ZERO)) &&
+            (this.financialDocumentFiveDollarAmount == null || this.financialDocumentFiveDollarAmount.equals(KualiDecimal.ZERO)) &&
+            (this.financialDocumentTwoDollarAmount == null || this.financialDocumentTwoDollarAmount.equals(KualiDecimal.ZERO)) &&
+            (this.financialDocumentOneDollarAmount == null || this.financialDocumentOneDollarAmount.equals(KualiDecimal.ZERO)) &&
+            (this.financialDocumentOtherDollarAmount == null || this.financialDocumentOtherDollarAmount.equals(KualiDecimal.ZERO)));
     }
 
     /**
      * Checks if this CurrencyDetail contains any negative amount field.
+     *
      * @return true if any amount is negative
      */
     public boolean hasNegativeAmount() {
         return ((financialDocumentHundredDollarAmount != null && financialDocumentHundredDollarAmount.isNegative()) ||
-                (financialDocumentFiftyDollarAmount != null && financialDocumentFiftyDollarAmount.isNegative()) ||
-                (financialDocumentTwentyDollarAmount != null && financialDocumentTwentyDollarAmount.isNegative()) ||
-                (financialDocumentTenDollarAmount != null && financialDocumentTenDollarAmount.isNegative()) ||
-                (financialDocumentFiveDollarAmount != null && financialDocumentFiveDollarAmount.isNegative()) ||
-                (financialDocumentTwoDollarAmount != null && financialDocumentTwoDollarAmount.isNegative()) ||
-                (financialDocumentOneDollarAmount != null && financialDocumentOneDollarAmount.isNegative()) ||
-                (financialDocumentOtherDollarAmount != null && financialDocumentOtherDollarAmount.isNegative()));
+            (financialDocumentFiftyDollarAmount != null && financialDocumentFiftyDollarAmount.isNegative()) ||
+            (financialDocumentTwentyDollarAmount != null && financialDocumentTwentyDollarAmount.isNegative()) ||
+            (financialDocumentTenDollarAmount != null && financialDocumentTenDollarAmount.isNegative()) ||
+            (financialDocumentFiveDollarAmount != null && financialDocumentFiveDollarAmount.isNegative()) ||
+            (financialDocumentTwoDollarAmount != null && financialDocumentTwoDollarAmount.isNegative()) ||
+            (financialDocumentOneDollarAmount != null && financialDocumentOneDollarAmount.isNegative()) ||
+            (financialDocumentOtherDollarAmount != null && financialDocumentOtherDollarAmount.isNegative()));
     }
 
     /**

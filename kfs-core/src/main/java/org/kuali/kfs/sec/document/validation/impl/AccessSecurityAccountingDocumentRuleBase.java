@@ -1,23 +1,24 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sec.document.validation.impl;
 
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sec.SecKeyConstants;
 import org.kuali.kfs.sec.businessobject.AccessSecurityRestrictionInfo;
 import org.kuali.kfs.sec.service.AccessSecurityService;
@@ -29,7 +30,6 @@ import org.kuali.kfs.sys.document.validation.event.AddAccountingLineEvent;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.kfs.sys.document.validation.event.UpdateAccountingLineEvent;
 import org.kuali.kfs.sys.document.validation.impl.AccountingRuleEngineRuleBase;
-import org.kuali.rice.krad.util.GlobalVariables;
 
 
 /**
@@ -58,7 +58,7 @@ public class AccessSecurityAccountingDocumentRuleBase extends AccountingRuleEngi
      * Calls AccessSecurityService to check access edit permissions on accounting line for the current user
      *
      * @param document AccountingDocument containing the line to check
-     * @param line AccountingLine to check access on
+     * @param line     AccountingLine to check access on
      * @return boolean true if user is allowed to edit the accounting line, false if the user is not allowed to
      */
     protected boolean checkEditAccessForAccountingLine(AccountingDocument document, AccountingLine line) {
@@ -74,9 +74,11 @@ public class AccessSecurityAccountingDocumentRuleBase extends AccountingRuleEngi
 
         return editAccessAllowed;
     }
+
     private static AccessSecurityService accessSecurityService;
+
     protected AccessSecurityService getAccessSecurityService() {
-        if ( accessSecurityService == null ) {
+        if (accessSecurityService == null) {
             accessSecurityService = SpringContext.getBean(AccessSecurityService.class);
         }
         return accessSecurityService;

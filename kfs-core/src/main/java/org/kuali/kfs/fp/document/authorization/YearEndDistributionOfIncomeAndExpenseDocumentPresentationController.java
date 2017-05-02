@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -28,8 +28,8 @@ import org.springframework.util.ObjectUtils;
 public class YearEndDistributionOfIncomeAndExpenseDocumentPresentationController extends DistributionOfIncomeAndExpenseDocumentPresentationController {
 
     /**
-      * @see org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentPresentationControllerBase#canErrorCorrect(org.kuali.kfs.sys.document.FinancialSystemTransactionalDocument)
-      */
+     * @see org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentPresentationControllerBase#canErrorCorrect(org.kuali.kfs.sys.document.FinancialSystemTransactionalDocument)
+     */
     @Override
     public boolean canErrorCorrect(FinancialSystemTransactionalDocument document) {
 
@@ -46,7 +46,7 @@ public class YearEndDistributionOfIncomeAndExpenseDocumentPresentationController
         if (result) {
             YearEndPendingEntryService yearEndPendingEntryService = SpringContext.getBean(YearEndPendingEntryService.class);
             Integer previousFiscalYear = yearEndPendingEntryService.getPreviousFiscalYear();
-            if (!ObjectUtils.nullSafeEquals(previousFiscalYear, ((LedgerPostingDocument)document).getPostingYear())) {
+            if (!ObjectUtils.nullSafeEquals(previousFiscalYear, ((LedgerPostingDocument) document).getPostingYear())) {
                 return false;
             }
             boolean isNotElectronicFundsAccount = isNotElectronicFundsAccount(document);

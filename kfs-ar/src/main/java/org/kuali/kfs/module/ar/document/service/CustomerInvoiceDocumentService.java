@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,10 +18,6 @@
  */
 package org.kuali.kfs.module.ar.document.service;
 
-import java.sql.Date;
-import java.util.Collection;
-import java.util.List;
-
 import org.kuali.kfs.module.ar.businessobject.Customer;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
 import org.kuali.kfs.module.ar.businessobject.NonInvoicedDistribution;
@@ -29,6 +25,10 @@ import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
 import org.kuali.kfs.module.ar.report.util.CustomerStatementResultHolder;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.WorkflowDocument;
+
+import java.sql.Date;
+import java.util.Collection;
+import java.util.List;
 
 public interface CustomerInvoiceDocumentService {
 
@@ -348,45 +348,11 @@ public interface CustomerInvoiceDocumentService {
     public void updateReportedInvoiceInfo(CustomerStatementResultHolder data);
 
     /**
-     * get all customer invoice documents that are open and with the given age
-     *
-     * @param charts the selected charts of accounts
-     * @param organizations the selected organization codes
-     * @param invoiceAge the given invoice document age
-     *
-     * @return all customer invoice documents that are open and with the given age
-     */
-    public Collection<CustomerInvoiceDocument> getAllAgingInvoiceDocumentsByBilling(List<String> charts, List<String> organizations, Integer invoiceAge);
-
-    /**
-     * get all customer invoice documents that are open and with the given age
-     *
-     * @param charts the selected charts of accounts
-     * @param organizations the selected organization codes
-     * @param invoiceAge the given invoice document age
-     *
-     * @return all customer invoice documents that are open and with the given age
-     */
-    public Collection<CustomerInvoiceDocument> getAllAgingInvoiceDocumentsByProcessing(List<String> charts, List<String> organizations, Integer invoiceAge);
-
-    /**
-     * get all customer invoice documents that are open and with the given age
-     *
-     * @param charts the selected charts of accounts
-     * @param accounts the selected account numbers
-     * @param invoiceAge the given invoice document age
-     *
-     * @return all customer invoice documents that are open and with the given age
-     */
-    public Collection<CustomerInvoiceDocument> getAllAgingInvoiceDocumentsByAccounts(List<String> charts, List<String> accounts, Integer invoiceAge);
-
-    /**
      * get all customer invoice documents that are open and with the given age and customer types
      *
-     * @param customerTypes the given customer types
-     * @param invoiceAge the given invoice document age
+     * @param customerTypes          the given customer types
+     * @param invoiceAge             the given invoice document age
      * @param invoiceBillingDateFrom the given invoice billing from date
-     *
      * @return all customer invoice documents that are open and with the given age
      */
     public Collection<CustomerInvoiceDocument> getAllAgingInvoiceDocumentsByCustomerTypes(List<String> customerTypes, Integer invoiceAge, Date invoiceDueDateFrom);
@@ -402,6 +368,7 @@ public interface CustomerInvoiceDocumentService {
 
     /**
      * Calculates the total amount of applied payments - either applied via payment application or customer credit memo documents - against the given invoice.
+     *
      * @param invoice the invoice to find a payment amount for
      * @return the applied payment amount
      */

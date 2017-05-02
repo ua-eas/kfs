@@ -1,22 +1,70 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cam.batch.service.impl;
+
+import org.apache.commons.lang.time.DateUtils;
+import org.apache.log4j.Logger;
+import org.kuali.kfs.coreservice.api.parameter.Parameter;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.gl.businessobject.Entry;
+import org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.cam.CamsConstants;
+import org.kuali.kfs.module.cam.CamsPropertyConstants;
+import org.kuali.kfs.module.cam.batch.ExtractProcessLog;
+import org.kuali.kfs.module.cam.batch.PreAssetTaggingStep;
+import org.kuali.kfs.module.cam.batch.dataaccess.ExtractDao;
+import org.kuali.kfs.module.cam.batch.dataaccess.PurchasingAccountsPayableItemAssetDao;
+import org.kuali.kfs.module.cam.batch.service.BatchExtractService;
+import org.kuali.kfs.module.cam.batch.service.ReconciliationService;
+import org.kuali.kfs.module.cam.businessobject.AssetGlobal;
+import org.kuali.kfs.module.cam.businessobject.BatchParameters;
+import org.kuali.kfs.module.cam.businessobject.GeneralLedgerEntry;
+import org.kuali.kfs.module.cam.businessobject.GlAccountLineGroup;
+import org.kuali.kfs.module.cam.businessobject.Pretag;
+import org.kuali.kfs.module.cam.businessobject.PurchasingAccountsPayableActionHistory;
+import org.kuali.kfs.module.cam.businessobject.PurchasingAccountsPayableDocument;
+import org.kuali.kfs.module.cam.businessobject.PurchasingAccountsPayableItemAsset;
+import org.kuali.kfs.module.cam.businessobject.PurchasingAccountsPayableLineAssetAccount;
+import org.kuali.kfs.module.cam.document.service.PurApInfoService;
+import org.kuali.kfs.module.cam.document.service.PurApLineService;
+import org.kuali.kfs.module.cam.service.AssetLockService;
+import org.kuali.kfs.module.purap.PurapConstants;
+import org.kuali.kfs.module.purap.businessobject.CreditMemoAccountRevision;
+import org.kuali.kfs.module.purap.businessobject.PaymentRequestAccountRevision;
+import org.kuali.kfs.module.purap.businessobject.PurApAccountingLineBase;
+import org.kuali.kfs.module.purap.businessobject.PurApItem;
+import org.kuali.kfs.module.purap.businessobject.PurchaseOrderAccount;
+import org.kuali.kfs.module.purap.businessobject.PurchaseOrderItem;
+import org.kuali.kfs.module.purap.document.AccountsPayableDocumentBase;
+import org.kuali.kfs.module.purap.document.PaymentRequestDocument;
+import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
+import org.kuali.kfs.module.purap.document.VendorCreditMemoDocument;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.document.service.FinancialSystemDocumentService;
+import org.kuali.kfs.sys.service.NonTransactional;
+import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+import org.kuali.rice.kew.api.exception.WorkflowException;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -30,55 +78,6 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.lang.time.DateUtils;
-import org.apache.log4j.Logger;
-import org.kuali.kfs.gl.businessobject.Entry;
-import org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService;
-import org.kuali.kfs.module.cab.CabConstants;
-import org.kuali.kfs.module.cab.CabPropertyConstants;
-import org.kuali.kfs.module.cab.batch.ExtractProcessLog;
-import org.kuali.kfs.module.cab.batch.PreAssetTaggingStep;
-import org.kuali.kfs.module.cab.batch.dataaccess.ExtractDao;
-import org.kuali.kfs.module.cab.batch.dataaccess.PurchasingAccountsPayableItemAssetDao;
-import org.kuali.kfs.module.cab.batch.service.BatchExtractService;
-import org.kuali.kfs.module.cab.batch.service.ReconciliationService;
-import org.kuali.kfs.module.cab.businessobject.BatchParameters;
-import org.kuali.kfs.module.cab.businessobject.GeneralLedgerEntry;
-import org.kuali.kfs.module.cab.businessobject.GlAccountLineGroup;
-import org.kuali.kfs.module.cab.businessobject.Pretag;
-import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableActionHistory;
-import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableDocument;
-import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableItemAsset;
-import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableLineAssetAccount;
-import org.kuali.kfs.module.cab.document.service.PurApInfoService;
-import org.kuali.kfs.module.cab.document.service.PurApLineService;
-import org.kuali.kfs.module.cam.CamsConstants;
-import org.kuali.kfs.module.cam.businessobject.AssetGlobal;
-import org.kuali.kfs.module.purap.PurapConstants;
-import org.kuali.kfs.module.purap.businessobject.CreditMemoAccountRevision;
-import org.kuali.kfs.module.purap.businessobject.PaymentRequestAccountRevision;
-import org.kuali.kfs.module.purap.businessobject.PurApAccountingLineBase;
-import org.kuali.kfs.module.purap.businessobject.PurApItem;
-import org.kuali.kfs.module.purap.businessobject.PurchaseOrderAccount;
-import org.kuali.kfs.module.purap.businessobject.PurchaseOrderItem;
-import org.kuali.kfs.module.purap.document.AccountsPayableDocumentBase;
-import org.kuali.kfs.module.purap.document.PaymentRequestDocument;
-import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
-import org.kuali.kfs.module.purap.document.VendorCreditMemoDocument;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.document.service.FinancialSystemDocumentService;
-import org.kuali.kfs.sys.service.NonTransactional;
-import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.coreservice.api.parameter.Parameter;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.util.ObjectUtils;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * This class provides default implementation of {@link BatchExtractService}
@@ -94,6 +93,9 @@ public class BatchExtractServiceImpl implements BatchExtractService {
     protected PurApLineService purApLineService;
     protected PurApInfoService purApInfoService;
     protected PurchasingAccountsPayableItemAssetDao purchasingAccountsPayableItemAssetDao;
+    protected ReconciliationService reconciliationService;
+    protected FinancialSystemDocumentService financialSystemDocumentService;
+    protected CapitalAssetManagementModuleService capitalAssetManagementModuleService;
 
     @Override
     @Transactional
@@ -126,8 +128,7 @@ public class BatchExtractServiceImpl implements BatchExtractService {
             }
             processLog.setFinishTime(dateTimeService.getCurrentTimestamp());
             processLog.setSuccess(true);
-        }
-        else {
+        } else {
             LOG.warn("****** No records processed during CAB Extract *******");
             processLog.setSuccess(false);
             processLog.setErrorMessage("No GL records were found for CAB processing.");
@@ -147,7 +148,7 @@ public class BatchExtractServiceImpl implements BatchExtractService {
             documentUpdated = false;
             // Refresh to get the referenced GLEntry BO. This is required to call purApLineService.processAllocate().
             Map<String, String> primaryKeys = new HashMap<String, String>();
-            primaryKeys.put(CabPropertyConstants.PurchasingAccountsPayableDocument.DOCUMENT_NUMBER, purApDoc.getDocumentNumber());
+            primaryKeys.put(CamsPropertyConstants.PurchasingAccountsPayableDocument.DOCUMENT_NUMBER, purApDoc.getDocumentNumber());
             // check if doc is already in CAB
             PurchasingAccountsPayableDocument cabPurapDoc = businessObjectService.findByPrimaryKey(PurchasingAccountsPayableDocument.class, primaryKeys);
 
@@ -208,12 +209,12 @@ public class BatchExtractServiceImpl implements BatchExtractService {
     protected BatchParameters createCabBatchParameters() {
         BatchParameters parameters = new BatchParameters();
         parameters.setLastRunTime(getCabLastRunTimestamp());
-        parameters.setIncludedFinancialBalanceTypeCodes(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSET_BUILDER_BATCH.class, CabConstants.Parameters.BALANCE_TYPES));
-        parameters.setIncludedFinancialObjectSubTypeCodes(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSET_BUILDER_BATCH.class, CabConstants.Parameters.OBJECT_SUB_TYPES));
-        parameters.setExcludedChartCodes(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSET_BUILDER_BATCH.class, CabConstants.Parameters.CHARTS));
-        parameters.setExcludedDocTypeCodes(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSET_BUILDER_BATCH.class, CabConstants.Parameters.DOCUMENT_TYPES));
-        parameters.setExcludedFiscalPeriods(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSET_BUILDER_BATCH.class, CabConstants.Parameters.FISCAL_PERIODS));
-        parameters.setExcludedSubFundCodes(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSET_BUILDER_BATCH.class, CabConstants.Parameters.SUB_FUND_GROUPS));
+        parameters.setIncludedFinancialBalanceTypeCodes(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.BALANCE_TYPES));
+        parameters.setIncludedFinancialObjectSubTypeCodes(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.OBJECT_SUB_TYPES));
+        parameters.setExcludedChartCodes(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.CHARTS));
+        parameters.setExcludedDocTypeCodes(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.DOCUMENT_TYPES));
+        parameters.setExcludedFiscalPeriods(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.FISCAL_PERIODS));
+        parameters.setExcludedSubFundCodes(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.SUB_FUND_GROUPS));
         return parameters;
     }
 
@@ -225,9 +226,9 @@ public class BatchExtractServiceImpl implements BatchExtractService {
     protected BatchParameters createPreTagBatchParameters() {
         BatchParameters parameters = new BatchParameters();
         parameters.setLastRunDate(getPreTagLastRunDate());
-        parameters.setIncludedFinancialObjectSubTypeCodes(parameterService.getParameterValuesAsString(PreAssetTaggingStep.class, CabConstants.Parameters.OBJECT_SUB_TYPES));
-        parameters.setExcludedChartCodes(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSET_BUILDER_BATCH.class, CabConstants.Parameters.CHARTS));
-        parameters.setExcludedSubFundCodes(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSET_BUILDER_BATCH.class, CabConstants.Parameters.SUB_FUND_GROUPS));
+        parameters.setIncludedFinancialObjectSubTypeCodes(parameterService.getParameterValuesAsString(PreAssetTaggingStep.class, CamsConstants.Parameters.OBJECT_SUB_TYPES));
+        parameters.setExcludedChartCodes(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.CHARTS));
+        parameters.setExcludedSubFundCodes(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.SUB_FUND_GROUPS));
         parameters.setCapitalizationLimitAmount(new BigDecimal(parameterService.getParameterValueAsString(AssetGlobal.class, CamsConstants.Parameters.CAPITALIZATION_LIMIT_AMOUNT)));
         return parameters;
     }
@@ -241,7 +242,7 @@ public class BatchExtractServiceImpl implements BatchExtractService {
     protected VendorCreditMemoDocument findCreditMemoDocument(Entry entry) {
         VendorCreditMemoDocument creditMemoDocument = null;
         Map<String, String> keys = new LinkedHashMap<String, String>();
-        keys.put(CabPropertyConstants.DOCUMENT_NUMBER, entry.getDocumentNumber());
+        keys.put(CamsPropertyConstants.DOCUMENT_NUMBER, entry.getDocumentNumber());
         Collection<VendorCreditMemoDocument> matchingCms = businessObjectService.findMatching(VendorCreditMemoDocument.class, keys);
         if (matchingCms != null && matchingCms.size() == 1) {
             creditMemoDocument = matchingCms.iterator().next();
@@ -250,7 +251,7 @@ public class BatchExtractServiceImpl implements BatchExtractService {
     }
 
     /**
-     * @see org.kuali.kfs.module.cab.batch.service.BatchExtractService#findElgibleGLEntries()
+     * @see BatchExtractService#findElgibleGLEntries()
      */
     @Override
     @NonTransactional
@@ -261,7 +262,7 @@ public class BatchExtractServiceImpl implements BatchExtractService {
     }
 
     /**
-     * @see org.kuali.kfs.module.cab.batch.service.BatchExtractService#findPreTaggablePOAccounts()
+     * @see BatchExtractService#findPreTaggablePOAccounts()
      */
     @Override
     @NonTransactional
@@ -280,7 +281,7 @@ public class BatchExtractServiceImpl implements BatchExtractService {
     protected PaymentRequestDocument findPaymentRequestDocument(Entry entry) {
         PaymentRequestDocument paymentRequestDocument = null;
         Map<String, String> keys = new LinkedHashMap<String, String>();
-        keys.put(CabPropertyConstants.DOCUMENT_NUMBER, entry.getDocumentNumber());
+        keys.put(CamsPropertyConstants.DOCUMENT_NUMBER, entry.getDocumentNumber());
         Collection<PaymentRequestDocument> matchingPreqs = businessObjectService.findMatching(PaymentRequestDocument.class, keys);
         if (matchingPreqs != null && matchingPreqs.size() == 1) {
             paymentRequestDocument = matchingPreqs.iterator().next();
@@ -296,13 +297,12 @@ public class BatchExtractServiceImpl implements BatchExtractService {
      */
     protected Timestamp getCabLastRunTimestamp() {
         Timestamp lastRunTime;
-        String lastRunTS = parameterService.getParameterValueAsString(KfsParameterConstants.CAPITAL_ASSET_BUILDER_BATCH.class, CabConstants.Parameters.LAST_EXTRACT_TIME);
+        String lastRunTS = parameterService.getParameterValueAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.LAST_EXTRACT_TIME);
 
         java.util.Date yesterday = DateUtils.add(dateTimeService.getCurrentDate(), Calendar.DAY_OF_MONTH, -1);
         try {
-            lastRunTime = lastRunTS == null ? new Timestamp(yesterday.getTime()) : new Timestamp(DateUtils.parseDate(lastRunTS, new String[] { CabConstants.DateFormats.MONTH_DAY_YEAR + " " + CabConstants.DateFormats.MILITARY_TIME }).getTime());
-        }
-        catch (ParseException e) {
+            lastRunTime = lastRunTS == null ? new Timestamp(yesterday.getTime()) : new Timestamp(DateUtils.parseDate(lastRunTS, new String[]{CamsConstants.DateFormats.MONTH_DAY_YEAR + " " + CamsConstants.DateFormats.MILITARY_TIME}).getTime());
+        } catch (ParseException e) {
             throw new RuntimeException(e);
         }
         return lastRunTime;
@@ -315,35 +315,31 @@ public class BatchExtractServiceImpl implements BatchExtractService {
      */
     protected java.sql.Date getPreTagLastRunDate() {
         java.sql.Date lastRunDt;
-        String lastRunTS = parameterService.getParameterValueAsString(PreAssetTaggingStep.class, CabConstants.Parameters.LAST_EXTRACT_DATE);
+        String lastRunTS = parameterService.getParameterValueAsString(PreAssetTaggingStep.class, CamsConstants.Parameters.LAST_EXTRACT_DATE);
         java.util.Date yesterday = DateUtils.add(dateTimeService.getCurrentDate(), Calendar.DAY_OF_MONTH, -1);
         try {
-            lastRunDt = lastRunTS == null ? new java.sql.Date(yesterday.getTime()) : new java.sql.Date(DateUtils.parseDate(lastRunTS, new String[] { CabConstants.DateFormats.MONTH_DAY_YEAR }).getTime());
-        }
-        catch (ParseException e) {
+            lastRunDt = lastRunTS == null ? new java.sql.Date(yesterday.getTime()) : new java.sql.Date(DateUtils.parseDate(lastRunTS, new String[]{CamsConstants.DateFormats.MONTH_DAY_YEAR}).getTime());
+        } catch (ParseException e) {
             throw new RuntimeException(e);
         }
         return lastRunDt;
     }
 
     /**
-     * @see org.kuali.kfs.module.cab.batch.service.BatchExtractService#saveFPLines(java.util.List)
+     * @see BatchExtractService#saveFPLines(List)
      */
     @Override
     @Transactional
     public void saveFPLines(List<Entry> fpLines, ExtractProcessLog processLog) {
         for (Entry fpLine : fpLines) {
             // If entry is not duplicate, non-null and non-zero, then insert into CAB
-            ReconciliationService reconciliationService = SpringContext.getBean(ReconciliationService.class);
             if (fpLine.getTransactionLedgerEntryAmount() == null || fpLine.getTransactionLedgerEntryAmount().isZero()) {
                 // amount is zero or null
                 processLog.addIgnoredGLEntry(fpLine);
-            }
-            else if (reconciliationService.isDuplicateEntry(fpLine)) {
+            } else if (reconciliationService.isDuplicateEntry(fpLine)) {
                 // GL is duplicate
                 processLog.addDuplicateGLEntry(fpLine);
-            }
-            else {
+            } else {
                 GeneralLedgerEntry glEntry = new GeneralLedgerEntry(fpLine);
                 businessObjectService.save(glEntry);
             }
@@ -351,13 +347,12 @@ public class BatchExtractServiceImpl implements BatchExtractService {
     }
 
     /**
-     * @see org.kuali.kfs.module.cab.batch.service.BatchExtractService#savePOLines(java.util.List)
+     * @see BatchExtractService#savePOLines(List)
      */
     @Transactional
     @Override
     public HashSet<PurchasingAccountsPayableDocument> savePOLines(List<Entry> poLines, ExtractProcessLog processLog) {
         HashSet<PurchasingAccountsPayableDocument> purApDocuments = new HashSet<PurchasingAccountsPayableDocument>();
-        ReconciliationService reconciliationService = SpringContext.getBean(ReconciliationService.class);
 
         // This is a list of pending GL entries created after last GL process and Cab Batch extract
         // PurAp Account Line history comes from PURAP module
@@ -426,7 +421,7 @@ public class BatchExtractServiceImpl implements BatchExtractService {
                 papdMap.put(entry.getDocumentNumber(), cabPurapDoc);
 
                 // we only deal with PREQ or CM, so isPREQ = !isCM, isCM = !PREQ
-                boolean isPREQ = CabConstants.PREQ.equals(entry.getFinancialDocumentTypeCode());
+                boolean isPREQ = CamsConstants.PREQ.equals(entry.getFinancialDocumentTypeCode());
                 boolean hasRevisionWithMixedLines = isPREQ && hasRevisionWithMixedLines(matchedPurApAcctLines);
 
                 for (PurApAccountingLineBase purApAccountingLine : matchedPurApAcctLines) {
@@ -459,8 +454,7 @@ public class BatchExtractServiceImpl implements BatchExtractService {
                         assetAccount = createPurchasingAccountsPayableLineAssetAccount(generalLedgerEntry, cabPurapDoc, purApAccountingLine, itemAsset);
                         assetAcctLines.put(acctLineKey, assetAccount);
                         itemAsset.getPurchasingAccountsPayableLineAssetAccounts().add(assetAccount);
-                    }
-                    else if (!nonZero || hasPositiveAndNegative) {
+                    } else if (!nonZero || hasPositiveAndNegative) {
                         // if amount is zero, means canceled doc, then create a copy and retain the account line
                         KualiDecimal purapAmount = purApAccountingLine.getAmount();
 
@@ -493,8 +487,8 @@ public class BatchExtractServiceImpl implements BatchExtractService {
 
                         // decide if current accounting line should be consolidated into debit or credit entry based on the above criteria
                         boolean isDebitEntry = hasRevisionWithMixedLines ?
-                                (usuallyNegative ?  !isPositive : isPositive) :   // case 2.2
-                                (isPREQ ? isPositive : !isPositive);              // case 1.1/1.2/2.1
+                            (usuallyNegative ? !isPositive : isPositive) :   // case 2.2
+                            (isPREQ ? isPositive : !isPositive);              // case 1.1/1.2/2.1
                         GeneralLedgerEntry currentEntry = isDebitEntry ? debitEntry : creditEntry;
 
                         // during calculation, regard D/C code as a +/- sign in front of the amount
@@ -506,8 +500,7 @@ public class BatchExtractServiceImpl implements BatchExtractService {
 
                         assetAccount = createPurchasingAccountsPayableLineAssetAccount(currentEntry, cabPurapDoc, purApAccountingLine, itemAsset);
                         itemAsset.getPurchasingAccountsPayableLineAssetAccounts().add(assetAccount);
-                    }
-                    else if (ObjectUtils.isNotNull(assetAccount)) {
+                    } else if (ObjectUtils.isNotNull(assetAccount)) {
                         // if account line key matches within same GL Entry, combine the amount
                         assetAccount.setItemAccountTotalAmount(assetAccount.getItemAccountTotalAmount().add(purApAccountingLine.getAmount()));
                     }
@@ -549,8 +542,7 @@ public class BatchExtractServiceImpl implements BatchExtractService {
                 if (newApDoc) {
                     purApDocuments.add(cabPurapDoc);
                 }
-            }
-            else {
+            } else {
                 LOG.error("Could not create a valid PurchasingAccountsPayableDocument object for document number " + entry.getDocumentNumber());
             }
         }
@@ -563,10 +555,10 @@ public class BatchExtractServiceImpl implements BatchExtractService {
      */
     private boolean isItemTypeUsuallyOfNegativeAmount(String itemTypeCode) {
         return PurapConstants.ItemTypeCodes.ITEM_TYPE_TRADE_IN_CODE.equals(itemTypeCode) ||
-        PurapConstants.ItemTypeCodes.ITEM_TYPE_ORDER_DISCOUNT_CODE.equals(itemTypeCode) ||
-        //TODO remove the following logic about MISC item when bug in KFSMI-10170 is fixed
-        //MISC is included here temporarily for testing, since it's used as TRDI and ORDS, which don't work due to bug
-        PurapConstants.ItemTypeCodes.ITEM_TYPE_MISC_CODE.equals(itemTypeCode);
+            PurapConstants.ItemTypeCodes.ITEM_TYPE_ORDER_DISCOUNT_CODE.equals(itemTypeCode) ||
+            //TODO remove the following logic about MISC item when bug in KFSMI-10170 is fixed
+            //MISC is included here temporarily for testing, since it's used as TRDI and ORDS, which don't work due to bug
+            PurapConstants.ItemTypeCodes.ITEM_TYPE_MISC_CODE.equals(itemTypeCode);
     }
 
     /**
@@ -587,15 +579,13 @@ public class BatchExtractServiceImpl implements BatchExtractService {
             PurApItem purapItem = purApAccountingLine.getPurapItem();
             if (isItemTypeUsuallyOfNegativeAmount(purapItem.getItemTypeCode())) {
                 hasItemsUsuallyNegative = true;
-            }
-            else {
+            } else {
                 hasOthers = true;
             }
             // when we hit the same item twice within the matched lines, which share the same account, then we find a revision
             if (itemIdentifiers.contains(purApAccountingLine.getItemIdentifier())) {
                 hasRevision = true;
-            }
-            else {
+            } else {
                 itemIdentifiers.add(purApAccountingLine.getItemIdentifier());
             }
             if (hasRevision && hasItemsUsuallyNegative && hasOthers) {
@@ -643,8 +633,7 @@ public class BatchExtractServiceImpl implements BatchExtractService {
         PurchaseOrderDocument purApdocument = null;
         if (poDocMap.containsKey(cabPurapDoc.getPurchaseOrderIdentifier())) {
             purApdocument = poDocMap.get(cabPurapDoc.getPurchaseOrderIdentifier());
-        }
-        else {
+        } else {
             purApdocument = purApInfoService.getCurrentDocumentForPurchaseOrderIdentifier(cabPurapDoc.getPurchaseOrderIdentifier());
             poDocMap.put(cabPurapDoc.getPurchaseOrderIdentifier(), purApdocument);
         }
@@ -657,15 +646,14 @@ public class BatchExtractServiceImpl implements BatchExtractService {
             assetLockKey = cabPurapDoc.getDocumentNumber() + "-" + lockingInformation;
         }
         // set asset locks if the locks does not exist in HashMap and not in asset lock table either.
-        if (!assetLockMap.containsKey(assetLockKey) && !getCapitalAssetManagementModuleService().isAssetLockedByCurrentDocument(cabPurapDoc.getDocumentNumber(), lockingInformation)) {
+        if (!assetLockMap.containsKey(assetLockKey) && !capitalAssetManagementModuleService.isAssetLockedByCurrentDocument(cabPurapDoc.getDocumentNumber(), lockingInformation)) {
             // the below method need several PurAp service calls which may take long time to run.
             List capitalAssetNumbers = getAssetNumbersForLocking(purApdocument, purapItem);
             if (capitalAssetNumbers != null && !capitalAssetNumbers.isEmpty()) {
-                boolean lockingResult = this.getCapitalAssetManagementModuleService().storeAssetLocks(capitalAssetNumbers, cabPurapDoc.getDocumentNumber(), cabPurapDoc.getDocumentTypeCode(), lockingInformation);
+                boolean lockingResult = capitalAssetManagementModuleService.storeAssetLocks(capitalAssetNumbers, cabPurapDoc.getDocumentNumber(), cabPurapDoc.getDocumentTypeCode(), lockingInformation);
                 // add into cache
                 assetLockMap.put(assetLockKey, lockingResult);
-            }
-            else {
+            } else {
                 // remember the decision...
                 assetLockMap.put(assetLockKey, false);
             }
@@ -678,11 +666,6 @@ public class BatchExtractServiceImpl implements BatchExtractService {
             return null;
         }
         return purApInfoService.retrieveValidAssetNumberForLocking(purApdocument.getPurapDocumentIdentifier(), purApdocument.getCapitalAssetSystemTypeCode(), purapItem);
-    }
-
-
-    protected CapitalAssetManagementModuleService getCapitalAssetManagementModuleService() {
-        return SpringContext.getBean(CapitalAssetManagementModuleService.class);
     }
 
     /**
@@ -715,7 +698,7 @@ public class BatchExtractServiceImpl implements BatchExtractService {
     /**
      * Retrieves Payment Request Account History and Credit Memo account history, combines them into a single list
      *
-     * @see org.kuali.kfs.module.cab.batch.service.BatchExtractService#findPurapAccountHistory()
+     * @see BatchExtractService#findPurapAccountHistory()
      */
     @Override
     @NonTransactional
@@ -735,10 +718,10 @@ public class BatchExtractServiceImpl implements BatchExtractService {
     /**
      * Creates a new instance of PurchasingAccountsPayableLineAssetAccount using values provided from dependent objects
      *
-     * @param generalLedgerEntry General Ledger Entry record
-     * @param cabPurapDoc CAB PurAp Document
+     * @param generalLedgerEntry  General Ledger Entry record
+     * @param cabPurapDoc         CAB PurAp Document
      * @param purApAccountingLine PurAp accounting line
-     * @param itemAsset CAB PurAp Item Asset
+     * @param itemAsset           CAB PurAp Item Asset
      * @return New PurchasingAccountsPayableLineAssetAccount
      */
     protected PurchasingAccountsPayableLineAssetAccount createPurchasingAccountsPayableLineAssetAccount(GeneralLedgerEntry generalLedgerEntry, PurchasingAccountsPayableDocument cabPurapDoc, PurApAccountingLineBase purApAccountingLine, PurchasingAccountsPayableItemAsset itemAsset) {
@@ -747,13 +730,12 @@ public class BatchExtractServiceImpl implements BatchExtractService {
         assetAccount.setAccountsPayableLineItemIdentifier(itemAsset.getAccountsPayableLineItemIdentifier());
         assetAccount.setCapitalAssetBuilderLineNumber(itemAsset.getCapitalAssetBuilderLineNumber());
         assetAccount.setGeneralLedgerAccountIdentifier(generalLedgerEntry.getGeneralLedgerAccountIdentifier());
-        if (CabConstants.CM.equals(generalLedgerEntry.getFinancialDocumentTypeCode())) {
+        if (CamsConstants.CM.equals(generalLedgerEntry.getFinancialDocumentTypeCode())) {
             assetAccount.setItemAccountTotalAmount(purApAccountingLine.getAmount().negated());
-        }
-        else {
+        } else {
             assetAccount.setItemAccountTotalAmount(purApAccountingLine.getAmount());
         }
-        assetAccount.setActivityStatusCode(CabConstants.ActivityStatusCode.NEW);
+        assetAccount.setActivityStatusCode(CamsConstants.ActivityStatusCode.NEW);
         assetAccount.setVersionNumber(0L);
         return assetAccount;
     }
@@ -761,7 +743,7 @@ public class BatchExtractServiceImpl implements BatchExtractService {
     /**
      * Updates the entries into process log
      *
-     * @param processLog Extract Process Log
+     * @param processLog            Extract Process Log
      * @param reconciliationService Reconciliation Service data
      */
     protected void updateProcessLog(ExtractProcessLog processLog, ReconciliationService reconciliationService) {
@@ -781,7 +763,7 @@ public class BatchExtractServiceImpl implements BatchExtractService {
      */
     protected PurchasingAccountsPayableDocument findPurchasingAccountsPayableDocument(Entry entry) {
         Map<String, String> primaryKeys = new HashMap<String, String>();
-        primaryKeys.put(CabPropertyConstants.PurchasingAccountsPayableDocument.DOCUMENT_NUMBER, entry.getDocumentNumber());
+        primaryKeys.put(CamsPropertyConstants.PurchasingAccountsPayableDocument.DOCUMENT_NUMBER, entry.getDocumentNumber());
         // check if doc is already in CAB
         PurchasingAccountsPayableDocument cabPurapDoc = businessObjectService.findByPrimaryKey(PurchasingAccountsPayableDocument.class, primaryKeys);
         return cabPurapDoc;
@@ -791,7 +773,7 @@ public class BatchExtractServiceImpl implements BatchExtractService {
      * Creates a new PurchasingAccountsPayableItemAsset using Purchasing Accounts payable item
      *
      * @param cabPurapDoc Cab Purap Document
-     * @param apItem Accounts Payable Item
+     * @param apItem      Accounts Payable Item
      * @return PurchasingAccountsPayableItemAsset
      */
     protected PurchasingAccountsPayableItemAsset createPurchasingAccountsPayableItemAsset(PurchasingAccountsPayableDocument cabPurapDoc, PurApItem apItem) {
@@ -814,7 +796,7 @@ public class BatchExtractServiceImpl implements BatchExtractService {
 
         //itemAsset.setAccountsPayableLineItemDescription(apItem.getItemDescription());
         itemAsset.setAccountsPayableItemQuantity(apItem.getItemQuantity() == null ? new KualiDecimal(1) : apItem.getItemQuantity());
-        itemAsset.setActivityStatusCode(CabConstants.ActivityStatusCode.NEW);
+        itemAsset.setActivityStatusCode(CamsConstants.ActivityStatusCode.NEW);
         itemAsset.setVersionNumber(0L);
         return itemAsset;
     }
@@ -830,24 +812,22 @@ public class BatchExtractServiceImpl implements BatchExtractService {
         AccountsPayableDocumentBase apDoc = null;
         PurchasingAccountsPayableDocument cabPurapDoc = null;
         // If document is not in CAB, create a new document to save in CAB
-        if (CabConstants.PREQ.equals(entry.getFinancialDocumentTypeCode())) {
+        if (CamsConstants.PREQ.equals(entry.getFinancialDocumentTypeCode())) {
             // find PREQ
             apDoc = findPaymentRequestDocument(entry);
-        }
-        else if (CabConstants.CM.equals(entry.getFinancialDocumentTypeCode())) {
+        } else if (CamsConstants.CM.equals(entry.getFinancialDocumentTypeCode())) {
             // find CM
             apDoc = findCreditMemoDocument(entry);
         }
         if (apDoc == null) {
             LOG.error("A valid Purchasing Document (PREQ or CM) could not be found for this document number " + entry.getDocumentNumber());
-        }
-        else {
+        } else {
             cabPurapDoc = new PurchasingAccountsPayableDocument();
             cabPurapDoc.setDocumentNumber(entry.getDocumentNumber());
             cabPurapDoc.setPurapDocumentIdentifier(apDoc.getPurapDocumentIdentifier());
             cabPurapDoc.setPurchaseOrderIdentifier(apDoc.getPurchaseOrderIdentifier());
             cabPurapDoc.setDocumentTypeCode(entry.getFinancialDocumentTypeCode());
-            cabPurapDoc.setActivityStatusCode(CabConstants.ActivityStatusCode.NEW);
+            cabPurapDoc.setActivityStatusCode(CamsConstants.ActivityStatusCode.NEW);
             cabPurapDoc.setVersionNumber(0L);
         }
         return cabPurapDoc;
@@ -857,7 +837,7 @@ public class BatchExtractServiceImpl implements BatchExtractService {
      * Finds out the active CAB Asset Item matching the line from PurAP.
      *
      * @param cabPurapDoc CAB PurAp document
-     * @param apItem AP Item
+     * @param apItem      AP Item
      * @return PurchasingAccountsPayableItemAsset
      */
     protected PurchasingAccountsPayableItemAsset findMatchingPurapAssetItem(PurchasingAccountsPayableDocument cabPurapDoc, PurApItem apItem) {
@@ -866,43 +846,40 @@ public class BatchExtractServiceImpl implements BatchExtractService {
             for (PurchasingAccountsPayableItemAsset assetItem : cabPurapDoc.getPurchasingAccountsPayableItemAssets()) {
                 if (assetItem.getAccountsPayableLineItemIdentifier() != null && assetItem.getAccountsPayableLineItemIdentifier().equals(apItem.getItemIdentifier())) {
                     // if still active and never split or submitted to CAMS
-                    if (ObjectUtils.isNotNull(assetItem) && CabConstants.ActivityStatusCode.NEW.equalsIgnoreCase(assetItem.getActivityStatusCode())) {
+                    if (ObjectUtils.isNotNull(assetItem) && CamsConstants.ActivityStatusCode.NEW.equalsIgnoreCase(assetItem.getActivityStatusCode())) {
                         // KFSMI-7214: return the proxy object if it's already loaded.
                         return assetItem;
                     }
                 }
             }
-        }
-        else {
+        } else {
             LOG.error("expecting the CAB AP document not null");
         }
 
         return null;
     }
+
     /**
-     * @see org.kuali.kfs.module.cab.batch.service.BatchExtractService#separatePOLines(java.util.List, java.util.List,
-     *      java.util.Collection)
+     * @see BatchExtractService#separatePOLines(List, List,
+     * Collection)
      */
     @Override
     @NonTransactional
     public void separatePOLines(List<Entry> fpLines, List<Entry> purapLines, Collection<Entry> elgibleGLEntries) {
         for (Entry entry : elgibleGLEntries) {
-            if (CabConstants.PREQ.equals(entry.getFinancialDocumentTypeCode())) {
+            if (CamsConstants.PREQ.equals(entry.getFinancialDocumentTypeCode())) {
                 purapLines.add(entry);
-            }
-            else if (!CabConstants.CM.equals(entry.getFinancialDocumentTypeCode())) {
+            } else if (!CamsConstants.CM.equals(entry.getFinancialDocumentTypeCode())) {
                 fpLines.add(entry);
-            }
-            else if (CabConstants.CM.equals(entry.getFinancialDocumentTypeCode())) {
+            } else if (CamsConstants.CM.equals(entry.getFinancialDocumentTypeCode())) {
                 Map<String, String> fieldValues = new HashMap<String, String>();
-                fieldValues.put(CabPropertyConstants.GeneralLedgerEntry.DOCUMENT_NUMBER, entry.getDocumentNumber());
+                fieldValues.put(CamsPropertyConstants.GeneralLedgerEntry.DOCUMENT_NUMBER, entry.getDocumentNumber());
                 // check if vendor credit memo, then include as FP line
                 Collection<VendorCreditMemoDocument> matchingCreditMemos = businessObjectService.findMatching(VendorCreditMemoDocument.class, fieldValues);
                 for (VendorCreditMemoDocument creditMemoDocument : matchingCreditMemos) {
                     if (creditMemoDocument.getPurchaseOrderIdentifier() == null) {
                         fpLines.add(entry);
-                    }
-                    else {
+                    } else {
                         purapLines.add(entry);
                     }
                 }
@@ -912,15 +889,15 @@ public class BatchExtractServiceImpl implements BatchExtractService {
 
 
     /**
-     * @see org.kuali.kfs.module.cab.batch.service.BatchExtractService#updateLastExtractTime(java.sql.Timestamp)
+     * @see BatchExtractService#updateLastExtractTime(Timestamp)
      */
     @Override
     @NonTransactional
     public void updateLastExtractTime(Timestamp time) {
-        Parameter parameter = parameterService.getParameter(CabConstants.Parameters.NAMESPACE, CabConstants.Parameters.DETAIL_TYPE_BATCH, CabConstants.Parameters.LAST_EXTRACT_TIME);
+        Parameter parameter = parameterService.getParameter(CamsConstants.Parameters.NAMESPACE, CamsConstants.Parameters.DETAIL_TYPE_BATCH, CamsConstants.Parameters.LAST_EXTRACT_TIME);
 
         if (parameter != null) {
-            SimpleDateFormat format = new SimpleDateFormat(CabConstants.DateFormats.MONTH_DAY_YEAR + " " + CabConstants.DateFormats.MILITARY_TIME);
+            SimpleDateFormat format = new SimpleDateFormat(CamsConstants.DateFormats.MONTH_DAY_YEAR + " " + CamsConstants.DateFormats.MILITARY_TIME);
 
             Parameter.Builder updatedParameter = Parameter.Builder.create(parameter);
             updatedParameter.setValue(format.format(time));
@@ -929,7 +906,7 @@ public class BatchExtractServiceImpl implements BatchExtractService {
     }
 
     /**
-     * @see org.kuali.kfs.module.cab.batch.service.BatchExtractService#savePreTagLines(java.util.Collection)
+     * @see BatchExtractService#savePreTagLines(Collection)
      */
     @Override
     @Transactional
@@ -944,8 +921,8 @@ public class BatchExtractServiceImpl implements BatchExtractService {
                 Integer itemLineNumber = purapItem.getItemLineNumber();
                 if (poId != null && itemLineNumber != null) {
                     Map<String, Object> primaryKeys = new HashMap<String, Object>();
-                    primaryKeys.put(CabPropertyConstants.Pretag.PURCHASE_ORDER_NUMBER, poId);
-                    primaryKeys.put(CabPropertyConstants.Pretag.ITEM_LINE_NUMBER, itemLineNumber);
+                    primaryKeys.put(CamsPropertyConstants.Pretag.PURCHASE_ORDER_NUMBER, poId);
+                    primaryKeys.put(CamsPropertyConstants.Pretag.ITEM_LINE_NUMBER, itemLineNumber);
                     // check if already in pre-tag table
                     Pretag pretag = businessObjectService.findByPrimaryKey(Pretag.class, primaryKeys);
                     if (ObjectUtils.isNull(pretag) && savedLines.add("" + poId + "-" + itemLineNumber)) {
@@ -972,10 +949,9 @@ public class BatchExtractServiceImpl implements BatchExtractService {
         List<PurchaseOrderDocument> poDocuments = new ArrayList<PurchaseOrderDocument>();
         try {
             // This should pick up all types of POs (Amendments, Voids, etc)
-            poDocuments = (List<PurchaseOrderDocument>) SpringContext.getBean(FinancialSystemDocumentService.class).findByApplicationDocumentStatus(
-                PurchaseOrderDocument.class, CabConstants.PO_STATUS_CODE_OPEN);
-        }
-        catch (WorkflowException we) {
+            poDocuments = (List<PurchaseOrderDocument>) financialSystemDocumentService.findByApplicationDocumentStatus(
+                PurchaseOrderDocument.class, CamsConstants.PO_STATUS_CODE_OPEN);
+        } catch (WorkflowException we) {
             throw new RuntimeException(we);
         }
         for (PurchaseOrderDocument poDocument : poDocuments) {
@@ -986,15 +962,15 @@ public class BatchExtractServiceImpl implements BatchExtractService {
 
 
     /**
-     * @see org.kuali.kfs.module.cab.batch.service.BatchExtractService#updateLastExtractDate(java.sql.Date)
+     * @see BatchExtractService#updateLastExtractDate(java.sql.Date)
      */
     @Override
     @NonTransactional
     public void updateLastExtractDate(java.sql.Date dt) {
-        Parameter parameter = parameterService.getParameter(CabConstants.Parameters.NAMESPACE, CabConstants.Parameters.DETAIL_TYPE_PRE_ASSET_TAGGING_STEP, CabConstants.Parameters.LAST_EXTRACT_DATE);
+        Parameter parameter = parameterService.getParameter(CamsConstants.Parameters.NAMESPACE, CamsConstants.Parameters.DETAIL_TYPE_PRE_ASSET_TAGGING_STEP, CamsConstants.Parameters.LAST_EXTRACT_DATE);
 
         if (parameter != null) {
-            SimpleDateFormat format = new SimpleDateFormat(CabConstants.DateFormats.MONTH_DAY_YEAR);
+            SimpleDateFormat format = new SimpleDateFormat(CamsConstants.DateFormats.MONTH_DAY_YEAR);
 
 
             Parameter.Builder updatedParameter = Parameter.Builder.create(parameter);
@@ -1071,5 +1047,17 @@ public class BatchExtractServiceImpl implements BatchExtractService {
     @NonTransactional
     public void setPurApInfoService(PurApInfoService purApInfoService) {
         this.purApInfoService = purApInfoService;
+    }
+
+    public void setReconciliationService(ReconciliationService reconciliationService) {
+        this.reconciliationService = reconciliationService;
+    }
+
+    public void setFinancialSystemDocumentService(FinancialSystemDocumentService financialSystemDocumentService) {
+        this.financialSystemDocumentService = financialSystemDocumentService;
+    }
+
+    public void setCapitalAssetManagementModuleService(CapitalAssetManagementModuleService capitalAssetManagementModuleService) {
+        this.capitalAssetManagementModuleService = capitalAssetManagementModuleService;
     }
 }

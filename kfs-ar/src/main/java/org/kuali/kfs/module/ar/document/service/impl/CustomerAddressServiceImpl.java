@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,22 +18,22 @@
  */
 package org.kuali.kfs.module.ar.document.service.impl;
 
-import java.sql.Timestamp;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.SequenceAccessorService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.businessobject.CustomerAddress;
 import org.kuali.kfs.module.ar.document.service.CustomerAddressService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.util.TransactionalServiceUtils;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.SequenceAccessorService;
-import org.kuali.rice.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 @Transactional
 public class CustomerAddressServiceImpl implements CustomerAddressService {
@@ -122,7 +122,7 @@ public class CustomerAddressServiceImpl implements CustomerAddressService {
     public Integer getNextCustomerAddressIdentifier() {
 
         Long nextId = sequenceAccessorService.getNextAvailableSequenceNumber(
-                CUST_ADDR_ID_SEQ, CustomerAddress.class);
+            CUST_ADDR_ID_SEQ, CustomerAddress.class);
 
         return nextId.intValue();
 

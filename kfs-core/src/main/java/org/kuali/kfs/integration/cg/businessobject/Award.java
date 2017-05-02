@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -19,34 +19,34 @@
 
 package org.kuali.kfs.integration.cg.businessobject;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.integration.ar.AccountsReceivableBillingFrequency;
 import org.kuali.kfs.integration.cg.CGIntegrationConstants;
 import org.kuali.kfs.integration.cg.ContractAndGrantsProposal;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAgency;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
-import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingFrequency;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsFundManager;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsLetterOfCreditFund;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsOrganization;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsProjectDirector;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Defines a financial award object.
  */
 public class Award implements ContractsAndGrantsBillingAward {
     private static final String AWARD_INQUIRY_TITLE_PROPERTY = "message.inquiry.award.title";
-    private Long proposalNumber;
+    private String proposalNumber;
     private Date awardBeginningDate;
     private Date awardEndingDate;
     private Date lastBilledDate;
@@ -86,8 +86,7 @@ public class Award implements ContractsAndGrantsBillingAward {
     private String analystTelephoneNumber;
 
     private String billingFrequencyCode;
-    private ContractsAndGrantsBillingFrequency billingFrequency;
-
+    private AccountsReceivableBillingFrequency billingFrequency;
 
 
     private String awardProjectTitle;
@@ -130,7 +129,9 @@ public class Award implements ContractsAndGrantsBillingAward {
     private String dunningCampaign;
 
 
-    /** Dummy value used to facilitate lookups */
+    /**
+     * Dummy value used to facilitate lookups
+     */
     private transient String lookupPersonUniversalIdentifier;
     private transient Person lookupPerson;
     private final String userLookupRoleNamespaceCode = KFSConstants.ParameterNamespaces.KFS;
@@ -151,7 +152,7 @@ public class Award implements ContractsAndGrantsBillingAward {
      * @return Returns the proposalNumber
      */
     @Override
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -160,7 +161,7 @@ public class Award implements ContractsAndGrantsBillingAward {
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 
@@ -180,6 +181,11 @@ public class Award implements ContractsAndGrantsBillingAward {
     @Override
     public ContractAndGrantsProposal getProposal() {
         return proposal;
+    }
+
+    @Override
+    public String getObjectId() {
+        return proposalNumber.toString();
     }
 
     /**
@@ -782,7 +788,7 @@ public class Award implements ContractsAndGrantsBillingAward {
     }
 
 
-     /**
+    /**
      * Gets the awardProjectTitle attribute.
      *
      * @return Returns the awardProjectTitle.
@@ -1272,7 +1278,7 @@ public class Award implements ContractsAndGrantsBillingAward {
      * @return Returns the billingFrequency.
      */
     @Override
-    public ContractsAndGrantsBillingFrequency getBillingFrequency() {
+    public AccountsReceivableBillingFrequency getBillingFrequency() {
         return billingFrequency;
     }
 
@@ -1281,7 +1287,7 @@ public class Award implements ContractsAndGrantsBillingAward {
      *
      * @param billingFrequency The billingFrequency to set.
      */
-    public void setBillingFrequency(ContractsAndGrantsBillingFrequency billingFrequency) {
+    public void setBillingFrequency(AccountsReceivableBillingFrequency billingFrequency) {
         this.billingFrequency = billingFrequency;
     }
 
@@ -1308,7 +1314,6 @@ public class Award implements ContractsAndGrantsBillingAward {
     }
 
     /**
-     *
      * @see org.kuali.rice.krad.bo.BusinessObject#refresh()
      */
     @Override

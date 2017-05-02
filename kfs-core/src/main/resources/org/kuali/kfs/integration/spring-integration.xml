@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
-	<bean id="contractsAndGrantsModuleService"  parent="contractsAndGrantsModuleService-parentBean"/>
-	<bean id="contractsAndGrantsModuleService-parentBean" class="org.kuali.kfs.integration.cg.ContractsAndGrantsModuleServiceNoOp"  abstract="true"/>
-		
-	<bean id="contractsAndGrantsModuleBillingService" parent="contractsAndGrantsModuleBillingService-parentBean"/>
-	<bean id="contractsAndGrantsModuleBillingService-parentBean" class="org.kuali.kfs.integration.cg.ContractsAndGrantsModuleBillingServiceNoOp" abstract="true"/>
-				
-	<bean id="ldModuleConfiguration"  parent="ldModuleConfiguration-parentBean"/>
-	<bean id="ldModuleConfiguration-parentBean" class="org.kuali.kfs.sys.FinancialSystemModuleConfiguration" abstract="true">
-	      <property name="namespaceCode" value="KFS-LD" />
-        <property name="initializeDataDictionary" value="true" />
+    <bean id="contractsAndGrantsModuleService" parent="contractsAndGrantsModuleService-parentBean"/>
+    <bean id="contractsAndGrantsModuleService-parentBean" class="org.kuali.kfs.integration.cg.ContractsAndGrantsModuleServiceNoOp" abstract="true"/>
+
+    <bean id="contractsAndGrantsModuleBillingService" parent="contractsAndGrantsModuleBillingService-parentBean"/>
+    <bean id="contractsAndGrantsModuleBillingService-parentBean" class="org.kuali.kfs.integration.cg.ContractsAndGrantsModuleBillingServiceNoOp" abstract="true"/>
+
+    <bean id="ldModuleConfiguration" parent="ldModuleConfiguration-parentBean"/>
+    <bean id="ldModuleConfiguration-parentBean" class="org.kuali.kfs.sys.FinancialSystemModuleConfiguration" abstract="true">
+        <property name="namespaceCode" value="KFS-LD"/>
+        <property name="initializeDataDictionary" value="true"/>
         <property name="packagePrefixes">
             <list>
                 <value>org.kuali.kfs.integration.ld</value>
@@ -41,38 +41,66 @@
         </property>
         <property name="externalizableBusinessObjectImplementations">
             <map>
-                <entry key="org.kuali.kfs.integration.ld.LaborBenefitRateCategory" value="org.kuali.kfs.integration.ld.businessobject.BenefitRateCategory" />             
-                <entry key="org.kuali.kfs.integration.ld.LaborLedgerPositionObjectGroup" value="org.kuali.kfs.integration.ld.businessobject.PositionObjectGroup" />
+                <entry key="org.kuali.kfs.integration.ld.LaborBenefitRateCategory" value="org.kuali.kfs.integration.ld.businessobject.BenefitRateCategory"/>
+                <entry key="org.kuali.kfs.integration.ld.LaborLedgerPositionObjectGroup" value="org.kuali.kfs.integration.ld.businessobject.PositionObjectGroup"/>
             </map>
         </property>
     </bean>
-    <bean id="laborModuleService"  parent="laborModuleService-parentBean"/>
+    <bean id="laborModuleService" parent="laborModuleService-parentBean"/>
     <bean id="laborModuleService-parentBean" class="org.kuali.kfs.integration.ld.LaborModuleServiceNoOp" abstract="true">
-        <property name="moduleConfiguration" ref="ldModuleConfiguration" />
+        <property name="moduleConfiguration" ref="ldModuleConfiguration"/>
     </bean>
-    
-	<bean id="purchasingAccountsPayableModuleService"  parent="purchasingAccountsPayableModuleService-parentBean"/>
-	<bean id="purchasingAccountsPayableModuleService-parentBean" class="org.kuali.kfs.integration.purap.PurchasingAccountsPayableModuleServiceNoOp"  abstract="true"/>
-	
-	<bean id="accountsReceivableModuleService"  parent="accountsReceivableModuleService-parentBean"/>
-	<bean id="accountsReceivableModuleService-parentBean" class="org.kuali.kfs.integration.ar.AccountsReceivableModuleServiceNoOp"  abstract="true"/>
-	
-	<bean id="accountsReceivableModuleBillingService"  parent="accountsReceivableModuleBillingService-parentBean"/>
-	<bean id="accountsReceivableModuleBillingService-parentBean" class="org.kuali.kfs.integration.ar.AccountsReceivableModuleBillingServiceNoOp"  abstract="true"/>
-	
-	<bean id="effortCertificationModuleService"  parent="effortCertificationModuleService-parentBean"/>
-	<bean id="effortCertificationModuleService-parentBean" class="org.kuali.kfs.integration.ec.EffortCertificationModuleServiceNoOp"  abstract="true"/>
 
-    <bean id="capitalAssetBuilderModuleService"  parent="capitalAssetBuilderModuleService-parentBean"/>
-    <bean id="capitalAssetBuilderModuleService-parentBean" class="org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleServiceNoOp" abstract="true"/>
-    
-    <bean id="capitalAssetManagementModuleService"  parent="capitalAssetManagementModuleService-parentBean"/>
+    <bean id="purchasingAccountsPayableModuleService" parent="purchasingAccountsPayableModuleService-parentBean"/>
+    <bean id="purchasingAccountsPayableModuleService-parentBean" class="org.kuali.kfs.integration.purap.PurchasingAccountsPayableModuleServiceNoOp" abstract="true"/>
+
+    <bean id="arModuleConfiguration" parent="arModuleConfiguration-parentBean"/>
+    <bean id="arModuleConfiguration-parentBean" class="org.kuali.kfs.sys.FinancialSystemModuleConfiguration" abstract="true">
+        <property name="namespaceCode" value="KFS-AR"/>
+        <property name="initializeDataDictionary" value="true"/>
+        <property name="packagePrefixes">
+            <list>
+                <value>org.kuali.kfs.integration.ar</value>
+            </list>
+        </property>
+        <property name="dataDictionaryPackages">
+            <list>
+                <value>classpath:org/kuali/kfs/integration/ar/businessobject/datadictionary/*.xml</value>
+            </list>
+        </property>
+        <property name="externalizableBusinessObjectImplementations">
+            <map>
+                <entry key="org.kuali.kfs.integration.ar.AccountsReceivableBillingFrequency"
+                       value="org.kuali.kfs.integration.ar.businessobject.BillingFrequency"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="arModuleService" parent="arModuleService-parentBean"/>
+    <bean id="arModuleService-parentBean" class="org.kuali.kfs.integration.UnimplementedKfsModuleServiceImpl" abstract="true">
+        <property name="moduleConfiguration" ref="arModuleConfiguration"/>
+    </bean>
+
+    <bean id="accountsReceivableModuleService" parent="accountsReceivableModuleService-parentBean"/>
+    <bean id="accountsReceivableModuleService-parentBean" class="org.kuali.kfs.integration.ar.AccountsReceivableModuleServiceNoOp" abstract="true"/>
+
+    <bean id="accountsReceivableModuleBillingService" parent="accountsReceivableModuleBillingService-parentBean"/>
+    <bean id="accountsReceivableModuleBillingService-parentBean" class="org.kuali.kfs.integration.ar.AccountsReceivableModuleBillingServiceNoOp" abstract="true"/>
+
+    <bean id="ArIntegrationConstants" class="org.kuali.rice.core.api.util.collect.ConstantsMap">
+        <property name="constantClass" value="org.kuali.kfs.integration.ar.ArIntegrationConstants"/>
+    </bean>
+
+    <bean id="effortCertificationModuleService" parent="effortCertificationModuleService-parentBean"/>
+    <bean id="effortCertificationModuleService-parentBean" class="org.kuali.kfs.integration.ec.EffortCertificationModuleServiceNoOp" abstract="true"/>
+
+    <bean id="capitalAssetManagementModuleService" parent="capitalAssetManagementModuleService-parentBean"/>
     <bean id="capitalAssetManagementModuleService-parentBean" class="org.kuali.kfs.integration.cam.CapitalAssetManagementModuleServiceNoOp" abstract="true"/>
-    
-    <bean id="cgModuleConfiguration"  parent="cgModuleConfiguration-parentBean"/>
+
+    <bean id="cgModuleConfiguration" parent="cgModuleConfiguration-parentBean"/>
     <bean id="cgModuleConfiguration-parentBean" class="org.kuali.kfs.sys.FinancialSystemModuleConfiguration" abstract="true">
-        <property name="namespaceCode" value="KFS-CG" />
-        <property name="initializeDataDictionary" value="true" />
+        <property name="namespaceCode" value="KFS-CG"/>
+        <property name="initializeDataDictionary" value="true"/>
         <property name="packagePrefixes">
             <list>
                 <value>org.kuali.kfs.integration.cg</value>
@@ -85,45 +113,45 @@
         </property>
         <property name="externalizableBusinessObjectImplementations">
             <map>
-             <entry key="org.kuali.kfs.integration.cg.ContractsAndGrantsCfda"
-					value="org.kuali.kfs.integration.cg.businessobject.CfdaDTO" />
-				<entry
-					key="org.kuali.kfs.integration.cg.ContractsAndGrantsAccountAwardInformation"
-					value="org.kuali.kfs.integration.cg.businessobject.AwardAccount" />
-				<entry
-					key="org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount"
-					value="org.kuali.kfs.integration.cg.businessobject.AwardAccount" />
-				<entry key="org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward"
-					value="org.kuali.kfs.integration.cg.businessobject.Award" />
-				<entry key="org.kuali.kfs.integration.cg.ContractsAndGrantsAward"
-					value="org.kuali.kfs.integration.cg.businessobject.Award" />
-				<entry key="org.kuali.kfs.integration.cg.ContractAndGrantsProposal"
-					value="org.kuali.kfs.integration.cg.businessobject.Proposal" />
-				<entry key="org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAgency"
-					value="org.kuali.kfs.integration.cg.businessobject.Agency" />
-				<entry key="org.kuali.kfs.integration.cg.ContractsAndGrantsAgency"
-					value="org.kuali.kfs.integration.cg.businessobject.Agency" />
-				<entry key="org.kuali.kfs.integration.cg.ContractsAndGrantsUnit"
-					value="org.kuali.kfs.integration.cg.businessobject.UnitDTO" />
-				<entry
-					key="org.kuali.kfs.integration.cg.ContractsAndGrantsBudgetCategory"
-					value="org.kuali.kfs.integration.cg.businessobject.BudgetCategoryDTO" />
-				<entry
-					key="org.kuali.kfs.integration.cg.ContractsAndGrantsLetterOfCreditFundGroup"
-					value="org.kuali.kfs.integration.cg.businessobject.LetterOfCreditFundGroup" />					
+                <entry key="org.kuali.kfs.integration.cg.ContractsAndGrantsCfda"
+                       value="org.kuali.kfs.integration.cg.businessobject.CfdaDTO"/>
+                <entry
+                        key="org.kuali.kfs.integration.cg.ContractsAndGrantsAccountAwardInformation"
+                        value="org.kuali.kfs.integration.cg.businessobject.AwardAccount"/>
+                <entry
+                        key="org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount"
+                        value="org.kuali.kfs.integration.cg.businessobject.AwardAccount"/>
+                <entry key="org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward"
+                       value="org.kuali.kfs.integration.cg.businessobject.Award"/>
+                <entry key="org.kuali.kfs.integration.cg.ContractsAndGrantsAward"
+                       value="org.kuali.kfs.integration.cg.businessobject.Award"/>
+                <entry key="org.kuali.kfs.integration.cg.ContractAndGrantsProposal"
+                       value="org.kuali.kfs.integration.cg.businessobject.Proposal"/>
+                <entry key="org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAgency"
+                       value="org.kuali.kfs.integration.cg.businessobject.Agency"/>
+                <entry key="org.kuali.kfs.integration.cg.ContractsAndGrantsAgency"
+                       value="org.kuali.kfs.integration.cg.businessobject.Agency"/>
+                <entry key="org.kuali.kfs.integration.cg.ContractsAndGrantsUnit"
+                       value="org.kuali.kfs.integration.cg.businessobject.UnitDTO"/>
+                <entry
+                        key="org.kuali.kfs.integration.cg.ContractsAndGrantsBudgetCategory"
+                        value="org.kuali.kfs.integration.cg.businessobject.BudgetCategoryDTO"/>
+                <entry
+                        key="org.kuali.kfs.integration.cg.ContractsAndGrantsLetterOfCreditFundGroup"
+                        value="org.kuali.kfs.integration.cg.businessobject.LetterOfCreditFundGroup"/>
             </map>
         </property>
     </bean>
 
-    <bean id="cgModuleService"  parent="cgModuleService-parentBean"/>
+    <bean id="cgModuleService" parent="cgModuleService-parentBean"/>
     <bean id="cgModuleService-parentBean" class="org.kuali.kfs.integration.UnimplementedKfsModuleServiceImpl" abstract="true">
-        <property name="moduleConfiguration" ref="cgModuleConfiguration" />
+        <property name="moduleConfiguration" ref="cgModuleConfiguration"/>
     </bean>
 
-    <bean id="camModuleConfiguration"  parent="camModuleConfiguration-parentBean"/>
+    <bean id="camModuleConfiguration" parent="camModuleConfiguration-parentBean"/>
     <bean id="camModuleConfiguration-parentBean" class="org.kuali.kfs.sys.FinancialSystemModuleConfiguration" abstract="true">
-        <property name="namespaceCode" value="KFS-CAM" />
-        <property name="initializeDataDictionary" value="true" />
+        <property name="namespaceCode" value="KFS-CAM"/>
+        <property name="initializeDataDictionary" value="true"/>
         <property name="packagePrefixes">
             <list>
                 <value>org.kuali.kfs.integration.cam</value>
@@ -131,8 +159,8 @@
         </property>
         <property name="externalizableBusinessObjectImplementations">
             <map>
-                <entry key="org.kuali.kfs.integration.cam.CapitalAssetManagementAsset" value="org.kuali.kfs.integration.cam.businessobject.Asset" />
-                <entry key="org.kuali.kfs.integration.cam.CapitalAssetManagementAssetType" value="org.kuali.kfs.integration.cam.businessobject.AssetType" />
+                <entry key="org.kuali.kfs.integration.cam.CapitalAssetManagementAsset" value="org.kuali.kfs.integration.cam.businessobject.Asset"/>
+                <entry key="org.kuali.kfs.integration.cam.CapitalAssetManagementAssetType" value="org.kuali.kfs.integration.cam.businessobject.AssetType"/>
             </map>
         </property>
         <property name="dataDictionaryPackages">
@@ -142,43 +170,32 @@
         </property>
     </bean>
 
-    <bean id="camModuleService"  parent="camModuleService-parentBean"/>
+    <bean id="camModuleService" parent="camModuleService-parentBean"/>
     <bean id="camModuleService-parentBean" class="org.kuali.kfs.integration.UnimplementedKfsModuleServiceImpl" abstract="true">
-        <property name="moduleConfiguration" ref="camModuleConfiguration" />
+        <property name="moduleConfiguration" ref="camModuleConfiguration"/>
     </bean>
 
 
-    <bean id="cabModuleConfiguration"  parent="cabModuleConfiguration-parentBean"/>
+    <bean id="cabModuleConfiguration" parent="cabModuleConfiguration-parentBean"/>
     <bean id="cabModuleConfiguration-parentBean" class="org.kuali.kfs.sys.FinancialSystemModuleConfiguration" abstract="true">
-        <property name="namespaceCode" value="KFS-CAB" />
-        <property name="initializeDataDictionary" value="true" />
+        <property name="namespaceCode" value="KFS-CAB"/>
+        <property name="initializeDataDictionary" value="true"/>
         <property name="packagePrefixes">
             <list>
                 <value>org.kuali.kfs.integration.cab</value>
             </list>
         </property>
-        <property name="dataDictionaryPackages">
-            <list>
-                <value>classpath:org/kuali/kfs/integration/cab/businessobject/datadictionary/*.xml</value>
-            </list>
-        </property>
-                
-        <property name="externalizableBusinessObjectImplementations">
-            <map>
-                <entry key="org.kuali.kfs.integration.cab.CapitalAssetBuilderAssetTransactionType" value="org.kuali.kfs.integration.cab.businessobject.AssetTransactionType" />
-            </map>
-        </property> 
     </bean>
 
-    <bean id="cabModuleService"  parent="cabModuleService-parentBean"/>
+    <bean id="cabModuleService" parent="cabModuleService-parentBean"/>
     <bean id="cabModuleService-parentBean" class="org.kuali.kfs.integration.UnimplementedKfsModuleServiceImpl" abstract="true">
-        <property name="moduleConfiguration" ref="cabModuleConfiguration" />
+        <property name="moduleConfiguration" ref="cabModuleConfiguration"/>
     </bean>
 
-    <bean id="purapModuleConfiguration"  parent="purapModuleConfiguration-parentBean"/>
-    <bean id="purapModuleConfiguration-parentBean" class="org.kuali.rice.krad.bo.ModuleConfiguration" abstract="true">
-        <property name="namespaceCode" value="KFS-PURAP" />
-        <property name="initializeDataDictionary" value="true" />
+    <bean id="purapModuleConfiguration" parent="purapModuleConfiguration-parentBean"/>
+    <bean id="purapModuleConfiguration-parentBean" class="org.kuali.kfs.krad.bo.ModuleConfiguration" abstract="true">
+        <property name="namespaceCode" value="KFS-PURAP"/>
+        <property name="initializeDataDictionary" value="true"/>
         <property name="packagePrefixes">
             <list>
                 <value>org.kuali.kfs.integration.purap</value>
@@ -191,23 +208,23 @@
         </property>
         <property name="externalizableBusinessObjectImplementations">
             <map>
-                <entry key="org.kuali.kfs.integration.purap.PurchasingAccountsPayableSensitiveData" value="org.kuali.kfs.integration.purap.businessobject.SensitiveData" />
+                <entry key="org.kuali.kfs.integration.purap.PurchasingAccountsPayableSensitiveData" value="org.kuali.kfs.integration.purap.businessobject.SensitiveData"/>
             </map>
-        </property> 
+        </property>
     </bean>
-    
-    <bean id="purapModuleService"  parent="purapModuleService-parentBean"/>
+
+    <bean id="purapModuleService" parent="purapModuleService-parentBean"/>
     <bean id="purapModuleService-parentBean" class="org.kuali.kfs.integration.UnimplementedKfsModuleServiceImpl" abstract="true">
-        <property name="moduleConfiguration" ref="purapModuleConfiguration" />
+        <property name="moduleConfiguration" ref="purapModuleConfiguration"/>
     </bean>
 
-	<bean id="travelEntertainmentMovingModuleService" parent="travelEntertainmentMovingModuleService-parentBean" />
-	<bean id="travelEntertainmentMovingModuleService-parentBean" abstract="true" class="org.kuali.kfs.integration.tem.TravelEntertainmentMovingModuleServiceNoOp" />
+    <bean id="travelEntertainmentMovingModuleService" parent="travelEntertainmentMovingModuleService-parentBean"/>
+    <bean id="travelEntertainmentMovingModuleService-parentBean" abstract="true" class="org.kuali.kfs.integration.tem.TravelEntertainmentMovingModuleServiceNoOp"/>
 
-    <bean id="commonModuleConfiguration"  parent="commonModuleConfiguration-parentBean"/>
+    <bean id="commonModuleConfiguration" parent="commonModuleConfiguration-parentBean"/>
     <bean id="commonModuleConfiguration-parentBean" class="org.kuali.kfs.sys.FinancialSystemModuleConfiguration" abstract="true">
-        <property name="namespaceCode" value="KFS-SYS" />
-        <property name="initializeDataDictionary" value="true" />
+        <property name="namespaceCode" value="KFS-SYS"/>
+        <property name="initializeDataDictionary" value="true"/>
         <property name="packagePrefixes">
             <list>
                 <value>org.kuali.kfs.integration.common</value>
@@ -217,6 +234,14 @@
             <list>
                 <value>classpath:org/kuali/kfs/integration/common/businessobject/datadictionary/*.xml</value>
             </list>
+        </property>
+    </bean>
+
+    <bean class="org.springframework.web.context.support.ServletContextAttributeExporter">
+        <property name="attributes">
+            <map>
+                <entry key="ArIntegrationConstants" value-ref="ArIntegrationConstants"/>
+            </map>
         </property>
     </bean>
 

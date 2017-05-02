@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  * 
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,12 +18,6 @@
  */
 package org.kuali.kfs.module.cam.businessobject;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Chart;
@@ -32,14 +26,20 @@ import org.kuali.kfs.coa.businessobject.ObjectType;
 import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
 import org.kuali.kfs.gl.businessobject.Entry;
-import org.kuali.kfs.module.cab.CabConstants;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.KewApiServiceLocator;
 import org.kuali.rice.kew.api.doctype.DocumentType;
 import org.kuali.rice.kew.doctype.bo.DocumentTypeEBO;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 public class GeneralLedgerEntry extends PersistableBusinessObjectBase {
     private Long generalLedgerAccountIdentifier;
@@ -122,7 +122,7 @@ public class GeneralLedgerEntry extends PersistableBusinessObjectBase {
         this.setTransactionDate(entry.getTransactionDate());
         this.setTransactionPostingDate(entry.getTransactionPostingDate());
         this.setTransactionDateTimeStamp(entry.getTransactionDateTimeStamp());
-        this.setActivityStatusCode(CabConstants.ActivityStatusCode.NEW);
+        this.setActivityStatusCode(CamsConstants.ActivityStatusCode.NEW);
     }
 
 
@@ -714,7 +714,7 @@ public class GeneralLedgerEntry extends PersistableBusinessObjectBase {
      * @return Returns the active
      */
     public boolean isActive() {
-        return CabConstants.ActivityStatusCode.NEW.equalsIgnoreCase(this.getActivityStatusCode()) || CabConstants.ActivityStatusCode.MODIFIED.equalsIgnoreCase(this.getActivityStatusCode());
+        return CamsConstants.ActivityStatusCode.NEW.equalsIgnoreCase(this.getActivityStatusCode()) || CamsConstants.ActivityStatusCode.MODIFIED.equalsIgnoreCase(this.getActivityStatusCode());
     }
 
 
@@ -828,8 +828,7 @@ public class GeneralLedgerEntry extends PersistableBusinessObjectBase {
     public KualiDecimal getAmount() {
         if (getTransactionLedgerEntryAmount() != null && KFSConstants.GL_CREDIT_CODE.equals(getTransactionDebitCreditCode())) {
             setAmount(getTransactionLedgerEntryAmount().negated());
-        }
-        else {
+        } else {
             setAmount(getTransactionLedgerEntryAmount());
         }
         return amount;

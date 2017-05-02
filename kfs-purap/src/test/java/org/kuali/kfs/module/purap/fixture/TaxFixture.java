@@ -1,24 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.fixture;
-
-import java.math.BigDecimal;
 
 import org.kuali.kfs.sys.businessobject.TaxRegion;
 import org.kuali.kfs.sys.businessobject.TaxRegionPostalCode;
@@ -27,129 +25,131 @@ import org.kuali.kfs.sys.businessobject.TaxRegionState;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 
+import java.math.BigDecimal;
+
 public class TaxFixture {
 
     public enum TaxTestCaseFixture {
 
         SalesTaxHappyPathTest(
-                    true, //isItemTypeTaxable
-                    true, //isItemTaxAmountNull
-                    true, //iscommodityCodeNull
-                    true, //fundGroupCodeTaxable
-                    true, //objectCodeTaxable
-                    true, //isDeliveryStateTaxable
-                    false //isUseTax
-                    ),
+            true, //isItemTypeTaxable
+            true, //isItemTaxAmountNull
+            true, //iscommodityCodeNull
+            true, //fundGroupCodeTaxable
+            true, //objectCodeTaxable
+            true, //isDeliveryStateTaxable
+            false //isUseTax
+        ),
 
         SalesTaxItemTypeNotTaxableTest(
-                    false, //isItemTypeTaxable
-                    true, //isItemTaxAmountNull
-                    true, //iscommodityCodeNull
-                    true, //fundGroupCodeTaxable
-                    true, //objectCodeTaxable
-                    true, //isDeliveryStateTaxable
-                    false //isUseTax
-                    ),
+            false, //isItemTypeTaxable
+            true, //isItemTaxAmountNull
+            true, //iscommodityCodeNull
+            true, //fundGroupCodeTaxable
+            true, //objectCodeTaxable
+            true, //isDeliveryStateTaxable
+            false //isUseTax
+        ),
 
-         SalesTaxItemTaxFieldNullTest(
-                    true, //isItemTypeTaxable
-                    false, //isItemTaxAmountNull
-                    true, //iscommodityCodeNull
-                    true, //fundGroupCodeTaxable
-                    true, //objectCodeTaxable
-                    true, //isDeliveryStateTaxable
-                    false //isUseTax
-                    ),
+        SalesTaxItemTaxFieldNullTest(
+            true, //isItemTypeTaxable
+            false, //isItemTaxAmountNull
+            true, //iscommodityCodeNull
+            true, //fundGroupCodeTaxable
+            true, //objectCodeTaxable
+            true, //isDeliveryStateTaxable
+            false //isUseTax
+        ),
 
-          SalesTaxCommodityCodeNullTest(
-                    true, //isItemTypeTaxable
-                    true, //isItemTaxAmountNull
-                    false, //iscommodityCodeNull
-                    true, //fundGroupCodeTaxable
-                    true, //objectCodeTaxable
-                    true, //isDeliveryStateTaxable
-                    false //isUseTax
-                    ),
+        SalesTaxCommodityCodeNullTest(
+            true, //isItemTypeTaxable
+            true, //isItemTaxAmountNull
+            false, //iscommodityCodeNull
+            true, //fundGroupCodeTaxable
+            true, //objectCodeTaxable
+            true, //isDeliveryStateTaxable
+            false //isUseTax
+        ),
 
-          SalesTaxDeliveryStateExemptTest(
-                    true, //isItemTypeTaxable
-                    true, //isItemTaxAmountNull
-                    true, //iscommodityCodeNull
-                    true, //fundGroupCodeTaxable
-                    true, //objectCodeTaxable
-                    false, //isDeliveryStateTaxable
-                    false //isUseTax
-                    ),
+        SalesTaxDeliveryStateExemptTest(
+            true, //isItemTypeTaxable
+            true, //isItemTaxAmountNull
+            true, //iscommodityCodeNull
+            true, //fundGroupCodeTaxable
+            true, //objectCodeTaxable
+            false, //isDeliveryStateTaxable
+            false //isUseTax
+        ),
 
-          SalesTaxDeliveryStateExemptWithNonTaxableFundTest(
-                    true, //isItemTypeTaxable
-                    true, //isItemTaxAmountNull
-                    true, //iscommodityCodeNull
-                    false, //fundGroupCodeTaxable
-                    true, //objectCodeTaxable
-                    false, //isDeliveryStateTaxable
-                    false //isUseTax
-                    ),
+        SalesTaxDeliveryStateExemptWithNonTaxableFundTest(
+            true, //isItemTypeTaxable
+            true, //isItemTaxAmountNull
+            true, //iscommodityCodeNull
+            false, //fundGroupCodeTaxable
+            true, //objectCodeTaxable
+            false, //isDeliveryStateTaxable
+            false //isUseTax
+        ),
 
-           SalesTaxAccountNotTaxableTest(
-                    true, //isItemTypeTaxable
-                    true, //isItemTaxAmountNull
-                    true, //iscommodityCodeNull
-                    false, //fundGroupCodeTaxable
-                    true, //objectCodeTaxable
-                    true, //isDeliveryStateTaxable
-                    false //isUseTax
-                    ),
+        SalesTaxAccountNotTaxableTest(
+            true, //isItemTypeTaxable
+            true, //isItemTaxAmountNull
+            true, //iscommodityCodeNull
+            false, //fundGroupCodeTaxable
+            true, //objectCodeTaxable
+            true, //isDeliveryStateTaxable
+            false //isUseTax
+        ),
 
-           SalesTaxObjectCodeNotTaxableTest(
-                    true, //isItemTypeTaxable
-                    true, //isItemTaxAmountNull
-                    true, //iscommodityCodeNull
-                    true, //fundGroupCodeTaxable
-                    false, //objectCodeTaxable
-                    true, //isDeliveryStateTaxable
-                    false //isUseTax
-                    ),
+        SalesTaxObjectCodeNotTaxableTest(
+            true, //isItemTypeTaxable
+            true, //isItemTaxAmountNull
+            true, //iscommodityCodeNull
+            true, //fundGroupCodeTaxable
+            false, //objectCodeTaxable
+            true, //isDeliveryStateTaxable
+            false //isUseTax
+        ),
 
-            SalesTaxParamDisabledTest(
-                    true, //isItemTypeTaxable
-                    true, //isItemTaxAmountNull
-                    true, //iscommodityCodeNull
-                    true, //fundGroupCodeTaxable
-                    true, //objectCodeTaxable
-                    true, //isDeliveryStateTaxable
-                    false, //isUseTax
-                    false //isSalesTaxEnabled
-                    ),
+        SalesTaxParamDisabledTest(
+            true, //isItemTypeTaxable
+            true, //isItemTaxAmountNull
+            true, //iscommodityCodeNull
+            true, //fundGroupCodeTaxable
+            true, //objectCodeTaxable
+            true, //isDeliveryStateTaxable
+            false, //isUseTax
+            false //isSalesTaxEnabled
+        ),
 
-            UseTaxHappyPathTest(
-                    true, //isItemTypeTaxable
-                    true, //isItemTaxAmountNull
-                    true, //iscommodityCodeNull
-                    true, //fundGroupCodeTaxable
-                    true, //objectCodeTaxable
-                    true, //isDeliveryStateTaxable
-                    true //isUseTax
-                    ),
+        UseTaxHappyPathTest(
+            true, //isItemTypeTaxable
+            true, //isItemTaxAmountNull
+            true, //iscommodityCodeNull
+            true, //fundGroupCodeTaxable
+            true, //objectCodeTaxable
+            true, //isDeliveryStateTaxable
+            true //isUseTax
+        ),
 
-            UseTaxItemTypeNotTaxableTest(
-                    false, //isItemTypeTaxable
-                    true, //isItemTaxAmountNull
-                    true, //iscommodityCodeNull
-                    true, //fundGroupCodeTaxable
-                    true, //objectCodeTaxable
-                    true, //isDeliveryStateTaxable
-                    true //isUseTax
-                    );
+        UseTaxItemTypeNotTaxableTest(
+            false, //isItemTypeTaxable
+            true, //isItemTaxAmountNull
+            true, //iscommodityCodeNull
+            true, //fundGroupCodeTaxable
+            true, //objectCodeTaxable
+            true, //isDeliveryStateTaxable
+            true //isUseTax
+        );
 
         private boolean isSalesTaxEnabled;
-        private final  boolean isItemTypeTaxable;
-        private final  boolean isItemTaxAmountNull;
-        private final  boolean iscommodityCodeNull;
-        private final  boolean fundGroupCodeTaxable;
-        private final  boolean objectCodeTaxable;
+        private final boolean isItemTypeTaxable;
+        private final boolean isItemTaxAmountNull;
+        private final boolean iscommodityCodeNull;
+        private final boolean fundGroupCodeTaxable;
+        private final boolean objectCodeTaxable;
         private final boolean isDeliveryStateTaxable;
-        private final  boolean isUseTax;
+        private final boolean isUseTax;
 
         TaxTestCaseFixture(boolean isItemTypeTaxable,
                            boolean isItemTaxAmountNull,
@@ -158,14 +158,14 @@ public class TaxFixture {
                            boolean objectCodeTaxable,
                            boolean isDeliveryStateTaxable,
                            boolean isUseTax) {
-           this.isItemTypeTaxable = isItemTypeTaxable;
-           this.isItemTaxAmountNull = isItemTaxAmountNull;
-           this.iscommodityCodeNull = iscommodityCodeNull;
-           this.fundGroupCodeTaxable = fundGroupCodeTaxable;
-           this.objectCodeTaxable = objectCodeTaxable;
-           this.isDeliveryStateTaxable = isDeliveryStateTaxable;
-           this.isUseTax = isUseTax;
-           this.isSalesTaxEnabled = true;
+            this.isItemTypeTaxable = isItemTypeTaxable;
+            this.isItemTaxAmountNull = isItemTaxAmountNull;
+            this.iscommodityCodeNull = iscommodityCodeNull;
+            this.fundGroupCodeTaxable = fundGroupCodeTaxable;
+            this.objectCodeTaxable = objectCodeTaxable;
+            this.isDeliveryStateTaxable = isDeliveryStateTaxable;
+            this.isUseTax = isUseTax;
+            this.isSalesTaxEnabled = true;
         }
 
         TaxTestCaseFixture(boolean isItemTypeTaxable,
@@ -218,7 +218,7 @@ public class TaxFixture {
             return isDeliveryStateTaxable;
         }
 
-        public boolean isSalesTaxEnabled(){
+        public boolean isSalesTaxEnabled() {
             return isSalesTaxEnabled;
         }
     }
@@ -229,7 +229,7 @@ public class TaxFixture {
     public enum TaxRegionFixture {
 
         TAX_REGION_NO_USE_TAX("NOUSETAX", "NOUSETAX", "POST", "BA", "6044900", "1500", false, true),
-        TAX_REGION_WITH_USE_TAX("USETAX", "USETAX", "ST", "BA", "6044900", "1500", true, true), ;
+        TAX_REGION_WITH_USE_TAX("USETAX", "USETAX", "ST", "BA", "6044900", "1500", true, true),;
 
         public String taxRegionCode;
         public String taxRegionName;
@@ -302,7 +302,7 @@ public class TaxFixture {
     public enum TaxRegionRateFixture {
 
         TAX_REGION_RATE_05("01/01/2008", new BigDecimal(.05)),
-        TAX_REGION_RATE_07("01/01/2008", new BigDecimal(.07)), ;
+        TAX_REGION_RATE_07("01/01/2008", new BigDecimal(.07)),;
 
         public String effectiveDate;
         public BigDecimal taxRate;
@@ -317,7 +317,7 @@ public class TaxFixture {
             taxRegionRate.setTaxRate(this.taxRate);
             try {
                 taxRegionRate.setEffectiveDate(SpringContext.getBean(DateTimeService.class).convertToSqlDate(this.effectiveDate));
-            } catch( Exception e ){
+            } catch (Exception e) {
             }
 
             return taxRegionRate;
@@ -332,7 +332,7 @@ public class TaxFixture {
 
     public enum TaxRegionPostalCodeFixture {
 
-        PO_46202("46202-5260", "US", true), PO_46202_SHORT("46202", "US", true), ;
+        PO_46202("46202-5260", "US", true), PO_46202_SHORT("46202", "US", true),;
 
         public String postalCode;
         public String countryCode;
@@ -361,7 +361,7 @@ public class TaxFixture {
 
     public enum TaxRegionStateFixture {
 
-        IN("IN", "US", true), ;
+        IN("IN", "US", true),;
 
         public String stateCode;
         public String countryCode;

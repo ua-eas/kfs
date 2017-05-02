@@ -1,34 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys;
-
-import java.awt.Color;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Map;
-
-import org.kuali.rice.krad.util.ObjectUtils;
 
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
@@ -39,6 +27,17 @@ import com.lowagie.text.pdf.PdfContentByte;
 import com.lowagie.text.pdf.PdfGState;
 import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.PdfStamper;
+import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.awt.*;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Map;
 
 /**
  * This class writes the reports onto a pdf file as per a template provided.
@@ -79,7 +78,7 @@ public class PdfFormFillerUtil {
      * @throws IOException, DocumentException
      */
     public static byte[] populateTemplate(File template, Map<String, String> replacementList) throws IOException, DocumentException {
-     // --------------------------------------------------
+        // --------------------------------------------------
         // Validate the parameters
         // --------------------------------------------------
         if (template == null || replacementList == null) {
@@ -142,8 +141,7 @@ public class PdfFormFillerUtil {
                 // Replace the keywords
                 if (fields.getFieldType(fieldName.toString()) == AcroFields.FIELD_TYPE_TEXT) {
                     newText = replaceValuesIteratingThroughFile(text, replacementList);
-                }
-                else {
+                } else {
                     if (ObjectUtils.isNotNull(replacementList.get(fieldName.toString()))) {
                         newText = replacementList.get(fieldName);
                     }
@@ -157,14 +155,11 @@ public class PdfFormFillerUtil {
             // --------------------------------------------------
             pdfStamper.close();
 
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new IOException("IO error processing PDF template", e);
-        }
-        catch (DocumentException e) {
+        } catch (DocumentException e) {
             throw new IOException("iText error processing PDF template", e);
-        }
-        finally {
+        } finally {
             // --------------------------------------------------
             // Close the files
             // --------------------------------------------------
@@ -209,11 +204,9 @@ public class PdfFormFillerUtil {
                 i++;
             }
             pdfStamper.close();
-        }
-        catch (DocumentException ex) {
+        } catch (DocumentException ex) {
             throw new IOException("iText error creating final watermark on PDF", ex);
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             throw new IOException("IO error creating final watermark on PDF", ex);
         }
         return outputStream.toByteArray();
@@ -256,11 +249,9 @@ public class PdfFormFillerUtil {
                 i++;
             }
             pdfStamper.close();
-        }
-        catch (DocumentException ex) {
+        } catch (DocumentException ex) {
             throw new IOException("iText error creating watermark on PDF", ex);
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             throw new IOException("IO error creating watermark on PDF", ex);
         }
         return outputStream.toByteArray();
@@ -286,12 +277,10 @@ public class PdfFormFillerUtil {
                 String value = replacementList.get(replacementKey);
                 if (ObjectUtils.isNotNull(value)) {
                     buffOriginal.append(value + " ");
-                }
-                else {
+                } else {
                     buffOriginal.append(" ");
                 }
-            }
-            else {
+            } else {
                 buffOriginal.append(key + " ");
             }
         }

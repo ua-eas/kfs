@@ -1,29 +1,27 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ld.service.impl;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.gl.Constant;
+import org.kuali.kfs.kns.web.ui.Field;
+import org.kuali.kfs.kns.web.ui.Row;
 import org.kuali.kfs.module.ld.businessobject.AccountStatusCurrentFunds;
 import org.kuali.kfs.module.ld.businessobject.LaborLedgerPendingEntry;
 import org.kuali.kfs.module.ld.businessobject.LedgerBalance;
@@ -34,8 +32,10 @@ import org.kuali.kfs.module.ld.service.LaborLedgerPendingEntryService;
 import org.kuali.kfs.sys.KFSConstants.ParameterValues;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.ObjectUtil;
-import org.kuali.rice.kns.web.ui.Field;
-import org.kuali.rice.kns.web.ui.Row;
+
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * The LaborInquiryOptionsService class is a service that will generate Pending Ledger and Consilidation options for balance
@@ -107,7 +107,7 @@ public class LaborInquiryOptionsServiceImpl implements LaborInquiryOptionsServic
 
     /**
      * @see org.kuali.kfs.module.ld.service.LaborInquiryOptionsService#isConsolidationSelected(java.util.Map, java.util.Collection)
-     *
+     * <p>
      * KRAD Conversion: Lookupable performs checking for a particular attribute and return true or false.
      * This method is called from BaseFundsLookupableHelperServiceImpl.java, CurrentFundsLookupableHelperServiceImpl.java,
      * LedgerBalanceLookupableHelperServiceImpl.java in ld module
@@ -146,45 +146,42 @@ public class LaborInquiryOptionsServiceImpl implements LaborInquiryOptionsServic
 
     /**
      * @see org.kuali.kfs.module.ld.service.LaborInquiryOptionsService#updateLedgerBalanceByPendingLedgerEntry(java.util.Collection,
-     *      java.util.Map, java.lang.String, boolean)
+     * java.util.Map, java.lang.String, boolean)
      */
     @Override
     public void updateLedgerBalanceByPendingLedgerEntry(Collection<LedgerBalance> balanceCollection, Map fieldValues, String pendingEntryOption, boolean isConsolidated) {
         // determine if search results need to be updated by pending ledger entries
         if (Constant.ALL_PENDING_ENTRY.equals(pendingEntryOption)) {
             updateCollection(balanceCollection, fieldValues, false, isConsolidated, LedgerBalance.class);
-        }
-        else if (Constant.APPROVED_PENDING_ENTRY.equals(pendingEntryOption)) {
+        } else if (Constant.APPROVED_PENDING_ENTRY.equals(pendingEntryOption)) {
             updateCollection(balanceCollection, fieldValues, true, isConsolidated, LedgerBalance.class);
         }
     }
 
     /**
      * @see org.kuali.kfs.module.ld.service.LaborInquiryOptionsService#updateCurrentFundsByPendingLedgerEntry(java.util.Collection,
-     *      java.util.Map, java.lang.String, boolean)
+     * java.util.Map, java.lang.String, boolean)
      */
     @Override
     public void updateCurrentFundsByPendingLedgerEntry(Collection<AccountStatusCurrentFunds> balanceCollection, Map fieldValues, String pendingEntryOption, boolean isConsolidated) {
         // determine if search results need to be updated by pending ledger entries
         if (Constant.ALL_PENDING_ENTRY.equals(pendingEntryOption)) {
             updateCollection(balanceCollection, fieldValues, false, isConsolidated, AccountStatusCurrentFunds.class);
-        }
-        else if (Constant.APPROVED_PENDING_ENTRY.equals(pendingEntryOption)) {
+        } else if (Constant.APPROVED_PENDING_ENTRY.equals(pendingEntryOption)) {
             updateCollection(balanceCollection, fieldValues, true, isConsolidated, AccountStatusCurrentFunds.class);
         }
     }
 
     /**
      * @see org.kuali.kfs.module.ld.service.LaborInquiryOptionsService#updateByPendingLedgerEntry(java.util.Collection,
-     *      java.util.Map, java.lang.String, boolean)
+     * java.util.Map, java.lang.String, boolean)
      */
     @Override
     public void updateLedgerEntryByPendingLedgerEntry(Collection<LedgerEntry> entryCollection, Map fieldValues, String pendingEntryOption) {
         // determine if search results need to be updated by pending ledger entries
         if (Constant.ALL_PENDING_ENTRY.equals(pendingEntryOption)) {
             updateCollection(entryCollection, fieldValues, false, false, LedgerEntry.class);
-        }
-        else if (Constant.APPROVED_PENDING_ENTRY.equals(pendingEntryOption)) {
+        } else if (Constant.APPROVED_PENDING_ENTRY.equals(pendingEntryOption)) {
             updateCollection(entryCollection, fieldValues, true, false, LedgerEntry.class);
         }
     }
@@ -193,9 +190,9 @@ public class LaborInquiryOptionsServiceImpl implements LaborInquiryOptionsServic
      * update a given collection entry with the pending entry obtained from the given field values and isApproved
      *
      * @param entryCollection the given entry collection
-     * @param fieldValues the given field values
-     * @param isApproved indicate if the resulting pending entry has been approved
-     * @param isConsolidated indicate if the collection entries have been consolidated
+     * @param fieldValues     the given field values
+     * @param isApproved      indicate if the resulting pending entry has been approved
+     * @param isConsolidated  indicate if the collection entries have been consolidated
      */
     protected void updateCollection(Collection entryCollection, Map fieldValues, boolean isApproved, boolean isConsolidated, Class clazz) {
         // go through the pending entries to update the balance collection
@@ -225,12 +222,10 @@ public class LaborInquiryOptionsServiceImpl implements LaborInquiryOptionsServic
                     laborLedgerBalanceService.updateLedgerBalance(ledgerBalance, pendingEntry);
                     ledgerBalance.getDummyBusinessObject().setConsolidationOption(isConsolidated ? Constant.CONSOLIDATION : Constant.DETAIL);
                     ledgerBalance.getDummyBusinessObject().setPendingEntryOption(isApproved ? Constant.APPROVED_PENDING_ENTRY : Constant.ALL_PENDING_ENTRY);
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     LOG.error("cannot create a new object of type: " + clazz.getName() + "/n" + e);
                 }
-            }
-            else if (LedgerEntry.class.isAssignableFrom(clazz)) {
+            } else if (LedgerEntry.class.isAssignableFrom(clazz)) {
                 LedgerEntry ledgerEntry = new LedgerEntry();
                 ObjectUtil.buildObject(ledgerEntry, pendingEntry);
 
@@ -238,8 +233,7 @@ public class LaborInquiryOptionsServiceImpl implements LaborInquiryOptionsServic
                 ledgerEntry.getDummyBusinessObject().setPendingEntryOption(isApproved ? Constant.APPROVED_PENDING_ENTRY : Constant.ALL_PENDING_ENTRY);
 
                 entryCollection.add(ledgerEntry);
-            }
-            else {
+            } else {
                 LOG.warn("The class, " + clazz.getName() + ", is unregistered with the method.");
                 return;
             }

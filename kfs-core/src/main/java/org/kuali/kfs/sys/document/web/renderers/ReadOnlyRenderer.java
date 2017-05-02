@@ -1,37 +1,36 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.document.web.renderers;
 
-import java.io.IOException;
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.kns.web.ui.Field;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
+import org.kuali.rice.core.api.util.KeyValue;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.rice.kns.lookup.HtmlData.AnchorHtmlData;
-import org.kuali.rice.kns.web.ui.Field;
+import java.io.IOException;
 
 /**
  * Renderer which displays a read only field
@@ -57,20 +56,21 @@ public class ReadOnlyRenderer extends FieldRendererBase {
                 out.write(value);
                 if (shouldRenderInquiryLink()) {
                     out.write(buildEndInquiryLink());
+                    out.write(buildNewWindowInquiryLink());
                 }
             } else {
                 out.write(buildNonBreakingSpace());
             }
 
             out.write(buildEndSpan());
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             throw new JspException("Difficulty rendering read only field", ioe);
         }
     }
 
     /**
      * Clears the persisting tag.
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.FieldRendererBase#clear()
      */
     @Override
@@ -80,6 +80,7 @@ public class ReadOnlyRenderer extends FieldRendererBase {
 
     /**
      * Generates the HTML for the opening span tag to wrap the displayed value
+     *
      * @param propertyPrefix the property path from the form the business object being rendered
      * @return the HTML for the opening span
      */
@@ -87,12 +88,19 @@ public class ReadOnlyRenderer extends FieldRendererBase {
         StringBuilder beginSpan = new StringBuilder();
         beginSpan.append("<span id=\"");
         beginSpan.append(getFieldName());
-        beginSpan.append(".div\">");
+        beginSpan.append(".div");
+        String fieldStyle = this.getField().getStyleClass();
+        if (StringUtils.isNotBlank(fieldStyle)) {
+            beginSpan.append("\" class=\"");
+            beginSpan.append(fieldStyle);
+        }
+        beginSpan.append("\">");
         return beginSpan.toString();
     }
 
     /**
      * Generates the HTML for the closing span tag to wrap the displayed value
+     *
      * @return the HTML for the closing span
      */
     protected String buildEndSpan() {
@@ -101,6 +109,7 @@ public class ReadOnlyRenderer extends FieldRendererBase {
 
     /**
      * Builds the opening anchor tag to make the displayed read only value open up an inquiry screen
+     *
      * @return the HTML for the opening inquiry anchor tag
      */
     protected String buildBeginInquiryLink() {
@@ -109,19 +118,18 @@ public class ReadOnlyRenderer extends FieldRendererBase {
         if (getField().getInquiryURL() instanceof AnchorHtmlData) {
             AnchorHtmlData htmlData = (AnchorHtmlData) getField().getInquiryURL();
 
-            if(htmlData.getHref().startsWith("http")) {
+            if (htmlData.getHref().startsWith("http")) {
                 beginInquiryLink.append("<a href=\"");
-            }
-            else {
+            } else {
                 beginInquiryLink.append("<a href=\"");
                 beginInquiryLink.append(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY));
                 beginInquiryLink.append("/kr/");
             }
 
             beginInquiryLink.append(htmlData.getHref());
-            beginInquiryLink.append("\" title=\"");
+            beginInquiryLink.append("&mode=modal\" title=\"");
             beginInquiryLink.append(htmlData.getTitle());
-            beginInquiryLink.append("\" target=\"blank\">");
+            beginInquiryLink.append(" in modal\" data-remodal-target=\"modal\">");
 
         }
 
@@ -130,6 +138,7 @@ public class ReadOnlyRenderer extends FieldRendererBase {
 
     /**
      * Builds the closing anchor tag for the inquiry link
+     *
      * @return the HTML for the closing inquiry anchor tag
      */
     protected String buildEndInquiryLink() {
@@ -139,16 +148,42 @@ public class ReadOnlyRenderer extends FieldRendererBase {
         return "";
     }
 
+    protected String buildNewWindowInquiryLink() {
+        StringBuilder inquiryLink = new StringBuilder();
+        if (getField().getInquiryURL() instanceof AnchorHtmlData) {
+            AnchorHtmlData htmlData = (AnchorHtmlData) getField().getInquiryURL();
+            if (htmlData.getHref().startsWith("http")) {
+                inquiryLink.append("<a href=\"");
+            } else {
+                inquiryLink.append("<a href=\"");
+                inquiryLink.append(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY));
+                inquiryLink.append("/kr/");
+            }
+
+            inquiryLink.append(htmlData.getHref());
+            inquiryLink.append("&mode=standalone\" title=\"");
+            inquiryLink.append(htmlData.getTitle());
+            inquiryLink.append(" in new window\" target=\"blank\" class=\"new-window\">");
+            inquiryLink.append("<span class=\"glyphicon glyphicon-new-window\"></span>");
+            inquiryLink.append("</a>");
+
+
+        }
+        return inquiryLink.toString();
+    }
+
     /**
      * Determines if this read only field should attempt to display the inquiry link around the rendered value
+     *
      * @return true if the inquiry link should be rendered, false otherwise
      */
     protected boolean shouldRenderInquiryLink() {
-        return getField().getInquiryURL() != null && !StringUtils.isBlank(((AnchorHtmlData)getField().getInquiryURL()).getHref()) && isInquirableValue(getField().getPropertyValue())  && shouldRenderInquiry;
+        return getField().getInquiryURL() != null && !StringUtils.isBlank(((AnchorHtmlData) getField().getInquiryURL()).getHref()) && isInquirableValue(getField().getPropertyValue()) && shouldRenderInquiry;
     }
 
     /**
      * Determines if the given property value is worthy of having an inquiry for it
+     *
      * @param propertyValue the value of the property to potentially render an inquiry for
      * @return true if the value is inquirable; false otherwise
      */
@@ -158,6 +193,7 @@ public class ReadOnlyRenderer extends FieldRendererBase {
 
     /**
      * Sets the shouldRenderInquiry attribute value.
+     *
      * @param shouldRenderInquiry The shouldRenderInquiry to set.
      */
     public void setShouldRenderInquiry(boolean shouldRenderInquiry) {
@@ -167,11 +203,12 @@ public class ReadOnlyRenderer extends FieldRendererBase {
     /**
      * Dropdowns are typically fields with codes, which may be close to meaningless, with more explanative labels.  Therefore,
      * fields which are drop downs should display the label instead
+     *
      * @return the label for the chosen key on the field if possible; otherwise, an empty String
      */
     protected String getValueForDropDown() {
         for (Object keyLabelPairAsObject : getField().getFieldValidValues()) {
-            final KeyValue keyLabelPair = (KeyValue)keyLabelPairAsObject;
+            final KeyValue keyLabelPair = (KeyValue) keyLabelPairAsObject;
             if (getField().getPropertyValue().equalsIgnoreCase(keyLabelPair.getKey().toString())) {
                 return keyLabelPair.getValue();
             }
@@ -182,8 +219,9 @@ public class ReadOnlyRenderer extends FieldRendererBase {
     /**
      * An algorithm to discover the actual read only value to render.  If this is a drop down, it finds the renderable value for the drop down;
      * if the value is unavailable, it searches for the property in unconverted values
-     * @return the value to display
      *
+     * @return the value to display
+     * <p>
      * KRAD Conversion: Discovering fields values
      */
     protected String discoverRenderValue() {
@@ -204,6 +242,7 @@ public class ReadOnlyRenderer extends FieldRendererBase {
 
     /**
      * Nope, no quick finder here
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.FieldRenderer#renderQuickfinder()
      */
     @Override
@@ -227,11 +266,10 @@ public class ReadOnlyRenderer extends FieldRendererBase {
         // do nothing - read onlys don't need "no wrap"
     }
 
-     @Override
-     public void renderExplodableLink(PageContext context) throws JspException {
+    @Override
+    public void renderExplodableLink(PageContext context) throws JspException {
          /* No thanks */
-     }
-
+    }
 
 
 }

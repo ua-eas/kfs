@@ -1,26 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document.authorization;
 
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapAuthorizationConstants;
 import org.kuali.kfs.module.purap.PurapAuthorizationConstants.CreditMemoEditMode;
 import org.kuali.kfs.module.purap.PurapConstants;
@@ -32,11 +34,9 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.FinancialSystemWorkflowHelperService;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.util.Set;
 
 
 public class VendorCreditMemoDocumentPresentationController extends PurchasingAccountsPayableDocumentPresentationController {
@@ -84,7 +84,6 @@ public class VendorCreditMemoDocumentPresentationController extends PurchasingAc
     }
 
     /**
-     *
      * @see org.kuali.rice.krad.document.authorization.DocumentPresentationControllerBase#canEdit(org.kuali.rice.krad.document.Document)
      */
     @Override
@@ -97,16 +96,15 @@ public class VendorCreditMemoDocumentPresentationController extends PurchasingAc
     }
 
     /**
-     *
      * @see org.kuali.rice.krad.document.authorization.TransactionalDocumentPresentationControllerBase#getEditModes(org.kuali.rice.krad.document.Document)
      */
     @Override
     public Set<String> getEditModes(Document document) {
         Set<String> editModes = super.getEditModes(document);
-        
-        VendorCreditMemoDocument vendorCreditMemoDocument = (VendorCreditMemoDocument)document;
+
+        VendorCreditMemoDocument vendorCreditMemoDocument = (VendorCreditMemoDocument) document;
         WorkflowDocument workflowDocument = vendorCreditMemoDocument.getFinancialSystemDocumentHeader().getWorkflowDocument();
-        
+
         if (canCancel(vendorCreditMemoDocument)) {
             editModes.add(CreditMemoEditMode.ACCOUNTS_PAYABLE_PROCESSOR_CANCEL);
         }
@@ -121,11 +119,10 @@ public class VendorCreditMemoDocumentPresentationController extends PurchasingAc
 
         if (SpringContext.getBean(PurapService.class).isFullDocumentEntryCompleted(vendorCreditMemoDocument)) {
             editModes.add(CreditMemoEditMode.FULL_DOCUMENT_ENTRY_COMPLETED);
-        }
-        else {
-            if (ObjectUtils.isNotNull(vendorCreditMemoDocument.getPurchaseOrderDocument()) && 
-                    !vendorCreditMemoDocument.isSourceVendor() && 
-                    PurapConstants.PurchaseOrderStatuses.APPDOC_CLOSED.equals(vendorCreditMemoDocument.getPurchaseOrderDocument().getApplicationDocumentStatus())) {
+        } else {
+            if (ObjectUtils.isNotNull(vendorCreditMemoDocument.getPurchaseOrderDocument()) &&
+                !vendorCreditMemoDocument.isSourceVendor() &&
+                PurapConstants.PurchaseOrderStatuses.APPDOC_CLOSED.equals(vendorCreditMemoDocument.getPurchaseOrderDocument().getApplicationDocumentStatus())) {
                 // TODO hjs-is this right? check to see if the checkbox is showing up for non-AP folks
                 editModes.add(CreditMemoEditMode.ALLOW_REOPEN_PURCHASE_ORDER);
             }
@@ -151,8 +148,7 @@ public class VendorCreditMemoDocumentPresentationController extends PurchasingAc
             if (vendorCreditMemoDocument.isUseTaxIndicator()) {
                 // only allow tax editing if doc is not using use tax
                 editModes.add(CreditMemoEditMode.LOCK_TAX_AMOUNT_ENTRY);
-            }
-            else {
+            } else {
                 // display the "clear all taxes" button if doc is not using use tax
                 editModes.add(CreditMemoEditMode.CLEAR_ALL_TAXES);
             }
@@ -199,9 +195,9 @@ public class VendorCreditMemoDocumentPresentationController extends PurchasingAc
     }
 
     protected boolean canEditPreExtraction(VendorCreditMemoDocument vendorCreditMemoDocument) {
-        return (!vendorCreditMemoDocument.isExtracted() && 
-                !SpringContext.getBean(FinancialSystemWorkflowHelperService.class).isAdhocApprovalRequestedForPrincipal(vendorCreditMemoDocument.getFinancialSystemDocumentHeader().getWorkflowDocument(), GlobalVariables.getUserSession().getPrincipalId()) &&
-                !PurapConstants.CreditMemoStatuses.CANCELLED_STATUSES.contains(vendorCreditMemoDocument.getApplicationDocumentStatus()));
+        return (!vendorCreditMemoDocument.isExtracted() &&
+            !SpringContext.getBean(FinancialSystemWorkflowHelperService.class).isAdhocApprovalRequestedForPrincipal(vendorCreditMemoDocument.getFinancialSystemDocumentHeader().getWorkflowDocument(), GlobalVariables.getUserSession().getPrincipalId()) &&
+            !PurapConstants.CreditMemoStatuses.CANCELLED_STATUSES.contains(vendorCreditMemoDocument.getApplicationDocumentStatus()));
     }
 
 }

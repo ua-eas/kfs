@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -19,13 +19,13 @@
 
 package org.kuali.kfs.integration.cg.businessobject;
 
-import java.util.List;
-
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomer;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsAgencyAddress;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAgency;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.List;
 
 /**
  * This class defines an agency as it is used and referenced within the Contracts & Grants portion of a college or university
@@ -197,8 +197,8 @@ public class Agency implements ContractsAndGrantsBillingAgency, MutableInactivat
      * Sets the reportsToAgency attribute.
      *
      * @param reportsToAgencyNumber The reportsToAgency to set.
-     * @deprecated
      * @todo Why is this deprecated?
+     * @deprecated
      */
     @Deprecated
     public void setReportsToAgency(Agency reportsToAgencyNumber) {
@@ -348,6 +348,7 @@ public class Agency implements ContractsAndGrantsBillingAgency, MutableInactivat
      * @see org.kuali.rice.krad.bo.BusinessObject#refresh()
      */
     @Override
-    public void refresh() {}
+    public void refresh() {
+    }
 
 }

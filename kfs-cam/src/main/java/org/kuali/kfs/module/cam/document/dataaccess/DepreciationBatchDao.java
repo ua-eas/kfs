@@ -1,22 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cam.document.dataaccess;
+
+import org.kuali.kfs.module.cam.batch.AssetPaymentInfo;
+import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 import java.sql.Date;
 import java.util.Calendar;
@@ -24,10 +28,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.kuali.kfs.module.cam.batch.AssetPaymentInfo;
-import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 /**
  * Interface declaring DAO methods required by CAMS depreciation batch job
@@ -39,9 +39,9 @@ public interface DepreciationBatchDao {
      * period
      *
      * @param assetPayments Batch of asset payments
-     * @param fiscalPeriod Current fiscal period
+     * @param fiscalPeriod  Current fiscal period
      */
-    public void updateAssetPayments(List<AssetPaymentInfo> assetPayments, Integer fiscalPeriod);
+    void updateAssetPayments(List<AssetPaymentInfo> assetPayments, Integer fiscalPeriod);
 
     /**
      * Sum all period column and set as previous year value and then reset period columns with zero dollar
@@ -49,46 +49,46 @@ public interface DepreciationBatchDao {
      * @param fiscalMonth Fiscal period
      * @throws Exception
      */
-    public void resetPeriodValuesWhenFirstFiscalPeriod(Integer fiscalPeriod) throws Exception;
+    void resetPeriodValuesWhenFirstFiscalPeriod(Integer fiscalPeriod) throws Exception;
 
-    /**
-     * Updates depreciation and service date for all the assets created after last fiscal period date
-     *
-     * @param fiscalMonth fiscal month
-     * @param fiscalYear fiscal year
-     */
-    public void updateAssetsCreatedInLastFiscalPeriod(Integer fiscalMonth, Integer fiscalYear);
 
     /**
      * Saves a batch of GL Pending entries
      *
      * @param glPendingEntries GLPE list to be saved
      */
-    public void savePendingGLEntries(final List<GeneralLedgerPendingEntry> glPendingEntries);
+    void savePendingGLEntries(final List<GeneralLedgerPendingEntry> glPendingEntries);
 
     /**
      * Gets the list of depreciable asset payment list and corresponding details
      *
-     * @param fiscalYear Fiscal year
-     * @param fiscalMonth Fiscal period
+     * @param fiscalYear       Fiscal year
+     * @param fiscalMonth      Fiscal period
      * @param depreciationDate Depreciation Date
      * @return List found matching depreciation criteria
      */
-    public Collection<AssetPaymentInfo> getListOfDepreciableAssetPaymentInfo(Integer fiscalYear, Integer fiscalMonth, Calendar depreciationDate);
+    Collection<AssetPaymentInfo> getListOfDepreciableAssetPaymentInfo(Integer fiscalYear, Integer fiscalMonth, Calendar depreciationDate);
 
     /**
      * Counts the number of assets which has (SUM(Primary Depreciation Amount - Accumulated Depreciation) - Salvage Amount) is zero
      *
      * @return count of assets matching condition
      */
-    public Integer getFullyDepreciatedAssetCount();
+    Integer getFullyDepreciatedAssetCount();
 
     /**
      * Primary depreciation base amount for assets with Salvage Value depreciation method code.
      *
      * @return Map
      */
-    public Map<Long, KualiDecimal> getPrimaryDepreciationBaseAmountForSV();
+    Map<Long, KualiDecimal> getPrimaryDepreciationBaseAmountForSV();
+
+    /**
+     * Retrieves list of asset IDs that have no depreciation.
+     *
+     * @return
+     */
+    Set<Long> getAssetsWithNoDepreciation();
 
     /**
      * Retrieves asset and asset payment count eligible for depreciation
@@ -119,6 +119,13 @@ public interface DepreciationBatchDao {
     Integer getTransferDocLockedAssetCount();
 
     /**
+     * Assets with pending transfer docs
+     *
+     * @return
+     */
+    Set<Long> getTransferDocPendingAssets();
+
+    /**
      * Retirement document locked count
      *
      * @return
@@ -130,19 +137,7 @@ public interface DepreciationBatchDao {
      *
      * @return
      */
-    public Set<Long> getLockedAssets();
-
-    // CSU 6702 BEGIN
-    /**
-     * No explanation provided
-     * @param fiscalYear
-     * @param fiscalMonth
-     * @param depreciationDate
-     * @param includeRetired
-     * @return
-     */
-    public Collection<AssetPaymentInfo> getListOfDepreciableAssetPaymentInfoYearEnd(Integer fiscalYear, Integer fiscalMonth, Calendar depreciationDate, boolean includeRetired);
-    // CSU 6702 END
+    Set<Long> getLockedAssets();
 
     /**
      * Depreciation (end of year) Period 13 assets incorrect depreciation start date
@@ -153,19 +148,21 @@ public interface DepreciationBatchDao {
      * <li>Asset has depreciation convention restricted by parameter
      * <li>Asset are movable assets. Movable assets are defined by system parameter MOVABLE_EQUIPMENT_OBJECT_SUB_TYPES
      * </ul>
+     *
      * @param lastFiscalYearDate
      * @param movableEquipmentObjectSubTypes
      * @param depreciationConventionCd
      * @return
      */
-    public List<Map<String, Object>> getAssetsByDepreciationConvention(Date lastFiscalYearDate, List<String> movableEquipmentObjectSubTypes, String depreciationConventionCd);
+    List<Map<String, Object>> getAssetsByDepreciationConvention(Date lastFiscalYearDate, List<String> movableEquipmentObjectSubTypes, String depreciationConventionCd);
 
     /**
      * Depreciation (end of year) Period 13 assets incorrect depreciation start date
      * <P> Update asset in service date and depreciation date
+     *
      * @param selectedAssets
      * @param inServiceDate
      * @param depreciationDate
      */
-    public void updateAssetInServiceAndDepreciationDate(List<String>selectedAssets, Date inServiceDate, Date depreciationDate);
+    void updateAssetInServiceAndDepreciationDate(List<String> selectedAssets, Date inServiceDate, Date depreciationDate);
 }

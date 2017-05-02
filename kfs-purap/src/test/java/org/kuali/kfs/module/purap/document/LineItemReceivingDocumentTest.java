@@ -1,28 +1,27 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
-
-import java.util.List;
-
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.businessobject.LineItemReceivingItem;
 import org.kuali.kfs.module.purap.fixture.LineItemReceivingDocumentFixture;
 import org.kuali.kfs.module.purap.fixture.PurchaseOrderDocumentFixture;
@@ -33,10 +32,11 @@ import org.kuali.kfs.sys.document.AccountingDocumentTestUtils;
 import org.kuali.kfs.sys.document.workflow.WorkflowTestUtils;
 import org.kuali.rice.kew.api.document.DocumentStatus;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.exception.ValidationException;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.util.GlobalVariables;
+
+import java.util.List;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
 
 /**
  * Used to create and test populated Receiving Line Documents of various kinds.
@@ -59,7 +59,7 @@ public class LineItemReceivingDocumentTest extends KualiTestBase {
         return 0;
     }
 
-    @ConfigureContext(session = parke, shouldCommitTransactions=true)
+    @ConfigureContext(session = parke, shouldCommitTransactions = true)
     public final void testRouteDocument() throws Exception {
         //create PO
         PurchaseOrderDocument po = PurchaseOrderDocumentFixture.PO_ONLY_REQUIRED_FIELDS.createPurchaseOrderDocument();
@@ -72,8 +72,8 @@ public class LineItemReceivingDocumentTest extends KualiTestBase {
         //create Receiving
         LineItemReceivingDocument receivingLineDocument = LineItemReceivingDocumentFixture.EMPTY_LINE_ITEM_RECEIVING.createLineItemReceivingDocument();
         receivingLineDocument.populateReceivingLineFromPurchaseOrder(poResult);
-        for(LineItemReceivingItem rli : (List<LineItemReceivingItem>)receivingLineDocument.getItems()){
-            rli.setItemReceivedTotalQuantity( rli.getItemOrderedQuantity());
+        for (LineItemReceivingItem rli : (List<LineItemReceivingItem>) receivingLineDocument.getItems()) {
+            rli.setItemReceivedTotalQuantity(rli.getItemOrderedQuantity());
         }
         receivingLineDocument.prepareForSave();
         assertFalse(DocumentStatus.ENROUTE.equals(receivingLineDocument.getDocumentHeader().getWorkflowDocument().getStatus()));
@@ -86,16 +86,15 @@ public class LineItemReceivingDocumentTest extends KualiTestBase {
     /**
      * Helper method to route the document.
      *
-     * @param document                 The assign contract manager document to be routed.
-     * @param annotation               The annotation String.
-     * @param documentService          The service to use to route the document.
+     * @param document        The assign contract manager document to be routed.
+     * @param annotation      The annotation String.
+     * @param documentService The service to use to route the document.
      * @throws WorkflowException
      */
     private void routeDocument(Document document, String annotation, DocumentService documentService) throws WorkflowException {
         try {
             documentService.routeDocument(document, annotation, null);
-        }
-        catch (ValidationException e) {
+        } catch (ValidationException e) {
             // If the business rule evaluation fails then give us more info for debugging this test.
             fail(e.getMessage() + ", " + GlobalVariables.getMessageMap());
         }

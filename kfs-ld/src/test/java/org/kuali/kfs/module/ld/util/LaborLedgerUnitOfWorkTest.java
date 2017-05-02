@@ -1,28 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ld.util;
-
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
 
 import org.kuali.kfs.module.ld.businessobject.LaborOriginEntry;
 import org.kuali.kfs.module.ld.testdata.LaborTestDataPropertyConstants;
@@ -30,6 +24,12 @@ import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.TestDataPreparator;
 import org.kuali.kfs.sys.context.KualiTestBase;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class LaborLedgerUnitOfWorkTest extends KualiTestBase {
@@ -39,13 +39,13 @@ public class LaborLedgerUnitOfWorkTest extends KualiTestBase {
 
     public void setUp() throws Exception {
         super.setUp();
-        
+
         String messageFileName = LaborTestDataPropertyConstants.TEST_DATA_PACKAGE_NAME + "/message.properties";
         String propertiesFileName = LaborTestDataPropertyConstants.TEST_DATA_PACKAGE_NAME + "/laborLedgerUnitOfWork.properties";
 
         Properties properties = TestDataPreparator.loadPropertiesFromClassPath(propertiesFileName);
         Properties message = TestDataPreparator.loadPropertiesFromClassPath(propertiesFileName);
-        
+
         laborOriginEntry = TestDataPreparator.buildTestDataObject(LaborOriginEntry.class, properties);
     }
 

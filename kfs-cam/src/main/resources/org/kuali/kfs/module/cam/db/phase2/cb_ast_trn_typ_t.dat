@@ -1,0 +1,11 @@
+HEADER[~&~	~&~CPTL_AST_TRN_TYP_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~CPTL_AST_TRN_TYP_DESC::VARCHAR~&~	~&~CPTL_AST_NON_QTY_DRVN_ALLW_IND::VARCHAR~&~	~&~DOBJ_MAINT_CD_ACTV_IND::VARCHAR~&~	~&~CPTLAST_QTY_SUBTYP_REQ_TXT::VARCHAR~&~	~&~CPTLAST_NONQTY_SUBTYP_REQ_TXT::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'CASA'~&~	~&~'AF8BBD46-3B4A-20ED-4296-7C7A66198981'~&~	~&~'1'~&~	~&~'COST OF ASSEMBLING THE ASSET'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~'AM;CM;CF;CO;UC;UF;UO'~&~	~&~'AM;CM;CF;CO;UC;UF;UO'~&~	~&~]RECORD
+RECORD[~&~	~&~'FABR'~&~	~&~'4D7C6085-0715-E83F-F832-157D8FD16F1D'~&~	~&~'1'~&~	~&~'FABRICATION'~&~	~&~'N'~&~	~&~'Y'~&~	~&~'UC;UF;UO'~&~	~&~NULL~&~	~&~]RECORD
+RECORD[~&~	~&~'INST'~&~	~&~'B864C072-71D8-925B-72FE-4EFDC4D33CCF'~&~	~&~'2'~&~	~&~'COST OF INSTALLATION'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~'AM;CM;CF;CO;UC;UF;UO'~&~	~&~'AM;CM;CF;CO;UC;UF;UO'~&~	~&~]RECORD
+RECORD[~&~	~&~'LEAS'~&~	~&~'909FF5FB-5BEA-DE10-83CC-56804C58E1FB'~&~	~&~'1'~&~	~&~'CAPITAL LEASE'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~'CL'~&~	~&~'CL'~&~	~&~]RECORD
+RECORD[~&~	~&~'MDEX'~&~	~&~'02B62DE3-5360-1DC3-1381-7F5A0AA95D38'~&~	~&~'2'~&~	~&~'MODIFY EXISTING'~&~	~&~'N'~&~	~&~'Y'~&~	~&~'AM;CM;CF;CO'~&~	~&~NULL~&~	~&~]RECORD
+RECORD[~&~	~&~'NEW'~&~	~&~'83F3E4DB-E129-6CB7-BF4E-6475437B9361'~&~	~&~'1'~&~	~&~'NEW'~&~	~&~'N'~&~	~&~'Y'~&~	~&~'AM;CM;CF;CO'~&~	~&~NULL~&~	~&~]RECORD
+RECORD[~&~	~&~'OTHS'~&~	~&~'A4109E6C-FBAE-F635-D008-6EB7DE73D0E8'~&~	~&~'1'~&~	~&~'OTHER SERVICE'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~'AM;CM;CF;CO;UC;UF;UO'~&~	~&~'AM;CM;CF;CO;UC;UF;UO'~&~	~&~]RECORD
+RECORD[~&~	~&~'PREP'~&~	~&~'01A69058-BDDC-97CD-5746-5DD1327141CE'~&~	~&~'1'~&~	~&~'PREPARING THE SITE AND ASSET'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~'AM;CM;CF;CO;UC;UF;UO'~&~	~&~'AM;CM;CF;CO;UC;UF;UO'~&~	~&~]RECORD
+RECORD[~&~	~&~'TINS'~&~	~&~'290492ED-307D-5FDC-D34D-4F1F9A097A7B'~&~	~&~'1'~&~	~&~'IN-TRANSIT INSURANCE'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~'AM;CM;CF;CO;UC;UF;UO'~&~	~&~'AM;CM;CF;CO;UC;UF;UO'~&~	~&~]RECORD
+RECORD[~&~	~&~'TRAI'~&~	~&~'9C934F22-8116-FE6B-8D43-4B3BE92AF7E2'~&~	~&~'1'~&~	~&~'TRAINING'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~'AM;CM;CF;CO;UC;UF;UO'~&~	~&~'AM;CM;CF;CO;UC;UF;UO'~&~	~&~]RECORD

@@ -1,25 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.vnd.batch.dataaccess;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.vnd.businessobject.DebarredVendorMatch;
@@ -28,7 +25,10 @@ import org.kuali.kfs.vnd.document.service.VendorService;
 import org.kuali.rice.core.framework.persistence.jdbc.dao.PlatformAwareDaoBaseJdbc;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
-public class DebarredVendorDaoJdbc extends  PlatformAwareDaoBaseJdbc implements DebarredVendorDao {
+import java.util.ArrayList;
+import java.util.List;
+
+public class DebarredVendorDaoJdbc extends PlatformAwareDaoBaseJdbc implements DebarredVendorDao {
     private VendorService vendorService;
     private DebarredVendorMatchDao debarredVendorMatchDao;
 
@@ -39,7 +39,7 @@ public class DebarredVendorDaoJdbc extends  PlatformAwareDaoBaseJdbc implements 
         String joinExcl = " INNER JOIN PUR_VNDR_EXCL_MT excl";
         String where = " WHERE " + active;
         String eplsFields = "excl.VNDR_EXCL_ID, excl.VNDR_EXCL_LOAD_DT, excl.VNDR_EXCL_NM, excl.VNDR_EXCL_LN1_ADDR, excl.VNDR_EXCL_LN2_ADDR, excl.VNDR_EXCL_CTY_NM" +
-        		", excl.VNDR_EXCL_ST_CD, excl.VNDR_EXCL_PRVN_NM, excl.VNDR_EXCL_ZIP_CD, excl.VNDR_EXCL_OTHR_NM, excl.VNDR_EXCL_DESC_TXT";
+            ", excl.VNDR_EXCL_ST_CD, excl.VNDR_EXCL_PRVN_NM, excl.VNDR_EXCL_ZIP_CD, excl.VNDR_EXCL_OTHR_NM, excl.VNDR_EXCL_DESC_TXT";
 
         String selectName = "SELECT dtl.VNDR_HDR_GNRTD_ID, dtl.VNDR_DTL_ASND_ID, " + eplsFields + " , 0 VNDR_ADDR_GNRTD_ID";
         String fromName = " FROM pur_vndr_dtl_t dtl";
@@ -82,10 +82,10 @@ public class DebarredVendorDaoJdbc extends  PlatformAwareDaoBaseJdbc implements 
 
         String max = ", MAX(VNDR_ADDR_GNRTD_ID)";
         String selectFields = "VNDR_HDR_GNRTD_ID, VNDR_DTL_ASND_ID, VNDR_EXCL_ID, VNDR_EXCL_LOAD_DT, VNDR_EXCL_NM, VNDR_EXCL_LN1_ADDR, VNDR_EXCL_LN2_ADDR, VNDR_EXCL_CTY_NM" +
-                ", VNDR_EXCL_ST_CD, VNDR_EXCL_PRVN_NM, VNDR_EXCL_ZIP_CD, VNDR_EXCL_OTHR_NM, VNDR_EXCL_DESC_TXT";
+            ", VNDR_EXCL_ST_CD, VNDR_EXCL_PRVN_NM, VNDR_EXCL_ZIP_CD, VNDR_EXCL_OTHR_NM, VNDR_EXCL_DESC_TXT";
         String select = "SELECT " + selectFields + max;
         String subqr = sqlName + " UNION " + sqlAlias + " UNION " + sqlAddr;
-        String from = " FROM (" + subqr + ")";
+        String from = " FROM (" + subqr + ") SUBQR ";
         String group = " GROUP BY " + selectFields;
         String sql = select + from + group;
 
@@ -95,7 +95,7 @@ public class DebarredVendorDaoJdbc extends  PlatformAwareDaoBaseJdbc implements 
             SqlRowSet rs = getJdbcTemplate().queryForRowSet(sql);
             DebarredVendorMatch match;
 
-            while(rs.next()) {
+            while (rs.next()) {
                 match = new DebarredVendorMatch();
                 match.setVendorHeaderGeneratedIdentifier(new Integer(rs.getInt(1)));
                 match.setVendorDetailAssignedIdentifier(new Integer(rs.getInt(2)));
@@ -140,8 +140,8 @@ public class DebarredVendorDaoJdbc extends  PlatformAwareDaoBaseJdbc implements 
         long defaultId = 0;
         int maxPriority = 0;
         List<VendorAddress> addresses = vendorService.getVendorDetail(match.getVendorHeaderGeneratedIdentifier(),
-                match.getVendorDetailAssignedIdentifier()).getVendorAddresses();
-        if (addresses == null ) {
+            match.getVendorDetailAssignedIdentifier()).getVendorAddresses();
+        if (addresses == null) {
             return bestid;
         }
 
@@ -208,8 +208,7 @@ public class DebarredVendorDaoJdbc extends  PlatformAwareDaoBaseJdbc implements 
             String like1 = notnullr + " AND " + fieldl + " LIKE '%'||" + fieldr + "||'%'";
             String like2 = notnulll + " AND " + fieldr + " LIKE '%'||" + fieldl + "||'%'";
             cmpstr += "(" + like1 + " OR " + like2 + ")"; // put () around the 'OR' to ensure integrity
-        }
-        else {
+        } else {
             // whether the two fields equal
             cmpstr = notnulll + " AND " + fieldl + " = " + fieldr;
         }
@@ -219,6 +218,7 @@ public class DebarredVendorDaoJdbc extends  PlatformAwareDaoBaseJdbc implements 
 
     /**
      * Gets the vendorService attribute.
+     *
      * @return Returns the vendorService.
      */
     public VendorService getVendorService() {
@@ -227,6 +227,7 @@ public class DebarredVendorDaoJdbc extends  PlatformAwareDaoBaseJdbc implements 
 
     /**
      * Sets the vendorService attribute value.
+     *
      * @param vendorService The vendorService to set.
      */
     public void setVendorService(VendorService vendorService) {
@@ -235,6 +236,7 @@ public class DebarredVendorDaoJdbc extends  PlatformAwareDaoBaseJdbc implements 
 
     /**
      * Gets the debarredVendorMatchDao attribute.
+     *
      * @return Returns the debarredVendorMatchDao.
      */
     public DebarredVendorMatchDao getDebarredVendorMatchDao() {
@@ -243,6 +245,7 @@ public class DebarredVendorDaoJdbc extends  PlatformAwareDaoBaseJdbc implements 
 
     /**
      * Sets the debarredVendorMatchDao attribute value.
+     *
      * @param debarredVendorMatchDao The debarredVendorMatchDao to set.
      */
     public void setDebarredVendorMatchDao(DebarredVendorMatchDao debarredVendorMatchDao) {

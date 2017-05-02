@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  * 
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,17 +18,14 @@
  */
 package org.kuali.kfs.module.cam.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.kuali.kfs.module.cab.CabConstants;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 
-/**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
- */
+import java.util.LinkedHashMap;
+
 public class PurchasingAccountsPayableLineAssetAccount extends PersistableBusinessObjectBase {
     private static final Logger LOG = Logger.getLogger(PurchasingAccountsPayableLineAssetAccount.class);
 
@@ -56,7 +53,7 @@ public class PurchasingAccountsPayableLineAssetAccount extends PersistableBusine
         this.capitalAssetBuilderLineNumber = itemAsset.getCapitalAssetBuilderLineNumber();
         this.generalLedgerAccountIdentifier = generalLedgerAccountIdentifier;
         this.purchasingAccountsPayableItemAsset = itemAsset;
-        this.setActivityStatusCode(StringUtils.isBlank(itemAsset.getActivityStatusCode()) ? CabConstants.ActivityStatusCode.MODIFIED : itemAsset.getActivityStatusCode());
+        this.setActivityStatusCode(StringUtils.isBlank(itemAsset.getActivityStatusCode()) ? CamsConstants.ActivityStatusCode.MODIFIED : itemAsset.getActivityStatusCode());
     }
 
     public String getDocumentNumber() {
@@ -108,7 +105,7 @@ public class PurchasingAccountsPayableLineAssetAccount extends PersistableBusine
     }
 
     public boolean isActive() {
-        return CabConstants.ActivityStatusCode.NEW.equalsIgnoreCase(this.getActivityStatusCode()) || CabConstants.ActivityStatusCode.MODIFIED.equalsIgnoreCase(this.getActivityStatusCode());
+        return CamsConstants.ActivityStatusCode.NEW.equalsIgnoreCase(this.getActivityStatusCode()) || CamsConstants.ActivityStatusCode.MODIFIED.equalsIgnoreCase(this.getActivityStatusCode());
     }
 
 

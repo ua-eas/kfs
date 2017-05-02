@@ -1,27 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document.web.struts;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.kns.web.ui.ExtraButton;
+import org.kuali.kfs.kns.web.ui.HeaderField;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapAuthorizationConstants.PaymentRequestEditMode;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapConstants.PaymentRequestStatuses;
@@ -33,15 +37,10 @@ import org.kuali.kfs.module.purap.document.service.PurapService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.rice.kns.document.authorization.DocumentAuthorizer;
-import org.kuali.rice.kns.service.DocumentHelperService;
-import org.kuali.rice.kns.web.ui.ExtraButton;
-import org.kuali.rice.kns.web.ui.HeaderField;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Struts Action Form for Payment Request document.
@@ -91,8 +90,7 @@ public class PaymentRequestForm extends AccountsPayableFormBase {
 
         if (ObjectUtils.isNotNull(this.getPaymentRequestDocument().getPurapDocumentIdentifier())) {
             getDocInfo().add(new HeaderField("DataDictionary.PaymentRequestDocument.attributes.purapDocumentIdentifier", ((PaymentRequestDocument) this.getDocument()).getPurapDocumentIdentifier().toString()));
-        }
-        else {
+        } else {
             getDocInfo().add(new HeaderField("DataDictionary.PaymentRequestDocument.attributes.purapDocumentIdentifier", "Not Available"));
         }
 
@@ -117,9 +115,9 @@ public class PaymentRequestForm extends AccountsPayableFormBase {
      * Build additional payment request specific buttons and set extraButtons list.
      *
      * @return - list of extra buttons to be displayed to the user
-     *
+     * <p>
      * KRAD Conversion: Performs customization of an extra button.
-     *
+     * <p>
      * No data dictionary is involved.
      */
     @Override
@@ -132,22 +130,21 @@ public class PaymentRequestForm extends AccountsPayableFormBase {
         if (canContinue()) {
             addExtraButton("methodToCall.continuePREQ", externalImageURL + "buttonsmall_continue.gif", "Continue");
             addExtraButton("methodToCall.clearInitFields", externalImageURL + "buttonsmall_clear.gif", "Clear");
-        }
-        else {
+        } else {
             if (getEditingMode().containsKey(PaymentRequestEditMode.HOLD)) {
                 addExtraButton("methodToCall.addHoldOnPayment", appExternalImageURL + "buttonsmall_hold.gif", "Hold");
             }
 
             if (getEditingMode().containsKey(PaymentRequestEditMode.REMOVE_HOLD) && paymentRequestDocument.isHoldIndicator()) {
-                addExtraButton("methodToCall.removeHoldFromPayment", appExternalImageURL + "buttonsmall_removehold.gif", "Remove");
+                addExtraButton("methodToCall.removeHoldFromPayment", appExternalImageURL + "buttonsmall_removehold.gif", "Remove Hold");
             }
 
             if (getEditingMode().containsKey(PaymentRequestEditMode.REQUEST_CANCEL)) {
-                addExtraButton("methodToCall.requestCancelOnPayment", appExternalImageURL + "buttonsmall_requestcancel.gif", "Cancel");
+                addExtraButton("methodToCall.requestCancelOnPayment", appExternalImageURL + "buttonsmall_requestcancel.gif", "Request Cancel");
             }
 
             if (getEditingMode().containsKey(PaymentRequestEditMode.REMOVE_REQUEST_CANCEL) && paymentRequestDocument.isPaymentRequestedCancelIndicator()) {
-                addExtraButton("methodToCall.removeCancelRequestFromPayment", appExternalImageURL + "buttonsmall_remreqcanc.gif", "Remove");
+                addExtraButton("methodToCall.removeCancelRequestFromPayment", appExternalImageURL + "buttonsmall_remreqcanc.gif", "Remove Request Cancel");
             }
 
             if (canCalculate()) {
@@ -155,14 +152,13 @@ public class PaymentRequestForm extends AccountsPayableFormBase {
             }
 
             if (getEditingMode().containsKey(PaymentRequestEditMode.ACCOUNTS_PAYABLE_PROCESSOR_CANCEL) ||
-                    getEditingMode().containsKey(PaymentRequestEditMode.ACCOUNTS_PAYABLE_MANAGER_CANCEL)) {
+                getEditingMode().containsKey(PaymentRequestEditMode.ACCOUNTS_PAYABLE_MANAGER_CANCEL)) {
                 if (PurapConstants.PurchaseOrderStatuses.APPDOC_CLOSED.equals(paymentRequestDocument.getPurchaseOrderDocument().getApplicationDocumentStatus())) {
                     //if the PO is CLOSED, show the 'open order' button; but only if there are no pending actions on the PO
                     if (!paymentRequestDocument.getPurchaseOrderDocument().isPendingActionIndicator()) {
-                        addExtraButton("methodToCall.reopenPo", appExternalImageURL + "buttonsmall_openorder.gif", "Reopen PO");
+                        addExtraButton("methodToCall.reopenPo", appExternalImageURL + "buttonsmall_openorder.gif", "Open Order");
                     }
-                }
-                else {
+                } else {
                     if (!paymentRequestDocument.getFinancialSystemDocumentHeader().getWorkflowDocument().isDisapproved()) {
                         addExtraButton("methodToCall.cancel", externalImageURL + "buttonsmall_cancel.gif", "Cancel");
                     }
@@ -219,7 +215,7 @@ public class PaymentRequestForm extends AccountsPayableFormBase {
     @Override
     public boolean shouldMethodToCallParameterBeUsed(String methodToCallParameterName, String methodToCallParameterValue, HttpServletRequest request) {
         if (KRADConstants.DISPATCH_REQUEST_PARAMETER.equals(methodToCallParameterName) &&
-           ("changeUseTaxIndicator".equals(methodToCallParameterValue))) {
+            ("changeUseTaxIndicator".equals(methodToCallParameterValue))) {
             return true;
         }
         return super.shouldMethodToCallParameterBeUsed(methodToCallParameterName, methodToCallParameterValue, request);
@@ -230,8 +226,7 @@ public class PaymentRequestForm extends AccountsPayableFormBase {
 
         if (parameterService.parameterExists(PaymentRequestDocument.class, PurapParameterConstants.SHOW_CLEAR_AND_LOAD_QTY_BUTTONS_IND)) {
             return parameterService.getParameterValueAsBoolean(PaymentRequestDocument.class, PurapParameterConstants.SHOW_CLEAR_AND_LOAD_QTY_BUTTONS_IND);
-        }
-        else {
+        } else {
             return false;
         }
 

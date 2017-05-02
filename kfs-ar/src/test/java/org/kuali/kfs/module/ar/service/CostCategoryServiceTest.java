@@ -1,24 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.service;
-
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 import org.kuali.kfs.module.ar.businessobject.CostCategory;
 import org.kuali.kfs.module.ar.businessobject.CostCategoryDetail;
@@ -32,6 +30,8 @@ import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.TestUtils;
 
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
+
 /**
  * Tests the CostCategoryService
  */
@@ -42,7 +42,7 @@ public class CostCategoryServiceTest extends KualiTestBase {
     @Override
     public void setUp() {
         costCategoryService = new CostCategoryServiceImpl();
-        ((CostCategoryServiceImpl)costCategoryService).setCostCategoryDao(SpringContext.getBean(CostCategoryDao.class));
+        ((CostCategoryServiceImpl) costCategoryService).setCostCategoryDao(SpringContext.getBean(CostCategoryDao.class));
     }
 
     public void testObjectCodeUniqueness() {
@@ -88,8 +88,8 @@ public class CostCategoryServiceTest extends KualiTestBase {
 
     public void testFindCostCategory() {
         final CostCategory costCategory1 = costCategoryService.getCostCategoryForObjectCode(TestUtils.getFiscalYearForTesting(), "BL", "4000");
-        assertNotNull("There should be a cost category for object code "+TestUtils.getFiscalYearForTesting()+"-BL-4000",costCategory1);
+        assertNotNull("There should be a cost category for object code " + TestUtils.getFiscalYearForTesting() + "-BL-4000", costCategory1);
         final CostCategory costCategory2 = costCategoryService.getCostCategoryForObjectCode(TestUtils.getFiscalYearForTesting(), "BL", "ZZZZ");
-        assertNull("There should NOT be a cost category for object code "+TestUtils.getFiscalYearForTesting()+"-BL-ZZZZ", costCategory2);
+        assertNull("There should NOT be a cost category for object code " + TestUtils.getFiscalYearForTesting() + "-BL-ZZZZ", costCategory2);
     }
 }

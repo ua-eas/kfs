@@ -1,31 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cam.businessobject;
-
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
@@ -33,6 +24,14 @@ import org.kuali.kfs.coa.businessobject.AccountingPeriod;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.ObjectSubType;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsAgency;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
 import org.kuali.kfs.module.cam.document.service.PaymentSummaryService;
@@ -47,21 +46,19 @@ import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.krad.bo.DocumentHeader;
-import org.kuali.rice.krad.bo.Note;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.rice.krad.service.KualiModuleService;
-import org.kuali.rice.krad.service.ModuleService;
-import org.kuali.rice.krad.service.NoteService;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.ObjectUtils;
-import org.kuali.rice.krad.util.UrlFactory;
 import org.kuali.rice.location.api.LocationConstants;
 import org.kuali.rice.location.framework.campus.CampusEbo;
 
 import edu.arizona.kfs.module.cam.businessobject.AssetExtension;
 import edu.arizona.kfs.module.cam.businessobject.AssetGlobalDetailExtension;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 public class AssetBase extends PersistableBusinessObjectBase {
 
@@ -185,8 +182,7 @@ public class AssetBase extends PersistableBusinessObjectBase {
     protected String assetMergeOrRetirementDocumentLookup;
     protected String camsComplexMaintenanceDocumentLookup;
     protected boolean tagged;
-    protected String lastInventoryDateUpdateButton; 
-    
+    protected String lastInventoryDateUpdateButton;
 
     /**
      * Default constructor.
@@ -207,7 +203,7 @@ public class AssetBase extends PersistableBusinessObjectBase {
      *
      * @param assetGlobal
      * @param assetGlobalDetail
-     * @param separate if it's seprate an asset
+     * @param separate          if it's seprate an asset
      */
     public AssetBase(AssetGlobal assetGlobal, AssetGlobalDetail assetGlobalDetail, boolean separate) {
         this();
@@ -269,8 +265,7 @@ public class AssetBase extends PersistableBusinessObjectBase {
             this.setManufacturerModelNumber(assetGlobalDetail.getManufacturerModelNumber());
 
             this.assetOrganization.setOrganizationText(assetGlobalDetail.getOrganizationText());
-        }
-        else {
+        } else {
             this.setRepresentativeUniversalIdentifier(assetGlobalDetail.getRepresentativeUniversalIdentifier());
             this.setCapitalAssetTypeCode(assetGlobal.getCapitalAssetTypeCode());
             this.setCapitalAssetDescription(assetGlobal.getCapitalAssetDescription());
@@ -296,7 +291,7 @@ public class AssetBase extends PersistableBusinessObjectBase {
         // page (a list of retired assets). If it were a singleton, each value would get overridden
         // by the next use on the same page
         if (accumulatedDepreciation == null) {
-            SpringContext.getBean(PaymentSummaryService.class).calculateAndSetPaymentSummary((Asset)this);
+            SpringContext.getBean(PaymentSummaryService.class).calculateAndSetPaymentSummary((Asset) this);
         }
 
         return accumulatedDepreciation;
@@ -320,7 +315,7 @@ public class AssetBase extends PersistableBusinessObjectBase {
         // page (a list of retired assets). If it were a singleton, each value would get overridden
         // by the next use on the same page
         if (bookValue == null) {
-            SpringContext.getBean(PaymentSummaryService.class).calculateAndSetPaymentSummary((Asset)this);
+            SpringContext.getBean(PaymentSummaryService.class).calculateAndSetPaymentSummary((Asset) this);
         }
 
         return bookValue;
@@ -715,7 +710,7 @@ public class AssetBase extends PersistableBusinessObjectBase {
      */
     public KualiDecimal getSalvageAmount() {
         if (salvageAmount == null) {
-            salvageAmount=KualiDecimal.ZERO;
+            salvageAmount = KualiDecimal.ZERO;
         }
         return salvageAmount;
     }
@@ -1411,17 +1406,17 @@ public class AssetBase extends PersistableBusinessObjectBase {
      * @return Returns the campus
      */
     public CampusEbo getCampus() {
-        if ( StringUtils.isBlank(campusCode) ) {
+        if (StringUtils.isBlank(campusCode)) {
             campus = null;
         } else {
-            if ( campus == null || !StringUtils.equals( campus.getCode(), campusCode) ) {
+            if (campus == null || !StringUtils.equals(campus.getCode(), campusCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(CampusEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(1);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(1);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, campusCode);
                     campus = moduleService.getExternalizableBusinessObject(CampusEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -1696,8 +1691,8 @@ public class AssetBase extends PersistableBusinessObjectBase {
     /**
      * Sets the assetRepresentative attribute value.
      *
-     * @deprecated
      * @param assetRepresentative The assetRepresentative to set.
+     * @deprecated
      */
     @Deprecated
     public void setAssetRepresentative(Person assetRepresentative) {
@@ -2028,20 +2023,20 @@ public class AssetBase extends PersistableBusinessObjectBase {
     public void setBorrowerStorageLocation(AssetLocation borrowerStorageLocation) {
         this.borrowerStorageLocation = borrowerStorageLocation;
     }
-    
+
     /**
      * Gets the lastInventoryDateUpdateButton  attribute.
      *
      * @return Returns the lastInventoryDateUpdateButton.
      */
-    public String getLastInventoryDateUpdateButton () {
-        return lastInventoryDateUpdateButton ;
+    public String getLastInventoryDateUpdateButton() {
+        return lastInventoryDateUpdateButton;
     }
 
     /**
      * Sets the lastInventoryDateUpdateButton  attribute value.
      *
-     * @param lastInventoryDateUpdateButton-  The lastInventoryDateUpdateButton  to set.
+     * @param lastInventoryDateUpdateButton- The lastInventoryDateUpdateButton  to set.
      */
     public void setLastInventoryDateUpdateButton(String lastInventoryDateUpdateButton) {
         this.lastInventoryDateUpdateButton = lastInventoryDateUpdateButton;
@@ -2068,8 +2063,8 @@ public class AssetBase extends PersistableBusinessObjectBase {
         return UrlFactory.parameterizeUrl(KRADConstants.LOOKUP_ACTION, params);
     }
 
-    protected String getUrlForAssetDocumentLookup( String documentTypeName ) {
-        if ( getCapitalAssetNumber() == null ) {
+    protected String getUrlForAssetDocumentLookup(String documentTypeName) {
+        if (getCapitalAssetNumber() == null) {
             return "";
         }
         Properties params = new Properties();
@@ -2085,7 +2080,7 @@ public class AssetBase extends PersistableBusinessObjectBase {
      * @return
      */
     public String getAssetTransferDocumentLookup() {
-        return getUrlForAssetDocumentLookup( CamsConstants.DocumentTypeName.ASSET_TRANSFER );
+        return getUrlForAssetDocumentLookup(CamsConstants.DocumentTypeName.ASSET_TRANSFER);
     }
 
     /**
@@ -2094,7 +2089,7 @@ public class AssetBase extends PersistableBusinessObjectBase {
      * @return
      */
     public String getAssetMaintenanceDocumentLookup() {
-        return getUrlForAssetDocumentLookup( CamsConstants.DocumentTypeName.ASSET_EDIT );
+        return getUrlForAssetDocumentLookup(CamsConstants.DocumentTypeName.ASSET_EDIT);
     }
 
     /**
@@ -2103,7 +2098,7 @@ public class AssetBase extends PersistableBusinessObjectBase {
      * @return
      */
     public String getAssetFabricationDocumentLookup() {
-        return getUrlForAssetDocumentLookup( CamsConstants.DocumentTypeName.ASSET_FABRICATION );
+        return getUrlForAssetDocumentLookup(CamsConstants.DocumentTypeName.ASSET_FABRICATION);
     }
 
     /**
@@ -2112,7 +2107,7 @@ public class AssetBase extends PersistableBusinessObjectBase {
      * @return
      */
     public String getAssetCreateOrSeparateDocumentLookup() {
-        return getUrlForAssetDocumentLookup( CamsConstants.DocumentTypeName.ASSET_ADD_GLOBAL );
+        return getUrlForAssetDocumentLookup(CamsConstants.DocumentTypeName.ASSET_ADD_GLOBAL);
     }
 
     /**
@@ -2121,7 +2116,7 @@ public class AssetBase extends PersistableBusinessObjectBase {
      * @return
      */
     public String getAssetPaymentDocumentLookup() {
-        return getUrlForAssetDocumentLookup( CamsConstants.DocumentTypeName.ASSET_PAYMENT );
+        return getUrlForAssetDocumentLookup(CamsConstants.DocumentTypeName.ASSET_PAYMENT);
     }
 
     /**
@@ -2130,7 +2125,7 @@ public class AssetBase extends PersistableBusinessObjectBase {
      * @return
      */
     public String getAssetEquipmentLoanOrReturnDocumentLookup() {
-        return getUrlForAssetDocumentLookup( CamsConstants.DocumentTypeName.ASSET_EQUIPMENT_LOAN_OR_RETURN );
+        return getUrlForAssetDocumentLookup(CamsConstants.DocumentTypeName.ASSET_EQUIPMENT_LOAN_OR_RETURN);
     }
 
     /**
@@ -2139,7 +2134,7 @@ public class AssetBase extends PersistableBusinessObjectBase {
      * @return
      */
     public String getAssetLocationDocumentLookup() {
-        return getUrlForAssetDocumentLookup( CamsConstants.DocumentTypeName.ASSET_LOCATION_GLOBAL );
+        return getUrlForAssetDocumentLookup(CamsConstants.DocumentTypeName.ASSET_LOCATION_GLOBAL);
     }
 
     /**
@@ -2148,7 +2143,7 @@ public class AssetBase extends PersistableBusinessObjectBase {
      * @return
      */
     public String getAssetMergeOrRetirementDocumentLookup() {
-        return getUrlForAssetDocumentLookup( CamsConstants.DocumentTypeName.ASSET_RETIREMENT_GLOBAL );
+        return getUrlForAssetDocumentLookup(CamsConstants.DocumentTypeName.ASSET_RETIREMENT_GLOBAL);
     }
 
 
@@ -2158,7 +2153,7 @@ public class AssetBase extends PersistableBusinessObjectBase {
      * @return Returns the camsComplexMaintenanceDocumentLookup.
      */
     public String getCamsComplexMaintenanceDocumentLookup() {
-        return getUrlForAssetDocumentLookup( CamsConstants.DocumentTypeName.COMPLEX_MAINTENANCE_DOC_BASE );
+        return getUrlForAssetDocumentLookup(CamsConstants.DocumentTypeName.COMPLEX_MAINTENANCE_DOC_BASE);
     }
 
     public List<Note> getBoNotes() {
@@ -2170,7 +2165,15 @@ public class AssetBase extends PersistableBusinessObjectBase {
             boNotes = new ArrayList<Note>();
         }
 
-        return boNotes;
+    /**
+     * override this method so we can remove the offcampus location
+     *
+     * @see org.kuali.rice.krad.bo.PersistableBusinessObjectBase#buildListOfDeletionAwareLists()
+     */
+    @Override
+    public List<Collection<PersistableBusinessObject>> buildListOfDeletionAwareLists() {
+        List<Collection<PersistableBusinessObject>> managedLists = new ArrayList<Collection<PersistableBusinessObject>>();
+        managedLists.add(new ArrayList<PersistableBusinessObject>(getAssetLocations()));
     }
 
     protected NoteService getNoteService() {

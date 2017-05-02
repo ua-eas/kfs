@@ -1,23 +1,39 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.coa.businessobject;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateUtils;
+import org.kuali.kfs.coa.service.SubFundGroupService;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+import org.kuali.rice.kim.api.identity.Person;
+import org.kuali.rice.location.api.LocationConstants;
+import org.kuali.rice.location.framework.campus.CampusEbo;
+import org.kuali.rice.location.framework.postalcode.PostalCodeEbo;
+import org.kuali.rice.location.framework.state.StateEbo;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -26,25 +42,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.DateUtils;
-import org.kuali.kfs.coa.service.SubFundGroupService;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.rice.krad.service.KualiModuleService;
-import org.kuali.rice.krad.service.ModuleService;
-import org.kuali.rice.location.api.LocationConstants;
-import org.kuali.rice.location.framework.campus.CampusEbo;
-import org.kuali.rice.location.framework.postalcode.PostalCodeEbo;
-import org.kuali.rice.location.framework.state.StateEbo;
 
-/**
- *
- */
 public class PriorYearAccount extends PersistableBusinessObjectBase implements AccountIntf, MutableInactivatable {
     protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PriorYearAccount.class);
 
@@ -190,10 +188,10 @@ public class PriorYearAccount extends PersistableBusinessObjectBase implements A
         contractControlAccountNumber = account.getContractControlAccountNumber();
         incomeStreamFinancialCoaCode = account.getIncomeStreamFinancialCoaCode();
         incomeStreamAccountNumber = account.getIncomeStreamAccountNumber();
-        
+
         refresh();
     }
-    
+
     /**
      * Gets the accountNumber attribute.
      *
@@ -440,7 +438,7 @@ public class PriorYearAccount extends PersistableBusinessObjectBase implements A
      * date values, not time-values.
      *
      * @param testDate - Calendar instance with the date to test the Account's Expiration Date against. This is most commonly set to
-     *        today's date.
+     *                 today's date.
      * @return true or false based on the logic outlined above
      */
     @Override
@@ -466,8 +464,7 @@ public class PriorYearAccount extends PersistableBusinessObjectBase implements A
         // if the Account Expiration Date is before the testDate
         if (acctDate.before(testDate)) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -479,7 +476,7 @@ public class PriorYearAccount extends PersistableBusinessObjectBase implements A
      * date values, not time-values.
      *
      * @param testDate - java.util.Date instance with the date to test the Account's Expiration Date against. This is most commonly
-     *        set to today's date.
+     *                 set to today's date.
      * @return true or false based on the logic outlined above
      */
     @Override
@@ -845,17 +842,17 @@ public class PriorYearAccount extends PersistableBusinessObjectBase implements A
      */
     @Override
     public CampusEbo getAccountPhysicalCampus() {
-        if ( StringUtils.isBlank(accountPhysicalCampusCode) ) {
+        if (StringUtils.isBlank(accountPhysicalCampusCode)) {
             accountPhysicalCampus = null;
         } else {
-            if ( accountPhysicalCampus == null || !StringUtils.equals( accountPhysicalCampus.getCode(),accountPhysicalCampusCode) ) {
+            if (accountPhysicalCampus == null || !StringUtils.equals(accountPhysicalCampus.getCode(), accountPhysicalCampusCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(CampusEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(1);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(1);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, accountPhysicalCampusCode);
                     accountPhysicalCampus = moduleService.getExternalizableBusinessObject(CampusEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -880,18 +877,18 @@ public class PriorYearAccount extends PersistableBusinessObjectBase implements A
      */
     @Override
     public StateEbo getAccountState() {
-        if ( StringUtils.isBlank(accountStateCode) || StringUtils.isBlank(KFSConstants.COUNTRY_CODE_UNITED_STATES ) ) {
+        if (StringUtils.isBlank(accountStateCode) || StringUtils.isBlank(KFSConstants.COUNTRY_CODE_UNITED_STATES)) {
             accountState = null;
         } else {
-            if ( accountState == null || !StringUtils.equals( accountState.getCode(),accountStateCode) || !StringUtils.equals(accountState.getCountryCode(), KFSConstants.COUNTRY_CODE_UNITED_STATES ) ) {
+            if (accountState == null || !StringUtils.equals(accountState.getCode(), accountStateCode) || !StringUtils.equals(accountState.getCountryCode(), KFSConstants.COUNTRY_CODE_UNITED_STATES)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(StateEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(2);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(2);
                     keys.put(LocationConstants.PrimaryKeyConstants.COUNTRY_CODE, KFSConstants.COUNTRY_CODE_UNITED_STATES);/*RICE20_REFACTORME*/
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, accountStateCode);
                     accountState = moduleService.getExternalizableBusinessObject(StateEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -1511,18 +1508,18 @@ public class PriorYearAccount extends PersistableBusinessObjectBase implements A
      */
     @Override
     public PostalCodeEbo getPostalZipCode() {
-        if ( StringUtils.isBlank(accountZipCode) || StringUtils.isBlank(KFSConstants.COUNTRY_CODE_UNITED_STATES ) ) {
+        if (StringUtils.isBlank(accountZipCode) || StringUtils.isBlank(KFSConstants.COUNTRY_CODE_UNITED_STATES)) {
             postalZipCode = null;
         } else {
-            if ( postalZipCode == null || !StringUtils.equals( postalZipCode.getCode(),accountZipCode) || !StringUtils.equals(postalZipCode.getCountryCode(), KFSConstants.COUNTRY_CODE_UNITED_STATES ) ) {
+            if (postalZipCode == null || !StringUtils.equals(postalZipCode.getCode(), accountZipCode) || !StringUtils.equals(postalZipCode.getCountryCode(), KFSConstants.COUNTRY_CODE_UNITED_STATES)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(PostalCodeEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(2);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(2);
                     keys.put(LocationConstants.PrimaryKeyConstants.COUNTRY_CODE, KFSConstants.COUNTRY_CODE_UNITED_STATES);/*RICE20_REFACTORME*/
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, accountZipCode);
                     postalZipCode = moduleService.getExternalizableBusinessObject(PostalCodeEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -1763,7 +1760,7 @@ public class PriorYearAccount extends PersistableBusinessObjectBase implements A
      */
     @Override
     public boolean isForContractsAndGrants() {
-        if ( forContractsAndGrants == null ) {
+        if (forContractsAndGrants == null) {
             forContractsAndGrants = SpringContext.getBean(SubFundGroupService.class).isForContractsAndGrants(getSubFundGroup());
         }
         return forContractsAndGrants;
@@ -1785,7 +1782,7 @@ public class PriorYearAccount extends PersistableBusinessObjectBase implements A
     @Override
     public void setIndirectCostRecoveryAccounts(List<? extends IndirectCostRecoveryAccount> indirectCostRecoveryAccounts) {
         List<PriorYearIndirectCostRecoveryAccount> priorYearAccountIcrList = new ArrayList<PriorYearIndirectCostRecoveryAccount>();
-        for (IndirectCostRecoveryAccount icr : indirectCostRecoveryAccounts){
+        for (IndirectCostRecoveryAccount icr : indirectCostRecoveryAccounts) {
             priorYearAccountIcrList.add(new PriorYearIndirectCostRecoveryAccount(icr));
         }
         this.indirectCostRecoveryAccounts = priorYearAccountIcrList;

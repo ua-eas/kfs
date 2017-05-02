@@ -1,30 +1,29 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.service.impl;
 
-import org.kuali.rice.coreservice.framework.parameter.ParameterConstants.COMPONENT;
-import org.kuali.rice.coreservice.framework.parameter.ParameterConstants.NAMESPACE;
-import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterConstants.COMPONENT;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterConstants.NAMESPACE;
+import org.kuali.kfs.krad.util.KRADConstants;
 
 
-
-public class KfsParameterConstants  {
+public class KfsParameterConstants {
 
     public static final String NERVOUS_SYSTEM_NAMESPACE = KRADConstants.KNS_NAMESPACE;
     public static final String ALL_COMPONENT = "All";
@@ -56,7 +55,6 @@ public class KfsParameterConstants  {
     public static final String FINANCIAL_SYSTEM_NAMESPACE = FINANCIAL_NAMESPACE_PREFIX + "SYS";
     public static final String ACCOUNTS_RECEIVABLE_NAMESPACE = FINANCIAL_NAMESPACE_PREFIX + "AR";
     public static final String BUDGET_CONSTRUCTION_NAMESPACE = FINANCIAL_NAMESPACE_PREFIX + "BC";
-    public static final String CAPITAL_ASSET_BUILDER_NAMESPACE = FINANCIAL_NAMESPACE_PREFIX + "CAB";
     public static final String CAPITAL_ASSETS_NAMESPACE = FINANCIAL_NAMESPACE_PREFIX + "CAM";
     public static final String CONTRACTS_AND_GRANTS_NAMESPACE = FINANCIAL_NAMESPACE_PREFIX + "CG";
     public static final String CHART_NAMESPACE = FINANCIAL_NAMESPACE_PREFIX + "COA";
@@ -148,26 +146,6 @@ public class KfsParameterConstants  {
     @NAMESPACE(namespace = CAPITAL_ASSETS_NAMESPACE)
     @COMPONENT(component = BATCH_COMPONENT)
     public final class CAPITAL_ASSETS_BATCH {
-    }
-
-    @NAMESPACE(namespace = CAPITAL_ASSET_BUILDER_NAMESPACE)
-    @COMPONENT(component = ALL_COMPONENT)
-    public final class CAPITAL_ASSET_BUILDER_ALL {
-    }
-
-    @NAMESPACE(namespace = CAPITAL_ASSET_BUILDER_NAMESPACE)
-    @COMPONENT(component = DOCUMENT_COMPONENT)
-    public final class CAPITAL_ASSET_BUILDER_DOCUMENT {
-    }
-
-    @NAMESPACE(namespace = CAPITAL_ASSET_BUILDER_NAMESPACE)
-    @COMPONENT(component = LOOKUP_COMPONENT)
-    public final class CAPITAL_ASSET_BUILDER_LOOKUP {
-    }
-
-    @NAMESPACE(namespace = CAPITAL_ASSET_BUILDER_NAMESPACE)
-    @COMPONENT(component = BATCH_COMPONENT)
-    public final class CAPITAL_ASSET_BUILDER_BATCH {
     }
 
     @NAMESPACE(namespace = CONTRACTS_AND_GRANTS_NAMESPACE)

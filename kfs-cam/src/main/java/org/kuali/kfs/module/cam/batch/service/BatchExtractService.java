@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  * 
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.cam.batch.service;
 
+import org.kuali.kfs.gl.businessobject.Entry;
+import org.kuali.kfs.module.cam.batch.ExtractProcessLog;
+import org.kuali.kfs.module.cam.businessobject.PurchasingAccountsPayableDocument;
+import org.kuali.kfs.module.purap.businessobject.PurApAccountingLineBase;
+import org.kuali.kfs.module.purap.businessobject.PurchaseOrderAccount;
+
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
-
-import org.kuali.kfs.gl.businessobject.Entry;
-import org.kuali.kfs.module.cab.batch.ExtractProcessLog;
-import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableDocument;
-import org.kuali.kfs.module.purap.businessobject.PurApAccountingLineBase;
-import org.kuali.kfs.module.purap.businessobject.PurchaseOrderAccount;
 
 /**
  * Declares the service methods used by CAB batch program
@@ -54,7 +54,7 @@ public interface BatchExtractService {
      * Returns the list of CAB eligible GL entries, filter parameters are pre-configured
      *
      * @param process log
-     * @return Eligible GL Entries meeting batch parameters configured under parameter group KFS-CAB:Batch
+     * @return Eligible GL Entries meeting batch parameters configured under parameter group KFS-CAM:Batch
      */
     Collection<Entry> findElgibleGLEntries(ExtractProcessLog processLog);
 

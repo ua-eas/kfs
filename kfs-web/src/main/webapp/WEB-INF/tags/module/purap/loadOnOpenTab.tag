@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -83,12 +83,12 @@
 </c:if>
 
 <c:if test="${hidden}">
-	<c:set var="isOpen" value="false"/>
+    <c:set var="isOpen" value="false"/>
 </c:if>
 
 <html:hidden property="tabStates(${tabKey})" value="${(isOpen ? 'OPEN' : 'CLOSE')}" />
 <c:if test="${empty currentTab}">
-	<c:set var="currentTab" value="${(isOpen ? 'OPEN' : 'CLOSE')}"/>
+    <c:set var="currentTab" value="${(isOpen ? 'OPEN' : 'CLOSE')}"/>
 </c:if>
 <!-- TAB -->
 
@@ -98,7 +98,7 @@
 
 <c:set var="tabTitleSpan" value="1" />
 <c:if test="${! empty spanForLongTabTitle && spanForLongTabTitle eq true}">
-	<c:set var="tabTitleSpan" value="${tabTitleSpan + 1}" />
+    <c:set var="tabTitleSpan" value="${tabTitleSpan + 1}" />
 </c:if>
 
 
@@ -115,118 +115,70 @@
 </c:if>
 
 
+<div class="main-panel">
+    <c:if test="${isOpen == 'true' || isOpen == 'TRUE' || alwaysOpen == 'TRUE'}">
+        <c:set var="tabAction" value="close"/>
+            <html:image property="methodToCall.toggleTab.tab${tabKey}" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-hide.gif" title="close ${tabTitle}" alt="close ${tabTitle}" styleClass="tinybutton"  styleId="tab-${tabKey}-imageToggle" style="display: none;" tabindex="-1" />
+    </c:if>
+    <c:if test="${isOpen != 'true' && isOpen != 'TRUE' && alwaysOpen != 'TRUE'}">
+        <c:set var="tabAction" value="open"/>
+            <html:image  property="methodToCall.toggleTab.tab${tabKey}" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-show.gif" title="open ${tabTitle}" alt="open ${tabTitle}" styleClass="tinybutton" styleId="tab-${tabKey}-imageToggle" style="display: none;" tabindex="-1"/>
+    </c:if>
 
-        <table width="100%" class="tab" cellpadding="0" cellspacing="0" summary="" border="1" <c:if test="${hidden}">style="display:none;"</c:if>>
-          <tr>
-              <c:choose>
-	          <c:when test="${tabTitleSpan > 1}">
-				<td class="tabtable1-left-colspan" colspan="${tabTitleSpan}">
-			  </c:when>
-			  <c:otherwise>
-			  	<td class="tabtable1-left">
-			  </c:otherwise>
-			  </c:choose>
+    <div class="headerarea-small clickable"
+         property="methodToCall.toggleTab.tab${tabKey}"
+         title="${tabAction} ${tabTitle}"
+         alt="${tabAction} ${tabTitle}"
+         styleClass="tinybutton"
+         id="tab-${tabKey}-imageToggle"
+         onclick="$('#tab-${tabKey}-imageToggle').click();"
+         tabindex="-1">
 
-              <img src="${leftTabImage}" alt="" width="12" height="29" align="absmiddle" />
-              <c:if test="${not empty leftSideHtmlProperty and not empty leftSideHtmlAttribute}"><kul:htmlControlAttribute property="${leftSideHtmlProperty}" attributeEntry="${leftSideHtmlAttribute}" disabled="${leftSideHtmlDisabled}" /></c:if>
-              <a name="${tabKey}" ></a>
-              <c:choose>
-                <c:when test="${not empty boClassName && not empty keyValues}">
-                  <h2><kul:inquiry keyValues="${keyValues}" boClassName="${boClassName}" render="true"><c:out value="${tabTitle}" /></kul:inquiry></h2>
-                </c:when>
-                <c:otherwise>
-                  <h2><c:out value="${tabTitle}" /></h2>
-                </c:otherwise>
-              </c:choose>
-              <c:if test="${not empty helpUrl }">
-              	<kul:help alternativeHelp="${helpUrl}" />
-              </c:if>
-              <%--<h2><c:out value="${tabTitle}" /></h2>--%>
-              <c:if test="${highlightTab}">
-                &nbsp;<img src="${ConfigProperties.kr.externalizable.images.url}asterisk_orange.png" alt="changed"/>
-              </c:if>
-            </td>
-            <c:if test="${not empty tabDescription}">
-              <td class="tabtable1-mid1"><img src="${ConfigProperties.kr.externalizable.images.url}pixel_clear.gif" alt="" align="absmiddle" height="29" width="1" />${tabDescription}</td>
-      		</c:if>
-
-            <c:if test="${not empty rightSideHtmlProperty and not empty rightSideHtmlAttribute}">
-              <td class="tabtable1-mid1"><img src="${ConfigProperties.kr.externalizable.images.url}pixel_clear.gif" alt="" align="absmiddle" height="29" width="1" /><kul:htmlControlAttribute property="${rightSideHtmlProperty}" attributeEntry="${rightSideHtmlAttribute}" /></td>
-      		</c:if>
-
-      		<c:if test="${not empty extraButtonSource}">
-				<c:forTokens items="${extraButtonSource}" delims=";" var="token">
-					<c:choose>
-						<c:when test="${fn:contains(token, 'property=')}" >
-							<c:set var="ebProperty" value="${fn:substringAfter(token, 'property=')}"/>
-						</c:when>
-						<c:when test="${fn:contains(token, 'src=')}" >
-							<c:set var="ebSrc" value="${fn:substringAfter(token, 'src=')}"/>
-						</c:when>
-						<c:when test="${fn:contains(token, 'title=')}" >
-							<c:set var="ebTitle" value="${fn:substringAfter(token, 'title=')}"/>
-						</c:when>
-						<c:when test="${fn:contains(token, 'alt=')}" >
-							<c:set var="ebAlt" value="${fn:substringAfter(token, 'alt=')}"/>
-						</c:when>
-					</c:choose>
-				</c:forTokens>
-				<td class="tabtable1-mid1">
-					<html:image property="${ebProperty}" src="${ConfigProperties.kr.externalizable.images.url}${ebSrc}" title="${ebTitle}" alt="${ebAlt}" styleClass="tinybutton" tabindex="-1" />
-				</td>
-      		</c:if>
-
-            <td class="${midTabClass}">
-
-            <c:choose>
-    		<c:when test="${empty midTabClassReplacement}">
-               <c:if test="${isOpen == 'true' || isOpen == 'TRUE' || alwaysOpen == 'TRUE'}">
-                 <html:image property="methodToCall.toggleTab.tab${tabKey}" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-hide.gif" title="close ${tabTitle}" alt="close ${tabTitle}" styleClass="tinybutton"  styleId="tab-${tabKey}-imageToggle" onclick="javascript: return toggleTab(document, '${tabKey}');" tabindex="-1" />
-               </c:if>
-               <c:if test="${isOpen != 'true' && isOpen != 'TRUE' && alwaysOpen != 'TRUE'}">
-			   <html:image  property="methodToCall.toggleTab.tab${tabKey}" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-show.gif" title="open ${tabTitle}" alt="open ${tabTitle}" styleClass="tinybutton" styleId="tab-${tabKey}-imageToggle" onclick="javascript: return toggleAndPost('${tabKey}')" tabindex="-1"/>
-               </c:if>
-               </c:when>
-                <c:otherwise>
-                	${midTabClassReplacement}
-                </c:otherwise>
-                </c:choose>
-
-            </td>
-            <td class="${rightTabClass}"><img src="${rightTabImage}" alt="" width="12" height="29" align="middle" /></td>
-          </tr>
-        </table>
-
-
-
-<c:if test="${isOpen == 'true' || isOpen == 'TRUE'}">
-<div style="display: block;" id="tab-${tabKey}-div">
-</c:if>
-<c:if test="${isOpen != 'true' && isOpen != 'TRUE'}" >
-<div style="display: none;" id="tab-${tabKey}-div">
-</c:if>
-
-
-
-        <!-- display errors for this tab -->
-        <c:if test="${! (empty tabErrorKey)}">
-          <div class="tab-container-error"><div class="left-errmsg-tab"><kul:errors keyMatch="${tabErrorKey}"/></div></div>
+        <c:if test="${not empty leftSideHtmlProperty and not empty leftSideHtmlAttribute}">
+            <kul:htmlControlAttribute property="${leftSideHtmlProperty}" attributeEntry="${leftSideHtmlAttribute}" disabled="${leftSideHtmlDisabled}" />
+        </c:if>
+        <a name="${tabKey}" ></a>
+        <c:choose>
+            <c:when test="${not empty boClassName && not empty keyValues}">
+                <h2><kul:inquiry keyValues="${keyValues}" boClassName="${boClassName}" render="true"><c:out value="${tabTitle}" /></kul:inquiry></h2>
+            </c:when>
+            <c:otherwise>
+                <h2><c:out value="${tabTitle}" /></h2>
+            </c:otherwise>
+        </c:choose>
+        <c:if test="${not empty helpUrl }">
+            <kul:help alternativeHelp="${helpUrl}" />
         </c:if>
 
-        <!-- comment for reference by KRA devs during KNS extraction -->
+        <div class="toggle-show-tab">
+            <c:if test="${isOpen == 'true' || isOpen == 'TRUE' || alwaysOpen == 'TRUE'}">
+                <span class="glyphicon glyphicon-menu-up"></span>
+            </c:if>
+            <c:if test="${isOpen != 'true' && isOpen != 'TRUE' && alwaysOpen != 'TRUE'}">
+                <span class="glyphicon glyphicon-menu-down"></span>
+            </c:if>
+        </div>
+    </div>
+
+    <c:if test="${isOpen == 'true' || isOpen == 'TRUE'}">
+        <div style="display: block; margin: 20px 0;" id="tab-${tabKey}-div">
+    </c:if>
+    <c:if test="${isOpen != 'true' && isOpen != 'TRUE'}" >
+        <div style="display: none;" id="tab-${tabKey}-div">
+    </c:if>
+
+        <c:if test="${! (empty tabErrorKey)}">
+            <kul:errors keyMatch="${tabErrorKey}" displayInDiv="true"/>
+        </c:if>
+
         <c:if test="${! (empty tabAuditKey) && (useRiceAuditMode == 'true')}">
-        	<div class="tab-container-error"><div class="left-errmsg-tab">
-				<c:forEach items="${fn:split(auditCluster,',')}" var="cluster">
-        	   		<kul:auditErrors cluster="${cluster}" keyMatch="${tabAuditKey}" isLink="false" includesTitle="true"/>
-				</c:forEach>
-        	</div></div>
-      	</c:if>
+            <div class="tab-container-error"><div class="left-errmsg-tab">
+                <c:forEach items="${fn:split(auditCluster,',')}" var="cluster">
+                    <kul:auditErrors cluster="${cluster}" keyMatch="${tabAuditKey}" isLink="false" includesTitle="true"/>
+                </c:forEach>
+            </div></div>
+        </c:if>
 
-
-        <!-- Before the jsp:doBody of the kul:tab tag -->
         <jsp:doBody/>
-        <!-- After the jsp:doBody of the kul:tab tag -->
-
-
-
+    </div>
 </div>

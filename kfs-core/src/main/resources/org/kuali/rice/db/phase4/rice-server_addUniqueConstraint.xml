@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00693">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRAD_MSG_TC0" tableName="krad_msg_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00694">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRCR_STYLE_TC0" tableName="krcr_style_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00695">
+        <addUniqueConstraint columnNames="CHNL_ID, PRNCPL_ID" constraintName="KREN_CHNL_SUBSCRP_TC0" tableName="kren_chnl_subscrp_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00696">
+        <addUniqueConstraint columnNames="NM" constraintName="KREN_CHNL_TC0" tableName="kren_chnl_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00697">
+        <addUniqueConstraint columnNames="NM, CNTNT_TYP_VER_NBR" constraintName="KREN_CNTNT_TYP_TC0" tableName="kren_cntnt_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00698">
+        <addUniqueConstraint columnNames="MSG_ID, TYP_NM" constraintName="KREN_MSG_DELIV_TC0" tableName="kren_msg_deliv_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00699">
+        <addUniqueConstraint columnNames="ORGN_ID" constraintName="KREN_MSG_TC0" tableName="kren_msg_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00700">
+        <addUniqueConstraint columnNames="NTFCTN_ID, RECIP_ID" constraintName="KREN_NTFCTN_MSG_DELIV_TC0" tableName="kren_ntfctn_msg_deliv_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00701">
+        <addUniqueConstraint columnNames="NM" constraintName="KREN_PRIO_TC0" tableName="kren_prio_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00702">
+        <addUniqueConstraint columnNames="NM" constraintName="KREN_PRODCR_TC0" tableName="kren_prodcr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00703">
+        <addUniqueConstraint columnNames="CHNL_ID, RECIP_TYP_CD, RECIP_ID" constraintName="KREN_RECIP_LIST_TC0" tableName="kren_recip_list_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00704">
+        <addUniqueConstraint columnNames="RECIP_ID, PROP" constraintName="KREN_RECIP_PREFS_TC0" tableName="kren_recip_prefs_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00705">
+        <addUniqueConstraint columnNames="NTFCTN_ID, RECIP_TYP_CD, PRNCPL_ID" constraintName="KREN_RECIP_TC0" tableName="kren_recip_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00706">
+        <addUniqueConstraint columnNames="CHNL_ID, TYP, PRNCPL_ID" constraintName="KREN_RVWER_TC0" tableName="kren_rvwer_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00707">
+        <addUniqueConstraint columnNames="NTFCTN_ID, NM" constraintName="KREN_SNDR_TC0" tableName="kren_sndr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00708">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KREW_APP_DOC_STAT_TRAN_TC0" tableName="krew_app_doc_stat_tran_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00709">
+        <addUniqueConstraint columnNames="NM, NMSPC_CD" constraintName="KREW_ATTR_DEFN_TC1" tableName="krew_attr_defn_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00710">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KREW_DLGN_RSP_TC0" tableName="krew_dlgn_rsp_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00711">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KREW_DOC_HDR_TC0" tableName="krew_doc_hdr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00712">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KREW_DOC_TYP_APP_DOC_STAT_TC0" tableName="krew_doc_typ_app_doc_stat_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00713">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KREW_DOC_TYP_APP_STAT_CAT_TC1" tableName="krew_doc_typ_app_stat_cat_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00714">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KREW_DOC_TYP_PLCY_RELN_TC0" tableName="krew_doc_typ_plcy_reln_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00715">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KREW_DOC_TYP_TC0" tableName="krew_doc_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00716">
+        <addUniqueConstraint columnNames="DOC_TYP_NM, DOC_TYP_VER_NBR" constraintName="KREW_DOC_TYP_TI1" tableName="krew_doc_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00717">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KREW_EDL_ASSCTN_TC0" tableName="krew_edl_assctn_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00718">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KREW_EDL_DEF_TC0" tableName="krew_edl_def_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00719">
+        <addUniqueConstraint columnNames="NM, NMSPC_CD" constraintName="KREW_PPL_FLW_TC1" tableName="krew_ppl_flw_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00720">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KREW_RULE_ATTR_TC0" tableName="krew_rule_attr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00721">
+        <addUniqueConstraint columnNames="NM" constraintName="KREW_RULE_ATTR_TC1" tableName="krew_rule_attr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00722">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KREW_RULE_EXPR_TC0" tableName="krew_rule_expr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00723">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KREW_RULE_RSP_TC0" tableName="krew_rule_rsp_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00724">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KREW_RULE_TC0" tableName="krew_rule_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00725">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KREW_RULE_TMPL_ATTR_TC0" tableName="krew_rule_tmpl_attr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00726">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KREW_RULE_TMPL_TC0" tableName="krew_rule_tmpl_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00727">
+        <addUniqueConstraint columnNames="NM" constraintName="KREW_RULE_TMPL_TI1" tableName="krew_rule_tmpl_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00728">
+        <addUniqueConstraint columnNames="TYP_ID, ATTR_DEFN_ID" constraintName="KREW_TYP_ATTR_TC1" tableName="krew_typ_attr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00729">
+        <addUniqueConstraint columnNames="NM, NMSPC_CD" constraintName="KREW_TYP_TC1" tableName="krew_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00730">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_ADDR_TYP_TC0" tableName="krim_addr_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00731">
+        <addUniqueConstraint columnNames="NM" constraintName="KRIM_ADDR_TYP_TC1" tableName="krim_addr_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00732">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_AFLTN_TYP_TC0" tableName="krim_afltn_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00733">
+        <addUniqueConstraint columnNames="NM" constraintName="KRIM_AFLTN_TYP_TC1" tableName="krim_afltn_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00734">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_ATTR_DEFN_TC0" tableName="krim_attr_defn_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00735">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_CTZNSHP_STAT_TC0" tableName="krim_ctznshp_stat_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00736">
+        <addUniqueConstraint columnNames="NM" constraintName="KRIM_CTZNSHP_STAT_TC1" tableName="krim_ctznshp_stat_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00737">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_DLGN_MBR_ATTR_DATA_TC0" tableName="krim_dlgn_mbr_attr_data_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00738">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_DLGN_MBR_TC0" tableName="krim_dlgn_mbr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00739">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_DLGN_TC0" tableName="krim_dlgn_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00740">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_EMAIL_TYP_TC0" tableName="krim_email_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00741">
+        <addUniqueConstraint columnNames="NM" constraintName="KRIM_EMAIL_TYP_TC1" tableName="krim_email_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00742">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_EMP_STAT_TC0" tableName="krim_emp_stat_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00743">
+        <addUniqueConstraint columnNames="NM" constraintName="KRIM_EMP_STAT_TC1" tableName="krim_emp_stat_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00744">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_EMP_TYP_TC0" tableName="krim_emp_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00745">
+        <addUniqueConstraint columnNames="NM" constraintName="KRIM_EMP_TYP_TC1" tableName="krim_emp_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00746">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_ENTITY_ADDR_TC0" tableName="krim_entity_addr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00747">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_ENTITY_AFLTN_TC0" tableName="krim_entity_afltn_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00748">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_ENTITY_BIO_TC0" tableName="krim_entity_bio_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00749">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_ENTITY_CACHE_TC0" tableName="krim_entity_cache_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00750">
+        <addUniqueConstraint columnNames="PRNCPL_ID" constraintName="KRIM_ENTITY_CACHE_TC1" tableName="krim_entity_cache_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00751">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_ENTITY_CTZNSHP_TC0" tableName="krim_entity_ctznshp_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00752">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_ENTITY_EMAIL_TC0" tableName="krim_entity_email_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00753">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_ENTITY_EMP_INFO_TC0" tableName="krim_entity_emp_info_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00754">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_ENTITY_ENT_TYP_TC0" tableName="krim_entity_ent_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00755">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_ENTITY_ETHNIC_TC0" tableName="krim_entity_ethnic_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00756">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_ENTITY_EXT_ID_TC0" tableName="krim_entity_ext_id_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00757">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_ENTITY_NM_TC0" tableName="krim_entity_nm_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00758">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_ENTITY_PHONE_TC0" tableName="krim_entity_phone_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00759">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_ENTITY_PRIV_PREF_TC0" tableName="krim_entity_priv_pref_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00760">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_ENTITY_RESIDENCY_TC0" tableName="krim_entity_residency_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00761">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_ENTITY_TC0" tableName="krim_entity_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00762">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_ENTITY_VISA_TC0" tableName="krim_entity_visa_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00763">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_ENT_NM_TYP_TC0" tableName="krim_ent_nm_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00764">
+        <addUniqueConstraint columnNames="NM" constraintName="KRIM_ENT_NM_TYP_TC1" tableName="krim_ent_nm_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00765">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_ENT_TYP_TC0" tableName="krim_ent_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00766">
+        <addUniqueConstraint columnNames="NM" constraintName="KRIM_ENT_TYP_TC1" tableName="krim_ent_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00767">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_EXT_ID_TYP_TC0" tableName="krim_ext_id_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00768">
+        <addUniqueConstraint columnNames="NM" constraintName="KRIM_EXT_ID_TYP_TC1" tableName="krim_ext_id_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00769">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_GRP_ATTR_DATA_TC0" tableName="krim_grp_attr_data_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00770">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_GRP_MBR_TC0" tableName="krim_grp_mbr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00771">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_GRP_TC0" tableName="krim_grp_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00772">
+        <addUniqueConstraint columnNames="GRP_NM, NMSPC_CD" constraintName="KRIM_GRP_TC1" tableName="krim_grp_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00773">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_PERM_ATTR_DATA_TC0" tableName="krim_perm_attr_data_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00774">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_PERM_TC0" tableName="krim_perm_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00775">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_PERM_TMPL_TC0" tableName="krim_perm_tmpl_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00776">
+        <addUniqueConstraint columnNames="NM, NMSPC_CD" constraintName="KRIM_PERM_TMPL_TC1" tableName="krim_perm_tmpl_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00777">
+        <addUniqueConstraint columnNames="NM, NMSPC_CD" constraintName="KRIM_PERM_T_TC1" tableName="krim_perm_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00778">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_PHONE_TYP_TC0" tableName="krim_phone_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00779">
+        <addUniqueConstraint columnNames="PHONE_TYP_NM" constraintName="KRIM_PHONE_TYP_TC1" tableName="krim_phone_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00780">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_PRNCPL_TC0" tableName="krim_prncpl_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00781">
+        <addUniqueConstraint columnNames="PRNCPL_NM" constraintName="KRIM_PRNCPL_TC1" tableName="krim_prncpl_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00782">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_ROLE_MBR_ATTR_DATA_TC0" tableName="krim_role_mbr_attr_data_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00783">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_ROLE_MBR_TC0" tableName="krim_role_mbr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00784">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_ROLE_PERM_TC0" tableName="krim_role_perm_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00785">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_ROLE_RSP_ACTN_TC0" tableName="krim_role_rsp_actn_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00786">
+        <addUniqueConstraint columnNames="ROLE_RSP_ID, ROLE_MBR_ID" constraintName="KRIM_ROLE_RSP_ACTN_TC1" tableName="krim_role_rsp_actn_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00787">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_ROLE_RSP_TC0" tableName="krim_role_rsp_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00788">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_ROLE_TC0" tableName="krim_role_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00789">
+        <addUniqueConstraint columnNames="ROLE_NM, NMSPC_CD" constraintName="KRIM_ROLE_TC1" tableName="krim_role_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00790">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_RSP_ATTR_DATA_TC0" tableName="krim_rsp_attr_data_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00791">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_RSP_TC0" tableName="krim_rsp_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00792">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_RSP_TMPL_TC0" tableName="krim_rsp_tmpl_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00793">
+        <addUniqueConstraint columnNames="NM, NMSPC_CD" constraintName="KRIM_RSP_TMPL_TC1" tableName="krim_rsp_tmpl_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00794">
+        <addUniqueConstraint columnNames="NM, NMSPC_CD" constraintName="KRIM_RSP_T_TC1" tableName="krim_rsp_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00795">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_TYP_ATTR_TC0" tableName="krim_typ_attr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00796">
+        <addUniqueConstraint columnNames="SORT_CD, KIM_TYP_ID, KIM_ATTR_DEFN_ID, ACTV_IND" constraintName="KRIM_TYP_ATTR_TC1" tableName="krim_typ_attr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00797">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_TYP_TC0" tableName="krim_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00798">
+        <addUniqueConstraint columnNames="ACTN_ID, RULE_ID, SEQ_NO" constraintName="KRMS_ACTN_TC2" tableName="krms_actn_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00799">
+        <addUniqueConstraint columnNames="NM, CNTXT_ID" constraintName="KRMS_AGENDA_TC1" tableName="krms_agenda_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00800">
+        <addUniqueConstraint columnNames="NM, NMSPC_CD" constraintName="KRMS_ATTR_DEFN_TC1" tableName="krms_attr_defn_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00801">
+        <addUniqueConstraint columnNames="NM, NMSPC_CD" constraintName="KRMS_CNTXT_TC1" tableName="krms_cntxt_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00802">
+        <addUniqueConstraint columnNames="NM, NMSPC_CD" constraintName="KRMS_CTGRY_TC0" tableName="krms_ctgry_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00803">
+        <addUniqueConstraint columnNames="NM, NMSPC_CD" constraintName="KRMS_FUNC_TC1" tableName="krms_func_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00804">
+        <addUniqueConstraint columnNames="NL_TMPL_ID, ATTR_DEFN_ID" constraintName="KRMS_NL_TMPL_ATTR_TC1" tableName="krms_nl_tmpl_attr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00805">
+        <addUniqueConstraint columnNames="LANG_CD, NL_USAGE_ID, TYP_ID" constraintName="KRMS_NL_TMPL_TC1" tableName="krms_nl_tmpl_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00806">
+        <addUniqueConstraint columnNames="NL_USAGE_ID, ATTR_DEFN_ID" constraintName="KRMS_NL_USAGE_ATTR_TC1" tableName="krms_nl_usage_attr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00807">
+        <addUniqueConstraint columnNames="NM, NMSPC_CD" constraintName="KRMS_NL_USAGE_TC1" tableName="krms_nl_usage_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00808">
+        <addUniqueConstraint columnNames="COLLECTION_NM, KRMS_OBJ_ID, KRMS_DSCR_TYP, REF_OBJ_ID, REF_DSCR_TYP, NMSPC_CD" constraintName="KRMS_REF_OBJ_KRMS_OBJ_TC1" tableName="krms_ref_obj_krms_obj_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00809">
+        <addUniqueConstraint columnNames="NM, NMSPC_CD" constraintName="KRMS_RULE_TC1" tableName="krms_rule_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00810">
+        <addUniqueConstraint columnNames="NM, NMSPC_CD" constraintName="KRMS_TERM_RSLVR_TC1" tableName="krms_term_rslvr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00811">
+        <addUniqueConstraint columnNames="NM, NMSPC_CD" constraintName="KRMS_TERM_SPEC_TC1" tableName="krms_term_spec_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00812">
+        <addUniqueConstraint columnNames="TYP_ID, ATTR_DEFN_ID" constraintName="KRMS_TYP_ATTR_TC1" tableName="krms_typ_attr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00813">
+        <addUniqueConstraint columnNames="FROM_TYP_ID, TO_TYP_ID, RELN_TYP" constraintName="KRMS_TYP_RELN_TC1" tableName="krms_typ_reln_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00814">
+        <addUniqueConstraint columnNames="NM, NMSPC_CD" constraintName="KRMS_TYP_TC1" tableName="krms_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00815">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_ADHOC_RTE_ACTN_RECIP_TC0" tableName="krns_adhoc_rte_actn_recip_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00816">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_ATT_TC0" tableName="krns_att_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00817">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_CAMPUS_TC0" tableName="krlc_cmp_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00818">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_CMP_TYP_TC0" tableName="krlc_cmp_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00819">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_DOC_HDR_TC0" tableName="krns_doc_hdr_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00820">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_LOOKUP_RSLT_TC0" tableName="krns_lookup_rslt_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00821">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_LOOKUP_SEL_TC0" tableName="krns_lookup_sel_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00822">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_MAINT_DOC_ATT_LST_TC0" tableName="krns_maint_doc_att_lst_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00823">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_MAINT_DOC_ATT_TC0" tableName="krns_maint_doc_att_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00824">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_MAINT_DOC_TC0" tableName="krns_maint_doc_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00825">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_MAINT_LOCK_TC0" tableName="krns_maint_lock_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00826">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_NMSPC_TC0" tableName="krcr_nmspc_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00827">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_NTE_TC0" tableName="krns_nte_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00828">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_NTE_TYP_TC0" tableName="krns_nte_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00829">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_PARM_DTL_TYP_TC0" tableName="krcr_cmpnt_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00830">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_PARM_TC0" tableName="krcr_parm_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00831">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_PARM_TYP_TC0" tableName="krcr_parm_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00832">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_PESSIMISTIC_LOCK_TC0" tableName="krns_pessimistic_lock_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00833">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KR_COUNTRY_TC0" tableName="krlc_cntry_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00834">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KR_COUNTY_TC0" tableName="krlc_cnty_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00835">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KR_POSTAL_CODE_TC0" tableName="krlc_pstl_cd_t"/>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00836">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KR_STATE_TC0" tableName="krlc_st_t"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,32 +1,32 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.batch.service.impl;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.StringTokenizer;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.batch.ScrubberStep;
 import org.kuali.kfs.gl.batch.service.RunDateService;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.StringTokenizer;
 
 /**
  * The default implementation of RunDateService
@@ -37,7 +37,6 @@ public class RunDateServiceImpl implements RunDateService {
     private ParameterService parameterService;
 
     /**
-     * 
      * @see org.kuali.kfs.gl.batch.service.RunDateService#calculateRunDate(java.util.Date)
      */
     public Date calculateRunDate(Date executionDate) {
@@ -62,7 +61,7 @@ public class RunDateServiceImpl implements RunDateService {
 
     /**
      * Determines if the given calendar time is before the given cutoff time
-     * 
+     *
      * @param currentCal the current time
      * @param cutoffTime the "start of the day" cut off time
      * @return true if the current time is before the cutoff, false otherwise
@@ -109,7 +108,8 @@ public class RunDateServiceImpl implements RunDateService {
 
         /**
          * Constructs a RunDateServiceImpl instance
-         * @param hour the cutoff hour
+         *
+         * @param hour   the cutoff hour
          * @param minute the cutoff minute
          * @param second the cutoff second
          */
@@ -122,15 +122,14 @@ public class RunDateServiceImpl implements RunDateService {
 
     /**
      * Parses a String representation of the cutoff time
-     * 
+     *
      * @param cutoffTime the cutoff time String to parse
      * @return a record holding the cutoff time
      */
     protected CutoffTime parseCutoffTime(String cutoffTime) {
         if (StringUtils.isBlank(cutoffTime)) {
             return new CutoffTime(0, 0, 0);
-        }
-        else {
+        } else {
             cutoffTime = cutoffTime.trim();
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Cutoff time value found: " + cutoffTime);
@@ -150,8 +149,7 @@ public class RunDateServiceImpl implements RunDateService {
                     throw new IllegalArgumentException("Cutoff time must be in the format \"HH:mm:ss\", where HH, mm, ss are defined in the java.text.SimpleDateFormat class.  In particular, 0 <= hour <= 23, 0 <= minute <= 59, and 0 <= second <= 59");
                 }
                 return new CutoffTime(hourInt, minuteInt, secondInt);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 throw new IllegalArgumentException("Cutoff time should either be null, or in the format \"HH:mm:ss\", where HH, mm, ss are defined in the java.text.SimpleDateFormat class.");
             }
         }
@@ -159,9 +157,9 @@ public class RunDateServiceImpl implements RunDateService {
 
     /**
      * Retrieves the cutoff time from a repository.
-     * 
+     *
      * @return a time of day in the format "HH:mm:ss", where HH, mm, ss are defined in the java.text.SimpleDateFormat class. In
-     *         particular, 0 <= hour <= 23, 0 <= minute <= 59, and 0 <= second <= 59
+     * particular, 0 <= hour <= 23, 0 <= minute <= 59, and 0 <= second <= 59
      */
     protected String retrieveCutoffTimeValue() {
         String value = parameterService.getParameterValueAsString(ScrubberStep.class, GeneralLedgerConstants.GlScrubberGroupParameters.SCRUBBER_CUTOFF_TIME);

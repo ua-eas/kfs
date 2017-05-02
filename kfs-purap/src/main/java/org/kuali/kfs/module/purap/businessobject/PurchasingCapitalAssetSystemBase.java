@@ -1,33 +1,33 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.businessobject;
 
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.purap.CapitalAssetLocation;
 import org.kuali.kfs.integration.purap.CapitalAssetSystem;
 import org.kuali.kfs.integration.purap.ItemCapitalAsset;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 public abstract class PurchasingCapitalAssetSystemBase extends PersistableBusinessObjectBase implements CapitalAssetSystem {
 
@@ -42,16 +42,16 @@ public abstract class PurchasingCapitalAssetSystemBase extends PersistableBusine
     private List<CapitalAssetLocation> capitalAssetLocations;
     private CapitalAssetLocation newPurchasingCapitalAssetLocationLine;
     private Integer capitalAssetCountAssetNumber;
-    
+
     public Integer getCapitalAssetCountAssetNumber() {
-		return capitalAssetCountAssetNumber;
-	}
+        return capitalAssetCountAssetNumber;
+    }
 
-	public void setCapitalAssetCountAssetNumber(Integer capitalAssetCountAssetNumber) {
-		this.capitalAssetCountAssetNumber = capitalAssetCountAssetNumber;
-	}
+    public void setCapitalAssetCountAssetNumber(Integer capitalAssetCountAssetNumber) {
+        this.capitalAssetCountAssetNumber = capitalAssetCountAssetNumber;
+    }
 
-	public PurchasingCapitalAssetSystemBase() {
+    public PurchasingCapitalAssetSystemBase() {
         super();
         itemCapitalAssets = new ArrayList();
         capitalAssetLocations = new ArrayList();
@@ -141,24 +141,21 @@ public abstract class PurchasingCapitalAssetSystemBase extends PersistableBusine
     public boolean isEmpty() {
         return !(StringUtils.isNotEmpty(capitalAssetNoteText) || StringUtils.isNotEmpty(capitalAssetSystemDescription) || StringUtils.isNotEmpty(capitalAssetManufacturerName) || StringUtils.isNotEmpty(this.capitalAssetModelDescription) || StringUtils.isNotEmpty(capitalAssetTypeCode));
     }
-    
+
     public abstract Class getItemCapitalAssetClass();
-    
+
     public abstract Class getCapitalAssetLocationClass();
- 
-    //CAMS LOCATION   
+
+    //CAMS LOCATION
     public CapitalAssetLocation setupNewPurchasingCapitalAssetLocationLine() {
-        CapitalAssetLocation location = null; 
-        try{
-            location = (CapitalAssetLocation)getCapitalAssetLocationClass().newInstance();
-        }
-        catch (InstantiationException e) {
+        CapitalAssetLocation location = null;
+        try {
+            location = (CapitalAssetLocation) getCapitalAssetLocationClass().newInstance();
+        } catch (InstantiationException e) {
             throw new RuntimeException("Unable to get class");
-        }
-        catch (IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
             throw new RuntimeException("Unable to get class");
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             throw new RuntimeException("Can't instantiate Purchasing Account from base");
         }
 
@@ -178,13 +175,13 @@ public abstract class PurchasingCapitalAssetSystemBase extends PersistableBusine
         setNewPurchasingCapitalAssetLocationLine(setupNewPurchasingCapitalAssetLocationLine());
         return asset;
     }
-    
-    public void resetNewPurchasingCapitalAssetLocationLine(){
+
+    public void resetNewPurchasingCapitalAssetLocationLine() {
         setNewPurchasingCapitalAssetLocationLine(setupNewPurchasingCapitalAssetLocationLine());
     }
 
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
-        LinkedHashMap m = new LinkedHashMap();	            
+        LinkedHashMap m = new LinkedHashMap();
         if (this.capitalAssetSystemIdentifier != null) {
             m.put("capitalAssetSystemIdentifier", this.capitalAssetSystemIdentifier.toString());
         }

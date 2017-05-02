@@ -1,33 +1,30 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.sys.businessobject;
 
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
 import java.util.LinkedHashMap;
 
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 
-
-/**
- * 
- */
 public class OriginationCode extends PersistableBusinessObjectBase implements MutableInactivatable {
 
     private String financialSystemOriginationCode;
@@ -54,7 +51,7 @@ public class OriginationCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Gets the financialSystemOriginationCode attribute.
-     * 
+     *
      * @return Returns the financialSystemOriginationCode
      */
     public String getFinancialSystemOriginationCode() {
@@ -64,16 +61,16 @@ public class OriginationCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Sets the financialSystemOriginationCode attribute.
-     * 
+     *
      * @param financialSystemOriginationCode The financialSystemOriginationCode to set.
      */
     public void setFinancialSystemOriginationCode(String financialSystemOriginationCode) {
         this.financialSystemOriginationCode = financialSystemOriginationCode;
     }
 
-     /**
+    /**
      * Gets the financialSystemServerName attribute.
-     * 
+     *
      * @return Returns the financialSystemServerName
      */
     public String getFinancialSystemServerName() {
@@ -83,7 +80,7 @@ public class OriginationCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Sets the financialSystemServerName attribute.
-     * 
+     *
      * @param financialSystemServerName The financialSystemServerName to set.
      */
     public void setFinancialSystemServerName(String financialSystemServerName) {
@@ -92,7 +89,7 @@ public class OriginationCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Gets the financialSystemDatabaseName attribute.
-     * 
+     *
      * @return Returns the financialSystemDatabaseName
      */
     public String getFinancialSystemDatabaseName() {
@@ -102,7 +99,7 @@ public class OriginationCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Sets the financialSystemDatabaseName attribute.
-     * 
+     *
      * @param financialSystemDatabaseName The financialSystemDatabaseName to set.
      */
     public void setFinancialSystemDatabaseName(String financialSystemDatabaseName) {
@@ -111,7 +108,7 @@ public class OriginationCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Gets the financialSystemDatabaseDesc attribute.
-     * 
+     *
      * @return Returns the financialSystemDatabaseDesc
      */
     public String getFinancialSystemDatabaseDesc() {
@@ -121,7 +118,7 @@ public class OriginationCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Sets the financialSystemDatabaseDesc attribute.
-     * 
+     *
      * @param financialSystemDatabaseDesc The financialSystemDatabaseDesc to set.
      */
     public void setFinancialSystemDatabaseDesc(String financialSystemDatabaseDesc) {
@@ -130,7 +127,7 @@ public class OriginationCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Gets the nextCapitalAssetNumber attribute.
-     * 
+     *
      * @return Returns the nextCapitalAssetNumber
      */
     public Long getNextCapitalAssetNumber() {
@@ -140,7 +137,7 @@ public class OriginationCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Sets the nextCapitalAssetNumber attribute.
-     * 
+     *
      * @param nextCapitalAssetNumber The nextCapitalAssetNumber to set.
      */
     public void setNextCapitalAssetNumber(Long nextCapitalAssetNumber) {
@@ -149,7 +146,7 @@ public class OriginationCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Gets the nextNonCapitalAssetNumber attribute.
-     * 
+     *
      * @return Returns the nextNonCapitalAssetNumber
      */
     public Long getNextNonCapitalAssetNumber() {
@@ -159,7 +156,7 @@ public class OriginationCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Sets the nextNonCapitalAssetNumber attribute.
-     * 
+     *
      * @param nextNonCapitalAssetNumber The nextNonCapitalAssetNumber to set.
      */
     public void setNextNonCapitalAssetNumber(Long nextNonCapitalAssetNumber) {
@@ -168,7 +165,7 @@ public class OriginationCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Gets the nextCgProposalNumber attribute.
-     * 
+     *
      * @return Returns the nextCgProposalNumber
      */
     public Long getNextCgProposalNumber() {
@@ -178,7 +175,7 @@ public class OriginationCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Sets the nextCgProposalNumber attribute.
-     * 
+     *
      * @param nextCgProposalNumber The nextCgProposalNumber to set.
      */
     public void setNextCgProposalNumber(Long nextCgProposalNumber) {
@@ -187,7 +184,7 @@ public class OriginationCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Gets the nextContractsAndGrantsAgencyNumber attribute.
-     * 
+     *
      * @return Returns the nextContractsAndGrantsAgencyNumber
      */
     public String getNextContractsAndGrantsAgencyNumber() {
@@ -197,7 +194,7 @@ public class OriginationCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Sets the nextContractsAndGrantsAgencyNumber attribute.
-     * 
+     *
      * @param nextContractsAndGrantsAgencyNumber The nextContractsAndGrantsAgencyNumber to set.
      */
     public void setNextContractsAndGrantsAgencyNumber(String nextContractsAndGrantsAgencyNumber) {
@@ -206,7 +203,7 @@ public class OriginationCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Gets the nextContractsAndGrantsSubcontractorNumber attribute.
-     * 
+     *
      * @return Returns the nextContractsAndGrantsSubcontractorNumber
      */
     public String getNextContractsAndGrantsSubcontractorNumber() {
@@ -216,7 +213,7 @@ public class OriginationCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Sets the nextContractsAndGrantsSubcontractorNumber attribute.
-     * 
+     *
      * @param nextContractsAndGrantsSubcontractorNumber The nextContractsAndGrantsSubcontractorNumber to set.
      */
     public void setNextContractsAndGrantsSubcontractorNumber(String nextContractsAndGrantsSubcontractorNumber) {
@@ -225,7 +222,7 @@ public class OriginationCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Gets the nextDisbVchrPayeeIdNbr attribute.
-     * 
+     *
      * @return Returns the nextDisbVchrPayeeIdNbr
      */
     public Long getNextDisbVchrPayeeIdNbr() {
@@ -235,7 +232,7 @@ public class OriginationCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Sets the nextDisbVchrPayeeIdNbr attribute.
-     * 
+     *
      * @param nextDisbVchrPayeeIdNbr The nextDisbVchrPayeeIdNbr to set.
      */
     public void setNextDisbVchrPayeeIdNbr(Long nextDisbVchrPayeeIdNbr) {
@@ -244,7 +241,7 @@ public class OriginationCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Gets the nextFdocAttachmentIdentifier attribute.
-     * 
+     *
      * @return Returns the nextFdocAttachmentIdentifier
      */
     public Long getNextFdocAttachmentIdentifier() {
@@ -254,7 +251,7 @@ public class OriginationCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Sets the nextFdocAttachmentIdentifier attribute.
-     * 
+     *
      * @param nextFdocAttachmentIdentifier The nextFdocAttachmentIdentifier to set.
      */
     public void setNextFdocAttachmentIdentifier(Long nextFdocAttachmentIdentifier) {
@@ -263,7 +260,7 @@ public class OriginationCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Gets the acctRcvbNextCustomerNumber attribute.
-     * 
+     *
      * @return Returns the acctRcvbNextCustomerNumber
      */
     public Long getAcctRcvbNextCustomerNumber() {
@@ -273,7 +270,7 @@ public class OriginationCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Sets the acctRcvbNextCustomerNumber attribute.
-     * 
+     *
      * @param acctRcvbNextCustomerNumber The acctRcvbNextCustomerNumber to set.
      */
     public void setAcctRcvbNextCustomerNumber(Long acctRcvbNextCustomerNumber) {
@@ -282,7 +279,7 @@ public class OriginationCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Gets the financialDocumentNextItemIdentifier attribute.
-     * 
+     *
      * @return Returns the financialDocumentNextItemIdentifier
      */
     public Long getFinancialDocumentNextItemIdentifier() {
@@ -292,7 +289,7 @@ public class OriginationCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Sets the financialDocumentNextItemIdentifier attribute.
-     * 
+     *
      * @param financialDocumentNextItemIdentifier The financialDocumentNextItemIdentifier to set.
      */
     public void setFinancialDocumentNextItemIdentifier(Long financialDocumentNextItemIdentifier) {
@@ -300,7 +297,7 @@ public class OriginationCode extends PersistableBusinessObjectBase implements Mu
     }
 
     /**
-     * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
+     * @see org.kuali.kfs.krad.bo.BusinessObjectBase#toStringMapper()
      */
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
         LinkedHashMap m = new LinkedHashMap();
@@ -309,7 +306,8 @@ public class OriginationCode extends PersistableBusinessObjectBase implements Mu
     }
 
     /**
-     * Gets the active attribute. 
+     * Gets the active attribute.
+     *
      * @return Returns the active.
      */
     public boolean isActive() {
@@ -318,6 +316,7 @@ public class OriginationCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Sets the active attribute value.
+     *
      * @param active The active to set.
      */
     public void setActive(boolean active) {

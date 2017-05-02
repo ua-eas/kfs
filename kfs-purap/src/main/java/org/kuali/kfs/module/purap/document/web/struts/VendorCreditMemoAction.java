@@ -1,34 +1,38 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document.web.struts;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
+import org.kuali.kfs.kns.question.ConfirmationQuestion;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.KualiRuleService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapConstants.CMDocumentsStrings;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
@@ -50,20 +54,15 @@ import org.kuali.kfs.module.purap.util.PurQuestionCallback;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.KimConstants;
-import org.kuali.rice.kns.document.authorization.DocumentAuthorizer;
-import org.kuali.rice.kns.question.ConfirmationQuestion;
-import org.kuali.rice.kns.service.DocumentHelperService;
-import org.kuali.rice.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.KualiRuleService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Struts Action for Credit Memo document.
@@ -86,12 +85,12 @@ public class VendorCreditMemoAction extends AccountsPayableActionBase {
      * Handles continue request. This request comes from the initial screen which gives indicates whether the type is payment
      * request, purchase order, or vendor. Based on that, the credit memo is initially populated and the remaining tabs shown.
      *
-     * @param mapping An ActionMapping
-     * @param form An ActionForm
-     * @param request The HttpServletRequest
+     * @param mapping  An ActionMapping
+     * @param form     An ActionForm
+     * @param request  The HttpServletRequest
      * @param response The HttpServletResponse
-     * @throws Exception
      * @return An ActionForward
+     * @throws Exception
      */
     public ActionForward continueCreditMemo(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         VendorCreditMemoForm cmForm = (VendorCreditMemoForm) form;
@@ -100,7 +99,7 @@ public class VendorCreditMemoAction extends AccountsPayableActionBase {
         String defaultDistributionMethod = SpringContext.getBean(ParameterService.class).getParameterValueAsString(PurapConstants.PURAP_NAMESPACE, "Document", PurapParameterConstants.DISTRIBUTION_METHOD_FOR_ACCOUNTING_LINES);
 
         String preqId = request.getParameter("document.paymentRequestIdentifier");
-        if (! StringUtils.isEmpty(preqId)) {
+        if (!StringUtils.isEmpty(preqId)) {
             //get the po document and get the account distribution method code....
             String distributionCode = getDistributionMethodFromPReq(preqId);
             if (ObjectUtils.isNotNull(distributionCode)) {
@@ -108,7 +107,7 @@ public class VendorCreditMemoAction extends AccountsPayableActionBase {
             }
         } else {
             String poId = request.getParameter("document.purchaseOrderIdentifier");
-            if (! StringUtils.isEmpty(poId)) {
+            if (!StringUtils.isEmpty(poId)) {
                 //get the po document and get the account distribution method code....
                 String distributionCode = getDistributionMethodFromPO(poId);
                 if (ObjectUtils.isNotNull(distributionCode)) {
@@ -121,7 +120,7 @@ public class VendorCreditMemoAction extends AccountsPayableActionBase {
         creditMemoDocument.setAccountDistributionMethod(defaultDistributionMethod);
 
         boolean rulePassed = SpringContext.getBean(KualiRuleService.class).applyRules(new AttributedContinuePurapEvent(creditMemoDocument));
-        if (!rulePassed){
+        if (!rulePassed) {
             return mapping.findForward(KFSConstants.MAPPING_BASIC);
         }
 
@@ -135,8 +134,7 @@ public class VendorCreditMemoAction extends AccountsPayableActionBase {
                     throw buildAuthorizationException("initiate document", creditMemoDocument);
                 }
             }
-        }
-        else if (creditMemoDocument.isSourceDocumentPurchaseOrder()) {
+        } else if (creditMemoDocument.isSourceDocumentPurchaseOrder()) {
             PurchaseOrderDocument po = SpringContext.getBean(PurchaseOrderService.class).getCurrentPurchaseOrder(creditMemoDocument.getPurchaseOrderIdentifier());
             if (ObjectUtils.isNotNull(po)) {
                 // TODO figure out a more straightforward way to do this.  ailish put this in so the link id would be set and the perm check would work
@@ -146,8 +144,7 @@ public class VendorCreditMemoAction extends AccountsPayableActionBase {
                     throw buildAuthorizationException("initiate document", creditMemoDocument);
                 }
             }
-        }
-        else {
+        } else {
             //do nothing for credit memos against a vendor; no link to PO means no need to hide doc based on sensitive data
         }
 
@@ -174,13 +171,13 @@ public class VendorCreditMemoAction extends AccountsPayableActionBase {
 
         // update the accounts amounts to zero.  The recalculate will calculate the totals...
         List<PurApItem> items = creditMemoDocument.getItems();
-        
+
         for (PurApItem item : items) {
             for (PurApAccountingLine accountLine : item.getSourceAccountingLines()) {
                 accountLine.setAmount(KualiDecimal.ZERO);
             }
         }
-        
+
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
     }
 
@@ -197,7 +194,7 @@ public class VendorCreditMemoAction extends AccountsPayableActionBase {
         Map criteria = new HashMap();
         criteria.put("purapDocumentIdentifier", preqId);
 
-        List<PaymentRequestDocument> preqDocuments = (List<PaymentRequestDocument>)SpringContext.getBean(BusinessObjectService.class).findMatching(PaymentRequestDocument.class, criteria);
+        List<PaymentRequestDocument> preqDocuments = (List<PaymentRequestDocument>) SpringContext.getBean(BusinessObjectService.class).findMatching(PaymentRequestDocument.class, criteria);
 
         for (PaymentRequestDocument preqDoc : preqDocuments) {
             if (ObjectUtils.isNotNull(preqDoc.getAccountDistributionMethod())) {
@@ -222,7 +219,7 @@ public class VendorCreditMemoAction extends AccountsPayableActionBase {
         Map criteria = new HashMap();
         criteria.put("purapDocumentIdentifier", poId);
 
-        List<PurchaseOrderDocument> poDocuments = (List<PurchaseOrderDocument>)SpringContext.getBean(BusinessObjectService.class).findMatching(PurchaseOrderDocument.class, criteria);
+        List<PurchaseOrderDocument> poDocuments = (List<PurchaseOrderDocument>) SpringContext.getBean(BusinessObjectService.class).findMatching(PurchaseOrderDocument.class, criteria);
 
         for (PurchaseOrderDocument poDoc : poDocuments) {
             if (ObjectUtils.isNotNull(poDoc.getAccountDistributionMethod())) {
@@ -237,12 +234,12 @@ public class VendorCreditMemoAction extends AccountsPayableActionBase {
     /**
      * Clears out fields of the init tab.
      *
-     * @param mapping An ActionMapping
-     * @param form An ActionForm
-     * @param request The HttpServletRequest
+     * @param mapping  An ActionMapping
+     * @param form     An ActionForm
+     * @param request  The HttpServletRequest
      * @param response The HttpServletResponse
-     * @throws Exception
      * @return An ActionForward
+     * @throws Exception
      */
     public ActionForward clearInitFields(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         VendorCreditMemoForm cmForm = (VendorCreditMemoForm) form;
@@ -257,13 +254,13 @@ public class VendorCreditMemoAction extends AccountsPayableActionBase {
      * control is forwarded to the question action method. Coming back from the question prompt, the button that was clicked is
      * checked, and if 'no' was selected, they are forward back to the page still in init mode.
      *
-     * @param mapping An ActionMapping
-     * @param form An ActionForm
-     * @param request The HttpServletRequest
-     * @param response The HttpServletResponse
+     * @param mapping            An ActionMapping
+     * @param form               An ActionForm
+     * @param request            The HttpServletRequest
+     * @param response           The HttpServletResponse
      * @param creditMemoDocument The CreditMemoDocument
-     * @throws Exception
      * @return An ActionForward
+     * @throws Exception
      * @see org.kuali.kfs.module.purap.document.service.CreditMemoService
      */
     protected ActionForward performDuplicateCreditMemoCheck(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response, VendorCreditMemoDocument creditMemoDocument) throws Exception {
@@ -305,12 +302,12 @@ public class VendorCreditMemoAction extends AccountsPayableActionBase {
     /**
      * Puts a credit memo on hold, prompting for a reason before hand. This stops further approvals or routing.
      *
-     * @param mapping An ActionMapping
-     * @param form An ActionForm
-     * @param request The HttpServletRequest
+     * @param mapping  An ActionMapping
+     * @param form     An ActionForm
+     * @param request  The HttpServletRequest
      * @param response The HttpServletResponse
-     * @throws Exception
      * @return An ActionForward
+     * @throws Exception
      */
     public ActionForward addHoldOnCreditMemo(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         String operation = "Hold ";
@@ -329,12 +326,12 @@ public class VendorCreditMemoAction extends AccountsPayableActionBase {
     /**
      * Removes a hold on the credit memo.
      *
-     * @param mapping An ActionMapping
-     * @param form An ActionForm
-     * @param request The HttpServletRequest
+     * @param mapping  An ActionMapping
+     * @param form     An ActionForm
+     * @param request  The HttpServletRequest
      * @param response The HttpServletResponse
-     * @throws Exception
      * @return An ActionForward
+     * @throws Exception
      */
     public ActionForward removeHoldFromCreditMemo(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         String operation = "Remove Hold ";
@@ -373,19 +370,19 @@ public class VendorCreditMemoAction extends AccountsPayableActionBase {
     }
 
     @Override
-    protected void populateAdHocActionRequestCodes(KualiDocumentFormBase formBase){
+    protected void populateAdHocActionRequestCodes(KualiDocumentFormBase formBase) {
         Document document = formBase.getDocument();
         DocumentAuthorizer documentAuthorizer = getDocumentHelperService().getDocumentAuthorizer(document);
-        Map<String,String> adHocActionRequestCodes = new HashMap<String,String>();
+        Map<String, String> adHocActionRequestCodes = new HashMap<String, String>();
 
         if (documentAuthorizer.canSendAdHocRequests(document, KewApiConstants.ACTION_REQUEST_FYI_REQ, GlobalVariables.getUserSession().getPerson())) {
-                adHocActionRequestCodes.put(KewApiConstants.ACTION_REQUEST_FYI_REQ, KewApiConstants.ACTION_REQUEST_FYI_REQ_LABEL);
+            adHocActionRequestCodes.put(KewApiConstants.ACTION_REQUEST_FYI_REQ, KewApiConstants.ACTION_REQUEST_FYI_REQ_LABEL);
         }
-        if ( (document.getDocumentHeader().getWorkflowDocument().isInitiated()
-              || document.getDocumentHeader().getWorkflowDocument().isSaved()
-              || document.getDocumentHeader().getWorkflowDocument().isEnroute()
-              )&& documentAuthorizer.canSendAdHocRequests(document, KewApiConstants.ACTION_REQUEST_ACKNOWLEDGE_REQ, GlobalVariables.getUserSession().getPerson())) {
-                adHocActionRequestCodes.put(KewApiConstants.ACTION_REQUEST_ACKNOWLEDGE_REQ, KewApiConstants.ACTION_REQUEST_ACKNOWLEDGE_REQ_LABEL);
+        if ((document.getDocumentHeader().getWorkflowDocument().isInitiated()
+            || document.getDocumentHeader().getWorkflowDocument().isSaved()
+            || document.getDocumentHeader().getWorkflowDocument().isEnroute()
+        ) && documentAuthorizer.canSendAdHocRequests(document, KewApiConstants.ACTION_REQUEST_ACKNOWLEDGE_REQ, GlobalVariables.getUserSession().getPerson())) {
+            adHocActionRequestCodes.put(KewApiConstants.ACTION_REQUEST_ACKNOWLEDGE_REQ, KewApiConstants.ACTION_REQUEST_ACKNOWLEDGE_REQ_LABEL);
         }
         formBase.setAdHocActionRequestCodes(adHocActionRequestCodes);
 

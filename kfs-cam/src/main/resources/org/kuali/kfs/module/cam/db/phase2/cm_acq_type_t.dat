@@ -1,0 +1,9 @@
+HEADER[~&~	~&~CPTLAST_ACQ_TYP_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~CPTLAST_ACQ_TYP_NM::VARCHAR~&~	~&~CPTLAST_INC_OBJ_CD::VARCHAR~&~	~&~ROW_ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'A'~&~	~&~'44F39C472ED6409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Non Capital'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'C'~&~	~&~'44F39C472ED7409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Fabrication (University Constructed)'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'F'~&~	~&~'44F39C472ED8409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Found'~&~	~&~'4997'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'G'~&~	~&~'44F39C472ED9409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Gift'~&~	~&~'1175'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'N'~&~	~&~'44F39C472EDA409CE043814FD881409C'~&~	~&~'1'~&~	~&~'New'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'P'~&~	~&~'44F39C472EDB409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Pre-Asset Tagging'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'S'~&~	~&~'44F39C472EDC409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Cptl Transfer-in Federally/Other Owned'~&~	~&~'1185'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'T'~&~	~&~'44F39C472EDD409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Transferred from other Univ. or Federal'~&~	~&~'1175'~&~	~&~'Y'~&~	~&~]RECORD

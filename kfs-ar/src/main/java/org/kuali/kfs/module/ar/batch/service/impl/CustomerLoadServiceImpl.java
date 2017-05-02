@@ -1,46 +1,48 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.batch.service.impl;
 
-import java.awt.Color;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
-import java.text.MessageFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
+import com.lowagie.text.Chunk;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Element;
+import com.lowagie.text.Font;
+import com.lowagie.text.FontFactory;
+import com.lowagie.text.PageSize;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.PdfWriter;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.service.OrganizationService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.document.MaintenanceDocumentBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.MessageMap;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.batch.CustomerLoadStep;
@@ -64,28 +66,25 @@ import org.kuali.kfs.sys.batch.service.BatchInputFileService;
 import org.kuali.kfs.sys.exception.ParseException;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.kns.document.MaintenanceDocumentBase;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.util.ErrorMessage;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.MessageMap;
-import org.kuali.rice.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.lowagie.text.Chunk;
-import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.Element;
-import com.lowagie.text.Font;
-import com.lowagie.text.FontFactory;
-import com.lowagie.text.PageSize;
-import com.lowagie.text.Paragraph;
-import com.lowagie.text.pdf.PdfWriter;
+import java.awt.*;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Transactional
 public class CustomerLoadServiceImpl extends InitiateDirectoryBase implements CustomerLoadService {
@@ -126,7 +125,7 @@ public class CustomerLoadServiceImpl extends InitiateDirectoryBase implements Cu
         List<String> failedDocumentNumbers = new ArrayList<String>();
 
         //  create a list of the files to process
-         Map<String, BatchInputFileType> fileNamesToLoad = getListOfFilesToProcess();
+        Map<String, BatchInputFileType> fileNamesToLoad = getListOfFilesToProcess();
         LOG.info("Found " + fileNamesToLoad.size() + " file(s) to process.");
 
         //  process each file in turn
@@ -139,12 +138,11 @@ public class CustomerLoadServiceImpl extends InitiateDirectoryBase implements Cu
             reporter = new CustomerLoadFileResult(inputFileName);
             fileResults.add(reporter);
 
-            if (loadFile(inputFileName,  reporter, fileNamesToLoad.get(inputFileName), routedDocumentNumbers, failedDocumentNumbers)) {
+            if (loadFile(inputFileName, reporter, fileNamesToLoad.get(inputFileName), routedDocumentNumbers, failedDocumentNumbers)) {
                 result &= true;
                 reporter.addFileInfoMessage("File successfully completed processing.");
                 processedFiles.add(inputFileName);
-            }
-            else {
+            } else {
                 reporter.addFileErrorMessage("File failed to process successfully.");
                 result &= false;
             }
@@ -173,8 +171,7 @@ public class CustomerLoadServiceImpl extends InitiateDirectoryBase implements Cu
             List<String> inputFileNames = batchInputFileService.listInputFileNamesWithDoneFile(batchInputFileType);
             if (inputFileNames == null) {
                 criticalError("BatchInputFileService.listInputFileNamesWithDoneFile(" + batchInputFileType.getFileTypeIdentifer() + ") returned NULL which should never happen.");
-            }
-            else {
+            } else {
                 // update the file name mapping
                 for (String inputFileName : inputFileNames) {
 
@@ -210,7 +207,7 @@ public class CustomerLoadServiceImpl extends InitiateDirectoryBase implements Cu
      */
     @Override
     public boolean loadFile(String fileName, CustomerLoadFileResult reporter, BatchInputFileType batchInputFileType,
-            List<String> routedDocumentNumbers, List<String> failedDocumentNumbers) {
+                            List<String> routedDocumentNumbers, List<String> failedDocumentNumbers) {
 
         boolean result = true;
 
@@ -222,9 +219,8 @@ public class CustomerLoadServiceImpl extends InitiateDirectoryBase implements Cu
         Object parsedObject = null;
         try {
             parsedObject = batchInputFileService.parse(batchInputFileType, fileByteContent);
-        }
-        catch (ParseException e) {
-            String errorMessage ="Error parsing batch file: " + e.getMessage();
+        } catch (ParseException e) {
+            String errorMessage = "Error parsing batch file: " + e.getMessage();
             reporter.addFileErrorMessage(errorMessage);
             LOG.error(errorMessage, e);
             throw new RuntimeException(errorMessage);
@@ -251,7 +247,7 @@ public class CustomerLoadServiceImpl extends InitiateDirectoryBase implements Cu
     }
 
     protected boolean sendDocumentsIntoWorkflow(List<MaintenanceDocument> readyTransientDocs, List<String> routedDocumentNumbers,
-            List<String> failedDocumentNumbers, CustomerLoadFileResult reporter) {
+                                                List<String> failedDocumentNumbers, CustomerLoadFileResult reporter) {
         boolean result = true;
         for (MaintenanceDocument readyTransientDoc : readyTransientDocs) {
             result &= sendDocumentIntoWorkflow(readyTransientDoc, routedDocumentNumbers, failedDocumentNumbers, reporter);
@@ -260,7 +256,7 @@ public class CustomerLoadServiceImpl extends InitiateDirectoryBase implements Cu
     }
 
     protected boolean sendDocumentIntoWorkflow(MaintenanceDocument readyTransientDoc, List<String> routedDocumentNumbers,
-            List<String> failedDocumentNumbers, CustomerLoadFileResult reporter) {
+                                               List<String> failedDocumentNumbers, CustomerLoadFileResult reporter) {
         boolean result = true;
 
         String customerName = ((Customer) readyTransientDoc.getNewMaintainableObject().getBusinessObject()).getCustomerName();
@@ -269,8 +265,7 @@ public class CustomerLoadServiceImpl extends InitiateDirectoryBase implements Cu
         MaintenanceDocument realMaintDoc;
         try {
             realMaintDoc = (MaintenanceDocument) docService.getNewDocument(getCustomerMaintenanceDocumentTypeName());
-        }
-        catch (WorkflowException e) {
+        } catch (WorkflowException e) {
             LOG.error("WorkflowException occurred while trying to create a new MaintenanceDocument.", e);
             throw new RuntimeException("WorkflowException occurred while trying to create a new MaintenanceDocument.", e);
         }
@@ -285,8 +280,7 @@ public class CustomerLoadServiceImpl extends InitiateDirectoryBase implements Cu
 
         try {
             docService.routeDocument(realMaintDoc, "Routed Edit/Update Customer Maintenance from CustomerLoad Batch Process", null);
-        }
-        catch (WorkflowException e) {
+        } catch (WorkflowException e) {
             LOG.error("WorkflowException occurred while trying to route a new MaintenanceDocument.", e);
             reporter.addCustomerErrorMessage(customerName, "WorkflowException occurred while trying to route a new MaintenanceDocument: " + e.getMessage());
             result = false;
@@ -296,8 +290,7 @@ public class CustomerLoadServiceImpl extends InitiateDirectoryBase implements Cu
             reporter.setCustomerSuccessResult(customerName);
             reporter.setCustomerWorkflowDocId(customerName, realMaintDoc.getDocumentNumber());
             routedDocumentNumbers.add(realMaintDoc.getDocumentNumber());
-        }
-        else {
+        } else {
             reporter.setCustomerFailureResult(customerName);
             failedDocumentNumbers.add(realMaintDoc.getDocumentNumber());
         }
@@ -316,7 +309,7 @@ public class CustomerLoadServiceImpl extends InitiateDirectoryBase implements Cu
         Set<String> errorMessages = batchErrors.getErrorStrings();
         for (String errorMessage : errorMessages) {
             GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS,
-                    KFSKeyConstants.ERROR_BATCH_UPLOAD_SAVE, errorMessage);
+                KFSKeyConstants.ERROR_BATCH_UPLOAD_SAVE, errorMessage);
         }
     }
 
@@ -328,9 +321,8 @@ public class CustomerLoadServiceImpl extends InitiateDirectoryBase implements Cu
     }
 
     /**
-     *
      * Accepts a file name and returns a byte-array of the file name contents, if possible.
-     *
+     * <p>
      * Throws RuntimeExceptions if FileNotFound or IOExceptions occur.
      *
      * @param fileName String containing valid path & filename (relative or absolute) of file to load.
@@ -343,12 +335,10 @@ public class CustomerLoadServiceImpl extends InitiateDirectoryBase implements Cu
         try {
             fileContents = new FileInputStream(fileName);
             fileByteContent = IOUtils.toByteArray(fileContents);
-        }
-        catch (FileNotFoundException fnfe) {
+        } catch (FileNotFoundException fnfe) {
             LOG.error("Batch file not found [" + fileName + "]. " + fnfe.getMessage());
             throw new RuntimeException("Batch File not found [" + fileName + "]. " + fnfe.getMessage());
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             LOG.error("IO Exception loading: [" + fileName + "]. " + ioe.getMessage());
             throw new RuntimeException("IO Exception loading: [" + fileName + "]. " + ioe.getMessage());
         }
@@ -357,15 +347,15 @@ public class CustomerLoadServiceImpl extends InitiateDirectoryBase implements Cu
 
     /**
      * The results of this method follow the same rules as the batch step result rules:
-     *
+     * <p>
      * The execution of this method may have 3 possible outcomes:
-     *
+     * <p>
      * 1. returns true, meaning that everything has succeeded, and dependent steps can continue running. No
      * errors should be added to GlobalVariables.getMessageMap().
-     *
+     * <p>
      * 2. returns false, meaning that some (but not necessarily all) steps have succeeded, and dependent
      * steps can continue running.  Details can be found in the GlobalVariables.getMessageMap().
-     *
+     * <p>
      * 3. throws an exception, meaning that the step has failed, that the rest of the steps in a job should
      * not be run, and that the job has failed.  There may be errors in the GlobalVariables.getMessageMap().
      *
@@ -385,7 +375,6 @@ public class CustomerLoadServiceImpl extends InitiateDirectoryBase implements Cu
     }
 
     /**
-     *
      * Validate the customers lists
      *
      * @param customerUploads
@@ -404,7 +393,7 @@ public class CustomerLoadServiceImpl extends InitiateDirectoryBase implements Cu
         if (customerUploads.isEmpty()) {
             reporter.addFileErrorMessage("An empty list of Customer uploads was passed in for validation.  As a result, no validation can be done.");
             if (useGlobalMessageMap) {
-                GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, KFSKeyConstants.ERROR_BATCH_UPLOAD_SAVE, new String[] { "An empty list of Customer uploads was passed in for validation.  As a result, no validation was done." });
+                GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, KFSKeyConstants.ERROR_BATCH_UPLOAD_SAVE, new String[]{"An empty list of Customer uploads was passed in for validation.  As a result, no validation was done."});
             }
             return false;
         }
@@ -422,7 +411,7 @@ public class CustomerLoadServiceImpl extends InitiateDirectoryBase implements Cu
             LOG.error("Too many records passed in for this file.  " + customerUploads.size() + " were passed in, and the limit is " + maxRecords + ".  As a result, no validation was done.");
             reporter.addFileErrorMessage("Too many records passed in for this file.  " + customerUploads.size() + " were passed in, and the limit is " + maxRecords + ".  As a result, no validation was done.");
             if (useGlobalMessageMap) {
-                GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, KFSKeyConstants.ERROR_BATCH_UPLOAD_SAVE, new String[] { "Too many records passed in for this file.  " + customerUploads.size() + " were passed in, and the limit is " + maxRecords + ".  As a result, no validation was done." });
+                GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, KFSKeyConstants.ERROR_BATCH_UPLOAD_SAVE, new String[]{"Too many records passed in for this file.  " + customerUploads.size() + " were passed in, and the limit is " + maxRecords + ".  As a result, no validation was done."});
             }
             return false;
         }
@@ -484,21 +473,19 @@ public class CustomerLoadServiceImpl extends InitiateDirectoryBase implements Cu
 
             //  set the old and new
             transientMaintDoc.getNewMaintainableObject().setBusinessObject(customer);
-            transientMaintDoc.getOldMaintainableObject().setBusinessObject((existingCustomer == null ? new Customer() : existingCustomer ));
+            transientMaintDoc.getOldMaintainableObject().setBusinessObject((existingCustomer == null ? new Customer() : existingCustomer));
 
             //  set the maintainable actions, so isNew and isEdit on the maint doc return correct values
             if (isNew) {
                 transientMaintDoc.getNewMaintainableObject().setMaintenanceAction(KRADConstants.MAINTENANCE_NEW_ACTION);
-            }
-            else {
+            } else {
                 transientMaintDoc.getNewMaintainableObject().setMaintenanceAction(KRADConstants.MAINTENANCE_EDIT_ACTION);
             }
 
             //  report whether the customer is an Add or an Edit
             if (isNew) {
                 reporter.addCustomerInfoMessage(customerName, "Customer record batched is a New Customer.");
-            }
-            else {
+            } else {
                 reporter.addCustomerInfoMessage(customerName, "Customer record batched is an Update to an existing Customer.");
             }
 
@@ -606,7 +593,7 @@ public class CustomerLoadServiceImpl extends InitiateDirectoryBase implements Cu
                         clonedExistingAddress.setCustomerAddressTypeCode(ArKeyConstants.CustomerConstants.CUSTOMER_ADDRESS_TYPE_CODE_ALTERNATE);
                     }
                     customer.getCustomerAddresses().add(clonedExistingAddress);
-                }else{
+                } else {
                     //found a address already in batch, remove one stub address from the list
                     stubAddresses.remove(0);
                 }
@@ -635,8 +622,7 @@ public class CustomerLoadServiceImpl extends InitiateDirectoryBase implements Cu
         CustomerAddress clonedAddress = null;
         try {
             clonedAddress = (CustomerAddress) BeanUtils.cloneBean(address);
-        }
-        catch (IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException ex) {
+        } catch (IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException ex) {
             LOG.error("Unable to clone address [" + address + "]", ex);
             throw new RuntimeException("Unable to clone address [" + address + "]", ex);
         }
@@ -755,7 +741,6 @@ public class CustomerLoadServiceImpl extends InitiateDirectoryBase implements Cu
     }
 
     /**
-     *
      * This messy thing attempts to compare a property on the batch customer (new) and existing customer, and if
      * the new is blank, but the old is there, to overwrite the new-value with the old-value, thus preventing
      * batch uploads from blanking out certain fields.
@@ -789,8 +774,7 @@ public class CustomerLoadServiceImpl extends InitiateDirectoryBase implements Cu
                 Object typedValue = PropertyUtils.getProperty(existingCustomer, propertyName);
                 BeanUtils.setProperty(batchCustomer, propertyName, typedValue);
             }
-        }
-        catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
+        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
             throw new RuntimeException("Could not set properties on the Customer object", ex);
         }
     }
@@ -830,8 +814,7 @@ public class CustomerLoadServiceImpl extends InitiateDirectoryBase implements Cu
                 // per pass, so I just keep beating on it until all are gone.
                 if (StringUtils.isBlank(errorKeyString)) {
                     errorString = errorMessage.getErrorKey();
-                }
-                else {
+                } else {
                     errorString = errorKeyString;
                 }
                 while (errorString.matches("^.*\\{\\d\\}.*$")) {
@@ -856,8 +839,7 @@ public class CustomerLoadServiceImpl extends InitiateDirectoryBase implements Cu
         if (document == null) {
             try {
                 document = (MaintenanceDocument) docService.getNewDocument(getCustomerMaintenanceDocumentTypeName());
-            }
-            catch (WorkflowException e) {
+            } catch (WorkflowException e) {
                 throw new RuntimeException("WorkflowException thrown when trying to create new MaintenanceDocument.", e);
             }
         }
@@ -948,9 +930,8 @@ public class CustomerLoadServiceImpl extends InitiateDirectoryBase implements Cu
                     pdfDoc.close();
                 }
             }
-        }
-        catch (IOException | DocumentException ex) {
-            throw new RuntimeException("Could not open file for results report",ex);
+        } catch (IOException | DocumentException ex) {
+            throw new RuntimeException("Could not open file for results report", ex);
         }
     }
 
@@ -968,8 +949,7 @@ public class CustomerLoadServiceImpl extends InitiateDirectoryBase implements Cu
 
         try {
             pdfDoc.add(paragraph);
-        }
-        catch (DocumentException e) {
+        } catch (DocumentException e) {
             LOG.error("iText DocumentException thrown when trying to write content.", e);
             throw new RuntimeException("iText DocumentException thrown when trying to write content.", e);
         }
@@ -987,8 +967,7 @@ public class CustomerLoadServiceImpl extends InitiateDirectoryBase implements Cu
 
         try {
             pdfDoc.add(paragraph);
-        }
-        catch (DocumentException e) {
+        } catch (DocumentException e) {
             LOG.error("iText DocumentException thrown when trying to write content.", e);
             throw new RuntimeException("iText DocumentException thrown when trying to write content.", e);
         }
@@ -1006,8 +985,7 @@ public class CustomerLoadServiceImpl extends InitiateDirectoryBase implements Cu
 
         try {
             pdfDoc.add(paragraph);
-        }
-        catch (DocumentException e) {
+        } catch (DocumentException e) {
             LOG.error("iText DocumentException thrown when trying to write content.", e);
             throw new RuntimeException("iText DocumentException thrown when trying to write content.", e);
         }
@@ -1029,8 +1007,7 @@ public class CustomerLoadServiceImpl extends InitiateDirectoryBase implements Cu
 
             try {
                 pdfDoc.add(paragraph);
-            }
-            catch (DocumentException e) {
+            } catch (DocumentException e) {
                 LOG.error("iText DocumentException thrown when trying to write content.", e);
                 throw new RuntimeException("iText DocumentException thrown when trying to write content.", e);
             }
@@ -1097,7 +1074,7 @@ public class CustomerLoadServiceImpl extends InitiateDirectoryBase implements Cu
 
     /**
      * @see org.kuali.kfs.module.ar.batch.service.CustomerLoadService#getFileName()
-     *
+     * <p>
      * this is abstracted from the CustomerLoadInputFileType
      */
     @Override
@@ -1126,7 +1103,7 @@ public class CustomerLoadServiceImpl extends InitiateDirectoryBase implements Cu
      *
      * @param errorMessage
      */
-    private void criticalError(String errorMessage){
+    private void criticalError(String errorMessage) {
         LOG.error(errorMessage);
         throw new RuntimeException(errorMessage);
     }
@@ -1137,8 +1114,8 @@ public class CustomerLoadServiceImpl extends InitiateDirectoryBase implements Cu
     @Override
     public List<String> getRequiredDirectoryNames() {
         List<String> directoryNames = new ArrayList<String>();
-        if(ObjectUtils.isNotNull(batchInputFileTypes) && !CollectionUtils.isEmpty(batchInputFileTypes)) {
-            for (BatchInputFileType batchInputFileType : batchInputFileTypes){
+        if (ObjectUtils.isNotNull(batchInputFileTypes) && !CollectionUtils.isEmpty(batchInputFileTypes)) {
+            for (BatchInputFileType batchInputFileType : batchInputFileTypes) {
                 directoryNames.add(batchInputFileType.getDirectoryPath());
             }
         }

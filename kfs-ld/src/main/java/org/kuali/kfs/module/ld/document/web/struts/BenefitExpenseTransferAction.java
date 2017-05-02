@@ -1,25 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ld.document.web.struts;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
@@ -33,6 +30,9 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.ObjectUtil;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * Struts Action class for the Benefit Expense Transfer Document.
  */
@@ -41,7 +41,7 @@ public class BenefitExpenseTransferAction extends ExpenseTransferDocumentActionB
 
     /**
      * Gets the Business object class name
-     * 
+     *
      * @param expenseTransferDocumentFormBase ExpenseTransferDocumentForm type
      * @return String classname
      * @see org.kuali.kfs.module.ld.document.web.struts.ExpenseTransferDocumentActionBase#getLookupResultsBOClassName(org.kuali.kfs.module.ld.document.web.struts.ExpenseTransferDocumentFormBase)
@@ -53,10 +53,10 @@ public class BenefitExpenseTransferAction extends ExpenseTransferDocumentActionB
 
     /**
      * @param expenseTransferDocumentFormBase ExpenseTransferDocumentForm type
-     * @param balance LedgerBalance type
+     * @param balance                         LedgerBalance type
      * @return none
      * @see org.kuali.kfs.module.ld.document.web.struts.ExpenseTransferDocumentActionBase#resetLookupFields(org.kuali.kfs.module.ld.document.web.struts.ExpenseTransferDocumentFormBase,
-     *      org.kuali.kfs.module.ld.businessobject.LedgerBalance)
+     * org.kuali.kfs.module.ld.businessobject.LedgerBalance)
      */
     @Override
     protected void resetLookupFields(ExpenseTransferDocumentFormBase expenseTransferDocumentForm, LedgerBalance balance) {
@@ -65,12 +65,12 @@ public class BenefitExpenseTransferAction extends ExpenseTransferDocumentActionB
     }
 
     /**
-     * @param mapping ActionMapping
-     * @param form ActionForm
-     * @param request HttpServletRequest
+     * @param mapping  ActionMapping
+     * @param form     ActionForm
+     * @param request  HttpServletRequest
      * @param response HttpServletResponse
      * @see org.kuali.rice.kns.web.struts.action.KualiAction#performLookup(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward performLookup(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -86,10 +86,10 @@ public class BenefitExpenseTransferAction extends ExpenseTransferDocumentActionB
         path = path.replaceFirst(KFSConstants.LOOKUP_ACTION, LaborConstants.LONG_ROW_TABLE_INRUIRY_ACTION);
         return new ActionForward(path, true);
     }
-    
+
     /**
      * Delete all source accounting lines
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -101,13 +101,13 @@ public class BenefitExpenseTransferAction extends ExpenseTransferDocumentActionB
     public ActionForward deleteAllSourceAccountingLines(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         BenefitExpenseTransferForm financialDocumentForm = (BenefitExpenseTransferForm) form;
         financialDocumentForm.getBenefitExpenseTransferDocument().setNextSourceLineNumber(KFSConstants.ONE.intValue());
-        
+
         return super.deleteAllSourceAccountingLines(mapping, form, request, response);
     }
-    
+
     /**
      * Delete all target accounting lines
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -119,7 +119,7 @@ public class BenefitExpenseTransferAction extends ExpenseTransferDocumentActionB
     public ActionForward deleteAllTargetAccountingLines(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         BenefitExpenseTransferForm financialDocumentForm = (BenefitExpenseTransferForm) form;
         financialDocumentForm.getBenefitExpenseTransferDocument().setNextTargetLineNumber(KFSConstants.ONE.intValue());
-        
+
         return super.deleteAllTargetAccountingLines(mapping, form, request, response);
     }
 
@@ -131,6 +131,6 @@ public class BenefitExpenseTransferAction extends ExpenseTransferDocumentActionB
         super.buildAccountingLineFromLedgerBalance(ledgerBalance, line, amount, periodCode);
         line.setEmplid(LaborConstants.getDashEmplId());
         line.setPositionNumber(LaborConstants.getDashPositionNumber());
-        
+
     }
 }

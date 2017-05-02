@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  * 
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,26 +18,26 @@
  */
 package org.kuali.kfs.module.cam.batch.service.impl;
 
+import org.apache.log4j.Logger;
+import org.kuali.kfs.coa.businessobject.Account;
+import org.kuali.kfs.gl.businessobject.Entry;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.module.cam.CamsPropertyConstants;
+import org.kuali.kfs.module.cam.batch.service.ReconciliationService;
+import org.kuali.kfs.module.cam.businessobject.AccountLineGroup;
+import org.kuali.kfs.module.cam.businessobject.GlAccountLineGroup;
+import org.kuali.kfs.module.cam.businessobject.PurApAccountLineGroup;
+import org.kuali.kfs.module.cam.dataaccess.ReconciliationDao;
+import org.kuali.kfs.module.purap.businessobject.PurApAccountingLineBase;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.log4j.Logger;
-import org.kuali.kfs.coa.businessobject.Account;
-import org.kuali.kfs.gl.businessobject.Entry;
-import org.kuali.kfs.module.cab.CabPropertyConstants;
-import org.kuali.kfs.module.cab.batch.service.ReconciliationService;
-import org.kuali.kfs.module.cab.businessobject.AccountLineGroup;
-import org.kuali.kfs.module.cab.businessobject.GlAccountLineGroup;
-import org.kuali.kfs.module.cab.businessobject.PurApAccountLineGroup;
-import org.kuali.kfs.module.cab.dataaccess.ReconciliationDao;
-import org.kuali.kfs.module.purap.businessobject.PurApAccountingLineBase;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Default implementation of {@link ReconciliationService}
@@ -55,8 +55,8 @@ public class ReconciliationServiceImpl implements ReconciliationService {
     protected HashMap<PurApAccountLineGroup, PurApAccountLineGroup> purapAcctGroupMap = new HashMap<PurApAccountLineGroup, PurApAccountLineGroup>();
 
     /**
-     * @see org.kuali.kfs.module.cab.batch.service.ReconciliationService#reconcile(java.util.Collection, java.util.Collection,
-     *      java.util.Collection)
+     * @see ReconciliationService#reconcile(Collection, Collection,
+     * Collection)
      */
     public void reconcile(Collection<Entry> glEntries, Collection<PurApAccountingLineBase> purapAcctEntries) {
         /**
@@ -113,8 +113,8 @@ public class ReconciliationServiceImpl implements ReconciliationService {
      */
     protected Account findAccount(AccountLineGroup acctLineGroup) {
         Map<String, String> keys = new HashMap<String, String>();
-        keys.put(CabPropertyConstants.Account.CHART_OF_ACCOUNTS_CODE, acctLineGroup.getChartOfAccountsCode());
-        keys.put(CabPropertyConstants.Account.ACCOUNT_NUMBER, acctLineGroup.getAccountNumber());
+        keys.put(CamsPropertyConstants.Account.CHART_OF_ACCOUNTS_CODE, acctLineGroup.getChartOfAccountsCode());
+        keys.put(CamsPropertyConstants.Account.ACCOUNT_NUMBER, acctLineGroup.getAccountNumber());
         Account account = (Account) businessObjectService.findByPrimaryKey(Account.class, keys);
         return account;
     }
@@ -134,8 +134,7 @@ public class ReconciliationServiceImpl implements ReconciliationService {
                     LOG.debug("GL account line " + glAccountLineGroup.toString() + " did not find a matching purchasing account line group");
                 }
                 misMatchedGroups.add(glAccountLineGroup);
-            }
-            else {
+            } else {
                 if (LOG.isDebugEnabled()) {
                     LOG.debug("GL account line " + glAccountLineGroup.toString() + " found a matching Purchasing account line group ");
                 }
@@ -157,20 +156,17 @@ public class ReconciliationServiceImpl implements ReconciliationService {
             // Step-1 Ignore zero or null amounts
             if (glEntry.getTransactionLedgerEntryAmount() == null || glEntry.getTransactionLedgerEntryAmount().isZero()) {
                 this.ignoredEntries.add(glEntry);
-            }
-            else if (isDuplicateEntry(glEntry)) {
+            } else if (isDuplicateEntry(glEntry)) {
                 // Ignore the duplicate entries
                 this.duplicateEntries.add(glEntry);
-            }
-            else {
+            } else {
                 // Step-2 Group by univ_fiscal_yr, fin_coa_cd, account_nbr, sub_acct_nbr, fin_object_cd, fin_sub_obj_cd,
                 // univ_fiscal_prd_cd, fdoc_nbr, fdoc_ref_nbr
                 GlAccountLineGroup accountLineGroup = new GlAccountLineGroup(glEntry);
                 GlAccountLineGroup targetAccountLineGroup = glEntryGroupMap.get(accountLineGroup);
                 if (targetAccountLineGroup == null) {
                     glEntryGroupMap.put(accountLineGroup, accountLineGroup);
-                }
-                else {
+                } else {
                     // group GL entries
                     targetAccountLineGroup.combineEntry(glEntry);
                 }
@@ -193,8 +189,7 @@ public class ReconciliationServiceImpl implements ReconciliationService {
                 PurApAccountLineGroup targetAccountLineGroup = purapAcctGroupMap.get(accountLineGroup);
                 if (targetAccountLineGroup == null) {
                     purapAcctGroupMap.put(accountLineGroup, accountLineGroup);
-                }
-                else {
+                } else {
                     // group GL entries
                     targetAccountLineGroup.combineEntry(entry);
                 }
@@ -203,7 +198,7 @@ public class ReconciliationServiceImpl implements ReconciliationService {
     }
 
     /**
-     * @see org.kuali.kfs.module.cab.batch.service.ReconciliationService#isDuplicateEntry(org.kuali.kfs.gl.businessobject.Entry)
+     * @see ReconciliationService#isDuplicateEntry(Entry)
      */
     public boolean isDuplicateEntry(Entry glEntry) {
         

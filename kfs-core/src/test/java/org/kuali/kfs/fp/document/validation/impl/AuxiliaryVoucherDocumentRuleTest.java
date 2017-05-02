@@ -1,22 +1,45 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document.validation.impl;
+
+import org.kuali.kfs.coa.businessobject.AccountingPeriod;
+import org.kuali.kfs.coa.service.AccountingPeriodService;
+import org.kuali.kfs.fp.document.AuxiliaryVoucherDocument;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.sys.ConfigureContext;
+import org.kuali.kfs.sys.DocumentTestUtils;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.businessobject.AccountingLine;
+import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
+import org.kuali.kfs.sys.businessobject.TargetAccountingLine;
+import org.kuali.kfs.sys.context.KualiTestBase;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.context.TestUtils;
+import org.kuali.kfs.sys.document.AccountingDocument;
+import org.kuali.kfs.sys.document.validation.Validation;
+import org.kuali.kfs.sys.document.validation.impl.AccountingLineValueAllowedValidation;
+import org.kuali.kfs.sys.fixture.AccountingLineFixture;
+import org.kuali.kfs.sys.service.IsDebitTestUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.kuali.kfs.sys.KFSConstants.GL_CREDIT_CODE;
 import static org.kuali.kfs.sys.KFSConstants.GL_DEBIT_CODE;
@@ -36,29 +59,6 @@ import static org.kuali.kfs.sys.fixture.GeneralLedgerPendingEntryFixture.EXPECTE
 import static org.kuali.kfs.sys.fixture.GeneralLedgerPendingEntryFixture.EXPECTED_AV_EXPLICIT_TARGET_PENDING_ENTRY;
 import static org.kuali.kfs.sys.fixture.GeneralLedgerPendingEntryFixture.EXPECTED_AV_EXPLICIT_TARGET_PENDING_ENTRY_FOR_EXPENSE;
 import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.kuali.kfs.coa.businessobject.AccountingPeriod;
-import org.kuali.kfs.coa.service.AccountingPeriodService;
-import org.kuali.kfs.fp.document.AuxiliaryVoucherDocument;
-import org.kuali.kfs.sys.ConfigureContext;
-import org.kuali.kfs.sys.DocumentTestUtils;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.businessobject.AccountingLine;
-import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
-import org.kuali.kfs.sys.businessobject.TargetAccountingLine;
-import org.kuali.kfs.sys.context.KualiTestBase;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.context.TestUtils;
-import org.kuali.kfs.sys.document.AccountingDocument;
-import org.kuali.kfs.sys.document.validation.Validation;
-import org.kuali.kfs.sys.document.validation.impl.AccountingLineValueAllowedValidation;
-import org.kuali.kfs.sys.fixture.AccountingLineFixture;
-import org.kuali.kfs.sys.service.IsDebitTestUtils;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.service.DocumentService;
 
 @ConfigureContext(session = khuntley)
 public class AuxiliaryVoucherDocumentRuleTest extends KualiTestBase {
@@ -126,7 +126,7 @@ public class AuxiliaryVoucherDocumentRuleTest extends KualiTestBase {
     public void testIsObjectCodeAllowed_Valid() throws Exception {
         boolean result = true;
         AuxiliaryVoucherDocument document = createDocument();
-        AccountingLineValueAllowedValidation validation = (AccountingLineValueAllowedValidation)SpringContext.getBean(Validation.class,"AccountingDocument-IsObjectCodeAllowed-DefaultValidation");
+        AccountingLineValueAllowedValidation validation = (AccountingLineValueAllowedValidation) SpringContext.getBean(Validation.class, "AccountingDocument-IsObjectCodeAllowed-DefaultValidation");
         if (validation == null) throw new IllegalStateException("No object code value allowed validation");
         validation.setAccountingDocumentForValidation(document);
         validation.setAccountingLineForValidation(getValidObjectCodeSourceLine());
@@ -164,8 +164,7 @@ public class AuxiliaryVoucherDocumentRuleTest extends KualiTestBase {
         try {
             testSaveDocumentRule_ProcessSaveDocument(null, false);
             fail("validated null doc");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             assertTrue(true);
         }
     }
@@ -303,7 +302,7 @@ public class AuxiliaryVoucherDocumentRuleTest extends KualiTestBase {
         final Integer currentFiscalYear = TestUtils.getFiscalYearForTesting();
         final Integer pastFiscalYear = new Integer(currentFiscalYear.intValue() - 1);
         AccountingPeriod firstPeriod = SpringContext.getBean(AccountingPeriodService.class).getByPeriod("10", new Integer(currentFiscalYear));
-        assertNotNull( "Unable to find accounting period " + currentFiscalYear + "-10", firstPeriod);
+        assertNotNull("Unable to find accounting period " + currentFiscalYear + "-10", firstPeriod);
         java.util.Calendar firstPeriodInside = new java.util.GregorianCalendar(currentFiscalYear, java.util.Calendar.MAY, 8);
         java.util.Calendar firstPeriodOutside = new java.util.GregorianCalendar(currentFiscalYear, java.util.Calendar.MAY, 23);
         final AuxiliaryVoucherDocument avDoc = new AuxiliaryVoucherDocument();
@@ -311,7 +310,7 @@ public class AuxiliaryVoucherDocumentRuleTest extends KualiTestBase {
         assertFalse(avDoc.calculateIfWithinGracePeriod(new java.sql.Date(firstPeriodOutside.getTimeInMillis()), firstPeriod));
 
         AccountingPeriod secondPeriod = SpringContext.getBean(AccountingPeriodService.class).getByPeriod("13", new Integer(pastFiscalYear));
-        assertNotNull( "Unable to find accounting period " + pastFiscalYear + "-13", secondPeriod);
+        assertNotNull("Unable to find accounting period " + pastFiscalYear + "-13", secondPeriod);
         java.util.Calendar secondPeriodInside = new java.util.GregorianCalendar(pastFiscalYear, java.util.Calendar.JUNE, 20);
         java.util.Calendar secondPeriodOutside = new java.util.GregorianCalendar(currentFiscalYear, java.util.Calendar.JULY, 21);
         assertTrue(avDoc.calculateIfWithinGracePeriod(new java.sql.Date(secondPeriodInside.getTimeInMillis()), secondPeriod));
@@ -368,10 +367,10 @@ public class AuxiliaryVoucherDocumentRuleTest extends KualiTestBase {
         assertEquals(new Integer(1), new Integer(testCal.get(java.util.Calendar.DAY_OF_MONTH)));
     }
 
-    private void testAddAccountingLineRule_IsObjectTypeAllowed(AccountingLine accountingLine, boolean expected) throws Exception  {
+    private void testAddAccountingLineRule_IsObjectTypeAllowed(AccountingLine accountingLine, boolean expected) throws Exception {
         boolean result = true;
         AuxiliaryVoucherDocument document = createDocument();
-        AccountingLineValueAllowedValidation validation = (AccountingLineValueAllowedValidation)SpringContext.getBean(Validation.class,"AccountingDocument-IsObjectTypeAllowed-DefaultValidation");
+        AccountingLineValueAllowedValidation validation = (AccountingLineValueAllowedValidation) SpringContext.getBean(Validation.class, "AccountingDocument-IsObjectTypeAllowed-DefaultValidation");
         if (validation == null) throw new IllegalStateException("No object type value allowed validation");
         validation.setAccountingDocumentForValidation(document);
         validation.setAccountingLineForValidation(accountingLine);
@@ -379,10 +378,10 @@ public class AuxiliaryVoucherDocumentRuleTest extends KualiTestBase {
         assertEquals(expected, result);
     }
 
-    private void testAddAccountingLine_IsObjectSubTypeAllowed(AccountingLine accountingLine, boolean expected) throws Exception  {
+    private void testAddAccountingLine_IsObjectSubTypeAllowed(AccountingLine accountingLine, boolean expected) throws Exception {
         boolean result = true;
         AuxiliaryVoucherDocument document = createDocument();
-        AccountingLineValueAllowedValidation validation = (AccountingLineValueAllowedValidation)SpringContext.getBean(Validation.class,"AccountingDocument-IsObjectSubTypeAllowed-DefaultValidation");
+        AccountingLineValueAllowedValidation validation = (AccountingLineValueAllowedValidation) SpringContext.getBean(Validation.class, "AccountingDocument-IsObjectSubTypeAllowed-DefaultValidation");
         if (validation == null) throw new IllegalStateException("No object sub type value allowed validation");
         validation.setAccountingDocumentForValidation(document);
         validation.setAccountingLineForValidation(accountingLine);

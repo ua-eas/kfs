@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,9 +18,7 @@
  */
 package org.kuali.kfs.module.ar.report.service.impl;
 
-import java.math.BigDecimal;
-import java.util.List;
-
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.businessobject.ContractsGrantsMilestoneReport;
 import org.kuali.kfs.module.ar.report.ContractsGrantsMilestoneReportDetailDataHolder;
 import org.kuali.kfs.module.ar.report.ContractsGrantsReportDataHolder;
@@ -28,7 +26,9 @@ import org.kuali.kfs.module.ar.report.service.ContractsGrantsReportDataBuilderSe
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.report.ReportInfo;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * Implementation of ContractsGrantsReportDataBuilderService to help build the Contracts & Grants Milestone Report
@@ -38,13 +38,14 @@ public class ContractsGrantsMilestoneReportBuilderServiceImpl implements Contrac
 
     /**
      * Builds the report
+     *
      * @see org.kuali.kfs.module.ar.report.service.ContractsGrantsReportDataBuilderService#buildReportDataHolder(java.util.List, java.lang.String)
      */
     @Override
     public ContractsGrantsReportDataHolder buildReportDataHolder(List<? extends BusinessObject> displayList, String sortPropertyName) {
         ContractsGrantsReportDataHolder cgMilestoneReportDataHolder = new ContractsGrantsReportDataHolder();
         List<ContractsGrantsMilestoneReportDetailDataHolder> details = cgMilestoneReportDataHolder.getDetails();
-        for (ContractsGrantsMilestoneReport cgMilestoneReport : (List<ContractsGrantsMilestoneReport>)displayList) {
+        for (ContractsGrantsMilestoneReport cgMilestoneReport : (List<ContractsGrantsMilestoneReport>) displayList) {
             ContractsGrantsMilestoneReportDetailDataHolder reportDetail = new ContractsGrantsMilestoneReportDetailDataHolder();
             // set report data
             setReportDate(cgMilestoneReport, reportDetail);
@@ -58,6 +59,7 @@ public class ContractsGrantsMilestoneReportBuilderServiceImpl implements Contrac
 
     /**
      * Returns the class of ContractsGrantsMilestoneReport
+     *
      * @see org.kuali.kfs.module.ar.report.service.ContractsGrantsReportDataBuilderService#getDetailsClass()
      */
     @Override

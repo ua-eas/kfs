@@ -1,22 +1,37 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cg.service.impl;
+
+import au.com.bytecode.opencsv.CSVReader;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.ftp.FTPReply;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.module.cg.batch.CfdaBatchStep;
+import org.kuali.kfs.module.cg.businessobject.CFDA;
+import org.kuali.kfs.module.cg.businessobject.CfdaUpdateResults;
+import org.kuali.kfs.module.cg.service.CfdaService;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.service.NonTransactional;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -29,22 +44,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.net.ftp.FTPClient;
-import org.apache.commons.net.ftp.FTPReply;
-import org.kuali.kfs.module.cg.batch.CfdaBatchStep;
-import org.kuali.kfs.module.cg.businessobject.CFDA;
-import org.kuali.kfs.module.cg.businessobject.CfdaUpdateResults;
-import org.kuali.kfs.module.cg.service.CfdaService;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.service.NonTransactional;
-import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.springframework.transaction.annotation.Transactional;
-
-import au.com.bytecode.opencsv.CSVReader;
 
 public class CfdaServiceImpl implements CfdaService {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CfdaServiceImpl.class);
@@ -147,8 +146,7 @@ public class CfdaServiceImpl implements CfdaService {
 
             ftp.logout();
             ftp.disconnect();
-        }
-        finally {
+        } finally {
             if (ftp.isConnected()) {
                 ftp.disconnect();
             }
@@ -184,8 +182,7 @@ public class CfdaServiceImpl implements CfdaService {
 
         try {
             govMap = getGovCodes();
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             LOG.error("Error connecting to URL resource: " + ioe.getMessage(), ioe);
             StringBuilder builder = new StringBuilder();
             builder.append("No updates took place.\n");
@@ -206,25 +203,21 @@ public class CfdaServiceImpl implements CfdaService {
             if (cfdaKfs.getCfdaMaintenanceTypeId().startsWith("M")) {
                 // Leave it alone. It's maintained manually.
                 results.setNumberOfRecordsNotUpdatedBecauseManual(1 + results.getNumberOfRecordsNotUpdatedBecauseManual());
-            }
-            else if (cfdaKfs.getCfdaMaintenanceTypeId().startsWith("A")) {
+            } else if (cfdaKfs.getCfdaMaintenanceTypeId().startsWith("A")) {
 
                 if (cfdaGov == null) {
                     if (cfdaKfs.isActive()) {
                         cfdaKfs.setActive(false);
                         businessObjectService.save(cfdaKfs);
                         results.setNumberOfRecordsDeactivatedBecauseNoLongerOnWebSite(results.getNumberOfRecordsDeactivatedBecauseNoLongerOnWebSite() + 1);
-                    }
-                    else {
+                    } else {
                         // Leave it alone for historical purposes
                         results.setNumberOfRecrodsNotUpdatedForHistoricalPurposes(results.getNumberOfRecrodsNotUpdatedForHistoricalPurposes() + 1);
                     }
-                }
-                else {
+                } else {
                     if (cfdaKfs.isActive()) {
                         results.setNumberOfRecordsUpdatedBecauseAutomatic(results.getNumberOfRecordsUpdatedBecauseAutomatic() + 1);
-                    }
-                    else {
+                    } else {
                         cfdaKfs.setActive(true);
                         results.setNumberOfRecordsReActivated(results.getNumberOfRecordsReActivated() + 1);
                     }

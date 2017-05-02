@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -41,9 +41,9 @@ public class BudgetAdjustmentParametersDTO implements Serializable {
         protected String projectCode;
         protected String currentAmount;
 
-         /**
+        /**
          * Gets the chart attribute.
-         * 
+         *
          * @return Returns the chart.
          */
         public String getChart() {
@@ -52,7 +52,7 @@ public class BudgetAdjustmentParametersDTO implements Serializable {
 
         /**
          * Sets the chart attribute value.
-         * 
+         *
          * @param chart The chart to set.
          */
         public void setChart(String chrt) {
@@ -61,7 +61,7 @@ public class BudgetAdjustmentParametersDTO implements Serializable {
 
         /**
          * Gets the account attribute.
-         * 
+         *
          * @return Returns the account.
          */
         public String getAccount() {
@@ -70,16 +70,17 @@ public class BudgetAdjustmentParametersDTO implements Serializable {
 
         /**
          * Sets the account attribute value.
-         * 
+         *
          * @param account The account to set.
          */
         public void setAccount(String account) {
             this.account = account;
         }
-        
+
         public String getSubAccount() {
             return subAccount;
         }
+
         public void setSubAccount(String subAccount) {
             this.subAccount = subAccount;
         }
@@ -87,14 +88,14 @@ public class BudgetAdjustmentParametersDTO implements Serializable {
         /**
          * Gets the objectCode attribute.
          */
-   
+
         public String getObjectCode() {
             return objectCode;
         }
 
         /**
          * Sets the objectCode attribute value.
-         * 
+         *
          * @param objectCode The objectCode to set.
          */
         public void setObjectCode(String objectCode) {
@@ -103,7 +104,7 @@ public class BudgetAdjustmentParametersDTO implements Serializable {
 
         /**
          * Gets the projectCode attribute.
-         * 
+         *
          * @return Returns the projectCode.
          */
         public String getProjectCode() {
@@ -112,7 +113,7 @@ public class BudgetAdjustmentParametersDTO implements Serializable {
 
         /**
          * Sets the projectCode attribute value.
-         * 
+         *
          * @param projectCode The projectCode to set.
          */
         public void setProjectCode(String projectCode) {
@@ -121,7 +122,7 @@ public class BudgetAdjustmentParametersDTO implements Serializable {
 
         /**
          * Gets the amount attribute.
-         * 
+         *
          * @return Returns the amount.
          */
         public String getCurrentAmount() {
@@ -130,7 +131,7 @@ public class BudgetAdjustmentParametersDTO implements Serializable {
 
         /**
          * Sets the amount attribute value.
-         * 
+         *
          * @param amount The amount to set.
          */
         public void setCurrentAmount(String amount) {
@@ -144,7 +145,7 @@ public class BudgetAdjustmentParametersDTO implements Serializable {
     }
 
 
-     public String getDescription() {
+    public String getDescription() {
         return description;
     }
 
@@ -166,7 +167,7 @@ public class BudgetAdjustmentParametersDTO implements Serializable {
 
     /**
      * Gets the principalId attribute.
-     * 
+     *
      * @return Returns the principalId.
      */
     public String getPrincipalId() {
@@ -176,7 +177,7 @@ public class BudgetAdjustmentParametersDTO implements Serializable {
 
     /**
      * Sets the principalId attribute value.
-     * 
+     *
      * @param principalId The principalId to set.
      */
     public void setPrincipalId(String principalId) {
@@ -185,7 +186,7 @@ public class BudgetAdjustmentParametersDTO implements Serializable {
 
 
     public List<Details> getDetails() {
-        if (details == null)  details = new ArrayList<Details>();
+        if (details == null) details = new ArrayList<Details>();
         return details;
     }
 
@@ -195,33 +196,21 @@ public class BudgetAdjustmentParametersDTO implements Serializable {
     }
 
 
-    /**
-     * 
-     */
     public String getOrgDocNumber() {
         return orgDocNumber;
     }
 
 
-    /**
-     * 
-     */
     public void setOrgDocNumber(String orgDocNumber) {
         this.orgDocNumber = orgDocNumber;
     }
 
 
-    /**
-     * 
-     */
     public String getSponsorType() {
         return sponsorType;
     }
 
 
-    /**
-     * 
-     */
     public void setSponsorType(String sponsorType) {
         this.sponsorType = sponsorType;
     }

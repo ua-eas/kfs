@@ -1,22 +1,43 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.batch.service.impl;
+
+import org.apache.log4j.Logger;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.UserSession;
+import org.kuali.kfs.krad.bo.AdHocRoutePerson;
+import org.kuali.kfs.krad.bo.AdHocRouteRecipient;
+import org.kuali.kfs.krad.bo.AdHocRouteWorkgroup;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.ar.batch.service.InvoiceRecurrenceService;
+import org.kuali.kfs.module.ar.businessobject.InvoiceRecurrence;
+import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.util.KfsDateUtils;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+import org.kuali.rice.kew.api.KewApiConstants;
+import org.kuali.rice.kew.api.exception.WorkflowException;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -27,34 +48,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
-import org.kuali.kfs.module.ar.batch.service.InvoiceRecurrenceService;
-import org.kuali.kfs.module.ar.businessobject.InvoiceRecurrence;
-import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.util.KfsDateUtils;
-import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.kew.api.KewApiConstants;
-import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.krad.UserSession;
-import org.kuali.rice.krad.bo.AdHocRoutePerson;
-import org.kuali.rice.krad.bo.AdHocRouteRecipient;
-import org.kuali.rice.krad.bo.AdHocRouteWorkgroup;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.ObjectUtils;
-import org.springframework.transaction.annotation.Transactional;
-
 /**
- *
  * Lockbox Iterators are sorted by processedInvoiceDate and batchSequenceNumber.
  * Potentially there could be many batches on the same date.
  * For each set of records with the same processedInvoiceDate and batchSequenceNumber,
  * there will be one Cash-Control document. Each record within this set will create one Application document.
- *
  */
 
 @Transactional
@@ -64,6 +62,7 @@ public class InvoiceRecurrenceServiceImpl implements InvoiceRecurrenceService {
     private DocumentService documentService;
     private DateTimeService dateTimeService;
     private BusinessObjectService boService;
+
     public DateTimeService getDateTimeService() {
         return dateTimeService;
     }
@@ -121,8 +120,7 @@ public class InvoiceRecurrenceServiceImpl implements InvoiceRecurrenceService {
             if (currentDate.after(currentMonthProcessDate)) {
                 nextProcessCalendar = currentMonthProcessCalendar;
                 nextProcessCalendar.add(Calendar.MONTH, 1);
-            }
-            else {
+            } else {
                 /* currentDate is less than or equal to currentMonthProcessDate
                  * so the nextProcessDate is equal to the currentMonthProcessDate */
                 nextProcessCalendar = currentMonthProcessCalendar;
@@ -143,7 +141,7 @@ public class InvoiceRecurrenceServiceImpl implements InvoiceRecurrenceService {
                 String initiator = invoiceRecurrence.getDocumentInitiatorUserPersonUserIdentifier();
                 GlobalVariables.setUserSession(new UserSession(initiator));
 
-                customerInvoiceDocument = (CustomerInvoiceDocument)getDocumentService().getByDocumentHeaderId(invoiceRecurrence.getInvoiceNumber());
+                customerInvoiceDocument = (CustomerInvoiceDocument) getDocumentService().getByDocumentHeaderId(invoiceRecurrence.getInvoiceNumber());
                 customerInvoiceDocument.toCopy();
                 List<AdHocRouteRecipient> adHocRouteRecipients = new ArrayList<AdHocRouteRecipient>();
                 adHocRouteRecipients.add(buildApprovePersonRecipient(initiator));
@@ -155,13 +153,13 @@ public class InvoiceRecurrenceServiceImpl implements InvoiceRecurrenceService {
 
             /* if nextProcessDate is greater than currentDate BUT less than or equal to endDate */
             if (nextProcessDate.after(currentDate) && (!nextProcessDate.after(endDate))) {
-                if ((ObjectUtils.isNotNull(lastCreateDate) && lastProcessDate.after(lastCreateDate))  ||
-                    (ObjectUtils.isNull(lastCreateDate)  && beginDate.before(currentDate)) ) {
+                if ((ObjectUtils.isNotNull(lastCreateDate) && lastProcessDate.after(lastCreateDate)) ||
+                    (ObjectUtils.isNull(lastCreateDate) && beginDate.before(currentDate))) {
                     /* copy INV document to a new INV document */
                     String initiator = invoiceRecurrence.getDocumentInitiatorUserPersonUserIdentifier();
                     GlobalVariables.setUserSession(new UserSession(initiator));
 
-                    customerInvoiceDocument = (CustomerInvoiceDocument)getDocumentService().getByDocumentHeaderId(invoiceRecurrence.getInvoiceNumber());
+                    customerInvoiceDocument = (CustomerInvoiceDocument) getDocumentService().getByDocumentHeaderId(invoiceRecurrence.getInvoiceNumber());
                     customerInvoiceDocument.toCopy();
                     List<AdHocRouteRecipient> adHocRouteRecipients = new ArrayList<AdHocRouteRecipient>();
                     adHocRouteRecipients.add(buildApprovePersonRecipient(initiator));
@@ -212,8 +210,8 @@ public class InvoiceRecurrenceServiceImpl implements InvoiceRecurrenceService {
     }
 
     /**
-     *
      * This method builds a FYI recipient.
+     *
      * @param userId
      * @return
      */
@@ -225,8 +223,8 @@ public class InvoiceRecurrenceServiceImpl implements InvoiceRecurrenceService {
     }
 
     /**
-     *
      * This method builds a recipient for Approval.
+     *
      * @param userId
      * @return
      */
@@ -238,8 +236,8 @@ public class InvoiceRecurrenceServiceImpl implements InvoiceRecurrenceService {
     }
 
     /**
-     *
      * This method builds a FYI workgroup recipient.
+     *
      * @param userId
      * @return
      */
@@ -251,8 +249,8 @@ public class InvoiceRecurrenceServiceImpl implements InvoiceRecurrenceService {
     }
 
     /**
-     *
      * This method builds a workgroup recipient for Approval.
+     *
      * @param userId
      * @return
      */
@@ -263,8 +261,7 @@ public class InvoiceRecurrenceServiceImpl implements InvoiceRecurrenceService {
         return adHocRouteRecipient;
     }
 
-    public void setBusinessObjectService (BusinessObjectService boService)
-    {
+    public void setBusinessObjectService(BusinessObjectService boService) {
         this.boService = boService;
     }
 }

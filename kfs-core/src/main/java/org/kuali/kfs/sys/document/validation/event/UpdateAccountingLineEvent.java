@@ -1,38 +1,38 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.document.validation.event;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.ListIterator;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.rules.rule.BusinessRule;
+import org.kuali.kfs.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.rules.rule.BusinessRule;
-import org.kuali.rice.krad.util.ErrorMessage;
-import org.kuali.rice.krad.util.GlobalVariables;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.ListIterator;
 
 public class UpdateAccountingLineEvent extends AttributedDocumentEventBase implements AccountingLineEvent {
     private final AccountingLine accountingLine;
@@ -40,7 +40,7 @@ public class UpdateAccountingLineEvent extends AttributedDocumentEventBase imple
 
     /**
      * Constructs an UpdateAccountingLineEvent with the given errorPathPrefix, document, and accountingLine.
-     * 
+     *
      * @param errorPathPrefix
      * @param document
      * @param accountingLine
@@ -65,7 +65,7 @@ public class UpdateAccountingLineEvent extends AttributedDocumentEventBase imple
     public AccountingLine getUpdatedAccountingLine() {
         return updatedAccountingLine;
     }
-    
+
     /**
      * @see org.kuali.kfs.sys.document.validation.event.AttributedDocumentEventBase#invokeRuleMethod(org.kuali.rice.krad.rule.BusinessRule)
      */
@@ -82,7 +82,7 @@ public class UpdateAccountingLineEvent extends AttributedDocumentEventBase imple
     public AccountingLine getAccountingLine() {
         return accountingLine;
     }
-    
+
     /**
      * Logic to replace generic amount error messages, especially those where extraordinarily large amounts caused format errors
      */
@@ -95,26 +95,25 @@ public class UpdateAccountingLineEvent extends AttributedDocumentEventBase imple
         linePatterns.addAll(Arrays.asList(StringUtils.replace(KFSConstants.TARGET_ACCOUNTING_LINE_ERROR_PATTERN, "*", "").split(",")));
 
         // see if any lines have errors
-        for (Iterator i = GlobalVariables.getMessageMap().getPropertiesWithErrors().iterator(); i.hasNext();) {
+        for (Iterator i = GlobalVariables.getMessageMap().getPropertiesWithErrors().iterator(); i.hasNext(); ) {
             String property = (String) i.next();
             // only concerned about amount field errors
             if (property.endsWith("." + KFSConstants.AMOUNT_PROPERTY_NAME)) {
                 // check if the amount field is associated with an accounting line
                 boolean isLineProperty = true;
-                for (Iterator linePatternsIterator = linePatterns.iterator(); i.hasNext() && !isLineProperty;) {
+                for (Iterator linePatternsIterator = linePatterns.iterator(); i.hasNext() && !isLineProperty; ) {
                     isLineProperty = property.startsWith((String) linePatternsIterator.next());
                 }
                 if (isLineProperty) {
                     // find the specific error messages for the property
-                    for (ListIterator errors = GlobalVariables.getMessageMap().getMessages(property).listIterator(); errors.hasNext();) {
+                    for (ListIterator errors = GlobalVariables.getMessageMap().getMessages(property).listIterator(); errors.hasNext(); ) {
                         ErrorMessage error = (ErrorMessage) errors.next();
                         String errorKey = null;
                         String[] params = new String[2];
                         if (StringUtils.equals(KFSKeyConstants.ERROR_INVALID_FORMAT, error.getErrorKey())) {
                             errorKey = KFSKeyConstants.ERROR_DOCUMENT_ACCOUNTING_LINE_INVALID_FORMAT;
                             params[1] = accountingLine.getAmount().toString();
-                        }
-                        else {
+                        } else {
                             if (StringUtils.equals(KFSKeyConstants.ERROR_MAX_LENGTH, error.getErrorKey())) {
                                 errorKey = KFSKeyConstants.ERROR_DOCUMENT_ACCOUNTING_LINE_MAX_LENGTH;
 

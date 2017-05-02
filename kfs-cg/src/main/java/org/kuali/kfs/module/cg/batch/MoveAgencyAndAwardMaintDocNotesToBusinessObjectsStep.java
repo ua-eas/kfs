@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2015 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.cg.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.module.cg.batch.service.MaintenanceDocumentNotesMigrationService;
 import org.kuali.kfs.sys.batch.AbstractStep;
+
+import java.util.Date;
 
 /**
  * Batch step to move agency and award maintenance document notes to their business objects
@@ -31,6 +31,7 @@ public class MoveAgencyAndAwardMaintDocNotesToBusinessObjectsStep extends Abstra
 
     /**
      * migrate the notes for agencies or awards
+     *
      * @see org.kuali.kfs.sys.batch.Step#execute(java.lang.String, java.util.Date)
      */
     @Override

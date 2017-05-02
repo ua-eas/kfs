@@ -1,29 +1,29 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.service;
 
 import org.kuali.kfs.fp.businessobject.CashDrawer;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.krad.service.BusinessObjectService;
 
 /**
  * This class tests the Check service.
@@ -37,8 +37,7 @@ public class CashDrawerServiceTest extends KualiTestBase {
     private static final String OTHER_DOC_ID = "4321";
 
     /**
-     * 
-     * This method tests that calling the openCashDrawer method on a CashDrawerService with a blank workgroup name 
+     * This method tests that calling the openCashDrawer method on a CashDrawerService with a blank workgroup name
      * generates an error.
      */
     public final void testOpenCashDrawer_blankWorkgroup() {
@@ -46,8 +45,7 @@ public class CashDrawerServiceTest extends KualiTestBase {
 
         try {
             SpringContext.getBean(CashDrawerService.class).openCashDrawer(BLANK_CAMPUS_CODE, VALID_DOC_ID);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             failedAsExpected = true;
         }
 
@@ -55,7 +53,6 @@ public class CashDrawerServiceTest extends KualiTestBase {
     }
 
     /**
-     * 
      * This method tests that calling the openCashDrawer method on a CashDrawerService with a blank document id generates
      * an error.
      */
@@ -64,8 +61,7 @@ public class CashDrawerServiceTest extends KualiTestBase {
 
         try {
             SpringContext.getBean(CashDrawerService.class).openCashDrawer(VALID_CAMPUS_CODE, BLANK_DOC_ID);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             failedAsExpected = true;
         }
 
@@ -73,7 +69,6 @@ public class CashDrawerServiceTest extends KualiTestBase {
     }
 
     /**
-     * 
      * This method tests the openCashDrawer method under valid conditions.
      */
     public final void testOpenCashDrawer() {
@@ -89,8 +84,7 @@ public class CashDrawerServiceTest extends KualiTestBase {
     }
 
     /**
-     * 
-     * This method tests that calling the closeCashDrawer method on a CashDrawerService with a blank workgroup name 
+     * This method tests that calling the closeCashDrawer method on a CashDrawerService with a blank workgroup name
      * generates an error.
      */
     public final void testCloseCashDrawer_blankWorkgroup() {
@@ -98,8 +92,7 @@ public class CashDrawerServiceTest extends KualiTestBase {
 
         try {
             SpringContext.getBean(CashDrawerService.class).closeCashDrawer(BLANK_CAMPUS_CODE);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             failedAsExpected = true;
         }
 
@@ -107,7 +100,6 @@ public class CashDrawerServiceTest extends KualiTestBase {
     }
 
     /**
-     * 
      * This method tests the closeCashDrawer method under valid conditions.
      */
     public final void testCloseCashDrawer_existent() {
@@ -123,8 +115,7 @@ public class CashDrawerServiceTest extends KualiTestBase {
     }
 
     /**
-     * 
-     * This method tests that calling the lockCashDrawer method on a CashDrawerService with a blank workgroup name 
+     * This method tests that calling the lockCashDrawer method on a CashDrawerService with a blank workgroup name
      * generates an error.
      */
     public final void testLockCashDrawer_blankWorkgroup() {
@@ -132,8 +123,7 @@ public class CashDrawerServiceTest extends KualiTestBase {
 
         try {
             SpringContext.getBean(CashDrawerService.class).lockCashDrawer(BLANK_CAMPUS_CODE, VALID_DOC_ID);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             failedAsExpected = true;
         }
 
@@ -141,8 +131,7 @@ public class CashDrawerServiceTest extends KualiTestBase {
     }
 
     /**
-     * 
-     * This method tests that calling the lockCashDrawer method on a CashDrawerService, when the cash drawer 
+     * This method tests that calling the lockCashDrawer method on a CashDrawerService, when the cash drawer
      * is closed, an error is generated.
      */
     public final void testLockCashDrawer_closed() {
@@ -155,8 +144,7 @@ public class CashDrawerServiceTest extends KualiTestBase {
         boolean failedAsExpected = false;
         try {
             SpringContext.getBean(CashDrawerService.class).lockCashDrawer(workgroup, VALID_DOC_ID);
-        }
-        catch (IllegalStateException e) {
+        } catch (IllegalStateException e) {
             failedAsExpected = true;
         }
 
@@ -164,8 +152,7 @@ public class CashDrawerServiceTest extends KualiTestBase {
     }
 
     /**
-     * 
-     * This method tests that calling the lockCashDrawer method on a CashDrawerService, when the cash drawer 
+     * This method tests that calling the lockCashDrawer method on a CashDrawerService, when the cash drawer
      * is already locked, an error is generated.
      */
     public final void testLockCashDrawer_alreadyLocked() {
@@ -180,8 +167,7 @@ public class CashDrawerServiceTest extends KualiTestBase {
         boolean failedAsExpected = false;
         try {
             SpringContext.getBean(CashDrawerService.class).lockCashDrawer(workgroup, VALID_DOC_ID);
-        }
-        catch (IllegalStateException e) {
+        } catch (IllegalStateException e) {
             failedAsExpected = true;
         }
 
@@ -189,8 +175,7 @@ public class CashDrawerServiceTest extends KualiTestBase {
     }
 
     /**
-     * 
-     * This method tests that calling the lockCashDrawer method on a CashDrawerService, when the cash drawer 
+     * This method tests that calling the lockCashDrawer method on a CashDrawerService, when the cash drawer
      * is already opened by another document, an error is generated.
      */
     public final void testLockCashDrawer_openedByDifferentDocument() {
@@ -203,8 +188,7 @@ public class CashDrawerServiceTest extends KualiTestBase {
         boolean failedAsExpected = false;
         try {
             SpringContext.getBean(CashDrawerService.class).lockCashDrawer(workgroup, VALID_DOC_ID);
-        }
-        catch (IllegalStateException e) {
+        } catch (IllegalStateException e) {
             failedAsExpected = true;
         }
 
@@ -212,7 +196,6 @@ public class CashDrawerServiceTest extends KualiTestBase {
     }
 
     /**
-     * 
      * This method tests the lockCashDrawer method under valid conditions.
      */
     public final void testLockCashDrawer_open() {
@@ -231,8 +214,7 @@ public class CashDrawerServiceTest extends KualiTestBase {
     }
 
     /**
-     * 
-     * This method tests that calling the unlockCashDrawer method on a CashDrawerService with a blank workgroup name 
+     * This method tests that calling the unlockCashDrawer method on a CashDrawerService with a blank workgroup name
      * generates an error.
      */
     public final void testUnlockCashDrawer_blankWorkgroup() {
@@ -240,8 +222,7 @@ public class CashDrawerServiceTest extends KualiTestBase {
 
         try {
             SpringContext.getBean(CashDrawerService.class).unlockCashDrawer(BLANK_CAMPUS_CODE, VALID_DOC_ID);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             failedAsExpected = true;
         }
 
@@ -249,7 +230,6 @@ public class CashDrawerServiceTest extends KualiTestBase {
     }
 
     /**
-     * 
      * This method tests that calling the lockCashDrawer method on a CashDrawerService, when the cash drawer is already open,
      * an error is generated.
      */
@@ -263,8 +243,7 @@ public class CashDrawerServiceTest extends KualiTestBase {
         boolean failedAsExpected = false;
         try {
             SpringContext.getBean(CashDrawerService.class).unlockCashDrawer(workgroup, VALID_DOC_ID);
-        }
-        catch (IllegalStateException e) {
+        } catch (IllegalStateException e) {
             failedAsExpected = true;
         }
 
@@ -272,7 +251,6 @@ public class CashDrawerServiceTest extends KualiTestBase {
     }
 
     /**
-     * 
      * This method tests the unlockCashDrawer method under valid conditions.
      */
     public final void testUnlockCashDrawer_locked() {
@@ -292,8 +270,7 @@ public class CashDrawerServiceTest extends KualiTestBase {
     }
 
     /**
-     * 
-     * This method tests that calling the unlockCashDrawer method on a CashDrawerService, when the cash drawer 
+     * This method tests that calling the unlockCashDrawer method on a CashDrawerService, when the cash drawer
      * is already locked by another document, an error is generated.
      */
     public final void testUnlockCashDrawer_lockedByDifferentDocumentId() {
@@ -307,8 +284,7 @@ public class CashDrawerServiceTest extends KualiTestBase {
         boolean failedAsExpected = false;
         try {
             SpringContext.getBean(CashDrawerService.class).unlockCashDrawer(workgroup, VALID_DOC_ID);
-        }
-        catch (IllegalStateException e) {
+        } catch (IllegalStateException e) {
             failedAsExpected = true;
         }
 
@@ -316,8 +292,7 @@ public class CashDrawerServiceTest extends KualiTestBase {
     }
 
     /**
-     * 
-     * This method tests that trying to retrieve a cash drawer by a workgroup name, when the workgroup name provided is 
+     * This method tests that trying to retrieve a cash drawer by a workgroup name, when the workgroup name provided is
      * blank, will generate an error.
      */
     public final void testGetByCampusCode_blankWorkgroup() {
@@ -325,8 +300,7 @@ public class CashDrawerServiceTest extends KualiTestBase {
 
         try {
             SpringContext.getBean(CashDrawerService.class).getByCampusCode("  ");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             failedAsExpected = true;
         }
 
@@ -334,8 +308,7 @@ public class CashDrawerServiceTest extends KualiTestBase {
     }
 
     /**
-     * 
-     * This method tests that trying to retrieve a cash drawer by a workgroup name, when the workgroup does not exist, 
+     * This method tests that trying to retrieve a cash drawer by a workgroup name, when the workgroup does not exist,
      * will generate an error.
      */
     public final void testGetByCampusCode_nonexistentWorkgroup() {
@@ -345,7 +318,6 @@ public class CashDrawerServiceTest extends KualiTestBase {
     }
 
     /**
-     * 
      * This method tests the getByCampusCode method under valid conditions.
      */
     public final void testGetByCampusCode_existingWorkgroup() {
@@ -362,8 +334,8 @@ public class CashDrawerServiceTest extends KualiTestBase {
     // utility methods
 
     /**
-     * 
      * This method performs the necessary steps to create a new cash drawer in the database for the given campus code.
+     *
      * @param campusCode The code of the campus of the cash drawer being created.
      */
     private void createCashDrawer(String campusCode) {

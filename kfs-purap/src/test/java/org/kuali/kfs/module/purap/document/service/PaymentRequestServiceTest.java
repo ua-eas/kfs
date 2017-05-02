@@ -1,28 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document.service;
 
-import java.lang.reflect.Method;
-import java.sql.Date;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapParameterConstants;
 import org.kuali.kfs.module.purap.document.PaymentRequestDocument;
@@ -38,10 +36,12 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.service.DocumentService;
+
+import java.lang.reflect.Method;
+import java.sql.Date;
+import java.util.List;
+import java.util.Map;
 
 @ConfigureContext(session = UserNameFixture.appleton)
 public class PaymentRequestServiceTest extends KualiTestBase {
@@ -76,7 +76,8 @@ public class PaymentRequestServiceTest extends KualiTestBase {
             preqDocTest = new PaymentRequestDocumentTest();
         }
         if (null == paymentRequestDao) {
-            paymentRequestDao = SpringContext.getBean(PaymentRequestDao.class);;
+            paymentRequestDao = SpringContext.getBean(PaymentRequestDao.class);
+            ;
         }
 
     }
@@ -86,14 +87,14 @@ public class PaymentRequestServiceTest extends KualiTestBase {
     }
 
     private PaymentRequestDocument createBasicDocument() throws Exception {
-        return createBasicDocument(preqDocTest.createPurchaseOrderDocument(PurchaseOrderDocumentFixture.PO_APPROVAL_REQUIRED,false));
+        return createBasicDocument(preqDocTest.createPurchaseOrderDocument(PurchaseOrderDocumentFixture.PO_APPROVAL_REQUIRED, false));
     }
 
     private PaymentRequestDocument createBasicDocument(PurchaseOrderDocument po) throws Exception {
         PaymentRequestDocument preq = preqDocTest.createPaymentRequestDocument(
-                PaymentRequestDocumentFixture.PREQ_APPROVAL_REQUIRED,
-                po,
-                true, new KualiDecimal[] {new KualiDecimal(100)});
+            PaymentRequestDocumentFixture.PREQ_APPROVAL_REQUIRED,
+            po,
+            true, new KualiDecimal[]{new KualiDecimal(100)});
 
         return preq;
     }
@@ -133,8 +134,8 @@ public class PaymentRequestServiceTest extends KualiTestBase {
 
     public void testGetPaymentRequestsByStatusAndPurchaseOrderId() throws Exception {
 
-        Map <String, String> result = paymentRequestService.getPaymentRequestsByStatusAndPurchaseOrderId(
-                PurapConstants.PaymentRequestStatuses.APPDOC_IN_PROCESS, 0);
+        Map<String, String> result = paymentRequestService.getPaymentRequestsByStatusAndPurchaseOrderId(
+            PurapConstants.PaymentRequestStatuses.APPDOC_IN_PROCESS, 0);
         assertEquals("N", result.get("hasInProcess"));
         assertEquals("N", result.get("checkInProcess"));
 
@@ -143,7 +144,7 @@ public class PaymentRequestServiceTest extends KualiTestBase {
         documentService.saveDocument(preq2);
 
         result = paymentRequestService.getPaymentRequestsByStatusAndPurchaseOrderId(
-                PurapConstants.PaymentRequestStatuses.APPDOC_IN_PROCESS, preq2.getPurchaseOrderIdentifier());
+            PurapConstants.PaymentRequestStatuses.APPDOC_IN_PROCESS, preq2.getPurchaseOrderIdentifier());
         assertEquals("Y", result.get("hasInProcess"));
         assertEquals("N", result.get("checkInProcess"));
 
@@ -152,7 +153,7 @@ public class PaymentRequestServiceTest extends KualiTestBase {
         documentService.saveDocument(preq1);
 
         result = paymentRequestService.getPaymentRequestsByStatusAndPurchaseOrderId(
-                PurapConstants.PaymentRequestStatuses.APPDOC_IN_PROCESS, preq2.getPurchaseOrderIdentifier());
+            PurapConstants.PaymentRequestStatuses.APPDOC_IN_PROCESS, preq2.getPurchaseOrderIdentifier());
         assertEquals("Y", result.get("hasInProcess"));
         assertEquals("Y", result.get("checkInProcess"));
 
@@ -160,7 +161,7 @@ public class PaymentRequestServiceTest extends KualiTestBase {
         documentService.saveDocument(preq2);
 
         result = paymentRequestService.getPaymentRequestsByStatusAndPurchaseOrderId(
-                PurapConstants.PaymentRequestStatuses.APPDOC_IN_PROCESS, preq2.getPurchaseOrderIdentifier());
+            PurapConstants.PaymentRequestStatuses.APPDOC_IN_PROCESS, preq2.getPurchaseOrderIdentifier());
         assertEquals("N", result.get("hasInProcess"));
         assertEquals("Y", result.get("checkInProcess"));
     }

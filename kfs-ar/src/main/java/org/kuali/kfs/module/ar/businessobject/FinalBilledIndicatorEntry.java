@@ -1,27 +1,27 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import java.util.LinkedHashMap;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.document.Document;
 
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.rice.krad.document.Document;
+import java.util.LinkedHashMap;
 
 /**
  * Describes a Final Billed Indicator Entry.
@@ -31,12 +31,12 @@ public class FinalBilledIndicatorEntry extends PersistableBusinessObjectBase {
     private Long id;
     private String invoiceDocumentNumber;
     private String documentId;
-    private Document invoiceDocument; 
+    private Document invoiceDocument;
 
     /**
      * Gets the id attribute.
      *
-     * @return Returns the id. 
+     * @return Returns the id.
      */
     public Long getId() {
         return id;
@@ -54,7 +54,7 @@ public class FinalBilledIndicatorEntry extends PersistableBusinessObjectBase {
     /**
      * Gets the documentNumber attribute.
      *
-     * @return Returns the documentNumber 
+     * @return Returns the documentNumber
      */
     public String getInvoiceDocumentNumber() {
         return invoiceDocumentNumber;
@@ -72,7 +72,7 @@ public class FinalBilledIndicatorEntry extends PersistableBusinessObjectBase {
     /**
      * Gets the documentId attribute.
      *
-     * @return Returns the documentId 
+     * @return Returns the documentId
      */
     public String getDocumentId() {
         return documentId;
@@ -90,7 +90,7 @@ public class FinalBilledIndicatorEntry extends PersistableBusinessObjectBase {
     /**
      * Gets the invoiceDocument attribute.
      *
-     * @return Returns the invoiceDocument 
+     * @return Returns the invoiceDocument
      */
     public Document getInvoiceDocument() {
         return invoiceDocument;
@@ -104,7 +104,7 @@ public class FinalBilledIndicatorEntry extends PersistableBusinessObjectBase {
     public void setInvoiceDocument(Document invoiceDocument) {
         this.invoiceDocument = invoiceDocument;
     }
-    
+
     public Document getDocument() {
         return invoiceDocument;
     }
@@ -113,9 +113,9 @@ public class FinalBilledIndicatorEntry extends PersistableBusinessObjectBase {
         this.invoiceDocument = document;
     }
 
-    
+
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
-        LinkedHashMap<String, Object> toStringMap = new LinkedHashMap<String ,Object>();
+        LinkedHashMap<String, Object> toStringMap = new LinkedHashMap<String, Object>();
         toStringMap.put("id", id);
         toStringMap.put("invoiceDocumentNumber", invoiceDocumentNumber);
         toStringMap.put("documentId", documentId);

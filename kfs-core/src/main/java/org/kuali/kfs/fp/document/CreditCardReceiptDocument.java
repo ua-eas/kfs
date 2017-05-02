@@ -1,27 +1,30 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.fp.businessobject.CreditCardDetail;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.document.Copyable;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.krad.rules.rule.event.SaveDocumentEvent;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSParameterKeyConstants;
@@ -38,12 +41,9 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.document.Copyable;
-import org.kuali.rice.krad.rules.rule.event.KualiDocumentEvent;
-import org.kuali.rice.krad.rules.rule.event.SaveDocumentEvent;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This is the business object that represents the CreditCardReceipt document in Kuali. This is a transactional document that will
@@ -207,8 +207,8 @@ public class CreditCardReceiptDocument extends CashReceiptFamilyBase implements 
     /**
      * This method returns the overall total of the document - the credit card total.
      *
-     * @see org.kuali.kfs.sys.document.AccountingDocumentBase#getTotalDollarAmount()
      * @return KualiDecimal
+     * @see org.kuali.kfs.sys.document.AccountingDocumentBase#getTotalDollarAmount()
      */
     @Override
     public KualiDecimal getTotalDollarAmount() {
@@ -248,10 +248,9 @@ public class CreditCardReceiptDocument extends CashReceiptFamilyBase implements 
      * Generates bank offset GLPEs for deposits, if enabled.
      *
      * @param financialDocument submitted accounting document
-     * @param sequenceHelper helper class for keep track of sequence for GLPEs
+     * @param sequenceHelper    helper class for keep track of sequence for GLPEs
      * @return true if generation of GLPE's is successful for credit card receipt document
-     *
-     * @see org.kuali.rice.krad.rule.GenerateGeneralLedgerDocumentPendingEntriesRule#processGenerateDocumentGeneralLedgerPendingEntries(org.kuali.rice.krad.document.FinancialDocument,org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper)
+     * @see org.kuali.rice.krad.rule.GenerateGeneralLedgerDocumentPendingEntriesRule#processGenerateDocumentGeneralLedgerPendingEntries(org.kuali.rice.krad.document.FinancialDocument, org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper)
      */
     @Override
     public boolean generateDocumentGeneralLedgerPendingEntries(GeneralLedgerPendingEntrySequenceHelper sequenceHelper) {
@@ -266,9 +265,8 @@ public class CreditCardReceiptDocument extends CashReceiptFamilyBase implements 
             Bank offsetBank = getOffsetBank();
             if (ObjectUtils.isNull(offsetBank)) {
                 success = false;
-                GlobalVariables.getMessageMap().putError("newCreditCardReceipt.financialDocumentCreditCardTypeCode", KFSKeyConstants.CreditCardReceipt.ERROR_DOCUMENT_CREDIT_CARD_BANK_MUST_EXIST_WHEN_BANK_ENHANCEMENT_ENABLED, new String[] { KFSParameterKeyConstants.ENABLE_BANK_SPECIFICATION_IND, KFSParameterKeyConstants.DEFAULT_BANK_BY_DOCUMENT_TYPE });
-            }
-            else {
+                GlobalVariables.getMessageMap().putError("newCreditCardReceipt.financialDocumentCreditCardTypeCode", KFSKeyConstants.CreditCardReceipt.ERROR_DOCUMENT_CREDIT_CARD_BANK_MUST_EXIST_WHEN_BANK_ENHANCEMENT_ENABLED, new String[]{KFSParameterKeyConstants.ENABLE_BANK_SPECIFICATION_IND, KFSParameterKeyConstants.DEFAULT_BANK_BY_DOCUMENT_TYPE});
+            } else {
                 success &= glpeService.populateBankOffsetGeneralLedgerPendingEntry(offsetBank, bankOffsetAmount, this, getPostingYear(), sequenceHelper, bankOffsetEntry, KFSConstants.CREDIT_CARD_RECEIPTS_LINE_ERRORS);
 
                 // An unsuccessfully populated bank offset entry may contain invalid relations, so don't add it
@@ -310,6 +308,7 @@ public class CreditCardReceiptDocument extends CashReceiptFamilyBase implements 
 
     /**
      * Gets the creditCardReceiptBankCode attribute.
+     *
      * @return Returns the creditCardReceiptBankCode.
      */
     public String getCreditCardReceiptBankCode() {
@@ -319,6 +318,7 @@ public class CreditCardReceiptDocument extends CashReceiptFamilyBase implements 
 
     /**
      * Sets the creditCardReceiptBankCode attribute value.
+     *
      * @param creditCardReceiptBankCode The creditCardReceiptBankCode to set.
      */
     public void setCreditCardReceiptBankCode(String creditCardReceiptBankCode) {
@@ -328,6 +328,7 @@ public class CreditCardReceiptDocument extends CashReceiptFamilyBase implements 
 
     /**
      * Gets the bank attribute.
+     *
      * @return Returns the bank.
      */
     public Bank getBank() {
@@ -337,6 +338,7 @@ public class CreditCardReceiptDocument extends CashReceiptFamilyBase implements 
 
     /**
      * Sets the bank attribute value.
+     *
      * @param bank The bank to set.
      */
     public void setBank(Bank bank) {
@@ -349,7 +351,7 @@ public class CreditCardReceiptDocument extends CashReceiptFamilyBase implements 
         super.postProcessSave(event);
         if (!(event instanceof SaveDocumentEvent)) { // don't lock until they route
             String documentTypeName = SpringContext.getBean(DataDictionaryService.class).getDocumentTypeNameByClass(this.getClass());
-            this.getCapitalAssetManagementModuleService().generateCapitalAssetLock(this,documentTypeName);
+            this.getCapitalAssetManagementModuleService().generateCapitalAssetLock(this, documentTypeName);
         }
     }
 
@@ -373,7 +375,7 @@ public class CreditCardReceiptDocument extends CashReceiptFamilyBase implements 
      * Upon error correction, negates amount in each credit card receipt, and updates the documentNumber to point to the new document.
      */
     protected void correctCreditCardReceipts() {
-        for (CreditCardDetail receipt: creditCardReceipts) {
+        for (CreditCardDetail receipt : creditCardReceipts) {
             receipt.setVersionNumber(new Long(1));
             receipt.setDocumentNumber(documentNumber);
             receipt.setCreditCardAdvanceDepositAmount(receipt.getCreditCardAdvanceDepositAmount().negated());

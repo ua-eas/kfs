@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -75,7 +75,7 @@ public class KFSKeyConstants {
     public static final String ERROR_DOCUMENT_INCORRECT_OBJ_CODE_WITH_SUB_TYPE_OBJ_LEVEL_AND_OBJ_TYPE = "error.document.incorrectObjCodeWithSubTypeObjLevelAndObjType";
     public static final String ERROR_DOCUMENT_NO_ACCOUNTING_LINES = "error.document.noAccountingLines";
     public static final String ERROR_DOCUMENT_SOURCE_SECTION_NO_ACCOUNTING_LINES = "error.document.sourceSectionNoAccountingLines";
-    public static final String ERROR_DOCUMENT_ACCOUNTING_LINES_NO_SINGLE_SECTION_ACCOUNTING_LINES="error.document.singleSectionAccountingLines.NoAccountingLines";
+    public static final String ERROR_DOCUMENT_ACCOUNTING_LINES_NO_SINGLE_SECTION_ACCOUNTING_LINES = "error.document.singleSectionAccountingLines.NoAccountingLines";
     public static final String ERROR_DOCUMENT_OPTIONAL_ONE_SIDED_DOCUMENT_REQUIRED_NUMBER_OF_ACCOUNTING_LINES_NOT_MET = "error.document.optionalOneSidedDocument.requiredNumberOfAccountingLinesNotMet";
     public static final String ERROR_DOCUMENT_PC_TRANSACTION_TOTAL_ACCTING_LINE_TOTAL_NOT_EQUAL = "error.document.pc.transactionTotal.accountingLineTotal.notEqual";
     public static final String ERROR_DOCUMENT_TARGET_SECTION_NO_ACCOUNTING_LINES = "error.document.targetSectionNoAccountingLines";
@@ -153,7 +153,7 @@ public class KFSKeyConstants {
     public static final String ERROR_DOCUMENT_CAPITAL_ASSET_DETAIL_INACTIVE_BUILDING_NOT_ALLOWED = "error.document.capitalAssetDetail.inactive.building.notAllowed";
     public static final String ERROR_DOCUMENT_CAPITAL_ASSET_DETAIL_INACTIVE_ROOM_NOT_ALLOWED = "error.document.capitalAssetDetail.inactive.room.notAllowed";
 
-    public static final String ERROR_DOCUMENT_PRE_ENCUMBRANCE_SINGLE_SECTION_NO_ACCOUNTING_LINES="error.document.singleSectionNoAccountingLines";
+    public static final String ERROR_DOCUMENT_PRE_ENCUMBRANCE_SINGLE_SECTION_NO_ACCOUNTING_LINES = "error.document.singleSectionNoAccountingLines";
 
     // General Maintenance Document Error Messages
     public static final String ERROR_DOCUMENT_AUTHORIZATION_RESTRICTED_FIELD_CHANGED = "error.document.maintenance.authorization.restrictedFieldChanged";
@@ -201,10 +201,10 @@ public class KFSKeyConstants {
     public static final String ERROR_DOCUMENT_GLOBAL_ACCOUNT_NO_ACCOUNTS = "error.document.accountGlobalDetails.noAccountsEntered";
     public static final String ERROR_DOCUMENT_GLOBAL_ACCOUNT_INVALID_ACCOUNT = "error.document.accountGlobalDetails.invalidAccount";
     public static final String ERROR_DOCUMENT_GLOBAL_ACCOUNT_INVALID_ORG = "error.document.accountGlobal.invalidOrganization";
-    public static final String ERROR_DOCUMENT_GLOBAL_ACCOUNT_PRINCPAL_NAME_FISCAL_OFFICER_SUPER_INVALID="error.document.accountGlobal.principalnameFiscalOfficerSupervisorInvalid";
-    public static final String ERROR_DOCUMENT_GLOBAL_ACCOUNT_PRINCPAL_NAME_ACCOUNT_SUPER_INVALID="error.document.accountGlobal.principalnameAccountSupervisorInvalid";
-    public static final String ERROR_DOCUMENT_GLOBAL_ACCOUNT_PRINCPAL_NAME_ACCOUNT_MANAGER_INVALID="error.document.accountGlobal.principalnameAccountManagerInvalid";
-    public static final String ERROR_DOCUMENT_GLOBAL_ACCOUNT_CFDA_NUMBER_INVALID="error.document.accountGlobal.cfdaNumberInvalid";
+    public static final String ERROR_DOCUMENT_GLOBAL_ACCOUNT_PRINCPAL_NAME_FISCAL_OFFICER_SUPER_INVALID = "error.document.accountGlobal.principalnameFiscalOfficerSupervisorInvalid";
+    public static final String ERROR_DOCUMENT_GLOBAL_ACCOUNT_PRINCPAL_NAME_ACCOUNT_SUPER_INVALID = "error.document.accountGlobal.principalnameAccountSupervisorInvalid";
+    public static final String ERROR_DOCUMENT_GLOBAL_ACCOUNT_PRINCPAL_NAME_ACCOUNT_MANAGER_INVALID = "error.document.accountGlobal.principalnameAccountManagerInvalid";
+    public static final String ERROR_DOCUMENT_GLOBAL_ACCOUNT_CFDA_NUMBER_INVALID = "error.document.accountGlobal.cfdaNumberInvalid";
     public static final String ERROR_DOCUMENT_ACCMAINT_ACCOUNT_CLOSED_PENDING_LABOR_LEDGER_ENTRIES = "error.document.accountMaintenance.closedAccount.noPendingLaborLedgerEntriesAllowed";
     public static final String ERROR_DOCUMENT_ACCMAINT_REPORTING_USER_MUST_BE_CHART_MANAGER_OR_ROOT_MANAGER = "error.document.accountMaintenance.userMustBeChartManagerOrRootManager";
     public static final String ERROR_DOCUMENT_ACCMAINT_CG_FIELDS_FILLED_FOR_NON_CG_ACCOUNT = "error.document.accountMaintenance.cgFieldsFilledInForNonCGAccount";
@@ -427,6 +427,7 @@ public class KFSKeyConstants {
     public static final String ERROR_DV_PREPAID_EXPENSE_AMOUNT = "error.dv.prepaidExpenseAmountIsBlank";
     public static final String ERROR_DV_PREPAID_CHECK_TOTAL = "error.dv.prepaidCheckTotal";
     public static final String WARNING_DV_PAYEE_NONEXISTANT_CLEARED = "message.dv.payee.nonexistant.cleared";
+    public static final String MESSAGE_DV_PAYEE_INVALID_PAYMENT_TYPE_CLEARED = "message.dv.payee.invalid.payment.type.cleared";
     public static final String MESSAGE_PAYMENT_WIRE_CHARGE = "message.payment.wireCharge";
     public static final String ERROR_DV_EMPLOYEE_PAID_OUTSIDE_PAYROLL = "error.dv.emplPaidOutsidePayroll";
     public static final String ERROR_DV_MOVING_PAYMENT_PAYEE = "error.dv.movingPaymentPayee";
@@ -543,6 +544,9 @@ public class KFSKeyConstants {
     public static final String ERROR_PAYROLL_END_DATE_FISCAL_YEAR = "error.labor.PayrollEndDateFiscalYearNotFound";
     public static final String ERROR_EMPTY_LABOR_BENEFIT_CATEGORY_CODE = "error.labor.laborBenefitRateCategoryEmpty";
     public static final String ERROR_LABOR_BENEFIT_CATEGORY_CODE = "error.labor.laborBenefitRateCategory";
+
+    public static final String ERROR_ICRACCOUNT_CONTINUATION_ACCOUNT_CLOSED ="error.icrAccount.continuationAccount.closed";
+    public static final String WARNING_ICRACCOUNT_CONTINUATION_ACCOUNT_USED = "warning.icrAccount.continuationAccount.used";
 
     public static final String WARNING_ICR_GENERATION_PROBLEM_WITH_A21SUBACCOUNT_FIELD_BLANK_INVALID = "warning.gl.IndirectCostRecoveryGeneration.A21SubAccount.icrField.blankInvalid";
 
@@ -671,7 +675,7 @@ public class KFSKeyConstants {
         public static final String DESCRIPTION_GLPE_BANK_OFFSET = "description.glpe.bankOffset.advanceDeposit";
     }
 
-    public static final class budget{
+    public static final class budget {
         public static final String MSG_REPORT_ACCOUNT_LIST = "message.budget.report.accountList";
         public static final String MSG_REPORT_EMPTY_ACCOUNT_LIST = "message.budget.report.emptyAccountList";
         public static final String MSG_ACCOUNT_LIST = "message.budget.accountList";
@@ -704,11 +708,10 @@ public class KFSKeyConstants {
         public static final String ERROR_NEGATIVE_CASH_DETAIL_AMOUNT = "error.document.cashReceipt.negativeCashDetailAmount";
 
 
-
         public static final String ERROR_NEGATIVE_TOTAL = "error.document.cashReceipt.negativeTotal";
         public static final String ERROR_EXCESSIVE_TOTAL = "error.document.cashReceipt.excessiveTotal";
         public static final String ERROR_ZERO_TOTAL = "error.document.cashReceipt.zeroTotal";
-		public static final String ERROR_CONFIRMED_TOTAL = "error.document.cashReceipt.incorrectConfirmedTotal";
+        public static final String ERROR_CONFIRMED_TOTAL = "error.document.cashReceipt.incorrectConfirmedTotal";
         public static final String ERROR_CASH_DRAWER_DOES_NOT_EXIST = "error.document.cashReceipt.cashDrawerDoesNotExist";
         public static final String ERROR_CHANGE_REQUEST = "error.document.cashReceipt.invalidChangeRequest";
     }
@@ -809,7 +812,7 @@ public class KFSKeyConstants {
         public static final String ERROR_DOCUMENT_ICR_WILDCARDS_MUST_MATCH = "error.document.IndirectCostRecovery.wildcardsMustMatch";
         public static final String ERROR_DOCUMENT_ICR_WILDCARDS_MUST_MATCH_OBJCD_SUBACCT = "error.document.IndirectCostRecovery.wildcardsMustMatchObjCdSubAcct";
         public static final String ERROR_DOCUMENT_ICR_WILDCARD_NOT_VALID = "error.document.IndirectCostRecovery.wildcardNotValid";
-        public static final String ERROR_DOCUMENT_ICR_WILDCARDS_NOT_VALID_OBJCD_ACCOUNT= "error.document.IndirectCostRecovery.wildcardsNotValidObjCdAccount";
+        public static final String ERROR_DOCUMENT_ICR_WILDCARDS_NOT_VALID_OBJCD_ACCOUNT = "error.document.IndirectCostRecovery.wildcardsNotValidObjCdAccount";
         public static final String ERROR_DOCUMENT_ICR_MULTIPLE_WILDCARDS_ON_ITEM = "error.document.IndirectCostRecovery.multipleWildcardsOnItem";
         public static final String ERROR_DOCUMENT_ICR_SUB_OBJ_ACTUAL_VALUE_WITH_WILDCARDS = "error.document.IndirectCostRecovery.subObjActualValueOnlyIfNoWildcards";
         public static final String ERROR_DOCUMENT_ICR_CANNOT_BE_WILDCARD = "error.document.IndirectCostRecovery.cannotBeWildcard";
@@ -1020,7 +1023,7 @@ public class KFSKeyConstants {
     public static final String MESSAGE_BATCH_FILE_ADMIN_DELETE_CANCELLED = "message.batch.file.admin.delete.cancelled";
 
     public static final String MESSAGE_BATCH_FILE_LOG_EMAIL_BODY = "message.batch.log.email.body";
-    public static final String SALARY_TRANSFER_FRINGE_BENEFIT_INQUIRY_LABEL =  "salary.transfer.fringe.benefit.inquiry.label";
+    public static final String SALARY_TRANSFER_FRINGE_BENEFIT_INQUIRY_LABEL = "salary.transfer.fringe.benefit.inquiry.label";
 
     public static final String ERROR_ACCOUNTING_DOCUMENT_ACCOUNTING_LINE_IMPORT_GENERAL = "error.accountingdocument.accountinglineimport.general";
 
@@ -1063,4 +1066,10 @@ public class KFSKeyConstants {
     public static final String ERROR_PROCUREMENT_CARD_DEFAULT_CREDIT_CARD_NUMBER_NOT_UNIQUE = "error.procurementCardDefault.creditCardNumber.not.unique";
 
     public static final String MESSAGE_CORRECTION_DOCUMENT_HAS_BEEN_CREATED = "message.correction.document.has.been.created";
+
+    public static final class DetectMissingEntriesMessages {
+        public static final String FAILURE_HEADER = "message.detectDocumentsMissingGLEsJob.failure.header";
+        public static final String FAILURE_ENTRY = "message.detectDocumentsMissingGLEsJob.failure.entry";
+        public static final String EMAIL_SUBJECT = "message.detectDocumentsMissingGLEsJob.failure.email.subject";
+    }
 }

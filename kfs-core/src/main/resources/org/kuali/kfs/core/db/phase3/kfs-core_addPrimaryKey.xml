@@ -1,0 +1,792 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="1193" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="CA_A21_ICR_ACCT_GNRTD_ID" constraintName="PKCA_A21_ICR_ACCT_T" tableName="CA_A21_ICR_ACCT_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1194" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR" constraintName="PKCA_A21_SUB_ACCT_T" tableName="CA_A21_SUB_ACCT_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1195" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FIN_COA_CD, ACCOUNT_NBR" constraintName="PKCA_ACCOUNT_T" tableName="CA_ACCOUNT_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1196" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="ACCT_TYP_CD" constraintName="PKCA_ACCOUNT_TYPE_T" tableName="CA_ACCOUNT_TYPE_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1197" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="ACCTG_CTGRY_CD" constraintName="PKCA_ACCTG_CTGRY_T" tableName="CA_ACCTG_CTGRY_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1198" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKCA_ACCT_CHG_DOC_T" tableName="CA_ACCT_CHG_DOC_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1199" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR, FIN_COA_CD, ACCOUNT_NBR" constraintName="PKCA_ACCT_CHG_DTL_T" tableName="CA_ACCT_CHG_DTL_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1200" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKCA_ACCT_DELEGATE_GBL_T" tableName="CA_ACCT_DELEGATE_GBL_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1201" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FIN_COA_CD, ACCOUNT_NBR, FDOC_TYP_CD, ACCT_DLGT_UNVL_ID" constraintName="PKCA_ACCT_DELEGATE_T" tableName="CA_ACCT_DELEGATE_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1202" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FIN_COA_CD, ACCOUNT_NBR" constraintName="PKCA_ACCT_DESC_T" tableName="CA_ACCT_DESC_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1203" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FIN_COA_CD, ACCOUNT_NBR" constraintName="PKCA_ACCT_GDLNPRPS_T" tableName="CA_ACCT_GDLNPRPS_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1204" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="ACCT_SF_CD" constraintName="PKCA_ACCT_SF_T" tableName="CA_ACCT_SF_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1205" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FIN_AICPA_FUNC_CD" constraintName="PKCA_AICPA_FUNC_T" tableName="CA_AICPA_FUNC_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1206" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FIN_BALANCE_TYP_CD" constraintName="PKCA_BALANCE_TYPE_T" tableName="CA_BALANCE_TYPE_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1207" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FOBJ_BDGT_AGGR_CD" constraintName="PKCA_BDGT_AGGR_T" tableName="CA_BDGT_AGGR_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1208" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="BDGT_REC_LVL_CD" constraintName="PKCA_BDGT_REC_LVL_T" tableName="CA_BDGT_REC_LVL_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1209" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FIN_COA_CD" constraintName="PKCA_CHART_T" tableName="CA_CHART_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1210" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR, ACCT_DLGT_UNVL_ID, FDOC_TYP_CD" constraintName="PKCA_DLGT_CHG_DOC_T" tableName="CA_DLGT_CHG_DOC_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1211" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FIN_FED_FUNC_CD" constraintName="PKCA_FEDERAL_FUNC_T" tableName="CA_FEDERAL_FUNC_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1212" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FIN_FED_FUNDED_CD" constraintName="PKCA_FED_FND_T" tableName="CA_FED_FND_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1213" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FUND_GRP_CD" constraintName="PKCA_FUND_GRP_T" tableName="CA_FUND_GRP_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1214" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FIN_HGH_ED_FUNC_CD" constraintName="PKCA_HIGHR_ED_FUNC_T" tableName="CA_HIGHR_ED_FUNC_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1215" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="CA_ICR_ACCT_GNRTD_ID" constraintName="PKCA_ICR_ACCT_T" tableName="CA_ICR_ACCT_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1216" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="UNIV_FISCAL_YR, FIN_SERIES_ID, AWRD_ICR_ENTRY_NBR" constraintName="PKCA_ICR_AUTO_ENTR_T" tableName="CA_ICR_AUTO_ENTR_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1217" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FIN_COA_CD, ACCOUNT_NBR, FIN_OBJ_COA_CD, FIN_OBJECT_CD" constraintName="PKCA_ICR_EXCL_ACCT_T" tableName="CA_ICR_EXCL_ACCT_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1218" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="ACCT_ICR_TYP_CD, FIN_COA_CD, FIN_OBJECT_CD" constraintName="PKCA_ICR_EXCL_TYPE_T" tableName="CA_ICR_EXCL_TYPE_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1219" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="UNIV_FISCAL_YR, FIN_SERIES_ID" constraintName="PKCA_ICR_RATE_T" tableName="CA_ICR_RATE_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1220" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="ACCT_ICR_TYP_CD" constraintName="PKCA_ICR_TYPE_T" tableName="CA_ICR_TYPE_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1221" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FOBJ_MNXFR_ELIM_CD" constraintName="PKCA_MNXFR_ELIM_T" tableName="CA_MNXFR_ELIM_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1222" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="UNIV_FISCAL_YR, FIN_COA_CD, FIN_OBJECT_CD" constraintName="PKCA_OBJECT_CODE_T" tableName="CA_OBJECT_CODE_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1223" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKCA_OBJ_CD_CHG_DOC_T" tableName="CA_OBJ_CD_CHG_DOC_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1224" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR, UNIV_FISCAL_YR, FIN_COA_CD" constraintName="PKCA_OBJ_CD_CHG_DTL_T" tableName="CA_OBJ_CD_CHG_DTL_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1225" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FIN_COA_CD, FIN_CONS_OBJ_CD" constraintName="PKCA_OBJ_CONSOLDTN_T" tableName="CA_OBJ_CONSOLDTN_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1226" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FIN_COA_CD, FIN_OBJ_LEVEL_CD" constraintName="PKCA_OBJ_LEVEL_T" tableName="CA_OBJ_LEVEL_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1227" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FIN_OBJ_SUB_TYP_CD" constraintName="PKCA_OBJ_SUB_TYPE_T" tableName="CA_OBJ_SUB_TYPE_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1228" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FIN_OBJ_TYP_CD" constraintName="PKCA_OBJ_TYPE_T" tableName="CA_OBJ_TYPE_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1229" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FIN_COA_CD, ORG_CD" constraintName="PKCA_ORG_EXTNS_T" tableName="CA_ORG_EXTNS_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1230" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="UNIV_FISCAL_YR, FIN_COA_CD, ORG_CD" constraintName="PKCA_ORG_REVERSION_T" tableName="CA_ORG_REVERSION_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1231" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FIN_COA_CD, ORG_CD, ORG_RTNG_MDL_NM" constraintName="PKCA_ORG_RTNG_MDL_NM_T" tableName="CA_ORG_RTNG_MDL_NM_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1232" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FIN_COA_CD, ORG_CD, ORG_RTNG_MDL_NM, ACCT_DLGT_UNVL_ID, FDOC_TYP_CD" constraintName="PKCA_ORG_RTNG_MDL_T" tableName="CA_ORG_RTNG_MDL_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1233" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKCA_ORG_RVRSN_CHG_DOC_T" tableName="CA_ORG_RVRSN_CHG_DOC_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1234" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR, ORG_RVRSN_CTGRY_CD" constraintName="PKCA_ORG_RVRSN_CHG_DTL_T" tableName="CA_ORG_RVRSN_CHG_DTL_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1235" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR, FIN_COA_CD, ORG_CD" constraintName="PKCA_ORG_RVRSN_CHG_ORG_T" tableName="CA_ORG_RVRSN_CHG_ORG_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1236" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="ORG_RVRSN_CTGRY_CD" constraintName="PKCA_ORG_RVRSN_CTGRY_T" tableName="CA_ORG_RVRSN_CTGRY_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1237" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="UNIV_FISCAL_YR, FIN_COA_CD, ORG_CD, ORG_RVRSN_CTGRY_CD" constraintName="PKCA_ORG_RVRSN_DTL_T" tableName="CA_ORG_RVRSN_DTL_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1238" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FIN_COA_CD, ORG_CD" constraintName="PKCA_ORG_T" tableName="CA_ORG_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1239" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="ORG_TYP_CD" constraintName="PKCA_ORG_TYPE_T" tableName="CA_ORG_TYPE_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1240" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FIN_COA_CD, ACCOUNT_NBR" constraintName="PKCA_PRIOR_YR_ACCT_T" tableName="CA_PRIOR_YR_ACCT_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1241" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="CA_PRIOR_YR_ICR_ACCT_GNRTD_ID" constraintName="PKCA_PRIOR_YR_ICR_ACCT_T" tableName="CA_PRIOR_YR_ICR_ACCT_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1242" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FIN_COA_CD, ORG_CD" constraintName="PKCA_PRIOR_YR_ORG_T" tableName="CA_PRIOR_YR_ORG_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1243" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="PROJECT_CD" constraintName="PKCA_PROJECT_T" tableName="CA_PROJECT_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1244" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="RC_CD" constraintName="PKCA_RC_T" tableName="CA_RC_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1245" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="ACCT_RSTRC_STAT_CD" constraintName="PKCA_RESTRICT_STAT_T" tableName="CA_RESTRICT_STAT_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1246" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR" constraintName="PKCA_SUB_ACCT_T" tableName="CA_SUB_ACCT_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1247" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="SUB_FUNDGRP_TYP_CD" constraintName="PKCA_SUB_FND_GRP_TYP_T" tableName="CA_SUB_FND_GRP_TYP_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1248" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="SUB_FUND_GRP_CD" constraintName="PKCA_SUB_FUND_GRP_T" tableName="CA_SUB_FUND_GRP_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1249" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR, FIN_OBJECT_CD, FIN_SUB_OBJ_CD" constraintName="PKCA_SUB_OBJECT_CD_T" tableName="CA_SUB_OBJECT_CD_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1250" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKCA_SUB_OBJ_CD_CHG_DOC_T" tableName="CA_SUB_OBJ_CD_CHG_DOC_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1251" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR, UNIV_FISCAL_YR, FIN_COA_CD, FIN_OBJECT_CD" constraintName="PKCA_SUB_OBJ_CD_CHG_DTL_T" tableName="CA_SUB_OBJ_CD_CHG_DTL_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1252" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FIN_UBO_FUNC_CD" constraintName="PKCA_UBO_FUNC_T" tableName="CA_UBO_FUNC_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1254" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR, FDOC_LINE_NBR, FDOC_LN_TYP_CD" constraintName="PKFP_ACCT_LINES_T" tableName="FP_ACCT_LINES_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1255" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKFP_ACRL_VCHR_DOC_T" tableName="FP_ACRL_VCHR_DOC_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1256" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR, FDOC_TYP_CD, FDOC_LINE_NBR" constraintName="PKFP_ADV_DPST_DTL_T" tableName="FP_ADV_DPST_DTL_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1257" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="SESID, SUB_ACCT_NBR, FIN_REPORT_SORT_CD, CONS_FIN_REPORT_SORT_CD, FIN_CONS_OBJ_CD" constraintName="PKFP_BAL_BY_CONS_MT" tableName="FP_BAL_BY_CONS_MT"/>
+  </changeSet>
+  <changeSet author="kfs" id="1258" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="SESID, SUB_ACCT_NBR, FIN_OBJ_LEVEL_CD, FIN_REPORT_SORT_CD" constraintName="PKFP_BAL_BY_LEVEL_MT" tableName="FP_BAL_BY_LEVEL_MT"/>
+  </changeSet>
+  <changeSet author="kfs" id="1259" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="SESID, SUB_ACCT_NBR, FIN_OBJECT_CD" constraintName="PKFP_BAL_BY_OBJ_MT" tableName="FP_BAL_BY_OBJ_MT"/>
+  </changeSet>
+  <changeSet author="kfs" id="1260" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="BNK_CD" constraintName="PKFP_BANK_T" tableName="FP_BANK_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1261" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKFP_BDGT_ADJ_DOC_T" tableName="FP_BDGT_ADJ_DOC_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1262" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR, FDOC_LINE_NBR, FDOC_LN_TYP_CD" constraintName="PKFP_BDGT_ADJ_DTL_T" tableName="FP_BDGT_ADJ_DTL_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1263" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKFP_CASHIER_DOC_T" tableName="FP_CASHIER_DOC_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1264" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="CAMPUS_CD, ITM_ID" constraintName="PKFP_CASHIER_ITM_IN_PROC_T" tableName="FP_CASHIER_ITM_IN_PROC_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1265" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKFP_CASH_RCPT_DOC_T" tableName="FP_CASH_RCPT_DOC_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1266" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR, FDOC_TYP_CD, FDOC_LINE_NBR, CSHR_STAT_CD" constraintName="PKFP_CHECK_DTL_T" tableName="FP_CHECK_DTL_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1267" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR, FDOC_TYP_CD, CSHR_STAT_CD" constraintName="PKFP_COIN_DTL_T" tableName="FP_COIN_DTL_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1268" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR, CPTLAST_LINE_NBR, CPTLAST_ACCTLINE_NBR, FDOC_LINE_NBR" constraintName="PKFP_CPTL_AST_ACCT_GRP_DTL_T" tableName="FP_CPTL_AST_ACCT_GRP_DTL_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1269" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR, ITM_LN_NBR, CPTLAST_LINE_NBR" constraintName="PKFP_CPTL_AST_INFO_DTL_T" tableName="FP_CPTL_AST_INFO_DTL_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1270" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR, CPTLAST_LINE_NBR" constraintName="PKFP_CPTL_AST_INFO_T" tableName="FP_CPTL_AST_INFO_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1271" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR, FDOC_TYP_CD, FDOC_LINE_NBR" constraintName="PKFP_CR_CARD_DTL_T" tableName="FP_CR_CARD_DTL_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1272" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_CCRD_TYP_CD" constraintName="PKFP_CR_CARD_TYP_T" tableName="FP_CR_CARD_TYP_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1273" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_CCRD_VNDR_NBR" constraintName="PKFP_CR_CARD_VNDR_T" tableName="FP_CR_CARD_VNDR_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1274" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="CAMPUS_CD" constraintName="PKFP_CSH_DRWR_T" tableName="FP_CSH_DRWR_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1275" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR, FDOC_TYP_CD, CSHR_STAT_CD" constraintName="PKFP_CURRENCY_DTL_T" tableName="FP_CURRENCY_DTL_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1276" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="CUST_CCRD_NBR" constraintName="PKFP_CUST_CC_INFO_T" tableName="FP_CUST_CC_INFO_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1277" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR, FDOC_LINE_NBR" constraintName="PKFP_DEPOSIT_DOC_T" tableName="FP_DEPOSIT_DOC_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1278" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKFP_DEPOSIT_HDR_T" tableName="FP_DEPOSIT_HDR_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1279" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_DPST_NBR, FDOC_LINE_NBR, FDOC_CSH_RCPT_NBR" constraintName="PKFP_DEP_CSH_RCPT_T" tableName="FP_DEP_CSH_RCPT_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1280" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKFP_DISTRIB_DOC_T" tableName="FP_DISTRIB_DOC_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1281" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="DV_ACH_PRFL_NBR" constraintName="PKFP_DV_ACH_T" tableName="FP_DV_ACH_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1282" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="UNIV_FISCAL_YR, DV_DIEM_CNTRY_NM" constraintName="PKFP_DV_DIEM_T" tableName="FP_DV_DIEM_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1283" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKFP_DV_DOC_T" tableName="FP_DV_DOC_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1284" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="DV_EXP_CD" constraintName="PKFP_DV_EXP_TYP_T" tableName="FP_DV_EXP_TYP_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1285" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="DV_MLG_EFF_DT, DV_MLG_LMT_AMT" constraintName="PKFP_DV_MLG_T" tableName="FP_DV_MLG_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1286" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR, FDOC_LINE_NBR" constraintName="PKFP_DV_NONEMP_EXP_T" tableName="FP_DV_NONEMP_EXP_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1287" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKFP_DV_NONEM_TRVL_T" tableName="FP_DV_NONEM_TRVL_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1288" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKFP_DV_NRA_TAX_T" tableName="FP_DV_NRA_TAX_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1289" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKFP_DV_PAYEE_DTL_T" tableName="FP_DV_PAYEE_DTL_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1290" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="DV_PMT_REAS_CD" constraintName="PKFP_DV_PMT_REAS_T" tableName="FP_DV_PMT_REAS_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1291" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR, FDOC_LINE_NBR" constraintName="PKFP_DV_PRECNF_REG_T" tableName="FP_DV_PRECNF_REG_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1292" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKFP_DV_PRE_CONF_T" tableName="FP_DV_PRE_CONF_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1293" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="DV_EXP_CD, DV_EXP_CO_NM" constraintName="PKFP_DV_TRVL_CO_NM_T" tableName="FP_DV_TRVL_CO_NM_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1294" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR, FDOC_LINE_NBR" constraintName="PKFP_ELCTRNC_PMT_CLM_T" tableName="FP_ELCTRNC_PMT_CLM_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1295" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKFP_ERROR_COR_DOC_T" tableName="FP_ERROR_COR_DOC_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1296" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKFP_FND_TRNFR_DOC_T" tableName="FP_FND_TRNFR_DOC_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1297" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="UNIV_FISCAL_YR, FS_FUNC_CTRL_CD" constraintName="PKFP_FSCL_YR_CTRL_T" tableName="FP_FSCL_YR_CTRL_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1298" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FS_FUNC_CTRL_CD" constraintName="PKFP_FUNC_CTRL_CD_T" tableName="FP_FUNC_CTRL_CD_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1299" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKFP_ICR_ADJ_DOC_T" tableName="FP_ICR_ADJ_DOC_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1300" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="INC_CLS_CD" constraintName="PKFP_INC_CLS_T" tableName="FP_INC_CLS_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1301" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="SESID, UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR, FIN_OBJECT_CD, FIN_SUB_OBJ_CD" constraintName="PKFP_INTERIM1_CONS_MT" tableName="FP_INTERIM1_CONS_MT"/>
+  </changeSet>
+  <changeSet author="kfs" id="1302" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="SESID, UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR, FIN_OBJECT_CD, FIN_SUB_OBJ_CD" constraintName="PKFP_INTERIM1_LEVEL_MT" tableName="FP_INTERIM1_LEVEL_MT"/>
+  </changeSet>
+  <changeSet author="kfs" id="1303" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="SESID, UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR, FIN_OBJECT_CD, FIN_SUB_OBJ_CD" constraintName="PKFP_INTERIM1_OBJ_MT" tableName="FP_INTERIM1_OBJ_MT"/>
+  </changeSet>
+  <changeSet author="kfs" id="1304" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="SESID, UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR, FIN_OBJECT_CD, FIN_SUB_OBJ_CD" constraintName="PKFP_INTERIM2_CONS_MT" tableName="FP_INTERIM2_CONS_MT"/>
+  </changeSet>
+  <changeSet author="kfs" id="1305" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="SESID, UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR, FIN_OBJECT_CD, FIN_SUB_OBJ_CD" constraintName="PKFP_INTERIM2_LEVEL_MT" tableName="FP_INTERIM2_LEVEL_MT"/>
+  </changeSet>
+  <changeSet author="kfs" id="1306" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="SESID, UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR, FIN_OBJECT_CD, FIN_SUB_OBJ_CD" constraintName="PKFP_INTERIM2_OBJ_MT" tableName="FP_INTERIM2_OBJ_MT"/>
+  </changeSet>
+  <changeSet author="kfs" id="1307" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKFP_INT_BILL_DOC_T" tableName="FP_INT_BILL_DOC_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1308" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR, FDOC_ITM_NBR" constraintName="PKFP_INT_BILL_ITM_T" tableName="FP_INT_BILL_ITM_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1309" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKFP_JRNL_VCHR_DOC_T" tableName="FP_JRNL_VCHR_DOC_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1310" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR, FDOC_LINE_NBR, FDOC_LN_TYP_CD" constraintName="PKFP_JV_ACCT_LINES_T" tableName="FP_JV_ACCT_LINES_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1311" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FS_ORIGIN_CD" constraintName="PKFP_MOTD_T" tableName="FP_MOTD_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1312" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKFP_NCHK_DSBRSDOC_T" tableName="FP_NCHK_DSBRSDOC_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1313" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="INC_CLS_CD, INC_TAX_TYP_CD, INC_TAX_PCT" constraintName="PKFP_NRA_TAX_PCT_T" tableName="FP_NRA_TAX_PCT_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1314" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FIN_COA_CD, ACCOUNT_NBR, FIN_OFST_OBJ_CD" constraintName="PKFP_OFST_ACCT_T" tableName="FP_OFST_ACCT_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1315" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR, FDOC_TRN_LN_NBR, FDOC_LINE_NBR, FDOC_LN_TYP_CD" constraintName="PKFP_PRCRMNT_ACCT_LINES_T" tableName="FP_PRCRMNT_ACCT_LINES_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1316" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="ID" constraintName="PKFP_PRCRMNT_CARD_DFLT_T" tableName="FP_PRCRMNT_CARD_DFLT_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1317" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKFP_PRCRMNT_CARD_HLDR_T" tableName="FP_PRCRMNT_CARD_HLDR_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1318" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="TRN_SEQ_ROW_NBR" constraintName="PKFP_PRCRMNT_CARD_TRN_MT" tableName="FP_PRCRMNT_CARD_TRN_MT"/>
+  </changeSet>
+  <changeSet author="kfs" id="1319" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKFP_PRCRMNT_DOC_T" tableName="FP_PRCRMNT_DOC_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1320" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR, FDOC_TRN_LN_NBR" constraintName="PKFP_PRCRMNT_TRN_DTL_T" tableName="FP_PRCRMNT_TRN_DTL_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1321" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR, FDOC_TRN_LN_NBR" constraintName="PKFP_PRCRMNT_VNDR_T" tableName="FP_PRCRMNT_VNDR_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1322" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKFP_PRE_ENCUM_DOC_T" tableName="FP_PRE_ENCUM_DOC_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1323" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FIN_RPT_CHRT_CD, FIN_RPT_ORG_CD, FIN_RPT_CD" constraintName="PKFP_RPT_CD_T" tableName="FP_RPT_CD_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1324" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR, FDOC_LN_TYP_CD, FDOC_LINE_NBR" constraintName="PKFP_SALES_TAX_T" tableName="FP_SALES_TAX_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1325" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FIN_COA_CD, ORG_CD, PROC_TRNS_DT, PROC_BATCH_SEQ_NBR, PROC_TOT_REC_CNT, PROC_TOT_AMT" constraintName="PKFS_CLCTR_HDR_T" tableName="FS_CLCTR_HDR_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1326" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKFS_DOC_HDRS_MSNG_IN_KEW_T" tableName="FS_DOC_HDRS_MSNG_IN_KEW_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1327" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKFS_DOC_HEADER_T" tableName="FS_DOC_HEADER_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1328" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FS_HOME_ORIGIN_CD" constraintName="PKFS_HOME_ORIGIN_T" tableName="FS_HOME_ORIGIN_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1329" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="UNIV_FISCAL_YR" constraintName="PKFS_OPTION_T" tableName="FS_OPTION_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1330" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FS_ORIGIN_CD" constraintName="PKFS_ORIGIN_CODE_T" tableName="FS_ORIGIN_CODE_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1331" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="PMT_DOC_LOC_CD" constraintName="PKFS_PMT_DOC_LOC_T" tableName="FS_PMT_DOC_LOC_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1332" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKFS_PMT_SRC_WIRE_TRNFR_T" tableName="FS_PMT_SRC_WIRE_TRNFR_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1333" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="POSTAL_CNTRY_CD, COUNTY_CD, STATE_CD, TAX_REGION_CD" constraintName="PKFS_TAX_COUNTY_T" tableName="FS_TAX_COUNTY_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1334" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="POSTAL_CNTRY_CD, POSTAL_CD, TAX_REGION_CD" constraintName="PKFS_TAX_POSTAL_CD_T" tableName="FS_TAX_POSTAL_CD_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1335" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="TAX_REGION_CD, TAX_RATE_EFFECTIVE_DT" constraintName="PKFS_TAX_REGION_RATE_T" tableName="FS_TAX_REGION_RATE_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1336" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="TAX_REGION_CD" constraintName="PKFS_TAX_REGION_T" tableName="FS_TAX_REGION_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1337" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="TAX_REGION_TYP_CD" constraintName="PKFS_TAX_REGION_TYPE_T" tableName="FS_TAX_REGION_TYPE_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1338" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="POSTAL_CNTRY_CD, STATE_CD, TAX_REGION_CD" constraintName="PKFS_TAX_STATE_T" tableName="FS_TAX_STATE_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1339" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="UNIV_FISCAL_YR" constraintName="PKFS_WIRE_CHRG_T" tableName="FS_WIRE_CHRG_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1340" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR, FIN_OBJECT_CD, FIN_SUB_OBJ_CD" constraintName="PKGL_ACCT_BALANCES_HIST_T" tableName="GL_ACCT_BALANCES_HIST_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1341" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR, FIN_OBJECT_CD, FIN_SUB_OBJ_CD" constraintName="PKGL_ACCT_BALANCES_T" tableName="GL_ACCT_BALANCES_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="2778" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR, FIN_OBJECT_CD, FIN_SUB_OBJ_CD, FIN_BALANCE_TYP_CD, FIN_OBJ_TYP_CD" constraintName="PKGL_BALANCE_T" tableName="GL_BALANCE_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="2779" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR" constraintName="PKGL_COR_DOC_T" tableName="GL_COR_DOC_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1342" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR, FIN_OBJECT_CD, FIN_SUB_OBJ_CD, FIN_BALANCE_TYP_CD, FIN_OBJ_TYP_CD" constraintName="PKGL_BALANCE_HIST_T" tableName="GL_BALANCE_HIST_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1343" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR, GL_COR_CHG_GRP_LN_NBR" constraintName="PKGL_COR_CHG_GRP_T" tableName="GL_COR_CHG_GRP_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1344" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR, GL_COR_CHG_GRP_LN_NBR, GL_COR_CHG_LN_NBR" constraintName="PKGL_COR_CHG_T" tableName="GL_COR_CHG_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1345" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_NBR, GL_COR_CHG_GRP_LN_NBR, GL_COR_CRTA_LN_NBR" constraintName="PKGL_COR_CRTA_T" tableName="GL_COR_CRTA_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1346" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR, FIN_OBJECT_CD, FIN_SUB_OBJ_CD, FIN_BALANCE_TYP_CD, FDOC_TYP_CD, FS_ORIGIN_CD, FDOC_NBR" constraintName="PKGL_ENCUMBRANCE_HIST_T" tableName="GL_ENCUMBRANCE_HIST_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1347" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR, FIN_OBJECT_CD, FIN_SUB_OBJ_CD, FIN_BALANCE_TYP_CD, FDOC_TYP_CD, FS_ORIGIN_CD, FDOC_NBR" constraintName="PKGL_ENCUMBRANCE_T" tableName="GL_ENCUMBRANCE_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1348" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR, FIN_OBJECT_CD, FIN_SUB_OBJ_CD, FIN_BALANCE_TYP_CD, FIN_OBJ_TYP_CD, UNIV_FISCAL_PRD_CD, FDOC_TYP_CD, FS_ORIGIN_CD, FDOC_NBR, TRN_ENTR_SEQ_NBR" constraintName="PKGL_ENTRY_T" tableName="GL_ENTRY_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1349" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR, FIN_OBJECT_CD, FIN_SUB_OBJ_CD, FIN_BALANCE_TYP_CD, FIN_OBJ_TYP_CD, UNIV_FISCAL_PRD_CD, PROJECT_CD, ORG_REFERENCE_ID" constraintName="PKGL_EXPEND_TRN_MT" tableName="GL_EXPEND_TRN_MT"/>
+  </changeSet>
+  <changeSet author="kfs" id="1350" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="UNIV_FISCAL_PRD_CD, UNIV_FISCAL_YR, CREATE_DT, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR, FIN_OBJECT_CD, FIN_SUB_OBJ_CD, FIN_BALANCE_TYP_CD, FIN_OBJ_TYP_CD, FDOC_IDBIL_SEQ_NBR, FDOC_TYP_CD, FS_ORIGIN_CD, FDOC_NBR, TRN_ENTR_SEQ_NBR" constraintName="PKGL_ID_BILL_T" tableName="GL_ID_BILL_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1351" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="UNIV_FISCAL_YR, FIN_COA_CD, FDOC_TYP_CD, FIN_BALANCE_TYP_CD" constraintName="PKGL_OFFSET_DEFN_T" tableName="GL_OFFSET_DEFN_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1352" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR, ORG_RVRSN_CTGRY_CD" constraintName="PKGL_ORG_RVRSN_CTGRY_AMT_T" tableName="GL_ORG_RVRSN_CTGRY_AMT_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1353" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR" constraintName="PKGL_ORG_RVRSN_UNIT_WRK_T" tableName="GL_ORG_RVRSN_UNIT_WRK_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1354" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="PERSON_UNVL_ID" constraintName="PKGL_PENDING_BALANCES_MT" tableName="GL_PENDING_BALANCES_MT"/>
+  </changeSet>
+  <changeSet author="kfs" id="1355" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="SESID, FS_ORIGIN_CD, FDOC_NBR, TRN_ENTR_SEQ_NBR" constraintName="PKGL_PENDING_ENTRY_MT" tableName="GL_PENDING_ENTRY_MT"/>
+  </changeSet>
+  <changeSet author="kfs" id="1356" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FS_ORIGIN_CD, FDOC_NBR, TRN_ENTR_SEQ_NBR" constraintName="PKGL_PENDING_ENTRY_T" tableName="GL_PENDING_ENTRY_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1357" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FDOC_REVERSAL_DT, UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR, FIN_OBJECT_CD, FIN_SUB_OBJ_CD, FIN_BALANCE_TYP_CD, FIN_OBJ_TYP_CD, UNIV_FISCAL_PRD_CD, FDOC_TYP_CD, FS_ORIGIN_CD, FDOC_NBR, TRN_ENTR_SEQ_NBR" constraintName="PKGL_REVERSAL_T" tableName="GL_REVERSAL_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1358" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR, FIN_OBJECT_CD" constraintName="PKGL_SF_BALANCES_T" tableName="GL_SF_BALANCES_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1359" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="FIN_COA_CD, ACCT_FOBJ_TYP_CD, ACCT_NBR_FOBJ_CD" constraintName="PKGL_SF_REBUILD_T" tableName="GL_SF_REBUILD_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1361" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="ACCTG_CHG_CD" constraintName="PKPDP_ACCTG_CHG_CD_T" tableName="PDP_ACCTG_CHG_CD_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1362" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="PMT_GRP_ID" constraintName="PKPDP_ACH_ACCT_NBR_T" tableName="PDP_ACH_ACCT_NBR_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1363" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="BNK_RTNG_NBR" constraintName="PKPDP_ACH_BNK_T" tableName="PDP_ACH_BNK_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1364" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="TRANS_CD" constraintName="PKPDP_ACH_TRANS_CD_T" tableName="PDP_ACH_TRANS_CD_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1365" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="TRANS_TYP" constraintName="PKPDP_ACH_TRANS_TYP_T" tableName="PDP_ACH_TRANS_TYP_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1366" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="CUST_ID, DISB_TYP_CD" constraintName="PKPDP_CUST_BNK_T" tableName="PDP_CUST_BNK_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1367" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="CUST_ID" constraintName="PKPDP_CUST_PRFL_T" tableName="PDP_CUST_PRFL_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1368" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="PHYS_CMP_PROC_CD, DISB_NBR_RNG_START_DT, BNK_CD, DISB_TYP_CD" constraintName="PKPDP_DISB_NBR_RNG_T" tableName="PDP_DISB_NBR_RNG_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1369" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="DISB_TYP_CD" constraintName="PKPDP_DISB_TYP_CD_T" tableName="PDP_DISB_TYP_CD_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1370" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="PMT_FIL_ID" constraintName="PKPDP_FIL_T" tableName="PDP_FIL_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1371" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="PHYS_CMP_PROC_CD" constraintName="PKPDP_FMT_PROC_T" tableName="PDP_FMT_PROC_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1372" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="GL_PENDING_ENTRY_ID" constraintName="PKPDP_GL_PENDING_ENTRY_T" tableName="PDP_GL_PENDING_ENTRY_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1373" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="ACH_ACCT_GNRTD_ID" constraintName="PKPDP_PAYEE_ACH_ACCT_T" tableName="PDP_PAYEE_ACH_ACCT_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1374" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="PAYEE_TYP_CD" constraintName="PKPDP_PAYEE_TYP_T" tableName="PDP_PAYEE_TYP_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1375" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="PMT_ACCT_DTL_ID" constraintName="PKPDP_PMT_ACCT_DTL_T" tableName="PDP_PMT_ACCT_DTL_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1376" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="PMT_ACCT_HIST_ID" constraintName="PKPDP_PMT_ACCT_HIST_T" tableName="PDP_PMT_ACCT_HIST_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1377" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="PMT_CHG_CD" constraintName="PKPDP_PMT_CHG_CD_T" tableName="PDP_PMT_CHG_CD_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1378" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="PMT_DTL_ID" constraintName="PKPDP_PMT_DTL_T" tableName="PDP_PMT_DTL_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1379" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="PMT_GRP_HIST_ID" constraintName="PKPDP_PMT_GRP_HIST_T" tableName="PDP_PMT_GRP_HIST_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1380" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="PMT_GRP_ID" constraintName="PKPDP_PMT_GRP_T" tableName="PDP_PMT_GRP_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1381" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="PMT_NTE_ID" constraintName="PKPDP_PMT_NTE_TXT_T" tableName="PDP_PMT_NTE_TXT_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1382" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="PMT_STAT_CD" constraintName="PKPDP_PMT_STAT_CD_T" tableName="PDP_PMT_STAT_CD_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1383" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="PMT_TYP_CD" constraintName="PKPDP_PMT_TYP_T" tableName="PDP_PMT_TYP_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1384" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="PROC_SUM_ID" constraintName="PKPDP_PROC_SUM_T" tableName="PDP_PROC_SUM_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1385" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="PROC_ID" constraintName="PKPDP_PROC_T" tableName="PDP_PROC_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1386" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="VNDR_ADDR_TYP_CD" constraintName="PKPUR_ADDR_TYP_T" tableName="PUR_ADDR_TYP_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1387" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="CAMPUS_CD" constraintName="PKPUR_AP_CMP_PARM_T" tableName="PUR_AP_CMP_PARM_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1388" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="VNDR_CNTCT_TYP_CD" constraintName="PKPUR_CNTCT_TYP_T" tableName="PUR_CNTCT_TYP_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1389" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="PUR_COMM_CD, CAMPUS_CD, CONTR_MGR_CD" constraintName="PKPUR_COMM_CONTR_MGR_T" tableName="PUR_COMM_CONTR_MGR_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1390" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="PUR_COMM_CD" constraintName="PKPUR_COMM_T" tableName="PUR_COMM_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1391" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="CONTR_MGR_CD" constraintName="PKPUR_CONTR_MGR_T" tableName="PUR_CONTR_MGR_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1392" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="VNDR_OWNR_CTGRY_CD" constraintName="PKPUR_OWNR_CTGRY_T" tableName="PUR_OWNR_CTGRY_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1393" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="VNDR_OWNR_CD" constraintName="PKPUR_OWNR_TYP_T" tableName="PUR_OWNR_TYP_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1394" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="VNDR_PHN_TYP_CD" constraintName="PKPUR_PHN_TYP_T" tableName="PUR_PHN_TYP_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1395" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="VNDR_PMT_TERM_CD" constraintName="PKPUR_PMT_TERM_TYP_T" tableName="PUR_PMT_TERM_TYP_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1396" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="PO_CST_SRC_CD" constraintName="PKPUR_PO_CST_SRC_T" tableName="PUR_PO_CST_SRC_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1397" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="VNDR_SHP_PMT_TERM_CD" constraintName="PKPUR_SHP_PMT_TERM_T" tableName="PUR_SHP_PMT_TERM_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1398" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="VNDR_SHP_SPCL_COND_CD" constraintName="PKPUR_SHP_SPCL_COND_T" tableName="PUR_SHP_SPCL_COND_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1399" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="VNDR_SHP_TTL_CD" constraintName="PKPUR_SHP_TTL_T" tableName="PUR_SHP_TTL_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1400" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="VNDR_SUPP_DVRST_CD" constraintName="PKPUR_SUPP_DVRST_T" tableName="PUR_SUPP_DVRST_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1401" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="VNDR_ADDR_GNRTD_ID" constraintName="PKPUR_VNDR_ADDR_T" tableName="PUR_VNDR_ADDR_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1402" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="VNDR_ALIAS_NM, VNDR_HDR_GNRTD_ID, VNDR_DTL_ASND_ID" constraintName="PKPUR_VNDR_ALIAS_T" tableName="PUR_VNDR_ALIAS_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1403" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="VNDR_CHAP_3_STAT_CD" constraintName="PKPUR_VNDR_CHAP_3_STAT_T" tableName="PUR_VNDR_CHAP_3_STAT_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1404" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="VNDR_CHAP_4_STAT_CD" constraintName="PKPUR_VNDR_CHAP_4_STAT_T" tableName="PUR_VNDR_CHAP_4_STAT_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1405" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="VNDR_CNTCT_PHN_GNRTD_ID" constraintName="PKPUR_VNDR_CNTCT_PHN_NBR_T" tableName="PUR_VNDR_CNTCT_PHN_NBR_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1406" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="VNDR_CNTCT_GNRTD_ID" constraintName="PKPUR_VNDR_CNTCT_T" tableName="PUR_VNDR_CNTCT_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1407" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="VNDR_HDR_GNRTD_ID, VNDR_DTL_ASND_ID, PUR_COMM_CD" constraintName="PKPUR_VNDR_COMM_T" tableName="PUR_VNDR_COMM_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1408" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="VNDR_CONTR_GNRTD_ID, FIN_COA_CD, ORG_CD" constraintName="PKPUR_VNDR_CONTR_ORG_T" tableName="PUR_VNDR_CONTR_ORG_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1409" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="VNDR_CONTR_GNRTD_ID" constraintName="PKPUR_VNDR_CONTR_T" tableName="PUR_VNDR_CONTR_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1410" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="VNDR_CUST_NBR_GNRTD_ID" constraintName="PKPUR_VNDR_CUST_NBR_T" tableName="PUR_VNDR_CUST_NBR_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1411" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="VNDR_DFLT_ADDR_GNRTD_ID" constraintName="PKPUR_VNDR_DFLT_ADDR_T" tableName="PUR_VNDR_DFLT_ADDR_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1412" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="VNDR_HDR_GNRTD_ID, VNDR_DTL_ASND_ID" constraintName="PKPUR_VNDR_DTL_T" tableName="PUR_VNDR_DTL_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1413" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="VNDR_EXCL_ID" constraintName="PKPUR_VNDR_EXCL_MT" tableName="PUR_VNDR_EXCL_MT"/>
+  </changeSet>
+  <changeSet author="kfs" id="1414" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="VNDR_EXCL_ID" constraintName="PKPUR_VNDR_EXCL_MTCH_T" tableName="PUR_VNDR_EXCL_MTCH_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1415" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="VNDR_HDR_GNRTD_ID" constraintName="PKPUR_VNDR_HDR_T" tableName="PUR_VNDR_HDR_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1416" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="VNDR_INACTV_REAS_CD" constraintName="PKPUR_VNDR_INACTV_REAS_T" tableName="PUR_VNDR_INACTV_REAS_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1417" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="VNDR_PHN_GNRTD_ID" constraintName="PKPUR_VNDR_PHN_NBR_T" tableName="PUR_VNDR_PHN_NBR_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1418" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="VNDR_HDR_GNRTD_ID, VNDR_DTL_ASND_ID, VNDR_SHP_SPCL_COND_CD" constraintName="PKPUR_VNDR_SHP_SPCL_COND_T" tableName="PUR_VNDR_SHP_SPCL_COND_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1419" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="VNDR_HDR_GNRTD_ID, VNDR_SUPP_DVRST_CD" constraintName="PKPUR_VNDR_SUPP_DVRST_T" tableName="PUR_VNDR_SUPP_DVRST_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1420" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="VNDR_TAX_CHG_GNRTD_ID" constraintName="PKPUR_VNDR_TAX_CHG_T" tableName="PUR_VNDR_TAX_CHG_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1421" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="VNDR_TYP_CD" constraintName="PKPUR_VNDR_TYP_T" tableName="PUR_VNDR_TYP_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1422" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="ID" constraintName="PKPUR_VNDR_W8_OWNRSHP_T" tableName="PUR_VNDR_W8_OWNRSHP_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1423" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="VNDR_W8_TYP_CD" constraintName="PKPUR_VNDR_W8_TYP_T" tableName="PUR_VNDR_W8_TYP_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1424" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="ATTR_ID" constraintName="PKSEC_SCRTY_ATTR_T" tableName="SEC_SCRTY_ATTR_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1425" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="DEFN_ID, DOC_TYP_NM" constraintName="PKSEC_SCRTY_DEFN_DOC_TYP_T" tableName="SEC_SCRTY_DEFN_DOC_TYP_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1426" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="DEFN_ID" constraintName="PKSEC_SCRTY_DEFN_T" tableName="SEC_SCRTY_DEFN_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1427" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="MDL_DEFN_ID" constraintName="PKSEC_SCRTY_MDL_DEFN_T" tableName="SEC_SCRTY_MDL_DEFN_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1428" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="MDL_ID, MBR_ID, MBR_TYP_CD" constraintName="PKSEC_SCRTY_MDL_MBR_T" tableName="SEC_SCRTY_MDL_MBR_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1429" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="MDL_ID" constraintName="PKSEC_SCRTY_MDL_T" tableName="SEC_SCRTY_MDL_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1430" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="PRNCPL_DEFN_ID" constraintName="PKSEC_SCRTY_PRNCPL_DEFN_T" tableName="SEC_SCRTY_PRNCPL_DEFN_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1431" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="PRNCPL_ID" constraintName="PKSEC_SCRTY_PRNCPL_T" tableName="SEC_SCRTY_PRNCPL_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1432" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="UNIV_FISCAL_YR, UNIV_FISCAL_PRD_CD" constraintName="PKSH_ACCT_PERIOD_T" tableName="SH_ACCT_PERIOD_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1433" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="CAMPUS_CD, BLDG_CD" constraintName="PKSH_BUILDING_T" tableName="SH_BUILDING_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1434" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="NMSPC_CD, CMPNT_CLSS, PRPRTY_NM" constraintName="PKSH_FNCTNL_FIELD_DESCR_T" tableName="SH_FNCTNL_FIELD_DESCR_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1435" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="CAMPUS_CD, BLDG_CD, BLDG_ROOM_NBR" constraintName="PKSH_ROOM_T" tableName="SH_ROOM_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1436" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="UNIV_DT" constraintName="PKSH_UNIV_DATE_T" tableName="SH_UNIV_DATE_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="1437" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="ITM_UOM_CD" constraintName="PKSH_UOM_T" tableName="SH_UOM_T"/>
+  </changeSet>
+  <changeSet author="kfs" id="4216" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="TRIGGER_NAME, TRIGGER_GROUP" constraintName="PKQRTZ_BLOB_TRIGGERS" tableName="QRTZ_BLOB_TRIGGERS"/>
+  </changeSet>
+  <changeSet author="kfs" id="4217" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="CALENDAR_NAME" constraintName="PKQRTZ_CALENDARS" tableName="QRTZ_CALENDARS"/>
+  </changeSet>
+  <changeSet author="kfs" id="4218" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="TRIGGER_NAME, TRIGGER_GROUP" constraintName="PKQRTZ_CRON_TRIGGERS" tableName="QRTZ_CRON_TRIGGERS"/>
+  </changeSet>
+  <changeSet author="kfs" id="4219" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="ENTRY_ID" constraintName="PKQRTZ_FIRED_TRIGGERS" tableName="QRTZ_FIRED_TRIGGERS"/>
+  </changeSet>
+  <changeSet author="kfs" id="4220" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="JOB_NAME, JOB_GROUP" constraintName="PKQRTZ_JOB_DETAILS" tableName="QRTZ_JOB_DETAILS"/>
+  </changeSet>
+  <changeSet author="kfs" id="4221" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="JOB_NAME, JOB_GROUP, JOB_LISTENER" constraintName="PKQRTZ_JOB_LISTENERS" tableName="QRTZ_JOB_LISTENERS"/>
+  </changeSet>
+  <changeSet author="kfs" id="4222" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="LOCK_NAME" constraintName="PKQRTZ_LOCKS" tableName="QRTZ_LOCKS"/>
+  </changeSet>
+  <changeSet author="kfs" id="4223" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="TRIGGER_GROUP" constraintName="PKQRTZ_PAUSED_TRIGGER_GRPS" tableName="QRTZ_PAUSED_TRIGGER_GRPS"/>
+  </changeSet>
+  <changeSet author="kfs" id="4224" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="INSTANCE_NAME" constraintName="PKQRTZ_SCHEDULER_STATE" tableName="QRTZ_SCHEDULER_STATE"/>
+  </changeSet>
+  <changeSet author="kfs" id="4225" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="TRIGGER_NAME, TRIGGER_GROUP" constraintName="PKQRTZ_SIMPLE_TRIGGERS" tableName="QRTZ_SIMPLE_TRIGGERS"/>
+  </changeSet>
+  <changeSet author="kfs" id="4226" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="TRIGGER_NAME, TRIGGER_GROUP" constraintName="PKQRTZ_TRIGGERS" tableName="QRTZ_TRIGGERS"/>
+  </changeSet>
+  <changeSet author="kfs" id="4227" context="bootstrap,demo,unit">
+    <addPrimaryKey columnNames="TRIGGER_NAME, TRIGGER_GROUP, TRIGGER_LISTENER" constraintName="PKQRTZ_TRIGGER_LISTENERS" tableName="QRTZ_TRIGGER_LISTENERS"/>
+  </changeSet>
+</databaseChangeLog>

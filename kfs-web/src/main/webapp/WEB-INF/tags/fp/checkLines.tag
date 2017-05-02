@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -32,7 +32,7 @@
 </c:if>
 
 <c:if test="${checkDetailMode}">
-        
+
             <table cellpadding=0 class="datatable" summary="check detail information">
                 <tr>
                     <kul:htmlAttributeHeaderCell literalLabel="&nbsp;" />
@@ -40,18 +40,18 @@
                     <kul:htmlAttributeHeaderCell attributeEntry="${checkBaseAttributes.checkDate}" />
                     <kul:htmlAttributeHeaderCell attributeEntry="${checkBaseAttributes.description}" />
                     <kul:htmlAttributeHeaderCell attributeEntry="${checkBaseAttributes.amount}" />
-                                
+
                     <c:if test="${!readOnly}">
                         <kul:htmlAttributeHeaderCell literalLabel="Action" />
                     </c:if>
                 </tr>
     			<c:if test="${!readOnly}">
-            <fp:checkLine readOnly="${readOnly}" rowHeading="add" propertyName="document.currentTransaction.newCheck" actionImage="${ConfigProperties.kr.externalizable.images.url}tinybutton-add1.gif" actionAlt="add" actionMethod="addCheck" cssClass="infoline" displayHidden="${displayHidden}" />
-          </c:if>            
+            <fp:checkLine readOnly="${readOnly}" rowHeading="add" propertyName="document.currentTransaction.newCheck" actionClass="btn-green" actionLabel="Add" actionAlt="add" actionMethod="addCheck" cssClass="infoline" displayHidden="${displayHidden}" />
+          </c:if>
                 <logic:iterate id="check" name="KualiForm" property="document.currentTransaction.moneyInChecks" indexId="ctr">
-                    <fp:checkLine readOnly="${readOnly}" rowHeading="${ctr + 1}" propertyName="document.currentTransaction.moneyInCheck[${ctr}]" baselinePropertyName="document.currentTransaction.baselineCheck[${ctr}]" actionImage="${ConfigProperties.kr.externalizable.images.url}tinybutton-delete1.gif" actionAlt="delete" actionMethod="deleteCheck.line${ctr}" cssClass="datacell" displayHidden="${displayHidden}" />
+                    <fp:checkLine readOnly="${readOnly}" rowHeading="${ctr + 1}" propertyName="document.currentTransaction.moneyInCheck[${ctr}]" baselinePropertyName="document.currentTransaction.baselineCheck[${ctr}]" actionClass="btn-red" actionLabel="Delete" actionAlt="delete" actionMethod="deleteCheck.line${ctr}" cssClass="datacell" displayHidden="${displayHidden}" />
                 </logic:iterate>
-    
+
                 <c:if test="${!empty totalAmount}">
                     <tr>
                         <td class="total-line" colspan="4">&nbsp;</td>

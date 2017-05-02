@@ -1,36 +1,35 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.service.impl;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.kuali.kfs.coreservice.api.parameter.Parameter;
+import org.kuali.kfs.coreservice.api.parameter.Parameter.Builder;
+import org.kuali.kfs.coreservice.api.parameter.ParameterType;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.batch.service.PurapRunDateService;
 import org.kuali.kfs.module.purap.businessobject.CreditMemoItem;
@@ -66,19 +65,20 @@ import org.kuali.kfs.sys.util.KfsDateUtils;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.rice.coreservice.api.parameter.Parameter;
-import org.kuali.rice.coreservice.api.parameter.Parameter.Builder;
-import org.kuali.rice.coreservice.api.parameter.ParameterType;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Implementation of PdpExtractService
@@ -87,23 +87,23 @@ import org.springframework.transaction.annotation.Transactional;
 public class PdpExtractServiceImpl implements PdpExtractService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PdpExtractServiceImpl.class);
 
-    private PaymentRequestService paymentRequestService;
-    private BusinessObjectService businessObjectService;
-    private PaymentFileService paymentFileService;
-    private ParameterService parameterService;
-    private CustomerProfileService customerProfileService;
-    private DateTimeService dateTimeService;
-    private PersonService personService;
-    private PaymentGroupService paymentGroupService;
-    private PaymentDetailService paymentDetailService;
-    private CreditMemoService creditMemoService;
-    private DocumentService documentService;
-    private PurapRunDateService purapRunDateService;
-    private PdpEmailService paymentFileEmailService;
-    private BankService bankService;
-    private DataDictionaryService dataDictionaryService;
-    private PurapAccountingServiceImpl purapAccountingService;
-    private List<String> lockedDocuments;
+    protected PaymentRequestService paymentRequestService;
+    protected BusinessObjectService businessObjectService;
+    protected PaymentFileService paymentFileService;
+    protected ParameterService parameterService;
+    protected CustomerProfileService customerProfileService;
+    protected DateTimeService dateTimeService;
+    protected PersonService personService;
+    protected PaymentGroupService paymentGroupService;
+    protected PaymentDetailService paymentDetailService;
+    protected CreditMemoService creditMemoService;
+    protected DocumentService documentService;
+    protected PurapRunDateService purapRunDateService;
+    protected PdpEmailService paymentFileEmailService;
+    protected BankService bankService;
+    protected DataDictionaryService dataDictionaryService;
+    protected PurapAccountingServiceImpl purapAccountingService;
+    protected List<String> lockedDocuments;
 
     /**
      * @see org.kuali.kfs.module.purap.service.PdpExtractService#extractImmediatePaymentsOnly()
@@ -133,9 +133,9 @@ public class PdpExtractServiceImpl implements PdpExtractService {
     /**
      * Extracts payments from the database
      *
-     * @param immediateOnly whether to pick up immediate payments only
+     * @param immediateOnly  whether to pick up immediate payments only
      * @param processRunDate time/date to use to put on the {@link Batch} that's created; and when immediateOnly is false, is also
-     *        used as the maximum allowed PREQ pay date when searching PREQ documents eligible to have payments extracted
+     *                       used as the maximum allowed PREQ pay date when searching PREQ documents eligible to have payments extracted
      */
     protected void extractPayments(boolean immediateOnly, Date processRunDate) {
         LOG.debug("extractPayments() started");
@@ -248,8 +248,7 @@ public class PdpExtractServiceImpl implements PdpExtractService {
                         processPaymentBundle(bankCodePaymentRequests.get(bankCode), bankCodeCreditMemos.get(bankCode), totals, preqsWithOutstandingCreditMemos, puser, processRunDate, batch);
                     }
                 }
-            }
-            else {
+            } else {
                 if (!vendorMemos.isEmpty()) {
                     processPaymentBundle((List<PaymentRequestDocument>) vendorPreqs, (List<VendorCreditMemoDocument>) vendorMemos, totals, preqsWithOutstandingCreditMemos, puser, processRunDate, batch);
                 }
@@ -269,7 +268,6 @@ public class PdpExtractServiceImpl implements PdpExtractService {
                 totals.totalAmount = totals.totalAmount.add(paymentGroup.getNetPaymentAmount());
             }
         }
-
 
 
         LOG.debug("END - extractRegularPaymentsForChart()");
@@ -371,8 +369,7 @@ public class PdpExtractServiceImpl implements PdpExtractService {
         Iterator<PaymentRequestDocument> paymentRequests = null;
         if (immediatesOnly) {
             paymentRequests = paymentRequestService.getImmediatePaymentRequestsToExtract(campusCode).iterator();
-        }
-        else {
+        } else {
             java.sql.Date onOrBeforePaymentRequestPayDate = KfsDateUtils.convertToSqlDate(purapRunDateService.calculateRunDate(processRunDate));
             paymentRequests = paymentRequestService.getPaymentRequestsToExtractSpecialPayments(campusCode, onOrBeforePaymentRequestPayDate).iterator();
         }
@@ -401,8 +398,7 @@ public class PdpExtractServiceImpl implements PdpExtractService {
             VendorCreditMemoDocument doc = (VendorCreditMemoDocument) documentService.getByDocumentHeaderId(creditMemoDocument.getDocumentNumber());
             doc.setExtractedTimestamp(new Timestamp(processRunDate.getTime()));
             SpringContext.getBean(PurapService.class).saveDocumentNoValidation(doc);
-        }
-        catch (WorkflowException e) {
+        } catch (WorkflowException e) {
             throw new IllegalArgumentException("Unable to retrieve credit memo: " + creditMemoDocument.getDocumentNumber());
         }
     }
@@ -410,7 +406,7 @@ public class PdpExtractServiceImpl implements PdpExtractService {
     /**
      * Mark a payment request as extracted
      *
-     * @param prd
+     * @param paymentRequestDocument
      * @param puser
      * @param processRunDate
      */
@@ -419,8 +415,7 @@ public class PdpExtractServiceImpl implements PdpExtractService {
             PaymentRequestDocument doc = (PaymentRequestDocument) documentService.getByDocumentHeaderId(paymentRequestDocument.getDocumentNumber());
             doc.setExtractedTimestamp(new Timestamp(processRunDate.getTime()));
             SpringContext.getBean(PurapService.class).saveDocumentNoValidation(doc);
-        }
-        catch (WorkflowException e) {
+        } catch (WorkflowException e) {
             throw new IllegalArgumentException("Unable to retrieve payment request: " + paymentRequestDocument.getDocumentNumber());
         }
     }
@@ -439,8 +434,7 @@ public class PdpExtractServiceImpl implements PdpExtractService {
         if (creditMemos.size() > 0) {
             VendorCreditMemoDocument firstCmd = creditMemos.get(0);
             paymentGroup = populatePaymentGroup(firstCmd, batch);
-        }
-        else {
+        } else {
             PaymentRequestDocument firstPrd = paymentRequests.get(0);
             paymentGroup = populatePaymentGroup(firstPrd, batch);
         }
@@ -483,8 +477,7 @@ public class PdpExtractServiceImpl implements PdpExtractService {
             for (PaymentDetail payDetail : pds) {
                 if (KFSConstants.FinancialDocumentTypeCodes.VENDOR_CREDIT_MEMO.equals(payDetail.getFinancialDocumentTypeCode())) {
                     cmDocIds.add(payDetail.getCustPaymentDocNbr());
-                }
-                else {
+                } else {
                     preqDocIds.add(payDetail.getCustPaymentDocNbr());
                 }
             }
@@ -514,7 +507,7 @@ public class PdpExtractServiceImpl implements PdpExtractService {
      * Create a PDP payment detail record from a Credit Memo document
      *
      * @param creditMemoDocument Credit Memo to use for payment detail
-     * @param batch current PDP batch object
+     * @param batch              current PDP batch object
      * @return populated PaymentDetail line
      */
     protected PaymentDetail populatePaymentDetail(VendorCreditMemoDocument creditMemoDocument, Batch batch) {
@@ -556,7 +549,7 @@ public class PdpExtractServiceImpl implements PdpExtractService {
         KualiDecimal creditAmount = KualiDecimal.ZERO;
         KualiDecimal debitAmount = KualiDecimal.ZERO;
 
-        for (Iterator iter = creditMemoDocument.getItems().iterator(); iter.hasNext();) {
+        for (Iterator iter = creditMemoDocument.getItems().iterator(); iter.hasNext(); ) {
             CreditMemoItem item = (CreditMemoItem) iter.next();
 
             KualiDecimal itemAmount = KualiDecimal.ZERO;
@@ -565,21 +558,16 @@ public class PdpExtractServiceImpl implements PdpExtractService {
             }
             if (PurapConstants.ItemTypeCodes.ITEM_TYPE_PMT_TERMS_DISCOUNT_CODE.equals(item.getItemTypeCode())) {
                 discountAmount = discountAmount.subtract(itemAmount);
-            }
-            else if (PurapConstants.ItemTypeCodes.ITEM_TYPE_SHIP_AND_HAND_CODE.equals(item.getItemTypeCode())) {
+            } else if (PurapConstants.ItemTypeCodes.ITEM_TYPE_SHIP_AND_HAND_CODE.equals(item.getItemTypeCode())) {
                 shippingAmount = shippingAmount.subtract(itemAmount);
-            }
-            else if (PurapConstants.ItemTypeCodes.ITEM_TYPE_FREIGHT_CODE.equals(item.getItemTypeCode())) {
+            } else if (PurapConstants.ItemTypeCodes.ITEM_TYPE_FREIGHT_CODE.equals(item.getItemTypeCode())) {
                 shippingAmount = shippingAmount.add(itemAmount);
-            }
-            else if (PurapConstants.ItemTypeCodes.ITEM_TYPE_MIN_ORDER_CODE.equals(item.getItemTypeCode())) {
+            } else if (PurapConstants.ItemTypeCodes.ITEM_TYPE_MIN_ORDER_CODE.equals(item.getItemTypeCode())) {
                 debitAmount = debitAmount.subtract(itemAmount);
-            }
-            else if (PurapConstants.ItemTypeCodes.ITEM_TYPE_MISC_CODE.equals(item.getItemTypeCode())) {
+            } else if (PurapConstants.ItemTypeCodes.ITEM_TYPE_MISC_CODE.equals(item.getItemTypeCode())) {
                 if (itemAmount.isNegative()) {
                     creditAmount = creditAmount.subtract(itemAmount);
-                }
-                else {
+                } else {
                     debitAmount = debitAmount.subtract(itemAmount);
                 }
             }
@@ -602,12 +590,12 @@ public class PdpExtractServiceImpl implements PdpExtractService {
      * Create a PDP Payment Detail record from a Payment Request document
      *
      * @param paymentRequestDocument Payment Request to use for Payment Detail
-     * @param batch current PDP batch object
+     * @param batch                  current PDP batch object
      * @return populated PaymentDetail line
      */
     protected PaymentDetail populatePaymentDetail(PaymentRequestDocument paymentRequestDocument, Batch batch) {
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Populating details for payment request document #"+paymentRequestDocument.getDocumentNumber());
+            LOG.debug("Populating details for payment request document #" + paymentRequestDocument.getDocumentNumber());
         }
         PaymentDetail paymentDetail = new PaymentDetail();
 
@@ -650,7 +638,7 @@ public class PdpExtractServiceImpl implements PdpExtractService {
         KualiDecimal creditAmount = KualiDecimal.ZERO;
         KualiDecimal debitAmount = KualiDecimal.ZERO;
 
-        for (Iterator iter = paymentRequestDocument.getItems().iterator(); iter.hasNext();) {
+        for (Iterator iter = paymentRequestDocument.getItems().iterator(); iter.hasNext(); ) {
             PaymentRequestItem item = (PaymentRequestItem) iter.next();
 
             KualiDecimal itemAmount = KualiDecimal.ZERO;
@@ -659,21 +647,16 @@ public class PdpExtractServiceImpl implements PdpExtractService {
             }
             if (PurapConstants.ItemTypeCodes.ITEM_TYPE_PMT_TERMS_DISCOUNT_CODE.equals(item.getItemTypeCode())) {
                 discountAmount = discountAmount.add(itemAmount);
-            }
-            else if (PurapConstants.ItemTypeCodes.ITEM_TYPE_SHIP_AND_HAND_CODE.equals(item.getItemTypeCode())) {
+            } else if (PurapConstants.ItemTypeCodes.ITEM_TYPE_SHIP_AND_HAND_CODE.equals(item.getItemTypeCode())) {
                 shippingAmount = shippingAmount.add(itemAmount);
-            }
-            else if (PurapConstants.ItemTypeCodes.ITEM_TYPE_FREIGHT_CODE.equals(item.getItemTypeCode())) {
+            } else if (PurapConstants.ItemTypeCodes.ITEM_TYPE_FREIGHT_CODE.equals(item.getItemTypeCode())) {
                 shippingAmount = shippingAmount.add(itemAmount);
-            }
-            else if (PurapConstants.ItemTypeCodes.ITEM_TYPE_MIN_ORDER_CODE.equals(item.getItemTypeCode())) {
+            } else if (PurapConstants.ItemTypeCodes.ITEM_TYPE_MIN_ORDER_CODE.equals(item.getItemTypeCode())) {
                 debitAmount = debitAmount.add(itemAmount);
-            }
-            else if (PurapConstants.ItemTypeCodes.ITEM_TYPE_MISC_CODE.equals(item.getItemTypeCode())) {
+            } else if (PurapConstants.ItemTypeCodes.ITEM_TYPE_MISC_CODE.equals(item.getItemTypeCode())) {
                 if (itemAmount.isNegative()) {
                     creditAmount = creditAmount.add(itemAmount);
-                }
-                else {
+                } else {
                     debitAmount = debitAmount.add(itemAmount);
                 }
             }
@@ -703,22 +686,22 @@ public class PdpExtractServiceImpl implements PdpExtractService {
         String creditMemoDocType = getDataDictionaryService().getDocumentTypeNameByClass(VendorCreditMemoDocument.class);
         List<SourceAccountingLine> sourceAccountingLines = purapAccountingService.generateSourceAccountsForVendorRemit(accountsPayableDocument);
         for (SourceAccountingLine sourceAccountingLine : sourceAccountingLines) {
-          KualiDecimal lineAmount = sourceAccountingLine.getAmount();
-          PaymentAccountDetail paymentAccountDetail = new PaymentAccountDetail();
-          paymentAccountDetail.setAccountNbr(sourceAccountingLine.getAccountNumber());
+            KualiDecimal lineAmount = sourceAccountingLine.getAmount();
+            PaymentAccountDetail paymentAccountDetail = new PaymentAccountDetail();
+            paymentAccountDetail.setAccountNbr(sourceAccountingLine.getAccountNumber());
 
-          if (creditMemoDocType.equals(documentType)) {
-             lineAmount = lineAmount.negated();
-          }
-          paymentAccountDetail.setAccountNetAmount(lineAmount);
-          paymentAccountDetail.setFinChartCode(sourceAccountingLine.getChartOfAccountsCode());
-          paymentAccountDetail.setFinObjectCode(sourceAccountingLine.getFinancialObjectCode());
+            if (creditMemoDocType.equals(documentType)) {
+                lineAmount = lineAmount.negated();
+            }
+            paymentAccountDetail.setAccountNetAmount(lineAmount);
+            paymentAccountDetail.setFinChartCode(sourceAccountingLine.getChartOfAccountsCode());
+            paymentAccountDetail.setFinObjectCode(sourceAccountingLine.getFinancialObjectCode());
 
-          paymentAccountDetail.setFinSubObjectCode(StringUtils.defaultIfEmpty(sourceAccountingLine.getFinancialSubObjectCode(),KFSConstants.getDashFinancialSubObjectCode()));
-          paymentAccountDetail.setOrgReferenceId(sourceAccountingLine.getOrganizationReferenceId());
-          paymentAccountDetail.setProjectCode(StringUtils.defaultIfEmpty(sourceAccountingLine.getProjectCode(),KFSConstants.getDashProjectCode()));
-          paymentAccountDetail.setSubAccountNbr(StringUtils.defaultIfEmpty(sourceAccountingLine.getSubAccountNumber(),KFSConstants.getDashSubAccountNumber()));
-          paymentDetail.addAccountDetail(paymentAccountDetail);
+            paymentAccountDetail.setFinSubObjectCode(StringUtils.defaultIfEmpty(sourceAccountingLine.getFinancialSubObjectCode(), KFSConstants.getDashFinancialSubObjectCode()));
+            paymentAccountDetail.setOrgReferenceId(sourceAccountingLine.getOrganizationReferenceId());
+            paymentAccountDetail.setProjectCode(StringUtils.defaultIfEmpty(sourceAccountingLine.getProjectCode(), KFSConstants.getDashProjectCode()));
+            paymentAccountDetail.setSubAccountNbr(StringUtils.defaultIfEmpty(sourceAccountingLine.getSubAccountNumber(), KFSConstants.getDashSubAccountNumber()));
+            paymentDetail.addAccountDetail(paymentAccountDetail);
         }
     }
 
@@ -813,15 +796,9 @@ public class PdpExtractServiceImpl implements PdpExtractService {
         paymentGroup.setPayeeIdTypeCd(PdpConstants.PayeeIdTypeCodes.VENDOR_ID);
 
 
-
         if (paymentRequestDocument.getVendorDetail().getVendorHeader().getVendorOwnershipCode() != null) {
-                  paymentGroup.setPayeeOwnerCd(paymentRequestDocument.getVendorDetail().getVendorHeader().getVendorOwnershipCode());
-
+            paymentGroup.setPayeeOwnerCd(paymentRequestDocument.getVendorDetail().getVendorHeader().getVendorOwnershipCode());
         }
-
-//        if (paymentRequestDocument.getVendorCustomerNumber() != null) {
-//            paymentGroup.setCustomerInstitutionNumber(paymentRequestDocument.getVendorCustomerNumber());
-//        }
 
         paymentGroup.setLine1Address(paymentRequestDocument.getVendorLine1Address());
         paymentGroup.setLine2Address(paymentRequestDocument.getVendorLine2Address());
@@ -878,12 +855,8 @@ public class PdpExtractServiceImpl implements PdpExtractService {
         paymentGroup.setPayeeIdTypeCd(PdpConstants.PayeeIdTypeCodes.VENDOR_ID);
 
         if (creditMemoDocument.getVendorDetail().getVendorHeader().getVendorOwnershipCode() != null) {
-             paymentGroup.setPayeeOwnerCd(creditMemoDocument.getVendorDetail().getVendorHeader().getVendorOwnershipCode());
+            paymentGroup.setPayeeOwnerCd(creditMemoDocument.getVendorDetail().getVendorHeader().getVendorOwnershipCode());
         }
-
-//        if (creditMemoDocument.getVendorCustomerNumber() != null) {
-//            paymentGroup.setCustomerInstitutionNumber(creditMemoDocument.getVendorCustomerNumber());
-//        }
 
         paymentGroup.setLine1Address(creditMemoDocument.getVendorLine1Address());
         paymentGroup.setLine2Address(creditMemoDocument.getVendorLine2Address());
@@ -956,8 +929,7 @@ public class PdpExtractServiceImpl implements PdpExtractService {
         Iterator<PaymentRequestDocument> paymentRequests = null;
         if (immediatesOnly) {
             paymentRequests = paymentRequestService.getImmediatePaymentRequestsToExtract(null).iterator();
-        }
-        else {
+        } else {
             java.sql.Date onOrBeforePaymentRequestPayDate = KfsDateUtils.convertToSqlDate(purapRunDateService.calculateRunDate(processRunDate));
             paymentRequests = paymentRequestService.getPaymentRequestsToExtract(onOrBeforePaymentRequestPayDate).iterator();
         }
@@ -985,13 +957,13 @@ public class PdpExtractServiceImpl implements PdpExtractService {
      * Holds temporary accounting information for combining into payment accounting details
      */
     protected class AccountingInfo {
-        private String chart;
-        private String account;
-        private String subAccount;
-        private String objectCode;
-        private String subObjectCode;
-        private String orgReferenceId;
-        private String projectCode;
+        protected String chart;
+        protected String account;
+        protected String subAccount;
+        protected String objectCode;
+        protected String subObjectCode;
+        protected String orgReferenceId;
+        protected String projectCode;
 
         public AccountingInfo(String c, String a, String s, String o, String so, String or, String pc) {
             setChart(c);
@@ -1022,8 +994,7 @@ public class PdpExtractServiceImpl implements PdpExtractService {
         public void setProjectCode(String projectCode) {
             if (projectCode == null) {
                 this.projectCode = KFSConstants.getDashProjectCode();
-            }
-            else {
+            } else {
                 this.projectCode = projectCode;
             }
         }
@@ -1031,8 +1002,7 @@ public class PdpExtractServiceImpl implements PdpExtractService {
         public void setSubAccount(String subAccount) {
             if (subAccount == null) {
                 this.subAccount = KFSConstants.getDashSubAccountNumber();
-            }
-            else {
+            } else {
                 this.subAccount = subAccount;
             }
         }
@@ -1040,8 +1010,7 @@ public class PdpExtractServiceImpl implements PdpExtractService {
         public void setSubObjectCode(String subObjectCode) {
             if (subObjectCode == null) {
                 this.subObjectCode = KFSConstants.getDashFinancialSubObjectCode();
-            }
-            else {
+            } else {
                 this.subObjectCode = subObjectCode;
             }
         }
@@ -1065,18 +1034,18 @@ public class PdpExtractServiceImpl implements PdpExtractService {
         }
     }
 
-    private void lockUnlockDocuments(boolean locked) {
-        for(String documentType : lockedDocuments) {
+    protected void lockUnlockDocuments(boolean locked) {
+        for (String documentType : lockedDocuments) {
             Class<? extends Document> documentClass = dataDictionaryService.getDocumentClassByTypeName(documentType);
-            if(parameterService.parameterExists(documentClass , KFSConstants.DOCUMENT_LOCKOUT_PARM_NM)) {
-                Parameter existingParam = parameterService.getParameter( documentClass, KFSConstants.DOCUMENT_LOCKOUT_PARM_NM );
+            if (parameterService.parameterExists(documentClass, KFSConstants.DOCUMENT_LOCKOUT_PARM_NM)) {
+                Parameter existingParam = parameterService.getParameter(documentClass, KFSConstants.DOCUMENT_LOCKOUT_PARM_NM);
                 Parameter.Builder updatedParam = Builder.create(existingParam);
-                updatedParam.setValue( locked?"Y":"N" );
+                updatedParam.setValue(locked ? "Y" : "N");
                 parameterService.updateParameter(updatedParam.build());
             } else {
                 String namespace = KRADServiceLocatorWeb.getKualiModuleService().getNamespaceCode(documentClass);
                 String detailType = KRADServiceLocatorWeb.getKualiModuleService().getComponentCode(documentClass);
-                Parameter.Builder newParam = Builder.create(KFSConstants.APPLICATION_NAMESPACE_CODE, namespace, detailType, KFSConstants.DOCUMENT_LOCKOUT_PARM_NM, ParameterType.Builder.create(KfsParameterConstants.PARAMETER_CONFIG_TYPE_CODE) );
+                Parameter.Builder newParam = Builder.create(KFSConstants.APPLICATION_NAMESPACE_CODE, namespace, detailType, KFSConstants.DOCUMENT_LOCKOUT_PARM_NM, ParameterType.Builder.create(KfsParameterConstants.PARAMETER_CONFIG_TYPE_CODE));
                 newParam.setValue("Y");
                 newParam.setDescription(KFSConstants.DOCUMENT_LOCKOUT_PARM_DESC);
                 parameterService.createParameter(newParam.build());
@@ -1203,6 +1172,7 @@ public class PdpExtractServiceImpl implements PdpExtractService {
 
     /**
      * Gets the dataDictionaryService attribute.
+     *
      * @return Returns the dataDictionaryService.
      */
     public DataDictionaryService getDataDictionaryService() {
@@ -1211,6 +1181,7 @@ public class PdpExtractServiceImpl implements PdpExtractService {
 
     /**
      * Sets the dataDictionaryService attribute value.
+     *
      * @param dataDictionaryService The dataDictionaryService to set.
      */
     public void setDataDictionaryService(DataDictionaryService dataDictionaryService) {
@@ -1225,7 +1196,7 @@ public class PdpExtractServiceImpl implements PdpExtractService {
      * @return Returns the personService.
      */
     protected PersonService getPersonService() {
-        if(personService==null) {
+        if (personService == null) {
             personService = SpringContext.getBean(PersonService.class);
         }
         return personService;
@@ -1234,7 +1205,6 @@ public class PdpExtractServiceImpl implements PdpExtractService {
     public void setLockedDocuments(List<String> lockedDocuments) {
         this.lockedDocuments = lockedDocuments;
     }
-
 
 
 }

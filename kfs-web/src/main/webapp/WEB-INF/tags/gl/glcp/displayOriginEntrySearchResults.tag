@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -24,54 +24,63 @@
     No Origin Entries found.
 </c:if>
 <c:if test="${!empty originEntries}">
-    <kul:tableRenderPagingBanner pageNumber="${KualiForm.originEntrySearchResultTableMetadata.viewedPageNumber}"
+    <kul:tableRenderPagingBanner
+            pageNumber="${KualiForm.originEntrySearchResultTableMetadata.viewedPageNumber}"
             totalPages="${KualiForm.originEntrySearchResultTableMetadata.totalNumberOfPages}"
-            firstDisplayedRow="${KualiForm.originEntrySearchResultTableMetadata.firstRowIndex}" lastDisplayedRow="${KualiForm.originEntrySearchResultTableMetadata.lastRowIndex}"
-            resultsActualSize="${KualiForm.originEntrySearchResultTableMetadata.resultsActualSize}" resultsLimitedSize="${KualiForm.originEntrySearchResultTableMetadata.resultsLimitedSize}"
+            firstDisplayedRow="${KualiForm.originEntrySearchResultTableMetadata.firstRowIndex}"
+            lastDisplayedRow="${KualiForm.originEntrySearchResultTableMetadata.lastRowIndex}"
+            resultsActualSize="${KualiForm.originEntrySearchResultTableMetadata.resultsActualSize}"
+            resultsLimitedSize="${KualiForm.originEntrySearchResultTableMetadata.resultsLimitedSize}"
             buttonExtraParams=".anchor${currentTabIndex}"/>
+
     <input type="hidden" name="originEntrySearchResultTableMetadata.${Constants.TableRenderConstants.PREVIOUSLY_SORTED_COLUMN_INDEX_PARAM}" value="${KualiForm.originEntrySearchResultTableMetadata.columnToSortIndex}"/>
     <input type="hidden" name="originEntrySearchResultTableMetadata.sortDescending" value="${KualiForm.originEntrySearchResultTableMetadata.sortDescending}"/>
     <input type="hidden" name="originEntrySearchResultTableMetadata.viewedPageNumber" value="${KualiForm.originEntrySearchResultTableMetadata.viewedPageNumber}"/>
-    <table class="datatable-100" id="originEntry" cellpadding="0" cellspacing="0">
+    <table class="standard" id="originEntry">
         <thead>
-            <tr>
+            <tr class="header">
                 <c:if test="${KualiForm.editableFlag == true}">
                     <th>Manual Edit</th>
                 </c:if>
-                <c:forEach items="${KualiForm.tableRenderColumnMetadata}" var="column">
-                    <th class="sortable">
-                        <c:out value="${column.columnTitle}"/><c:if test="${empty column.columnTitle}">$nbsp;</c:if>
-                    </th>
-                </c:forEach>
-            </tr>
-            <tr>
-                <c:if test="${KualiForm.editableFlag == true and KualiForm.showOutputFlag == false}">
-                    <td>&nbsp;</td>
-                </c:if>
                 <c:forEach items="${KualiForm.tableRenderColumnMetadata}" var="column" varStatus="columnLoopStatus">
-                    <td class="sortable" style="text-align: center;">
+                    <th class="sortable nowrap">
+                        <c:out value="${column.columnTitle}"/>
                         <c:if test="${column.sortable}">
-                            <html:image property="methodToCall.sort.${columnLoopStatus.index}.anchor${currentTabIndex}" src="${ConfigProperties.kr.externalizable.images.url}sort.gif" styleClass="tinybutton" alt="Sort column" title="Sort column ${column.columnTitle}"/>
+                            <html:image
+                                    property="methodToCall.sort.${columnLoopStatus.index}.anchor${currentTabIndex}"
+                                    src="${ConfigProperties.krad.externalizable.images.url}sort_both_kns.png"
+                                    styleClass="tinybutton"
+                                    alt="Sort column"
+                                    title="Sort column ${column.columnTitle}"
+                                    style="margin-bottom:-5px;"/>
                         </c:if>
-                        <c:if test="${!column.sortable}">
-                            &nbsp;
-                        </c:if>
-                    </td>
+                    </th>
                 </c:forEach>
             </tr>
         </thead>
         <tbody>
-            <c:forEach items="${originEntries}" var="originEntry" varStatus="loopStatus" 
+            <c:forEach items="${originEntries}" var="originEntry" varStatus="loopStatus"
                     begin="${KualiForm.originEntrySearchResultTableMetadata.firstRowIndex}" end="${KualiForm.originEntrySearchResultTableMetadata.lastRowIndex}">
-                <c:set var="rowclass" value="odd"/>
-                <c:if test="${loopStatus.count % 2 == 0}">
-                    <c:set var="rowclass" value="even"/>
+
+                <c:set var="rowclass" value=""/>
+                <c:if test="${loopStatus.count % 2 != 0}">
+                    <c:set var="rowclass" value="highlight"/>
                 </c:if>
                 <tr class="${rowclass}">
                     <c:if test="${KualiForm.editableFlag == true and KualiForm.editMethod == 'M'}">
                         <td>
-                            <html:image property="methodToCall.editManualEntry.entryId${originEntry.entryId}.anchor${currentTabIndex}" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-edit1.gif" styleClass="tinybutton" alt="edit" title="edit" />
-                            <html:image property="methodToCall.deleteManualEntry.entryId${originEntry.entryId}.anchor${currentTabIndex}" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-delete1.gif" styleClass="tinybutton" alt="delete" title="delete" />
+                            <html:submit
+                                    property="methodToCall.editManualEntry.entryId${originEntry.entryId}.anchor${currentTabIndex}"
+                                    styleClass="btn btn-default small"
+                                    alt="edit"
+                                    title="edit"
+                                    value="Edit"/>
+                            <html:submit
+                                    property="methodToCall.deleteManualEntry.entryId${originEntry.entryId}.anchor${currentTabIndex}"
+                                    styleClass="btn btn-red small"
+                                    alt="delete"
+                                    title="delete"
+                                    value="Delete"/>
                         </td>
                     </c:if>
                     <td class="infocell"><c:out value="${originEntry.universityFiscalYear}" />&nbsp;</td>

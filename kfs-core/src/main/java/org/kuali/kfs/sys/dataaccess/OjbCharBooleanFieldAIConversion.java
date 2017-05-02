@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -22,8 +22,6 @@ import org.apache.ojb.broker.accesslayer.conversions.FieldConversion;
 
 /**
  * This class converts the "A" or "I" value from the database into a true or false in Java.
- * 
- * 
  */
 public class OjbCharBooleanFieldAIConversion implements FieldConversion {
     private static final String TRUE = "A";
@@ -36,16 +34,13 @@ public class OjbCharBooleanFieldAIConversion implements FieldConversion {
         if (source instanceof Boolean) {
             if (source.equals(Boolean.TRUE)) {
                 return TRUE;
-            }
-            else {
+            } else {
                 return FALSE;
             }
-        }
-        else if (source instanceof String) {
-            if ("Y".equalsIgnoreCase((String)source)) {
+        } else if (source instanceof String) {
+            if ("Y".equalsIgnoreCase((String) source)) {
                 return TRUE;
-            }
-            else if ("N".equalsIgnoreCase((String)source)) {
+            } else if ("N".equalsIgnoreCase((String) source)) {
                 return FALSE;
             }
         }
@@ -59,12 +54,10 @@ public class OjbCharBooleanFieldAIConversion implements FieldConversion {
         if (source instanceof String) {
             if (TRUE.equals(source)) {
                 return Boolean.TRUE;
-            }
-            else {
+            } else {
                 return Boolean.FALSE;
             }
-        }
-        else {
+        } else {
             return source;
         }
     }

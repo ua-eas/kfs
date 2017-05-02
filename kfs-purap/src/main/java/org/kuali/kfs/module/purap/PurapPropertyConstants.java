@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -158,14 +158,14 @@ public class PurapPropertyConstants {
     public static final String TOTAL_ENCUMBRANCE = "totalEncumbrance";
     public static final String VENDOR_CHOICE_CODE = "vendorChoiceCode";
     public static final String CONTRACT_MANAGER = "contractManager";
-    public static final String  ASSIGNED_USER_PRINCIPAL_NAME = "assignedUserPrincipalName";
+    public static final String ASSIGNED_USER_PRINCIPAL_NAME = "assignedUserPrincipalName";
 
     // Quote Language
     public static final String PURCHASE_ORDER_QUOTE_LANGUAGE_ID = "purchaseOrderQuoteLanguageIdentifier";
 
     // vendor quote
     public static final String PURCHASE_ORDER_VENDOR_QUOTE_IDENTIFIER = "purchaseOrderVendorQuoteIdentifier";
-    public static final String PURCHASE_ORDER_QUOTE_STATUS ="purchaseOrderQuoteStatus";
+    public static final String PURCHASE_ORDER_QUOTE_STATUS = "purchaseOrderQuoteStatus";
     public static final String PURCHASE_ORDER_VENDOR_QUOTES = "purchaseOrderVendorQuotes";
     public static final String PURCHASE_ORDER_QUOTE_INITIALIZATION_DATE = "purchaseOrderQuoteInitializationDate";
     public static final String PURCHASE_ORDER_QUOTE_AWARDED_DATE = "purchaseOrderQuoteAwardedDate";
@@ -180,7 +180,7 @@ public class PurapPropertyConstants {
     // Stipulations
     public static final String VENDOR_STIPULATION_DESCRIPTION = "vendorStipulationDescription";
     public static final String NEW_VENDOR_STIPULATION = "newPurchaseOrderVendorStipulationLine";
-    
+
     // Sensitive Data
     public static final String SENSITIVE_DATA_CODE = "sensitiveDataCode";
 
@@ -192,7 +192,9 @@ public class PurapPropertyConstants {
     public static final String GRAND_TOTAL = "grandTotal";
     public static final String PAYMENT_REQUEST = "paymentRequest";
     public static final String RECURRING_PAYMENT_TYPE = "recurringPaymentType";
-    public static final String HOLD_INDICATOR_FOR_SEARCHING= "holdIndicatorForSearching";
+    public static final String HOLD_INDICATOR = "holdIndicator";
+    public static final String HOLD_INDICATOR_FOR_SEARCHING = "holdIndicatorForSearching";
+    public static final String PAYMENT_REQUEST_CANCEL_INDICATOR = "paymentRequestedCancelIndicator";
     public static final String PAYMENT_REQUEST_CANCEL_INDICATOR_FOR_SEARCHING = "paymentRequestedCancelIndicatorForSearching";
 
     // tax tab fields

@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,20 +18,20 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsModuleBillingService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 
+import java.util.LinkedHashMap;
+
 /**
  * Bills to be used for Billing Schedule under Contracts & Grants
  */
 public class Bill extends BillBase implements MutableInactivatable {
 
-    private Long proposalNumber;
+    private String proposalNumber;
     private boolean billed = false;
     private boolean active;
 
@@ -42,7 +42,7 @@ public class Bill extends BillBase implements MutableInactivatable {
      *
      * @return Returns the proposalNumber.
      */
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -51,7 +51,7 @@ public class Bill extends BillBase implements MutableInactivatable {
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

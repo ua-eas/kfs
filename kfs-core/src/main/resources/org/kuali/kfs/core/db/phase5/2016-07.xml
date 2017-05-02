@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns='http://www.liquibase.org/xml/ns/dbchangelog'
+                   xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+                   xsi:schemaLocation='http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd'>
+
+	<changeSet author="KFS601" id="FINI-2088_INDEX2" context="bootstrap,demo,unit">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<indexExists tableName="FS_DOC_HEADER_T" indexName="FS_DOC_HEADER_TI2"/>
+			</not>
+		</preConditions>
+		<createIndex tableName="FS_DOC_HEADER_T" indexName="FS_DOC_HEADER_TI2">
+			<column name="FDOC_CRTE_DT" />
+		</createIndex>
+	</changeSet>
+
+	<changeSet author="KFS601" id="FINI-2088_INDEX3" context="bootstrap,demo,unit">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<indexExists tableName="FS_DOC_HEADER_T" indexName="FS_DOC_HEADER_TI3"/>
+			</not>
+		</preConditions>
+		<createIndex tableName="FS_DOC_HEADER_T" indexName="FS_DOC_HEADER_TI3">
+			<column name="APP_DOC_STAT" />
+		</createIndex>
+	</changeSet>
+
+	<changeSet author="KFS601" id="FINI-2088_INDEX4" context="bootstrap,demo,unit">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<indexExists tableName="FS_DOC_HEADER_T" indexName="FS_DOC_HEADER_TI4"/>
+			</not>
+		</preConditions>
+		<createIndex tableName="FS_DOC_HEADER_T" indexName="FS_DOC_HEADER_TI4">
+			<column name="FDOC_TYP_NM" />
+		</createIndex>
+	</changeSet>
+
+    <changeSet author="KFS601" id="FINP-522_DETECT_MISSING_PLES_JOB" context="bootstrap,demo,unit">
+        <insert tableName="krcr_parm_t">
+            <column name="NMSPC_CD"><![CDATA[KFS-SYS]]></column>
+            <column name="CMPNT_CD"><![CDATA[Batch]]></column>
+            <column name="PARM_NM"><![CDATA[MISSING_PLES_NOTIFICATION_EMAIL_ADDRESSES]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-522A]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="VAL"><![CDATA[]]></column>
+            <column name="PARM_TYP_CD"><![CDATA[CONFG]]></column>
+            <column name="PARM_DESC_TXT"><![CDATA[The e-mail address to send notifications to when documents missing pending ledger entries are found.  If left blank, the job will simply log the document information.]]></column>
+            <column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
+            <column name="APPL_ID"><![CDATA[KFS]]></column>
+        </insert>
+        <insert tableName="krcr_parm_t">
+            <column name="NMSPC_CD"><![CDATA[KFS-GL]]></column>
+            <column name="CMPNT_CD"><![CDATA[Batch]]></column>
+            <column name="PARM_NM"><![CDATA[LEDGER_ENTRY_GENERATING_DOCUMENT_TYPES]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-522B]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="VAL"><![CDATA[CTRL;CINV;LCR;CRM;INV;INVW;APP;MPAY;AT;AD;AV;BA;CR;CCR;DV;DI;YEBA;YEDI;YEGE;YETF;GEC;ICA;IB;IAA;JV;ND;PE;PCDO;SB;TF;PREQ;CM;PO;POA;POSP;POV;ENT;RELO;TA;TEM;TAA;TAC;TR]]></column>
+            <column name="PARM_TYP_CD"><![CDATA[CONFG]]></column>
+            <column name="PARM_DESC_TXT"><![CDATA[Document types, which - once documents of these types achieve "processed" workflow status - are expected to generate general ledger pending entries.]]></column>
+            <column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
+            <column name="APPL_ID"><![CDATA[KFS]]></column>
+        </insert>
+        <insert tableName="krcr_parm_t">
+            <column name="NMSPC_CD"><![CDATA[KFS-LD]]></column>
+            <column name="CMPNT_CD"><![CDATA[Batch]]></column>
+            <column name="PARM_NM"><![CDATA[LEDGER_ENTRY_GENERATING_DOCUMENT_TYPES]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-522C]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="VAL"><![CDATA[BT;LLJV;YEBT;YEST;ST]]></column>
+            <column name="PARM_TYP_CD"><![CDATA[CONFG]]></column>
+            <column name="PARM_DESC_TXT"><![CDATA[Document types, which - once documents of these types achieve "processed" workflow status - are expected to generate labor ledger pending entries.]]></column>
+            <column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
+            <column name="APPL_ID"><![CDATA[KFS]]></column>
+        </insert>
+        <createIndex indexName="FS_DOC_HEADER_TI5" tableName="FS_DOC_HEADER_T">
+            <column name="FDOC_PRCSSD_DT"/>
+            <column name="FDOC_TYP_NM"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINI-2056_DROP_PESSIMISTIC_LOCK_TABLE" context="bootstrap,demo,unit">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="KRNS_PESSIMISTIC_LOCK_T" />
+        </preConditions>
+        <dropTable tableName="KRNS_PESSIMISTIC_LOCK_T"/>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINI-2187_MODIFY_DOCTYPES_FOR_DETECT_MISSING_PLES_JOB" context="bootstrap,demo,unit">
+        <update tableName="krcr_parm_t">
+            <column name="val">CTRL;CINV;LCR;CRM;INV;INVW;APP;MPAY;AT;AD;AV;BA;CR;CCR;DV;DI;YEBA;YEDI;YEGE;YETF;GEC;ICA;IB;IAA;JV;ND;PE;PCDO;SB;TF;CM;PO;POSP;POV;ENT;RELO;TA;TEM;TAA;TAC;TR</column>
+            <where>obj_id = 'FINP-522B'</where>
+        </update>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-516_BLANK_OUT_BEGIN" context = "bootstrap,demo,unit">
+        <update tableName="KRCR_PARM_T">
+            <column name="PARM_NM" value="BLANK_OUT_PERIOD_BEGIN"/>
+            <where>NMSPC_CD='KFS-CAM' AND CMPNT_CD='AssetDepreciationStep' AND PARM_NM='BLANK_OUT_BEGIN_MMDD'</where>
+        </update>
+    </changeSet>
+    <changeSet author="KFS601" id="FINP-516_BLANK_OUT_END" context = "bootstrap,demo,unit">
+        <update tableName="KRCR_PARM_T">
+            <column name="PARM_NM" value="BLANK_OUT_PERIOD_END"/>
+            <where>NMSPC_CD='KFS-CAM' AND CMPNT_CD='AssetDepreciationStep' AND PARM_NM='BLANK_OUT_END_MMDD'</where>
+        </update>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-518_DEPRECIATION_DATE" context="bootstrap,demo,unit">
+        <delete tableName="krcr_parm_t">
+            <where>obj_id = 'KFS97'</where>
+        </delete>
+        <insert tableName="krcr_parm_t">
+            <column name="NMSPC_CD">KFS-CAM</column>
+            <column name="CMPNT_CD">AssetDepreciationStep</column>
+            <column name="PARM_NM">DEPRECIATION_DATE</column>
+            <column name="OBJ_ID">FINP-518</column>
+            <column name="VER_NBR">1</column>
+            <column name="VAL"></column>
+            <column name="PARM_TYP_CD">CONFG</column>
+            <column name="PARM_DESC_TXT"><![CDATA[Date the batch depreciation will use in order to determine which fiscal year and  month depreciation expense the user wants to calculate.  Date should be in the format yyyy-mm-dd.]]></column>
+            <column name="EVAL_OPRTR_CD">A</column>
+            <column name="APPL_ID">KFS</column>
+        </insert>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINI-2191_UPDATE_PARAMETER_COMPONENT" context="bootstrap,demo,unit">
+        <update tableName="KRCR_PARM_T">
+            <column name="CMPNT_CD">CTSCardApplication</column>
+            <where>cmpnt_cd = 'TemCTSCardApplication'</where>
+        </update>
+        <update tableName="KRCR_PARM_T">
+            <column name="CMPNT_CD">CorporateCardApplication</column>
+            <where>cmpnt_cd = 'TemCorporateCardApplication'</where>
+        </update>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-607_REMOVE_YE_DEPRECIATION_PARAMETER" context="bootstrap,demo,unit">
+        <delete tableName="krcr_parm_t">
+            <where> NMSPC_CD = 'KFS-CAM' and CMPNT_CD = 'Batch' and PARM_NM = 'INCLUDE_RETIRED_ASSETS_IND'</where>
+        </delete>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-519_REMOVE_RUN_DATE" context="bootstrap,demo,unit">
+        <delete tableName="krcr_parm_t">
+            <where> NMSPC_CD = 'KFS-CAM' and CMPNT_CD = 'AssetDepreciationStep' and PARM_NM = 'RUN_DATE'</where>
+        </delete>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-520_MOVE_PARAMETERS" context="bootstrap,demo,unit">
+        <update tableName="krcr_parm_t">
+            <column name="cmpnt_cd">AssetDepreciationStep</column>
+            <where> NMSPC_CD = 'KFS-CAM' and CMPNT_CD = 'Batch' and PARM_NM = 'DEPRECIATION_CAMPUS_PLANT_FUND_OBJECT_SUB_TYPE'</where>
+        </update>
+        <update tableName="krcr_parm_t">
+            <column name="cmpnt_cd">AssetDepreciationStep</column>
+            <where> NMSPC_CD = 'KFS-CAM' and CMPNT_CD = 'Batch' and PARM_NM = 'DEPRECIATION_ORGANIZATON_PLANT_FUND_OBJECT_SUB_TYPE'</where>
+        </update>
+        <update tableName="krcr_parm_t">
+            <column name="cmpnt_cd">AssetDepreciationStep</column>
+            <where> NMSPC_CD = 'KFS-CAM' and CMPNT_CD = 'Batch' and PARM_NM = 'NON_DEPRECIABLE_FEDERALLY_OWNED_OBJECT_SUB_TYPES'</where>
+        </update>
+        <update tableName="krcr_parm_t">
+            <column name="cmpnt_cd">AssetDepreciationStep</column>
+            <where> NMSPC_CD = 'KFS-CAM' and CMPNT_CD = 'Batch' and PARM_NM = 'NON_DEPRECIABLE_NON_CAPITAL_ASSET_STATUS_CODES'</where>
+        </update>
+        <update tableName="krcr_parm_t">
+            <column name="cmpnt_cd">AssetDepreciationStep</column>
+            <where> NMSPC_CD = 'KFS-CAM' and CMPNT_CD = 'Batch' and PARM_NM = 'DEPRECIATION_PERIOD'</where>
+        </update>
+        <update tableName="krcr_parm_t">
+            <column name="parm_nm">DEPRECIATION_ORGANIZATION_PLANT_FUND_OBJECT_SUB_TYPE</column>
+            <where> NMSPC_CD = 'KFS-CAM' and CMPNT_CD = 'AssetDepreciationStep' and PARM_NM = 'DEPRECIATION_ORGANIZATON_PLANT_FUND_OBJECT_SUB_TYPE'</where>
+        </update>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-521_RENAME_BLANK_OUT_EMAIL_NOTIFICATION_PARAMETER" context="bootstrap,demo,unit">
+        <update tableName="krcr_parm_t">
+            <column name="parm_nm">BLANK_OUT_NOTIFICATION_EMAIL_ADDRESSES</column>
+            <where> nmspc_cd = 'KFS-CAM' and cmpnt_cd = 'AssetDepreciationStep' and parm_nm = 'RUN_DATE_NOTIFICATION_EMAIL_ADDRESSES' and appl_id = 'KFS'</where>
+        </update>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-561_REMOVE_API_KEY_TABLE" context="bootstrap,demo,unit">
+        <dropTable tableName="SH_API_KEY_T"/>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-561_REMOVE_API_KEY_SEQUENCE_TABLE" dbms="mysql" context="bootstrap,demo,unit">
+        <dropTable tableName="SH_API_KEY_S"/>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-561_REMOVE_API_KEY_SEQUENCE" dbms="oracle" context="bootstrap,demo,unit">
+        <dropSequence sequenceName="SH_API_KEY_S"/>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINI-2197_BLANKOUT_CUTOFF_TIME_FOR_UNIT_TESTS" context="unit">
+        <update tableName="krcr_parm_t">
+            <column name="val"></column>
+            <where> nmspc_cd = 'KFS-GL' and cmpnt_cd = 'ScrubberStep' and parm_nm = 'CUTOFF_TIME' and appl_id = 'KFS'</where>
+        </update>
+    </changeSet>
+</databaseChangeLog>

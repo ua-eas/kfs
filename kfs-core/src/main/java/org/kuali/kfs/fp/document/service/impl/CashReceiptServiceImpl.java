@@ -1,31 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document.service.impl;
-
-import static org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBaseConstants.ERROR_PATH.DOCUMENT_ERROR_PREFIX;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.fp.businessobject.CashDrawer;
@@ -36,6 +27,12 @@ import org.kuali.kfs.fp.document.CashReceiptDocument;
 import org.kuali.kfs.fp.document.dataaccess.CashManagementDao;
 import org.kuali.kfs.fp.document.service.CashReceiptService;
 import org.kuali.kfs.fp.service.CashDrawerService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.service.DictionaryValidationService;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSKeyConstants.CashReceipt;
@@ -45,17 +42,19 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.WorkflowDocumentFactory;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.kns.service.DictionaryValidationService;
-import org.kuali.rice.krad.bo.DocumentHeader;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
 import org.kuali.rice.location.api.campus.CampusService;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import static org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBaseConstants.ERROR_PATH.DOCUMENT_ERROR_PREFIX;
+
 /**
- *
  * This is the default implementation of the CashReceiptService interface.
  */
 @Transactional
@@ -86,7 +85,6 @@ public class CashReceiptServiceImpl implements CashReceiptService {
      *
      * @param user The user to be used to retrieve the verification unit.
      * @return The cash receipt verification unit associated with the user provided.
-     *
      * @see org.kuali.kfs.fp.document.service.CashReceiptService#getCashReceiptVerificationUnit(org.kuali.rice.krad.bo.user.KualiUser)
      */
     @Override
@@ -106,9 +104,8 @@ public class CashReceiptServiceImpl implements CashReceiptService {
      * retrieve the cash receipts.
      *
      * @param verificationUnit The verification unit used to retrieve a collection of associated cash receipts.
-     * @param statusCode The status code of the cash receipts to be retrieved.
+     * @param statusCode       The status code of the cash receipts to be retrieved.
      * @return A collection of cash receipt documents which match the search criteria provided.
-     *
      * @see org.kuali.kfs.fp.document.service.CashReceiptService#getCashReceipts(java.lang.String, java.lang.String)
      */
     @Override
@@ -117,7 +114,7 @@ public class CashReceiptServiceImpl implements CashReceiptService {
             throw new IllegalArgumentException("invalid (blank) statusCode");
         }
 
-        String[] statii = new String[] { statusCode };
+        String[] statii = new String[]{statusCode};
         return getCashReceipts(verificationUnit, statii);
     }
 
@@ -126,9 +123,8 @@ public class CashReceiptServiceImpl implements CashReceiptService {
      * retrieve the cash receipts.
      *
      * @param verificationUnit The verification unit used to retrieve a collection of associated cash receipts.
-     * @param statii A collection of possible statuses that will be used in the lookup of cash receipts.
+     * @param statii           A collection of possible statuses that will be used in the lookup of cash receipts.
      * @return A collection of cash receipt documents which match the search criteria provided.
-     *
      * @see org.kuali.kfs.fp.document.service.CashReceiptService#getCashReceipts(java.lang.String, java.lang.String[])
      */
     @Override
@@ -138,12 +134,10 @@ public class CashReceiptServiceImpl implements CashReceiptService {
         }
         if (statii == null) {
             throw new IllegalArgumentException("invalid (null) statii");
-        }
-        else {
+        } else {
             if (statii.length == 0) {
                 throw new IllegalArgumentException("invalid (empty) statii");
-            }
-            else {
+            } else {
                 for (int i = 0; i < statii.length; ++i) {
                     if (StringUtils.isBlank(statii[i])) {
                         throw new IllegalArgumentException("invalid (blank) status code " + i);
@@ -160,7 +154,7 @@ public class CashReceiptServiceImpl implements CashReceiptService {
      * cash receipt document is a cash receipt document with fully populated workflow fields.
      *
      * @param verificationUnit The verification unit used to retrieve a collection of associated cash receipts.
-     * @param statii A collection of possible statuses that will be used in the lookup of the cash receipts.
+     * @param statii           A collection of possible statuses that will be used in the lookup of the cash receipts.
      * @return List of CashReceiptDocument instances with their associated workflowDocuments populated.
      */
     public List<CashReceiptDocument> getPopulatedCashReceipts(String verificationUnit, String[] statii) {
@@ -178,7 +172,7 @@ public class CashReceiptServiceImpl implements CashReceiptService {
      * This method builds out a map of search criteria for performing cash receipt lookups using the values provided.
      *
      * @param campusCode The campus code to use as search criteria for looking up cash receipts.
-     * @param statii A collection of possible statuses to use as search criteria for looking up cash receipts.
+     * @param statii     A collection of possible statuses to use as search criteria for looking up cash receipts.
      * @return The search criteria provided in a map with CashReceiptConstants used as keys to the parameters given.
      */
     protected Map buildCashReceiptCriteriaMap(String campusCode, String[] statii) {
@@ -186,8 +180,7 @@ public class CashReceiptServiceImpl implements CashReceiptService {
 
         if (statii.length == 1) {
             queryCriteria.put(KFSConstants.CashReceiptConstants.CASH_RECEIPT_DOC_HEADER_STATUS_CODE_PROPERTY_NAME, statii[0]);
-        }
-        else if (statii.length > 0) {
+        } else if (statii.length > 0) {
             List<String> statusList = Arrays.asList(statii);
             queryCriteria.put(KFSConstants.CashReceiptConstants.CASH_RECEIPT_DOC_HEADER_STATUS_CODE_PROPERTY_NAME, statusList);
         }
@@ -203,7 +196,7 @@ public class CashReceiptServiceImpl implements CashReceiptService {
      * @param documents A collection of CashReceiptDocuments to be populated with workflow document data.
      */
     protected void populateWorkflowFields(List documents) {
-        for (Iterator i = documents.iterator(); i.hasNext();) {
+        for (Iterator i = documents.iterator(); i.hasNext(); ) {
             CashReceiptDocument cr = (CashReceiptDocument) i.next();
             DocumentHeader docHeader = cr.getDocumentHeader();
             WorkflowDocument workflowDocument = WorkflowDocumentFactory.loadDocument(GlobalVariables.getUserSession().getPrincipalId(), docHeader.getDocumentNumber());
@@ -217,7 +210,6 @@ public class CashReceiptServiceImpl implements CashReceiptService {
      * associated cash drawer.  After the details are added to the drawer, the drawer is persisted to the database.
      *
      * @param crDoc The cash receipt document the cash details will be retrieved from.
-     *
      * @see org.kuali.kfs.fp.document.service.CashReceiptService#addCashDetailsToCashDrawer(org.kuali.kfs.fp.document.CashReceiptDocument)
      */
     @Override
@@ -252,12 +244,12 @@ public class CashReceiptServiceImpl implements CashReceiptService {
     protected CashDrawer retrieveCashDrawer(CashReceiptDocument crDoc) {
         String campusCode = crDoc.getCampusLocationCode();
         if (campusCode == null) {
-            throw new RuntimeException("Cannot find workgroup name for Cash Receipt document: "+crDoc.getDocumentNumber());
+            throw new RuntimeException("Cannot find workgroup name for Cash Receipt document: " + crDoc.getDocumentNumber());
         }
 
         CashDrawer drawer = cashDrawerService.getByCampusCode(campusCode);
         if (drawer == null) {
-            throw new RuntimeException("There is no Cash Drawer for Workgroup "+campusCode);
+            throw new RuntimeException("There is no Cash Drawer for Workgroup " + campusCode);
         }
         return drawer;
     }
@@ -297,7 +289,7 @@ public class CashReceiptServiceImpl implements CashReceiptService {
      * and puts an error message in the error map for the corresponding detail/total property.
      *
      * @param cashReceiptDocument submitted cash receipt document
-     * @param cashCategory cash category (i.e. check, currency, coin)
+     * @param cashCategory        cash category (i.e. check, currency, coin)
      * @return true if any amount of the category is an invalid value
      */
     protected boolean isDetailOrTotalInvalid(CashReceiptDocument cashReceiptDocument, String cashCategory) {
@@ -319,26 +311,22 @@ public class CashReceiptServiceImpl implements CashReceiptService {
         if (StringUtils.equalsIgnoreCase(KFSPropertyConstants.CHECK, cashCategory)) {
             totalAmount = isPreRoute ? cashReceiptDocument.getTotalCheckAmount() : cashReceiptDocument.getTotalConfirmedCheckAmount();
             // we don't validate each check here, since that should have been validated when checks are added
-        }
-        else if (StringUtils.equalsIgnoreCase(KFSPropertyConstants.CURRENCY, cashCategory)) {
+        } else if (StringUtils.equalsIgnoreCase(KFSPropertyConstants.CURRENCY, cashCategory)) {
             CurrencyDetail currencyDetail = isPreRoute ? cashReceiptDocument.getCurrencyDetail() : cashReceiptDocument.getConfirmedCurrencyDetail();
             detailNegative = ObjectUtils.isNull(currencyDetail) ? false : currencyDetail.hasNegativeAmount();
             totalAmount = isPreRoute ? cashReceiptDocument.getTotalCurrencyAmount() : cashReceiptDocument.getTotalConfirmedCurrencyAmount();
             detailErrorLabel = dataDictionaryService.getAttributeErrorLabel(CurrencyDetail.class, detailErrorProperty);
-        }
-        else if (StringUtils.equalsIgnoreCase(KFSPropertyConstants.COIN, cashCategory)) {
+        } else if (StringUtils.equalsIgnoreCase(KFSPropertyConstants.COIN, cashCategory)) {
             CoinDetail coinDetail = isPreRoute ? cashReceiptDocument.getCoinDetail() : cashReceiptDocument.getConfirmedCoinDetail();
             detailNegative = ObjectUtils.isNull(coinDetail) ? false : coinDetail.hasNegativeAmount();
             totalAmount = isPreRoute ? cashReceiptDocument.getTotalCoinAmount() : cashReceiptDocument.getTotalConfirmedCoinAmount();
             detailErrorLabel = dataDictionaryService.getAttributeErrorLabel(CoinDetail.class, detailErrorProperty);
-        }
-        else if (StringUtils.equalsIgnoreCase(KFSPropertyConstants.CHANGE_CURRENCY, cashCategory)) {
+        } else if (StringUtils.equalsIgnoreCase(KFSPropertyConstants.CHANGE_CURRENCY, cashCategory)) {
             CurrencyDetail currencyDetail = isPreRoute ? cashReceiptDocument.getChangeCurrencyDetail() : cashReceiptDocument.getConfirmedChangeCurrencyDetail();
             detailNegative = ObjectUtils.isNull(currencyDetail) ? false : currencyDetail.hasNegativeAmount();
             totalAmount = isPreRoute ? cashReceiptDocument.getTotalChangeCurrencyAmount() : cashReceiptDocument.getTotalConfirmedChangeCurrencyAmount();
             detailErrorLabel = dataDictionaryService.getAttributeErrorLabel(CurrencyDetail.class, detailErrorProperty);
-        }
-        else if (StringUtils.equalsIgnoreCase(KFSPropertyConstants.CHANGE_COIN, cashCategory)) {
+        } else if (StringUtils.equalsIgnoreCase(KFSPropertyConstants.CHANGE_COIN, cashCategory)) {
             CoinDetail coinDetail = isPreRoute ? cashReceiptDocument.getChangeCoinDetail() : cashReceiptDocument.getConfirmedChangeCoinDetail();
             detailNegative = ObjectUtils.isNull(coinDetail) ? false : coinDetail.hasNegativeAmount();
             totalAmount = isPreRoute ? cashReceiptDocument.getTotalChangeCoinAmount() : cashReceiptDocument.getTotalConfirmedChangeCoinAmount();
@@ -378,15 +366,19 @@ public class CashReceiptServiceImpl implements CashReceiptService {
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
         this.businessObjectService = businessObjectService;
     }
+
     public void setCashManagementDao(CashManagementDao cashManagementDao) {
         this.cashManagementDao = cashManagementDao;
     }
+
     public void setCashDrawerService(CashDrawerService cashDrawerService) {
         this.cashDrawerService = cashDrawerService;
     }
+
     public void setDictionaryValidationService(DictionaryValidationService dictionaryValidationService) {
         this.dictionaryValidationService = dictionaryValidationService;
     }
+
     public void setDataDictionaryService(DataDictionaryService dataDictionaryService) {
         this.dataDictionaryService = dataDictionaryService;
     }

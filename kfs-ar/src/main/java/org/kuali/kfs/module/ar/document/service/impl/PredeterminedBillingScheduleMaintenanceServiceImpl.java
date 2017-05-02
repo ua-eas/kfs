@@ -1,22 +1,29 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.document.service.impl;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.module.ar.ArPropertyConstants;
+import org.kuali.kfs.module.ar.businessobject.InvoiceBill;
+import org.kuali.kfs.module.ar.document.service.ContractsGrantsInvoiceDocumentService;
+import org.kuali.kfs.module.ar.document.service.PredeterminedBillingScheduleMaintenanceService;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -26,13 +33,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.collections.CollectionUtils;
-import org.kuali.kfs.module.ar.ArPropertyConstants;
-import org.kuali.kfs.module.ar.businessobject.InvoiceBill;
-import org.kuali.kfs.module.ar.document.service.ContractsGrantsInvoiceDocumentService;
-import org.kuali.kfs.module.ar.document.service.PredeterminedBillingScheduleMaintenanceService;
-import org.kuali.rice.krad.service.BusinessObjectService;
-
 /**
  * Default implementation of the PredeterminedBillingScheduleMaintenanceService
  */
@@ -41,14 +41,13 @@ public class PredeterminedBillingScheduleMaintenanceServiceImpl implements Prede
     protected ContractsGrantsInvoiceDocumentService contractsGrantsInvoiceDocumentService;
 
     /**
-     *
      * @see org.kuali.kfs.module.ar.document.service.PredeterminedBillingScheduleMaintenanceService#hasBillBeenCopiedToInvoice(java.lang.Long, java.lang.String)
      */
     @Override
-    public boolean hasBillBeenCopiedToInvoice(Long proposalNumber, String billId) {
-        Collection<InvoiceBill> invoiceBills = new ArrayList<InvoiceBill>();
+    public boolean hasBillBeenCopiedToInvoice(String proposalNumber, String billId) {
+        Collection<InvoiceBill> invoiceBills = new ArrayList<>();
 
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
         map.put(ArPropertyConstants.BillFields.BILL_IDENTIFIER, billId);
         invoiceBills = getBusinessObjectService().findMatching(InvoiceBill.class, map);
         // but skip documents which have been canceled, disapproved, or where the document was error corrected

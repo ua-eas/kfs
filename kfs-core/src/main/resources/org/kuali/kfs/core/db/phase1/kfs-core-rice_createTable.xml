@@ -1,0 +1,771 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="kfs" id="rice00328" context="bootstrap,demo,unit">
+        <createTable tableName="krns_maint_doc_t">
+            <column defaultValue="" name="DOC_HDR_ID" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DOC_CNTNT" type="LONGTEXT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="rice00316" context="bootstrap,demo,unit">
+        <createTable tableName="krns_adhoc_rte_actn_recip_t">
+            <column defaultValueNumeric="0" name="RECIP_TYP_CD" type="DECIMAL(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ACTN_RQST_CD" type="VARCHAR(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ACTN_RQST_RECIP_ID" type="VARCHAR(70)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="DOC_HDR_ID" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="rice00318" context="bootstrap,demo,unit">
+        <createTable tableName="krns_att_t">
+            <column defaultValueNumeric="0" name="NTE_ID" type="DECIMAL(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MIME_TYP" type="VARCHAR(255)"/>
+            <column name="FILE_NM" type="VARCHAR(250)"/>
+            <column name="ATT_ID" type="VARCHAR(36)"/>
+            <column name="FILE_SZ" type="DECIMAL(14)"/>
+            <column name="ATT_TYP_CD" type="VARCHAR(40)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="rice00319" context="bootstrap,demo,unit">
+        <createTable tableName="krns_doc_hdr_t">
+            <column defaultValue="" name="DOC_HDR_ID" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FDOC_DESC" type="VARCHAR(255)"/>
+            <column name="ORG_DOC_HDR_ID" type="VARCHAR(10)"/>
+            <column name="TMPL_DOC_HDR_ID" type="VARCHAR(14)"/>
+            <column name="EXPLANATION" type="VARCHAR(400)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="rice00323" context="bootstrap,demo,unit">
+        <createTable tableName="krns_lookup_rslt_t">
+            <column defaultValue="" name="LOOKUP_RSLT_ID" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRNCPL_ID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LOOKUP_DT" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SERIALZD_RSLTS" type="LONGTEXT"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="kfs" id="rice00324" context="bootstrap,demo,unit">
+        <createTable tableName="krns_lookup_sel_t">
+            <column defaultValue="" name="LOOKUP_RSLT_ID" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRNCPL_ID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LOOKUP_DT" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SEL_OBJ_IDS" type="LONGTEXT"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="kfs" id="rice00325" context="bootstrap,demo,unit">
+        <createTable tableName="krns_maint_doc_att_lst_t">
+            <column defaultValue="" name="ATT_ID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DOC_HDR_ID" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ATT_CNTNT" type="LONGBLOB">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FILE_NM" type="VARCHAR(150)"/>
+            <column name="CNTNT_TYP" type="VARCHAR(255)"/>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="rice00327" context="bootstrap,demo,unit">
+        <createTable tableName="krns_maint_doc_att_t">
+            <column defaultValue="" name="DOC_HDR_ID" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ATT_CNTNT" type="LONGBLOB">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FILE_NM" type="VARCHAR(150)"/>
+            <column name="CNTNT_TYP" type="VARCHAR(255)"/>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="rice00330" context="bootstrap,demo,unit">
+        <createTable tableName="krns_maint_lock_t">
+            <column name="MAINT_LOCK_REP_TXT" type="VARCHAR(500)"/>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DOC_HDR_ID" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="MAINT_LOCK_ID" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="rice00332" context="bootstrap,demo,unit">
+        <createTable tableName="krns_nte_t">
+            <column defaultValueNumeric="0" name="NTE_ID" type="DECIMAL(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="RMT_OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="AUTH_PRNCPL_ID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="POST_TS" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NTE_TYP_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TXT" type="VARCHAR(800)"/>
+            <column name="PRG_CD" type="VARCHAR(1)"/>
+            <column name="TPC_TXT" type="VARCHAR(40)"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="kfs" id="rice00333" context="bootstrap,demo,unit">
+        <createTable tableName="krns_nte_typ_t">
+            <column defaultValue="" name="NTE_TYP_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TYP_DESC_TXT" type="VARCHAR(100)"/>
+            <column name="ACTV_IND" type="VARCHAR(1)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="rice00334" context="bootstrap,demo,unit">
+        <createTable tableName="krns_pessimistic_lock_t">
+            <column defaultValueNumeric="0" name="PESSIMISTIC_LOCK_ID" type="DECIMAL(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LOCK_DESC_TXT" type="VARCHAR(4000)"/>
+            <column name="DOC_HDR_ID" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="GNRT_DT" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRNCPL_ID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="undefined" name="SESN_ID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="kfs" id="rice00335" context="bootstrap,demo,unit">
+        <createTable tableName="krns_sesn_doc_t">
+            <column defaultValue="" name="SESN_DOC_ID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="DOC_HDR_ID" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="PRNCPL_ID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="IP_ADDR" type="VARCHAR(60)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SERIALZD_DOC_FRM" type="LONGBLOB"/>
+            <column name="LAST_UPDT_DT" type="DATE"/>
+            <column defaultValue="N" name="CONTENT_ENCRYPTED_IND" type="CHAR(1)"/>
+            <column name="OBJ_ID" type="VARCHAR(36)"/>
+            <column defaultValueNumeric="0" name="VER_NBR" type="DECIMAL(8)"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="kfs" id="rice00337" context="bootstrap,demo,unit">
+        <createTable tableName="krsb_bam_parm_t">
+            <column defaultValueNumeric="0" name="BAM_PARM_ID" type="DECIMAL(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="BAM_ID" type="DECIMAL(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PARM" type="LONGTEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="rice00339" context="bootstrap,demo,unit">
+        <createTable tableName="krsb_bam_t">
+            <column defaultValueNumeric="0" name="BAM_ID" type="DECIMAL(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SVC_NM" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SVC_URL" type="VARCHAR(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MTHD_NM" type="VARCHAR(2000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="THRD_NM" type="VARCHAR(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CALL_DT" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TGT_TO_STR" type="VARCHAR(2000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SRVR_IND" type="DECIMAL(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="EXCPN_TO_STR" type="VARCHAR(2000)"/>
+            <column name="EXCPN_MSG" type="LONGTEXT"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="kfs" id="rice00340" context="bootstrap,demo,unit">
+        <createTable tableName="krsb_msg_pyld_t">
+            <column defaultValueNumeric="0" name="MSG_QUE_ID" type="DECIMAL(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MSG_PYLD" type="LONGTEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="rice00342" context="bootstrap,demo,unit">
+        <createTable tableName="krsb_msg_que_t">
+            <column defaultValueNumeric="0" name="MSG_QUE_ID" type="DECIMAL(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DT" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="EXP_DT" type="DATE"/>
+            <column name="PRIO" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="STAT_CD" type="CHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="RTRY_CNT" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="IP_NBR" type="VARCHAR(2000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SVC_NM" type="VARCHAR(255)"/>
+            <column name="APPL_ID" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SVC_MTHD_NM" type="VARCHAR(2000)"/>
+            <column name="APP_VAL_ONE" type="VARCHAR(2000)"/>
+            <column name="APP_VAL_TWO" type="VARCHAR(2000)"/>
+            <column defaultValueNumeric="0" name="VER_NBR" type="DECIMAL(8)"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="kfs" id="rice00343" context="bootstrap,demo,unit">
+        <createTable tableName="krsb_qrtz_blob_triggers">
+            <column defaultValue="" name="TRIGGER_NAME" type="VARCHAR(80)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="TRIGGER_GROUP" type="VARCHAR(80)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="BLOB_DATA" type="LONGBLOB"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="rice00344" context="bootstrap,demo,unit">
+        <createTable tableName="krsb_qrtz_calendars">
+            <column defaultValue="" name="CALENDAR_NAME" type="VARCHAR(80)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CALENDAR" type="LONGBLOB">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="rice00345" context="bootstrap,demo,unit">
+        <createTable tableName="krsb_qrtz_cron_triggers">
+            <column defaultValue="" name="TRIGGER_NAME" type="VARCHAR(80)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="TRIGGER_GROUP" type="VARCHAR(80)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CRON_EXPRESSION" type="VARCHAR(80)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TIME_ZONE_ID" type="VARCHAR(80)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="rice00346" context="bootstrap,demo,unit">
+        <createTable tableName="krsb_qrtz_fired_triggers">
+            <column defaultValue="" name="ENTRY_ID" type="VARCHAR(95)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TRIGGER_NAME" type="VARCHAR(80)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TRIGGER_GROUP" type="VARCHAR(80)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="IS_VOLATILE" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="INSTANCE_NAME" type="VARCHAR(80)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FIRED_TIME" type="DECIMAL(13)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRIORITY" type="DECIMAL(13)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="STATE" type="VARCHAR(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="JOB_NAME" type="VARCHAR(80)"/>
+            <column name="JOB_GROUP" type="VARCHAR(80)"/>
+            <column name="IS_STATEFUL" type="VARCHAR(1)"/>
+            <column name="REQUESTS_RECOVERY" type="VARCHAR(1)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="rice00347" context="bootstrap,demo,unit">
+        <createTable tableName="krsb_qrtz_job_details">
+            <column defaultValue="" name="JOB_NAME" type="VARCHAR(80)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="JOB_GROUP" type="VARCHAR(80)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DESCRIPTION" type="VARCHAR(120)"/>
+            <column name="JOB_CLASS_NAME" type="VARCHAR(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="IS_DURABLE" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="IS_VOLATILE" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="IS_STATEFUL" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REQUESTS_RECOVERY" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="JOB_DATA" type="LONGBLOB"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="rice00348" context="bootstrap,demo,unit">
+        <createTable tableName="krsb_qrtz_job_listeners">
+            <column defaultValue="" name="JOB_NAME" type="VARCHAR(80)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="JOB_GROUP" type="VARCHAR(80)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="JOB_LISTENER" type="VARCHAR(80)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="rice00349" context="bootstrap,demo,unit">
+        <createTable tableName="krsb_qrtz_locks">
+            <column defaultValue="" name="LOCK_NAME" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="rice00350" context="bootstrap,demo,unit">
+        <createTable tableName="krsb_qrtz_paused_trigger_grps">
+            <column defaultValue="" name="TRIGGER_GROUP" type="VARCHAR(80)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="rice00351" context="bootstrap,demo,unit">
+        <createTable tableName="krsb_qrtz_scheduler_state">
+            <column defaultValue="" name="INSTANCE_NAME" type="VARCHAR(80)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_CHECKIN_TIME" type="DECIMAL(13)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CHECKIN_INTERVAL" type="DECIMAL(13)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="rice00352" context="bootstrap,demo,unit">
+        <createTable tableName="krsb_qrtz_simple_triggers">
+            <column defaultValue="" name="TRIGGER_NAME" type="VARCHAR(80)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="TRIGGER_GROUP" type="VARCHAR(80)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REPEAT_COUNT" type="DECIMAL(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REPEAT_INTERVAL" type="DECIMAL(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TIMES_TRIGGERED" type="DECIMAL(7)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="rice00354" context="bootstrap,demo,unit">
+        <createTable tableName="krsb_qrtz_triggers">
+            <column defaultValue="" name="TRIGGER_NAME" type="VARCHAR(80)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="TRIGGER_GROUP" type="VARCHAR(80)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="JOB_NAME" type="VARCHAR(80)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="JOB_GROUP" type="VARCHAR(80)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="IS_VOLATILE" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DESCRIPTION" type="VARCHAR(120)"/>
+            <column name="NEXT_FIRE_TIME" type="DECIMAL(13)"/>
+            <column name="PREV_FIRE_TIME" type="DECIMAL(13)"/>
+            <column name="PRIORITY" type="DECIMAL(13)"/>
+            <column name="TRIGGER_STATE" type="VARCHAR(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TRIGGER_TYPE" type="VARCHAR(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="START_TIME" type="DECIMAL(13)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="END_TIME" type="DECIMAL(13)"/>
+            <column name="CALENDAR_NAME" type="VARCHAR(80)"/>
+            <column name="MISFIRE_INSTR" type="DECIMAL(2)"/>
+            <column name="JOB_DATA" type="LONGBLOB"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="rice00353" context="bootstrap,demo,unit">
+        <createTable tableName="krsb_qrtz_trigger_listeners">
+            <column defaultValue="" name="TRIGGER_NAME" type="VARCHAR(80)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="TRIGGER_GROUP" type="VARCHAR(80)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="TRIGGER_LISTENER" type="VARCHAR(80)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="rice00356" context="bootstrap,demo,unit">
+        <createTable tableName="krsb_svc_def_t">
+            <column defaultValue="" name="SVC_DEF_ID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SVC_NM" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SVC_URL" type="VARCHAR(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="INSTN_ID" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="APPL_ID" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SRVR_IP" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TYP_CD" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SVC_VER" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="STAT_CD" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SVC_DSCRPTR_ID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CHKSM" type="VARCHAR(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="rice00358" context="bootstrap,demo,unit">
+        <createTable tableName="krsb_svc_dscrptr_t">
+            <column defaultValue="" name="SVC_DSCRPTR_ID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DSCRPTR" type="LONGTEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00016">
+        <createTable tableName="krcr_cmpnt_set_t">
+            <column defaultValue="" name="CMPNT_SET_ID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_UPDT_TS" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CHKSM" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="kfs" id="rice00017" context="bootstrap,demo,unit">
+        <createTable tableName="krcr_cmpnt_t">
+            <column defaultValue="" name="NMSPC_CD" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="CMPNT_CD" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NM" type="VARCHAR(255)"/>
+            <column defaultValue="Y" name="ACTV_IND" type="CHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00018">
+        <createTable tableName="krcr_drvd_cmpnt_t">
+            <column defaultValue="" name="NMSPC_CD" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="CMPNT_CD" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NM" type="VARCHAR(255)"/>
+            <column name="CMPNT_SET_ID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="rice00019" context="bootstrap,demo,unit">
+        <createTable tableName="krcr_nmspc_t">
+            <column defaultValue="" name="NMSPC_CD" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NM" type="VARCHAR(40)"/>
+            <column defaultValue="Y" name="ACTV_IND" type="CHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="APPL_ID" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="rice00020" context="bootstrap,demo,unit">
+        <createTable tableName="krcr_parm_t">
+            <column defaultValue="" name="NMSPC_CD" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="CMPNT_CD" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="PARM_NM" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PARM_TYP_CD" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VAL" type="VARCHAR(4000)"/>
+            <column name="PARM_DESC_TXT" type="VARCHAR(4000)"/>
+            <column name="EVAL_OPRTR_CD" type="VARCHAR(1)"/>
+            <column defaultValue="KUALI" name="APPL_ID" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="rice00021" context="bootstrap,demo,unit">
+        <createTable tableName="krcr_parm_typ_t">
+            <column defaultValue="" name="PARM_TYP_CD" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NM" type="VARCHAR(40)"/>
+            <column defaultValue="Y" name="ACTV_IND" type="CHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00022">
+        <createTable tableName="krcr_style_t">
+            <column defaultValue="" name="STYLE_ID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NM" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="XML" type="LONGTEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ACTV_IND" type="DECIMAL(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="VER_NBR" type="DECIMAL(8)"/>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

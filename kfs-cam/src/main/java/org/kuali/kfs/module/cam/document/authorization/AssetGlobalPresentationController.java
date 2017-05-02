@@ -1,27 +1,29 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cam.document.authorization;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.kuali.kfs.coa.service.AccountService;
+import org.kuali.kfs.kns.datadictionary.MaintainableCollectionDefinition;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.service.MaintenanceDocumentDictionaryService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
 import org.kuali.kfs.module.cam.businessobject.AssetGlobal;
@@ -36,12 +38,10 @@ import org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocume
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.parameter.ParameterEvaluator;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
-import org.kuali.rice.kns.datadictionary.MaintainableCollectionDefinition;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.kns.service.MaintenanceDocumentDictionaryService;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.util.KRADConstants;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Presentation Controller for Asset Global Maintenance Documents
@@ -64,8 +64,7 @@ public class AssetGlobalPresentationController extends FinancialSystemMaintenanc
             for (AssetPaymentDetail payment : assetGlobal.getAssetPaymentDetails()) {
                 payment.setNewCollectionRecord(false);
             }
-        }
-        else {
+        } else {
             // conversely allow add during any other case. This is important because the attribute is set on the DD and the DD is
             // only loaded on project startup. Hence setting is important to avoid state related bugs
             maintCollDef.setIncludeAddLine(true);
@@ -99,7 +98,6 @@ public class AssetGlobalPresentationController extends FinancialSystemMaintenanc
         }
 
 
-
         return fields;
     }
 
@@ -113,8 +111,7 @@ public class AssetGlobalPresentationController extends FinancialSystemMaintenanc
         if (SpringContext.getBean(AssetGlobalService.class).isAssetSeparate(assetGlobal)) {
             fields.addAll(getAssetGlobalDetailsReadOnlyFields());
             fields.addAll(getAssetGlobalPaymentsReadOnlyFields(assetGlobal));
-        }
-        else if (assetGlobal.isCapitalAssetBuilderOriginIndicator()) {
+        } else if (assetGlobal.isCapitalAssetBuilderOriginIndicator()) {
             // If asset global document is created from CAB, disallow add payment to collection.
             fields.addAll(getAssetGlobalPaymentsReadOnlyFields(assetGlobal));
         }
@@ -144,7 +141,7 @@ public class AssetGlobalPresentationController extends FinancialSystemMaintenanc
         if (!evaluator.evaluationSucceeds()) {
             fields.add(KFSConstants.ACCOUNTING_PERIOD_TAB_ID);
         }
-        
+
         // hide "Asset Information", "Recalculate Total Amount" tabs if not "Asset Separate" doc
         if (!SpringContext.getBean(AssetGlobalService.class).isAssetSeparate(assetGlobal)) {
             fields.add(CamsConstants.AssetGlobal.SECTION_ID_ASSET_INFORMATION);
@@ -278,8 +275,9 @@ public class AssetGlobalPresentationController extends FinancialSystemMaintenanc
     }
 
     // CSU 6702 BEGIN
+
     /**
-     * @see org.kuali.rice.kns.document.authorization.DocumentPresentationControllerBase#getDocumentActions(org.kuali.rice.kns.document.Document)
+     * @see org.kuali.kfs.kns.document.authorization.DocumentPresentationControllerBase#getDocumentActions(org.kuali.kfs.kns.document.Document)
      */
     @Override
     public Set<String> getDocumentActions(Document document) {

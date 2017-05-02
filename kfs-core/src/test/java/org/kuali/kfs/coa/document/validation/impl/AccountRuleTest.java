@@ -1,32 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.coa.document.validation.impl;
-
-import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapEmpty;
-import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapSize;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Iterator;
-import java.util.List;
 
 import org.apache.commons.lang.time.DateUtils;
 import org.kuali.kfs.coa.businessobject.Account;
@@ -34,6 +24,9 @@ import org.kuali.kfs.coa.businessobject.AccountGuideline;
 import org.kuali.kfs.coa.businessobject.IndirectCostRecoveryAccount;
 import org.kuali.kfs.coa.businessobject.SubFundGroup;
 import org.kuali.kfs.coa.service.AccountService;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSConstants.SystemGroupParameterNames;
@@ -47,9 +40,16 @@ import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.util.GlobalVariables;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Iterator;
+import java.util.List;
+
+import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapEmpty;
+import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapSize;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class AccountRuleTest extends ChartRuleTestBase {
@@ -968,8 +968,8 @@ public class AccountRuleTest extends ChartRuleTestBase {
 
     /**
      * @RelatesTo KULRNE-4662 This test makes sure that if the account has a non-CG subfund group, no fields are allowed to be
-     *            filled in. (The contrary test--that if we have an account with a CG fund group, all fields are now required--
-     *            should be tested by testCGFields_RequiredCGFields_AllPresent()).
+     * filled in. (The contrary test--that if we have an account with a CG fund group, all fields are now required--
+     * should be tested by testCGFields_RequiredCGFields_AllPresent()).
      */
     @SuppressWarnings("deprecation")
     public void testCGFields_NotCGSubFund_NoFieldsPresent() {
@@ -1254,9 +1254,8 @@ public class AccountRuleTest extends ChartRuleTestBase {
 
         // find an existing account
         Iterator accountList = SpringContext.getBean(AccountService.class).getAllAccounts();
-        Account account = accountList.hasNext() ? (Account)accountList.next() : null;
-        if (account == null)
-         {
+        Account account = accountList.hasNext() ? (Account) accountList.next() : null;
+        if (account == null) {
             return; // shouldn't happen: there shall always be some accounts in the system
         }
 
@@ -1285,9 +1284,8 @@ public class AccountRuleTest extends ChartRuleTestBase {
 
         // find an existing account
         Iterator accountList = SpringContext.getBean(AccountService.class).getAllAccounts();
-        Account account = accountList.hasNext() ? (Account)accountList.next() : null;
-        if (account == null)
-         {
+        Account account = accountList.hasNext() ? (Account) accountList.next() : null;
+        if (account == null) {
             return; // shouldn't happen: there shall always be some accounts in the system
         }
 

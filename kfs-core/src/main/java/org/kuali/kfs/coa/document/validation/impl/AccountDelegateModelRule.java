@@ -1,42 +1,38 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.coa.document.validation.impl;
 
-import java.sql.Timestamp;
-import java.util.Calendar;
-
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.DateUtils;
 import org.kuali.kfs.coa.businessobject.AccountDelegateModel;
 import org.kuali.kfs.coa.businessobject.AccountDelegateModelDetail;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.Organization;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.service.FinancialSystemDocumentTypeService;
 import org.kuali.kfs.sys.document.validation.impl.KfsMaintenanceDocumentRuleBase;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
 
 /**
  * This class implements the business rules specific to the {@link OrganizationRoutingModelName} Maintenance Document.
@@ -49,6 +45,7 @@ public class AccountDelegateModelRule extends KfsMaintenanceDocumentRuleBase {
      * This method sets the convenience objects like model, so you have short and easy handles to the new and
      * old objects contained in the maintenance document. It also calls the BusinessObjectBase.refresh(), which will attempt to load
      * all sub-objects from the DB by their primary keys, if available.
+     *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#setupConvenienceObjects()
      */
     @Override
@@ -65,6 +62,7 @@ public class AccountDelegateModelRule extends KfsMaintenanceDocumentRuleBase {
      * <li>{@link AccountDelegateModelRule#checkSimpleRules(OrganizationRoutingModelName)}</li>
      * </ul>
      * This rule fails on business rule failures
+     *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomApproveDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
@@ -79,6 +77,7 @@ public class AccountDelegateModelRule extends KfsMaintenanceDocumentRuleBase {
      * <li>{@link AccountDelegateModelRule#checkSimpleRules(OrganizationRoutingModelName)}</li>
      * </ul>
      * This rule fails on business rule failures
+     *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomRouteDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
@@ -93,6 +92,7 @@ public class AccountDelegateModelRule extends KfsMaintenanceDocumentRuleBase {
      * <li>{@link AccountDelegateModelRule#checkSimpleRules(OrganizationRoutingModelName)}</li>
      * </ul>
      * This rule does not fail on business rule failures
+     *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomSaveDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
@@ -107,8 +107,9 @@ public class AccountDelegateModelRule extends KfsMaintenanceDocumentRuleBase {
      * <ul>
      * <li>{@link AccountDelegateModelRule#checkSimpleRulesForOrganizationRoutingModel(OrganizationRoutingModelName, OrganizationRoutingModel)}</li>
      * </ul>
+     *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomAddCollectionLineBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument,
-     *      java.lang.String, org.kuali.rice.krad.bo.PersistableBusinessObject)
+     * java.lang.String, org.kuali.rice.krad.bo.PersistableBusinessObject)
      */
     @Override
     public boolean processCustomAddCollectionLineBusinessRules(MaintenanceDocument document, String collectionName, PersistableBusinessObject line) {
@@ -140,7 +141,7 @@ public class AccountDelegateModelRule extends KfsMaintenanceDocumentRuleBase {
         return success;
     }
 
-     /**
+    /**
      * This method checks a series of basic rules for a single org routing model.
      *
      * @return true if model passes all the checks, false if otherwise
@@ -172,8 +173,8 @@ public class AccountDelegateModelRule extends KfsMaintenanceDocumentRuleBase {
             success = false;
             GlobalVariables.getMessageMap().putError(KFSConstants.MAINTENANCE_NEW_MAINTAINABLE + "add.accountDelegateModelDetails.financialDocumentTypeCode", KFSKeyConstants.ERROR_DOCUMENT_DELEGATE_CHANGE_NO_DELEGATE, new String[0]);
         }
-        
-        success &= checkDelegateModel(globalDelegateTemplate);        
+
+        success &= checkDelegateModel(globalDelegateTemplate);
         return success;
     }
 
@@ -214,8 +215,7 @@ public class AccountDelegateModelRule extends KfsMaintenanceDocumentRuleBase {
             success = false;
             if (globalDelegateTemplate.getAccountDelegateModelDetails().size() == 0) {
                 GlobalVariables.getMessageMap().putError(KFSConstants.MAINTENANCE_NEW_MAINTAINABLE + "add.accountDelegateModelDetails.active", KFSKeyConstants.ERROR_DOCUMENT_DELEGATE_CHANGE_NO_ACTIVE_DELEGATE, new String[0]);
-            }
-            else {
+            } else {
                 GlobalVariables.getMessageMap().putError(KFSConstants.MAINTENANCE_NEW_MAINTAINABLE + "accountDelegateModelDetails[0].active", KFSKeyConstants.ERROR_DOCUMENT_DELEGATE_CHANGE_NO_ACTIVE_DELEGATE, new String[0]);
             }
         }
@@ -275,22 +275,21 @@ public class AccountDelegateModelRule extends KfsMaintenanceDocumentRuleBase {
         // refresh account delegate
         try {
             delegateModel.setAccountDelegate(SpringContext.getBean(org.kuali.rice.kim.api.identity.PersonService.class).getPerson(delegateModel.getAccountDelegateUniversalId()));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("User Not Found Exception: " + e);
             }
         }
 
         // user must exist
-        if ((delegateModel.getAccountDelegate() == null) || (delegateModel.getAccountDelegate().getPrincipalId() == null)){
+        if ((delegateModel.getAccountDelegate() == null) || (delegateModel.getAccountDelegate().getPrincipalId() == null)) {
             GlobalVariables.getMessageMap().putError("accountDelegate.principalName", KFSKeyConstants.ERROR_DOCUMENT_ACCTDELEGATEMAINT_USER_DOESNT_EXIST, new String[0]);
             success = false;
         }
 
         if (success) {
             if (!getDocumentHelperService().getDocumentAuthorizer(document).isAuthorized(document, KFSConstants.PermissionNames.SERVE_AS_FISCAL_OFFICER_DELEGATE.namespace, KFSConstants.PermissionNames.SERVE_AS_FISCAL_OFFICER_DELEGATE.name, delegateModel.getAccountDelegate().getPrincipalId())) {
-                super.putFieldError("accountDelegate.principalName", KFSKeyConstants.ERROR_USER_MISSING_PERMISSION, new String[] {delegateModel.getAccountDelegate().getName(), KFSConstants.PermissionNames.SERVE_AS_FISCAL_OFFICER_DELEGATE.namespace, KFSConstants.PermissionNames.SERVE_AS_FISCAL_OFFICER_DELEGATE.name});
+                super.putFieldError("accountDelegate.principalName", KFSKeyConstants.ERROR_USER_MISSING_PERMISSION, new String[]{delegateModel.getAccountDelegate().getName(), KFSConstants.PermissionNames.SERVE_AS_FISCAL_OFFICER_DELEGATE.namespace, KFSConstants.PermissionNames.SERVE_AS_FISCAL_OFFICER_DELEGATE.name});
                 success = false;
             }
         }
@@ -305,7 +304,7 @@ public class AccountDelegateModelRule extends KfsMaintenanceDocumentRuleBase {
      * return Null. It will only process the business rules if there is sufficient data to do so.
      *
      * @param delegateGlobalToTest A delegateGlobal line that you want to test against the list.
-     * @param delegateGlobals A List of delegateGlobal items that is being tested against.
+     * @param delegateGlobals      A List of delegateGlobal items that is being tested against.
      * @return true if model, delegate template or org routing model is null, or if the primary routing indicator is set to false or the doc type code is empty
      * otherwise it checks to make sure that there is indeed one model marked as the primary route
      */
@@ -338,13 +337,14 @@ public class AccountDelegateModelRule extends KfsMaintenanceDocumentRuleBase {
 
     /**
      * Validates the document type code for the delegate, to make sure it is a Financial System document type code
+     *
      * @param documentTypeCode the document type code to check
-     * @param delegateService a helpful instance of the delegate service, so new ones don't have to be created all the time
+     * @param delegateService  a helpful instance of the delegate service, so new ones don't have to be created all the time
      * @return true if the document type code is valid, false otherwise
      */
     protected boolean checkDelegateDocumentTypeCode(String documentTypeCode, FinancialSystemDocumentTypeService documentService) {
         if (!documentService.isFinancialSystemDocumentType(documentTypeCode)) {
-            putFieldError("financialDocumentTypeCode", KFSKeyConstants.ERROR_DOCUMENT_ACCTDELEGATEMAINT_INVALID_DOC_TYPE, new String[] { documentTypeCode, KFSConstants.ROOT_DOCUMENT_TYPE });
+            putFieldError("financialDocumentTypeCode", KFSKeyConstants.ERROR_DOCUMENT_ACCTDELEGATEMAINT_INVALID_DOC_TYPE, new String[]{documentTypeCode, KFSConstants.ROOT_DOCUMENT_TYPE});
             return false;
         }
         return true;

@@ -1,26 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.document.workflow;
-
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import org.joda.time.DateTime;
 import org.kuali.rice.core.api.uif.RemotableAttributeError;
@@ -44,15 +40,17 @@ import org.kuali.rice.kew.api.document.DocumentStatus;
 import org.kuali.rice.kew.api.document.attribute.WorkflowAttributeDefinition;
 import org.kuali.rice.kew.api.document.node.RouteNodeInstance;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 /**
  * This class is the base class for a MockWorkflowDocument. It can be extended by any other kind of mock document that needs to
  * override certain methods. This class has absolutely no state or behavior. There is no public constructor, and no member
  * variables. All void methods do nothing. All methods with a return value return null. All state and behavior needs to be added via
  * a subclass.
  */
-/**
- *
- */
+
 public abstract class MockWorkflowDocument implements WorkflowDocument {
 
     /**
@@ -612,11 +610,11 @@ public abstract class MockWorkflowDocument implements WorkflowDocument {
     /**
      * @see org.kuali.rice.kew.api.WorkflowDocument#returnToPreviousNode(org.kuali.rice.kew.api.action.ReturnPoint, java.lang.String)
      */
-  //  @Override
-  //  public void returnToPreviousNode(ReturnPoint returnPoint, String annotation) {
-  //      // TODO Auto-generated method stub
+    //  @Override
+    //  public void returnToPreviousNode(ReturnPoint returnPoint, String annotation) {
+    //      // TODO Auto-generated method stub
 //
-  //  }
+    //  }
 
     /**
      * @see org.kuali.rice.kew.api.WorkflowDocument#move(org.kuali.rice.kew.api.action.MovePoint, java.lang.String)
@@ -989,6 +987,7 @@ public abstract class MockWorkflowDocument implements WorkflowDocument {
         // TODO Auto-generated method stub
         return null;
     }
+
     @Override
     public String getDocumentId() {
         // TODO Auto-generated method stub
@@ -1019,16 +1018,19 @@ public abstract class MockWorkflowDocument implements WorkflowDocument {
         // TODO Auto-generated method stub
         return null;
     }
+
     @Override
     public DocumentStatus getStatus() {
         // TODO Auto-generated method stub
         return null;
     }
+
     @Override
     public String getTitle() {
         // TODO Auto-generated method stub
         return null;
     }
+
     @Override
     public Map<String, String> getVariables() {
         // TODO Auto-generated method stub

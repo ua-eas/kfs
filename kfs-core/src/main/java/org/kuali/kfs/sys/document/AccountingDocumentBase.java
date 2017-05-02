@@ -1,30 +1,30 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.document;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.fp.businessobject.SalesTax;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.document.TransactionalDocument;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.AccountingLineBase;
@@ -48,11 +48,12 @@ import org.kuali.kfs.sys.service.AccountingLineService;
 import org.kuali.kfs.sys.service.GeneralLedgerPendingEntryService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.document.TransactionalDocument;
-import org.kuali.rice.krad.exception.ValidationException;
-import org.kuali.rice.krad.rules.rule.event.KualiDocumentEvent;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Base implementation class for financial edocs.
@@ -154,11 +155,9 @@ public abstract class AccountingDocumentBase extends GeneralLedgerPostingDocumen
         while (getSourceAccountingLines().size() <= index) {
             try {
                 getSourceAccountingLines().add(getSourceAccountingLineClass().newInstance());
-            }
-            catch (InstantiationException e) {
+            } catch (InstantiationException e) {
                 throw new RuntimeException("Unable to get class");
-            }
-            catch (IllegalAccessException e) {
+            } catch (IllegalAccessException e) {
                 throw new RuntimeException("Unable to get class");
             }
         }
@@ -179,11 +178,9 @@ public abstract class AccountingDocumentBase extends GeneralLedgerPostingDocumen
         while (getTargetAccountingLines().size() <= index) {
             try {
                 getTargetAccountingLines().add(getTargetAccountingLineClass().newInstance());
-            }
-            catch (InstantiationException e) {
+            } catch (InstantiationException e) {
                 throw new RuntimeException("Unable to get class");
-            }
-            catch (IllegalAccessException e) {
+            } catch (IllegalAccessException e) {
                 throw new RuntimeException("Unable to get class");
             }
         }
@@ -324,11 +321,9 @@ public abstract class AccountingDocumentBase extends GeneralLedgerPostingDocumen
             if (getDataDictionaryEntry().getImportedLineParserClass() != null) {
                 return getDataDictionaryEntry().getImportedLineParserClass().newInstance();
             }
-        }
-        catch (InstantiationException ie) {
+        } catch (InstantiationException ie) {
             throw new IllegalStateException("Accounting Line Parser class " + getDataDictionaryEntry().getImportedLineParserClass().getName() + " cannot be instantiated", ie);
-        }
-        catch (IllegalAccessException iae) {
+        } catch (IllegalAccessException iae) {
             throw new IllegalStateException("Illegal Access Exception while attempting to instantiate Accounting Line Parser class " + getDataDictionaryEntry().getImportedLineParserClass().getName(), iae);
         }
         return new AccountingLineParserBase();
@@ -404,43 +399,43 @@ public abstract class AccountingDocumentBase extends GeneralLedgerPostingDocumen
     /**
      * Checks for accounting lines that may need an account override.
      */
-    protected void setExpiredAccountOverrides(){
+    protected void setExpiredAccountOverrides() {
         List<AccountingLine> accountingLines = new ArrayList<AccountingLine>(getSourceAccountingLines());
         accountingLines.addAll(getTargetAccountingLines());
-        for (AccountingLine accountingLine : accountingLines){
+        for (AccountingLine accountingLine : accountingLines) {
             setExpiredAccountOverride(accountingLine);
         }
     }
 
-    protected void setExpiredAccountOverride(AccountingLine accountingLine){
+    protected void setExpiredAccountOverride(AccountingLine accountingLine) {
         boolean needsOverride = AccountingLineOverride.needsExpiredAccountOverride(accountingLine, this.isDocumentFinalOrProcessed());
         accountingLine.setAccountExpiredOverrideNeeded(needsOverride);
-     }
-     
-     protected void correctSalesTax(){
-                 List<AccountingLine> lines = new ArrayList<AccountingLine>(getSourceAccountingLines());
-                 lines.addAll(getTargetAccountingLines());
-                 for (AccountingLine accountingLine : lines) {
-                     SalesTax tax = accountingLine.getSalesTax();
-                     if (ObjectUtils.isNotNull(tax)) {
-                         KualiDecimal tempAmount = tax.getFinancialDocumentGrossSalesAmount();
-                         if (ObjectUtils.isNotNull(tempAmount)) {
-                             tax.setFinancialDocumentGrossSalesAmount(tempAmount.negated());
-                         }
-                         tempAmount = tax.getFinancialDocumentTaxableSalesAmount();
-                         if (ObjectUtils.isNotNull(tempAmount)){
-                             tax.setFinancialDocumentTaxableSalesAmount(tempAmount.negated());
-                         }
-                     }
-                 }
-     }
+    }
+
+    protected void correctSalesTax() {
+        List<AccountingLine> lines = new ArrayList<AccountingLine>(getSourceAccountingLines());
+        lines.addAll(getTargetAccountingLines());
+        for (AccountingLine accountingLine : lines) {
+            SalesTax tax = accountingLine.getSalesTax();
+            if (ObjectUtils.isNotNull(tax)) {
+                KualiDecimal tempAmount = tax.getFinancialDocumentGrossSalesAmount();
+                if (ObjectUtils.isNotNull(tempAmount)) {
+                    tax.setFinancialDocumentGrossSalesAmount(tempAmount.negated());
+                }
+                tempAmount = tax.getFinancialDocumentTaxableSalesAmount();
+                if (ObjectUtils.isNotNull(tempAmount)) {
+                    tax.setFinancialDocumentTaxableSalesAmount(tempAmount.negated());
+                }
+            }
+        }
+    }
 
     /**
      * Copies accounting lines but sets new document number and version If error correction, reverses line amount.
      */
     protected void copyAccountingLines(boolean isErrorCorrection) {
         if (getSourceAccountingLines() != null) {
-            for (Iterator iter = getSourceAccountingLines().iterator(); iter.hasNext();) {
+            for (Iterator iter = getSourceAccountingLines().iterator(); iter.hasNext(); ) {
                 AccountingLineBase sourceLine = (AccountingLineBase) iter.next();
                 sourceLine.setDocumentNumber(getDocumentNumber());
                 sourceLine.setVersionNumber(new Long(1));
@@ -451,7 +446,7 @@ public abstract class AccountingDocumentBase extends GeneralLedgerPostingDocumen
         }
 
         if (getTargetAccountingLines() != null) {
-            for (Iterator iter = getTargetAccountingLines().iterator(); iter.hasNext();) {
+            for (Iterator iter = getTargetAccountingLines().iterator(); iter.hasNext(); ) {
                 AccountingLineBase targetLine = (AccountingLineBase) iter.next();
                 targetLine.setDocumentNumber(getDocumentNumber());
                 targetLine.setVersionNumber(new Long(1));
@@ -493,7 +488,7 @@ public abstract class AccountingDocumentBase extends GeneralLedgerPostingDocumen
     @Override
     public void prepareForSave(KualiDocumentEvent event) {
         if (!(event instanceof AccountingDocumentSaveWithNoLedgerEntryGenerationEvent)) { // only generate entries if the rule event
-                                                                                          // specifically allows us to
+            // specifically allows us to
             if (!SpringContext.getBean(GeneralLedgerPendingEntryService.class).generateGeneralLedgerPendingEntries(this)) {
                 logErrors();
                 throw new ValidationException("general ledger GLPE generation failed");
@@ -515,7 +510,7 @@ public abstract class AccountingDocumentBase extends GeneralLedgerPostingDocumen
         List currentSourceLines = getSourceAccountingLinesForComparison();
 
         List sourceEvents = generateEvents(persistedSourceLines, currentSourceLines, KFSConstants.DOCUMENT_PROPERTY_NAME + "." + KFSConstants.SOURCE_ACCOUNTING_LINE_ERRORS, this);
-        for (Iterator i = sourceEvents.iterator(); i.hasNext();) {
+        for (Iterator i = sourceEvents.iterator(); i.hasNext(); ) {
             AccountingLineEvent sourceEvent = (AccountingLineEvent) i.next();
             events.add(sourceEvent);
         }
@@ -524,7 +519,7 @@ public abstract class AccountingDocumentBase extends GeneralLedgerPostingDocumen
         List currentTargetLines = getTargetAccountingLinesForComparison();
 
         List targetEvents = generateEvents(persistedTargetLines, currentTargetLines, KFSConstants.DOCUMENT_PROPERTY_NAME + "." + KFSConstants.TARGET_ACCOUNTING_LINE_ERRORS, this);
-        for (Iterator i = targetEvents.iterator(); i.hasNext();) {
+        for (Iterator i = targetEvents.iterator(); i.hasNext(); ) {
             AccountingLineEvent targetEvent = (AccountingLineEvent) i.next();
             events.add(targetEvent);
         }
@@ -604,15 +599,13 @@ public abstract class AccountingDocumentBase extends GeneralLedgerPostingDocumen
                 if (!currentLine.isLike(persistedLine)) {
                     UpdateAccountingLineEvent updateEvent = new UpdateAccountingLineEvent(indexedErrorPathPrefix, document, persistedLine, currentLine);
                     updateEvents.add(updateEvent);
-                }
-                else {
+                } else {
                     ReviewAccountingLineEvent reviewEvent = new ReviewAccountingLineEvent(indexedErrorPathPrefix, document, currentLine);
                     reviewEvents.add(reviewEvent);
                 }
 
                 persistedLineMap.remove(key);
-            }
-            else {
+            } else {
                 // it must be a new addition
                 AddAccountingLineEvent addEvent = new AddAccountingLineEvent(indexedErrorPathPrefix, document, currentLine);
                 addEvents.add(addEvent);
@@ -620,7 +613,7 @@ public abstract class AccountingDocumentBase extends GeneralLedgerPostingDocumen
         }
 
         // detect deletions
-        for (Iterator i = persistedLineMap.entrySet().iterator(); i.hasNext();) {
+        for (Iterator i = persistedLineMap.entrySet().iterator(); i.hasNext(); ) {
             // the deleted line is not displayed on the page, so associate the error with the whole group
             String groupErrorPathPrefix = errorPathPrefix + KFSConstants.ACCOUNTING_LINE_GROUP_SUFFIX;
             Map.Entry e = (Map.Entry) i.next();
@@ -649,7 +642,7 @@ public abstract class AccountingDocumentBase extends GeneralLedgerPostingDocumen
     protected Map buildAccountingLineMap(List accountingLines) {
         Map lineMap = new HashMap();
 
-        for (Iterator i = accountingLines.iterator(); i.hasNext();) {
+        for (Iterator i = accountingLines.iterator(); i.hasNext(); ) {
             AccountingLine accountingLine = (AccountingLine) i.next();
             Integer sequenceNumber = accountingLine.getSequenceNumber();
 
@@ -668,7 +661,7 @@ public abstract class AccountingDocumentBase extends GeneralLedgerPostingDocumen
      * Perform business rules common to all transactional documents when generating general ledger pending entries.
      *
      * @see org.kuali.rice.krad.rule.GenerateGeneralLedgerPendingEntriesRule#processGenerateGeneralLedgerPendingEntries(org.kuali.rice.krad.document.AccountingDocument,
-     *      org.kuali.rice.krad.bo.AccountingLine, org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper)
+     * org.kuali.rice.krad.bo.AccountingLine, org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper)
      */
     @Override
     public boolean generateGeneralLedgerPendingEntries(GeneralLedgerPendingEntrySourceDetail glpeSourceDetail, GeneralLedgerPendingEntrySequenceHelper sequenceHelper) {
@@ -760,8 +753,8 @@ public abstract class AccountingDocumentBase extends GeneralLedgerPostingDocumen
     /**
      * Most accounting documents don't need to generate document level GLPE's, so don't do anything in the default implementation
      *
-     * @see org.kuali.kfs.document.GeneralLedgerPostingHelper#processGenerateDocumentGeneralLedgerPendingEntries(org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper)
      * @return always true, because we've always successfully not generating anything
+     * @see org.kuali.kfs.document.GeneralLedgerPostingHelper#processGenerateDocumentGeneralLedgerPendingEntries(org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper)
      */
     @Override
     public boolean generateDocumentGeneralLedgerPendingEntries(GeneralLedgerPendingEntrySequenceHelper sequenceHelper) {
@@ -789,18 +782,17 @@ public abstract class AccountingDocumentBase extends GeneralLedgerPostingDocumen
     }
 
     /**
-     *
      * @see org.kuali.kfs.sys.document.AccountingDocument#isDocumentFinalOrProcessed()
      */
     @Override
     public boolean isDocumentFinalOrProcessed() {
         boolean isDocumentFinalOrProcessed = false;
-        if(ObjectUtils.isNotNull(getDocumentHeader().getDocumentNumber())) {
-           if(getDocumentHeader().hasWorkflowDocument()) {
-               if(getDocumentHeader().getWorkflowDocument().isFinal() || getDocumentHeader().getWorkflowDocument().isProcessed()) {
-                   isDocumentFinalOrProcessed = true;
-               }
-           }
+        if (ObjectUtils.isNotNull(getDocumentHeader().getDocumentNumber())) {
+            if (getDocumentHeader().hasWorkflowDocument()) {
+                if (getDocumentHeader().getWorkflowDocument().isFinal() || getDocumentHeader().getWorkflowDocument().isProcessed()) {
+                    isDocumentFinalOrProcessed = true;
+                }
+            }
 
         }
 

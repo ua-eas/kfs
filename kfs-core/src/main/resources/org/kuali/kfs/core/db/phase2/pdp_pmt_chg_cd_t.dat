@@ -1,0 +1,12 @@
+HEADER[~&~	~&~PMT_CHG_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~PMT_CHG_CD_DESC::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'BC'~&~	~&~'582371A112D54DEDE0404F8189D83A6C'~&~	~&~'1'~&~	~&~'Change Bank'~&~	~&~]RECORD
+RECORD[~&~	~&~'CB'~&~	~&~'3C4DCACBEAB830FEE043814FD88130FE'~&~	~&~'0'~&~	~&~'Cancel Batch'~&~	~&~]RECORD
+RECORD[~&~	~&~'CD'~&~	~&~'3C4DCACBEAB930FEE043814FD88130FE'~&~	~&~'0'~&~	~&~'Cancel Disbursement'~&~	~&~]RECORD
+RECORD[~&~	~&~'CP'~&~	~&~'3C4DCACBEAB730FEE043814FD88130FE'~&~	~&~'0'~&~	~&~'Cancel Payment'~&~	~&~]RECORD
+RECORD[~&~	~&~'CRD'~&~	~&~'3C4DCACBEABA30FEE043814FD88130FE'~&~	~&~'0'~&~	~&~'Cancel-Reissue Disbursement'~&~	~&~]RECORD
+RECORD[~&~	~&~'HB'~&~	~&~'3C4DCACBEAB430FEE043814FD88130FE'~&~	~&~'0'~&~	~&~'Hold Batch'~&~	~&~]RECORD
+RECORD[~&~	~&~'HP'~&~	~&~'3C4DCACBEAB330FEE043814FD88130FE'~&~	~&~'0'~&~	~&~'Hold Payment'~&~	~&~]RECORD
+RECORD[~&~	~&~'IMP'~&~	~&~'3C4DCACBEABB30FEE043814FD88130FE'~&~	~&~'0'~&~	~&~'Change Immediate Print'~&~	~&~]RECORD
+RECORD[~&~	~&~'RC'~&~	~&~'A6B78C3A1D8DFD23E040007F01002521'~&~	~&~'0'~&~	~&~'REISSUE CANCEL'~&~	~&~]RECORD
+RECORD[~&~	~&~'RHB'~&~	~&~'3C4DCACBEAB630FEE043814FD88130FE'~&~	~&~'0'~&~	~&~'Release Hold on Batch'~&~	~&~]RECORD
+RECORD[~&~	~&~'RHP'~&~	~&~'3C4DCACBEAB530FEE043814FD88130FE'~&~	~&~'0'~&~	~&~'Release Hold on Payment'~&~	~&~]RECORD

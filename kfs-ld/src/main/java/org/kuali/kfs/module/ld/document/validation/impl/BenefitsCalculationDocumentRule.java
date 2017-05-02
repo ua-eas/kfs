@@ -1,23 +1,27 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ld.document.validation.impl;
 
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ld.LaborConstants;
 import org.kuali.kfs.module.ld.LaborKeyConstants;
 import org.kuali.kfs.module.ld.businessobject.BenefitsCalculation;
@@ -25,10 +29,6 @@ import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase;
-import org.kuali.rice.krad.util.ObjectUtils;
 
 /**
  * Business rule(s) applicable to Benefit Calculation Documents.
@@ -48,7 +48,7 @@ public class BenefitsCalculationDocumentRule extends MaintenanceDocumentRuleBase
 
     /**
      * Processes the rules
-     * 
+     *
      * @param document MaintenanceDocument type of document to be processed.
      * @return boolean true when success
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomApproveDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
@@ -66,7 +66,7 @@ public class BenefitsCalculationDocumentRule extends MaintenanceDocumentRuleBase
 
     /**
      * Processes the rules
-     * 
+     *
      * @param document MaintenanceDocument type of document to be processed.
      * @return boolean true when success
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomRouteDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
@@ -86,7 +86,7 @@ public class BenefitsCalculationDocumentRule extends MaintenanceDocumentRuleBase
 
     /**
      * Processes the rules
-     * 
+     *
      * @param document MaintenanceDocument type of document to be processed.
      * @return boolean true when success
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomSaveDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
@@ -106,7 +106,7 @@ public class BenefitsCalculationDocumentRule extends MaintenanceDocumentRuleBase
 
     /**
      * Checks the fringe benefit percentage cannot be equal to or over 100%
-     * 
+     *
      * @param document MaintenanceDocument type
      * @return boolean false when the fringe benefit percentage cannot be equal to or over 100%
      */
@@ -121,7 +121,7 @@ public class BenefitsCalculationDocumentRule extends MaintenanceDocumentRuleBase
                 success = false;
             }
         }
-        success &= checkLaborBenefitRateCategory();    
+        success &= checkLaborBenefitRateCategory();
         return success;
     }
 
@@ -143,7 +143,7 @@ public class BenefitsCalculationDocumentRule extends MaintenanceDocumentRuleBase
                     if (newBenefitsCalculation.getLaborBenefitRateCategory() == null) {
                         putFieldError("laborBenefitRateCategoryCode", KFSKeyConstants.ERROR_LABOR_BENEFIT_CATEGORY_CODE);
                         success &= false;
-                    }   
+                    }
 
                 }
             }
@@ -155,7 +155,7 @@ public class BenefitsCalculationDocumentRule extends MaintenanceDocumentRuleBase
      * This method sets the convenience objects like newAccount and oldAccount, so you have short and easy handles to the new and
      * old objects contained in the maintenance document. It also calls the BusinessObjectBase.refresh(), which will attempt to load
      * all sub-objects from the DB by their primary keys, if available.
-     * 
+     *
      * @param document - the maintenanceDocument being evaluated
      * @return none
      */

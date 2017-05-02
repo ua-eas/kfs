@@ -1,26 +1,23 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.gl.businessobject;
-
-import java.sql.Date;
-import java.sql.Timestamp;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
@@ -32,6 +29,7 @@ import org.kuali.kfs.coa.businessobject.ObjectType;
 import org.kuali.kfs.coa.businessobject.ProjectCode;
 import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.sys.businessobject.OriginationCode;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.kfs.sys.businessobject.UniversityDate;
@@ -41,11 +39,12 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.doctype.DocumentTypeService;
 import org.kuali.rice.kew.doctype.bo.DocumentType;
 import org.kuali.rice.kew.doctype.bo.DocumentTypeEBO;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+
+import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * Represents a G/L entry
- *
  */
 public class Entry extends PersistableBusinessObjectBase implements Transaction {
     static final long serialVersionUID = -24983129882357448L;
@@ -237,13 +236,13 @@ public class Entry extends PersistableBusinessObjectBase implements Transaction 
      */
     @Override
     public DocumentTypeEBO getFinancialSystemDocumentTypeCode() {
-        if ( StringUtils.isBlank( financialDocumentTypeCode ) ) {
+        if (StringUtils.isBlank(financialDocumentTypeCode)) {
             financialSystemDocumentTypeCode = null;
         } else {
-            if ( financialSystemDocumentTypeCode == null || !StringUtils.equals(financialDocumentTypeCode, financialSystemDocumentTypeCode.getName() ) ) {
+            if (financialSystemDocumentTypeCode == null || !StringUtils.equals(financialDocumentTypeCode, financialSystemDocumentTypeCode.getName())) {
                 org.kuali.rice.kew.api.doctype.DocumentType temp = SpringContext.getBean(DocumentTypeService.class).getDocumentTypeByName(financialDocumentTypeCode);
-                if ( temp != null ) {
-                    financialSystemDocumentTypeCode = DocumentType.from( temp );
+                if (temp != null) {
+                    financialSystemDocumentTypeCode = DocumentType.from(temp);
                 } else {
                     financialSystemDocumentTypeCode = null;
                 }
@@ -862,13 +861,13 @@ public class Entry extends PersistableBusinessObjectBase implements Transaction 
      * @return Returns the referenceFinancialSystemDocumentTypeCode.
      */
     public DocumentTypeEBO getReferenceFinancialSystemDocumentTypeCode() {
-        if ( StringUtils.isBlank( referenceFinancialDocumentTypeCode ) ) {
+        if (StringUtils.isBlank(referenceFinancialDocumentTypeCode)) {
             referenceFinancialSystemDocumentTypeCode = null;
         } else {
-            if ( referenceFinancialSystemDocumentTypeCode == null || !StringUtils.equals(referenceFinancialDocumentTypeCode, referenceFinancialSystemDocumentTypeCode.getName() ) ) {
+            if (referenceFinancialSystemDocumentTypeCode == null || !StringUtils.equals(referenceFinancialDocumentTypeCode, referenceFinancialSystemDocumentTypeCode.getName())) {
                 org.kuali.rice.kew.api.doctype.DocumentType temp = SpringContext.getBean(DocumentTypeService.class).getDocumentTypeByName(referenceFinancialDocumentTypeCode);
-                if ( temp != null ) {
-                    referenceFinancialSystemDocumentTypeCode = DocumentType.from( temp );
+                if (temp != null) {
+                    referenceFinancialSystemDocumentTypeCode = DocumentType.from(temp);
                 } else {
                     referenceFinancialSystemDocumentTypeCode = null;
                 }

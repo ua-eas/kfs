@@ -1,29 +1,32 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.businessobject.DisbursementVoucherPayeeDetail;
 import org.kuali.kfs.fp.document.DisbursementVoucherConstants;
 import org.kuali.kfs.fp.document.DisbursementVoucherDocument;
 import org.kuali.kfs.fp.document.service.DisbursementVoucherPayeeService;
 import org.kuali.kfs.fp.document.service.DisbursementVoucherPaymentReasonService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -35,9 +38,6 @@ import org.kuali.kfs.vnd.document.service.VendorService;
 import org.kuali.rice.core.api.parameter.ParameterEvaluator;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.MessageMap;
 
 public class DisbursementVoucherPaymentReasonValidation extends GenericValidation implements DisbursementVoucherConstants {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DisbursementVoucherPaymentReasonValidation.class);
@@ -55,7 +55,7 @@ public class DisbursementVoucherPaymentReasonValidation extends GenericValidatio
      */
     public boolean validate(AttributedDocumentEvent event) {
         LOG.debug("validate start");
-        
+
         boolean isValid = true;
 
         DisbursementVoucherDocument document = (DisbursementVoucherDocument) accountingDocumentForValidation;
@@ -134,8 +134,8 @@ public class DisbursementVoucherPaymentReasonValidation extends GenericValidatio
 
     /**
      * Retrieves the VendorDetail object from the vendor id number.
-     * 
-     * @param vendorIdNumber vendor ID number
+     *
+     * @param vendorIdNumber       vendor ID number
      * @param vendorDetailIdNumber vendor detail ID number
      * @return <code>VendorDetail</code>
      */
@@ -144,7 +144,8 @@ public class DisbursementVoucherPaymentReasonValidation extends GenericValidatio
     }
 
     /**
-     * Gets the parameterService attribute. 
+     * Gets the parameterService attribute.
+     *
      * @return Returns the parameterService.
      */
     public ParameterService getParameterService() {
@@ -152,7 +153,8 @@ public class DisbursementVoucherPaymentReasonValidation extends GenericValidatio
     }
 
     /**
-     * Gets the disbursementVoucherPaymentReasonService attribute. 
+     * Gets the disbursementVoucherPaymentReasonService attribute.
+     *
      * @return Returns the disbursementVoucherPaymentReasonService.
      */
     public DisbursementVoucherPaymentReasonService getDisbursementVoucherPaymentReasonService() {
@@ -160,7 +162,8 @@ public class DisbursementVoucherPaymentReasonValidation extends GenericValidatio
     }
 
     /**
-     * Gets the disbursementVoucherPayeeService attribute. 
+     * Gets the disbursementVoucherPayeeService attribute.
+     *
      * @return Returns the disbursementVoucherPayeeService.
      */
     public DisbursementVoucherPayeeService getDisbursementVoucherPayeeService() {
@@ -169,7 +172,7 @@ public class DisbursementVoucherPaymentReasonValidation extends GenericValidatio
 
     /**
      * Sets the accountingDocumentForValidation attribute value.
-     * 
+     *
      * @param accountingDocumentForValidation The accountingDocumentForValidation to set.
      */
     public void setAccountingDocumentForValidation(AccountingDocument accountingDocumentForValidation) {
@@ -178,7 +181,7 @@ public class DisbursementVoucherPaymentReasonValidation extends GenericValidatio
 
     /**
      * Sets the parameterService attribute value.
-     * 
+     *
      * @param parameterService The parameterService to set.
      */
     public void setParameterService(ParameterService parameterService) {
@@ -187,7 +190,7 @@ public class DisbursementVoucherPaymentReasonValidation extends GenericValidatio
 
     /**
      * Gets the accountingDocumentForValidation attribute.
-     * 
+     *
      * @return Returns the accountingDocumentForValidation.
      */
     public AccountingDocument getAccountingDocumentForValidation() {
@@ -196,7 +199,7 @@ public class DisbursementVoucherPaymentReasonValidation extends GenericValidatio
 
     /**
      * Sets the disbursementVoucherPaymentReasonService attribute value.
-     * 
+     *
      * @param disbursementVoucherPaymentReasonService The disbursementVoucherPaymentReasonService to set.
      */
     public void setDisbursementVoucherPaymentReasonService(DisbursementVoucherPaymentReasonService disbursementVoucherPaymentReasonService) {
@@ -205,7 +208,7 @@ public class DisbursementVoucherPaymentReasonValidation extends GenericValidatio
 
     /**
      * Sets the disbursementVoucherPayeeService attribute value.
-     * 
+     *
      * @param disbursementVoucherPayeeService The disbursementVoucherPayeeService to set.
      */
     public void setDisbursementVoucherPayeeService(DisbursementVoucherPayeeService disbursementVoucherPayeeService) {

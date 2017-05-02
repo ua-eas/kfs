@@ -1,28 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.fp.businessobject;
 
-import java.util.LinkedHashMap;
-
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 /**
  * This class is used to represent a procurement card vendor business object.
@@ -50,7 +50,7 @@ public class ProcurementCardVendor extends PersistableBusinessObjectBase {
 
     /**
      * Gets the documentNumber attribute.
-     * 
+     *
      * @return Returns the documentNumber
      */
     public String getDocumentNumber() {
@@ -59,7 +59,7 @@ public class ProcurementCardVendor extends PersistableBusinessObjectBase {
 
     /**
      * Sets the documentNumber attribute.
-     * 
+     *
      * @param documentNumber The documentNumber to set.
      */
     public void setDocumentNumber(String documentNumber) {
@@ -69,7 +69,7 @@ public class ProcurementCardVendor extends PersistableBusinessObjectBase {
 
     /**
      * Gets the financialDocumentTransactionLineNumber attribute.
-     * 
+     *
      * @return Returns the financialDocumentTransactionLineNumber
      */
     public Integer getFinancialDocumentTransactionLineNumber() {
@@ -78,7 +78,7 @@ public class ProcurementCardVendor extends PersistableBusinessObjectBase {
 
     /**
      * Sets the financialDocumentTransactionLineNumber attribute.
-     * 
+     *
      * @param financialDocumentTransactionLineNumber The financialDocumentTransactionLineNumber to set.
      */
     public void setFinancialDocumentTransactionLineNumber(Integer financialDocumentTransactionLineNumber) {
@@ -88,7 +88,7 @@ public class ProcurementCardVendor extends PersistableBusinessObjectBase {
 
     /**
      * Gets the vendorName attribute.
-     * 
+     *
      * @return Returns the vendorName
      */
     public String getVendorName() {
@@ -97,7 +97,7 @@ public class ProcurementCardVendor extends PersistableBusinessObjectBase {
 
     /**
      * Sets the vendorName attribute.
-     * 
+     *
      * @param vendorName The vendorName to set.
      */
     public void setVendorName(String vendorName) {
@@ -107,7 +107,7 @@ public class ProcurementCardVendor extends PersistableBusinessObjectBase {
 
     /**
      * Gets the vendorLine1Address attribute.
-     * 
+     *
      * @return Returns the vendorLine1Address
      */
     public String getVendorLine1Address() {
@@ -116,7 +116,7 @@ public class ProcurementCardVendor extends PersistableBusinessObjectBase {
 
     /**
      * Sets the vendorLine1Address attribute.
-     * 
+     *
      * @param vendorLine1Address The vendorLine1Address to set.
      */
     public void setVendorLine1Address(String vendorLine1Address) {
@@ -126,7 +126,7 @@ public class ProcurementCardVendor extends PersistableBusinessObjectBase {
 
     /**
      * Gets the vendorLine2Address attribute.
-     * 
+     *
      * @return Returns the vendorLine2Address
      */
     public String getVendorLine2Address() {
@@ -135,7 +135,7 @@ public class ProcurementCardVendor extends PersistableBusinessObjectBase {
 
     /**
      * Sets the vendorLine2Address attribute.
-     * 
+     *
      * @param vendorLine2Address The vendorLine2Address to set.
      */
     public void setVendorLine2Address(String vendorLine2Address) {
@@ -145,7 +145,7 @@ public class ProcurementCardVendor extends PersistableBusinessObjectBase {
 
     /**
      * Gets the vendorCityName attribute.
-     * 
+     *
      * @return Returns the vendorCityName
      */
     public String getVendorCityName() {
@@ -154,7 +154,7 @@ public class ProcurementCardVendor extends PersistableBusinessObjectBase {
 
     /**
      * Sets the vendorCityName attribute.
-     * 
+     *
      * @param vendorCityName The vendorCityName to set.
      */
     public void setVendorCityName(String vendorCityName) {
@@ -164,7 +164,7 @@ public class ProcurementCardVendor extends PersistableBusinessObjectBase {
 
     /**
      * Gets the vendorStateCode attribute.
-     * 
+     *
      * @return Returns the vendorStateCode
      */
     public String getVendorStateCode() {
@@ -173,7 +173,7 @@ public class ProcurementCardVendor extends PersistableBusinessObjectBase {
 
     /**
      * Sets the vendorStateCode attribute.
-     * 
+     *
      * @param vendorStateCode The vendorStateCode to set.
      */
     public void setVendorStateCode(String vendorStateCode) {
@@ -183,7 +183,7 @@ public class ProcurementCardVendor extends PersistableBusinessObjectBase {
 
     /**
      * Gets the vendorZipCode attribute.
-     * 
+     *
      * @return Returns the vendorZipCode
      */
     public String getVendorZipCode() {
@@ -192,7 +192,7 @@ public class ProcurementCardVendor extends PersistableBusinessObjectBase {
 
     /**
      * Sets the vendorZipCode attribute.
-     * 
+     *
      * @param vendorZipCode The vendorZipCode to set.
      */
     public void setVendorZipCode(String vendorZipCode) {
@@ -202,7 +202,7 @@ public class ProcurementCardVendor extends PersistableBusinessObjectBase {
 
     /**
      * Gets the visaVendorIdentifier attribute.
-     * 
+     *
      * @return Returns the visaVendorIdentifier
      */
     public String getVisaVendorIdentifier() {
@@ -211,7 +211,7 @@ public class ProcurementCardVendor extends PersistableBusinessObjectBase {
 
     /**
      * Sets the visaVendorIdentifier attribute.
-     * 
+     *
      * @param visaVendorIdentifier The visaVendorIdentifier to set.
      */
     public void setVisaVendorIdentifier(String visaVendorIdentifier) {
@@ -221,7 +221,7 @@ public class ProcurementCardVendor extends PersistableBusinessObjectBase {
 
     /**
      * Gets the vendorOrderNumber attribute.
-     * 
+     *
      * @return Returns the vendorOrderNumber
      */
     public String getVendorOrderNumber() {
@@ -230,7 +230,7 @@ public class ProcurementCardVendor extends PersistableBusinessObjectBase {
 
     /**
      * Sets the vendorOrderNumber attribute.
-     * 
+     *
      * @param vendorOrderNumber The vendorOrderNumber to set.
      */
     public void setVendorOrderNumber(String vendorOrderNumber) {
@@ -240,7 +240,7 @@ public class ProcurementCardVendor extends PersistableBusinessObjectBase {
 
     /**
      * Gets the transactionMerchantCategoryCode attribute.
-     * 
+     *
      * @return Returns the transactionMerchantCategoryCode
      */
     public String getTransactionMerchantCategoryCode() {
@@ -249,7 +249,7 @@ public class ProcurementCardVendor extends PersistableBusinessObjectBase {
 
     /**
      * Sets the transactionMerchantCategoryCode attribute.
-     * 
+     *
      * @param transactionMerchantCategoryCode The transactionMerchantCategoryCode to set.
      */
     public void setTransactionMerchantCategoryCode(String transactionMerchantCategoryCode) {

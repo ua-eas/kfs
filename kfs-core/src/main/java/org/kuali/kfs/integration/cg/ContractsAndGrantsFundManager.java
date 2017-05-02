@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -23,7 +23,6 @@ import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
 
 
-
 /**
  * This interface defines all the necessary methods to define a Contracts & Grants fund manager object.
  */
@@ -42,7 +41,7 @@ public interface ContractsAndGrantsFundManager extends ExternalizableBusinessObj
      *
      * @return Returns the proposalNumber
      */
-    public Long getProposalNumber();
+    public String getProposalNumber();
 
 
     /**

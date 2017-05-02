@@ -1,16 +1,15 @@
-# KFS Release 6.0
+# KFS Release 7.0
 
 ## Documentation Links
 
 ### Main Documentation Home
-[https://wiki.kuali.org/x/UgACEw](https://wiki.kuali.org/x/UgACEw)
+[https://kualico.atlassian.net/wiki/display/FINDOC/Kuali+Financials+Documentation](https://kualico.atlassian.net/wiki/display/FINDOC/Kuali+Financials+Documentation)
 
 ## Quick Start
 
-1. Ensure that you have Java 7+ and Maven 3+ installed
-2. Setup a local MySQL 5.5.x database (see technical document link above for details)
-3. Switch to the kfs directory of the distribution
-4. Run maven's tomcat7:run-war to build the project and start a server.
+1. Ensure that you have Java 8+ and Maven 3+ installed
+2. Setup a local MySQL 5.5+ database (see technical document link above for details)
+3. Run mvn package
 
 ## What's Here
 
@@ -25,10 +24,6 @@ The web assets for all KFS modules.
 ### kfs-ar/
 
 The code for the KFS Accounts Receivable module.
-
-### kfs-bc/
-
-The code for the KFS Budget Construction module.
 
 ### kfs-cam/
 
@@ -53,7 +48,3 @@ The code for the KFS Labor Distribution module.
 ### kfs-purap/
 
 The code for the KFS Purchasing and Accounts Payable module.
-
-### kfs-tem/
-
-The code for the KFS Travel and Entertainment module.

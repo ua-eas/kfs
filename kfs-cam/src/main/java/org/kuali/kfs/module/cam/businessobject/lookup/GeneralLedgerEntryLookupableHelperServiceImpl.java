@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  * 
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,31 +18,31 @@
  */
 package org.kuali.kfs.module.cam.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.kuali.kfs.module.cab.CabConstants;
-import org.kuali.kfs.module.cab.CabPropertyConstants;
-import org.kuali.kfs.module.cab.businessobject.GeneralLedgerEntry;
-import org.kuali.kfs.module.cab.businessobject.GeneralLedgerEntryAsset;
-import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableDocument;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.lookup.LookupUtils;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.module.cam.CamsConstants;
+import org.kuali.kfs.module.cam.CamsPropertyConstants;
+import org.kuali.kfs.module.cam.businessobject.GeneralLedgerEntry;
+import org.kuali.kfs.module.cam.businessobject.GeneralLedgerEntryAsset;
+import org.kuali.kfs.module.cam.businessobject.PurchasingAccountsPayableDocument;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.search.SearchOperator;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.services.IdentityManagementService;
-import org.kuali.rice.kns.lookup.HtmlData;
-import org.kuali.rice.kns.lookup.HtmlData.AnchorHtmlData;
-import org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.rice.kns.lookup.LookupUtils;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.lookup.CollectionIncomplete;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class overrides the base getActionUrls method
@@ -52,14 +52,14 @@ public class GeneralLedgerEntryLookupableHelperServiceImpl extends KualiLookupab
     private BusinessObjectService businessObjectService;
 
     /**
-     * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#getCustomActionUrls(org.kuali.rice.krad.bo.BusinessObject,
-     *      java.util.List)
+     * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#getCustomActionUrls(BusinessObject,
+     * List)
      */
     @Override
     public List<HtmlData> getCustomActionUrls(BusinessObject bo, List pkNames) {
         Map<String,String> permissionDetails = new HashMap<String,String>();
-        permissionDetails.put(KimConstants.AttributeConstants.NAMESPACE_CODE, "KFS-CAB");
-        permissionDetails.put(KimConstants.AttributeConstants.ACTION_CLASS, "CapitalAssetInformationAction");
+        permissionDetails.put(KimConstants.AttributeConstants.NAMESPACE_CODE, "KFS-CAM");
+        permissionDetails.put(KimConstants.AttributeConstants.ACTION_CLASS, "org.kuali.kfs.module.cam.web.struts.CapitalAssetInformationAction");
 
         if (!SpringContext.getBean(IdentityManagementService.class).isAuthorizedByTemplateName(GlobalVariables.getUserSession().getPrincipalId(), KRADConstants.KNS_NAMESPACE, KimConstants.PermissionTemplateNames.USE_SCREEN, permissionDetails, null)) {
             return super.getEmptyActionUrls();
@@ -68,20 +68,18 @@ public class GeneralLedgerEntryLookupableHelperServiceImpl extends KualiLookupab
         GeneralLedgerEntry entry = (GeneralLedgerEntry) bo;
         List<HtmlData> anchorHtmlDataList = new ArrayList<HtmlData>();
         if (entry.isActive()) {
-            AnchorHtmlData processLink = new AnchorHtmlData("../cabCapitalAssetInformation.do?methodToCall=process&" + CabPropertyConstants.GeneralLedgerEntry.GENERAL_LEDGER_ACCOUNT_IDENTIFIER + "=" + entry.getGeneralLedgerAccountIdentifier(), "process", "process");
+            AnchorHtmlData processLink = new AnchorHtmlData("../camsCapitalAssetInformation.do?methodToCall=process&" + CamsPropertyConstants.GeneralLedgerEntry.GENERAL_LEDGER_ACCOUNT_IDENTIFIER + "=" + entry.getGeneralLedgerAccountIdentifier(), "process", "process");
             processLink.setTarget(entry.getGeneralLedgerAccountIdentifier().toString());
             anchorHtmlDataList.add(processLink);
-        }
-        else {
+        } else {
             List<GeneralLedgerEntryAsset> generalLedgerEntryAssets = entry.getGeneralLedgerEntryAssets();
             if (!generalLedgerEntryAssets.isEmpty()) {
                 for (GeneralLedgerEntryAsset generalLedgerEntryAsset : generalLedgerEntryAssets) {
-                    AnchorHtmlData viewDocLink = new AnchorHtmlData("../cabCapitalAssetInformation.do?methodToCall=viewDoc&" + "documentNumber" + "=" + generalLedgerEntryAsset.getCapitalAssetManagementDocumentNumber(), "viewDoc", generalLedgerEntryAsset.getCapitalAssetManagementDocumentNumber());
+                    AnchorHtmlData viewDocLink = new AnchorHtmlData("../camsCapitalAssetInformation.do?methodToCall=viewDoc&" + "documentNumber" + "=" + generalLedgerEntryAsset.getCapitalAssetManagementDocumentNumber(), "viewDoc", generalLedgerEntryAsset.getCapitalAssetManagementDocumentNumber());
                     viewDocLink.setTarget(generalLedgerEntryAssets.get(0).getCapitalAssetManagementDocumentNumber());
                     anchorHtmlDataList.add(viewDocLink);
                 }
-            }
-            else {
+            } else {
                 anchorHtmlDataList.add(new AnchorHtmlData("", "n/a", "n/a"));
             }
         }
@@ -91,7 +89,7 @@ public class GeneralLedgerEntryLookupableHelperServiceImpl extends KualiLookupab
     /**
      * This method will remove all PO related transactions from display on GL results
      * 
-     * @see org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl#getSearchResults(java.util.Map)
+     * @see org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl#getSearchResults(Map)
      */
     @Override
     public List<? extends BusinessObject> getSearchResults(Map<String, String> fieldValues) {
@@ -107,13 +105,12 @@ public class GeneralLedgerEntryLookupableHelperServiceImpl extends KualiLookupab
         List<GeneralLedgerEntry> newList = new ArrayList<GeneralLedgerEntry>();
         for (BusinessObject businessObject : searchResults) {
             GeneralLedgerEntry entry = (GeneralLedgerEntry) businessObject;
-            if (!CabConstants.PREQ.equals(entry.getFinancialDocumentTypeCode())) {
-                if (!CabConstants.CM.equals(entry.getFinancialDocumentTypeCode())) {
+            if (!CamsConstants.PREQ.equals(entry.getFinancialDocumentTypeCode())) {
+                if (!CamsConstants.CM.equals(entry.getFinancialDocumentTypeCode())) {
                     newList.add(entry);
-                }
-                else if (CabConstants.CM.equals(entry.getFinancialDocumentTypeCode())) {
+                } else if (CamsConstants.CM.equals(entry.getFinancialDocumentTypeCode())) {
                     Map<String, String> cmKeys = new HashMap<String, String>();
-                    cmKeys.put(CabPropertyConstants.PurchasingAccountsPayableDocument.DOCUMENT_NUMBER, entry.getDocumentNumber());
+                    cmKeys.put(CamsPropertyConstants.PurchasingAccountsPayableDocument.DOCUMENT_NUMBER, entry.getDocumentNumber());
                     // check if CAB PO document exists, if not included
                     Collection<PurchasingAccountsPayableDocument> matchingCreditMemos = businessObjectService.findMatching(PurchasingAccountsPayableDocument.class, cmKeys);
                     if (matchingCreditMemos == null || matchingCreditMemos.isEmpty()) {
@@ -138,17 +135,16 @@ public class GeneralLedgerEntryLookupableHelperServiceImpl extends KualiLookupab
      */
     protected void updateStatusCodeCriteria(Map<String, String> fieldValues) {
         String activityStatusCode = null;
-        if (fieldValues.containsKey(CabPropertyConstants.GeneralLedgerEntry.ACTIVITY_STATUS_CODE)) {
-            activityStatusCode = (String) fieldValues.get(CabPropertyConstants.GeneralLedgerEntry.ACTIVITY_STATUS_CODE);
+        if (fieldValues.containsKey(CamsPropertyConstants.GeneralLedgerEntry.ACTIVITY_STATUS_CODE)) {
+            activityStatusCode = (String) fieldValues.get(CamsPropertyConstants.GeneralLedgerEntry.ACTIVITY_STATUS_CODE);
         }
 
         if (KFSConstants.NON_ACTIVE_INDICATOR.equalsIgnoreCase(activityStatusCode)) {
             // not processed in CAMs: 'N'
-            fieldValues.put(CabPropertyConstants.GeneralLedgerEntry.ACTIVITY_STATUS_CODE, CabConstants.ActivityStatusCode.NEW);
-        }
-        else if (KFSConstants.ACTIVE_INDICATOR.equalsIgnoreCase(activityStatusCode)) {
+            fieldValues.put(CamsPropertyConstants.GeneralLedgerEntry.ACTIVITY_STATUS_CODE, CamsConstants.ActivityStatusCode.NEW);
+        } else if (KFSConstants.ACTIVE_INDICATOR.equalsIgnoreCase(activityStatusCode)) {
             // processed in CAMs: 'E' or 'P'
-            fieldValues.put(CabPropertyConstants.GeneralLedgerEntry.ACTIVITY_STATUS_CODE, CabConstants.ActivityStatusCode.PROCESSED_IN_CAMS + SearchOperator.OR.op() + CabConstants.ActivityStatusCode.ENROUTE);
+            fieldValues.put(CamsPropertyConstants.GeneralLedgerEntry.ACTIVITY_STATUS_CODE, CamsConstants.ActivityStatusCode.PROCESSED_IN_CAMS + SearchOperator.OR.op() + CamsConstants.ActivityStatusCode.ENROUTE);
         }
 
     }

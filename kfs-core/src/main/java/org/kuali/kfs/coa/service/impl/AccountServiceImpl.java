@@ -1,22 +1,46 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.coa.service.impl;
+
+import org.apache.commons.collections.IteratorUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.kuali.kfs.coa.businessobject.Account;
+import org.kuali.kfs.coa.businessobject.AccountDelegate;
+import org.kuali.kfs.coa.dataaccess.AccountDao;
+import org.kuali.kfs.coa.service.AccountService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSConstants.SystemGroupParameterNames;
+import org.kuali.kfs.sys.KFSParameterKeyConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.businessobject.AccountingLine;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.service.NonTransactional;
+import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+import org.kuali.rice.kew.api.doctype.DocumentTypeService;
+import org.kuali.rice.kim.api.identity.Person;
+import org.kuali.rice.kim.util.KimCommonUtils;
+import org.springframework.cache.annotation.Cacheable;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -27,30 +51,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.apache.commons.collections.IteratorUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.kuali.kfs.coa.businessobject.Account;
-import org.kuali.kfs.coa.businessobject.AccountDelegate;
-import org.kuali.kfs.coa.dataaccess.AccountDao;
-import org.kuali.kfs.coa.service.AccountService;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSConstants.SystemGroupParameterNames;
-import org.kuali.kfs.sys.KFSParameterKeyConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.businessobject.AccountingLine;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.service.NonTransactional;
-import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.kew.api.doctype.DocumentTypeService;
-import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kim.util.KimCommonUtils;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.util.ObjectUtils;
-import org.springframework.cache.annotation.Cacheable;
 
 /**
  * This class is the service implementation for the Account structure. This is the default, Kuali provided implementation.
@@ -70,12 +70,12 @@ public class AccountServiceImpl implements AccountService {
      * Retrieves an Account object based on primary key.
      *
      * @param chartOfAccountsCode - Chart of Accounts Code
-     * @param accountNumber - Account Number
+     * @param accountNumber       - Account Number
      * @return Account
      * @see AccountService
      */
     @Override
-    @Cacheable(value=Account.CACHE_NAME, key="#p0+'-'+#p1")
+    @Cacheable(value = Account.CACHE_NAME, key = "#p0+'-'+#p1")
     public Account getByPrimaryId(String chartOfAccountsCode, String accountNumber) {
         if (LOG.isDebugEnabled()) {
             LOG.debug("retrieving account by primaryId (" + chartOfAccountsCode + "," + accountNumber + ")");
@@ -86,7 +86,7 @@ public class AccountServiceImpl implements AccountService {
         Account account = businessObjectService.findByPrimaryKey(Account.class, keys);
 
         if (LOG.isDebugEnabled()) {
-            LOG.debug("retrieved account by primaryId (" + chartOfAccountsCode + "," + accountNumber + "): " + account );
+            LOG.debug("retrieved account by primaryId (" + chartOfAccountsCode + "," + accountNumber + "): " + account);
         }
         return account;
     }
@@ -97,10 +97,10 @@ public class AccountServiceImpl implements AccountService {
      * @see org.kuali.kfs.coa.service.impl.AccountServiceImpl#getByPrimaryId(java.lang.String, java.lang.String)
      */
     @Override
-    @Cacheable(value=Account.CACHE_NAME, key="#p0+'-'+#p1")
+    @Cacheable(value = Account.CACHE_NAME, key = "#p0+'-'+#p1")
     public Account getByPrimaryIdWithCaching(String chartOfAccountsCode, String accountNumber) {
         Account account = getByPrimaryId(chartOfAccountsCode, accountNumber);
-        if ( account != null ) {
+        if (account != null) {
             // force loading of chart reference object
             account.getChartOfAccounts().getChartOfAccountsCode();
         }
@@ -111,7 +111,7 @@ public class AccountServiceImpl implements AccountService {
      * @see org.kuali.kfs.coa.service.AccountService#getAccountsThatUserIsResponsibleFor(org.kuali.bo.user.KualiUser)
      */
     @Override
-    @Cacheable(value=Account.CACHE_NAME, key="'ResponsibleForAccounts'+#p0.principalId")
+    @Cacheable(value = Account.CACHE_NAME, key = "'ResponsibleForAccounts'+#p0.principalId")
     public List getAccountsThatUserIsResponsibleFor(Person person) {
         if (LOG.isDebugEnabled()) {
             LOG.debug("retrieving accountsResponsible list for user " + person.getName());
@@ -127,17 +127,17 @@ public class AccountServiceImpl implements AccountService {
 
     /**
      * @see org.kuali.kfs.coa.service.AccountService#hasResponsibilityOnAccount(org.kuali.rice.kim.api.identity.Person,
-     *      org.kuali.kfs.coa.businessobject.Account)
+     * org.kuali.kfs.coa.businessobject.Account)
      */
     @Override
-    @Cacheable(value=Account.CACHE_NAME, key="'ResponsibilityOnAccount'+#p0.principalId+'-'+#p1.chartOfAccountsCode+'-'+#p1.accountNumber")
+    @Cacheable(value = Account.CACHE_NAME, key = "'ResponsibilityOnAccount'+#p0.principalId+'-'+#p1.chartOfAccountsCode+'-'+#p1.accountNumber")
     public boolean hasResponsibilityOnAccount(Person kualiUser, Account account) {
         return accountDao.determineUserResponsibilityOnAccount(kualiUser, account, dateTimeService.getCurrentSqlDate());
     }
 
     /**
      * @see org.kuali.kfs.coa.service.AccountService#getPrimaryDelegationByExample(org.kuali.kfs.coa.businessobject.AccountDelegate,
-     *      java.lang.String)
+     * java.lang.String)
      */
 
     @Override
@@ -148,7 +148,7 @@ public class AccountServiceImpl implements AccountService {
         if (primaryDelegations.isEmpty()) {
             return null;
         }
-        for (Iterator<AccountDelegate> iterator = primaryDelegations.iterator(); iterator.hasNext();) {
+        for (Iterator<AccountDelegate> iterator = primaryDelegations.iterator(); iterator.hasNext(); ) {
             AccountDelegate delegate = iterator.next();
             if (!KFSConstants.ROOT_DOCUMENT_TYPE.equals(delegate.getFinancialDocumentTypeCode())) {
                 return delegate;
@@ -159,7 +159,7 @@ public class AccountServiceImpl implements AccountService {
 
     /**
      * @see org.kuali.kfs.coa.service.AccountService#getSecondaryDelegationsByExample(org.kuali.kfs.coa.businessobject.AccountDelegate,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Override
     public List getSecondaryDelegationsByExample(AccountDelegate delegateExample, String totalDollarAmount) {
@@ -300,7 +300,7 @@ public class AccountServiceImpl implements AccountService {
      * @see org.kuali.kfs.coa.service.AccountService#getAccountsForAccountNumber(java.lang.String)
      */
     @Override
-    @Cacheable(value=Account.CACHE_NAME, key="'AccountsForAccountNumber'+#p0")
+    @Cacheable(value = Account.CACHE_NAME, key = "'AccountsForAccountNumber'+#p0")
     public Collection<Account> getAccountsForAccountNumber(String accountNumber) {
         return accountDao.getAccountsForAccountNumber(accountNumber);
     }
@@ -309,7 +309,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public String getDefaultLaborBenefitRateCategoryCodeForAccountType(String accountTypeCode) {
         String benefitRateCategory = parameterService.getSubParameterValueAsString(Account.class, "DEFAULT_BENEFIT_RATE_CATEGORY_CODE_BY_ACCOUNT_TYPE", accountTypeCode);
-        if ( StringUtils.isBlank(benefitRateCategory) ) {
+        if (StringUtils.isBlank(benefitRateCategory)) {
             benefitRateCategory = parameterService.getParameterValueAsString(Account.class, KFSParameterKeyConstants.LdParameterConstants.DEFAULT_BENEFIT_RATE_CATEGORY_CODE);
         }
         return StringUtils.trimToEmpty(benefitRateCategory);
@@ -319,17 +319,17 @@ public class AccountServiceImpl implements AccountService {
      * @see org.kuali.kfs.coa.service.AccountService#isFridgeBenefitCalculationEnable()
      */
     @Override
-    public Boolean isFridgeBenefitCalculationEnable(){
+    public Boolean isFridgeBenefitCalculationEnable() {
         Boolean isFringeBeneCalcEnable = null;
 
         //make sure the parameter exists
-        if(parameterService.parameterExists(KfsParameterConstants.FINANCIAL_SYSTEM_ALL.class, KFSParameterKeyConstants.LdParameterConstants.ENABLE_FRINGE_BENEFIT_CALC_BY_BENEFIT_RATE_CATEGORY_IND)){
-          //check the system param to see if the labor benefit rate category should be editable
+        if (parameterService.parameterExists(KfsParameterConstants.FINANCIAL_SYSTEM_ALL.class, KFSParameterKeyConstants.LdParameterConstants.ENABLE_FRINGE_BENEFIT_CALC_BY_BENEFIT_RATE_CATEGORY_IND)) {
+            //check the system param to see if the labor benefit rate category should be editable
             isFringeBeneCalcEnable = SpringContext.getBean(ParameterService.class).getParameterValueAsBoolean(KfsParameterConstants.FINANCIAL_SYSTEM_ALL.class, KFSParameterKeyConstants.LdParameterConstants.ENABLE_FRINGE_BENEFIT_CALC_BY_BENEFIT_RATE_CATEGORY_IND);
             LOG.debug("System Parameter retrieved: " + isFringeBeneCalcEnable);
         }
 
-        return (Boolean)org.apache.commons.lang.ObjectUtils.defaultIfNull(isFringeBeneCalcEnable, false);
+        return (Boolean) org.apache.commons.lang.ObjectUtils.defaultIfNull(isFringeBeneCalcEnable, false);
     }
 
 
@@ -337,7 +337,7 @@ public class AccountServiceImpl implements AccountService {
      * @see org.kuali.kfs.coa.service.AccountService#getUniqueAccountForAccountNumber(java.lang.String)
      */
     @Override
-    @Cacheable(value=Account.CACHE_NAME, key="'UniqueAccountForAccountNumber'+#p0")
+    @Cacheable(value = Account.CACHE_NAME, key = "'UniqueAccountForAccountNumber'+#p0")
     public Account getUniqueAccountForAccountNumber(String accountNumber) {
         Iterator<Account> accounts = accountDao.getAccountsForAccountNumber(accountNumber).iterator();
         Account account = null;

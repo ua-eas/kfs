@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -39,7 +39,7 @@ public class ColumnReconciliation {
 
     /**
      * Gets the dollarAmount attribute.
-     * 
+     *
      * @return Returns the dollarAmount.
      */
     public KualiDecimal getDollarAmount() {
@@ -48,7 +48,7 @@ public class ColumnReconciliation {
 
     /**
      * Sets the dollarAmount attribute value.
-     * 
+     *
      * @param dollarAmount The dollarAmount to set.
      */
     public void setDollarAmount(KualiDecimal dollarAmount) {
@@ -57,7 +57,7 @@ public class ColumnReconciliation {
 
     /**
      * Gets the fieldName attribute.
-     * 
+     *
      * @return Returns the fieldName.
      */
     public String getFieldName() {
@@ -66,7 +66,7 @@ public class ColumnReconciliation {
 
     /**
      * Gets the tokenizedFieldNames attribute
-     * 
+     *
      * @return
      */
     public String[] getTokenizedFieldNames() {
@@ -75,7 +75,7 @@ public class ColumnReconciliation {
 
     /**
      * Sets the fieldName and tokenizedFieldNames attribute values.
-     * 
+     *
      * @param fieldName The fieldName to set.
      */
     public void setFieldName(String fieldName) {

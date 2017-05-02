@@ -1,0 +1,3 @@
+HEADER[~&~	~&~TRANS_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~TRANS_DESC::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'22'~&~	~&~'582371A112D34DEDE0404F8189D83A6C'~&~	~&~'1'~&~	~&~'Checking Deposit (Credit)'~&~	~&~]RECORD
+RECORD[~&~	~&~'32'~&~	~&~'582371A112D44DEDE0404F8189D83A6C'~&~	~&~'1'~&~	~&~'Share Deposit (Credit)'~&~	~&~]RECORD

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+	<changeSet author="kfs" id="kfscd51" context="bootstrap,demo,unit">
+		<insert tableName="krcr_parm_t">
+			<column name="NMSPC_CD"><![CDATA[KFS-PDP]]></column>
+			<column name="CMPNT_CD"><![CDATA[FormatCheckACHStep]]></column>
+			<column name="PARM_NM"><![CDATA[RUN_IND]]></column>
+			<column name="OBJ_ID"><![CDATA[KFSCD51]]></column>
+			<column name="VER_NBR"><![CDATA[1]]></column>
+			<column name="VAL"><![CDATA[N]]></column>
+			<column name="PARM_TYP_CD"><![CDATA[CONFG]]></column>
+			<column name="PARM_DESC_TXT"><![CDATA[Indicates if the pdpFormatCheckACHStep should be ran.]]></column>
+			<column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
+			<column name="APPL_ID"><![CDATA[KFS]]></column>
+		</insert>
+	</changeSet>
+	<changeSet author="kfs" id="kfscd52" context="bootstrap,demo,unit">
+		<insert tableName="krcr_parm_t">
+			<column name="NMSPC_CD"><![CDATA[KFS-PDP]]></column>
+			<column name="CMPNT_CD"><![CDATA[FormatCheckACHStep]]></column>
+			<column name="PARM_NM"><![CDATA[FORMAT_SUMMARY_TO_EMAIL_ADDRESSES]]></column>
+			<column name="OBJ_ID"><![CDATA[KFSCD52]]></column>
+			<column name="VER_NBR"><![CDATA[1]]></column>
+			<column name="VAL"><![CDATA[kfs.notification.batch@kuali.org]]></column>
+			<column name="PARM_TYP_CD"><![CDATA[CONFG]]></column>
+			<column name="PARM_DESC_TXT"><![CDATA[Email addresses that receive notification of summary totals when the Format Check/ACH process is run automatically.]]></column>
+			<column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
+			<column name="APPL_ID"><![CDATA[KFS]]></column>
+		</insert>
+	</changeSet>
+	<changeSet author="kfs" id="kfscd62" context="bootstrap,demo,unit">
+		<insert tableName="krcr_parm_t">
+			<column name="NMSPC_CD"><![CDATA[KFS-PDP]]></column>
+			<column name="CMPNT_CD"><![CDATA[FormatCheckACHByCustomerProfileStep]]></column>
+			<column name="PARM_NM"><![CDATA[FORMAT_CUSTOMER_PROFILE_ID]]></column>
+			<column name="OBJ_ID"><![CDATA[KFSCD62]]></column>
+			<column name="VER_NBR"><![CDATA[1]]></column>
+			<column name="VAL"><![CDATA[]]></column>
+			<column name="PARM_TYP_CD"><![CDATA[CONFG]]></column>
+			<column name="PARM_DESC_TXT"><![CDATA[Customer profile id that will be used to run the auto check/ach format job against when run outside of the normal cycle.]]></column>
+			<column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
+			<column name="APPL_ID"><![CDATA[KFS]]></column>
+		</insert>
+	</changeSet>
+</databaseChangeLog>

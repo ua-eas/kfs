@@ -1,36 +1,36 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.module.ld.businessobject;
 
-import java.sql.Date;
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.gl.businessobject.OriginEntryFull;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.sql.Date;
+import java.util.LinkedHashMap;
 
 /**
  * Labor business object for Labor General ledger Entry
  */
 
-// Temporarily changed to be extended from OriginEntryInformation.   
+// Temporarily changed to be extended from OriginEntryInformation.
 public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     private Integer universityFiscalYear;
@@ -68,7 +68,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Gets the universityFiscalYear.
-     * 
+     *
      * @return Returns the universityFiscalYear
      */
     public Integer getUniversityFiscalYear() {
@@ -77,7 +77,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Sets the universityFiscalYear.
-     * 
+     *
      * @param universityFiscalYear The universityFiscalYear to set.
      */
     public void setUniversityFiscalYear(Integer universityFiscalYear) {
@@ -86,7 +86,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Gets the chartOfAccountsCode.
-     * 
+     *
      * @return Returns the chartOfAccountsCode
      */
     public String getChartOfAccountsCode() {
@@ -95,7 +95,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Sets the chartOfAccountsCode.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -104,7 +104,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Gets the accountNumber.
-     * 
+     *
      * @return Returns the accountNumber
      */
     public String getAccountNumber() {
@@ -113,7 +113,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Sets the accountNumber.
-     * 
+     *
      * @param accountNumber The accountNumber to set.
      */
     public void setAccountNumber(String accountNumber) {
@@ -122,7 +122,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Gets the subAccountNumber.
-     * 
+     *
      * @return Returns the subAccountNumber
      */
     public String getSubAccountNumber() {
@@ -131,7 +131,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Sets the subAccountNumber.
-     * 
+     *
      * @param subAccountNumber The subAccountNumber to set.
      */
     public void setSubAccountNumber(String subAccountNumber) {
@@ -140,7 +140,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Gets the financialObjectCode.
-     * 
+     *
      * @return Returns the financialObjectCode
      */
     public String getFinancialObjectCode() {
@@ -149,7 +149,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Sets the financialObjectCode.
-     * 
+     *
      * @param financialObjectCode The financialObjectCode to set.
      */
     public void setFinancialObjectCode(String financialObjectCode) {
@@ -158,7 +158,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Gets the financialSubObjectCode.
-     * 
+     *
      * @return Returns the financialSubObjectCode
      */
     public String getFinancialSubObjectCode() {
@@ -167,7 +167,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Sets the financialSubObjectCode.
-     * 
+     *
      * @param financialSubObjectCode The financialSubObjectCode to set.
      */
     public void setFinancialSubObjectCode(String financialSubObjectCode) {
@@ -176,7 +176,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Gets the financialBalanceTypeCode.
-     * 
+     *
      * @return Returns the financialBalanceTypeCode
      */
     public String getFinancialBalanceTypeCode() {
@@ -185,7 +185,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Sets the financialBalanceTypeCode.
-     * 
+     *
      * @param financialBalanceTypeCode The financialBalanceTypeCode to set.
      */
     public void setFinancialBalanceTypeCode(String financialBalanceTypeCode) {
@@ -194,7 +194,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Gets the financialObjectTypeCode.
-     * 
+     *
      * @return Returns the financialObjectTypeCode
      */
     public String getFinancialObjectTypeCode() {
@@ -203,7 +203,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Sets the financialObjectTypeCode.
-     * 
+     *
      * @param financialObjectTypeCode The financialObjectTypeCode to set.
      */
     public void setFinancialObjectTypeCode(String financialObjectTypeCode) {
@@ -212,7 +212,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Gets the universityFiscalPeriodCode.
-     * 
+     *
      * @return Returns the universityFiscalPeriodCode
      */
     public String getUniversityFiscalPeriodCode() {
@@ -221,7 +221,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Sets the universityFiscalPeriodCode.
-     * 
+     *
      * @param universityFiscalPeriodCode The universityFiscalPeriodCode to set.
      */
     public void setUniversityFiscalPeriodCode(String universityFiscalPeriodCode) {
@@ -230,7 +230,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Gets the financialDocumentTypeCode.
-     * 
+     *
      * @return Returns the financialDocumentTypeCode
      */
     public String getFinancialDocumentTypeCode() {
@@ -239,7 +239,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Sets the financialDocumentTypeCode.
-     * 
+     *
      * @param financialDocumentTypeCode The financialDocumentTypeCode to set.
      */
     public void setFinancialDocumentTypeCode(String financialDocumentTypeCode) {
@@ -248,7 +248,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Gets the financialSystemOriginationCode.
-     * 
+     *
      * @return Returns the financialSystemOriginationCode.
      */
     public String getFinancialSystemOriginationCode() {
@@ -257,7 +257,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Sets the financialSystemOriginationCode.
-     * 
+     *
      * @param financialSystemOriginationCode The financialSystemOriginationCode to set.
      */
     public void setFinancialSystemOriginationCode(String financialSystemOriginationCode) {
@@ -266,7 +266,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Gets the documentNumber.
-     * 
+     *
      * @return Returns the documentNumber
      */
     public String getDocumentNumber() {
@@ -275,7 +275,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Sets the documentNumber.
-     * 
+     *
      * @param documentNumber The documentNumber to set.
      */
     public void setDocumentNumber(String documentNumber) {
@@ -284,7 +284,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Gets the transactionLedgerEntrySequenceNumber.
-     * 
+     *
      * @return Returns the transactionLedgerEntrySequenceNumber
      */
     public Integer getTransactionLedgerEntrySequenceNumber() {
@@ -293,7 +293,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Sets the transactionLedgerEntrySequenceNumber.
-     * 
+     *
      * @param transactionLedgerEntrySequenceNumber The transactionLedgerEntrySequenceNumber to set.
      */
     public void setTransactionLedgerEntrySequenceNumber(Integer transactionLedgerEntrySequenceNumber) {
@@ -302,7 +302,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Gets the transactionLedgerEntryDescription.
-     * 
+     *
      * @return Returns the transactionLedgerEntryDescription
      */
     public String getTransactionLedgerEntryDescription() {
@@ -311,7 +311,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Sets the transactionLedgerEntryDescription.
-     * 
+     *
      * @param transactionLedgerEntryDescription The transactionLedgerEntryDescription to set.
      */
     public void setTransactionLedgerEntryDescription(String transactionLedgerEntryDescription) {
@@ -320,7 +320,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Gets the transactionLedgerEntryAmount.
-     * 
+     *
      * @return Returns the transactionLedgerEntryAmount
      */
     public KualiDecimal getTransactionLedgerEntryAmount() {
@@ -329,7 +329,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Sets the transactionLedgerEntryAmount.
-     * 
+     *
      * @param transactionLedgerEntryAmount The transactionLedgerEntryAmount to set.
      */
     public void setTransactionLedgerEntryAmount(KualiDecimal transactionLedgerEntryAmount) {
@@ -338,7 +338,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Gets the transactionDebitCreditCode.
-     * 
+     *
      * @return Returns the transactionDebitCreditCode
      */
     public String getTransactionDebitCreditCode() {
@@ -347,7 +347,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Sets the transactionDebitCreditCode.
-     * 
+     *
      * @param transactionDebitCreditCode The transactionDebitCreditCode to set.
      */
     public void setTransactionDebitCreditCode(String transactionDebitCreditCode) {
@@ -356,7 +356,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Gets the transactionDate.
-     * 
+     *
      * @return Returns the transactionDate
      */
     public Date getTransactionDate() {
@@ -365,7 +365,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Sets the transactionDate.
-     * 
+     *
      * @param transactionDate The transactionDate to set.
      */
     public void setTransactionDate(Date transactionDate) {
@@ -374,7 +374,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Gets the organizationDocumentNumber.
-     * 
+     *
      * @return Returns the organizationDocumentNumber
      */
     public String getOrganizationDocumentNumber() {
@@ -383,7 +383,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Sets the organizationDocumentNumber.
-     * 
+     *
      * @param organizationDocumentNumber The organizationDocumentNumber to set.
      */
     public void setOrganizationDocumentNumber(String organizationDocumentNumber) {
@@ -392,7 +392,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Gets the projectCode.
-     * 
+     *
      * @return Returns the projectCode
      */
     public String getProjectCode() {
@@ -401,7 +401,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Sets the projectCode.
-     * 
+     *
      * @param projectCode The projectCode to set.
      */
     public void setProjectCode(String projectCode) {
@@ -410,7 +410,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Gets the organizationReferenceId.
-     * 
+     *
      * @return Returns the organizationReferenceId
      */
     public String getOrganizationReferenceId() {
@@ -419,7 +419,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Sets the organizationReferenceId.
-     * 
+     *
      * @param organizationReferenceId The organizationReferenceId to set.
      */
     public void setOrganizationReferenceId(String organizationReferenceId) {
@@ -428,7 +428,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Gets the referenceFinancialDocumentTypeCode.
-     * 
+     *
      * @return Returns the referenceFinancialDocumentTypeCode
      */
     public String getReferenceFinancialDocumentTypeCode() {
@@ -437,7 +437,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Sets the referenceFinancialDocumentTypeCode.
-     * 
+     *
      * @param referenceFinancialDocumentTypeCode The referenceFinancialDocumentTypeCode to set.
      */
     public void setReferenceFinancialDocumentTypeCode(String referenceFinancialDocumentTypeCode) {
@@ -446,7 +446,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Gets the referenceFinancialSystemOriginationCode.
-     * 
+     *
      * @return Returns the referenceFinancialSystemOriginationCode
      */
     public String getReferenceFinancialSystemOriginationCode() {
@@ -455,7 +455,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Sets the referenceFinancialSystemOriginationCode.
-     * 
+     *
      * @param referenceFinancialSystemOriginationCode The referenceFinancialSystemOriginationCode to set.
      */
     public void setReferenceFinancialSystemOriginationCode(String referenceFinancialSystemOriginationCode) {
@@ -464,7 +464,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Gets the referenceFinancialDocumentNumber.
-     * 
+     *
      * @return Returns the referenceFinancialDocumentNumber
      */
     public String getReferenceFinancialDocumentNumber() {
@@ -473,7 +473,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Sets the referenceFinancialDocumentNumber.
-     * 
+     *
      * @param referenceFinancialDocumentNumber The referenceFinancialDocumentNumber to set.
      */
     public void setReferenceFinancialDocumentNumber(String referenceFinancialDocumentNumber) {
@@ -482,7 +482,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Gets the financialDocumentReversalDate.
-     * 
+     *
      * @return Returns the financialDocumentReversalDate
      */
     public Date getFinancialDocumentReversalDate() {
@@ -491,7 +491,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Sets the financialDocumentReversalDate.
-     * 
+     *
      * @param financialDocumentReversalDate The financialDocumentReversalDate to set.
      */
     public void setFinancialDocumentReversalDate(Date financialDocumentReversalDate) {
@@ -500,7 +500,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Gets the transactionEncumbranceUpdateCode.
-     * 
+     *
      * @return Returns the transactionEncumbranceUpdateCode
      */
     public String getTransactionEncumbranceUpdateCode() {
@@ -509,7 +509,7 @@ public class LaborGeneralLedgerEntry extends OriginEntryFull {
 
     /**
      * Sets the transactionEncumbranceUpdateCode.
-     * 
+     *
      * @param transactionEncumbranceUpdateCode The transactionEncumbranceUpdateCode to set.
      */
     public void setTransactionEncumbranceUpdateCode(String transactionEncumbranceUpdateCode) {

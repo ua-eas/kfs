@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="kfs" id="KRNS_DOC_TYP_ATTR_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRNS_DOC_TYP_ATTR_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRNS_DOC_TYP_ATTR_S">
+            <column name="id" value="1000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRNS_DOC_TYP_ATTR_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRNS_DOC_TYP_ATTR_S" startValue="1000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRNS_LOCK_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRNS_LOCK_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRNS_LOCK_S">
+            <column name="id" value="2000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRNS_LOCK_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRNS_LOCK_S" startValue="2000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRNS_LOOKUP_RSLT_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRNS_LOOKUP_RSLT_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRNS_LOOKUP_RSLT_S">
+            <column name="id" value="2000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRNS_LOOKUP_RSLT_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRNS_LOOKUP_RSLT_S" startValue="2000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRNS_MAINT_DOC_ATT_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRNS_MAINT_DOC_ATT_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRNS_MAINT_DOC_ATT_S">
+            <column name="id" value="10000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRNS_MAINT_DOC_ATT_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRNS_MAINT_DOC_ATT_S" startValue="10000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRNS_MAINT_LOCK_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRNS_MAINT_LOCK_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRNS_MAINT_LOCK_S">
+            <column name="id" value="2020"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRNS_MAINT_LOCK_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRNS_MAINT_LOCK_S" startValue="2020"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRNS_NTE_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRNS_NTE_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRNS_NTE_S">
+            <column name="id" value="2020"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRNS_NTE_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRNS_NTE_S" startValue="2020"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRSB_BAM_PARM_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRSB_BAM_PARM_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRSB_BAM_PARM_S">
+            <column name="id" value="2000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRSB_BAM_PARM_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRSB_BAM_PARM_S" startValue="2000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRSB_BAM_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRSB_BAM_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRSB_BAM_S">
+            <column name="id" value="2000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRSB_BAM_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRSB_BAM_S" startValue="2000"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRSB_MSG_QUE_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRSB_MSG_QUE_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRSB_MSG_QUE_S">
+            <column name="id" value="467"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRSB_MSG_QUE_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRSB_MSG_QUE_S" startValue="467"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRSB_SVC_DEF_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRSB_SVC_DEF_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRSB_SVC_DEF_S">
+            <column name="id" value="10105"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRSB_SVC_DEF_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRSB_SVC_DEF_S" startValue="10105"/>
+    </changeSet>
+    <changeSet author="kfs" id="KRSB_SVC_DSCRPTR_S" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="KRSB_SVC_DSCRPTR_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="KRSB_SVC_DSCRPTR_S">
+            <column name="id" value="10105"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="KRSB_SVC_DSCRPTR_S" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="KRSB_SVC_DSCRPTR_S" startValue="10105"/>
+    </changeSet>
+</databaseChangeLog>

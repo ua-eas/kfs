@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.module.ar.document;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.document.TransactionalDocumentBase;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.businessobject.FinalBilledIndicatorEntry;
 import org.kuali.kfs.module.ar.document.service.ContractsGrantsInvoiceDocumentService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
-import org.kuali.rice.krad.document.TransactionalDocumentBase;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class unfinalizes the invoices that have previously been finalized.
@@ -65,16 +65,15 @@ public class FinalBilledIndicatorDocument extends TransactionalDocumentBase {
         for (FinalBilledIndicatorEntry entry : this.getInvoiceEntries()) {
             ContractsGrantsInvoiceDocument invoiceDocument;
             invoiceDocument = (ContractsGrantsInvoiceDocument) SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(entry.getInvoiceDocumentNumber());
-            if ( ObjectUtils.isNotNull(invoiceDocument) ) {
+            if (ObjectUtils.isNotNull(invoiceDocument)) {
                 invoiceDocument.getInvoiceGeneralDetail().setFinalBillIndicator(false);
                 ContractsGrantsInvoiceDocumentService contractsGrantsInvoiceDocumentService = SpringContext.getBean(ContractsGrantsInvoiceDocumentService.class);
-                contractsGrantsInvoiceDocumentService.updateUnfinalizationToAwardAccount(invoiceDocument.getAccountDetails(),invoiceDocument.getInvoiceGeneralDetail().getProposalNumber());
+                contractsGrantsInvoiceDocumentService.updateUnfinalizationToAwardAccount(invoiceDocument.getAccountDetails(), invoiceDocument.getInvoiceGeneralDetail().getProposalNumber());
                 invoiceDocument.refresh();
                 SpringContext.getBean(DocumentService.class).updateDocument(invoiceDocument);
             }
         }
     }
-
 
 
     @Override
@@ -84,10 +83,9 @@ public class FinalBilledIndicatorDocument extends TransactionalDocumentBase {
         if (newRouteStatus.equalsIgnoreCase(KFSConstants.DocumentStatusCodes.PROCESSED) || newRouteStatus.equalsIgnoreCase(KFSConstants.DocumentStatusCodes.FINAL)) {
             try {
                 updateContractsGrantsInvoiceDocument();
-            }
-            catch (WorkflowException ex) {
-                LOG.error("problem during FinalBilledIndicatorDocumentAction.doProcessingAfterPost()", ex);
-                throw new RuntimeException("Could not update Contracts & Grants Invoice Document for Final Billed Indicator Document",ex);
+            } catch (WorkflowException ex) {
+                LOG.error("problem during FinalBilledIndicatorAction.doProcessingAfterPost()", ex);
+                throw new RuntimeException("Could not update Contracts & Grants Invoice Document for Final Billed Indicator Document", ex);
             }
         }
     }

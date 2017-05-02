@@ -1,27 +1,27 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.fp.businessobject;
 
-import java.util.LinkedHashMap;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import java.util.LinkedHashMap;
 
 /**
  * This class is used to represent automated clearing house for disbursement voucher.
@@ -51,7 +51,7 @@ public class DisbursementVoucherAutomatedClearingHouse extends PersistableBusine
 
     /**
      * Gets the disbursementVoucherAutomatedClearingHouseProfileNumber attribute.
-     * 
+     *
      * @return Returns the disbursementVoucherAutomatedClearingHouseProfileNumber
      */
     public String getDisbursementVoucherAutomatedClearingHouseProfileNumber() {
@@ -60,9 +60,9 @@ public class DisbursementVoucherAutomatedClearingHouse extends PersistableBusine
 
     /**
      * Sets the disbursementVoucherAutomatedClearingHouseProfileNumber attribute.
-     * 
+     *
      * @param disbursementVoucherAutomatedClearingHouseProfileNumber The disbursementVoucherAutomatedClearingHouseProfileNumber to
-     *        set.
+     *                                                               set.
      */
     public void setDisbursementVoucherAutomatedClearingHouseProfileNumber(String disbursementVoucherAutomatedClearingHouseProfileNumber) {
         this.disbursementVoucherAutomatedClearingHouseProfileNumber = disbursementVoucherAutomatedClearingHouseProfileNumber;
@@ -71,7 +71,7 @@ public class DisbursementVoucherAutomatedClearingHouse extends PersistableBusine
 
     /**
      * Gets the disbVchrPaymentMethodCode attribute.
-     * 
+     *
      * @return Returns the disbVchrPaymentMethodCode
      */
     public String getDisbVchrPaymentMethodCode() {
@@ -80,7 +80,7 @@ public class DisbursementVoucherAutomatedClearingHouse extends PersistableBusine
 
     /**
      * Sets the disbVchrPaymentMethodCode attribute.
-     * 
+     *
      * @param disbVchrPaymentMethodCode The disbVchrPaymentMethodCode to set.
      */
     public void setDisbVchrPaymentMethodCode(String disbVchrPaymentMethodCode) {
@@ -90,7 +90,7 @@ public class DisbursementVoucherAutomatedClearingHouse extends PersistableBusine
 
     /**
      * Gets the disbursementVoucherBankName attribute.
-     * 
+     *
      * @return Returns the disbursementVoucherBankName
      */
     public String getDisbursementVoucherBankName() {
@@ -99,7 +99,7 @@ public class DisbursementVoucherAutomatedClearingHouse extends PersistableBusine
 
     /**
      * Sets the disbursementVoucherBankName attribute.
-     * 
+     *
      * @param disbursementVoucherBankName The disbursementVoucherBankName to set.
      */
     public void setDisbursementVoucherBankName(String disbursementVoucherBankName) {
@@ -109,7 +109,7 @@ public class DisbursementVoucherAutomatedClearingHouse extends PersistableBusine
 
     /**
      * Gets the disbVchrBankRoutingNumber attribute.
-     * 
+     *
      * @return Returns the disbVchrBankRoutingNumber
      */
     public String getDisbVchrBankRoutingNumber() {
@@ -118,7 +118,7 @@ public class DisbursementVoucherAutomatedClearingHouse extends PersistableBusine
 
     /**
      * Sets the disbVchrBankRoutingNumber attribute.
-     * 
+     *
      * @param disbVchrBankRoutingNumber The disbVchrBankRoutingNumber to set.
      */
     public void setDisbVchrBankRoutingNumber(String disbVchrBankRoutingNumber) {
@@ -128,7 +128,7 @@ public class DisbursementVoucherAutomatedClearingHouse extends PersistableBusine
 
     /**
      * Gets the disbVchrBankCityName attribute.
-     * 
+     *
      * @return Returns the disbVchrBankCityName
      */
     public String getDisbVchrBankCityName() {
@@ -137,7 +137,7 @@ public class DisbursementVoucherAutomatedClearingHouse extends PersistableBusine
 
     /**
      * Sets the disbVchrBankCityName attribute.
-     * 
+     *
      * @param disbVchrBankCityName The disbVchrBankCityName to set.
      */
     public void setDisbVchrBankCityName(String disbVchrBankCityName) {
@@ -147,7 +147,7 @@ public class DisbursementVoucherAutomatedClearingHouse extends PersistableBusine
 
     /**
      * Gets the disbVchrBankStateCode attribute.
-     * 
+     *
      * @return Returns the disbVchrBankStateCode
      */
     public String getDisbVchrBankStateCode() {
@@ -156,7 +156,7 @@ public class DisbursementVoucherAutomatedClearingHouse extends PersistableBusine
 
     /**
      * Sets the disbVchrBankStateCode attribute.
-     * 
+     *
      * @param disbVchrBankStateCode The disbVchrBankStateCode to set.
      */
     public void setDisbVchrBankStateCode(String disbVchrBankStateCode) {
@@ -166,7 +166,7 @@ public class DisbursementVoucherAutomatedClearingHouse extends PersistableBusine
 
     /**
      * Gets the disbVchrBankCountryName attribute.
-     * 
+     *
      * @return Returns the disbVchrBankCountryName
      */
     public String getDisbVchrBankCountryName() {
@@ -175,7 +175,7 @@ public class DisbursementVoucherAutomatedClearingHouse extends PersistableBusine
 
     /**
      * Sets the disbVchrBankCountryName attribute.
-     * 
+     *
      * @param disbVchrBankCountryName The disbVchrBankCountryName to set.
      */
     public void setDisbVchrBankCountryName(String disbVchrBankCountryName) {
@@ -185,7 +185,7 @@ public class DisbursementVoucherAutomatedClearingHouse extends PersistableBusine
 
     /**
      * Gets the disbVchrAttentionLineText attribute.
-     * 
+     *
      * @return Returns the disbVchrAttentionLineText
      */
     public String getDisbVchrAttentionLineText() {
@@ -194,7 +194,7 @@ public class DisbursementVoucherAutomatedClearingHouse extends PersistableBusine
 
     /**
      * Sets the disbVchrAttentionLineText attribute.
-     * 
+     *
      * @param disbVchrAttentionLineText The disbVchrAttentionLineText to set.
      */
     public void setDisbVchrAttentionLineText(String disbVchrAttentionLineText) {
@@ -204,7 +204,7 @@ public class DisbursementVoucherAutomatedClearingHouse extends PersistableBusine
 
     /**
      * Gets the disbVchrAdditionalWireText attribute.
-     * 
+     *
      * @return Returns the disbVchrAdditionalWireText
      */
     public String getDisbVchrAdditionalWireText() {
@@ -213,7 +213,7 @@ public class DisbursementVoucherAutomatedClearingHouse extends PersistableBusine
 
     /**
      * Sets the disbVchrAdditionalWireText attribute.
-     * 
+     *
      * @param disbVchrAdditionalWireText The disbVchrAdditionalWireText to set.
      */
     public void setDisbVchrAdditionalWireText(String disbVchrAdditionalWireText) {
@@ -223,7 +223,7 @@ public class DisbursementVoucherAutomatedClearingHouse extends PersistableBusine
 
     /**
      * Gets the disbVchrPayeeAccountNumber attribute.
-     * 
+     *
      * @return Returns the disbVchrPayeeAccountNumber
      */
     public String getDisbVchrPayeeAccountNumber() {
@@ -232,7 +232,7 @@ public class DisbursementVoucherAutomatedClearingHouse extends PersistableBusine
 
     /**
      * Sets the disbVchrPayeeAccountNumber attribute.
-     * 
+     *
      * @param disbVchrPayeeAccountNumber The disbVchrPayeeAccountNumber to set.
      */
     public void setDisbVchrPayeeAccountNumber(String disbVchrPayeeAccountNumber) {
@@ -242,7 +242,7 @@ public class DisbursementVoucherAutomatedClearingHouse extends PersistableBusine
 
     /**
      * Gets the disbursementVoucherPayeeAccountName attribute.
-     * 
+     *
      * @return Returns the disbursementVoucherPayeeAccountName
      */
     public String getDisbursementVoucherPayeeAccountName() {
@@ -251,7 +251,7 @@ public class DisbursementVoucherAutomatedClearingHouse extends PersistableBusine
 
     /**
      * Sets the disbursementVoucherPayeeAccountName attribute.
-     * 
+     *
      * @param disbursementVoucherPayeeAccountName The disbursementVoucherPayeeAccountName to set.
      */
     public void setDisbursementVoucherPayeeAccountName(String disbursementVoucherPayeeAccountName) {
@@ -261,7 +261,7 @@ public class DisbursementVoucherAutomatedClearingHouse extends PersistableBusine
 
     /**
      * Gets the disbursementVoucherPayeeAccountTypeCode attribute.
-     * 
+     *
      * @return Returns the disbursementVoucherPayeeAccountTypeCode
      */
     public String getDisbursementVoucherPayeeAccountTypeCode() {
@@ -270,7 +270,7 @@ public class DisbursementVoucherAutomatedClearingHouse extends PersistableBusine
 
     /**
      * Sets the disbursementVoucherPayeeAccountTypeCode attribute.
-     * 
+     *
      * @param disbursementVoucherPayeeAccountTypeCode The disbursementVoucherPayeeAccountTypeCode to set.
      */
     public void setDisbursementVoucherPayeeAccountTypeCode(String disbursementVoucherPayeeAccountTypeCode) {
@@ -280,7 +280,7 @@ public class DisbursementVoucherAutomatedClearingHouse extends PersistableBusine
 
     /**
      * Gets the disbursementVoucherWireTransferFeeWaiverIndicator attribute.
-     * 
+     *
      * @return Returns the disbursementVoucherWireTransferFeeWaiverIndicator
      */
     public boolean isDisbursementVoucherWireTransferFeeWaiverIndicator() {
@@ -290,7 +290,7 @@ public class DisbursementVoucherAutomatedClearingHouse extends PersistableBusine
 
     /**
      * Sets the disbursementVoucherWireTransferFeeWaiverIndicator attribute.
-     * 
+     *
      * @param disbursementVoucherWireTransferFeeWaiverIndicator The disbursementVoucherWireTransferFeeWaiverIndicator to set.
      */
     public void setDisbursementVoucherWireTransferFeeWaiverIndicator(boolean disbursementVoucherWireTransferFeeWaiverIndicator) {

@@ -1,32 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.service.impl;
-
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
@@ -39,11 +29,15 @@ import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
 import org.kuali.kfs.coa.service.AccountService;
 import org.kuali.kfs.coa.service.BalanceTypeService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.batch.ScrubberStep;
 import org.kuali.kfs.gl.batch.service.AccountingCycleCachingService;
 import org.kuali.kfs.gl.businessobject.OriginEntryInformation;
 import org.kuali.kfs.gl.service.ScrubberValidator;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.service.PersistenceService;
+import org.kuali.kfs.krad.service.PersistenceStructureService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -61,11 +55,17 @@ import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.service.PersistenceService;
-import org.kuali.rice.krad.service.PersistenceStructureService;
 import org.springframework.util.StringUtils;
+
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * The default GL implementation of ScrubberValidator
@@ -87,8 +87,8 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
 
     public static final String DATE_FORMAT_STRING = "yyyy-MM-dd";
 
-    protected static final Collection<String> debitOrCredit = Arrays.asList( KFSConstants.GL_DEBIT_CODE, KFSConstants.GL_CREDIT_CODE );
-    protected static final Collection<String> continuationAccountBypassBalanceTypeCodes = Arrays.asList( "EX","IE","PE" );
+    protected static final Collection<String> debitOrCredit = Arrays.asList(KFSConstants.GL_DEBIT_CODE, KFSConstants.GL_CREDIT_CODE);
+    protected static final Collection<String> continuationAccountBypassBalanceTypeCodes = Arrays.asList("EX", "IE", "PE");
 
     private static int count = 0;
 
@@ -132,8 +132,8 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
     /**
      * Validate a transaction in the scrubber
      *
-     * @param originEntry Input transaction (never changed)
-     * @param scrubbedEntry Output transaction (scrubbed version of input transaction)
+     * @param originEntry       Input transaction (never changed)
+     * @param scrubbedEntry     Output transaction (scrubbed version of input transaction)
      * @param universityRunDate Date of scrubber run
      * @return List of Message objects based for warnings or errors that happened when validating the transaction
      * @see org.kuali.module.gl.service.ScrubberValidator#validateTransaction(org.kuali.module.gl.bo.OriginEntry, org.kuali.module.gl.bo.OriginEntry, org.kuali.module.gl.bo.UniversityDate, boolean)
@@ -298,8 +298,8 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
     /**
      * Validates the account of an origin entry
      *
-     * @param originEntry the origin entry to find the account of
-     * @param workingEntry the copy of the entry to move the account over to if it is valid
+     * @param originEntry       the origin entry to find the account of
+     * @param workingEntry      the copy of the entry to move the account over to if it is valid
      * @param universityRunDate the run date of the scrubber process
      * @return a Message if the account was invalid, or null if no error was encountered
      */
@@ -326,19 +326,19 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
             return null;
         }
 
-        Collection<String> continuationAccountBypassOriginationCodes = new ArrayList<String>( parameterService.getParameterValuesAsString(ScrubberStep.class, GeneralLedgerConstants.GlScrubberGroupRules.CONTINUATION_ACCOUNT_BYPASS_ORIGINATION_CODES) );
-        Collection<String> continuationAccountBypassDocumentTypeCodes = new ArrayList<String>( parameterService.getParameterValuesAsString(ScrubberStep.class, GeneralLedgerConstants.GlScrubberGroupRules.CONTINUATION_ACCOUNT_BYPASS_DOCUMENT_TYPE_CODES) );
+        Collection<String> continuationAccountBypassOriginationCodes = new ArrayList<String>(parameterService.getParameterValuesAsString(ScrubberStep.class, GeneralLedgerConstants.GlScrubberGroupRules.CONTINUATION_ACCOUNT_BYPASS_ORIGINATION_CODES));
+        Collection<String> continuationAccountBypassDocumentTypeCodes = new ArrayList<String>(parameterService.getParameterValuesAsString(ScrubberStep.class, GeneralLedgerConstants.GlScrubberGroupRules.CONTINUATION_ACCOUNT_BYPASS_DOCUMENT_TYPE_CODES));
 
         // Has an expiration date or is closed
-        if ((continuationAccountBypassOriginationCodes.contains( originEntry.getFinancialSystemOriginationCode()))
-                && !originEntryAccount.isActive()) {
+        if ((continuationAccountBypassOriginationCodes.contains(originEntry.getFinancialSystemOriginationCode()))
+            && !originEntryAccount.isActive()) {
             return MessageBuilder.buildMessage(KFSKeyConstants.ERROR_ORIGIN_CODE_CANNOT_HAVE_CLOSED_ACCOUNT, originEntryAccount.getChartOfAccountsCode() + "-" + originEntry.getAccountNumber(), Message.TYPE_FATAL);
         }
 
-        if ((continuationAccountBypassOriginationCodes.contains( originEntry.getFinancialSystemOriginationCode())
-                || continuationAccountBypassBalanceTypeCodes.contains( originEntry.getFinancialBalanceTypeCode())
-                || continuationAccountBypassDocumentTypeCodes.contains( originEntry.getFinancialDocumentTypeCode().trim()))
-                && originEntryAccount.isActive()) {
+        if ((continuationAccountBypassOriginationCodes.contains(originEntry.getFinancialSystemOriginationCode())
+            || continuationAccountBypassBalanceTypeCodes.contains(originEntry.getFinancialBalanceTypeCode())
+            || continuationAccountBypassDocumentTypeCodes.contains(originEntry.getFinancialDocumentTypeCode().trim()))
+            && originEntryAccount.isActive()) {
             workingEntry.setAccountNumber(originEntry.getAccountNumber());
             return null;
         }
@@ -360,8 +360,8 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
     /**
      * Called when the account of the origin entry is expired or closed, this validates the continuation account
      *
-     * @param originEntry the origin entry being scrubbed
-     * @param workingEntry the scrubbed version of the origin entry
+     * @param originEntry       the origin entry being scrubbed
+     * @param workingEntry      the scrubbed version of the origin entry
      * @param universityRunDate the run date of the scrubber (to test against expiration dates)
      * @return a Message if an error was encountered, otherwise null
      */
@@ -390,8 +390,7 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
             if (null == continuationAccount) {
                 // account not found
                 return MessageBuilder.buildMessage(KFSKeyConstants.ERROR_CONTINUATION_ACCOUNT_NOT_FOUND, Message.TYPE_FATAL);
-            }
-            else {
+            } else {
                 // the account exists
                 continuationAccount.setSubFundGroup(accountingCycleCachingService.getSubFundGroup(continuationAccount.getSubFundGroupCode()));
                 if (continuationAccount.getAccountExpirationDate() == null) {
@@ -406,15 +405,14 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
                     // TODO:- use messageBuilder and KeyConstant - also, length issue!?!??
                     workingEntry.setTransactionLedgerEntryDescription("AUTO FR " + originEntry.getChartOfAccountsCode() + originEntry.getAccountNumber() + originEntry.getTransactionLedgerEntryDescription());
                     // FSKD-310 : need to check the account is closed for building message. if not, it is expired.
-                    if (!originEntryAccount.isActive()){
-                        return MessageBuilder.buildMessage(KFSKeyConstants.MSG_ACCOUNT_CLOSED_TO, chartCode+accountNumber, Message.TYPE_WARNING);
+                    if (!originEntryAccount.isActive()) {
+                        return MessageBuilder.buildMessage(KFSKeyConstants.MSG_ACCOUNT_CLOSED_TO, chartCode + accountNumber, Message.TYPE_WARNING);
                     } else {
-                        return MessageBuilder.buildMessage(KFSKeyConstants.MSG_ACCOUNT_EXPIRED_TO, chartCode+accountNumber, Message.TYPE_WARNING);
+                        return MessageBuilder.buildMessage(KFSKeyConstants.MSG_ACCOUNT_EXPIRED_TO, chartCode + accountNumber, Message.TYPE_WARNING);
                     }
 
 
-                }
-                else {
+                } else {
                     // the account does have an expiration date.
                     // This is the only case in which we might go
                     // on for another iteration of the loop.
@@ -425,8 +423,7 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
                     if (isAccountExpired(continuationAccount, universityRunDate)) {
                         chartCode = continuationAccount.getContinuationFinChrtOfAcctCd();
                         accountNumber = continuationAccount.getContinuationAccountNumber();
-                    }
-                    else {
+                    } else {
                         workingEntry.setAccountNumber(accountNumber);
                         workingEntry.setChartOfAccountsCode(chartCode);
 
@@ -437,10 +434,10 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
                         // TODO:- use messageBuilder and KeyConstant - also, length issue!?!??
                         workingEntry.setTransactionLedgerEntryDescription("AUTO FR " + originEntry.getChartOfAccountsCode() + originEntry.getAccountNumber() + originEntry.getTransactionLedgerEntryDescription());
                         // FSKD-310 : need to check the account is closed for building message. if not, it is expired.
-                        if (!originEntryAccount.isActive()){
-                            return MessageBuilder.buildMessage(KFSKeyConstants.MSG_ACCOUNT_CLOSED_TO, chartCode+accountNumber, Message.TYPE_WARNING);
+                        if (!originEntryAccount.isActive()) {
+                            return MessageBuilder.buildMessage(KFSKeyConstants.MSG_ACCOUNT_CLOSED_TO, chartCode + accountNumber, Message.TYPE_WARNING);
                         } else {
-                            return MessageBuilder.buildMessage(KFSKeyConstants.MSG_ACCOUNT_EXPIRED_TO, chartCode+accountNumber, Message.TYPE_WARNING);
+                            return MessageBuilder.buildMessage(KFSKeyConstants.MSG_ACCOUNT_EXPIRED_TO, chartCode + accountNumber, Message.TYPE_WARNING);
                         }
                     }
                 }
@@ -481,7 +478,7 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
     /**
      * Validates the reversal date of the origin entry
      *
-     * @param originEntry the origin entry being scrubbed
+     * @param originEntry  the origin entry being scrubbed
      * @param workingEntry the scrubbed version of the origin entry
      * @return a Message if an error was encountered, otherwise null
      */
@@ -495,8 +492,7 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
                 Date reversalDate = originEntry.getFinancialDocumentReversalDate();
                 SimpleDateFormat format = new SimpleDateFormat(DATE_FORMAT_STRING);
                 return MessageBuilder.buildMessage(KFSKeyConstants.ERROR_REVERSAL_DATE_NOT_FOUND, format.format(reversalDate), Message.TYPE_FATAL);
-            }
-            else {
+            } else {
                 workingEntry.setFinancialDocumentReversalDate(originEntry.getFinancialDocumentReversalDate());
             }
         }
@@ -506,7 +502,7 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
     /**
      * Validates the sub account of the origin entry
      *
-     * @param originEntry the origin entry being scrubbed
+     * @param originEntry  the origin entry being scrubbed
      * @param workingEntry the scrubbed version of the origin entry
      * @return a Message if an error was encountered, otherwise null
      */
@@ -533,38 +529,33 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
             }
 
             if (!KFSConstants.getDashSubAccountNumber().equals(subAccount)) {
-              SubAccount originEntrySubAccount = accountingCycleCachingService.getSubAccount(originEntry.getChartOfAccountsCode(), originEntry.getAccountNumber(), subAccount);
-              //SubAccount originEntrySubAccount = getSubAccount(originEntry);
+                SubAccount originEntrySubAccount = accountingCycleCachingService.getSubAccount(originEntry.getChartOfAccountsCode(), originEntry.getAccountNumber(), subAccount);
+                //SubAccount originEntrySubAccount = getSubAccount(originEntry);
                 if (originEntrySubAccount == null) {
 
-                     // sub account is not valid
+                    // sub account is not valid
                     return MessageBuilder.buildMessage(KFSKeyConstants.ERROR_SUB_ACCOUNT_NOT_FOUND, originEntry.getChartOfAccountsCode() + "-" + originEntry.getAccountNumber() + "-" + subAccount, Message.TYPE_FATAL);
-                }
-                else {
+                } else {
                     // sub account IS valid
                     if (originEntrySubAccount.isActive()) {
                         // sub account IS active
                         workingEntry.setSubAccountNumber(subAccount);
-                    }
-                    else {
+                    } else {
                         // sub account IS NOT active
                         if (parameterService.getParameterValueAsString(KfsParameterConstants.GENERAL_LEDGER_BATCH.class, KFSConstants.SystemGroupParameterNames.GL_ANNUAL_CLOSING_DOC_TYPE).equals(originEntry.getFinancialDocumentTypeCode())) {
                             // document IS annual closing
                             workingEntry.setSubAccountNumber(subAccount);
-                        }
-                        else {
+                        } else {
                             // document is NOT annual closing
                             return MessageBuilder.buildMessage(KFSKeyConstants.ERROR_SUB_ACCOUNT_NOT_ACTIVE, originEntry.getChartOfAccountsCode() + "-" + originEntry.getAccountNumber() + "-" + subAccount, Message.TYPE_FATAL);
                         }
                     }
                 }
-            }
-            else {
+            } else {
                 // the sub account is dashes
                 workingEntry.setSubAccountNumber(KFSConstants.getDashSubAccountNumber());
             }
-        }
-        else {
+        } else {
             // No sub account is specified.
             workingEntry.setSubAccountNumber(KFSConstants.getDashSubAccountNumber());
         }
@@ -577,7 +568,7 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
     /**
      * Validates the project code of the origin entry
      *
-     * @param originEntry the origin entry being scrubbed
+     * @param originEntry  the origin entry being scrubbed
      * @param workingEntry the scrubbed version of the origin entry
      * @return a Message if an error was encountered, otherwise null
      */
@@ -588,17 +579,14 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
             ProjectCode originEntryProject = accountingCycleCachingService.getProjectCode(originEntry.getProjectCode());
             if (originEntryProject == null) {
                 return MessageBuilder.buildMessage(KFSKeyConstants.ERROR_PROJECT_CODE_NOT_FOUND, originEntry.getProjectCode(), Message.TYPE_FATAL);
-            }
-            else {
+            } else {
                 if (originEntryProject.isActive()) {
                     workingEntry.setProjectCode(originEntry.getProjectCode());
-                }
-                else {
+                } else {
                     return MessageBuilder.buildMessage(KFSKeyConstants.ERROR_PROJECT_CODE_MUST_BE_ACTIVE, originEntry.getProjectCode(), Message.TYPE_FATAL);
                 }
             }
-        }
-        else {
+        } else {
             workingEntry.setProjectCode(KFSConstants.getDashProjectCode());
         }
 
@@ -608,8 +596,8 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
     /**
      * Validates the fiscal year of the origin entry
      *
-     * @param originEntry the origin entry being scrubbed
-     * @param workingEntry the scrubbed version of the origin entry
+     * @param originEntry       the origin entry being scrubbed
+     * @param workingEntry      the scrubbed version of the origin entry
      * @param universityRunDate the university date when this scrubber process is being run
      * @return a Message if an error was encountered, otherwise null
      */
@@ -620,16 +608,15 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
             //commented out for KULLAB-627
             //if (!originEntry.getFinancialBalanceTypeCode().equals(KFSConstants.BALANCE_TYPE_A21)){
 
-                workingEntry.setUniversityFiscalYear(universityRunDate.getUniversityFiscalYear());
-                workingEntry.setUniversityFiscalPeriodCode(universityRunDate.getUniversityFiscalAccountingPeriod());
+            workingEntry.setUniversityFiscalYear(universityRunDate.getUniversityFiscalYear());
+            workingEntry.setUniversityFiscalPeriodCode(universityRunDate.getUniversityFiscalAccountingPeriod());
 
-                // TODO:- to display updated values on report
-                // TODO:- need to check because below two lines are commented out in validateUniversityFiscalPeriodCode
-                originEntry.setUniversityFiscalYear(universityRunDate.getUniversityFiscalYear());
-                originEntry.setUniversityFiscalPeriodCode(universityRunDate.getUniversityFiscalAccountingPeriod());
+            // TODO:- to display updated values on report
+            // TODO:- need to check because below two lines are commented out in validateUniversityFiscalPeriodCode
+            originEntry.setUniversityFiscalYear(universityRunDate.getUniversityFiscalYear());
+            originEntry.setUniversityFiscalPeriodCode(universityRunDate.getUniversityFiscalAccountingPeriod());
 
-        }
-        else {
+        } else {
             workingEntry.setUniversityFiscalYear(originEntry.getUniversityFiscalYear());
         }
 
@@ -643,8 +630,8 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
     /**
      * Validates the transaction date of the origin entry, make sure it is a valid university date
      *
-     * @param originEntry the origin entry being scrubbed
-     * @param workingEntry the scrubbed version of the origin entry
+     * @param originEntry       the origin entry being scrubbed
+     * @param workingEntry      the scrubbed version of the origin entry
      * @param universityRunDate the university date when this scrubber process is being run
      * @return a Message if an error was encountered, otherwise null
      */
@@ -655,8 +642,7 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
             // Set the transaction date to the run date.
             originEntry.setTransactionDate(transactionDate);
             workingEntry.setTransactionDate(transactionDate);
-        }
-        else {
+        } else {
             workingEntry.setTransactionDate(originEntry.getTransactionDate());
         }
 
@@ -672,7 +658,8 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
 
     /**
      * Validates the document type of an origin entry
-     * @param originEntry the origin entry to check
+     *
+     * @param originEntry      the origin entry to check
      * @param workingEntryInfo the copy of that entry to move good data over to
      * @return a Message if the document type is invalid, otherwise if valid, null
      */
@@ -688,7 +675,7 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
     /**
      * Validates the origination code of the origin entry
      *
-     * @param originEntry the origin entry being scrubbed
+     * @param originEntry  the origin entry being scrubbed
      * @param workingEntry the scrubbed version of the origin entry
      * @return a Message if an error was encountered, otherwise null
      */
@@ -705,8 +692,7 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
             }
 
             workingEntry.setFinancialSystemOriginationCode(originEntry.getFinancialSystemOriginationCode());
-        }
-        else {
+        } else {
             return new Message(kualiConfigurationService.getPropertyValueAsString(KFSKeyConstants.ERROR_ORIGIN_CODE_NOT_FOUND) + " (" + originEntry.getFinancialSystemOriginationCode() + ")", Message.TYPE_FATAL);
         }
         return null;
@@ -720,8 +706,7 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
             OriginationCode originEntryOrigination = accountingCycleCachingService.getOriginationCode(referenceFinancialSystemOriginationCode);
             if (originEntryOrigination == null) {
                 return MessageBuilder.buildMessage(KFSKeyConstants.ERROR_REFERENCE_ORIGIN_CODE_NOT_FOUND, " (" + referenceFinancialSystemOriginationCode + ")", Message.TYPE_FATAL);
-            }
-            else {
+            } else {
                 workingEntry.setReferenceFinancialSystemOriginationCode(referenceFinancialSystemOriginationCode);
             }
         }
@@ -733,7 +718,7 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
     /**
      * Validates the document number of the origin entry
      *
-     * @param originEntry the origin entry being scrubbed
+     * @param originEntry  the origin entry being scrubbed
      * @param workingEntry the scrubbed version of the origin entry
      * @return a Message if an error was encountered, otherwise null
      */
@@ -742,8 +727,7 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
 
         if (!StringUtils.hasText(originEntry.getDocumentNumber())) {
             return MessageBuilder.buildMessage(KFSKeyConstants.ERROR_DOCUMENT_NUMBER_REQUIRED, Message.TYPE_FATAL);
-        }
-        else {
+        } else {
             workingEntry.setDocumentNumber(originEntry.getDocumentNumber());
             return null;
         }
@@ -752,7 +736,7 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
     /**
      * Validates the chart of the origin entry
      *
-     * @param originEntry the origin entry being scrubbed
+     * @param originEntry  the origin entry being scrubbed
      * @param workingEntry the scrubbed version of the origin entry
      * @return a Message if an error was encountered, otherwise null
      */
@@ -776,7 +760,7 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
     /**
      * Validates the object code of the origin entry
      *
-     * @param originEntry the origin entry being scrubbed
+     * @param originEntry  the origin entry being scrubbed
      * @param workingEntry the scrubbed version of the origin entry
      * @return a Message if an error was encountered, otherwise null
      */
@@ -814,11 +798,11 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
     /**
      * Assuming that the object code has been validated first, validates the object type of the entry
      *
-     * @param originEntry the origin entry being scrubbed
+     * @param originEntry  the origin entry being scrubbed
      * @param workingEntry the scrubbed version of the origin entry
      * @return a Message if an error was encountered, otherwise null
      * @see org.kuali.module.gl.service.ScrubberValidator#validateObjectType(org.kuali.module.gl.bo.OriginEntryFull,
-     *      org.kuali.module.gl.bo.OriginEntryFull)
+     * org.kuali.module.gl.bo.OriginEntryFull)
      */
     protected Message validateObjectType(OriginEntryInformation originEntry, OriginEntryInformation workingEntry, AccountingCycleCachingService accountingCycleCachingService) {
         LOG.debug("validateObjectType() started");
@@ -850,7 +834,7 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
     /**
      * Validates the sub object code of the origin entry
      *
-     * @param originEntry the origin entry being scrubbed
+     * @param originEntry  the origin entry being scrubbed
      * @param workingEntry the scrubbed version of the origin entry
      * @return a Message if an error was encountered, otherwise null
      */
@@ -871,8 +855,7 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
                     workingEntry.setFinancialSubObjectCode(KFSConstants.getDashFinancialSubObjectCode());
                     return null;
                 }
-            }
-            else {
+            } else {
                 // Doesn't exist
                 workingEntry.setFinancialSubObjectCode(KFSConstants.getDashFinancialSubObjectCode());
                 return null;
@@ -885,7 +868,7 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
     /**
      * Validates the balance type of the origin entry
      *
-     * @param originEntry the origin entry being scrubbed
+     * @param originEntry  the origin entry being scrubbed
      * @param workingEntry the scrubbed version of the origin entry
      * @return a Message if an error was encountered, otherwise null
      */
@@ -909,44 +892,37 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
                     if (originEntry.getTransactionLedgerEntryAmount().isNegative()) {
                         // it's an INVALID non-budget transaction
                         return MessageBuilder.buildMessage(KFSKeyConstants.ERROR_TRANS_CANNOT_BE_NEGATIVE_IF_OFFSET, Message.TYPE_FATAL);
-                    }
-                    else {
+                    } else {
                         // it's a VALID non-budget transaction
                         if (!originEntry.isCredit() && !originEntry.isDebit()) { // entries requiring an offset must be either a
                             // debit or a credit
                             return MessageBuilder.buildMessage(KFSKeyConstants.ERROR_DC_INDICATOR_MUST_BE_D_OR_C, originEntry.getTransactionDebitCreditCode(), Message.TYPE_FATAL);
-                        }
-                        else {
+                        } else {
                             workingEntry.setFinancialBalanceTypeCode(balanceTypeCode);
                         }
                     }
-                }
-                else {
+                } else {
                     // entry IS NOT an offset, means it's a budget transaction
                     if (StringUtils.hasText(originEntry.getTransactionDebitCreditCode())) {
                         return MessageBuilder.buildMessage(KFSKeyConstants.ERROR_DC_INDICATOR_MUST_BE_EMPTY, originEntry.getTransactionDebitCreditCode(), Message.TYPE_FATAL);
-                    }
-                    else {
+                    } else {
                         if (originEntry.isCredit() || originEntry.isDebit()) {
                             // budget transactions must be neither debit nor credit
                             return MessageBuilder.buildMessage(KFSKeyConstants.ERROR_DC_INDICATOR_MUST_BE_NEITHER_D_NOR_C, originEntry.getTransactionDebitCreditCode(), Message.TYPE_FATAL);
-                        }
-                        else {
+                        } else {
                             // it's a valid budget transaction
                             workingEntry.setFinancialBalanceTypeCode(balanceTypeCode);
                         }
                     }
                 }
             }
-        }
-        else {
+        } else {
             // balance type IS empty. We can't set it if the year isn't set
             SystemOptions workingEntryOption = accountingCycleCachingService.getSystemOptions(workingEntry.getUniversityFiscalYear());
 
             if (workingEntryOption != null) {
                 workingEntry.setFinancialBalanceTypeCode(workingEntryOption.getActualFinancialBalanceTypeCd());
-            }
-            else {
+            } else {
                 //TODO:- need to change to use MessageBuilder
                 return new Message("Unable to set balance type code when year is unknown: " + workingEntry.getUniversityFiscalYear(), Message.TYPE_FATAL);
             }
@@ -957,8 +933,8 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
     /**
      * Validates the period code of the origin entry
      *
-     * @param originEntry the origin entry being scrubbed
-     * @param workingEntry the scrubbed version of the origin entry
+     * @param originEntry       the origin entry being scrubbed
+     * @param workingEntry      the scrubbed version of the origin entry
      * @param universityRunDate the university date when this scrubber process is being run
      * @return a Message if an error was encountered, otherwise null
      */
@@ -970,17 +946,14 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
             if (universityRunDate.getAccountingPeriod().isOpen()) {
                 workingEntry.setUniversityFiscalPeriodCode(universityRunDate.getUniversityFiscalAccountingPeriod());
                 workingEntry.setUniversityFiscalYear(universityRunDate.getUniversityFiscalYear());
-            }
-            else {
+            } else {
                 return MessageBuilder.buildMessage(KFSKeyConstants.ERROR_ACCOUNTING_PERIOD_CLOSED, " (year " + universityRunDate.getUniversityFiscalYear() + ", period " + universityRunDate.getUniversityFiscalAccountingPeriod(), Message.TYPE_FATAL);
             }
-        }
-        else {
+        } else {
             AccountingPeriod originEntryAccountingPeriod = accountingCycleCachingService.getAccountingPeriod(originEntry.getUniversityFiscalYear(), originEntry.getUniversityFiscalPeriodCode());
             if (originEntryAccountingPeriod == null) {
                 return MessageBuilder.buildMessage(KFSKeyConstants.ERROR_ACCOUNTING_PERIOD_NOT_FOUND, periodCode, Message.TYPE_FATAL);
-            }
-            else if (!originEntryAccountingPeriod.isActive()) {
+            } else if (!originEntryAccountingPeriod.isActive()) {
                 return MessageBuilder.buildMessage(KFSKeyConstants.ERROR_ACCOUNTING_PERIOD_NOT_ACTIVE, periodCode, Message.TYPE_FATAL);
             }
 
@@ -996,7 +969,7 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
      * are null. If encumbrance update code is not R and the ref doc number has a value, ref doc type must be valid and ref origin
      * code must be valid.
      *
-     * @param originEntry the origin entry to check
+     * @param originEntry      the origin entry to check
      * @param workingEntryInfo the copy of the entry to move valid data into
      * @return a Message if an error was encountered, otherwise null
      */
@@ -1021,28 +994,25 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
             if (KFSConstants.ENCUMB_UPDT_REFERENCE_DOCUMENT_CD.equals(originEntry.getTransactionEncumbranceUpdateCode())) {
                 errors.add(MessageBuilder.buildMessage(KFSKeyConstants.ERROR_REF_DOC_NOT_BE_SPACE, Message.TYPE_FATAL));
             }
-        }
-         else {
+        } else {
             workingEntry.setReferenceFinancialDocumentNumber(originEntry.getReferenceFinancialDocumentNumber());
 
-            if (!typeCodeNullIndicator){
+            if (!typeCodeNullIndicator) {
                 if (accountingCycleCachingService.isCurrentActiveAccountingDocumentType(originEntry.getReferenceFinancialDocumentTypeCode())) {
                     workingEntry.setReferenceFinancialDocumentTypeCode(originEntry.getReferenceFinancialDocumentTypeCode());
-                }
-                else {
+                } else {
                     errors.add(MessageBuilder.buildMessage(KFSKeyConstants.ERROR_REFERENCE_DOCUMENT_TYPE_NOT_FOUND, originEntry.getReferenceFinancialDocumentTypeCode(), Message.TYPE_FATAL));
                 }
             } else {
-                errors.add(MessageBuilder.buildMessage(KFSKeyConstants.ERROR_REFERENCE_FIELDS, " " + KFSPropertyConstants.REFERENCE_FIN_DOCUMENT_TYPE_CODE  + " is missing.", Message.TYPE_FATAL));
+                errors.add(MessageBuilder.buildMessage(KFSKeyConstants.ERROR_REFERENCE_FIELDS, " " + KFSPropertyConstants.REFERENCE_FIN_DOCUMENT_TYPE_CODE + " is missing.", Message.TYPE_FATAL));
             }
 
-            if (!originCodeNullIndicator){
+            if (!originCodeNullIndicator) {
                 // Validate reference origin code
                 OriginationCode oc = accountingCycleCachingService.getOriginationCode(originEntry.getFinancialSystemOriginationCode());
                 if (oc != null) {
                     workingEntry.setReferenceFinancialSystemOriginationCode(originEntry.getReferenceFinancialSystemOriginationCode());
-                }
-                else {
+                } else {
                     errors.add(MessageBuilder.buildMessage(KFSKeyConstants.ERROR_REFERENCE_ORIGINATION_CODE_NOT_FOUND, " (" + originEntry.getReferenceFinancialSystemOriginationCode() + ")", Message.TYPE_FATAL));
                 }
             } else {
@@ -1062,18 +1032,16 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
 
         if (workingEntryBalanceType.isFinBalanceTypeEncumIndicator() && !workingEntryObjectType.isFundBalanceIndicator()) {
             if (    // KFSMI-5565 : Allow blank/null for encumbrance update code, since it is the same as "N" during processing and should not be an error
-                    org.apache.commons.lang.StringUtils.isBlank(originEntry.getTransactionEncumbranceUpdateCode())
-                 || KFSConstants.ENCUMB_UPDT_DOCUMENT_CD.equals(originEntry.getTransactionEncumbranceUpdateCode())
-                 || KFSConstants.ENCUMB_UPDT_NO_ENCUMBRANCE_CD.equals(originEntry.getTransactionEncumbranceUpdateCode())
-                 || KFSConstants.ENCUMB_UPDT_REFERENCE_DOCUMENT_CD.equals(originEntry.getTransactionEncumbranceUpdateCode())
-                 ) {
+                org.apache.commons.lang.StringUtils.isBlank(originEntry.getTransactionEncumbranceUpdateCode())
+                    || KFSConstants.ENCUMB_UPDT_DOCUMENT_CD.equals(originEntry.getTransactionEncumbranceUpdateCode())
+                    || KFSConstants.ENCUMB_UPDT_NO_ENCUMBRANCE_CD.equals(originEntry.getTransactionEncumbranceUpdateCode())
+                    || KFSConstants.ENCUMB_UPDT_REFERENCE_DOCUMENT_CD.equals(originEntry.getTransactionEncumbranceUpdateCode())
+                ) {
                 workingEntry.setTransactionEncumbranceUpdateCode(originEntry.getTransactionEncumbranceUpdateCode());
-            }
-            else {
+            } else {
                 errors.add(MessageBuilder.buildMessage(KFSKeyConstants.ERROR_ENC_UPDATE_CODE_NOT_DRN, " (" + originEntry.getTransactionEncumbranceUpdateCode() + ")", Message.TYPE_FATAL));
             }
-        }
-        else {
+        } else {
             workingEntry.setTransactionEncumbranceUpdateCode(null);
         }
         return errors;
@@ -1082,7 +1050,7 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
     /**
      * Validates the entry's transaction amount
      *
-     * @param originEntry the origin entry being scrubbed
+     * @param originEntry  the origin entry being scrubbed
      * @param workingEntry the scrubbed version of the origin entry
      * @return a Message if an error was encountered, otherwise null
      */
@@ -1100,34 +1068,30 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
         if (originEntryBalanceType.isFinancialOffsetGenerationIndicator()) {
             if (amount.isPositive() || amount.isZero()) {
                 workingEntry.setTransactionLedgerEntryAmount(originEntry.getTransactionLedgerEntryAmount());
-            }
-            else {
+            } else {
                 return MessageBuilder.buildMessage(KFSKeyConstants.ERROR_NEGATIVE_AMOUNT, amount.toString(), Message.TYPE_FATAL);
             }
             if (StringHelper.isEmpty(originEntry.getTransactionDebitCreditCode())) {
                 return MessageBuilder.buildMessage(KFSKeyConstants.ERROR_DEBIT_CREDIT_INDICATOR_NEITHER_D_NOR_C, originEntry.getTransactionDebitCreditCode(), Message.TYPE_FATAL);
             }
-            if ( debitOrCredit.contains(originEntry.getTransactionDebitCreditCode()) ) {
+            if (debitOrCredit.contains(originEntry.getTransactionDebitCreditCode())) {
                 workingEntry.setTransactionDebitCreditCode(originEntry.getTransactionDebitCreditCode());
-            }
-            else {
+            } else {
                 return MessageBuilder.buildMessage(KFSKeyConstants.ERROR_DEBIT_CREDIT_INDICATOR_NEITHER_D_NOR_C, originEntry.getTransactionDebitCreditCode(), Message.TYPE_FATAL);
             }
-        }
-        else {
+        } else {
             if ((originEntry.getTransactionDebitCreditCode() == null) || (" ".equals(originEntry.getTransactionDebitCreditCode())) || ("".equals(originEntry.getTransactionDebitCreditCode()))) {
                 workingEntry.setTransactionDebitCreditCode(KFSConstants.GL_BUDGET_CODE);
-            }
-            else {
+            } else {
                 return MessageBuilder.buildMessage(KFSKeyConstants.ERROR_DEBIT_CREDIT_INDICATOR_MUST_BE_SPACE, originEntry.getTransactionDebitCreditCode(), Message.TYPE_FATAL);
             }
         }
         return null;
     }
 
-    protected Message validateDescription(OriginEntryInformation originEntry){
+    protected Message validateDescription(OriginEntryInformation originEntry) {
 
-        if (originEntry.getTransactionLedgerEntryDescription().trim().equals(KFSConstants.EMPTY_STRING)){
+        if (originEntry.getTransactionLedgerEntryDescription().trim().equals(KFSConstants.EMPTY_STRING)) {
 
             return MessageBuilder.buildMessage(KFSKeyConstants.ERROR_DESCRIPTION_CANNOT_BE_BLANK, Message.TYPE_FATAL);
         }

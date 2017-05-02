@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -25,6 +25,7 @@ import org.kuali.kfs.fp.document.CashReceiptDocument;
 import org.kuali.kfs.fp.document.CashReceiptFamilyBase;
 import org.kuali.kfs.fp.document.service.CashReceiptService;
 import org.kuali.kfs.fp.service.CashDrawerService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -32,7 +33,6 @@ import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.kfs.sys.service.FinancialSystemWorkflowHelperService;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.rice.krad.util.GlobalVariables;
 
 /**
  * Validation for the cash receipt document that verifies that the cash drawer is open at approval.
@@ -45,6 +45,7 @@ public class CashReceiptCashDrawerOpenValidation extends GenericValidation {
     /**
      * Makes sure that the cash drawer for the verification unit associated with this CR doc is
      * open. If it's not, the the rule fails.
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     @Override
@@ -64,7 +65,7 @@ public class CashReceiptCashDrawerOpenValidation extends GenericValidation {
 
         //check whether the change request is valid
         // Since these details are always initialized to default 0, they are never null, so we should check if they are empty instead.
-        CashReceiptDocument crDoc = (CashReceiptDocument)cashReceiptDocumentForValidation;
+        CashReceiptDocument crDoc = (CashReceiptDocument) cashReceiptDocumentForValidation;
         if (crDoc.isConfirmedChangeRequested()) {
             return checkChangeRequestIsValid();
         }
@@ -74,11 +75,12 @@ public class CashReceiptCashDrawerOpenValidation extends GenericValidation {
     /**
      * This method checks whether the change request in the cash receipt is valid, i.e. for each currency/coin denomination,
      * the change requested must not be greater than the sum of cash drawer + currency/coin from the cash receipt itself.
+     *
      * @return Returns true if the request is valid.
      */
     public boolean checkChangeRequestIsValid() {
         // we should use the confirmed amounts for this validation
-        CashReceiptDocument crDoc = (CashReceiptDocument)cashReceiptDocumentForValidation;
+        CashReceiptDocument crDoc = (CashReceiptDocument) cashReceiptDocumentForValidation;
         CurrencyDetail confirmedCurrency = crDoc.getConfirmedCurrencyDetail();
         CoinDetail confirmedCoin = crDoc.getConfirmedCoinDetail();
         CurrencyDetail confirmedChangeCurrency = crDoc.getConfirmedChangeCurrencyDetail();
@@ -111,6 +113,7 @@ public class CashReceiptCashDrawerOpenValidation extends GenericValidation {
 
     /**
      * Gets the cashReceiptDocumentForValidation attribute.
+     *
      * @return Returns the cashReceiptDocumentForValidation.
      */
     public CashReceiptFamilyBase getCashReceiptDocumentForValidation() {
@@ -119,6 +122,7 @@ public class CashReceiptCashDrawerOpenValidation extends GenericValidation {
 
     /**
      * Sets the cashReceiptDocumentForValidation attribute value.
+     *
      * @param cashReceiptDocumentForValidation The cashReceiptDocumentForValidation to set.
      */
     public void setCashReceiptDocumentForValidation(CashReceiptFamilyBase cashReceiptFamilyDocumentForValidation) {
@@ -127,6 +131,7 @@ public class CashReceiptCashDrawerOpenValidation extends GenericValidation {
 
     /**
      * Gets the cashDrawerService attribute.
+     *
      * @return Returns the cashDrawerService.
      */
     public CashDrawerService getCashDrawerService() {
@@ -135,6 +140,7 @@ public class CashReceiptCashDrawerOpenValidation extends GenericValidation {
 
     /**
      * Sets the cashDrawerService attribute value.
+     *
      * @param cashDrawerService The cashDrawerService to set.
      */
     public void setCashDrawerService(CashDrawerService cashDrawerService) {
@@ -143,6 +149,7 @@ public class CashReceiptCashDrawerOpenValidation extends GenericValidation {
 
     /**
      * Gets the cashReceiptService attribute.
+     *
      * @return Returns the cashReceiptService.
      */
     public CashReceiptService getCashReceiptService() {
@@ -151,6 +158,7 @@ public class CashReceiptCashDrawerOpenValidation extends GenericValidation {
 
     /**
      * Sets the cashReceiptService attribute value.
+     *
      * @param cashReceiptService The cashReceiptService to set.
      */
     public void setCashReceiptService(CashReceiptService cashReceiptService) {

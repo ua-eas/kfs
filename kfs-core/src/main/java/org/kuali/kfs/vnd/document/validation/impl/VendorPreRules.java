@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -20,6 +20,10 @@ package org.kuali.kfs.vnd.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.document.validation.impl.MaintenancePreRulesBase;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.vnd.VendorConstants;
@@ -29,10 +33,6 @@ import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.kfs.vnd.businessobject.VendorType;
 import org.kuali.kfs.vnd.document.service.VendorService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
 
 /**
  * Business Prerules applicable to VendorDetail documents. These PreRules checks for the VendorDetail that needs to occur while
@@ -51,7 +51,7 @@ public class VendorPreRules extends MaintenancePreRulesBase {
 
     /**
      * Returns the Universal User Id of the current logged-in user
-     * 
+     *
      * @return String the PersonId
      */
 
@@ -64,7 +64,7 @@ public class VendorPreRules extends MaintenancePreRulesBase {
 
     /**
      * Sets up a convenience object and few other vendor attributes
-     * 
+     *
      * @see org.kuali.kfs.coa.document.validation.impl.MaintenancePreRulesBase#doCustomPreRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
@@ -75,10 +75,10 @@ public class VendorPreRules extends MaintenancePreRulesBase {
         if (StringUtils.isBlank(question) || (question.equals(VendorConstants.CHANGE_TO_PARENT_QUESTION_ID))) {
             detectAndConfirmChangeToParent(document);
         }
-        
+
         //check to page review ONLY if it is a new vendor
         if (newVendorDetail.getVendorHeaderGeneratedIdentifier() == null &&
-                newVendorDetail.getVendorDetailAssignedIdentifier() == null) {
+            newVendorDetail.getVendorDetailAssignedIdentifier() == null) {
             displayReview(document);
         }
         return true;
@@ -88,7 +88,7 @@ public class VendorPreRules extends MaintenancePreRulesBase {
      * Sets the convenience objects like newVendorDetail and oldVendorDetail, so you have short and easy handles to the new and old
      * objects contained in the maintenance document. It also calls the BusinessObjectBase.refresh(), which will attempt to load all
      * sub-objects from the DB by their primary keys, if available.
-     * 
+     *
      * @param document - the maintenanceDocument being evaluated
      */
     protected void setupConvenienceObjects(MaintenanceDocument document) {
@@ -100,7 +100,7 @@ public class VendorPreRules extends MaintenancePreRulesBase {
      * Sets the vendorFirstLastNameIndicator to true if the first name and last name fields were filled in but the vendorName field
      * is blank and it sets the vendorFirstLastNameIndicator to false if the vendorName field is filled in and the first name and
      * last name fields were both blank.
-     * 
+     *
      * @param document - the maintenanceDocument being evaluated
      */
     protected void setVendorNamesAndIndicator(MaintenanceDocument document) {
@@ -110,15 +110,14 @@ public class VendorPreRules extends MaintenancePreRulesBase {
             newVendorDetail.setVendorFirstName(removeDelimiter(newVendorDetail.getVendorFirstName()));
             newVendorDetail.setVendorLastName(removeDelimiter(newVendorDetail.getVendorLastName()));
 
-        }
-        else if (!StringUtils.isBlank(newVendorDetail.getVendorName()) && StringUtils.isBlank(newVendorDetail.getVendorFirstName()) && StringUtils.isBlank(newVendorDetail.getVendorLastName())) {
+        } else if (!StringUtils.isBlank(newVendorDetail.getVendorName()) && StringUtils.isBlank(newVendorDetail.getVendorFirstName()) && StringUtils.isBlank(newVendorDetail.getVendorLastName())) {
             newVendorDetail.setVendorFirstLastNameIndicator(false);
         }
     }
 
     /**
      * Sets the vendorRestrictedDate and vendorRestrictedPersonIdentifier if the vendor restriction has changed from No to Yes.
-     * 
+     *
      * @param document - the maintenanceDocument being evaluated
      */
     protected void setVendorRestriction(MaintenanceDocument document) {
@@ -130,14 +129,13 @@ public class VendorPreRules extends MaintenancePreRulesBase {
         // If the Vendor Restricted Indicator will change, change the date and person id appropriately.
         if ((ObjectUtils.isNull(oldVendorRestrictedIndicator) || (!oldVendorRestrictedIndicator)) && ObjectUtils.isNotNull(newVendorDetail.getVendorRestrictedIndicator()) && newVendorDetail.getVendorRestrictedIndicator()) {
             // Indicator changed from (null or false) to true.
-            if(newVendorDetail.getVendorRestrictedDate() == null){
+            if (newVendorDetail.getVendorRestrictedDate() == null) {
                 newVendorDetail.setVendorRestrictedDate(SpringContext.getBean(DateTimeService.class).getCurrentSqlDate());
-            }           
-            if(newVendorDetail.getVendorRestrictedPersonIdentifier() == null) {
+            }
+            if (newVendorDetail.getVendorRestrictedPersonIdentifier() == null) {
                 newVendorDetail.setVendorRestrictedPersonIdentifier(getPersonId());
             }
-        }
-        else if (ObjectUtils.isNotNull(oldVendorRestrictedIndicator) && oldVendorRestrictedIndicator && ObjectUtils.isNotNull(newVendorDetail.getVendorRestrictedIndicator()) && (!newVendorDetail.getVendorRestrictedIndicator())) {
+        } else if (ObjectUtils.isNotNull(oldVendorRestrictedIndicator) && oldVendorRestrictedIndicator && ObjectUtils.isNotNull(newVendorDetail.getVendorRestrictedIndicator()) && (!newVendorDetail.getVendorRestrictedIndicator())) {
             // Indicator changed from true to false.
             newVendorDetail.setVendorRestrictedDate(null);
             newVendorDetail.setVendorRestrictedPersonIdentifier(null);
@@ -147,7 +145,7 @@ public class VendorPreRules extends MaintenancePreRulesBase {
 
     /**
      * This is a helper method to remove all the delimiters from the vendor name
-     * 
+     *
      * @param str the original vendorName
      * @return result String the vendorName after the delimiters have been removed
      */
@@ -159,11 +157,11 @@ public class VendorPreRules extends MaintenancePreRulesBase {
 
     /**
      * Displays a review if indicated by the vendor type and the associated text from that type
-     * 
+     *
      * @param document - vendordetail document
      */
     public void displayReview(MaintenanceDocument document) {
-        VendorDetail vendorDetail = (VendorDetail)  document.getDocumentBusinessObject();
+        VendorDetail vendorDetail = (VendorDetail) document.getDocumentBusinessObject();
 
         VendorType vendorType = vendorDetail.getVendorHeader().getVendorType();
 
@@ -183,8 +181,7 @@ public class VendorPreRules extends MaintenancePreRulesBase {
 
                 if (vendorDetail.getVendorName() != null) {
                     questionText = questionText.replace("{0}", vendorDetail.getVendorName());
-                }
-                else {
+                } else {
                     questionText = questionText.replace("{0}", "(not entered)");
                 }
                 questionText = questionText.replace("{1}", document.getDocumentNumber());
@@ -196,13 +193,13 @@ public class VendorPreRules extends MaintenancePreRulesBase {
             }
         }
     }
-    
-   /**
+
+    /**
      * This method displays a review if indicated by the vendor type and the associated text from that type This method screens the
      * current document for changes from division vendor to parent vendor. If the document does contain such a change, the question
      * framework is invoked to obtain the user's confirmation for the change. If confirmation is obtained, a note is added to the
      * old parent vendor. Indicators are set appropriately.
-     * 
+     *
      * @param document The vendor-change-containing MaintenanceDocument under examination
      */
     protected void detectAndConfirmChangeToParent(MaintenanceDocument document) {
@@ -218,8 +215,7 @@ public class VendorPreRules extends MaintenancePreRulesBase {
             proceed = askOrAnalyzeYesNoQuestion(VendorConstants.CHANGE_TO_PARENT_QUESTION_ID, VendorUtils.buildMessageText(VendorKeyConstants.CONFIRM_VENDOR_CHANGE_TO_PARENT, oldVendorDetail.getVendorName() + "  (" + oldVendorDetail.getVendorNumber() + ")", oldParentVendorName + " (" + oldParentVendorNumber + ")"));
             if (proceed) {
                 newVendorDetail.setVendorParentIndicator(true);
-            }
-            else {
+            } else {
                 newVendorDetail.setVendorParentIndicator(false);
             }
         }

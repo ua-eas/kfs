@@ -1,29 +1,25 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.rorenfro;
-
-import java.util.HashMap;
-import java.util.Map;
-
+import org.kuali.kfs.kns.web.ui.ExtraButton;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.module.purap.PurapAuthorizationConstants;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapConstants.PurchaseOrderStatuses;
@@ -35,8 +31,12 @@ import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocumentTestUtils;
 import org.kuali.kfs.sys.document.workflow.WorkflowTestUtils;
-import org.kuali.rice.kns.web.ui.ExtraButton;
-import org.kuali.rice.krad.service.DocumentService;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.rorenfro;
 
 /**
  * This class is used to test the authorization of the
@@ -79,6 +79,7 @@ public class PurchaseOrderDocumentActionAuthorizerTest extends KualiTestBase {
 //        assertTrue(auth.canRetransmit());
 //    }
 //
+
     /**
      * Tests that the print retransmit button is displayed when the purchase order
      * is not an APO. It should allow purchasing users (in this case we use parke)
@@ -86,7 +87,7 @@ public class PurchaseOrderDocumentActionAuthorizerTest extends KualiTestBase {
      *
      * @throws Exception
      */
-    @ConfigureContext(session = parke, shouldCommitTransactions=false)
+    @ConfigureContext(session = parke, shouldCommitTransactions = false)
     public final void DISABLED_502_testValidForPrintingRetransmitNonAPO() throws Exception {
         Map editMode = new HashMap();
         Map documentActions = new HashMap();
@@ -122,7 +123,7 @@ public class PurchaseOrderDocumentActionAuthorizerTest extends KualiTestBase {
      *
      * @throws Exception
      */
-    @ConfigureContext(session = parke, shouldCommitTransactions=false)
+    @ConfigureContext(session = parke, shouldCommitTransactions = false)
     public final void DISABLED_502_testValidForPrintingRetransmitAPO() throws Exception {
         Map editMode = new HashMap();
         Map documentActions = new HashMap();

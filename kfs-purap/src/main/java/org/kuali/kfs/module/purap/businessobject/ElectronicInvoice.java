@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -23,16 +23,16 @@
  */
 package org.kuali.kfs.module.purap.businessobject;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.kuali.kfs.module.purap.service.ElectronicInvoiceMappingService;
+import org.kuali.kfs.module.purap.util.ElectronicInvoiceUtils;
+import org.kuali.kfs.module.purap.util.cxml.CxmlHeader;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.kuali.kfs.module.purap.service.ElectronicInvoiceMappingService;
-import org.kuali.kfs.module.purap.util.ElectronicInvoiceUtils;
-import org.kuali.kfs.module.purap.util.cxml.CxmlHeader;
 
 public class ElectronicInvoice {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ElectronicInvoice.class);
@@ -78,9 +78,7 @@ public class ElectronicInvoice {
     private String locale;
     private String deploymentMode = "production";
 
-    /**
-   * 
-   */
+
     public ElectronicInvoice() {
         super();
     }
@@ -99,8 +97,7 @@ public class ElectronicInvoice {
     public ElectronicInvoicePostalAddress getCxmlPostalAddress(ElectronicInvoiceOrder eio, String roleID, String addressName) {
         if (this.invoiceDetailRequestHeader.isShippingInLine()) {
             return eio.getCxmlPostalAddressByRoleID(roleID, addressName);
-        }
-        else {
+        } else {
             return this.invoiceDetailRequestHeader.getCxmlPostalAddressByRoleID(roleID, addressName);
         }
     }
@@ -108,8 +105,7 @@ public class ElectronicInvoice {
     public ElectronicInvoiceContact getCxmlContact(ElectronicInvoiceOrder eio, String roleID) {
         if (this.invoiceDetailRequestHeader.isShippingInLine()) {
             return eio.getCxmlContactByRoleID(roleID);
-        }
-        else {
+        } else {
             return this.invoiceDetailRequestHeader.getCxmlContactByRoleID(roleID);
         }
     }
@@ -120,15 +116,13 @@ public class ElectronicInvoice {
         if (this.invoiceDetailRequestHeader.isShippingInLine()) {
             date = eio.getInvoiceShippingDate();
             dateString = eio.getInvoiceShippingDateString();
-        }
-        else {
+        } else {
             date = this.invoiceDetailRequestHeader.getShippingDate();
             dateString = this.invoiceDetailRequestHeader.getShippingDateString();
         }
         if (date != null) {
             return ElectronicInvoiceUtils.getDateDisplayText(date);
-        }
-        else {
+        } else {
             return dateString;
         }
     }
@@ -137,8 +131,7 @@ public class ElectronicInvoice {
         Date date = eio.getMasterAgreementIDInfoDate();
         if (date != null) {
             return ElectronicInvoiceUtils.getDateDisplayText(date);
-        }
-        else {
+        } else {
             return eio.getMasterAgreementIDInfoDateString();
         }
     }
@@ -147,8 +140,7 @@ public class ElectronicInvoice {
         Date date = eio.getMasterAgreementReferenceDate();
         if (date != null) {
             return ElectronicInvoiceUtils.getDateDisplayText(date);
-        }
-        else {
+        } else {
             return eio.getMasterAgreementReferenceDateString();
         }
     }
@@ -157,8 +149,7 @@ public class ElectronicInvoice {
         Date date = eio.getOrderIDInfoDate();
         if (date != null) {
             return ElectronicInvoiceUtils.getDateDisplayText(date);
-        }
-        else {
+        } else {
             return eio.getOrderIDInfoDateString();
         }
     }
@@ -167,8 +158,7 @@ public class ElectronicInvoice {
         Date date = this.invoiceDetailRequestHeader.getInvoiceDate();
         if (date != null) {
             return ElectronicInvoiceUtils.getDateDisplayText(date);
-        }
-        else {
+        } else {
             return this.invoiceDetailRequestHeader.getInvoiceDateString();
         }
     }
@@ -179,8 +169,7 @@ public class ElectronicInvoice {
     public String getInvoiceShippingDescription(ElectronicInvoiceOrder eio) {
         if (this.invoiceDetailRequestHeader.isShippingInLine()) {
             return eio.getInvoiceShippingDescription();
-        }
-        else {
+        } else {
             return invoiceDetailRequestSummary.getShippingDescription();
         }
     }
@@ -188,18 +177,17 @@ public class ElectronicInvoice {
     public String getInvoiceTaxDescription(ElectronicInvoiceOrder eio) {
         if (this.invoiceDetailRequestHeader.isTaxInLine()) {
             return eio.getInvoiceTaxDescription();
-        }
-        else {
+        } else {
             return invoiceDetailRequestSummary.getTaxDescription();
         }
     }
 
     public String getInvoiceSpecialHandlingDescription(ElectronicInvoiceOrder eio) {
-       
+
         if (this.invoiceDetailRequestHeader.isSpecialHandlingInLine()) {
             return eio.getInvoiceSpecialHandlingDescription();
-            
-        }else{
+
+        } else {
             return invoiceDetailRequestSummary.getSpecialHandlingAmountDescription();
         }
     }
@@ -209,18 +197,15 @@ public class ElectronicInvoice {
      */
     public BigDecimal getFileTotalAmountForInLineItems(String invoiceLineItemType) {
         BigDecimal total = zero;
-        for (Iterator orderIter = this.invoiceDetailOrders.iterator(); orderIter.hasNext();) {
+        for (Iterator orderIter = this.invoiceDetailOrders.iterator(); orderIter.hasNext(); ) {
             ElectronicInvoiceOrder eio = (ElectronicInvoiceOrder) orderIter.next();
             if (INVOICE_AMOUNT_TYPE_CODE_TAX.equalsIgnoreCase(invoiceLineItemType)) {
                 total = total.add(eio.getInvoiceTaxAmount());
-            }
-            else if (INVOICE_AMOUNT_TYPE_CODE_SPECIAL_HANDLING.equalsIgnoreCase(invoiceLineItemType)) {
+            } else if (INVOICE_AMOUNT_TYPE_CODE_SPECIAL_HANDLING.equalsIgnoreCase(invoiceLineItemType)) {
                 total = total.add(eio.getInvoiceSpecialHandlingAmount());
-            }
-            else if (INVOICE_AMOUNT_TYPE_CODE_SHIPPING.equalsIgnoreCase(invoiceLineItemType)) {
+            } else if (INVOICE_AMOUNT_TYPE_CODE_SHIPPING.equalsIgnoreCase(invoiceLineItemType)) {
                 total = total.add(eio.getInvoiceShippingAmount());
-            }
-            else if (INVOICE_AMOUNT_TYPE_CODE_DISCOUNT.equalsIgnoreCase(invoiceLineItemType)) {
+            } else if (INVOICE_AMOUNT_TYPE_CODE_DISCOUNT.equalsIgnoreCase(invoiceLineItemType)) {
                 total = total.add(eio.getInvoiceDiscountAmount());
             }
         }
@@ -230,8 +215,7 @@ public class ElectronicInvoice {
     public BigDecimal getInvoiceSubTotalAmount(ElectronicInvoiceOrder eio) {
         if (this.containsLineLevelAmounts()) {
             return eio.getInvoiceSubTotalAmount();
-        }
-        else {
+        } else {
             return invoiceDetailRequestSummary.getInvoiceSubTotalAmount();
         }
     }
@@ -239,8 +223,7 @@ public class ElectronicInvoice {
     public BigDecimal getInvoiceTaxAmount(ElectronicInvoiceOrder eio) {
         if (this.invoiceDetailRequestHeader.isTaxInLine()) {
             return eio.getInvoiceTaxAmount();
-        }
-        else {
+        } else {
             return invoiceDetailRequestSummary.getInvoiceTaxAmount();
         }
     }
@@ -248,8 +231,7 @@ public class ElectronicInvoice {
     public BigDecimal getInvoiceSpecialHandlingAmount(ElectronicInvoiceOrder eio) {
         if (this.invoiceDetailRequestHeader.isSpecialHandlingInLine()) {
             return eio.getInvoiceSpecialHandlingAmount();
-        }
-        else {
+        } else {
             return invoiceDetailRequestSummary.getInvoiceSpecialHandlingAmount();
         }
     }
@@ -257,8 +239,7 @@ public class ElectronicInvoice {
     public BigDecimal getInvoiceShippingAmount(ElectronicInvoiceOrder eio) {
         if (this.invoiceDetailRequestHeader.isShippingInLine()) {
             return eio.getInvoiceShippingAmount();
-        }
-        else {
+        } else {
             return invoiceDetailRequestSummary.getInvoiceShippingAmount();
         }
     }
@@ -266,8 +247,7 @@ public class ElectronicInvoice {
     public BigDecimal getInvoiceGrossAmount(ElectronicInvoiceOrder eio) {
         if (this.containsLineLevelAmounts()) {
             return eio.getInvoiceGrossAmount();
-        }
-        else {
+        } else {
             return invoiceDetailRequestSummary.getInvoiceGrossAmount();
         }
     }
@@ -275,8 +255,7 @@ public class ElectronicInvoice {
     public BigDecimal getInvoiceDiscountAmount(ElectronicInvoiceOrder eio) {
         if (this.invoiceDetailRequestHeader.isDiscountInLine()) {
             return eio.getInvoiceDiscountAmount();
-        }
-        else {
+        } else {
             return invoiceDetailRequestSummary.getInvoiceDiscountAmount();
         }
     }
@@ -284,8 +263,7 @@ public class ElectronicInvoice {
     public BigDecimal getInvoiceNetAmount(ElectronicInvoiceOrder eio) {
         if (this.containsLineLevelAmounts()) {
             return eio.getInvoiceNetAmount();
-        }
-        else {
+        } else {
             return invoiceDetailRequestSummary.getInvoiceNetAmount();
         }
     }
@@ -302,26 +280,23 @@ public class ElectronicInvoice {
      * CURRENCY METHODS
      */
     public String getCodeOfLineItemThatContainsInvalidCurrency(String invoiceLineItemType) {
-        for (Iterator orderIter = this.invoiceDetailOrders.iterator(); orderIter.hasNext();) {
+        for (Iterator orderIter = this.invoiceDetailOrders.iterator(); orderIter.hasNext(); ) {
             ElectronicInvoiceOrder eio = (ElectronicInvoiceOrder) orderIter.next();
-            for (Iterator itemIter = eio.getInvoiceItems().iterator(); itemIter.hasNext();) {
+            for (Iterator itemIter = eio.getInvoiceItems().iterator(); itemIter.hasNext(); ) {
                 ElectronicInvoiceItem eii = (ElectronicInvoiceItem) itemIter.next();
                 if (INVOICE_AMOUNT_TYPE_CODE_TAX.equalsIgnoreCase(invoiceLineItemType)) {
                     if (!(this.isCodeValidCurrency(eii.getTaxAmountCurrency()))) {
                         return eii.getTaxAmountCurrency();
                     }
-                }
-                else if (INVOICE_AMOUNT_TYPE_CODE_SPECIAL_HANDLING.equalsIgnoreCase(invoiceLineItemType)) {
+                } else if (INVOICE_AMOUNT_TYPE_CODE_SPECIAL_HANDLING.equalsIgnoreCase(invoiceLineItemType)) {
                     if (!(this.isCodeValidCurrency(eii.getInvoiceLineSpecialHandlingAmountCurrency()))) {
                         return eii.getInvoiceLineSpecialHandlingAmountCurrency();
                     }
-                }
-                else if (INVOICE_AMOUNT_TYPE_CODE_SHIPPING.equalsIgnoreCase(invoiceLineItemType)) {
+                } else if (INVOICE_AMOUNT_TYPE_CODE_SHIPPING.equalsIgnoreCase(invoiceLineItemType)) {
                     if (!(this.isCodeValidCurrency(eii.getInvoiceLineShippingAmountCurrency()))) {
                         return eii.getInvoiceLineShippingAmountCurrency();
                     }
-                }
-                else if (INVOICE_AMOUNT_TYPE_CODE_DISCOUNT.equalsIgnoreCase(invoiceLineItemType)) {
+                } else if (INVOICE_AMOUNT_TYPE_CODE_DISCOUNT.equalsIgnoreCase(invoiceLineItemType)) {
                     if (!(this.isCodeValidCurrency(eii.getInvoiceLineDiscountAmountCurrency()))) {
                         return eii.getInvoiceLineDiscountAmountCurrency();
                     }
@@ -337,8 +312,7 @@ public class ElectronicInvoice {
     public String checkCodeForValidCurrency(String code) {
         if (!(this.isCodeValidCurrency(code))) {
             return code;
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -360,7 +334,7 @@ public class ElectronicInvoice {
 
     public String getInvoiceSubTotalCurrencyIfNotValid(ElectronicInvoiceOrder eio) {
         if (this.containsLineLevelAmounts()) {
-            for (Iterator iter = eio.getInvoiceItems().iterator(); iter.hasNext();) {
+            for (Iterator iter = eio.getInvoiceItems().iterator(); iter.hasNext(); ) {
                 ElectronicInvoiceItem eii = (ElectronicInvoiceItem) iter.next();
                 String currentCode = this.checkCodeForValidCurrency(eii.getSubTotalAmountCurrency());
                 if (currentCode != null) {
@@ -368,15 +342,14 @@ public class ElectronicInvoice {
                 }
             }
             return null;
-        }
-        else {
+        } else {
             return this.checkCodeForValidCurrency(invoiceDetailRequestSummary.getSubTotalAmountCurrency());
         }
     }
 
     public String getInvoiceTaxCurrencyIfNotValid(ElectronicInvoiceOrder eio) {
         if (this.invoiceDetailRequestHeader.isTaxInLine()) {
-            for (Iterator iter = eio.getInvoiceItems().iterator(); iter.hasNext();) {
+            for (Iterator iter = eio.getInvoiceItems().iterator(); iter.hasNext(); ) {
                 ElectronicInvoiceItem eii = (ElectronicInvoiceItem) iter.next();
                 String currentCode = this.checkCodeForValidCurrency(eii.getTaxAmountCurrency());
                 if (currentCode != null) {
@@ -384,15 +357,14 @@ public class ElectronicInvoice {
                 }
             }
             return null;
-        }
-        else {
+        } else {
             return this.checkCodeForValidCurrency(invoiceDetailRequestSummary.getTaxAmountCurrency());
         }
     }
 
     public String getInvoiceSpecialHandlingCurrencyIfNotValid(ElectronicInvoiceOrder eio) {
         if (this.invoiceDetailRequestHeader.isSpecialHandlingInLine()) {
-            for (Iterator iter = eio.getInvoiceItems().iterator(); iter.hasNext();) {
+            for (Iterator iter = eio.getInvoiceItems().iterator(); iter.hasNext(); ) {
                 ElectronicInvoiceItem eii = (ElectronicInvoiceItem) iter.next();
                 String currentCode = this.checkCodeForValidCurrency(eii.getInvoiceLineSpecialHandlingAmountCurrency());
                 if (currentCode != null) {
@@ -400,15 +372,14 @@ public class ElectronicInvoice {
                 }
             }
             return null;
-        }
-        else {
+        } else {
             return this.checkCodeForValidCurrency(invoiceDetailRequestSummary.getSpecialHandlingAmountCurrency());
         }
     }
 
     public String getInvoiceShippingCurrencyIfNotValid(ElectronicInvoiceOrder eio) {
         if (this.invoiceDetailRequestHeader.isShippingInLine()) {
-            for (Iterator iter = eio.getInvoiceItems().iterator(); iter.hasNext();) {
+            for (Iterator iter = eio.getInvoiceItems().iterator(); iter.hasNext(); ) {
                 ElectronicInvoiceItem eii = (ElectronicInvoiceItem) iter.next();
                 String currentCode = this.checkCodeForValidCurrency(eii.getInvoiceLineShippingAmountCurrency());
                 if (currentCode != null) {
@@ -416,15 +387,14 @@ public class ElectronicInvoice {
                 }
             }
             return null;
-        }
-        else {
+        } else {
             return this.checkCodeForValidCurrency(invoiceDetailRequestSummary.getShippingAmountCurrency());
         }
     }
 
     public String getInvoiceGrossCurrencyIfNotValid(ElectronicInvoiceOrder eio) {
         if (this.containsLineLevelAmounts()) {
-            for (Iterator iter = eio.getInvoiceItems().iterator(); iter.hasNext();) {
+            for (Iterator iter = eio.getInvoiceItems().iterator(); iter.hasNext(); ) {
                 ElectronicInvoiceItem eii = (ElectronicInvoiceItem) iter.next();
                 String currentCode = this.checkCodeForValidCurrency(eii.getInvoiceLineGrossAmountCurrency());
                 if (currentCode != null) {
@@ -432,15 +402,14 @@ public class ElectronicInvoice {
                 }
             }
             return null;
-        }
-        else {
+        } else {
             return this.checkCodeForValidCurrency(invoiceDetailRequestSummary.getGrossAmountCurrency());
         }
     }
 
     public String getInvoiceDiscountCurrencyIfNotValid(ElectronicInvoiceOrder eio) {
         if (this.invoiceDetailRequestHeader.isDiscountInLine()) {
-            for (Iterator iter = eio.getInvoiceItems().iterator(); iter.hasNext();) {
+            for (Iterator iter = eio.getInvoiceItems().iterator(); iter.hasNext(); ) {
                 ElectronicInvoiceItem eii = (ElectronicInvoiceItem) iter.next();
                 String currentCode = this.checkCodeForValidCurrency(eii.getInvoiceLineDiscountAmountCurrency());
                 if (currentCode != null) {
@@ -448,8 +417,7 @@ public class ElectronicInvoice {
                 }
             }
             return null;
-        }
-        else {
+        } else {
             return this.checkCodeForValidCurrency(invoiceDetailRequestSummary.getDiscountAmountCurrency());
         }
     }
@@ -463,8 +431,7 @@ public class ElectronicInvoice {
                 }
             }
             return null;
-        }
-        else {
+        } else {
             return this.checkCodeForValidCurrency(invoiceDetailRequestSummary.getNetAmountCurrency());
         }
     }

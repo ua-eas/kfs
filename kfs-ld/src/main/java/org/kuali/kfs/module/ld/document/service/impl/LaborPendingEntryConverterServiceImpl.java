@@ -1,35 +1,38 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ld.document.service.impl;
 
-import java.sql.Date;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.service.ObjectCodeService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.document.YearEndDocument;
 import org.kuali.kfs.fp.document.service.YearEndPendingEntryService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.module.ld.LaborConstants;
 import org.kuali.kfs.module.ld.businessobject.BenefitsCalculation;
 import org.kuali.kfs.module.ld.businessobject.ExpenseTransferAccountingLine;
 import org.kuali.kfs.module.ld.businessobject.LaborLedgerPendingEntry;
 import org.kuali.kfs.module.ld.document.LaborLedgerPostingDocument;
+import org.kuali.kfs.module.ld.document.SalaryExpenseTransferDocument;
 import org.kuali.kfs.module.ld.document.service.LaborPendingEntryConverterService;
 import org.kuali.kfs.module.ld.service.LaborBenefitsCalculationService;
 import org.kuali.kfs.module.ld.util.DebitCreditUtil;
@@ -38,10 +41,11 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper;
 import org.kuali.kfs.sys.service.HomeOriginationService;
 import org.kuali.kfs.sys.service.OptionsService;
+import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.bo.DocumentHeader;
+
+import java.sql.Date;
 
 /**
  * Default implementation of the LaborPendingEntryConverterService
@@ -54,6 +58,7 @@ public class LaborPendingEntryConverterServiceImpl implements LaborPendingEntryC
     protected DataDictionaryService dataDictionaryService;
     protected DateTimeService dateTimeService;
     protected YearEndPendingEntryService yearEndPendingEntryService;
+    protected ParameterService parameterService;
 
     /**
      * @see org.kuali.kfs.module.ld.document.service.LaborPendingEntryConverterService#getBenefitA21PendingEntry(org.kuali.kfs.module.ld.document.LaborLedgerPostingDocument, org.kuali.kfs.module.ld.businessobject.ExpenseTransferAccountingLine, org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper, org.kuali.rice.core.api.util.type.KualiDecimal, java.lang.String)
@@ -118,10 +123,11 @@ public class LaborPendingEntryConverterServiceImpl implements LaborPendingEntryC
 
         return pendingEntry;
     }
-    
+
     /**
      * Updates the given LLPE for year end documents
-     * @param document the document to check if it is YearEnd
+     *
+     * @param document     the document to check if it is YearEnd
      * @param pendingEntry the pending entry to update
      */
     protected void overrideEntryForYearEndIfNecessary(LaborLedgerPostingDocument document, LaborLedgerPendingEntry pendingEntry) {
@@ -150,7 +156,7 @@ public class LaborPendingEntryConverterServiceImpl implements LaborPendingEntryC
         ObjectCode fringeObjectCode = getObjectCodeService().getByPrimaryId(accountingLine.getPayrollEndDateFiscalYear(), accountingLine.getChartOfAccountsCode(), fringeBenefitObjectCode);
         pendingEntry.setFinancialObjectTypeCode(fringeObjectCode.getFinancialObjectTypeCode());
 
-        pendingEntry.setFinancialSubObjectCode(KFSConstants.getDashFinancialSubObjectCode());
+        setSubobjectCodeOnBenefitPendingEntry(accountingLine, pendingEntry);
         pendingEntry.setTransactionLedgerEntryAmount(benefitAmount.abs());
         pendingEntry.setPositionNumber(LaborConstants.getDashPositionNumber());
         pendingEntry.setEmplid(LaborConstants.getDashEmplId());
@@ -162,6 +168,15 @@ public class LaborPendingEntryConverterServiceImpl implements LaborPendingEntryC
         return pendingEntry;
     }
 
+    protected void setSubobjectCodeOnBenefitPendingEntry(ExpenseTransferAccountingLine accountingLine, LaborLedgerPendingEntry pendingEntry) {
+        boolean copySubobjectCode = getParameterService().getParameterValueAsBoolean(KfsParameterConstants.LABOR_DOCUMENT.class, LaborConstants.SalaryExpenseTransfer.COPY_SUB_OBJECT_TO_BENEFIT_ENTRIES_PARM_NM, false);
+        if (copySubobjectCode) {
+            pendingEntry.setFinancialSubObjectCode(accountingLine.getFinancialSubObjectCode());
+        } else {
+            pendingEntry.setFinancialSubObjectCode(KFSConstants.getDashFinancialSubObjectCode());
+        }
+    }
+
     /**
      * @see org.kuali.kfs.module.ld.document.service.LaborPendingEntryConverterService#getDefaultPendingEntry(org.kuali.kfs.module.ld.document.LaborLedgerPostingDocument, org.kuali.kfs.module.ld.businessobject.ExpenseTransferAccountingLine)
      */
@@ -169,7 +184,7 @@ public class LaborPendingEntryConverterServiceImpl implements LaborPendingEntryC
         LaborLedgerPendingEntry pendingEntry = getDefaultPendingEntry(document);
 
         pendingEntry.setUniversityFiscalYear(accountingLine.getPostingYear());
-        
+
         pendingEntry.setChartOfAccountsCode(accountingLine.getChartOfAccountsCode());
         pendingEntry.setAccountNumber(accountingLine.getAccountNumber());
         pendingEntry.setFinancialObjectCode(accountingLine.getFinancialObjectCode());
@@ -284,10 +299,10 @@ public class LaborPendingEntryConverterServiceImpl implements LaborPendingEntryC
 
         return pendingEntry;
     }
-    
+
     /**
      * Pick one from target and backup values based on the availability of target value
-     * 
+     *
      * @param targetValue the given target value
      * @param backupValue the backup value of the target value
      * @return target value if it is not null; otherwise, return its backup
@@ -298,7 +313,7 @@ public class LaborPendingEntryConverterServiceImpl implements LaborPendingEntryC
 
     /**
      * This method gets the next sequence number and increments.
-     * 
+     *
      * @param sequenceHelper the given sequence helper
      * @return the next sequence number and increments
      */
@@ -365,4 +380,11 @@ public class LaborPendingEntryConverterServiceImpl implements LaborPendingEntryC
         this.yearEndPendingEntryService = yearEndPendingEntryService;
     }
 
+    public ParameterService getParameterService() {
+        return parameterService;
+    }
+
+    public void setParameterService(ParameterService parameterService) {
+        this.parameterService = parameterService;
+    }
 }

@@ -1,32 +1,32 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document.service.impl;
 
-import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService;
 import org.kuali.kfs.integration.purap.CapitalAssetSystem;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.KualiRuleService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.PurapRuleConstants;
@@ -52,18 +52,18 @@ import org.kuali.kfs.vnd.document.service.VendorService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.api.role.RoleMembership;
 import org.kuali.rice.kim.api.role.RoleService;
-import org.kuali.rice.krad.bo.Note;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.service.KualiRuleService;
-import org.kuali.rice.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Implementation of RequisitionService
@@ -72,20 +72,20 @@ import org.springframework.transaction.annotation.Transactional;
 public class RequisitionServiceImpl implements RequisitionService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(RequisitionServiceImpl.class);
 
-    private BusinessObjectService businessObjectService;
-    private CapitalAssetBuilderModuleService capitalAssetBuilderModuleService;
-    private DateTimeService dateTimeService;
-    private DocumentService documentService;
-    private KualiRuleService ruleService;
-    private ConfigurationService kualiConfigurationService;
-    private ParameterService parameterService;
-    private PersonService personService;
-    private PostalCodeValidationService postalCodeValidationService;
-    private PurapService purapService;
-    private RequisitionDao requisitionDao;
-    private UniversityDateService universityDateService;
-    private VendorService vendorService;
-    private RoleService roleService;
+    protected BusinessObjectService businessObjectService;
+    protected CapitalAssetManagementModuleService capitalAssetManagementModuleService;
+    protected DateTimeService dateTimeService;
+    protected DocumentService documentService;
+    protected KualiRuleService ruleService;
+    protected ConfigurationService kualiConfigurationService;
+    protected ParameterService parameterService;
+    protected PersonService personService;
+    protected PostalCodeValidationService postalCodeValidationService;
+    protected PurapService purapService;
+    protected RequisitionDao requisitionDao;
+    protected UniversityDateService universityDateService;
+    protected VendorService vendorService;
+    protected RoleService roleService;
 
     @Override
     public PurchasingCapitalAssetItem createCamsItem(PurchasingDocument purDoc, PurApItem purapItem) {
@@ -118,8 +118,7 @@ public class RequisitionServiceImpl implements RequisitionService {
                 RequisitionDocument doc = (RequisitionDocument) documentService.getByDocumentHeaderId(documentNumber);
 
                 return doc;
-            }
-            catch (WorkflowException e) {
+            } catch (WorkflowException e) {
                 String errorMessage = "Error getting requisition document from document service";
                 LOG.error("getRequisitionById() " + errorMessage, e);
                 throw new RuntimeException(errorMessage, e);
@@ -148,8 +147,7 @@ public class RequisitionServiceImpl implements RequisitionService {
                 Note apoNote = documentService.createNoteFromDocument(requisition, note);
                 requisition.addNote(apoNote);
                 documentService.saveDocumentNotes(requisition);
-              }
-            catch (Exception e) {
+            } catch (Exception e) {
                 throw new RuntimeException(PurapConstants.REQ_UNABLE_TO_CREATE_NOTE + " " + e);
             }
 
@@ -170,7 +168,7 @@ public class RequisitionServiceImpl implements RequisitionService {
      *
      * @param requisition the requisition document to be checked for APO eligibility.
      * @return String containing the reason why the requisition was not eligible to become an APO if it was not eligible, or an
-     *         empty String if the requisition is eligible to become an APO.
+     * empty String if the requisition is eligible to become an APO.
      */
     protected String checkAutomaticPurchaseOrderRules(RequisitionDocument requisition) {
         String requisitionSource = requisition.getRequisitionSourceCode();
@@ -183,8 +181,7 @@ public class RequisitionServiceImpl implements RequisitionService {
         }
         if (apoLimit == null) {
             return "APO limit is empty.";
-        }
-        else {
+        } else {
             if (reqTotal.compareTo(apoLimit) == 1) {
                 return "Requisition total is greater than the APO limit.";
             }
@@ -199,15 +196,14 @@ public class RequisitionServiceImpl implements RequisitionService {
         }
         if (requisition.getVendorHeaderGeneratedIdentifier() == null || requisition.getVendorDetailAssignedIdentifier() == null) {
             return "Vendor was not selected from the vendor database.";
-        }
-        else {
+        } else {
             VendorDetail vendorDetail = vendorService.getVendorDetail(requisition.getVendorHeaderGeneratedIdentifier(), requisition.getVendorDetailAssignedIdentifier());
             if (vendorDetail == null) {
                 return "Error retrieving vendor from the database.";
             }
-            if ( StringUtils.isBlank(requisition.getVendorLine1Address()) ||
-                 StringUtils.isBlank(requisition.getVendorCityName()) ||
-                 StringUtils.isBlank(requisition.getVendorCountryCode())) {
+            if (StringUtils.isBlank(requisition.getVendorLine1Address()) ||
+                StringUtils.isBlank(requisition.getVendorCityName()) ||
+                StringUtils.isBlank(requisition.getVendorCountryCode())) {
                 return "Requisition does not have all of the vendor address fields that are required for Purchase Order.";
             }
             requisition.setVendorRestrictedIndicator(vendorDetail.getVendorRestrictedIndicator());
@@ -220,7 +216,7 @@ public class RequisitionServiceImpl implements RequisitionService {
             requisition.setVendorDetail(vendorDetail);
 
             if ((!PurapConstants.RequisitionSources.B2B.equals(requisitionSource)) && ObjectUtils.isNull(requisition.getVendorContractGeneratedIdentifier())) {
-               Person initiator = getPersonService().getPerson(requisition.getDocumentHeader().getWorkflowDocument().getInitiatorPrincipalId());
+                Person initiator = getPersonService().getPerson(requisition.getDocumentHeader().getWorkflowDocument().getInitiatorPrincipalId());
                 VendorContract b2bContract = vendorService.getVendorB2BContract(vendorDetail, initiator.getCampusCode());
                 if (b2bContract != null) {
                     return "Standard requisition with no contract selected but a B2B contract exists for the selected vendor.";
@@ -238,9 +234,9 @@ public class RequisitionServiceImpl implements RequisitionService {
 
         //if vendor address isn't complete, no APO
         if (StringUtils.isBlank(requisition.getVendorLine1Address()) ||
-                StringUtils.isBlank(requisition.getVendorCityName()) ||
-                StringUtils.isBlank(requisition.getVendorCountryCode()) ||
-                !postalCodeValidationService.validateAddress(requisition.getVendorCountryCode(), requisition.getVendorStateCode(), requisition.getVendorPostalCode(), "", "")) {
+            StringUtils.isBlank(requisition.getVendorCityName()) ||
+            StringUtils.isBlank(requisition.getVendorCountryCode()) ||
+            !postalCodeValidationService.validateAddress(requisition.getVendorCountryCode(), requisition.getVendorStateCode(), requisition.getVendorPostalCode(), "", "")) {
             return "Requistion does not contain a complete vendor address";
         }
 
@@ -249,7 +245,7 @@ public class RequisitionServiceImpl implements RequisitionService {
         String purchaseOrderRequiresCommodityCode = parameterService.getParameterValueAsString(PurchaseOrderDocument.class, PurapRuleConstants.ITEMS_REQUIRE_COMMODITY_CODE_IND);
         boolean commodityCodeRequired = purchaseOrderRequiresCommodityCode.equals("Y");
 
-        for (Iterator iter = requisition.getItems().iterator(); iter.hasNext();) {
+        for (Iterator iter = requisition.getItems().iterator(); iter.hasNext(); ) {
             RequisitionItem item = (RequisitionItem) iter.next();
             if (item.isItemRestrictedIndicator()) {
                 return "Requisition contains an item that is marked as restricted.";
@@ -274,7 +270,7 @@ public class RequisitionServiceImpl implements RequisitionService {
 
             if (!PurapConstants.RequisitionSources.B2B.equals(requisitionSource)) {
                 for (PurApAccountingLine accountingLine : item.getSourceAccountingLines()) {
-                    if (capitalAssetBuilderModuleService.doesAccountingLineFailAutomaticPurchaseOrderRules(accountingLine)) {
+                    if (capitalAssetManagementModuleService.doesAccountingLineFailAutomaticPurchaseOrderRules(accountingLine)) {
                         return "Requisition contains accounting line with capital object level";
                     }
                 }
@@ -282,7 +278,7 @@ public class RequisitionServiceImpl implements RequisitionService {
 
         }// endfor items
 
-        if (capitalAssetBuilderModuleService.doesDocumentFailAutomaticPurchaseOrderRules(requisition)) {
+        if (capitalAssetManagementModuleService.doesDocumentFailAutomaticPurchaseOrderRules(requisition)) {
             return "Requisition contains capital asset items.";
         }
 
@@ -311,23 +307,23 @@ public class RequisitionServiceImpl implements RequisitionService {
      * Checks the APO rules for Commodity Codes.
      * The rules are as follow:
      * 1. If an institution does not require a commodity code on a requisition but
-     *    does require a commodity code on a purchase order:
-     *    a. If the requisition qualifies for an APO and the commodity code is blank
-     *       on any line item then the system should use the default commodity code
-     *       for the vendor.
-     *    b. If there is not a default commodity code for the vendor then the
-     *       requisition is not eligible to become an APO.
+     * does require a commodity code on a purchase order:
+     * a. If the requisition qualifies for an APO and the commodity code is blank
+     * on any line item then the system should use the default commodity code
+     * for the vendor.
+     * b. If there is not a default commodity code for the vendor then the
+     * requisition is not eligible to become an APO.
      * 2. The commodity codes where the restricted indicator is Y should disallow
-     *    the requisition from becoming an APO.
+     * the requisition from becoming an APO.
      * 3. If the commodity code is Inactive when the requisition is finally approved
-     *    do not allow the requisition to become an APO.
+     * do not allow the requisition to become an APO.
      *
      * @param purItem
      * @param vendorCommodityCodes
      * @param commodityCodeRequired
      * @return
      */
-    protected String checkAPORulesPerItemForCommodityCodes(RequisitionItem purItem, List<VendorCommodityCode>vendorCommodityCodes, boolean commodityCodeRequired) {
+    protected String checkAPORulesPerItemForCommodityCodes(RequisitionItem purItem, List<VendorCommodityCode> vendorCommodityCodes, boolean commodityCodeRequired) {
         // If the commodity code is blank on any line item and a commodity code is required,
         // then the system should use the default commodity code for the vendor
         if (purItem.getCommodityCode() == null && commodityCodeRequired) {
@@ -342,12 +338,10 @@ public class RequisitionServiceImpl implements RequisitionService {
             // If there is not a default commodity code for the vendor then the requisition is not eligible to become an APO.
             if (commodityCodeRequired) {
                 return "There are missing commodity code(s).";
-        }
-        }
-        else if (!purItem.getCommodityCode().isActive()) {
+            }
+        } else if (!purItem.getCommodityCode().isActive()) {
             return "Requisition contains inactive commodity codes.";
-        }
-        else if (purItem.getCommodityCode().isRestrictedItemsIndicator()) {
+        } else if (purItem.getCommodityCode().isRestrictedItemsIndicator()) {
             return "Requisition contains an item with a restricted commodity code.";
         }
         return "";
@@ -381,8 +375,7 @@ public class RequisitionServiceImpl implements RequisitionService {
         List<RequisitionDocument> unassignedRequisitions = getRequisitionsAwaitingContractManagerAssignment();
         if (ObjectUtils.isNotNull(unassignedRequisitions)) {
             return unassignedRequisitions.size();
-        }
-        else {
+        } else {
             return 0;
         }
     }
@@ -431,8 +424,8 @@ public class RequisitionServiceImpl implements RequisitionService {
         this.kualiConfigurationService = kualiConfigurationService;
     }
 
-    public void setCapitalAssetBuilderModuleService(CapitalAssetBuilderModuleService capitalAssetBuilderModuleService) {
-        this.capitalAssetBuilderModuleService = capitalAssetBuilderModuleService;
+    public void setCapitalAssetManagementModuleService(CapitalAssetManagementModuleService capitalAssetManagementModuleService) {
+        this.capitalAssetManagementModuleService = capitalAssetManagementModuleService;
     }
 
     public void setPostalCodeValidationService(PostalCodeValidationService postalCodeValidationService) {
@@ -441,16 +434,17 @@ public class RequisitionServiceImpl implements RequisitionService {
 
     /**
      * Sets the roleService.
+     *
      * @param serv- the RoleService to set
      */
-    public void setRoleService(RoleService serv){
+    public void setRoleService(RoleService serv) {
         this.roleService = serv;
     }
 
     /**
      * @return Returns the roleService.
      */
-    public RoleService getRoleService(){
+    public RoleService getRoleService() {
         return this.roleService;
     }
 
@@ -458,7 +452,7 @@ public class RequisitionServiceImpl implements RequisitionService {
      * @return Returns the personService.
      */
     protected PersonService getPersonService() {
-        if(personService==null) {
+        if (personService == null) {
             personService = SpringContext.getBean(PersonService.class);
         }
         return personService;

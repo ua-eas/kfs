@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.ar.report;
 
-import java.util.Date;
-
 import org.kuali.kfs.module.ar.businessobject.CollectionActivityReport;
+
+import java.util.Date;
 
 /**
  * Data holder class for Collection Activity Report.
@@ -30,7 +30,7 @@ public class CollectionActivityReportDetailDataHolder {
     private Date followupDate;
     private String activityType;
     private String activityComment;
-    private Long proposalNumber;
+    private String proposalNumber;
     private String agencyNumber;
 
     private String accountNumber;
@@ -197,7 +197,7 @@ public class CollectionActivityReportDetailDataHolder {
      *
      * @return Returns the proposal number.
      */
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -206,7 +206,7 @@ public class CollectionActivityReportDetailDataHolder {
      *
      * @param proposalNumber The proposal number to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

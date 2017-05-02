@@ -1,33 +1,34 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.vnd.document.service.impl;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.NoteService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.vnd.VendorConstants;
@@ -46,16 +47,15 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.krad.bo.Note;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.service.NoteService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Transactional
 public class VendorServiceImpl implements VendorService {
@@ -102,8 +102,7 @@ public class VendorServiceImpl implements VendorService {
                 Integer headerId = new Integer(vendorNumber.substring(0, dashInd));
                 Integer detailId = new Integer(vendorNumber.substring(dashInd + 1));
                 return getVendorDetail(headerId, detailId);
-            }
-            catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 // in case of invalid number format
                 return null;
             }
@@ -137,7 +136,7 @@ public class VendorServiceImpl implements VendorService {
 
         // check for the special case of a contractOrg for this contract in the contract-orgs table
         if (ObjectUtils.isNotNull(contractId) && ObjectUtils.isNotNull(chart) && ObjectUtils.isNotNull(org)) {
-            Map<String,Object> pkFields = new HashMap<String, Object>(3);
+            Map<String, Object> pkFields = new HashMap<String, Object>(3);
             pkFields.put("vendorContractGeneratedIdentifier", contractId);
             pkFields.put("chartOfAccountsCode", chart);
             pkFields.put("organizationCode", org);
@@ -157,7 +156,7 @@ public class VendorServiceImpl implements VendorService {
 
         // didn't search the contract-org table or not found in the table but contract exists, return the default APO limit in
         // contract
-        if ( contractId != null ) {
+        if (contractId != null) {
             VendorContract contract = businessObjectService.findBySinglePrimaryKey(VendorContract.class, contractId);
             if (contract != null) {
                 return contract.getOrganizationAutomaticPurchaseOrderLimit();
@@ -177,18 +176,16 @@ public class VendorServiceImpl implements VendorService {
             LOG.debug("Entering getParentVendor for vendorHeaderGeneratedIdentifier:" + vendorHeaderGeneratedIdentifier);
         }
         Collection<VendorDetail> vendors = businessObjectService.findMatching(VendorDetail.class,
-                Collections.singletonMap("vendorHeaderGeneratedIdentifier", vendorHeaderGeneratedIdentifier));
+            Collections.singletonMap("vendorHeaderGeneratedIdentifier", vendorHeaderGeneratedIdentifier));
         VendorDetail result = null;
-        if (vendors == null || vendors.isEmpty() ) {
+        if (vendors == null || vendors.isEmpty()) {
             LOG.warn("Error: No vendors exist with vendor header " + vendorHeaderGeneratedIdentifier + ".");
-        }
-        else {
+        } else {
             for (VendorDetail vendor : vendors) {
                 if (vendor.isVendorParentIndicator()) {
                     if (ObjectUtils.isNull(result)) {
                         result = vendor;
-                    }
-                    else {
+                    } else {
                         LOG.error("Error: More than one parent vendor for vendor header " + vendorHeaderGeneratedIdentifier + ".");
                         throw new RuntimeException("Error: More than one parent vendor for vendor header " + vendorHeaderGeneratedIdentifier + ".");
                     }
@@ -217,8 +214,7 @@ public class VendorServiceImpl implements VendorService {
         LOG.debug("Exiting getVendorByDunsNumber.");
         if (vds.size() < 1) {
             return null;
-        }
-        else {
+        } else {
             return vds.iterator().next();
         }
     }
@@ -237,17 +233,16 @@ public class VendorServiceImpl implements VendorService {
         criteria.put(VendorPropertyConstants.VENDOR_ADDRESS_TYPE_CODE, addressType);
         Collection<VendorAddress> addresses = businessObjectService.findMatching(VendorAddress.class, criteria);
         LOG.debug("Exiting getVendorDefaultAddress.");
-        return getVendorDefaultAddress(addresses, addressType, campus,true);
+        return getVendorDefaultAddress(addresses, addressType, campus, true);
     }
-
 
 
     /**
      * @see org.kuali.kfs.vnd.document.service.VendorService#getVendorDefaultAddress(java.lang.Integer, java.lang.Integer, java.lang.String, java.lang.String, boolean)
      */
     @Override
-   // In the case of Vendor credit memo document and during vendor quote complete process in PO,the active indicator check is not required.
-    public VendorAddress getVendorDefaultAddress(Integer vendorHeaderId, Integer vendorDetailId, String addressType, String campus,boolean activeCheck) {
+    // In the case of Vendor credit memo document and during vendor quote complete process in PO,the active indicator check is not required.
+    public VendorAddress getVendorDefaultAddress(Integer vendorHeaderId, Integer vendorDetailId, String addressType, String campus, boolean activeCheck) {
         if (LOG.isDebugEnabled()) {
             LOG.debug("Entering getVendorDefaultAddress for vendorHeaderId:" + vendorHeaderId + ", vendorDetailId:" + vendorDetailId + ", addressType:" + addressType + ", campus:" + campus);
         }
@@ -257,49 +252,49 @@ public class VendorServiceImpl implements VendorService {
         criteria.put(VendorPropertyConstants.VENDOR_ADDRESS_TYPE_CODE, addressType);
         Collection<VendorAddress> addresses = businessObjectService.findMatching(VendorAddress.class, criteria);
         LOG.debug("Exiting getVendorDefaultAddress.");
-        return getVendorDefaultAddress(addresses, addressType, campus,activeCheck);
+        return getVendorDefaultAddress(addresses, addressType, campus, activeCheck);
     }
 
 
-   /**
+    /**
      * @see org.kuali.kfs.vnd.document.service.VendorService#getVendorDefaultAddress(java.util.Collection, java.lang.String, java.lang.String)
      */
     @Override
     public VendorAddress getVendorDefaultAddress(Collection<VendorAddress> addresses, String addressType, String campus) {
-       return getVendorDefaultAddress(addresses, addressType, campus,true);
+        return getVendorDefaultAddress(addresses, addressType, campus, true);
     }
 
 
-   /**
+    /**
      * @see org.kuali.kfs.vnd.document.service.VendorService#getVendorDefaultAddress(List, String, String)
      */
     // Retrieves the vendor default address based on whether active indicator check is required or not.
     // In the case of Vendor credit memo document and during vendor quote complete process in PO,the active indicator check is not required.
-    private VendorAddress getVendorDefaultAddress(Collection<VendorAddress> addresses, String addressType, String campus,boolean activeCheck) {
+    private VendorAddress getVendorDefaultAddress(Collection<VendorAddress> addresses, String addressType, String campus, boolean activeCheck) {
         LOG.debug("Entering getVendorDefaultAddress.");
         VendorAddress allDefaultAddress = null;
         for (VendorAddress address : addresses) {
             // if address is of the right type, continue check
-             if (addressType.equals(address.getVendorAddressTypeCode())) {
+            if (addressType.equals(address.getVendorAddressTypeCode())) {
                 // if campus was passed in and list of campuses on address exist, continue check
                 if (StringUtils.isNotEmpty(campus) && address.getVendorDefaultAddresses() != null) {
                     // looping through list of campus defaults to find a match for the passed in campus and based on activeCheck.
                     for (VendorDefaultAddress defaultCampus : address.getVendorDefaultAddresses()) {
-                        if (activeCheck ? (campus.equals(defaultCampus.getVendorCampusCode()) && defaultCampus.isActive()) :(campus.equals(defaultCampus.getVendorCampusCode()))) {
-                               LOG.debug("Exiting getVendorDefaultAddress with single campus default.");
-                               if(activeCheck){
-                                    if(address.isActive() && address.isVendorDefaultAddressIndicator()){
-                                       return address;
-                                    }
-                               }else{
-                                   return address;
-                               }
-                       }
+                        if (activeCheck ? (campus.equals(defaultCampus.getVendorCampusCode()) && defaultCampus.isActive()) : (campus.equals(defaultCampus.getVendorCampusCode()))) {
+                            LOG.debug("Exiting getVendorDefaultAddress with single campus default.");
+                            if (activeCheck) {
+                                if (address.isActive() && address.isVendorDefaultAddressIndicator()) {
+                                    return address;
+                                }
+                            } else {
+                                return address;
+                            }
+                        }
 
                     }//end inner for loop
                 }
 
-                if (activeCheck ? (address.isVendorDefaultAddressIndicator() && address.isActive()) :(address.isVendorDefaultAddressIndicator())) {
+                if (activeCheck ? (address.isVendorDefaultAddressIndicator() && address.isActive()) : (address.isVendorDefaultAddressIndicator())) {
                     allDefaultAddress = address;
                 }
             }
@@ -323,34 +318,34 @@ public class VendorServiceImpl implements VendorService {
 
         if (document == null) {
             // this should never happen - unable to load document in routing
-            LOG.error( "Unable to retrieve document in workflow: " + documentId);
+            LOG.error("Unable to retrieve document in workflow: " + documentId);
             return false;
         }
         String maintenanceAction = document.getNewMaintainableObject().getMaintenanceAction();
-        if ( StringUtils.equals(KRADConstants.MAINTENANCE_NEW_ACTION, maintenanceAction)
-                || StringUtils.equals(KRADConstants.MAINTENANCE_NEWWITHEXISTING_ACTION, maintenanceAction)
-                || StringUtils.equals(KRADConstants.MAINTENANCE_COPY_ACTION, maintenanceAction) ) {
+        if (StringUtils.equals(KRADConstants.MAINTENANCE_NEW_ACTION, maintenanceAction)
+            || StringUtils.equals(KRADConstants.MAINTENANCE_NEWWITHEXISTING_ACTION, maintenanceAction)
+            || StringUtils.equals(KRADConstants.MAINTENANCE_COPY_ACTION, maintenanceAction)) {
             return true;  // New vendor - impacting change by definition
         }
-        VendorDetail oldVendorDetail = (VendorDetail)document.getOldMaintainableObject().getBusinessObject();
-        if ( oldVendorDetail == null ) {
+        VendorDetail oldVendorDetail = (VendorDetail) document.getOldMaintainableObject().getBusinessObject();
+        if (oldVendorDetail == null) {
             // we can't compare - route for safety
             return true;
         }
         VendorHeader oldVendorHeader = oldVendorDetail.getVendorHeader();
-        if ( ObjectUtils.isNull(oldVendorHeader) ) {
+        if (ObjectUtils.isNull(oldVendorHeader)) {
             // we can't compare - route for safety
             return true;
         }
 
-        VendorDetail newVendorDetail = (VendorDetail)document.getNewMaintainableObject().getBusinessObject();
-        if ( newVendorDetail == null ) {
+        VendorDetail newVendorDetail = (VendorDetail) document.getNewMaintainableObject().getBusinessObject();
+        if (newVendorDetail == null) {
             // we can't compare - route for safety
             return true;
         }
         VendorHeader newVendorHeader = newVendorDetail.getVendorHeader();
 
-        if ( ObjectUtils.isNull(newVendorHeader) ) {
+        if (ObjectUtils.isNull(newVendorHeader)) {
             // we can't compare - route for safety
             return true;
         }
@@ -359,8 +354,8 @@ public class VendorServiceImpl implements VendorService {
 
     /**
      * @see org.kuali.kfs.vnd.document.service.VendorService#noRouteSignificantChangeOccurred(org.kuali.kfs.vnd.businessobject.VendorDetail,
-     *      org.kuali.kfs.vnd.businessobject.VendorHeader, org.kuali.kfs.vnd.businessobject.VendorDetail,
-     *      org.kuali.kfs.vnd.businessobject.VendorHeader)
+     * org.kuali.kfs.vnd.businessobject.VendorHeader, org.kuali.kfs.vnd.businessobject.VendorDetail,
+     * org.kuali.kfs.vnd.businessobject.VendorHeader)
      */
     @Override
     public boolean noRouteSignificantChangeOccurred(VendorDetail newVDtl, VendorHeader newVHdr, VendorDetail oldVDtl, VendorHeader oldVHdr) {
@@ -368,11 +363,11 @@ public class VendorServiceImpl implements VendorService {
 
         // The subcollections which are being compared here must implement VendorRoutingComparable.
         boolean unchanged = ((oldVHdr.isEqualForRouting(newVHdr))
-                && (equalMemberLists(oldVHdr.getVendorSupplierDiversities(), newVHdr.getVendorSupplierDiversities()))
-                && (oldVDtl.isEqualForRouting(newVDtl))
-                && (equalMemberLists(oldVDtl.getVendorAddresses(), newVDtl.getVendorAddresses()))
-                && (equalMemberLists(oldVDtl.getVendorContracts(), newVDtl.getVendorContracts()))
-                && (equalMemberLists(oldVDtl.getVendorShippingSpecialConditions(), newVDtl.getVendorShippingSpecialConditions())));
+            && (equalMemberLists(oldVHdr.getVendorSupplierDiversities(), newVHdr.getVendorSupplierDiversities()))
+            && (oldVDtl.isEqualForRouting(newVDtl))
+            && (equalMemberLists(oldVDtl.getVendorAddresses(), newVDtl.getVendorAddresses()))
+            && (equalMemberLists(oldVDtl.getVendorContracts(), newVDtl.getVendorContracts()))
+            && (equalMemberLists(oldVDtl.getVendorShippingSpecialConditions(), newVDtl.getVendorShippingSpecialConditions())));
 
         LOG.debug("Exiting noRouteSignificantChangeOccurred.");
         return unchanged;
@@ -413,15 +408,14 @@ public class VendorServiceImpl implements VendorService {
             LOG.error(errorMsg);
             throw new RuntimeException(errorMsg);
         }
-       // vendorToUse.refreshReferenceObject("vendorHeader");
+        // vendorToUse.refreshReferenceObject("vendorHeader");
         if (VendorConstants.TAX_TYPE_SSN.equals(vendorToUse.getVendorHeader().getVendorTaxTypeCode())) {
             String ssnTaxId = vendorToUse.getVendorHeader().getVendorTaxNumber();
             if (StringUtils.isNotBlank(ssnTaxId)) {
                 List<Person> personList = SpringContext.getBean(PersonService.class).getPersonByExternalIdentifier(org.kuali.rice.kim.api.KimConstants.PersonExternalIdentifierTypes.TAX, ssnTaxId);
                 if (personList != null && !personList.isEmpty()) {
                     return ObjectUtils.isNotNull(personList.get(0));
-                }
-                else {
+                } else {
                     // user is not in the system... assume non-person
                     return false;
                 }
@@ -440,7 +434,7 @@ public class VendorServiceImpl implements VendorService {
                 Note note = noteService.createNote(newBONote, vendorDetail, GlobalVariables.getUserSession().getPrincipalId());
                 noteService.save(note);
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException("Problems creating note for Vendor " + vendorDetail);
         }
     }
@@ -530,15 +524,19 @@ public class VendorServiceImpl implements VendorService {
     public VendorContract getVendorB2BContract(VendorDetail vendorDetail, String campus) {
         return vendorDao.getVendorB2BContract(vendorDetail, campus, dateTimeService.getCurrentSqlDate());
     }
+
     public void setBusinessObjectService(BusinessObjectService boService) {
         this.businessObjectService = boService;
     }
+
     public void setDocumentService(DocumentService documentService) {
         this.documentService = documentService;
     }
+
     public void setVendorDao(VendorDao vendorDao) {
         this.vendorDao = vendorDao;
     }
+
     public void setDateTimeService(DateTimeService dateTimeService) {
         this.dateTimeService = dateTimeService;
     }

@@ -1,28 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document.dataaccess.impl;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Iterator;
-import java.util.List;
 
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
@@ -38,6 +32,12 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.util.TransactionalServiceUtils;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 import org.springframework.dao.DataAccessException;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Iterator;
+import java.util.List;
 
 public class CashManagementDaoOjb extends PlatformAwareDaoBaseOjb implements CashManagementDao {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CashManagementDaoOjb.class);
@@ -56,7 +56,7 @@ public class CashManagementDaoOjb extends PlatformAwareDaoBaseOjb implements Cas
         criteria.addColumnIsNull("ITM_CLOSED_DT");
 
         QueryByCriteria openItemsQuery = QueryFactory.newQuery(CashieringItemInProcess.class, criteria);
-        return new ArrayList<CashieringItemInProcess>( getPersistenceBrokerTemplate().getCollectionByQuery(openItemsQuery) );
+        return new ArrayList<CashieringItemInProcess>(getPersistenceBrokerTemplate().getCollectionByQuery(openItemsQuery));
     }
 
     /**
@@ -82,7 +82,7 @@ public class CashManagementDaoOjb extends PlatformAwareDaoBaseOjb implements Cas
 
     /**
      * @see org.kuali.kfs.fp.document.dataaccess.CashManagementDao#findCoinDetailByCashieringStatus(java.lang.String,
-     *      java.lang.String, java.lang.String)
+     * java.lang.String, java.lang.String)
      */
     public CoinDetail findCoinDetailByCashieringStatus(String documentNumber, String documentTypeCode, String cashieringStatus) {
         return (CoinDetail) retrieveCashDetail(documentNumber, documentTypeCode, cashieringStatus, CoinDetail.class);
@@ -90,7 +90,7 @@ public class CashManagementDaoOjb extends PlatformAwareDaoBaseOjb implements Cas
 
     /**
      * @see org.kuali.kfs.fp.document.dataaccess.CashManagementDao#findCurrencyDetailByCashieringStatus(java.lang.String,
-     *      java.lang.String, java.lang.String)
+     * java.lang.String, java.lang.String)
      */
     public CurrencyDetail findCurrencyDetailByCashieringStatus(String documentNumber, String documentTypeCode, String cashieringStatus) {
         return (CurrencyDetail) retrieveCashDetail(documentNumber, documentTypeCode, cashieringStatus, CurrencyDetail.class);
@@ -98,8 +98,8 @@ public class CashManagementDaoOjb extends PlatformAwareDaoBaseOjb implements Cas
 
     /**
      * This takes the primary keys for a cash or currency detail record and returns an OJB criteria for it
-     * 
-     * @param documentNumber document number to retrieve
+     *
+     * @param documentNumber   document number to retrieve
      * @param documentTypeCode type code of the document
      * @param cashieringStatus the cashiering status
      * @return a criteria, based on all of the given information
@@ -114,11 +114,11 @@ public class CashManagementDaoOjb extends PlatformAwareDaoBaseOjb implements Cas
 
     /**
      * This method retrieves a cash detail from the database
-     * 
-     * @param documentNumber the document number to retrieve from
+     *
+     * @param documentNumber   the document number to retrieve from
      * @param documentTypeCode the document type of the document the cash detail to look up is associated with
      * @param cashieringStatus the cashiering status to look up from
-     * @param detailType the class of the cash detail type we want
+     * @param detailType       the class of the cash detail type we want
      * @return the cash detail type record
      */
     protected Object retrieveCashDetail(String documentNumber, String documentTypeCode, String cashieringStatus, Class detailType) {
@@ -137,8 +137,8 @@ public class CashManagementDaoOjb extends PlatformAwareDaoBaseOjb implements Cas
 
     /**
      * This method creates a criteria to find the cashiering checks associated with a given deposit
-     * 
-     * @param documentNumber the document number the deposit is associated with
+     *
+     * @param documentNumber    the document number the deposit is associated with
      * @param depositLineNumber the line number of the deposit
      * @return a criteria to find those checks
      */
@@ -150,7 +150,7 @@ public class CashManagementDaoOjb extends PlatformAwareDaoBaseOjb implements Cas
 
     /**
      * This method puts the check elements of an iterator into a list
-     * 
+     *
      * @param iter an iterator with checks results in it
      * @return a list of checks
      */
@@ -172,7 +172,7 @@ public class CashManagementDaoOjb extends PlatformAwareDaoBaseOjb implements Cas
 
     /**
      * This method creates the criteria to find undeposited cashiering checks
-     * 
+     *
      * @param documentNumber the document number undeposited checks are associated with
      * @return a criteria to find them
      */
@@ -192,7 +192,7 @@ public class CashManagementDaoOjb extends PlatformAwareDaoBaseOjb implements Cas
 
     /**
      * This method creates the criteria to find deposited checks
-     * 
+     *
      * @param documentNumber the CM document the checks are associated with
      * @return a criteria to find deposited checks
      */
@@ -204,14 +204,14 @@ public class CashManagementDaoOjb extends PlatformAwareDaoBaseOjb implements Cas
 
     /**
      * This method retrieves all currency details associated with a cash management document
-     * 
+     *
      * @param documentNumber the document number of the cash management document to get currency details for
      * @return a list of currency details
      */
     public List<CurrencyDetail> getAllCurrencyDetails(String documentNumber) {
         QueryByCriteria allCurrencyDetailsQuery = QueryFactory.newQuery(CurrencyDetail.class, getAllCashDetailCriteria(documentNumber));
         List<CurrencyDetail> result = new ArrayList<CurrencyDetail>();
-        for (Iterator iter = getPersistenceBrokerTemplate().getIteratorByQuery(allCurrencyDetailsQuery); iter.hasNext();) {
+        for (Iterator iter = getPersistenceBrokerTemplate().getIteratorByQuery(allCurrencyDetailsQuery); iter.hasNext(); ) {
             result.add((CurrencyDetail) iter.next());
         }
         return result;
@@ -219,14 +219,14 @@ public class CashManagementDaoOjb extends PlatformAwareDaoBaseOjb implements Cas
 
     /**
      * This method gets all coin details for a particular document number, irregardless of cashiering record source
-     * 
+     *
      * @param documentNumber the document number to find cash details for
      * @return hopefully, a bunch of coin details
      */
     public List<CoinDetail> getAllCoinDetails(String documentNumber) {
         QueryByCriteria allCoinDetailsQuery = QueryFactory.newQuery(CoinDetail.class, getAllCashDetailCriteria(documentNumber));
         List<CoinDetail> result = new ArrayList<CoinDetail>();
-        for (Iterator iter = getPersistenceBrokerTemplate().getIteratorByQuery(allCoinDetailsQuery); iter.hasNext();) {
+        for (Iterator iter = getPersistenceBrokerTemplate().getIteratorByQuery(allCoinDetailsQuery); iter.hasNext(); ) {
             result.add((CoinDetail) iter.next());
         }
         return result;
@@ -234,7 +234,7 @@ public class CashManagementDaoOjb extends PlatformAwareDaoBaseOjb implements Cas
 
     /**
      * This method creates details for getting all of a certain cash detail, irregardless of cashiering record source
-     * 
+     *
      * @param documentNumber the document number to get cash details for
      * @return the criteria that will allow the retrieval of the right cash details
      */
@@ -261,12 +261,10 @@ public class CashManagementDaoOjb extends PlatformAwareDaoBaseOjb implements Cas
             Iterator allChecksIter = getPersistenceBrokerTemplate().getIteratorByQuery(cmChecksQuery);
             if (allChecksIter.hasNext()) {
                 return new Integer((((Check) TransactionalServiceUtils.retrieveFirstAndExhaustIterator(allChecksIter)).getSequenceId()).intValue() + 1);
-            }
-            else {
+            } else {
                 return new Integer(1);
             }
-        }
-        else {
+        } else {
             return null;
         }
     }

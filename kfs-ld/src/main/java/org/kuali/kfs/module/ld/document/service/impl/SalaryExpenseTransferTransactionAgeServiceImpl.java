@@ -1,37 +1,37 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ld.document.service.impl;
 
-import static org.kuali.kfs.module.ld.document.validation.impl.SalaryExpenseTransferDocumentRuleConstants.ERROR_CERTIFICATION_DEFAULT_OVERRIDE_BY_SUB_FUND;
-
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.SubFundGroup;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.integration.ld.LaborLedgerExpenseTransferAccountingLine;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ld.LaborConstants;
 import org.kuali.kfs.module.ld.businessobject.ExpenseTransferTargetAccountingLine;
 import org.kuali.kfs.module.ld.document.service.SalaryExpenseTransferTransactionAgeService;
 import org.kuali.kfs.sys.businessobject.UniversityDate;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.util.List;
+
+import static org.kuali.kfs.module.ld.document.validation.impl.SalaryExpenseTransferDocumentRuleConstants.ERROR_CERTIFICATION_DEFAULT_OVERRIDE_BY_SUB_FUND;
 
 /**
  * @see org.kuali.kfs.module.ld.document.service.SalaryExpenseTransferTransactionAgeService
@@ -43,9 +43,12 @@ public class SalaryExpenseTransferTransactionAgeServiceImpl implements SalaryExp
     protected static ParameterService parameterService;
 
     /**
-     *
+     * @param accountingLines
+     * @param periodsFromParameter
+     * @return true if all of the transaction dates are younger by fiscal periods than specified in the appropriate parameter; false
+     * otherwise
      * @see org.kuali.kfs.module.ld.document.service.SalaryExpenseTransferTransactionAgeService#defaultNumberOfFiscalPeriodsCheck(java.util.List, java.lang.Integer)
-     *
+     * <p>
      * Determines if the age of the transactions are older than the value in a parameter. By default, use the fiscal periods in
      * periodsFromParameter. If a target accounting line, check account's sub fund and maybe use
      * ERROR_CERTIFICATION_DEFAULT_OVERRIDE_BY_SUB_FUND parameter.
@@ -54,11 +57,6 @@ public class SalaryExpenseTransferTransactionAgeServiceImpl implements SalaryExp
      * <li>Get fiscal year and fiscal period of each line.</li>
      * <li>Check sub fund of each line to possibly reassign periodsFromParameter.</li>
      * </ol>
-     *
-     * @param accountingLines
-     * @param periodsFromParameter
-     * @return true if all of the transaction dates are younger by fiscal periods than specified in the appropriate parameter; false
-     *         otherwise
      */
     @Override
     public boolean defaultNumberOfFiscalPeriodsCheck(List<LaborLedgerExpenseTransferAccountingLine> accountingLines, Integer periodsFromParameter) {
@@ -105,15 +103,13 @@ public class SalaryExpenseTransferTransactionAgeServiceImpl implements SalaryExp
     }
 
     /**
-     *
-     * @see org.kuali.kfs.module.ld.document.service.SalaryExpenseTransferTransactionAgeService#checkCurrentSubFund(java.lang.Integer, org.kuali.kfs.module.ld.businessobject.ExpenseTransferTargetAccountingLine)
-     *
-     * This method checks the sub fund associated with the account in a target accounting line. If sub fund is in
-     * ERROR_CERTIFICATION_DEFAULT_OVERRIDE_BY_SUB_FUND parameter, use different # of fiscal periods
-     *
      * @param periodsFromParameter initial periods from a parameter
      * @param currentTargetLine
      * @return the periodsFromParameter, which may have value in ERROR_CERTIFICATION_DEFAULT_OVERRIDE_BY_SUB_FUND
+     * @see org.kuali.kfs.module.ld.document.service.SalaryExpenseTransferTransactionAgeService#checkCurrentSubFund(java.lang.Integer, org.kuali.kfs.module.ld.businessobject.ExpenseTransferTargetAccountingLine)
+     * <p>
+     * This method checks the sub fund associated with the account in a target accounting line. If sub fund is in
+     * ERROR_CERTIFICATION_DEFAULT_OVERRIDE_BY_SUB_FUND parameter, use different # of fiscal periods
      */
     @Override
     public Integer checkCurrentSubFund(Integer periodsFromParameter, ExpenseTransferTargetAccountingLine currentTargetLine) {

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns='http://www.liquibase.org/xml/ns/dbchangelog'
+                   xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+                   xsi:schemaLocation='http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd'>
+
+    <changeSet author="KFS601" id="FINI-2191_ADD_MISSING_KRAD_COMPONENT" context="bootstrap,demo,unit">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">select count(*) from krcr_cmpnt_t where nmspc_cd = 'KR-KRAD' and cmpnt_cd = 'All'</sqlCheck>
+        </preConditions>
+        <insert tableName="KRCR_CMPNT_T">
+            <column name="NMSPC_CD"><![CDATA[KR-KRAD]]></column>
+            <column name="CMPNT_CD"><![CDATA[All]]></column>
+            <column name="OBJ_ID"><![CDATA[FINI-2191A]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="NM"><![CDATA[All]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+        </insert>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-696_ADD_MISSING_NMSPC" context="unit">
+        <insert tableName="krcr_nmspc_t">
+            <column name="NMSPC_CD"><![CDATA[KR-LOC]]></column>
+            <column name="OBJ_ID"><![CDATA[0738DD6D96C83105E0506E0AC31D4281]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="NM"><![CDATA[Kuali Location]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+            <column name="APPL_ID"><![CDATA[RICE]]></column>
+        </insert>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINI-2191_ADD_MISSING_LOCATION_COMPONENT" context="bootstrap,demo,unit">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">select count(*) from krcr_cmpnt_t where nmspc_cd = 'KR-LOC' and cmpnt_cd = 'All'</sqlCheck>
+        </preConditions>
+        <insert tableName="KRCR_CMPNT_T">
+            <column name="NMSPC_CD"><![CDATA[KR-LOC]]></column>
+            <column name="CMPNT_CD"><![CDATA[All]]></column>
+            <column name="OBJ_ID"><![CDATA[FINI-2191B]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="NM"><![CDATA[All]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+        </insert>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINI-2191_ADD_MISSING_KIM_COMPONENT" context="bootstrap,demo,unit">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">select count(*) from krcr_cmpnt_t where nmspc_cd = 'KR-IDM' and cmpnt_cd = 'PersonDocumentName'</sqlCheck>
+        </preConditions>
+        <insert tableName="KRCR_CMPNT_T">
+            <column name="NMSPC_CD"><![CDATA[KR-IDM]]></column>
+            <column name="CMPNT_CD"><![CDATA[PersonDocumentName]]></column>
+            <column name="OBJ_ID"><![CDATA[FINI-2191C]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="NM"><![CDATA[PersonDocumentName]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

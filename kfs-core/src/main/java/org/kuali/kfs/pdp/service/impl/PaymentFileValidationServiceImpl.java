@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -24,6 +24,13 @@ import org.kuali.kfs.coa.service.AccountService;
 import org.kuali.kfs.coa.service.ObjectCodeService;
 import org.kuali.kfs.coa.service.SubAccountService;
 import org.kuali.kfs.coa.service.SubObjectCodeService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.bo.KualiCodeBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.pdp.PdpConstants;
 import org.kuali.kfs.pdp.PdpKeyConstants;
 import org.kuali.kfs.pdp.PdpParameterConstants;
@@ -42,14 +49,7 @@ import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.RiceKeyConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.doctype.DocumentTypeService;
-import org.kuali.rice.krad.bo.KualiCodeBase;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.DataDictionaryService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.MessageMap;
-import org.kuali.rice.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
@@ -83,7 +83,7 @@ public class PaymentFileValidationServiceImpl implements PaymentFileValidationSe
 
     /**
      * @see org.kuali.kfs.pdp.batch.service.PaymentFileValidationService#doHardEdits(org.kuali.kfs.pdp.businessobject.PaymentFile,
-     *      org.kuali.rice.krad.util.MessageMap)
+     * org.kuali.rice.krad.util.MessageMap)
      */
     @Override
     public void doHardEdits(PaymentFileLoad paymentFile, MessageMap errorMap) {
@@ -102,18 +102,16 @@ public class PaymentFileValidationServiceImpl implements PaymentFileValidationSe
      * Validates payment file header fields <li>Checks customer exists in customer profile table and is active</li>
      *
      * @param paymentFile payment file object
-     * @param errorMap map in which errors will be added to
+     * @param errorMap    map in which errors will be added to
      */
     protected void processHeaderValidation(PaymentFileLoad paymentFile, MessageMap errorMap) {
         CustomerProfile customer = customerProfileService.get(paymentFile.getChart(), paymentFile.getUnit(), paymentFile.getSubUnit());
         if (customer == null) {
             errorMap.putError(KFSConstants.GLOBAL_ERRORS, PdpKeyConstants.ERROR_PAYMENT_LOAD_INVALID_CUSTOMER, paymentFile.getChart(), paymentFile.getUnit(), paymentFile.getSubUnit());
-        }
-        else {
+        } else {
             if (!customer.isActive()) {
                 errorMap.putError(KFSConstants.GLOBAL_ERRORS, PdpKeyConstants.ERROR_PAYMENT_LOAD_INACTIVE_CUSTOMER, paymentFile.getChart(), paymentFile.getUnit(), paymentFile.getSubUnit());
-            }
-            else {
+            } else {
                 paymentFile.setCustomer(customer);
             }
         }
@@ -124,7 +122,7 @@ public class PaymentFileValidationServiceImpl implements PaymentFileValidationSe
      * is not a duplicate</li>
      *
      * @param paymentFile payment file object
-     * @param errorMap map in which errors will be added to
+     * @param errorMap    map in which errors will be added to
      */
     protected void processTrailerValidation(PaymentFileLoad paymentFile, MessageMap errorMap) {
         // compare trailer payment count to actual count loaded
@@ -150,7 +148,7 @@ public class PaymentFileValidationServiceImpl implements PaymentFileValidationSe
      * Verifies group total is not negative</li> <li>Verifies detail accounting total equals net payment amount</li>
      *
      * @param paymentFile payment file object
-     * @param errorMap map in which errors will be added to
+     * @param errorMap    map in which errors will be added to
      */
     protected void processGroupValidation(PaymentFileLoad paymentFile, MessageMap errorMap) {
         int groupCount = 0;
@@ -187,8 +185,7 @@ public class PaymentFileValidationServiceImpl implements PaymentFileValidationSe
                 Bank bank = bankService.getByPrimaryId(bankCode);
                 if (bank == null) {
                     errorMap.putError(KFSConstants.GLOBAL_ERRORS, PdpKeyConstants.ERROR_PAYMENT_LOAD_INVALID_BANK_CODE, Integer.toString(groupCount), bankCode);
-                }
-                else if (!bank.isActive()) {
+                } else if (!bank.isActive()) {
                     errorMap.putError(KFSConstants.GLOBAL_ERRORS, PdpKeyConstants.ERROR_PAYMENT_LOAD_INACTIVE_BANK_CODE, Integer.toString(groupCount), bankCode);
                 }
             }
@@ -202,8 +199,7 @@ public class PaymentFileValidationServiceImpl implements PaymentFileValidationSe
 
                 if ((paymentDetail.getNetPaymentAmount() == null) && (!paymentDetail.isDetailAmountProvided())) {
                     paymentDetail.setNetPaymentAmount(paymentDetail.getAccountTotal());
-                }
-                else if ((paymentDetail.getNetPaymentAmount() == null) && (paymentDetail.isDetailAmountProvided())) {
+                } else if ((paymentDetail.getNetPaymentAmount() == null) && (paymentDetail.isDetailAmountProvided())) {
                     paymentDetail.setNetPaymentAmount(paymentDetail.getCalculatedPaymentAmount());
                 }
 
@@ -222,7 +218,7 @@ public class PaymentFileValidationServiceImpl implements PaymentFileValidationSe
 
                 // validate doc type if given
                 if (StringUtils.isNotBlank(paymentDetail.getFinancialDocumentTypeCode())) {
-                    if ( !documentTypeService.isActiveByName(paymentDetail.getFinancialDocumentTypeCode()) ) {
+                    if (!documentTypeService.isActiveByName(paymentDetail.getFinancialDocumentTypeCode())) {
                         errorMap.putError(KFSConstants.GLOBAL_ERRORS, PdpKeyConstants.ERROR_PAYMENT_LOAD_INVALID_DOC_TYPE, Integer.toString(groupCount), Integer.toString(detailCount), paymentDetail.getFinancialDocumentTypeCode());
                     }
                 }
@@ -248,12 +244,12 @@ public class PaymentFileValidationServiceImpl implements PaymentFileValidationSe
      * SQL exceptions while saving PaymentGroup. So we need check all PaymentGroup property values which might exceed the maximum length allowed.
      *
      * @param paymentGroup the payment group for which field lengths are checked
-     * @param errorMap map in which errors will be added to
+     * @param errorMap     map in which errors will be added to
      */
     protected void checkPaymentGroupPropertyMaxLength(PaymentGroup paymentGroup, MessageMap errorMap) {
         for (String propertyName : PAYMENT_GROUP_PROPERTIES_TO_CHECK_MAX_LENGTH) {
             // we only check max length on String type properties
-            String propertyValue = (String)ObjectUtils.getPropertyValue(paymentGroup, propertyName);
+            String propertyValue = (String) ObjectUtils.getPropertyValue(paymentGroup, propertyName);
             if (StringUtils.isNotEmpty(propertyValue)) {
                 // we assume that max length defined in DD is the same as the size of the column in PaymentGroup table
                 Integer maxLength = dataDictionaryService.getAttributeMaxLength(PaymentGroup.class, propertyName);
@@ -290,8 +286,8 @@ public class PaymentFileValidationServiceImpl implements PaymentFileValidationSe
      * Set defaults for group fields and do tax checks.
      *
      * @param paymentFile payment file object
-     * @param customer payment customer
-     * @param warnings <code>List</code> list of accumulated warning messages
+     * @param customer    payment customer
+     * @param warnings    <code>List</code> list of accumulated warning messages
      */
     public void processGroupSoftEdits(PaymentFileLoad paymentFile, CustomerProfile customer, List<String> warnings) {
         PaymentStatus openStatus = businessObjectService.findBySinglePrimaryKey(PaymentStatus.class, PdpConstants.PaymentStatusCodes.OPEN);
@@ -325,10 +321,10 @@ public class PaymentFileValidationServiceImpl implements PaymentFileValidationSe
     /**
      * Set default fields on detail line and check amount against customer threshold.
      *
-     * @param paymentFile payment file object
-     * @param customer payment customer
+     * @param paymentFile   payment file object
+     * @param customer      payment customer
      * @param paymentDetail <code>PaymentDetail</code> object to process
-     * @param warnings <code>List</code> list of accumulated warning messages
+     * @param warnings      <code>List</code> list of accumulated warning messages
      */
     protected void processDetailSoftEdits(PaymentFileLoad paymentFile, CustomerProfile customer, PaymentDetail paymentDetail, List<String> warnings) {
         updateDetailAmounts(paymentDetail);
@@ -368,7 +364,7 @@ public class PaymentFileValidationServiceImpl implements PaymentFileValidationSe
      * @param paymentFile payment file object
      * @param customer payment customer
      * @param paymentAccountDetail <code>PaymentAccountDetail</code> object to process
-     * @param warnings <code>List</code> list of accumulated warning messages
+     * @param warnings             <code>List</code> list of accumulated warning messages
      */
     private void processAccountSoftEdits(PaymentFileLoad paymentFile, CustomerProfile customer, PaymentAccountDetail paymentAccountDetail, List<String> warnings) {
         List<PaymentAccountHistory> changeRecords = paymentAccountDetail.getAccountHistory();
@@ -385,8 +381,7 @@ public class PaymentFileValidationServiceImpl implements PaymentFileValidationSe
 
                 KualiCodeBase objChangeCd = businessObjectService.findBySinglePrimaryKey(AccountingChangeCode.class, PdpConstants.AccountChangeCodes.INVALID_ACCOUNT);
                 replaceAccountingString(objChangeCd, changeRecords, customer, paymentAccountDetail);
-            }
-            else {
+            } else {
                 // check sub account code
                 if (StringUtils.isNotBlank(paymentAccountDetail.getSubAccountNbr())) {
                     SubAccount subAccount = subAccountService.getByPrimaryId(paymentAccountDetail.getFinChartCode(), paymentAccountDetail.getAccountNbr(), paymentAccountDetail.getSubAccountNbr());
@@ -454,9 +449,9 @@ public class PaymentFileValidationServiceImpl implements PaymentFileValidationSe
     /**
      * Replaces the entire accounting string with defaults from the customer profile.
      *
-     * @param objChangeCd code indicating reason for change
-     * @param changeRecords <code>List</code> of <code>PaymentAccountHistory</code> records
-     * @param customer profile of payment customer
+     * @param objChangeCd          code indicating reason for change
+     * @param changeRecords        <code>List</code> of <code>PaymentAccountHistory</code> records
+     * @param customer             profile of payment customer
      * @param paymentAccountDetail account detail record
      */
     protected void replaceAccountingString(KualiCodeBase objChangeCd, List<PaymentAccountHistory> changeRecords, CustomerProfile customer, PaymentAccountDetail paymentAccountDetail) {
@@ -470,15 +465,13 @@ public class PaymentFileValidationServiceImpl implements PaymentFileValidationSe
         paymentAccountDetail.setAccountNbr(customer.getDefaultAccountNumber());
         if (StringUtils.isNotBlank(customer.getDefaultSubAccountNumber())) {
             paymentAccountDetail.setSubAccountNbr(customer.getDefaultSubAccountNumber());
-        }
-        else {
+        } else {
             paymentAccountDetail.setSubAccountNbr(KFSConstants.getDashSubAccountNumber());
         }
         paymentAccountDetail.setFinObjectCode(customer.getDefaultObjectCode());
         if (StringUtils.isNotBlank(customer.getDefaultSubAccountNumber())) {
             paymentAccountDetail.setFinSubObjectCode(customer.getDefaultSubObjectCode());
-        }
-        else {
+        } else {
             paymentAccountDetail.setFinSubObjectCode(KFSConstants.getDashFinancialSubObjectCode());
         }
     }
@@ -486,9 +479,9 @@ public class PaymentFileValidationServiceImpl implements PaymentFileValidationSe
     /**
      * Helper method to construct a new payment account history record
      *
-     * @param attName name of field that has changed
-     * @param newValue new value for the field
-     * @param oldValue field value that was changed
+     * @param attName    name of field that has changed
+     * @param newValue   new value for the field
+     * @param oldValue   field value that was changed
      * @param changeCode code indicating reason for change
      * @return <code>PaymentAccountHistory</code>
      */
@@ -586,9 +579,9 @@ public class PaymentFileValidationServiceImpl implements PaymentFileValidationSe
     /**
      * Checks whether payment status should be set to held and a tax email sent indicating so
      *
-     * @param paymentFile payment file object
+     * @param paymentFile  payment file object
      * @param paymentGroup <code>PaymentGroup</code> being checked
-     * @param customer payment customer
+     * @param customer     payment customer
      */
     protected void checkForTaxEmailRequired(PaymentFileLoad paymentFile, PaymentGroup paymentGroup, CustomerProfile customer) {
         PaymentStatus heldForNRAEmployee = businessObjectService.findBySinglePrimaryKey(PaymentStatus.class, PdpConstants.PaymentStatusCodes.HELD_TAX_NRA_EMPL_CD);
@@ -598,14 +591,10 @@ public class PaymentFileValidationServiceImpl implements PaymentFileValidationSe
         if (customer.getNraReview() && customer.getEmployeeCheck() && paymentGroup.getEmployeeIndicator().booleanValue() && paymentGroup.getNraPayment().booleanValue()) {
             paymentGroup.setPaymentStatus(heldForNRAEmployee);
             paymentFile.setTaxEmailRequired(true);
-        }
-
-        else if (customer.getEmployeeCheck() && paymentGroup.getEmployeeIndicator().booleanValue()) {
+        } else if (customer.getEmployeeCheck() && paymentGroup.getEmployeeIndicator().booleanValue()) {
             paymentGroup.setPaymentStatus(heldForEmployee);
             paymentFile.setTaxEmailRequired(true);
-        }
-
-        else if (customer.getNraReview() && paymentGroup.getNraPayment().booleanValue()) {
+        } else if (customer.getNraReview() && paymentGroup.getNraPayment().booleanValue()) {
             paymentGroup.setPaymentStatus(heldForNRA);
             paymentFile.setTaxEmailRequired(true);
         }
@@ -615,7 +604,7 @@ public class PaymentFileValidationServiceImpl implements PaymentFileValidationSe
      * Checks the payment date is not more than 30 days past or 30 days coming
      *
      * @param paymentGroup <code>PaymentGroup</code> being checked
-     * @param warnings <code>List</code> list of accumulated warning messages
+     * @param warnings     <code>List</code> list of accumulated warning messages
      */
     protected void checkGroupPaymentDate(PaymentGroup paymentGroup, List<String> warnings) {
         Timestamp now = dateTimeService.getCurrentTimestamp();
@@ -639,8 +628,7 @@ public class PaymentFileValidationServiceImpl implements PaymentFileValidationSe
             if (payDate.after(nowPlus30)) {
                 addWarningMessage(warnings, PdpKeyConstants.MESSAGE_PAYMENT_LOAD_PAYDATE_OVER_30_DAYS_OUT, dateTimeService.toDateString(paymentGroup.getPaymentDate()));
             }
-        }
-        else {
+        } else {
             // KFSMI-9997
             // Calculate tomorrow's date to set as payment date rather than null
             Calendar tomorrow = Calendar.getInstance();
@@ -668,9 +656,9 @@ public class PaymentFileValidationServiceImpl implements PaymentFileValidationSe
     /**
      * Helper method for substituting message parameters and adding the message to the warning list.
      *
-     * @param warnings <code>List</code> of messages to add to
+     * @param warnings   <code>List</code> of messages to add to
      * @param messageKey resource key for message
-     * @param arguments message substitute parameters
+     * @param arguments  message substitute parameters
      */
     protected void addWarningMessage(List<String> warnings, String messageKey, String... arguments) {
         // Add to global warnings so they will show up on the Payment File Batch Upload screen if

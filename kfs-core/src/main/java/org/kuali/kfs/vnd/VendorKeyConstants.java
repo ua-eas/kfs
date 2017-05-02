@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -42,7 +42,7 @@ public class VendorKeyConstants {
     public static final String ERROR_INACTIVE_REASON_REQUIRED = "error.vendorMaint.inactiveReason.required";
     public static final String ERROR_INACTIVE_REASON_NOT_ALLOWED = "error.vendorMaint.inactiveReason.notAllowed";
     public static final String ERROR_RESTRICTED_REASON_REQUIRED = "error.vendorMaint.restrictedReason.required";
-    public static final String ERROR_DUPLICATE_ENTRY_NOT_ALLOWED="error.vendorMaint.duplicateEntry.notAllowed";
+    public static final String ERROR_DUPLICATE_ENTRY_NOT_ALLOWED = "error.vendorMaint.duplicateEntry.notAllowed";
     public static final String ERROR_VENDOR_TAX_BEGIN_DATE_AFTER_END = "error.vendorTax.beginDateAfterEnd";
     public static final String ERROR_VENDOR_W9_AND_W8_RECEIVED_INDICATOR_BOTH_TRUE = "error.vendor.w9Andw8.receivedIndicator.BothTrue";
     public static final String MESSAGE_VENDOR_PARENT_TO_DIVISION = "message.vendorMaint.parent.to.division";
@@ -58,8 +58,6 @@ public class VendorKeyConstants {
     public static final String ERROR_VENDOR_CORP_CTZN_REQUIRED = "error.vendorMaint.corpCitznCountry.required";
     public static final String ERROR_VENDOR_GIIN_FORMAT_ERROR = "error.vendorMaint.giin.format.error";
     public static final String ERROR_VENDOR_W8_OWNERSHIP_INVALID = "error.vendorMaint.w8Type.ownership.invalid";
-
-
 
 
     // Vendor Lookup
@@ -80,6 +78,7 @@ public class VendorKeyConstants {
     public static final String ERROR_ADDRESS_DEFAULT_INDICATOR = "error.vendorMaint.vendorAddress.vendorDefaultAddressIndicator";
     public static final String ERROR_ADDRESS_DEFAULT_CAMPUS_NOT_ALLOWED = "error.vendorMaint.vendorDefaultCampus.notAllowed";
     public static final String ERROR_ADDRESS_DEFAULT_ADDRESS_NOT_ALLOWED = "error.vendorMaint.vendorDefaultAddress.notAllowed";
+    public static final String ERROR_ADDRESS_DEFAULT_ADDRESS_MUST_BE_ACTIVE = "error.vendorMaint.vendorDefaultAddress.must.be.active";
 
 
     // Vendor Maintenance Contract

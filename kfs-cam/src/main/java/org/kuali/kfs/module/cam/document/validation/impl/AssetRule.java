@@ -1,41 +1,33 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cam.document.validation.impl;
 
-import static org.kuali.kfs.module.cam.CamsKeyConstants.ERROR_INVALID_ASSET_WARRANTY_NO;
-import static org.kuali.kfs.module.cam.CamsKeyConstants.PreTag.ERROR_PRE_TAG_INVALID_REPRESENTATIVE_ID;
-import static org.kuali.kfs.module.cam.CamsPropertyConstants.Asset.ASSET_REPRESENTATIVE;
-import static org.kuali.kfs.module.cam.CamsPropertyConstants.Asset.ASSET_WARRANTY_WARRANTY_NUMBER;
-
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsKeyConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
@@ -60,17 +52,25 @@ import org.kuali.kfs.sys.util.KfsDateUtils;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.util.ErrorMessage;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
 import org.springframework.util.AutoPopulatingList;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import static org.kuali.kfs.module.cam.CamsKeyConstants.ERROR_INVALID_ASSET_WARRANTY_NO;
+import static org.kuali.kfs.module.cam.CamsKeyConstants.PreTag.ERROR_PRE_TAG_INVALID_REPRESENTATIVE_ID;
+import static org.kuali.kfs.module.cam.CamsPropertyConstants.Asset.ASSET_REPRESENTATIVE;
+import static org.kuali.kfs.module.cam.CamsPropertyConstants.Asset.ASSET_WARRANTY_WARRANTY_NUMBER;
 
 /**
  * AssetRule for Asset edit.
@@ -78,6 +78,7 @@ import org.springframework.util.AutoPopulatingList;
 public class AssetRule extends MaintenanceDocumentRuleBase {
     protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AssetRule.class);
     protected static final Map<LocationField, String> LOCATION_FIELD_MAP = new HashMap<LocationField, String>();
+
     static {
         LOCATION_FIELD_MAP.put(LocationField.CAMPUS_CODE, CamsPropertyConstants.Asset.CAMPUS_CODE);
         LOCATION_FIELD_MAP.put(LocationField.BUILDING_CODE, CamsPropertyConstants.Asset.BUILDING_CODE);
@@ -120,8 +121,7 @@ public class AssetRule extends MaintenanceDocumentRuleBase {
             valid &= validateAccount();
             valid &= validateLocation();
             valid &= validateFabricationDetails();
-        }
-        else {
+        } else {
             setAssetComponentNumbers(newAsset);
             paymentSummaryService.calculateAndSetPaymentSummary(oldAsset);
             paymentSummaryService.calculateAndSetPaymentSummary(newAsset);
@@ -180,7 +180,7 @@ public class AssetRule extends MaintenanceDocumentRuleBase {
 
     /**
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomAddCollectionLineBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument,
-     *      java.lang.String, org.kuali.rice.krad.bo.PersistableBusinessObject)
+     * java.lang.String, org.kuali.rice.krad.bo.PersistableBusinessObject)
      */
     @Override
     public boolean processCustomAddCollectionLineBusinessRules(MaintenanceDocument documentCopy, String collectionName, PersistableBusinessObject bo) {
@@ -272,8 +272,7 @@ public class AssetRule extends MaintenanceDocumentRuleBase {
         if (ObjectUtils.isNotNull(previoudOwnerAccount) && ObjectUtils.isNotNull(currentOwnerAccount) && previoudOwnerAccount.getChartOfAccountsCode().equals(currentOwnerAccount.getChartOfAccountsCode()) && previoudOwnerAccount.getAccountNumber().equals(currentOwnerAccount.getAccountNumber())) {
             return valid;
 
-        }
-        else if (ObjectUtils.isNotNull(currentOwnerAccount) && (currentOwnerAccount.isExpired() || !currentOwnerAccount.isActive())) {
+        } else if (ObjectUtils.isNotNull(currentOwnerAccount) && (currentOwnerAccount.isExpired() || !currentOwnerAccount.isActive())) {
             // Account is not active
             putFieldError(CamsPropertyConstants.Asset.ORGANIZATION_OWNER_ACCOUNT_NUMBER, CamsKeyConstants.ORGANIZATION_OWNER_ACCOUNT_INACTIVE);
             valid &= false;
@@ -282,14 +281,14 @@ public class AssetRule extends MaintenanceDocumentRuleBase {
     }
 
     /**
-     *
      * Validate asset representative
+     *
      * @return boolean
      */
     protected boolean validateAssetRepresentative() {
         boolean valid = true;
         Person assetRepresentative = SpringContext.getBean(PersonService.class).getPersonByPrincipalName(newAsset.getAssetRepresentative().getPrincipalName());
-        if(ObjectUtils.isNull(assetRepresentative)) {
+        if (ObjectUtils.isNull(assetRepresentative)) {
             putFieldError(ASSET_REPRESENTATIVE, ERROR_PRE_TAG_INVALID_REPRESENTATIVE_ID);
             valid = false;
         }
@@ -372,9 +371,7 @@ public class AssetRule extends MaintenanceDocumentRuleBase {
         if (ObjectUtils.isNull(newAsset.getCapitalAssetInServiceDate()) && assetService.isAssetDepreciationStarted(oldAsset)) {
             putFieldError(CamsPropertyConstants.Asset.ASSET_DATE_OF_SERVICE, CamsKeyConstants.ERROR_BLANK_IN_SERVICE_DATE_DISALLOWED);
             valid = false;
-        }
-
-        else if (ObjectUtils.isNotNull(newAsset.getCapitalAssetInServiceDate()) && universityDateService.getFiscalYear(newAsset.getCapitalAssetInServiceDate()) == null) {
+        } else if (ObjectUtils.isNotNull(newAsset.getCapitalAssetInServiceDate()) && universityDateService.getFiscalYear(newAsset.getCapitalAssetInServiceDate()) == null) {
             putFieldError(CamsPropertyConstants.Asset.ASSET_DATE_OF_SERVICE, CamsKeyConstants.ERROR_INVALID_IN_SERVICE_DATE);
             valid = false;
         }
@@ -407,8 +404,7 @@ public class AssetRule extends MaintenanceDocumentRuleBase {
             // disallow retire capital asset.
             putFieldError(CamsPropertyConstants.Asset.ASSET_INVENTORY_STATUS, CamsKeyConstants.ERROR_ASSET_RETIRED_CAPITAL);
             valid = false;
-        }
-        else {
+        } else {
             // validate inventory status change per system parameter.
             GlobalVariables.getMessageMap().addToErrorPath(MAINTAINABLE_ERROR_PATH);
             valid &= /*REFACTORME*/SpringContext.getBean(ParameterEvaluatorService.class).getParameterEvaluator(Asset.class, CamsConstants.Parameters.VALID_INVENTROY_STATUS_CODE_CHANGE, CamsConstants.Parameters.INVALID_INVENTROY_STATUS_CODE_CHANGE, oldAsset.getInventoryStatusCode(), newAsset.getInventoryStatusCode()).evaluateAndAddError(newAsset.getClass(), CamsPropertyConstants.Asset.ASSET_INVENTORY_STATUS);
@@ -452,11 +448,10 @@ public class AssetRule extends MaintenanceDocumentRuleBase {
                     if (!asset.getCapitalAssetNumber().equals(newAsset.getCapitalAssetNumber())) {
                         // KFSMI-6149 - do not invalidate if the asset from the database is retired
                         if (StringUtils.isBlank(asset.getRetirementReasonCode())) {
-                            putFieldError(CamsPropertyConstants.Asset.CAMPUS_TAG_NUMBER, CamsKeyConstants.AssetLocationGlobal.ERROR_DUPLICATE_TAG_NUMBER_FOUND, new String[] { newAsset.getCampusTagNumber(), asset.getCapitalAssetNumber().toString(), newAsset.getCapitalAssetNumber().toString() });
+                            putFieldError(CamsPropertyConstants.Asset.CAMPUS_TAG_NUMBER, CamsKeyConstants.AssetLocationGlobal.ERROR_DUPLICATE_TAG_NUMBER_FOUND, new String[]{newAsset.getCampusTagNumber(), asset.getCapitalAssetNumber().toString(), newAsset.getCapitalAssetNumber().toString()});
                             valid &= false;
                             LOG.info("The asset tag number [" + newAsset.getCampusTagNumber().toUpperCase() + "] is a duplicate of asset number [" + asset.getCapitalAssetNumber().toString() + "]'s tag number");
-                        }
-                        else {
+                        } else {
                             LOG.info("Although the asset tag number [" + newAsset.getCampusTagNumber().toUpperCase() + "] is a duplicate of asset number [" + asset.getCapitalAssetNumber().toString() + "]'s tag number, the old asset has already been retired");
                         }
                     }
@@ -617,8 +612,7 @@ public class AssetRule extends MaintenanceDocumentRuleBase {
         if (ObjectUtils.isNull(newAsset.getAcquisitionType())) {
             putFieldError(CamsPropertyConstants.Asset.ACQUISITION_TYPE_CODE, CamsKeyConstants.Asset.ERROR_ACQUISITION_TYPE_CODE_INVALID);
             return false;
-        }
-        else if (!StringUtils.equalsIgnoreCase(newAsset.getAcquisitionTypeCode(), oldAsset.getAcquisitionTypeCode())) {
+        } else if (!StringUtils.equalsIgnoreCase(newAsset.getAcquisitionTypeCode(), oldAsset.getAcquisitionTypeCode())) {
             newAsset.refreshReferenceObject(CamsPropertyConstants.Asset.REF_ACQUISITION_TYPE);
             if (ObjectUtils.isNotNull(newAsset.getAcquisitionType())) {
                 if (!newAsset.getAcquisitionType().isActive()) {
@@ -641,8 +635,7 @@ public class AssetRule extends MaintenanceDocumentRuleBase {
         if (ObjectUtils.isNull(newAsset.getCondition())) {
             putFieldError(CamsPropertyConstants.Asset.CONDITION_CODE, CamsKeyConstants.Asset.ERROR_ASSET_CONDITION_INVALID);
             return false;
-        }
-        else if (!StringUtils.equalsIgnoreCase(newAsset.getConditionCode(), oldAsset.getConditionCode())) {
+        } else if (!StringUtils.equalsIgnoreCase(newAsset.getConditionCode(), oldAsset.getConditionCode())) {
             newAsset.refreshReferenceObject(CamsPropertyConstants.Asset.REF_ASSET_CONDITION);
             if (ObjectUtils.isNotNull(newAsset.getCondition())) {
                 if (!newAsset.getCondition().isActive()) {
@@ -665,8 +658,7 @@ public class AssetRule extends MaintenanceDocumentRuleBase {
         if (ObjectUtils.isNull(newAsset.getAssetPrimaryDepreciationMethod())) {
             putFieldError(CamsPropertyConstants.Asset.PRIMARY_DEPRECIATION_METHOD, CamsKeyConstants.Asset.ERROR_DEPRECATION_METHOD_CODE_INVALID);
             return false;
-        }
-        else if (!StringUtils.equalsIgnoreCase(newAsset.getPrimaryDepreciationMethodCode(), oldAsset.getPrimaryDepreciationMethodCode())) {
+        } else if (!StringUtils.equalsIgnoreCase(newAsset.getPrimaryDepreciationMethodCode(), oldAsset.getPrimaryDepreciationMethodCode())) {
             newAsset.refreshReferenceObject(CamsPropertyConstants.Asset.REF_ASSET_DEPRECATION_METHOD);
             if (ObjectUtils.isNotNull(newAsset.getAssetPrimaryDepreciationMethod())) {
                 if (!newAsset.getAssetPrimaryDepreciationMethod().isActive()) {
@@ -689,8 +681,7 @@ public class AssetRule extends MaintenanceDocumentRuleBase {
         if (ObjectUtils.isNull(newAsset.getInventoryStatus())) {
             putFieldError(CamsPropertyConstants.Asset.ASSET_INVENTORY_STATUS, CamsKeyConstants.Asset.ERROR_ASSET_STATUS_INVALID);
             return false;
-        }
-        else if (!StringUtils.equalsIgnoreCase(newAsset.getInventoryStatusCode(), oldAsset.getInventoryStatusCode())) {
+        } else if (!StringUtils.equalsIgnoreCase(newAsset.getInventoryStatusCode(), oldAsset.getInventoryStatusCode())) {
             newAsset.refreshReferenceObject(CamsPropertyConstants.Asset.REF_ASSET_STATUS);
             if (ObjectUtils.isNotNull(newAsset.getInventoryStatus())) {
                 if (!newAsset.getInventoryStatus().isActive()) {
@@ -713,8 +704,7 @@ public class AssetRule extends MaintenanceDocumentRuleBase {
         if (ObjectUtils.isNull(newAsset.getCapitalAssetType())) {
             putFieldError(CamsPropertyConstants.Asset.CAPITAL_ASSET_TYPE_CODE, CamsKeyConstants.Asset.ERROR_TYPE_CODE_INVALID);
             return false;
-        }
-        else if (!StringUtils.equalsIgnoreCase(newAsset.getCapitalAssetTypeCode(), oldAsset.getCapitalAssetTypeCode())) {
+        } else if (!StringUtils.equalsIgnoreCase(newAsset.getCapitalAssetTypeCode(), oldAsset.getCapitalAssetTypeCode())) {
             newAsset.refreshReferenceObject(CamsPropertyConstants.Asset.REF_ASSET_TYPE);
             if (ObjectUtils.isNotNull(newAsset.getCapitalAssetType())) {
                 if (!newAsset.getCapitalAssetType().isActive()) {
@@ -739,8 +729,7 @@ public class AssetRule extends MaintenanceDocumentRuleBase {
             if (ObjectUtils.isNull(newAsset.getFinancialObjectSubType())) {
                 putFieldError(CamsPropertyConstants.Asset.FINANCIAL_OBJECT_SUB_TYP_CODE, CamsKeyConstants.Asset.ERROR_FINANCIAL_OBJECT_SUBTYPE_CODE_INVALID);
                 return false;
-            }
-            else if (!newAsset.getFinancialObjectSubType().isActive()) {
+            } else if (!newAsset.getFinancialObjectSubType().isActive()) {
                 putFieldError(CamsPropertyConstants.Asset.FINANCIAL_OBJECT_SUB_TYP_CODE, CamsKeyConstants.Asset.ERROR_FINANCIAL_OBJECT_SUBTYPE_CODE_INACTIVE);
                 return false;
             }
@@ -752,7 +741,7 @@ public class AssetRule extends MaintenanceDocumentRuleBase {
         boolean valid = true;
         if (assetService.isCapitalAsset(asset)) {
             if (parameterService.getParameterValueAsBoolean(CamsConstants.CAM_MODULE_CODE, "Asset", CamsConstants.Parameters.MANUFACTURER_REQUIRED_FOR_NON_MOVEABLE_ASSET_IND) &&
-                    StringUtils.isEmpty(asset.getManufacturerName())){
+                StringUtils.isEmpty(asset.getManufacturerName())) {
                 putFieldError(CamsPropertyConstants.Asset.MANUFACTURER_NAME, CamsKeyConstants.AssetGlobal.ERROR_MFR_NAME_REQUIRED);
                 valid = false;
             }

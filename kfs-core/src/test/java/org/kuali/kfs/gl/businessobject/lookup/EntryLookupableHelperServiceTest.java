@@ -1,36 +1,36 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.gl.businessobject.Entry;
 import org.kuali.kfs.gl.businessobject.Transaction;
 import org.kuali.kfs.gl.dataaccess.EntryDao;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.lookup.LookupableSpringContext;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.krad.service.BusinessObjectService;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class contains the test cases that can be applied to the method in EntryLookupableImpl class.
@@ -42,6 +42,7 @@ public class EntryLookupableHelperServiceTest extends AbstractGeneralLedgerLooku
 
     /**
      * Initializes the services that this test needs to run
+     *
      * @see junit.framework.TestCase#setUp()
      */
     @Override
@@ -55,6 +56,7 @@ public class EntryLookupableHelperServiceTest extends AbstractGeneralLedgerLooku
 
     /**
      * Tests the search results returned by the EntryLookupableHelperService
+     *
      * @see org.kuali.module.gl.web.lookupable.AbstractGLLookupableTestBase#testGetSearchResults()
      */
     public void testGetSearchResults() throws Exception {
@@ -85,6 +87,7 @@ public class EntryLookupableHelperServiceTest extends AbstractGeneralLedgerLooku
 
     /**
      * Returns a List of lookup fields to include in the test
+     *
      * @param isExtended true if extended fields should also be included, false otherwise
      * @return a List of lookup fields
      * @see org.kuali.module.gl.web.lookupable.AbstractGLLookupableTestBase#getLookupFields(boolean)
@@ -115,16 +118,15 @@ public class EntryLookupableHelperServiceTest extends AbstractGeneralLedgerLooku
 
     /**
      * This method inserts a new account balance record into database
-     * 
+     *
      * @param transaction the given transaction
-     * @param date the current date
+     * @param date        the current date
      */
     private void insertNewRecord(Transaction transaction, Date date) {
         try {
             Entry e = new Entry(transaction, date);
             SpringContext.getBean(BusinessObjectService.class).save(e);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
         }
     }
 }

@@ -1,39 +1,29 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document;
 
-import static org.kuali.kfs.fp.document.validation.impl.AuxiliaryVoucherDocumentRuleConstants.AUXILIARY_VOUCHER_ACCOUNTING_PERIOD_GRACE_PERIOD;
-import static org.kuali.kfs.fp.document.validation.impl.AuxiliaryVoucherDocumentRuleConstants.GENERAL_LEDGER_PENDING_ENTRY_OFFSET_CODE;
-import static org.kuali.kfs.sys.KFSConstants.GL_CREDIT_CODE;
-import static org.kuali.kfs.sys.KFSConstants.GL_DEBIT_CODE;
-import static org.kuali.kfs.sys.KFSConstants.AuxiliaryVoucher.ACCRUAL_DOC_TYPE;
-import static org.kuali.kfs.sys.KFSConstants.AuxiliaryVoucher.ADJUSTMENT_DOC_TYPE;
-import static org.kuali.kfs.sys.KFSConstants.AuxiliaryVoucher.RECODE_DOC_TYPE;
-
-import java.sql.Date;
-import java.util.Iterator;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
 import org.kuali.kfs.coa.service.AccountingPeriodService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.service.SufficientFundsService;
+import org.kuali.kfs.krad.document.Copyable;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.AccountingLineBase;
@@ -51,10 +41,20 @@ import org.kuali.kfs.sys.service.OptionsService;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
-import org.kuali.rice.krad.document.Copyable;
+
+import java.sql.Date;
+import java.util.Iterator;
+import java.util.List;
+
+import static org.kuali.kfs.fp.document.validation.impl.AuxiliaryVoucherDocumentRuleConstants.AUXILIARY_VOUCHER_ACCOUNTING_PERIOD_GRACE_PERIOD;
+import static org.kuali.kfs.fp.document.validation.impl.AuxiliaryVoucherDocumentRuleConstants.GENERAL_LEDGER_PENDING_ENTRY_OFFSET_CODE;
+import static org.kuali.kfs.sys.KFSConstants.AuxiliaryVoucher.ACCRUAL_DOC_TYPE;
+import static org.kuali.kfs.sys.KFSConstants.AuxiliaryVoucher.ADJUSTMENT_DOC_TYPE;
+import static org.kuali.kfs.sys.KFSConstants.AuxiliaryVoucher.RECODE_DOC_TYPE;
+import static org.kuali.kfs.sys.KFSConstants.GL_CREDIT_CODE;
+import static org.kuali.kfs.sys.KFSConstants.GL_DEBIT_CODE;
 
 /**
  * This is the business object that represents the AuxiliaryVoucherDocument in Kuali. This is a transactional document that will
@@ -74,8 +74,7 @@ public class AuxiliaryVoucherDocument extends AccountingDocumentBase implements 
     public boolean documentPerformsSufficientFundsCheck() {
         if (isRecodeType()) {
             return super.documentPerformsSufficientFundsCheck();
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -175,7 +174,7 @@ public class AuxiliaryVoucherDocument extends AccountingDocumentBase implements 
      *
      * @return KualiDecimal
      */
-  
+
     public KualiDecimal getCreditTotal() {
         KualiDecimal creditTotal = KualiDecimal.ZERO;
         AccountingLineBase al = null;
@@ -192,8 +191,8 @@ public class AuxiliaryVoucherDocument extends AccountingDocumentBase implements 
     /**
      * Same as default implementation but uses debit / credit totals instead. Meaning it returns either credit or if 0, debit.
      *
-     * @see org.kuali.kfs.sys.document.AccountingDocumentBase#getTotalDollarAmount()
      * @return KualiDecimal
+     * @see org.kuali.kfs.sys.document.AccountingDocumentBase#getTotalDollarAmount()
      */
     @Override
     public KualiDecimal getTotalDollarAmount() {
@@ -235,7 +234,7 @@ public class AuxiliaryVoucherDocument extends AccountingDocumentBase implements 
             List<GeneralLedgerPendingEntry> glpes = getGeneralLedgerPendingEntries();
             for (GeneralLedgerPendingEntry entry : glpes) {
                 if (entry.getFinancialDocumentTypeCode().equals(KFSConstants.FinancialDocumentTypeCodes.DISTRIBUTION_OF_INCOME_AND_EXPENSE)) {
-                         continue;
+                    continue;
                 }
                 entry.setFinancialDocumentReversalDate(getReversalDate());
             }
@@ -244,6 +243,7 @@ public class AuxiliaryVoucherDocument extends AccountingDocumentBase implements 
 
     /**
      * If the reversal date on this document is in need of refreshing, refreshes the reveral date.  THIS METHOD MAY CHANGE DOCUMENT STATE!
+     *
      * @return true if the reversal date ended up getting refreshed, false otherwise
      */
     protected boolean refreshReversalDate() {
@@ -288,11 +288,9 @@ public class AuxiliaryVoucherDocument extends AccountingDocumentBase implements 
                 // now just flip the debit/credit code
                 if (GL_DEBIT_CODE.equals(debitCreditCode)) {
                     sLine.setDebitCreditCode(GL_CREDIT_CODE);
-                }
-                else if (GL_CREDIT_CODE.equals(debitCreditCode)) {
+                } else if (GL_CREDIT_CODE.equals(debitCreditCode)) {
                     sLine.setDebitCreditCode(GL_DEBIT_CODE);
-                }
-                else {
+                } else {
                     throw new IllegalStateException("SourceAccountingLine at index " + index + " does not have a debit/credit " + "code associated with it.  This should never have occured. Please contact your system administrator.");
 
                 }
@@ -316,12 +314,12 @@ public class AuxiliaryVoucherDocument extends AccountingDocumentBase implements 
      * </ol>
      *
      * @param financialDocument submitted accounting document
-     * @param accounttingLine accounting line being tested if it is a debit or not
+     * @param accounttingLine   accounting line being tested if it is a debit or not
      * @see org.kuali.rice.krad.rule.AccountingLineRule#isDebit(org.kuali.rice.krad.document.FinancialDocument,
-     *      org.kuali.rice.krad.bo.AccountingLine)
+     * org.kuali.rice.krad.bo.AccountingLine)
      */
-      public boolean isDebit(GeneralLedgerPendingEntrySourceDetail postable) throws IllegalStateException {
-        String debitCreditCode = ((AccountingLine)postable).getDebitCreditCode();
+    public boolean isDebit(GeneralLedgerPendingEntrySourceDetail postable) throws IllegalStateException {
+        String debitCreditCode = ((AccountingLine) postable).getDebitCreditCode();
         DebitDeterminerService isDebitUtils = SpringContext.getBean(DebitDeterminerService.class);
         if (StringUtils.isBlank(debitCreditCode)) {
             throw new IllegalStateException(isDebitUtils.getDebitCalculationIllegalStateExceptionMessage());
@@ -332,15 +330,15 @@ public class AuxiliaryVoucherDocument extends AccountingDocumentBase implements 
     /**
      * This method sets the appropriate document type and object type codes into the GLPEs based on the type of AV document chosen.
      *
-     * @param document submitted AccountingDocument
+     * @param document       submitted AccountingDocument
      * @param accountingLine represents accounting line where object type code is retrieved from
-     * @param explicitEntry GeneralPendingLedgerEntry object that has its document type, object type, period code, and fiscal year
-     *        set
+     * @param explicitEntry  GeneralPendingLedgerEntry object that has its document type, object type, period code, and fiscal year
+     *                       set
      * @see FinancialDocumentRuleBase#customizeExplicitGeneralLedgerPendingEntry(FinancialDocument, AccountingLine,
-     *      GeneralLedgerPendingEntry)
+     * GeneralLedgerPendingEntry)
      * @see org.kuali.module.financial.rules.FinancialDocumentRuleBase#processExplicitGeneralLedgerPendingEntry(org.kuali.rice.krad.document.FinancialDocument,
-     *      org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper, org.kuali.rice.krad.bo.AccountingLine,
-     *      org.kuali.module.gl.bo.GeneralLedgerPendingEntry)
+     * org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper, org.kuali.rice.krad.bo.AccountingLine,
+     * org.kuali.module.gl.bo.GeneralLedgerPendingEntry)
      */
     @Override
     public void customizeExplicitGeneralLedgerPendingEntry(GeneralLedgerPendingEntrySourceDetail postable, GeneralLedgerPendingEntry explicitEntry) {
@@ -348,8 +346,7 @@ public class AuxiliaryVoucherDocument extends AccountingDocumentBase implements 
         java.sql.Date reversalDate = getReversalDate();
         if (reversalDate != null) {
             explicitEntry.setFinancialDocumentReversalDate(reversalDate);
-        }
-        else {
+        } else {
             explicitEntry.setFinancialDocumentReversalDate(null);
         }
         explicitEntry.setFinancialDocumentTypeCode(getTypeCode()); // make sure to use the accrual type as the document
@@ -365,12 +362,12 @@ public class AuxiliaryVoucherDocument extends AccountingDocumentBase implements 
      * (AVAE) and adjustments (AVAD), but only if the document contains accounting lines for more than one account.
      *
      * @param financialDocument submitted accounting document
-     * @param accountingLine accounting line from accounting document
-     * @param explicitEntry represents explicit entry
-     * @param offsetEntry represents offset entry
+     * @param accountingLine    accounting line from accounting document
+     * @param explicitEntry     represents explicit entry
+     * @param offsetEntry       represents offset entry
      * @see org.kuali.module.financial.rules.FinancialDocumentRuleBase#customizeOffsetGeneralLedgerPendingEntry(org.kuali.rice.krad.document.FinancialDocument,
-     *      org.kuali.rice.krad.bo.AccountingLine, org.kuali.module.gl.bo.GeneralLedgerPendingEntry,
-     *      org.kuali.module.gl.bo.GeneralLedgerPendingEntry)
+     * org.kuali.rice.krad.bo.AccountingLine, org.kuali.module.gl.bo.GeneralLedgerPendingEntry,
+     * org.kuali.module.gl.bo.GeneralLedgerPendingEntry)
      */
     @Override
     public boolean customizeOffsetGeneralLedgerPendingEntry(GeneralLedgerPendingEntrySourceDetail postable, GeneralLedgerPendingEntry explicitEntry, GeneralLedgerPendingEntry offsetEntry) {
@@ -416,7 +413,7 @@ public class AuxiliaryVoucherDocument extends AccountingDocumentBase implements 
      *
      * @param line accounting line where object type code is retrieved from
      * @return object type from a accounting line ((either financial object type code, financial object type not expenditure code,
-     *         or financial object type income not cash code))
+     * or financial object type income not cash code))
      */
     protected String getObjectTypeCode(GeneralLedgerPendingEntrySourceDetail line) {
         SystemOptions options = SpringContext.getBean(OptionsService.class).getCurrentYearOptions();
@@ -424,8 +421,7 @@ public class AuxiliaryVoucherDocument extends AccountingDocumentBase implements 
 
         if (options.getFinObjTypeExpenditureexpCd().equals(objectTypeCode) || options.getFinObjTypeExpendNotExpCode().equals(objectTypeCode)) {
             objectTypeCode = options.getFinObjTypeExpNotExpendCode();
-        }
-        else if (options.getFinObjectTypeIncomecashCode().equals(objectTypeCode) || options.getFinObjTypeExpendNotExpCode().equals(objectTypeCode)) {
+        } else if (options.getFinObjectTypeIncomecashCode().equals(objectTypeCode) || options.getFinObjTypeExpendNotExpCode().equals(objectTypeCode)) {
             objectTypeCode = options.getFinObjTypeIncomeNotCashCd();
         }
 
@@ -445,29 +441,27 @@ public class AuxiliaryVoucherDocument extends AccountingDocumentBase implements 
      * An Accrual Voucher only generates offsets if it is a recode (AVRC). So this method overrides to do nothing more than return
      * true if it's not a recode. If it is a recode, then it is responsible for generating two offsets with a document type of DI.
      *
-     * @param financialDocument submitted accounting document
-     * @param sequenceHelper helper class which will allows us to increment a reference without using an Integer
+     * @param financialDocument  submitted accounting document
+     * @param sequenceHelper     helper class which will allows us to increment a reference without using an Integer
      * @param accountingLineCopy accounting line from accounting document
-     * @param explicitEntry represents explicit entry
-     * @param offsetEntry represents offset entry
+     * @param explicitEntry      represents explicit entry
+     * @param offsetEntry        represents offset entry
      * @return true if general ledger pending entry is processed successfully for accurals, adjustments, and recodes
      * @see org.kuali.module.financial.rules.FinancialDocumentRuleBase#processOffsetGeneralLedgerPendingEntry(org.kuali.rice.krad.document.FinancialDocument,
-     *      org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper, org.kuali.rice.krad.bo.AccountingLine,
-     *      org.kuali.module.gl.bo.GeneralLedgerPendingEntry, org.kuali.module.gl.bo.GeneralLedgerPendingEntry)
+     * org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper, org.kuali.rice.krad.bo.AccountingLine,
+     * org.kuali.module.gl.bo.GeneralLedgerPendingEntry, org.kuali.module.gl.bo.GeneralLedgerPendingEntry)
      */
     @Override
     public boolean processOffsetGeneralLedgerPendingEntry(GeneralLedgerPendingEntrySequenceHelper sequenceHelper, GeneralLedgerPendingEntrySourceDetail glpeSourceDetail, GeneralLedgerPendingEntry explicitEntry, GeneralLedgerPendingEntry offsetEntry) {
-        AccountingLine accountingLineCopy = (AccountingLine)glpeSourceDetail;
+        AccountingLine accountingLineCopy = (AccountingLine) glpeSourceDetail;
         boolean success = true;
 
         // do not generate an offset entry if this is a normal or adjustment AV type
         if (isAccrualType() || isAdjustmentType()) {
             success &= processOffsetGeneralLedgerPendingEntryForAccrualsAndAdjustments(sequenceHelper, accountingLineCopy, explicitEntry, offsetEntry);
-        }
-        else if (isRecodeType()) { // recodes generate offsets
+        } else if (isRecodeType()) { // recodes generate offsets
             success &= processOffsetGeneralLedgerPendingEntryForRecodes(sequenceHelper, accountingLineCopy, explicitEntry, offsetEntry);
-        }
-        else {
+        } else {
             throw new IllegalStateException("Illegal auxiliary voucher type: " + getTypeCode());
         }
         return success;
@@ -476,11 +470,11 @@ public class AuxiliaryVoucherDocument extends AccountingDocumentBase implements 
     /**
      * This method handles generating or not generating the appropriate offsets if the AV type is a recode.
      *
-     * @param financialDocument submitted accounting document
-     * @param sequenceHelper helper class which will allows us to increment a reference without using an Integer
+     * @param financialDocument  submitted accounting document
+     * @param sequenceHelper     helper class which will allows us to increment a reference without using an Integer
      * @param accountingLineCopy accounting line from accounting document
-     * @param explicitEntry represents explicit entry
-     * @param offsetEntry represents offset entry
+     * @param explicitEntry      represents explicit entry
+     * @param offsetEntry        represents offset entry
      * @return true if offset general ledger pending entry is processed
      */
     protected boolean processOffsetGeneralLedgerPendingEntryForRecodes(GeneralLedgerPendingEntrySequenceHelper sequenceHelper, AccountingLine accountingLineCopy, GeneralLedgerPendingEntry explicitEntry, GeneralLedgerPendingEntry offsetEntry) {
@@ -505,26 +499,25 @@ public class AuxiliaryVoucherDocument extends AccountingDocumentBase implements 
 
         // now generate the AVRC DI entry
         // pass in the explicit deep copy
-        processAuxiliaryVoucherRecodeDistributionOfIncomeAndExpenseGeneralLedgerPendingEntry( sequenceHelper, explicitEntryDeepCopy);
+        processAuxiliaryVoucherRecodeDistributionOfIncomeAndExpenseGeneralLedgerPendingEntry(sequenceHelper, explicitEntryDeepCopy);
         return success;
     }
 
     /**
      * This method handles generating or not generating the appropriate offsets if the AV type is accrual or adjustment.
      *
-     * @param financialDocument submitted accounting document
-     * @param sequenceHelper helper class which will allows us to increment a reference without using an Integer
+     * @param financialDocument  submitted accounting document
+     * @param sequenceHelper     helper class which will allows us to increment a reference without using an Integer
      * @param accountingLineCopy accounting line from accounting document
-     * @param explicitEntry represents explicit entry
-     * @param offsetEntry represents offset entry
+     * @param explicitEntry      represents explicit entry
+     * @param offsetEntry        represents offset entry
      * @return true if offset general ledger pending entry is processed successfully
      */
     protected boolean processOffsetGeneralLedgerPendingEntryForAccrualsAndAdjustments(GeneralLedgerPendingEntrySequenceHelper sequenceHelper, AccountingLine accountingLineCopy, GeneralLedgerPendingEntry explicitEntry, GeneralLedgerPendingEntry offsetEntry) {
         boolean success = true;
         if (this.isDocumentForMultipleAccounts()) {
             success = super.processOffsetGeneralLedgerPendingEntry(sequenceHelper, accountingLineCopy, explicitEntry, offsetEntry);
-        }
-        else {
+        } else {
             sequenceHelper.decrement(); // the parent already increments; b/c it assumes that all documents have offset entries all
             // of the time
         }
@@ -547,8 +540,7 @@ public class AuxiliaryVoucherDocument extends AccountingDocumentBase implements 
         for (AccountingLine line : lines) {
             if (index == 0) {
                 baseAccountNumber = line.getAccountNumber();
-            }
-            else if (!baseAccountNumber.equals(line.getAccountNumber())) {
+            } else if (!baseAccountNumber.equals(line.getAccountNumber())) {
                 return true;
             }
             index++;
@@ -562,8 +554,8 @@ public class AuxiliaryVoucherDocument extends AccountingDocumentBase implements 
      * uses the explicit entry as its model and then tweaks values appropriately.
      *
      * @param financialDocument submitted accounting document
-     * @param sequenceHelper helper class which will allows us to increment a reference without using an Integer
-     * @param explicitEntry represents explicit entry
+     * @param sequenceHelper    helper class which will allows us to increment a reference without using an Integer
+     * @param explicitEntry     represents explicit entry
      * @return true if recode GLPE is added to the financial document successfully
      */
     protected void processAuxiliaryVoucherRecodeDistributionOfIncomeAndExpenseGeneralLedgerPendingEntry(GeneralLedgerPendingEntrySequenceHelper sequenceHelper, GeneralLedgerPendingEntry explicitEntry) {
@@ -595,7 +587,7 @@ public class AuxiliaryVoucherDocument extends AccountingDocumentBase implements 
      *
      * @param explicitEntry
      * @return object type code from explicit entry (either financial object type code, financial object type expenditure code, or
-     *         financial object type income cash code)
+     * financial object type income cash code)
      */
     protected String getObjectTypeCodeForRecodeDistributionOfIncomeAndExpenseEntry(GeneralLedgerPendingEntry explicitEntry) {
         SystemOptions options = SpringContext.getBean(OptionsService.class).getCurrentYearOptions();
@@ -603,8 +595,7 @@ public class AuxiliaryVoucherDocument extends AccountingDocumentBase implements 
 
         if (options.getFinObjTypeExpNotExpendCode().equals(objectTypeCode)) {
             objectTypeCode = options.getFinObjTypeExpenditureexpCd();
-        }
-        else if (options.getFinObjTypeIncomeNotCashCd().equals(objectTypeCode)) {
+        } else if (options.getFinObjTypeIncomeNotCashCd().equals(objectTypeCode)) {
             objectTypeCode = options.getFinObjectTypeIncomecashCode();
         }
 
@@ -614,7 +605,7 @@ public class AuxiliaryVoucherDocument extends AccountingDocumentBase implements 
     /**
      * This method checks if a given moment of time is within an accounting period, or its auxiliary voucher grace period.
      *
-     * @param today a date to check if it is within the period
+     * @param today         a date to check if it is within the period
      * @param periodToCheck the account period to check against
      * @return true if a given moment in time is within an accounting period or an auxiliary voucher grace period
      */

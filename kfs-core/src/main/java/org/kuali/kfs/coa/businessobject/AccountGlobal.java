@@ -1,23 +1,42 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.coa.businessobject;
+
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.integration.cg.ContractsAndGrantsCfda;
+import org.kuali.kfs.integration.ld.LaborBenefitRateCategory;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.bo.GlobalBusinessObject;
+import org.kuali.kfs.krad.bo.GlobalBusinessObjectDetail;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.krad.service.PersistenceStructureService;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.kim.api.identity.Person;
+import org.kuali.rice.location.api.LocationConstants;
+import org.kuali.rice.location.framework.postalcode.PostalCodeEbo;
+import org.kuali.rice.location.framework.state.StateEbo;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -26,28 +45,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.integration.cg.ContractsAndGrantsCfda;
-import org.kuali.kfs.integration.ld.LaborBenefitRateCategory;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.krad.bo.DocumentHeader;
-import org.kuali.rice.krad.bo.GlobalBusinessObject;
-import org.kuali.rice.krad.bo.GlobalBusinessObjectDetail;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.KualiModuleService;
-import org.kuali.rice.krad.service.ModuleService;
-import org.kuali.rice.krad.service.PersistenceStructureService;
-import org.kuali.rice.location.api.LocationConstants;
-import org.kuali.rice.location.framework.postalcode.PostalCodeEbo;
-import org.kuali.rice.location.framework.state.StateEbo;
 
-/**
- *
- */
 public class AccountGlobal extends PersistableBusinessObjectBase implements GlobalBusinessObject {
 
     protected String documentNumber;
@@ -102,7 +100,7 @@ public class AccountGlobal extends PersistableBusinessObjectBase implements Glob
     }
 
     /**
-     * @see org.kuali.rice.krad.document.GlobalBusinessObject#getGlobalChangesToDelete()
+     * @see org.kuali.kfs.krad.document.GlobalBusinessObject#getGlobalChangesToDelete()
      */
     @Override
     public List<PersistableBusinessObject> generateDeactivationsToPersist() {
@@ -110,7 +108,7 @@ public class AccountGlobal extends PersistableBusinessObjectBase implements Glob
     }
 
     /**
-     * @see org.kuali.rice.krad.document.GlobalBusinessObject#applyGlobalChanges(org.kuali.rice.krad.bo.BusinessObject)
+     * @see org.kuali.kfs.krad.document.GlobalBusinessObject#applyGlobalChanges(org.kuali.kfs.krad.bo.BusinessObject)
      */
     @Override
     public List<PersistableBusinessObject> generateGlobalChangesToPersist() {
@@ -823,18 +821,18 @@ public class AccountGlobal extends PersistableBusinessObjectBase implements Glob
      * @return Returns the accountState.
      */
     public StateEbo getAccountState() {
-        if ( StringUtils.isBlank(accountStateCode) || StringUtils.isBlank(KFSConstants.COUNTRY_CODE_UNITED_STATES ) ) {
+        if (StringUtils.isBlank(accountStateCode) || StringUtils.isBlank(KFSConstants.COUNTRY_CODE_UNITED_STATES)) {
             accountState = null;
         } else {
-            if ( accountState == null || !StringUtils.equals( accountState.getCode(),accountStateCode) || !StringUtils.equals(accountState.getCountryCode(), KFSConstants.COUNTRY_CODE_UNITED_STATES ) ) {
+            if (accountState == null || !StringUtils.equals(accountState.getCode(), accountStateCode) || !StringUtils.equals(accountState.getCountryCode(), KFSConstants.COUNTRY_CODE_UNITED_STATES)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(StateEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(2);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(2);
                     keys.put(LocationConstants.PrimaryKeyConstants.COUNTRY_CODE, KFSConstants.COUNTRY_CODE_UNITED_STATES);/*RICE20_REFACTORME*/
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, accountStateCode);
                     accountState = moduleService.getExternalizableBusinessObject(StateEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -892,18 +890,18 @@ public class AccountGlobal extends PersistableBusinessObjectBase implements Glob
      * @return Returns the postalZipCode.
      */
     public PostalCodeEbo getPostalZipCode() {
-        if ( StringUtils.isBlank(accountZipCode) || StringUtils.isBlank(KFSConstants.COUNTRY_CODE_UNITED_STATES ) ) {
+        if (StringUtils.isBlank(accountZipCode) || StringUtils.isBlank(KFSConstants.COUNTRY_CODE_UNITED_STATES)) {
             postalZipCode = null;
         } else {
-            if ( postalZipCode == null || !StringUtils.equals( postalZipCode.getCode(),accountZipCode) || !StringUtils.equals(postalZipCode.getCountryCode(), KFSConstants.COUNTRY_CODE_UNITED_STATES ) ) {
+            if (postalZipCode == null || !StringUtils.equals(postalZipCode.getCode(), accountZipCode) || !StringUtils.equals(postalZipCode.getCountryCode(), KFSConstants.COUNTRY_CODE_UNITED_STATES)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(PostalCodeEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(2);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(2);
                     keys.put(LocationConstants.PrimaryKeyConstants.COUNTRY_CODE, KFSConstants.COUNTRY_CODE_UNITED_STATES);/*RICE20_REFACTORME*/
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, accountZipCode);
                     postalZipCode = moduleService.getExternalizableBusinessObject(PostalCodeEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -956,7 +954,7 @@ public class AccountGlobal extends PersistableBusinessObjectBase implements Glob
     }
 
     /**
-     * @see org.kuali.rice.krad.document.GlobalBusinessObject#isPersistable()
+     * @see org.kuali.kfs.krad.document.GlobalBusinessObject#isPersistable()
      */
     @Override
     public boolean isPersistable() {
@@ -984,13 +982,13 @@ public class AccountGlobal extends PersistableBusinessObjectBase implements Glob
     }
 
     /**
-     * @see org.kuali.rice.krad.bo.PersistableBusinessObjectBase#buildListOfDeletionAwareLists()
+     * @see org.kuali.kfs.krad.bo.PersistableBusinessObjectBase#buildListOfDeletionAwareLists()
      */
     @Override
     public List<Collection<PersistableBusinessObject>> buildListOfDeletionAwareLists() {
         List<Collection<PersistableBusinessObject>> managedLists = super.buildListOfDeletionAwareLists();
 
-        managedLists.add( new ArrayList<PersistableBusinessObject>( getAccountGlobalDetails() ) );
+        managedLists.add(new ArrayList<PersistableBusinessObject>(getAccountGlobalDetails()));
 
         return managedLists;
     }
@@ -1029,8 +1027,8 @@ public class AccountGlobal extends PersistableBusinessObjectBase implements Glob
      * @return Returns the laborBenefitRateCategory.
      */
     public LaborBenefitRateCategory getLaborBenefitRateCategory() {
-         laborBenefitRateCategory = (LaborBenefitRateCategory) SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(LaborBenefitRateCategory.class).retrieveExternalizableBusinessObjectsList(this, "LaborBenefitRateCategory", LaborBenefitRateCategory.class);
-         return laborBenefitRateCategory;
+        laborBenefitRateCategory = (LaborBenefitRateCategory) SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(LaborBenefitRateCategory.class).retrieveExternalizableBusinessObjectsList(this, "LaborBenefitRateCategory", LaborBenefitRateCategory.class);
+        return laborBenefitRateCategory;
     }
 
 }

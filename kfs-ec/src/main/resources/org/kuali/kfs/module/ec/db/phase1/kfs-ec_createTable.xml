@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+<changeSet author="kfs" id="3979" context="bootstrap,demo,unit">
+        <createTable tableName="LD_A21_DETAIL_LN_T">
+            <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ACCOUNT_NBR" type="VARCHAR(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="SUB_ACCT_NBR" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="POSITION_NBR" type="VARCHAR(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_OBJECT_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="SOURCE_FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="SOURCE_ACCT_NBR" type="VARCHAR(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="A21_LBR_PYRL_AMT" type="DECIMAL(19, 2)"/>
+            <column name="LBR_CALC_OVRLL_PCT" type="DECIMAL(3)"/>
+            <column name="LBR_UPDT_OVRLL_PCT" type="DECIMAL(3)"/>
+            <column name="FDOC_POST_YR" type="DECIMAL(4)"/>
+            <column name="CST_SRCSUBACCT_NBR" type="VARCHAR(5)"/>
+            <column name="A21_LBRORIG_PY_AMT" type="DECIMAL(19, 2)"/>
+        </createTable>
+    </changeSet>
+<changeSet author="kfs" id="3980" context="bootstrap,demo,unit">
+        <createTable tableName="LD_A21_DETAIL_T">
+            <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="A21_LBR_RPT_NBR" type="VARCHAR(3)"/>
+            <column name="A21_LBR_DOC_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="A21_LBR_FSCL_YR" type="DECIMAL(4)"/>
+            <column name="EMPLID" type="VARCHAR(40)"/>
+        </createTable>
+    </changeSet>
+<changeSet author="kfs" id="3981" context="bootstrap,demo,unit">
+        <createTable tableName="LD_A21_DTL_BLD_T">
+            <column defaultValueNumeric="0" name="A21_LBR_BLD_NBR" type="DECIMAL(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="A21_LBR_RPT_NBR" type="VARCHAR(3)"/>
+            <column name="A21_LBR_DOC_CD" type="VARCHAR(2)"/>
+            <column name="A21_LBR_FSCL_YR" type="DECIMAL(4)"/>
+            <column name="EMPLID" type="VARCHAR(40)"/>
+        </createTable>
+    </changeSet>
+<changeSet author="kfs" id="3982" context="bootstrap,demo,unit">
+        <createTable tableName="LD_A21_DTL_LN_BLD_T">
+            <column defaultValueNumeric="0" name="A21_LBR_BLD_NBR" type="DECIMAL(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ACCOUNT_NBR" type="VARCHAR(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="SUB_ACCT_NBR" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="POSITION_NBR" type="VARCHAR(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FIN_OBJECT_CD" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="SOURCE_FIN_COA_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="SOURCE_ACCT_NBR" type="VARCHAR(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="A21_LBR_PYRL_AMT" type="DECIMAL(19, 2)"/>
+            <column name="LBR_CALC_OVRLL_PCT" type="DECIMAL(3)"/>
+            <column name="LBR_UPDT_OVRLL_PCT" type="DECIMAL(3)"/>
+            <column name="FDOC_POST_YR" type="DECIMAL(4)"/>
+            <column name="CST_SRCSUBACCT_NBR" type="VARCHAR(5)"/>
+            <column name="A21_LBRORIG_PY_AMT" type="DECIMAL(19, 2)"/>
+        </createTable>
+    </changeSet>
+<changeSet author="kfs" id="3983" context="bootstrap,demo,unit">
+        <createTable tableName="LD_A21_PRD_STAT_T">
+            <column defaultValue="" name="LBR_RPT_PRDSTAT_CD" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LBR_PRD_STAT_DESC" type="VARCHAR(40)"/>
+        </createTable>
+    </changeSet>
+<changeSet author="kfs" id="3984" context="bootstrap,demo,unit">
+        <createTable tableName="LD_A21_REPORT_T">
+            <column defaultValue="" name="A21_LBR_RPT_NBR" type="VARCHAR(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="A21LBR_RPT_PRD_TTL" type="VARCHAR(30)"/>
+            <column name="LBR_RPT_PRDSTAT_CD" type="VARCHAR(1)"/>
+            <column name="LBR_ET_FSCL_YR" type="DECIMAL(4)"/>
+            <column name="LBR_ET_FSCL_PRD_CD" type="VARCHAR(2)"/>
+            <column name="A21_LBR_RPT_TYP_CD" type="VARCHAR(2)"/>
+            <column name="A21LBR_RPT_RTRN_DT" type="DATE"/>
+            <column name="LBR_RPT_BEG_FSCL_YR" type="DECIMAL(4)"/>
+            <column name="LBR_RPT_BEG_FSCL_PRD_CD" type="VARCHAR(2)"/>
+            <column name="LBR_RPT_END_FSCL_YR" type="DECIMAL(4)"/>
+            <column name="LBR_RPT_END_FSCL_PRD_CD" type="VARCHAR(2)"/>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+</changeSet>
+<changeSet author="kfs" id="3985" context="bootstrap,demo,unit">
+        <createTable tableName="LD_A21_RPT_EARN_PAY_T">
+            <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="A21_LBR_RPT_TYP_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ERNCD" type="VARCHAR(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="PAYGROUP" type="VARCHAR(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+<changeSet author="kfs" id="3986" context="bootstrap,demo,unit">
+        <createTable tableName="LD_A21_RPT_POS_T">
+            <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="A21_LBR_RPT_NBR" type="VARCHAR(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="LBR_RPT_POSOBJ_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+<changeSet author="kfs" id="3987" context="bootstrap,demo,unit">
+        <createTable tableName="LD_A21_RPT_TYP_T">
+            <column defaultValue="" name="A21_LBR_RPT_TYP_CD" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="A21_LBR_RPT_DESC" type="VARCHAR(40)"/>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

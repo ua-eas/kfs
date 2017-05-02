@@ -1,22 +1,82 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.batch.service.impl;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.LineIterator;
+import org.kuali.kfs.coa.businessobject.A21SubAccount;
+import org.kuali.kfs.coa.businessobject.Account;
+import org.kuali.kfs.coa.businessobject.BalanceType;
+import org.kuali.kfs.coa.businessobject.Chart;
+import org.kuali.kfs.coa.businessobject.ObjectCode;
+import org.kuali.kfs.coa.businessobject.OffsetDefinition;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.gl.GeneralLedgerConstants;
+import org.kuali.kfs.gl.batch.BatchSortUtil;
+import org.kuali.kfs.gl.batch.CollectorBatch;
+import org.kuali.kfs.gl.batch.DemergerSortComparator;
+import org.kuali.kfs.gl.batch.ScrubberSortComparator;
+import org.kuali.kfs.gl.batch.ScrubberStep;
+import org.kuali.kfs.gl.batch.service.AccountingCycleCachingService;
+import org.kuali.kfs.gl.batch.service.RunDateService;
+import org.kuali.kfs.gl.batch.service.ScrubberProcess;
+import org.kuali.kfs.gl.batch.service.impl.FilteringOriginEntryFileIterator.OriginEntryFilter;
+import org.kuali.kfs.gl.businessobject.DemergerReportData;
+import org.kuali.kfs.gl.businessobject.OriginEntryFieldUtil;
+import org.kuali.kfs.gl.businessobject.OriginEntryFull;
+import org.kuali.kfs.gl.businessobject.OriginEntryInformation;
+import org.kuali.kfs.gl.businessobject.ScrubberProcessTransactionError;
+import org.kuali.kfs.gl.businessobject.ScrubberProcessUnitOfWork;
+import org.kuali.kfs.gl.businessobject.Transaction;
+import org.kuali.kfs.gl.report.CollectorReportData;
+import org.kuali.kfs.gl.report.LedgerSummaryReport;
+import org.kuali.kfs.gl.report.PreScrubberReport;
+import org.kuali.kfs.gl.report.PreScrubberReportData;
+import org.kuali.kfs.gl.report.TransactionListingReport;
+import org.kuali.kfs.gl.service.PreScrubberService;
+import org.kuali.kfs.gl.service.ScrubberReportData;
+import org.kuali.kfs.gl.service.ScrubberValidator;
+import org.kuali.kfs.gl.service.impl.ScrubberStatus;
+import org.kuali.kfs.gl.service.impl.StringHelper;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.PersistenceService;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSKeyConstants;
+import org.kuali.kfs.sys.KFSParameterKeyConstants;
+import org.kuali.kfs.sys.KFSParameterKeyConstants.GlParameterConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.Message;
+import org.kuali.kfs.sys.batch.service.WrappingBatchService;
+import org.kuali.kfs.sys.businessobject.SystemOptions;
+import org.kuali.kfs.sys.businessobject.UniversityDate;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.exception.InvalidFlexibleOffsetException;
+import org.kuali.kfs.sys.service.DocumentNumberAwareReportWriterService;
+import org.kuali.kfs.sys.service.FlexibleOffsetAccountService;
+import org.kuali.kfs.sys.service.ReportWriterService;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+import org.kuali.rice.core.api.parameter.ParameterEvaluator;
+import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+import org.springframework.util.StringUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -34,65 +94,6 @@ import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.LineIterator;
-import org.kuali.kfs.coa.businessobject.A21SubAccount;
-import org.kuali.kfs.coa.businessobject.Account;
-import org.kuali.kfs.coa.businessobject.BalanceType;
-import org.kuali.kfs.coa.businessobject.Chart;
-import org.kuali.kfs.coa.businessobject.ObjectCode;
-import org.kuali.kfs.coa.businessobject.OffsetDefinition;
-import org.kuali.kfs.gl.GeneralLedgerConstants;
-import org.kuali.kfs.gl.ObjectHelper;
-import org.kuali.kfs.gl.batch.BatchSortUtil;
-import org.kuali.kfs.gl.batch.CollectorBatch;
-import org.kuali.kfs.gl.batch.DemergerSortComparator;
-import org.kuali.kfs.gl.batch.ScrubberSortComparator;
-import org.kuali.kfs.gl.batch.ScrubberStep;
-import org.kuali.kfs.gl.batch.service.AccountingCycleCachingService;
-import org.kuali.kfs.gl.batch.service.RunDateService;
-import org.kuali.kfs.gl.batch.service.ScrubberProcess;
-import org.kuali.kfs.gl.batch.service.impl.FilteringOriginEntryFileIterator.OriginEntryFilter;
-import org.kuali.kfs.gl.businessobject.DemergerReportData;
-import org.kuali.kfs.gl.businessobject.OriginEntryFieldUtil;
-import org.kuali.kfs.gl.businessobject.OriginEntryFull;
-import org.kuali.kfs.gl.businessobject.OriginEntryInformation;
-import org.kuali.kfs.gl.businessobject.Transaction;
-import org.kuali.kfs.gl.report.CollectorReportData;
-import org.kuali.kfs.gl.report.LedgerSummaryReport;
-import org.kuali.kfs.gl.report.PreScrubberReport;
-import org.kuali.kfs.gl.report.PreScrubberReportData;
-import org.kuali.kfs.gl.report.TransactionListingReport;
-import org.kuali.kfs.gl.service.PreScrubberService;
-import org.kuali.kfs.gl.service.ScrubberReportData;
-import org.kuali.kfs.gl.service.ScrubberValidator;
-import org.kuali.kfs.gl.service.impl.ScrubberStatus;
-import org.kuali.kfs.gl.service.impl.StringHelper;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSKeyConstants;
-import org.kuali.kfs.sys.KFSParameterKeyConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.Message;
-import org.kuali.kfs.sys.KFSParameterKeyConstants.GlParameterConstants;
-import org.kuali.kfs.sys.batch.service.WrappingBatchService;
-import org.kuali.kfs.sys.businessobject.SystemOptions;
-import org.kuali.kfs.sys.businessobject.UniversityDate;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.exception.InvalidFlexibleOffsetException;
-import org.kuali.kfs.sys.service.DocumentNumberAwareReportWriterService;
-import org.kuali.kfs.sys.service.FlexibleOffsetAccountService;
-import org.kuali.kfs.sys.service.ReportWriterService;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.core.api.parameter.ParameterEvaluator;
-import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.PersistenceService;
-import org.kuali.rice.krad.util.ObjectUtils;
-import org.springframework.util.StringUtils;
 
 /**
  * This class has the logic for the scrubber. It is required because the scrubber process needs instance variables. Instance
@@ -153,7 +154,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
     protected String offsetString;
 
     /* Unit Of Work info */
-    protected UnitOfWorkInfo unitOfWork;
+    protected ScrubberProcessUnitOfWork scrubberProcessUnitOfWork;
     protected KualiDecimal scrubCostShareAmount;
 
     /* Statistics for the reports */
@@ -187,8 +188,8 @@ public class ScrubberProcessImpl implements ScrubberProcess {
     /**
      * Scrub this single group read only. This will only output the scrubber report. It won't output any other groups.
      *
-     * @param group the origin entry group that should be scrubbed
-     * @param the document number of any specific entries to scrub
+     * @param fileName
+     * @param documentNumber
      */
     @Override
     public void scrubGroupReportOnly(String fileName, String documentNumber) {
@@ -209,22 +210,19 @@ public class ScrubberProcessImpl implements ScrubberProcess {
         try {
             inputEntries = FileUtils.lineIterator(new File(unsortedFile));
             preScrubberReportData = preScrubberService.preprocessOriginEntries(inputEntries, prescrubOutput);
-        }
-        catch (IOException e1) {
+        } catch (IOException e1) {
             LOG.error("Error encountered trying to prescrub GLCP/LLCP document", e1);
             throw new RuntimeException("Error encountered trying to prescrub GLCP/LLCP document", e1);
-        }
-        finally {
+        } finally {
             LineIterator.closeQuietly(inputEntries);
         }
         if (preScrubberReportData != null) {
             preScrubberReportWriterService.setDocumentNumber(documentNumber);
-            ((WrappingBatchService)preScrubberReportWriterService).initialize();
+            ((WrappingBatchService) preScrubberReportWriterService).initialize();
             try {
                 new PreScrubberReport().generateReport(preScrubberReportData, preScrubberReportWriterService);
-            }
-            finally {
-                ((WrappingBatchService)preScrubberReportWriterService).destroy();
+            } finally {
+                ((WrappingBatchService) preScrubberReportWriterService).destroy();
             }
         }
         BatchSortUtil.sortTextFileWithFields(prescrubOutput, inputFile, new ScrubberSortComparator());
@@ -241,7 +239,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
             deleteValidFile.delete();
             deleteErrorFile.delete();
             deleteExpiredFile.delete();
-        } catch (Exception e){
+        } catch (Exception e) {
             LOG.error("scrubGroupReportOnly delete output files process Stopped: " + e.getMessage());
             throw new RuntimeException("scrubGroupReportOnly delete output files process Stopped: " + e.getMessage(), e);
         }
@@ -266,7 +264,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
      * parameter. NOTE: DO NOT CALL ANY OF THE scrub* METHODS OF THIS CLASS AFTER CALLING THIS METHOD FOR EVERY UNIQUE INSTANCE OF
      * THIS CLASS, OR THE COLLECTOR REPORTS MAY BE CORRUPTED
      *
-     * @param batch the data gathered from a Collector file
+     * @param batch               the data gathered from a Collector file
      * @param collectorReportData the statistics generated by running the Collector
      */
     @Override
@@ -311,7 +309,8 @@ public class ScrubberProcessImpl implements ScrubberProcess {
     /**
      * Scrub all entries that need it in origin entry. Put valid scrubbed entries in a scrubber valid group, put errors in a
      * scrubber error group, and transactions with an expired account in the scrubber expired account group.
-     * @param group the specific origin entry group to scrub
+     *
+     * @param reportOnlyMode
      * @param documentNumber the number of the document with entries to scrub
      */
     @Override
@@ -368,15 +367,12 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
             if (reportOnlyMode) {
                 generateScrubberTransactionListingReport(documentNumber, inputFile);
-            }
-            else if (collectorMode) {
+            } else if (collectorMode) {
                 // defer report generation for later
-            }
-            else {
+            } else {
                 generateScrubberBlankBalanceTypeCodeReport(inputFile);
             }
-        }
-        finally {
+        } finally {
             if (!collectorMode) {
                 ((WrappingBatchService) scrubberReportWriterService).destroy();
                 ((WrappingBatchService) scrubberLedgerReportWriterService).destroy();
@@ -388,9 +384,6 @@ public class ScrubberProcessImpl implements ScrubberProcess {
      * The demerger process reads all of the documents in the error group, then moves all of the original entries for that document
      * from the valid group to the error group. It does not move generated entries to the error group. Those are deleted. It also
      * modifies the doc number and origin code of cost share transfers.
-     *
-     * @param errorGroup this scrubber run's error group
-     * @param validGroup this scrubber run's valid group
      */
     @Override
     public void performDemerger() {
@@ -400,7 +393,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
         Map<String, Integer> pMap = oefu.getFieldBeginningPositionMap();
 
         // Without this step, the job fails with Optimistic Lock Exceptions
-     //   persistenceService.clearCache();
+        // persistenceService.clearCache();
 
         demergerReport = new DemergerReportData();
 
@@ -421,7 +414,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
         String demergerValidOutputFilename = null;
         String demergerErrorOutputFilename = null;
 
-        if(!collectorMode){
+        if (!collectorMode) {
             validOutputFilename = batchFileDirectoryName + File.separator + GeneralLedgerConstants.BatchFileSystem.SCRUBBER_VALID_OUTPUT_FILE + GeneralLedgerConstants.BatchFileSystem.EXTENSION;
             errorOutputFilename = batchFileDirectoryName + File.separator + GeneralLedgerConstants.BatchFileSystem.SCRUBBER_ERROR_SORTED_FILE + GeneralLedgerConstants.BatchFileSystem.EXTENSION;
 
@@ -438,7 +431,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
         }
 
         // Without this step, the job fails with Optimistic Lock Exceptions
-    //    persistenceService.clearCache();
+        //    persistenceService.clearCache();
 
         FileReader INPUT_GLE_FILE = null;
         FileReader INPUT_ERR_FILE = null;
@@ -450,15 +443,13 @@ public class ScrubberProcessImpl implements ScrubberProcess {
         try {
             INPUT_GLE_FILE = new FileReader(validOutputFilename);
             INPUT_ERR_FILE = new FileReader(errorOutputFilename);
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
         try {
             OUTPUT_DEMERGER_GLE_FILE_ps = new PrintStream(demergerValidOutputFilename);
             OUTPUT_DEMERGER_ERR_FILE_ps = new PrintStream(demergerErrorOutputFilename);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
@@ -482,74 +473,74 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
                 // Demerger only catch IOexception since demerger report doesn't display
                 // detail error message.
-                try{
-                   //validLine is null means that errorLine is not null
-                   if (org.apache.commons.lang.StringUtils.isEmpty(currentValidLine)) {
-                       String errorDesc = currentErrorLine.substring(pMap.get(KFSPropertyConstants.TRANSACTION_LEDGER_ENTRY_DESC), pMap.get(KFSPropertyConstants.TRANSACTION_LEDGER_ENTRY_AMOUNT));
-                       String errorFinancialBalanceTypeCode = currentErrorLine.substring(pMap.get(KFSPropertyConstants.FINANCIAL_BALANCE_TYPE_CODE), pMap.get(KFSPropertyConstants.FINANCIAL_OBJECT_TYPE_CODE));
+                try {
+                    //validLine is null means that errorLine is not null
+                    if (org.apache.commons.lang.StringUtils.isEmpty(currentValidLine)) {
+                        String errorDesc = currentErrorLine.substring(pMap.get(KFSPropertyConstants.TRANSACTION_LEDGER_ENTRY_DESC), pMap.get(KFSPropertyConstants.TRANSACTION_LEDGER_ENTRY_AMOUNT));
+                        String errorFinancialBalanceTypeCode = currentErrorLine.substring(pMap.get(KFSPropertyConstants.FINANCIAL_BALANCE_TYPE_CODE), pMap.get(KFSPropertyConstants.FINANCIAL_OBJECT_TYPE_CODE));
 
-                       if (!checkingBypassEntry(errorFinancialBalanceTypeCode, errorDesc, demergerReport)){
-                           createOutputEntry(currentErrorLine, OUTPUT_DEMERGER_ERR_FILE_ps);
-                           errorSaved++;
-                       }
-                       currentErrorLine = INPUT_ERR_FILE_br.readLine();
-                       errorReadLine++;
-                       continue;
-                   }
+                        if (!checkingBypassEntry(errorFinancialBalanceTypeCode, errorDesc, demergerReport)) {
+                            createOutputEntry(currentErrorLine, OUTPUT_DEMERGER_ERR_FILE_ps);
+                            errorSaved++;
+                        }
+                        currentErrorLine = INPUT_ERR_FILE_br.readLine();
+                        errorReadLine++;
+                        continue;
+                    }
 
-                   String financialBalanceTypeCode = currentValidLine.substring(pMap.get(KFSPropertyConstants.FINANCIAL_BALANCE_TYPE_CODE), pMap.get(KFSPropertyConstants.FINANCIAL_OBJECT_TYPE_CODE));
-                   String desc = currentValidLine.substring(pMap.get(KFSPropertyConstants.TRANSACTION_LEDGER_ENTRY_DESC), pMap.get(KFSPropertyConstants.TRANSACTION_LEDGER_ENTRY_AMOUNT));
+                    String financialBalanceTypeCode = currentValidLine.substring(pMap.get(KFSPropertyConstants.FINANCIAL_BALANCE_TYPE_CODE), pMap.get(KFSPropertyConstants.FINANCIAL_OBJECT_TYPE_CODE));
+                    String desc = currentValidLine.substring(pMap.get(KFSPropertyConstants.TRANSACTION_LEDGER_ENTRY_DESC), pMap.get(KFSPropertyConstants.TRANSACTION_LEDGER_ENTRY_AMOUNT));
 
-                   //errorLine is null means that validLine is not null
-                   if (org.apache.commons.lang.StringUtils.isEmpty(currentErrorLine)) {
-                       // Read all the transactions in the valid group and update the cost share transactions
-                       String updatedValidLine = checkAndSetTransactionTypeCostShare(financialBalanceTypeCode, desc, currentValidLine);
-                       createOutputEntry(updatedValidLine, OUTPUT_DEMERGER_GLE_FILE_ps);
-                       handleDemergerSaveValidEntry(updatedValidLine);
-                       validSaved++;
-                       currentValidLine = INPUT_GLE_FILE_br.readLine();
-                       validReadLine++;
-                       continue;
-                   }
+                    //errorLine is null means that validLine is not null
+                    if (org.apache.commons.lang.StringUtils.isEmpty(currentErrorLine)) {
+                        // Read all the transactions in the valid group and update the cost share transactions
+                        String updatedValidLine = checkAndSetTransactionTypeCostShare(financialBalanceTypeCode, desc, currentValidLine);
+                        createOutputEntry(updatedValidLine, OUTPUT_DEMERGER_GLE_FILE_ps);
+                        handleDemergerSaveValidEntry(updatedValidLine);
+                        validSaved++;
+                        currentValidLine = INPUT_GLE_FILE_br.readLine();
+                        validReadLine++;
+                        continue;
+                    }
 
-                   String compareStringFromValidEntry = currentValidLine.substring(pMap.get(KFSPropertyConstants.FINANCIAL_DOCUMENT_TYPE_CODE), pMap.get(KFSPropertyConstants.TRANSACTION_ENTRY_SEQUENCE_NUMBER));
-                   String compareStringFromErrorEntry = currentErrorLine.substring(pMap.get(KFSPropertyConstants.FINANCIAL_DOCUMENT_TYPE_CODE), pMap.get(KFSPropertyConstants.TRANSACTION_ENTRY_SEQUENCE_NUMBER));
+                    String compareStringFromValidEntry = currentValidLine.substring(pMap.get(KFSPropertyConstants.FINANCIAL_DOCUMENT_TYPE_CODE), pMap.get(KFSPropertyConstants.TRANSACTION_ENTRY_SEQUENCE_NUMBER));
+                    String compareStringFromErrorEntry = currentErrorLine.substring(pMap.get(KFSPropertyConstants.FINANCIAL_DOCUMENT_TYPE_CODE), pMap.get(KFSPropertyConstants.TRANSACTION_ENTRY_SEQUENCE_NUMBER));
 
-                   String errorDesc = currentErrorLine.substring(pMap.get(KFSPropertyConstants.TRANSACTION_LEDGER_ENTRY_DESC), pMap.get(KFSPropertyConstants.TRANSACTION_LEDGER_ENTRY_AMOUNT));
-                   String errorFinancialBalanceTypeCode = currentErrorLine.substring(pMap.get(KFSPropertyConstants.FINANCIAL_BALANCE_TYPE_CODE), pMap.get(KFSPropertyConstants.FINANCIAL_OBJECT_TYPE_CODE));
+                    String errorDesc = currentErrorLine.substring(pMap.get(KFSPropertyConstants.TRANSACTION_LEDGER_ENTRY_DESC), pMap.get(KFSPropertyConstants.TRANSACTION_LEDGER_ENTRY_AMOUNT));
+                    String errorFinancialBalanceTypeCode = currentErrorLine.substring(pMap.get(KFSPropertyConstants.FINANCIAL_BALANCE_TYPE_CODE), pMap.get(KFSPropertyConstants.FINANCIAL_OBJECT_TYPE_CODE));
 
-                   if (compareStringFromValidEntry.compareTo(compareStringFromErrorEntry) < 0){
-                       // Read all the transactions in the valid group and update the cost share transactions
-                       String updatedValidLine = checkAndSetTransactionTypeCostShare(financialBalanceTypeCode, desc, currentValidLine);
-                       createOutputEntry(updatedValidLine, OUTPUT_DEMERGER_GLE_FILE_ps);
-                       handleDemergerSaveValidEntry(updatedValidLine);
-                       validSaved++;
-                       currentValidLine = INPUT_GLE_FILE_br.readLine();
-                       validReadLine++;
+                    if (compareStringFromValidEntry.compareTo(compareStringFromErrorEntry) < 0) {
+                        // Read all the transactions in the valid group and update the cost share transactions
+                        String updatedValidLine = checkAndSetTransactionTypeCostShare(financialBalanceTypeCode, desc, currentValidLine);
+                        createOutputEntry(updatedValidLine, OUTPUT_DEMERGER_GLE_FILE_ps);
+                        handleDemergerSaveValidEntry(updatedValidLine);
+                        validSaved++;
+                        currentValidLine = INPUT_GLE_FILE_br.readLine();
+                        validReadLine++;
 
-                   } else if (compareStringFromValidEntry.compareTo(compareStringFromErrorEntry) > 0) {
-                       if (!checkingBypassEntry(errorFinancialBalanceTypeCode, errorDesc, demergerReport)){
-                           createOutputEntry(currentErrorLine, OUTPUT_DEMERGER_ERR_FILE_ps);
-                           errorSaved++;
-                       }
-                       currentErrorLine = INPUT_ERR_FILE_br.readLine();
-                       errorReadLine++;
+                    } else if (compareStringFromValidEntry.compareTo(compareStringFromErrorEntry) > 0) {
+                        if (!checkingBypassEntry(errorFinancialBalanceTypeCode, errorDesc, demergerReport)) {
+                            createOutputEntry(currentErrorLine, OUTPUT_DEMERGER_ERR_FILE_ps);
+                            errorSaved++;
+                        }
+                        currentErrorLine = INPUT_ERR_FILE_br.readLine();
+                        errorReadLine++;
 
-                   } else {
-                       if (!checkingBypassEntry(financialBalanceTypeCode, desc, demergerReport)){
-                           createOutputEntry(currentValidLine, OUTPUT_DEMERGER_ERR_FILE_ps);
-                           errorSaved++;
-                       }
-                       currentValidLine = INPUT_GLE_FILE_br.readLine();
-                       validReadLine++;
-                   }
+                    } else {
+                        if (!checkingBypassEntry(financialBalanceTypeCode, desc, demergerReport)) {
+                            createOutputEntry(currentValidLine, OUTPUT_DEMERGER_ERR_FILE_ps);
+                            errorSaved++;
+                        }
+                        currentValidLine = INPUT_GLE_FILE_br.readLine();
+                        validReadLine++;
+                    }
 
-                   continue;
+                    continue;
 
-               } catch (RuntimeException re) {
-                   LOG.error("performDemerger Stopped: " + re.getMessage());
-                   throw new RuntimeException("performDemerger Stopped: " + re.getMessage(), re);
-               }
+                } catch (RuntimeException re) {
+                    LOG.error("performDemerger Stopped: " + re.getMessage());
+                    throw new RuntimeException("performDemerger Stopped: " + re.getMessage(), re);
+                }
             }
             INPUT_GLE_FILE_br.close();
             INPUT_ERR_FILE_br.close();
@@ -653,20 +644,20 @@ public class ScrubberProcessImpl implements ScrubberProcess {
      * This will process a group of origin entries. The COBOL code was refactored a lot to get this so there isn't a 1 to 1 section
      * of Cobol relating to this.
      *
-     * @param originEntryGroup Group to process
+     * @param reportOnlyMode
+     * @param scrubberReport
      */
     protected void processGroup(boolean reportOnlyMode, ScrubberReportData scrubberReport) {
         OriginEntryFull lastEntry = null;
         scrubCostShareAmount = KualiDecimal.ZERO;
-        unitOfWork = new UnitOfWorkInfo();
+        scrubberProcessUnitOfWork = new ScrubberProcessUnitOfWork();
 
         FileReader INPUT_GLE_FILE = null;
         String GLEN_RECORD;
         BufferedReader INPUT_GLE_FILE_br;
         try {
             INPUT_GLE_FILE = new FileReader(inputFile);
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
         try {
@@ -674,8 +665,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
             OUTPUT_ERR_FILE_ps = new PrintStream(errorFile);
             OUTPUT_EXP_FILE_ps = new PrintStream(expiredFile);
             LOG.info("Successfully opened " + validFile + ", " + errorFile + ", " + expiredFile + " for writing.");
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
@@ -745,12 +735,12 @@ public class ScrubberProcessImpl implements ScrubberProcess {
                         if (!collectorMode) {
 
                             // See if unit of work has changed
-                            if (!unitOfWork.isSameUnitOfWork(scrubbedEntry)) {
+                            if (!scrubberProcessUnitOfWork.isSameUnitOfWork(scrubbedEntry)) {
                                 // Generate offset for last unit of work
                                 // pass the String line for generating error files
                                 generateOffset(lastEntry, scrubberReport);
 
-                                unitOfWork = new UnitOfWorkInfo(scrubbedEntry);
+                                scrubberProcessUnitOfWork = new ScrubberProcessUnitOfWork(scrubbedEntry);
                             }
 
                             KualiDecimal transactionAmount = scrubbedEntry.getTransactionLedgerEntryAmount();
@@ -760,10 +750,9 @@ public class ScrubberProcessImpl implements ScrubberProcess {
                             BalanceType scrubbedEntryBalanceType = accountingCycleCachingService.getBalanceType(scrubbedEntry.getFinancialBalanceTypeCode());
                             if (scrubbedEntryBalanceType.isFinancialOffsetGenerationIndicator() && offsetFiscalPeriods.evaluationSucceeds()) {
                                 if (scrubbedEntry.isDebit()) {
-                                    unitOfWork.offsetAmount = unitOfWork.offsetAmount.add(transactionAmount);
-                                }
-                                else {
-                                    unitOfWork.offsetAmount = unitOfWork.offsetAmount.subtract(transactionAmount);
+                                    scrubberProcessUnitOfWork.setOffsetAmount(scrubberProcessUnitOfWork.getOffsetAmount().add(transactionAmount));
+                                } else {
+                                    scrubberProcessUnitOfWork.setOffsetAmount(scrubberProcessUnitOfWork.getOffsetAmount().subtract(transactionAmount));
                                 }
                             }
 
@@ -787,11 +776,11 @@ public class ScrubberProcessImpl implements ScrubberProcess {
                             Account scrubbedEntryAccount = accountingCycleCachingService.getAccount(scrubbedEntry.getChartOfAccountsCode(), scrubbedEntry.getAccountNumber());
 
                             if (costShareObjectTypeCodes.evaluationSucceeds() && costShareEncBalanceTypeCodes.evaluationSucceeds() && scrubbedEntryAccount.isForContractsAndGrants() && KFSConstants.SubAccountType.COST_SHARE.equals(subAccountTypeCode) && costShareEncFiscalPeriodCodes.evaluationSucceeds() && costShareEncDocTypeCodes.evaluationSucceeds()) {
-                                TransactionError te1 = generateCostShareEncumbranceEntries(scrubbedEntry, scrubberReport);
+                                ScrubberProcessTransactionError te1 = generateCostShareEncumbranceEntries(scrubbedEntry, scrubberReport);
                                 if (te1 != null) {
                                     List errors = new ArrayList();
-                                    errors.add(te1.message);
-                                    handleTransactionErrors(te1.transaction, errors);
+                                    errors.add(te1.getMessage());
+                                    handleTransactionErrors(te1.getTransaction(), errors);
                                     saveValidTransaction = false;
                                     saveErrorTransaction = true;
                                 }
@@ -801,8 +790,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
                             if (costShareObjectTypeCodes.evaluationSucceeds() && scrubbedEntryOption.getActualFinancialBalanceTypeCd().equals(scrubbedEntry.getFinancialBalanceTypeCode()) && scrubbedEntryAccount.isForContractsAndGrants() && KFSConstants.SubAccountType.COST_SHARE.equals(subAccountTypeCode) && costShareFiscalPeriodCodes.evaluationSucceeds() && costShareEncDocTypeCodes.evaluationSucceeds()) {
                                 if (scrubbedEntry.isDebit()) {
                                     scrubCostShareAmount = scrubCostShareAmount.subtract(transactionAmount);
-                                }
-                                else {
+                                } else {
                                     scrubCostShareAmount = scrubCostShareAmount.add(transactionAmount);
                                 }
                             }
@@ -833,7 +821,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
                             }
 
                             if (!scrubCostShareAmount.isZero()) {
-                                TransactionError te = generateCostShareEntries(scrubbedEntry, scrubberReport);
+                                ScrubberProcessTransactionError te = generateCostShareEntries(scrubbedEntry, scrubberReport);
 
                                 if (te != null) {
                                     saveValidTransaction = false;
@@ -841,21 +829,20 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
                                     // Make a copy of it so OJB doesn't just update the row in the original
                                     // group. It needs to make a new one in the error group
-                                    OriginEntryFull errorEntry = new OriginEntryFull(te.transaction);
+                                    OriginEntryFull errorEntry = new OriginEntryFull(te.getTransaction());
                                     errorEntry.setTransactionScrubberOffsetGenerationIndicator(false);
                                     createOutputEntry(GLEN_RECORD, OUTPUT_ERR_FILE_ps);
                                     scrubberReport.incrementErrorRecordWritten();
-                                    unitOfWork.errorsFound = true;
+                                    scrubberProcessUnitOfWork.setErrorsFound(true);
 
-                                    handleTransactionError(te.transaction, te.message);
+                                    handleTransactionError(te.getTransaction(), te.getMessage());
                                 }
                                 scrubCostShareAmount = KualiDecimal.ZERO;
                             }
 
                             lastEntry = scrubbedEntry;
                         }
-                    }
-                    else {
+                    } else {
                         // Error transaction
                         saveErrorTransaction = true;
                         fatalErrorOccurred = true;
@@ -878,7 +865,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
                         if (!fatalErrorOccurred) {
                             // if a fatal error occurred, the creation of a new unit of work was by-passed;
                             // therefore, it shouldn't ruin the previous unit of work
-                            unitOfWork.errorsFound = true;
+                            scrubberProcessUnitOfWork.setErrorsFound(true);
                         }
                     }
                 }
@@ -901,8 +888,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
             if (!collectorMode) {
                 ledgerSummaryReport.writeReport(this.scrubberLedgerReportWriterService);
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -914,7 +900,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
      * @return true if the run should be abended, false otherwise
      */
     protected boolean isFatal(List<Message> errors) {
-        for (Iterator<Message> iter = errors.iterator(); iter.hasNext();) {
+        for (Iterator<Message> iter = errors.iterator(); iter.hasNext(); ) {
             Message element = iter.next();
             if (element.getType() == Message.TYPE_FATAL) {
                 return true;
@@ -929,7 +915,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
      * @param scrubbedEntry the originEntry that was scrubbed
      * @return a TransactionError initialized with any error encounted during entry generation, or (hopefully) null
      */
-    protected TransactionError generateCostShareEntries(OriginEntryInformation scrubbedEntry, ScrubberReportData scrubberReport) {
+    protected ScrubberProcessTransactionError generateCostShareEntries(OriginEntryInformation scrubbedEntry, ScrubberReportData scrubberReport) {
         // 3000-COST-SHARE to 3100-READ-OFSD in the cobol Generate Cost Share Entries
         LOG.debug("generateCostShareEntries() started");
         try {
@@ -952,8 +938,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
             costShareEntry.setTransactionLedgerEntryAmount(scrubCostShareAmount);
             if (scrubCostShareAmount.isPositive()) {
                 costShareEntry.setTransactionDebitCreditCode(KFSConstants.GL_DEBIT_CODE);
-            }
-            else {
+            } else {
                 costShareEntry.setTransactionDebitCreditCode(KFSConstants.GL_CREDIT_CODE);
                 costShareEntry.setTransactionLedgerEntryAmount(scrubCostShareAmount.negated());
             }
@@ -983,14 +968,13 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
                     Message m = new Message(configurationService.getPropertyValueAsString(KFSKeyConstants.ERROR_OFFSET_DEFINITION_OBJECT_CODE_NOT_FOUND) + " (" + objectCodeKey.toString() + ")", Message.TYPE_FATAL);
                     LOG.debug("generateCostShareEntries() Error 1 object not found");
-                    return new TransactionError(costShareEntry, m);
+                    return new ScrubberProcessTransactionError(costShareEntry, m);
                 }
 
                 costShareOffsetEntry.setFinancialObjectCode(offsetDefinition.getFinancialObjectCode());
                 costShareOffsetEntry.setFinancialObject(offsetDefinition.getFinancialObject());
                 costShareOffsetEntry.setFinancialSubObjectCode(KFSConstants.getDashFinancialSubObjectCode());
-            }
-            else {
+            } else {
                 Map<Transaction, List<Message>> errors = new HashMap<Transaction, List<Message>>();
 
                 StringBuffer offsetKey = new StringBuffer("cost share transfer ");
@@ -1003,27 +987,25 @@ public class ScrubberProcessImpl implements ScrubberProcess {
                 Message m = new Message(configurationService.getPropertyValueAsString(KFSKeyConstants.ERROR_OFFSET_DEFINITION_NOT_FOUND) + " (" + offsetKey.toString() + ")", Message.TYPE_FATAL);
 
                 LOG.debug("generateCostShareEntries() Error 2 offset not found");
-                return new TransactionError(costShareEntry, m);
+                return new ScrubberProcessTransactionError(costShareEntry, m);
             }
 
             costShareOffsetEntry.setFinancialObjectTypeCode(offsetDefinition.getFinancialObject().getFinancialObjectTypeCode());
 
             if (costShareEntry.isCredit()) {
                 costShareOffsetEntry.setTransactionDebitCreditCode(KFSConstants.GL_DEBIT_CODE);
-            }
-            else {
+            } else {
                 costShareOffsetEntry.setTransactionDebitCreditCode(KFSConstants.GL_CREDIT_CODE);
             }
 
             try {
                 flexibleOffsetAccountService.updateOffset(costShareOffsetEntry);
-            }
-            catch (InvalidFlexibleOffsetException e) {
+            } catch (InvalidFlexibleOffsetException e) {
                 Message m = new Message(e.getMessage(), Message.TYPE_FATAL);
                 if (LOG.isDebugEnabled()) {
                     LOG.debug("generateCostShareEntries() Cost Share Transfer Flexible Offset Error: " + e.getMessage());
                 }
-                return new TransactionError(costShareEntry, m);
+                return new ScrubberProcessTransactionError(costShareEntry, m);
             }
 
             createOutputEntry(costShareOffsetEntry, OUTPUT_GLE_FILE_ps);
@@ -1054,8 +1036,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
             costShareSourceAccountEntry.setTransactionLedgerEntryAmount(scrubCostShareAmount);
             if (scrubCostShareAmount.isPositive()) {
                 costShareSourceAccountEntry.setTransactionDebitCreditCode(KFSConstants.GL_CREDIT_CODE);
-            }
-            else {
+            } else {
                 costShareSourceAccountEntry.setTransactionDebitCreditCode(KFSConstants.GL_DEBIT_CODE);
                 costShareSourceAccountEntry.setTransactionLedgerEntryAmount(scrubCostShareAmount.negated());
             }
@@ -1090,14 +1071,13 @@ public class ScrubberProcessImpl implements ScrubberProcess {
                     Message m = new Message(configurationService.getPropertyValueAsString(KFSKeyConstants.ERROR_OFFSET_DEFINITION_OBJECT_CODE_NOT_FOUND) + " (" + objectCodeKey.toString() + ")", Message.TYPE_FATAL);
 
                     LOG.debug("generateCostShareEntries() Error 3 object not found");
-                    return new TransactionError(costShareSourceAccountEntry, m);
+                    return new ScrubberProcessTransactionError(costShareSourceAccountEntry, m);
                 }
 
                 costShareSourceAccountOffsetEntry.setFinancialObjectCode(offsetDefinition.getFinancialObjectCode());
                 costShareSourceAccountOffsetEntry.setFinancialObject(offsetDefinition.getFinancialObject());
                 costShareSourceAccountOffsetEntry.setFinancialSubObjectCode(KFSConstants.getDashFinancialSubObjectCode());
-            }
-            else {
+            } else {
                 Map<Transaction, List<Message>> errors = new HashMap<Transaction, List<Message>>();
 
                 StringBuffer offsetKey = new StringBuffer("cost share transfer source ");
@@ -1110,27 +1090,25 @@ public class ScrubberProcessImpl implements ScrubberProcess {
                 Message m = new Message(configurationService.getPropertyValueAsString(KFSKeyConstants.ERROR_OFFSET_DEFINITION_NOT_FOUND) + " (" + offsetKey.toString() + ")", Message.TYPE_FATAL);
 
                 LOG.debug("generateCostShareEntries() Error 4 offset not found");
-                return new TransactionError(costShareSourceAccountEntry, m);
+                return new ScrubberProcessTransactionError(costShareSourceAccountEntry, m);
             }
 
             costShareSourceAccountOffsetEntry.setFinancialObjectTypeCode(offsetDefinition.getFinancialObject().getFinancialObjectTypeCode());
 
             if (scrubbedEntry.isCredit()) {
                 costShareSourceAccountOffsetEntry.setTransactionDebitCreditCode(KFSConstants.GL_DEBIT_CODE);
-            }
-            else {
+            } else {
                 costShareSourceAccountOffsetEntry.setTransactionDebitCreditCode(KFSConstants.GL_CREDIT_CODE);
             }
 
             try {
                 flexibleOffsetAccountService.updateOffset(costShareSourceAccountOffsetEntry);
-            }
-            catch (InvalidFlexibleOffsetException e) {
+            } catch (InvalidFlexibleOffsetException e) {
                 Message m = new Message(e.getMessage(), Message.TYPE_FATAL);
                 if (LOG.isDebugEnabled()) {
                     LOG.debug("generateCostShareEntries() Cost Share Transfer Account Flexible Offset Error: " + e.getMessage());
                 }
-                return new TransactionError(costShareEntry, m);
+                return new ScrubberProcessTransactionError(costShareEntry, m);
             }
 
             createOutputEntry(costShareSourceAccountOffsetEntry, OUTPUT_GLE_FILE_ps);
@@ -1191,7 +1169,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
     protected String processCapitalization(OriginEntryInformation scrubbedEntry, ScrubberReportData scrubberReport) {
 
         try {
-         // Lines 4694 - 4798 of the Pro Cobol listing on Confluence
+            // Lines 4694 - 4798 of the Pro Cobol listing on Confluence
             if (!parameterService.getParameterValueAsBoolean(ScrubberStep.class, GeneralLedgerConstants.GlScrubberGroupParameters.CAPITALIZATION_IND)) {
                 return null;
             }
@@ -1213,7 +1191,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
                 String objectSubTypeCode = scrubbedEntryObjectCode.getFinancialObjectSubTypeCode();
 
                 String capitalizationObjectCode = parameterService.getSubParameterValueAsString(ScrubberStep.class, GeneralLedgerConstants.GlScrubberGroupParameters.CAPITALIZATION_SUBTYPE_OBJECT, objectSubTypeCode);
-                if ( org.apache.commons.lang.StringUtils.isNotBlank( capitalizationObjectCode ) ) {
+                if (org.apache.commons.lang.StringUtils.isNotBlank(capitalizationObjectCode)) {
                     capitalizationEntry.setFinancialObjectCode(capitalizationObjectCode);
                     capitalizationEntry.setFinancialObject(accountingCycleCachingService.getObjectCode(capitalizationEntry.getUniversityFiscalYear(), capitalizationEntry.getChartOfAccountsCode(), capitalizationEntry.getFinancialObjectCode()));
                 }
@@ -1237,23 +1215,21 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
                 // Check system parameters for overriding fund balance object code; otherwise, use
                 // the chart fund balance object code.
-                String fundBalanceCode    = parameterService.getParameterValueAsString(
-                        ScrubberStep.class,
-                        GlParameterConstants.CAPITALIZATION_OFFSET_CODE);
+                String fundBalanceCode = parameterService.getParameterValueAsString(
+                    ScrubberStep.class,
+                    GlParameterConstants.CAPITALIZATION_OFFSET_CODE);
 
                 ObjectCode fundObjectCode = getFundBalanceObjectCode(fundBalanceCode, capitalizationEntry);
 
                 if (fundObjectCode != null) {
                     capitalizationEntry.setFinancialObjectTypeCode(fundObjectCode.getFinancialObjectTypeCode());
                     capitalizationEntry.setFinancialObjectCode(fundBalanceCode);
-                }
-                else {
+                } else {
                     capitalizationEntry.setFinancialObjectCode(scrubbedEntryChart.getFundBalanceObjectCode());
                     //TODO: check to see if COBOL does this - seems weird - is this saying if the object code doesn't exist use the value from options?  Shouldn't it always come from one or the other?
                     if (ObjectUtils.isNotNull(scrubbedEntryChart.getFundBalanceObject())) {
                         capitalizationEntry.setFinancialObjectTypeCode(scrubbedEntryChart.getFundBalanceObject().getFinancialObjectTypeCode());
-                    }
-                    else {
+                    } else {
                         capitalizationEntry.setFinancialObjectTypeCode(scrubbedEntryOption.getFinObjectTypeFundBalanceCd());
                     }
                 }
@@ -1262,8 +1238,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
                 try {
                     flexibleOffsetAccountService.updateOffset(capitalizationEntry);
-                }
-                catch (InvalidFlexibleOffsetException e) {
+                } catch (InvalidFlexibleOffsetException e) {
                     if (LOG.isDebugEnabled()) {
                         LOG.debug("processCapitalization() Capitalization Flexible Offset Error: " + e.getMessage());
                     }
@@ -1287,7 +1262,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
      * @return null if no error, message if error
      */
     protected String processPlantIndebtedness(OriginEntryInformation scrubbedEntry, ScrubberReportData scrubberReport) {
-        try{
+        try {
             // Lines 4855 - 4979 of the Pro Cobol listing on Confluence
             if (!parameterService.getParameterValueAsBoolean(ScrubberStep.class, GeneralLedgerConstants.GlScrubberGroupParameters.PLANT_INDEBTEDNESS_IND)) {
                 return null;
@@ -1321,16 +1296,15 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
                 // Check system parameters for overriding fund balance object code; otherwise, use
                 // the chart fund balance object code.
-                String fundBalanceCode    = parameterService.getParameterValueAsString(
-                        ScrubberStep.class,
-                        GlParameterConstants.PLANT_INDEBTEDNESS_OFFSET_CODE);
+                String fundBalanceCode = parameterService.getParameterValueAsString(
+                    ScrubberStep.class,
+                    GlParameterConstants.PLANT_INDEBTEDNESS_OFFSET_CODE);
 
                 ObjectCode fundObjectCode = getFundBalanceObjectCode(fundBalanceCode, plantIndebtednessEntry);
                 if (fundObjectCode != null) {
                     plantIndebtednessEntry.setFinancialObjectTypeCode(fundObjectCode.getFinancialObjectTypeCode());
                     plantIndebtednessEntry.setFinancialObjectCode(fundBalanceCode);
-                }
-                else {
+                } else {
                     plantIndebtednessEntry.setFinancialObjectTypeCode(scrubbedEntryOption.getFinObjectTypeFundBalanceCd());
                     plantIndebtednessEntry.setFinancialObjectCode(scrubbedEntryChart.getFundBalanceObjectCode());
                 }
@@ -1342,8 +1316,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
                 try {
                     flexibleOffsetAccountService.updateOffset(plantIndebtednessEntry);
-                }
-                catch (InvalidFlexibleOffsetException e) {
+                } catch (InvalidFlexibleOffsetException e) {
                     LOG.error("processPlantIndebtedness() Flexible Offset Exception (1)", e);
                     if (LOG.isDebugEnabled()) {
                         LOG.debug("processPlantIndebtedness() Plant Indebtedness Flexible Offset Error: " + e.getMessage());
@@ -1394,8 +1367,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
                 try {
                     flexibleOffsetAccountService.updateOffset(plantIndebtednessEntry);
-                }
-                catch (InvalidFlexibleOffsetException e) {
+                } catch (InvalidFlexibleOffsetException e) {
                     LOG.error("processPlantIndebtedness() Flexible Offset Exception (2)", e);
                     LOG.debug("processPlantIndebtedness() Plant Indebtedness Flexible Offset Error: " + e.getMessage());
                     return e.getMessage();
@@ -1418,7 +1390,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
      * @return null if no error, message if error
      */
     protected String processLiabilities(OriginEntryInformation scrubbedEntry, ScrubberReportData scrubberReport) {
-        try{
+        try {
             // Lines 4799 to 4839 of the Pro Cobol list of the scrubber on Confluence
             if (!parameterService.getParameterValueAsBoolean(ScrubberStep.class, GeneralLedgerConstants.GlScrubberGroupParameters.LIABILITY_IND)) {
                 return null;
@@ -1454,37 +1426,33 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
                 // Check system parameters for overriding fund balance object code; otherwise, use
                 // the chart fund balance object code.
-                String fundBalanceCode    = parameterService.getParameterValueAsString(
-                        ScrubberStep.class,
-                        GlParameterConstants.LIABILITY_OFFSET_CODE);
+                String fundBalanceCode = parameterService.getParameterValueAsString(
+                    ScrubberStep.class,
+                    GlParameterConstants.LIABILITY_OFFSET_CODE);
 
                 ObjectCode fundObjectCode = getFundBalanceObjectCode(fundBalanceCode, liabilityEntry);
                 if (fundObjectCode != null) {
                     liabilityEntry.setFinancialObjectTypeCode(fundObjectCode.getFinancialObjectTypeCode());
                     liabilityEntry.setFinancialObjectCode(fundBalanceCode);
-                }
-                else {
+                } else {
                     // ... and now generate the offset half of the liability entry
                     liabilityEntry.setFinancialObjectCode(scrubbedEntryChart.getFundBalanceObjectCode());
                     if (ObjectUtils.isNotNull(scrubbedEntryChart.getFundBalanceObject())) {
                         liabilityEntry.setFinancialObjectTypeCode(scrubbedEntryChart.getFundBalanceObject().getFinancialObjectTypeCode());
-                    }
-                    else {
+                    } else {
                         liabilityEntry.setFinancialObjectTypeCode(scrubbedEntryOption.getFinObjectTypeFundBalanceCd());
                     }
                 }
 
                 if (liabilityEntry.isDebit()) {
                     liabilityEntry.setTransactionDebitCreditCode(KFSConstants.GL_CREDIT_CODE);
-                }
-                else {
+                } else {
                     liabilityEntry.setTransactionDebitCreditCode(KFSConstants.GL_DEBIT_CODE);
                 }
 
                 try {
                     flexibleOffsetAccountService.updateOffset(liabilityEntry);
-                }
-                catch (InvalidFlexibleOffsetException e) {
+                } catch (InvalidFlexibleOffsetException e) {
                     if (LOG.isDebugEnabled()) {
                         LOG.debug("processLiabilities() Liability Flexible Offset Error: " + e.getMessage());
                     }
@@ -1502,39 +1470,36 @@ public class ScrubberProcessImpl implements ScrubberProcess {
     }
 
     /**
-     *
      * This method...
-     * @param fundBalanceCodeParameter
+     *
+     * @param fundBalanceCode
      * @param originEntryFull
      * @return
      */
-    protected ObjectCode getFundBalanceObjectCode(String fundBalanceCode, OriginEntryFull originEntryFull)
-    {
+    protected ObjectCode getFundBalanceObjectCode(String fundBalanceCode, OriginEntryFull originEntryFull) {
         ObjectCode fundBalanceObjectCode = null;
         if (fundBalanceCode != null) {
             Map<String, Object> criteriaMap = new HashMap<String, Object>();
             criteriaMap.put("universityFiscalYear", originEntryFull.getUniversityFiscalYear());
             criteriaMap.put("chartOfAccountsCode", originEntryFull.getChartOfAccountsCode());
-            criteriaMap.put("financialObjectCode",  fundBalanceCode);
+            criteriaMap.put("financialObjectCode", fundBalanceCode);
 
-            fundBalanceObjectCode = businessObjectService.findByPrimaryKey(ObjectCode.class, criteriaMap);            
+            fundBalanceObjectCode = businessObjectService.findByPrimaryKey(ObjectCode.class, criteriaMap);
         }
 
         return fundBalanceObjectCode;
     }
 
     /**
-     *
      * This method...
+     *
      * @param scrubbedEntry
      * @param fullEntry
      */
-    protected void populateTransactionDebtCreditCode(OriginEntryInformation scrubbedEntry, OriginEntryFull fullEntry)
-    {
+    protected void populateTransactionDebtCreditCode(OriginEntryInformation scrubbedEntry, OriginEntryFull fullEntry) {
         if (scrubbedEntry.isDebit()) {
             fullEntry.setTransactionDebitCreditCode(KFSConstants.GL_CREDIT_CODE);
-        }
-        else {
+        } else {
             fullEntry.setTransactionDebitCreditCode(KFSConstants.GL_DEBIT_CODE);
         }
     }
@@ -1542,7 +1507,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
     /**
      * Updates the entries with the proper chart and account for the plant fund
      *
-     * @param scrubbedEntry basis for plant fund entry
+     * @param scrubbedEntry  basis for plant fund entry
      * @param liabilityEntry liability entry
      */
     protected void plantFundAccountLookup(OriginEntryInformation scrubbedEntry, OriginEntryFull liabilityEntry) {
@@ -1561,8 +1526,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
             if (campusObjSubTypeCodes.evaluationSucceeds()) {
                 liabilityEntry.setAccountNumber(scrubbedEntryAccount.getOrganization().getCampusPlantAccountNumber());
                 liabilityEntry.setChartOfAccountsCode(scrubbedEntryAccount.getOrganization().getCampusPlantChartCode());
-            }
-            else if (orgObjSubTypeCodes.evaluationSucceeds()) {
+            } else if (orgObjSubTypeCodes.evaluationSucceeds()) {
                 liabilityEntry.setAccountNumber(scrubbedEntryAccount.getOrganization().getOrganizationPlantAccountNumber());
                 liabilityEntry.setChartOfAccountsCode(scrubbedEntryAccount.getOrganization().getOrganizationPlantChartCode());
             }
@@ -1581,8 +1545,8 @@ public class ScrubberProcessImpl implements ScrubberProcess {
      * @param scrubbedEntry the entry to perhaps create a cost share encumbrance for
      * @return a message if there was an error encountered generating the entries, or (hopefully) null if no errors were encountered
      */
-    protected TransactionError generateCostShareEncumbranceEntries(OriginEntryInformation scrubbedEntry, ScrubberReportData scrubberReport) {
-        try{
+    protected ScrubberProcessTransactionError generateCostShareEncumbranceEntries(OriginEntryInformation scrubbedEntry, ScrubberReportData scrubberReport) {
+        try {
             // 3200-COST-SHARE-ENC to 3200-CSE-EXIT in the COBOL
             LOG.debug("generateCostShareEncumbranceEntries() started");
 
@@ -1616,8 +1580,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
             if (!StringUtils.hasText(scrubbedEntry.getTransactionDebitCreditCode())) {
                 if (scrubbedEntry.getTransactionLedgerEntryAmount().isPositive()) {
                     costShareEncumbranceEntry.setTransactionDebitCreditCode(KFSConstants.GL_DEBIT_CODE);
-                }
-                else {
+                } else {
                     costShareEncumbranceEntry.setTransactionDebitCreditCode(KFSConstants.GL_CREDIT_CODE);
                     costShareEncumbranceEntry.setTransactionLedgerEntryAmount(scrubbedEntry.getTransactionLedgerEntryAmount().negated());
                 }
@@ -1643,13 +1606,12 @@ public class ScrubberProcessImpl implements ScrubberProcess {
                     offsetKey.append(offset.getFinancialObjectCode());
 
                     LOG.debug("generateCostShareEncumbranceEntries() object code not found");
-                    return new TransactionError(costShareEncumbranceEntry, new Message(configurationService.getPropertyValueAsString(KFSKeyConstants.ERROR_NO_OBJECT_FOR_OBJECT_ON_OFSD) + "(" + offsetKey.toString() + ")", Message.TYPE_FATAL));
+                    return new ScrubberProcessTransactionError(costShareEncumbranceEntry, new Message(configurationService.getPropertyValueAsString(KFSKeyConstants.ERROR_NO_OBJECT_FOR_OBJECT_ON_OFSD) + "(" + offsetKey.toString() + ")", Message.TYPE_FATAL));
                 }
                 costShareEncumbranceOffsetEntry.setFinancialObjectCode(offset.getFinancialObjectCode());
                 costShareEncumbranceOffsetEntry.setFinancialObject(offset.getFinancialObject());
                 costShareEncumbranceOffsetEntry.setFinancialSubObjectCode(KFSConstants.getDashFinancialSubObjectCode());
-            }
-            else {
+            } else {
                 StringBuffer offsetKey = new StringBuffer("Cost share encumbrance ");
                 offsetKey.append(costShareEncumbranceEntry.getUniversityFiscalYear());
                 offsetKey.append("-");
@@ -1660,15 +1622,14 @@ public class ScrubberProcessImpl implements ScrubberProcess {
                 offsetKey.append(costShareEncumbranceEntry.getFinancialBalanceTypeCode());
 
                 LOG.debug("generateCostShareEncumbranceEntries() offset not found");
-                return new TransactionError(costShareEncumbranceEntry, new Message(configurationService.getPropertyValueAsString(KFSKeyConstants.ERROR_OFFSET_DEFINITION_NOT_FOUND) + "(" + offsetKey.toString() + ")", Message.TYPE_FATAL));
+                return new ScrubberProcessTransactionError(costShareEncumbranceEntry, new Message(configurationService.getPropertyValueAsString(KFSKeyConstants.ERROR_OFFSET_DEFINITION_NOT_FOUND) + "(" + offsetKey.toString() + ")", Message.TYPE_FATAL));
             }
 
             costShareEncumbranceOffsetEntry.setFinancialObjectTypeCode(offset.getFinancialObject().getFinancialObjectTypeCode());
 
             if (costShareEncumbranceEntry.isCredit()) {
                 costShareEncumbranceOffsetEntry.setTransactionDebitCreditCode(KFSConstants.GL_DEBIT_CODE);
-            }
-            else {
+            } else {
                 costShareEncumbranceOffsetEntry.setTransactionDebitCreditCode(KFSConstants.GL_CREDIT_CODE);
             }
 
@@ -1686,13 +1647,12 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
             try {
                 flexibleOffsetAccountService.updateOffset(costShareEncumbranceOffsetEntry);
-            }
-            catch (InvalidFlexibleOffsetException e) {
+            } catch (InvalidFlexibleOffsetException e) {
                 Message m = new Message(e.getMessage(), Message.TYPE_FATAL);
                 if (LOG.isDebugEnabled()) {
                     LOG.debug("generateCostShareEncumbranceEntries() Cost Share Encumbrance Flexible Offset Error: " + e.getMessage());
                 }
-                return new TransactionError(costShareEncumbranceOffsetEntry, m);
+                return new ScrubberProcessTransactionError(costShareEncumbranceOffsetEntry, m);
             }
 
             createOutputEntry(costShareEncumbranceOffsetEntry, OUTPUT_GLE_FILE_ps);
@@ -1709,7 +1669,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
      * Sets the proper cost share object code in an entry and its offset
      *
      * @param costShareEntry GL Entry for cost share
-     * @param originEntry Scrubbed GL Entry that this is based on
+     * @param originEntry    Scrubbed GL Entry that this is based on
      */
     @Override
     public void setCostShareObjectCode(OriginEntryFull costShareEntry, OriginEntryInformation originEntry) {
@@ -1739,8 +1699,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
         if (objectCode != null) {
             costShareEntry.setFinancialObjectTypeCode(objectCode.getFinancialObjectTypeCode());
             costShareEntry.setFinancialObjectCode(financialOriginEntryObjectCode);
-        }
-        else {
+        } else {
             addTransactionError(configurationService.getPropertyValueAsString(KFSKeyConstants.ERROR_COST_SHARE_OBJECT_NOT_FOUND), costShareEntry.getFinancialObjectCode(), Message.TYPE_FATAL);
         }
     }
@@ -1755,8 +1714,8 @@ public class ScrubberProcessImpl implements ScrubberProcess {
      */
     protected boolean generateOffset(OriginEntryInformation scrubbedEntry, ScrubberReportData scrubberReport) {
         OriginEntryFull offsetEntry = new OriginEntryFull();
-        try{
-         // This code is 3000-OFFSET to SET-OBJECT-2004 in the Cobol
+        try {
+            // This code is 3000-OFFSET to SET-OBJECT-2004 in the Cobol
             LOG.debug("generateOffset() started");
 
             // There was no previous unit of work so we need no offset
@@ -1766,12 +1725,12 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
             // If there was an error, don't generate an offset since the record was pulled
             // and the rest of the document's records will be demerged
-            if (unitOfWork.errorsFound == true) {
+            if (scrubberProcessUnitOfWork.isErrorsFound()) {
                 return true;
             }
 
             // If the offset amount is zero, don't bother to lookup the offset definition ...
-            if (unitOfWork.offsetAmount.isZero()) {
+            if (scrubberProcessUnitOfWork.getOffsetAmount().isZero()) {
                 return true;
             }
 
@@ -1812,8 +1771,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
                 offsetEntry.setFinancialSubObject(null);
                 offsetEntry.setFinancialSubObjectCode(KFSConstants.getDashFinancialSubObjectCode());
-            }
-            else {
+            } else {
                 StringBuffer sb = new StringBuffer("Unit of work offset ");
                 sb.append(scrubbedEntry.getUniversityFiscalYear());
                 sb.append("-");
@@ -1831,14 +1789,13 @@ public class ScrubberProcessImpl implements ScrubberProcess {
             }
 
             offsetEntry.setFinancialObjectTypeCode(offsetEntry.getFinancialObject().getFinancialObjectTypeCode());
-            offsetEntry.setTransactionLedgerEntryAmount(unitOfWork.offsetAmount);
+            offsetEntry.setTransactionLedgerEntryAmount(scrubberProcessUnitOfWork.getOffsetAmount());
 
-            if (unitOfWork.offsetAmount.isPositive()) {
+            if (scrubberProcessUnitOfWork.getOffsetAmount().isPositive()) {
                 offsetEntry.setTransactionDebitCreditCode(KFSConstants.GL_CREDIT_CODE);
-            }
-            else {
+            } else {
                 offsetEntry.setTransactionDebitCreditCode(KFSConstants.GL_DEBIT_CODE);
-                offsetEntry.setTransactionLedgerEntryAmount(unitOfWork.offsetAmount.negated());
+                offsetEntry.setTransactionLedgerEntryAmount(scrubberProcessUnitOfWork.getOffsetAmount().negated());
             }
 
             offsetEntry.setOrganizationDocumentNumber(null);
@@ -1852,8 +1809,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
             try {
                 flexibleOffsetAccountService.updateOffset(offsetEntry);
-            }
-            catch (InvalidFlexibleOffsetException e) {
+            } catch (InvalidFlexibleOffsetException e) {
                 if (LOG.isDebugEnabled()) {
                     LOG.debug("generateOffset() Offset Flexible Offset Error: " + e.getMessage());
                 }
@@ -1893,8 +1849,8 @@ public class ScrubberProcessImpl implements ScrubberProcess {
      * Add an error message to the list of messages for this transaction
      *
      * @param errorMessage Error message
-     * @param errorValue Value that is in error
-     * @param type Type of error (Fatal or Warning)
+     * @param errorValue   Value that is in error
+     * @param type         Type of error (Fatal or Warning)
      */
     protected void addTransactionError(String errorMessage, String errorValue, int type) {
         transactionErrors.add(new Message(errorMessage + " (" + errorValue + ")", type));
@@ -1903,10 +1859,10 @@ public class ScrubberProcessImpl implements ScrubberProcess {
     /**
      * Puts a transaction error into this instance's collection of errors
      *
-     * @param s a transaction that caused a scrubber error
+     * @param s            a transaction that caused a scrubber error
      * @param errorMessage the message of what caused the error
-     * @param errorValue the value in error
-     * @param type the type of error
+     * @param errorValue   the value in error
+     * @param type         the type of error
      */
     protected void putTransactionError(Transaction s, String errorMessage, String errorValue, int type) {
         Message m = new Message(errorMessage + "(" + errorValue + ")", type);
@@ -1915,116 +1871,12 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
     /**
      * Determines if the scrubber should generate offsets for the given document type
+     *
      * @param docTypeCode the document type code to check if it generates scrubber offsets
      * @return true if the scrubber should generate offsets for this doc type, false otherwise
      */
     protected boolean shouldScrubberGenerateOffsetsForDocType(String docTypeCode) {
         return /*REFACTORME*/SpringContext.getBean(ParameterEvaluatorService.class).getParameterEvaluator(ScrubberStep.class, GeneralLedgerConstants.GlScrubberGroupRules.DOCUMENT_TYPES_REQUIRING_FLEXIBLE_OFFSET_BALANCING_ENTRIES, docTypeCode).evaluationSucceeds();
-    }
-
-    /**
-     * A class to hold the current unit of work the scrubber is using
-     */
-    class UnitOfWorkInfo {
-        // Unit of work key
-        public Integer univFiscalYr = 0;
-        public String finCoaCd = "";
-        public String accountNbr = "";
-        public String subAcctNbr = "";
-        public String finBalanceTypCd = "";
-        public String fdocTypCd = "";
-        public String fsOriginCd = "";
-        public String fdocNbr = "";
-        public Date fdocReversalDt = new Date(dateTimeService.getCurrentDate().getTime());
-        public String univFiscalPrdCd = "";
-
-        // Data about unit of work
-        public boolean errorsFound = false;
-        public KualiDecimal offsetAmount = KualiDecimal.ZERO;
-        public String scrbFinCoaCd;
-        public String scrbAccountNbr;
-
-        /**
-         * Constructs a ScrubberProcess.UnitOfWorkInfo instance
-         */
-        public UnitOfWorkInfo() {
-        }
-
-        /**
-         * Constructs a ScrubberProcess.UnitOfWorkInfo instance
-         * @param e an origin entry belonging to this unit of work
-         */
-        public UnitOfWorkInfo(OriginEntryInformation e) {
-            univFiscalYr = e.getUniversityFiscalYear();
-            finCoaCd = e.getChartOfAccountsCode();
-            accountNbr = e.getAccountNumber();
-            subAcctNbr = e.getSubAccountNumber();
-            finBalanceTypCd = e.getFinancialBalanceTypeCode();
-            fdocTypCd = e.getFinancialDocumentTypeCode();
-            fsOriginCd = e.getFinancialSystemOriginationCode();
-            fdocNbr = e.getDocumentNumber();
-            fdocReversalDt = e.getFinancialDocumentReversalDate();
-            univFiscalPrdCd = e.getUniversityFiscalPeriodCode();
-        }
-
-        /**
-         * Determines if an entry belongs to this unit of work
-         *
-         * @param e the entry to check
-         * @return true if it belongs to this unit of work, false otherwise
-         */
-        public boolean isSameUnitOfWork(OriginEntryInformation e) {
-            // Compare the key fields
-            return univFiscalYr.equals(e.getUniversityFiscalYear()) && finCoaCd.equals(e.getChartOfAccountsCode()) && accountNbr.equals(e.getAccountNumber()) && subAcctNbr.equals(e.getSubAccountNumber()) && finBalanceTypCd.equals(e.getFinancialBalanceTypeCode()) && fdocTypCd.equals(e.getFinancialDocumentTypeCode()) && fsOriginCd.equals(e.getFinancialSystemOriginationCode()) && fdocNbr.equals(e.getDocumentNumber()) && ObjectHelper.isEqual(fdocReversalDt, e.getFinancialDocumentReversalDate()) && univFiscalPrdCd.equals(e.getUniversityFiscalPeriodCode());
-        }
-
-        /**
-         * Converts this unit of work info to a String
-         * @return a String representation of this UnitOfWorkInfo
-         * @see java.lang.Object#toString()
-         */
-        @Override
-        public String toString() {
-            return univFiscalYr + finCoaCd + accountNbr + subAcctNbr + finBalanceTypCd + fdocTypCd + fsOriginCd + fdocNbr + fdocReversalDt + univFiscalPrdCd;
-        }
-
-        /**
-         * Generates the beginning of an OriginEntryFull, based on the unit of work info
-         *
-         * @return a partially initialized OriginEntryFull
-         */
-        public OriginEntryFull getOffsetTemplate() {
-            OriginEntryFull e = new OriginEntryFull();
-            e.setUniversityFiscalYear(univFiscalYr);
-            e.setChartOfAccountsCode(finCoaCd);
-            e.setAccountNumber(accountNbr);
-            e.setSubAccountNumber(subAcctNbr);
-            e.setFinancialBalanceTypeCode(finBalanceTypCd);
-            e.setFinancialDocumentTypeCode(fdocTypCd);
-            e.setFinancialSystemOriginationCode(fsOriginCd);
-            e.setDocumentNumber(fdocNbr);
-            e.setFinancialDocumentReversalDate(fdocReversalDt);
-            e.setUniversityFiscalPeriodCode(univFiscalPrdCd);
-            return e;
-        }
-    }
-
-    /**
-     * An internal class to hold errors encountered by the scrubber
-     */
-    class TransactionError {
-        public Transaction transaction;
-        public Message message;
-
-        /**
-         * Constructs a ScrubberProcess.TransactionError instance
-         * @param t the transaction that had the error
-         * @param m a message about the error
-         */
-        public TransactionError(Transaction t, Message m) {
-            transaction = t;
-            message = m;
-        }
     }
 
     /**
@@ -2039,30 +1891,25 @@ public class ScrubberProcessImpl implements ScrubberProcess {
         return new Date(runDateService.calculateRunDate(currentDate).getTime());
     }
 
-    protected boolean checkingBypassEntry (String financialBalanceTypeCode, String desc, DemergerReportData demergerReport){
+    protected boolean checkingBypassEntry(String financialBalanceTypeCode, String desc, DemergerReportData demergerReport) {
         String transactionType = getTransactionType(financialBalanceTypeCode, desc);
 
         if (TRANSACTION_TYPE_COST_SHARE_ENCUMBRANCE.equals(transactionType)) {
             demergerReport.incrementCostShareEncumbranceTransactionsBypassed();
             return true;
-        }
-        else if (TRANSACTION_TYPE_OFFSET.equals(transactionType)) {
+        } else if (TRANSACTION_TYPE_OFFSET.equals(transactionType)) {
             demergerReport.incrementOffsetTransactionsBypassed();
             return true;
-        }
-        else if (TRANSACTION_TYPE_CAPITALIZATION.equals(transactionType)) {
+        } else if (TRANSACTION_TYPE_CAPITALIZATION.equals(transactionType)) {
             demergerReport.incrementCapitalizationTransactionsBypassed();
             return true;
-        }
-        else if (TRANSACTION_TYPE_LIABILITY.equals(transactionType)) {
+        } else if (TRANSACTION_TYPE_LIABILITY.equals(transactionType)) {
             demergerReport.incrementLiabilityTransactionsBypassed();
             return true;
-        }
-        else if (TRANSACTION_TYPE_TRANSFER.equals(transactionType)) {
+        } else if (TRANSACTION_TYPE_TRANSFER.equals(transactionType)) {
             demergerReport.incrementTransferTransactionsBypassed();
             return true;
-        }
-        else if (TRANSACTION_TYPE_COST_SHARE.equals(transactionType)) {
+        } else if (TRANSACTION_TYPE_COST_SHARE.equals(transactionType)) {
             demergerReport.incrementCostShareTransactionsBypassed();
             return true;
         }
@@ -2071,7 +1918,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
     }
 
 
-    protected String checkAndSetTransactionTypeCostShare (String financialBalanceTypeCode, String desc, String currentValidLine){
+    protected String checkAndSetTransactionTypeCostShare(String financialBalanceTypeCode, String desc, String currentValidLine) {
 
         // Read all the transactions in the valid group and update the cost share transactions
         String transactionType = getTransactionType(financialBalanceTypeCode, desc);
@@ -2090,7 +1937,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
             transaction.setTransactionLedgerEntryDescription(desc.substring(0, DEMERGER_TRANSACTION_LEDGET_ENTRY_DESCRIPTION));
 
             currentValidLine = transaction.getLine();
-       }
+        }
 
         return currentValidLine;
 
@@ -2099,16 +1946,17 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
     /**
      * Generates the scrubber listing report for the GLCP document
+     *
      * @param documentNumber the document number of the GLCP document
      */
     protected void generateScrubberTransactionListingReport(String documentNumber, String inputFileName) {
         try {
             scrubberListingReportWriterService.setDocumentNumber(documentNumber);
-        ((WrappingBatchService) scrubberListingReportWriterService).initialize();
-        new TransactionListingReport().generateReport(scrubberListingReportWriterService, new OriginEntryFileIterator(new File(inputFileName)));
+            ((WrappingBatchService) scrubberListingReportWriterService).initialize();
+            new TransactionListingReport().generateReport(scrubberListingReportWriterService, new OriginEntryFileIterator(new File(inputFileName)));
         } finally {
-        ((WrappingBatchService) scrubberListingReportWriterService).destroy();
-    }
+            ((WrappingBatchService) scrubberListingReportWriterService).destroy();
+        }
     }
 
     /**
@@ -2126,8 +1974,11 @@ public class ScrubberProcessImpl implements ScrubberProcess {
                 BalanceType originEntryBalanceType = accountingCycleCachingService.getBalanceType(financialBalancetype);
                 if (ObjectUtils.isNull(originEntryBalanceType)) {
                     acceptFlag = true;
-                    for (int i= 0; i < financialBalancetype.length(); i++) {
-                        if (financialBalancetype.charAt(i) != ' ') { acceptFlag = false; break;}
+                    for (int i = 0; i < financialBalancetype.length(); i++) {
+                        if (financialBalancetype.charAt(i) != ' ') {
+                            acceptFlag = false;
+                            break;
+                        }
                     }
                 }
                 return acceptFlag;
@@ -2150,8 +2001,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
                 scrubberReportErrors.put(errorTransaction, messages);
             }
             messages.add(message);
-        }
-        else {
+        } else {
             scrubberReportWriterService.writeError(errorTransaction, message);
         }
     }
@@ -2161,11 +2011,10 @@ public class ScrubberProcessImpl implements ScrubberProcess {
             for (Message message : messages) {
                 handleTransactionError(errorTransaction, message);
             }
-        }
-        else {
+        } else {
             if (LOG.isDebugEnabled()) {
-                LOG.debug("Errors on transaction: "+errorTransaction);
-                for (Message message: messages) {
+                LOG.debug("Errors on transaction: " + errorTransaction);
+                for (Message message : messages) {
                     LOG.debug(message);
                 }
             }
@@ -2198,6 +2047,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
     /**
      * Sets the batchFileDirectoryName attribute value.
+     *
      * @param batchFileDirectoryName The batchFileDirectoryName to set.
      */
     public void setBatchFileDirectoryName(String batchFileDirectoryName) {
@@ -2206,6 +2056,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
     /**
      * Gets the transferDescription attribute.
+     *
      * @return Returns the transferDescription.
      */
     public String getTransferDescription() {
@@ -2214,6 +2065,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
     /**
      * Sets the transferDescription attribute value.
+     *
      * @param transferDescription The transferDescription to set.
      */
     public void setTransferDescription(String transferDescription) {
@@ -2222,6 +2074,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
     /**
      * Sets the dateTimeService attribute value.
+     *
      * @param dateTimeService The dateTimeService to set.
      */
     public void setDateTimeService(DateTimeService dateTimeService) {
@@ -2230,6 +2083,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
     /**
      * Sets the flexibleOffsetAccountService attribute value.
+     *
      * @param flexibleOffsetAccountService The flexibleOffsetAccountService to set.
      */
     public void setFlexibleOffsetAccountService(FlexibleOffsetAccountService flexibleOffsetAccountService) {
@@ -2238,6 +2092,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
     /**
      * Sets the configurationService attribute value.
+     *
      * @param configurationService The configurationService to set.
      */
     public void setConfigurationService(ConfigurationService configurationService) {
@@ -2246,6 +2101,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
     /**
      * Sets the persistenceService attribute value.
+     *
      * @param persistenceService The persistenceService to set.
      */
     public void setPersistenceService(PersistenceService persistenceService) {
@@ -2254,6 +2110,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
     /**
      * Sets the scrubberValidator attribute value.
+     *
      * @param scrubberValidator The scrubberValidator to set.
      */
     public void setScrubberValidator(ScrubberValidator scrubberValidator) {
@@ -2262,6 +2119,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
     /**
      * Sets the accountingCycleCachingService attribute value.
+     *
      * @param accountingCycleCachingService The accountingCycleCachingService to set.
      */
     public void setAccountingCycleCachingService(AccountingCycleCachingService accountingCycleCachingService) {
@@ -2270,6 +2128,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
     /**
      * Sets the scrubberReportWriterService attribute value.
+     *
      * @param scrubberReportWriterService The scrubberReportWriterService to set.
      */
     public void setScrubberReportWriterService(DocumentNumberAwareReportWriterService scrubberReportWriterService) {
@@ -2278,6 +2137,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
     /**
      * Sets the scrubberLedgerReportWriterService attribute value.
+     *
      * @param scrubberLedgerReportWriterService The scrubberLedgerReportWriterService to set.
      */
     public void setScrubberLedgerReportWriterService(DocumentNumberAwareReportWriterService scrubberLedgerReportWriterService) {
@@ -2286,6 +2146,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
     /**
      * Sets the scrubberListingReportWriterService attribute value.
+     *
      * @param scrubberListingReportWriterService The scrubberListingReportWriterService to set.
      */
     public void setScrubberListingReportWriterService(DocumentNumberAwareReportWriterService scrubberListingReportWriterService) {
@@ -2294,6 +2155,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
     /**
      * Sets the scrubberBadBalanceListingReportWriterService attribute value.
+     *
      * @param scrubberBadBalanceListingReportWriterService The scrubberBadBalanceListingReportWriterService to set.
      */
     public void setScrubberBadBalanceListingReportWriterService(ReportWriterService scrubberBadBalanceListingReportWriterService) {
@@ -2302,6 +2164,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
     /**
      * Sets the demergerRemovedTransactionsListingReportWriterService attribute value.
+     *
      * @param demergerRemovedTransactionsListingReportWriterService The demergerRemovedTransactionsListingReportWriterService to set.
      */
     public void setDemergerRemovedTransactionsListingReportWriterService(ReportWriterService demergerRemovedTransactionsListingReportWriterService) {
@@ -2310,6 +2173,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
     /**
      * Sets the demergerReportWriterService attribute value.
+     *
      * @param demergerReportWriterService The demergerReportWriterService to set.
      */
     public void setDemergerReportWriterService(ReportWriterService demergerReportWriterService) {
@@ -2318,6 +2182,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
     /**
      * Sets the preScrubberService attribute value.
+     *
      * @param preScrubberService The preScrubberService to set.
      */
     public void setPreScrubberService(PreScrubberService preScrubberService) {
@@ -2326,6 +2191,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
     /**
      * Sets the parameterService attribute value.
+     *
      * @param parameterService The parameterService to set.
      */
     public void setParameterService(ParameterService parameterService) {
@@ -2334,6 +2200,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
     /**
      * Sets the runDateService attribute value.
+     *
      * @param runDateService The runDateService to set.
      */
     public void setRunDateService(RunDateService runDateService) {
@@ -2342,6 +2209,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
     /**
      * Gets the flexibleOffsetAccountService attribute.
+     *
      * @return Returns the flexibleOffsetAccountService.
      */
     public FlexibleOffsetAccountService getFlexibleOffsetAccountService() {
@@ -2350,6 +2218,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
     /**
      * Gets the dateTimeService attribute.
+     *
      * @return Returns the dateTimeService.
      */
     public DateTimeService getDateTimeService() {
@@ -2358,6 +2227,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
     /**
      * Gets the configurationService attribute.
+     *
      * @return Returns the configurationService.
      */
     public ConfigurationService getConfigurationService() {
@@ -2366,6 +2236,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
     /**
      * Gets the persistenceService attribute.
+     *
      * @return Returns the persistenceService.
      */
     public PersistenceService getPersistenceService() {
@@ -2374,6 +2245,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
     /**
      * Gets the scrubberValidator attribute.
+     *
      * @return Returns the scrubberValidator.
      */
     public ScrubberValidator getScrubberValidator() {
@@ -2382,6 +2254,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
     /**
      * Gets the runDateService attribute.
+     *
      * @return Returns the runDateService.
      */
     public RunDateService getRunDateService() {
@@ -2390,6 +2263,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
     /**
      * Gets the accountingCycleCachingService attribute.
+     *
      * @return Returns the accountingCycleCachingService.
      */
     public AccountingCycleCachingService getAccountingCycleCachingService() {
@@ -2398,6 +2272,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
     /**
      * Gets the scrubberReportWriterService attribute.
+     *
      * @return Returns the scrubberReportWriterService.
      */
     public DocumentNumberAwareReportWriterService getScrubberReportWriterService() {
@@ -2406,6 +2281,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
     /**
      * Gets the scrubberLedgerReportWriterService attribute.
+     *
      * @return Returns the scrubberLedgerReportWriterService.
      */
     public DocumentNumberAwareReportWriterService getScrubberLedgerReportWriterService() {
@@ -2414,6 +2290,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
     /**
      * Gets the scrubberListingReportWriterService attribute.
+     *
      * @return Returns the scrubberListingReportWriterService.
      */
     public DocumentNumberAwareReportWriterService getScrubberListingReportWriterService() {
@@ -2422,6 +2299,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
     /**
      * Gets the scrubberBadBalanceListingReportWriterService attribute.
+     *
      * @return Returns the scrubberBadBalanceListingReportWriterService.
      */
     public ReportWriterService getScrubberBadBalanceListingReportWriterService() {
@@ -2430,6 +2308,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
     /**
      * Gets the demergerRemovedTransactionsListingReportWriterService attribute.
+     *
      * @return Returns the demergerRemovedTransactionsListingReportWriterService.
      */
     public ReportWriterService getDemergerRemovedTransactionsListingReportWriterService() {
@@ -2438,6 +2317,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
     /**
      * Gets the demergerReportWriterService attribute.
+     *
      * @return Returns the demergerReportWriterService.
      */
     public ReportWriterService getDemergerReportWriterService() {
@@ -2446,6 +2326,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
     /**
      * Gets the preScrubberService attribute.
+     *
      * @return Returns the preScrubberService.
      */
     public PreScrubberService getPreScrubberService() {
@@ -2454,6 +2335,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
     /**
      * Gets the parameterService attribute.
+     *
      * @return Returns the parameterService.
      */
     public ParameterService getParameterService() {
@@ -2462,6 +2344,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
     /**
      * Sets the preScrubberReportWriterService attribute value.
+     *
      * @param preScrubberReportWriterService The preScrubberReportWriterService to set.
      */
     public void setPreScrubberReportWriterService(DocumentNumberAwareReportWriterService preScrubberReportWriterService) {
@@ -2470,6 +2353,7 @@ public class ScrubberProcessImpl implements ScrubberProcess {
 
     /**
      * Sets the businessObjectService attribute value.
+     *
      * @param businessObjectService The businessObjectService to set.
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {

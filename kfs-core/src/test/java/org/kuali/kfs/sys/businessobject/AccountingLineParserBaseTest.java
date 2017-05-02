@@ -1,45 +1,42 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.businessobject;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.kfs;
-
-import java.io.ByteArrayInputStream;
-import java.util.Arrays;
-import java.util.List;
-
 import org.kuali.kfs.fp.document.ProcurementCardDocument;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.exception.AccountingLineParserException;
-import org.kuali.kfs.sys.suite.AnnotationTestSuite;
-import org.kuali.kfs.sys.suite.CrossSectionSuite;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.service.DocumentService;
+
+import java.io.ByteArrayInputStream;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.kfs;
 
 /**
  * Test class for testing <code>{@link AccountingLineParserBase}</code>
  */
-@AnnotationTestSuite(CrossSectionSuite.class)
 @ConfigureContext(session = kfs)
 public class AccountingLineParserBaseTest extends KualiTestBase {
 
@@ -59,8 +56,7 @@ public class AccountingLineParserBaseTest extends KualiTestBase {
         try {
             parser.parseSourceAccountingLine(accountingDocument, "BL,4631672, , ,KUL, , , a");
             fail("didn't throw AccountingLineParserException");
-        }
-        catch (AccountingLineParserException e) {
+        } catch (AccountingLineParserException e) {
             // good
             assertInvalidPropertyValue(e, " a");
         }
@@ -78,8 +74,7 @@ public class AccountingLineParserBaseTest extends KualiTestBase {
         try {
             parser.parseTargetAccountingLine(accountingDocument, "BL,4631672, , ,KUL, , , , b");
             fail("didn't throw AccountingLineParserException");
-        }
-        catch (AccountingLineParserException e) {
+        } catch (AccountingLineParserException e) {
             // good
             assertInvalidPropertyValue(e, " b");
         }

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -48,7 +48,7 @@ public class CfdaUpdateResults {
 
     /**
      * This method...
-     * 
+     *
      * @return
      */
     public int getNumberOfRecordsReActivated() {
@@ -57,7 +57,7 @@ public class CfdaUpdateResults {
 
     /**
      * This method...
-     * 
+     *
      * @param numberOfRecordsReActivated
      */
     public void setNumberOfRecordsReActivated(int numberOfRecordsReActivated) {
@@ -66,7 +66,7 @@ public class CfdaUpdateResults {
 
     /**
      * This method...
-     * 
+     *
      * @return
      */
     public int getNumberOfRecordsDeactivatedBecauseNoLongerOnWebSite() {
@@ -75,7 +75,7 @@ public class CfdaUpdateResults {
 
     /**
      * This method...
-     * 
+     *
      * @param numberOfRecordsDeactivatedBecauseNoLongerOnWebSite
      */
     public void setNumberOfRecordsDeactivatedBecauseNoLongerOnWebSite(int numberOfRecordsDeactivatedBecauseNoLongerOnWebSite) {
@@ -84,7 +84,7 @@ public class CfdaUpdateResults {
 
     /**
      * This method...
-     * 
+     *
      * @return
      */
     public int getNumberOfRecrodsNotUpdatedForHistoricalPurposes() {
@@ -93,7 +93,7 @@ public class CfdaUpdateResults {
 
     /**
      * This method...
-     * 
+     *
      * @param numberOfRecrodsNotUpdatedForHistoricalPurposes
      */
     public void setNumberOfRecrodsNotUpdatedForHistoricalPurposes(int numberOfRecrodsNotUpdatedForHistoricalPurposes) {
@@ -102,7 +102,7 @@ public class CfdaUpdateResults {
 
     /**
      * This method...
-     * 
+     *
      * @return
      */
     public int getNumberOfRecordsRetrievedFromWebSite() {
@@ -111,7 +111,7 @@ public class CfdaUpdateResults {
 
     /**
      * This method...
-     * 
+     *
      * @param numberOfRecordsRetrievedFromWebSite
      */
     public void setNumberOfRecordsRetrievedFromWebSite(int numberOfRecordsRetrievedFromWebSite) {
@@ -120,7 +120,7 @@ public class CfdaUpdateResults {
 
     /**
      * This method...
-     * 
+     *
      * @return
      */
     public int getNumberOfRecordsInKfsDatabase() {
@@ -129,7 +129,7 @@ public class CfdaUpdateResults {
 
     /**
      * This method...
-     * 
+     *
      * @param numberOfRecordsInKfsDatabase
      */
     public void setNumberOfRecordsInKfsDatabase(int numberOfRecordsInKfsDatabase) {
@@ -138,7 +138,7 @@ public class CfdaUpdateResults {
 
     /**
      * This method...
-     * 
+     *
      * @return
      */
     public int getNumberOfRecordsUpdatedBecauseAutomatic() {
@@ -147,7 +147,7 @@ public class CfdaUpdateResults {
 
     /**
      * This method...
-     * 
+     *
      * @param numberOfRecordsUpdatedBecauseAutomatic
      */
     public void setNumberOfRecordsUpdatedBecauseAutomatic(int numberOfRecordsUpdatedBecauseAutomatic) {
@@ -156,7 +156,7 @@ public class CfdaUpdateResults {
 
     /**
      * This method...
-     * 
+     *
      * @return
      */
     public int getNumberOfRecordsNotUpdatedBecauseManual() {
@@ -165,7 +165,7 @@ public class CfdaUpdateResults {
 
     /**
      * This method...
-     * 
+     *
      * @param numberOfRecordsNotUpdatedBecauseManual
      */
     public void setNumberOfRecordsNotUpdatedBecauseManual(int numberOfRecordsNotUpdatedBecauseManual) {
@@ -174,7 +174,7 @@ public class CfdaUpdateResults {
 
     /**
      * This method...
-     * 
+     *
      * @return
      */
     public String getMessage() {
@@ -183,7 +183,7 @@ public class CfdaUpdateResults {
 
     /**
      * This method...
-     * 
+     *
      * @param message
      */
     public void setMessage(String message) {

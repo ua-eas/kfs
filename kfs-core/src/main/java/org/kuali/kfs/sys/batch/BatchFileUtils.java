@@ -1,34 +1,34 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.batch;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.keyvalues.KeyValuesFinder;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.keyvalues.KeyValuesFinder;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BatchFileUtils {
     public static List<File> retrieveBatchFileLookupRootDirectories() {
@@ -69,7 +69,7 @@ public class BatchFileUtils {
      * if the parameter is "c:\opt\staging\gl\somefile.txt" and the roots are "c:\opt\reports;c:\opt\staging", it will return
      * "staging\gl\somefile.txt" (the system-specific path separator will be used). If there are multiple matching roots, then the
      * first one to be matched will take precedence
-     * 
+     *
      * @param absolutePath an absolute path for a file/directory
      */
     public static String pathRelativeToRootDirectory(String absolutePath) {
@@ -109,11 +109,9 @@ public class BatchFileUtils {
                     pathNames.add(new File(resolvePathToAbsolutePath((String) keyValue.getKey())).getAbsolutePath());
                 }
             }
-        }
-        catch (IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
             throw new RuntimeException("can't instiantiate class " + keyValuesFinderClass, e);
-        }
-        catch (InstantiationException e) {
+        } catch (InstantiationException e) {
             throw new RuntimeException("can't instiantiate class " + keyValuesFinderClass, e);
         }
 

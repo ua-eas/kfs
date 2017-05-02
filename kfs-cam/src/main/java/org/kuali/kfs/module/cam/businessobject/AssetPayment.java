@@ -1,25 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cam.businessobject;
-
-import java.sql.Date;
-import java.util.LinkedHashMap;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
@@ -30,8 +27,9 @@ import org.kuali.kfs.coa.businessobject.ObjectCodeCurrent;
 import org.kuali.kfs.coa.businessobject.ProjectCode;
 import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.module.cam.document.service.AssetGlobalService;
-import org.kuali.kfs.module.cam.document.service.PaymentSummaryService;
 import org.kuali.kfs.sys.businessobject.OriginationCode;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -40,12 +38,11 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.KewApiServiceLocator;
 import org.kuali.rice.kew.api.doctype.DocumentType;
 import org.kuali.rice.kew.doctype.bo.DocumentTypeEBO;
-import org.kuali.rice.krad.bo.DocumentHeader;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 
-/**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
- */
+import java.sql.Date;
+import java.util.LinkedHashMap;
+
+
 public class AssetPayment extends PersistableBusinessObjectBase {
 
     private Long capitalAssetNumber;
@@ -81,6 +78,7 @@ public class AssetPayment extends PersistableBusinessObjectBase {
     private KualiDecimal period10Depreciation1Amount;
     private KualiDecimal period11Depreciation1Amount;
     private KualiDecimal period12Depreciation1Amount;
+    private Integer accumulatedRoundingErrorInMillicents = 0;
     private String transferPaymentCode;
 
     private Asset asset;
@@ -110,7 +108,7 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Constructs an AssetPayment
      *
      * @param assetPaymentDetail
-     * @param withAmounts indicates whether amount fields should be copied from the assetPayment object
+     * @param withAmounts        indicates whether amount fields should be copied from the assetPayment object
      */
     public AssetPayment(AssetPayment assetPayment, boolean withAmounts) {
         setCapitalAssetNumber(assetPayment.getCapitalAssetNumber());
@@ -189,8 +187,7 @@ public class AssetPayment extends PersistableBusinessObjectBase {
             setFinancialDocumentPostingDate(assetPaymentDetail.getExpenditureFinancialDocumentPostedDate());
             setFinancialDocumentPostingYear(assetPaymentDetail.getPostingYear());
             setFinancialDocumentPostingPeriodCode(assetPaymentDetail.getPostingPeriodCode());
-        }
-        else {
+        } else {
             UniversityDateService universityDateService = SpringContext.getBean(UniversityDateService.class);
 
             setFinancialDocumentPostingDate(universityDateService.getCurrentUniversityDate().getUniversityDate());
@@ -203,7 +200,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the capitalAssetNumber attribute.
      *
      * @return Returns the capitalAssetNumber
-     *
      */
     public Long getCapitalAssetNumber() {
         return capitalAssetNumber;
@@ -213,7 +209,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Sets the capitalAssetNumber attribute.
      *
      * @param capitalAssetNumber The capitalAssetNumber to set.
-     *
      */
     public void setCapitalAssetNumber(Long capitalAssetNumber) {
         this.capitalAssetNumber = capitalAssetNumber;
@@ -224,7 +219,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the paymentSequenceNumber attribute.
      *
      * @return Returns the paymentSequenceNumber
-     *
      */
     public Integer getPaymentSequenceNumber() {
         return paymentSequenceNumber;
@@ -234,7 +228,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Sets the paymentSequenceNumber attribute.
      *
      * @param paymentSequenceNumber The paymentSequenceNumber to set.
-     *
      */
     public void setPaymentSequenceNumber(Integer paymentSequenceNumber) {
         this.paymentSequenceNumber = paymentSequenceNumber;
@@ -245,7 +238,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the chartOfAccountsCode attribute.
      *
      * @return Returns the chartOfAccountsCode
-     *
      */
     public String getChartOfAccountsCode() {
         return chartOfAccountsCode;
@@ -255,7 +247,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Sets the chartOfAccountsCode attribute.
      *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
-     *
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
         this.chartOfAccountsCode = chartOfAccountsCode;
@@ -266,7 +257,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the accountNumber attribute.
      *
      * @return Returns the accountNumber
-     *
      */
     public String getAccountNumber() {
         return accountNumber;
@@ -276,7 +266,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Sets the accountNumber attribute.
      *
      * @param accountNumber The accountNumber to set.
-     *
      */
     public void setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
@@ -287,7 +276,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the subAccountNumber attribute.
      *
      * @return Returns the subAccountNumber
-     *
      */
     public String getSubAccountNumber() {
         return subAccountNumber;
@@ -297,7 +285,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Sets the subAccountNumber attribute.
      *
      * @param subAccountNumber The subAccountNumber to set.
-     *
      */
     public void setSubAccountNumber(String subAccountNumber) {
         this.subAccountNumber = subAccountNumber;
@@ -308,7 +295,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the financialObjectCode attribute.
      *
      * @return Returns the financialObjectCode
-     *
      */
     public String getFinancialObjectCode() {
         return financialObjectCode;
@@ -318,7 +304,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Sets the financialObjectCode attribute.
      *
      * @param financialObjectCode The financialObjectCode to set.
-     *
      */
     public void setFinancialObjectCode(String financialObjectCode) {
         this.financialObjectCode = financialObjectCode;
@@ -329,7 +314,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the financialSubObjectCode attribute.
      *
      * @return Returns the financialSubObjectCode
-     *
      */
     public String getFinancialSubObjectCode() {
         return financialSubObjectCode;
@@ -339,7 +323,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Sets the financialSubObjectCode attribute.
      *
      * @param financialSubObjectCode The financialSubObjectCode to set.
-     *
      */
     public void setFinancialSubObjectCode(String financialSubObjectCode) {
         this.financialSubObjectCode = financialSubObjectCode;
@@ -350,7 +333,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the financialSystemOriginationCode attribute.
      *
      * @return Returns the financialSystemOriginationCode
-     *
      */
     public String getFinancialSystemOriginationCode() {
         return financialSystemOriginationCode;
@@ -360,7 +342,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Sets the financialSystemOriginationCode attribute.
      *
      * @param financialSystemOriginationCode The financialSystemOriginationCode to set.
-     *
      */
     public void setFinancialSystemOriginationCode(String financialSystemOriginationCode) {
         this.financialSystemOriginationCode = financialSystemOriginationCode;
@@ -371,7 +352,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the financialDocumentTypeCode attribute.
      *
      * @return Returns the financialDocumentTypeCode
-     *
      */
     public String getFinancialDocumentTypeCode() {
         return financialDocumentTypeCode;
@@ -381,7 +361,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Sets the financialDocumentTypeCode attribute.
      *
      * @param financialDocumentTypeCode The financialDocumentTypeCode to set.
-     *
      */
     public void setFinancialDocumentTypeCode(String financialDocumentTypeCode) {
         this.financialDocumentTypeCode = financialDocumentTypeCode;
@@ -392,7 +371,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the documentNumber attribute.
      *
      * @return Returns the documentNumber
-     *
      */
     public String getDocumentNumber() {
         return documentNumber;
@@ -402,7 +380,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Sets the documentNumber attribute.
      *
      * @param documentNumber The documentNumber to set.
-     *
      */
     public void setDocumentNumber(String documentNumber) {
         this.documentNumber = documentNumber;
@@ -413,7 +390,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the financialDocumentPostingYear attribute.
      *
      * @return Returns the financialDocumentPostingYear
-     *
      */
     public Integer getFinancialDocumentPostingYear() {
         return financialDocumentPostingYear;
@@ -423,7 +399,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Sets the financialDocumentPostingYear attribute.
      *
      * @param financialDocumentPostingYear The financialDocumentPostingYear to set.
-     *
      */
     public void setFinancialDocumentPostingYear(Integer financialDocumentPostingYear) {
         this.financialDocumentPostingYear = financialDocumentPostingYear;
@@ -434,7 +409,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the financialDocumentPostingPeriodCode attribute.
      *
      * @return Returns the financialDocumentPostingPeriodCode
-     *
      */
     public String getFinancialDocumentPostingPeriodCode() {
         return financialDocumentPostingPeriodCode;
@@ -444,7 +418,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Sets the financialDocumentPostingPeriodCode attribute.
      *
      * @param financialDocumentPostingPeriodCode The financialDocumentPostingPeriodCode to set.
-     *
      */
     public void setFinancialDocumentPostingPeriodCode(String financialDocumentPostingPeriodCode) {
         this.financialDocumentPostingPeriodCode = financialDocumentPostingPeriodCode;
@@ -455,7 +428,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the financialDocumentPostingDate attribute.
      *
      * @return Returns the financialDocumentPostingDate
-     *
      */
     public Date getFinancialDocumentPostingDate() {
         return financialDocumentPostingDate;
@@ -465,7 +437,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Sets the financialDocumentPostingDate attribute.
      *
      * @param financialDocumentPostingDate The financialDocumentPostingDate to set.
-     *
      */
     public void setFinancialDocumentPostingDate(Date financialDocumentPostingDate) {
         this.financialDocumentPostingDate = financialDocumentPostingDate;
@@ -476,7 +447,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the projectCode attribute.
      *
      * @return Returns the projectCode
-     *
      */
     public String getProjectCode() {
         return projectCode;
@@ -486,7 +456,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Sets the projectCode attribute.
      *
      * @param projectCode The projectCode to set.
-     *
      */
     public void setProjectCode(String projectCode) {
         this.projectCode = projectCode;
@@ -497,7 +466,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the organizationReferenceId attribute.
      *
      * @return Returns the organizationReferenceId
-     *
      */
     public String getOrganizationReferenceId() {
         return organizationReferenceId;
@@ -507,7 +475,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Sets the organizationReferenceId attribute.
      *
      * @param organizationReferenceId The organizationReferenceId to set.
-     *
      */
     public void setOrganizationReferenceId(String organizationReferenceId) {
         this.organizationReferenceId = organizationReferenceId;
@@ -518,7 +485,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the accountChargeAmount attribute.
      *
      * @return Returns the accountChargeAmount
-     *
      */
     public KualiDecimal getAccountChargeAmount() {
         return accountChargeAmount;
@@ -528,7 +494,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Sets the accountChargeAmount attribute.
      *
      * @param accountChargeAmount The accountChargeAmount to set.
-     *
      */
     public void setAccountChargeAmount(KualiDecimal accountChargeAmount) {
         this.accountChargeAmount = accountChargeAmount;
@@ -539,7 +504,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the purchaseOrderNumber attribute.
      *
      * @return Returns the purchaseOrderNumber
-     *
      */
     public String getPurchaseOrderNumber() {
         return purchaseOrderNumber;
@@ -549,7 +513,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Sets the purchaseOrderNumber attribute.
      *
      * @param purchaseOrderNumber The purchaseOrderNumber to set.
-     *
      */
     public void setPurchaseOrderNumber(String purchaseOrderNumber) {
         this.purchaseOrderNumber = purchaseOrderNumber;
@@ -560,7 +523,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the requisitionNumber attribute.
      *
      * @return Returns the requisitionNumber
-     *
      */
     public String getRequisitionNumber() {
         return requisitionNumber;
@@ -570,7 +532,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Sets the requisitionNumber attribute.
      *
      * @param requisitionNumber The requisitionNumber to set.
-     *
      */
     public void setRequisitionNumber(String requisitionNumber) {
         this.requisitionNumber = requisitionNumber;
@@ -581,7 +542,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the primaryDepreciationBaseAmount attribute.
      *
      * @return Returns the primaryDepreciationBaseAmount
-     *
      */
     public KualiDecimal getPrimaryDepreciationBaseAmount() {
         return primaryDepreciationBaseAmount;
@@ -591,7 +551,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Sets the primaryDepreciationBaseAmount attribute.
      *
      * @param primaryDepreciationBaseAmount The primaryDepreciationBaseAmount to set.
-     *
      */
     public void setPrimaryDepreciationBaseAmount(KualiDecimal primaryDepreciationBaseAmount) {
         this.primaryDepreciationBaseAmount = primaryDepreciationBaseAmount;
@@ -602,7 +561,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the accumulatedPrimaryDepreciationAmount attribute.
      *
      * @return Returns the accumulatedPrimaryDepreciationAmount
-     *
      */
     public KualiDecimal getAccumulatedPrimaryDepreciationAmount() {
         return accumulatedPrimaryDepreciationAmount;
@@ -612,7 +570,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Sets the accumulatedPrimaryDepreciationAmount attribute.
      *
      * @param accumulatedPrimaryDepreciationAmount The accumulatedPrimaryDepreciationAmount to set.
-     *
      */
     public void setAccumulatedPrimaryDepreciationAmount(KualiDecimal accumulatedPrimaryDepreciationAmount) {
         this.accumulatedPrimaryDepreciationAmount = accumulatedPrimaryDepreciationAmount;
@@ -623,7 +580,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the previousYearPrimaryDepreciationAmount attribute.
      *
      * @return Returns the previousYearPrimaryDepreciationAmount
-     *
      */
     public KualiDecimal getPreviousYearPrimaryDepreciationAmount() {
         return previousYearPrimaryDepreciationAmount;
@@ -633,7 +589,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Sets the previousYearPrimaryDepreciationAmount attribute.
      *
      * @param previousYearPrimaryDepreciationAmount The previousYearPrimaryDepreciationAmount to set.
-     *
      */
     public void setPreviousYearPrimaryDepreciationAmount(KualiDecimal previousYearPrimaryDepreciationAmount) {
         this.previousYearPrimaryDepreciationAmount = previousYearPrimaryDepreciationAmount;
@@ -644,7 +599,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the period1Depreciation1Amount attribute.
      *
      * @return Returns the period1Depreciation1Amount
-     *
      */
     public KualiDecimal getPeriod1Depreciation1Amount() {
         return period1Depreciation1Amount;
@@ -654,7 +608,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Sets the period1Depreciation1Amount attribute.
      *
      * @param period1Depreciation1Amount The period1Depreciation1Amount to set.
-     *
      */
     public void setPeriod1Depreciation1Amount(KualiDecimal period1Depreciation1Amount) {
         this.period1Depreciation1Amount = period1Depreciation1Amount;
@@ -665,7 +618,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the period2Depreciation1Amount attribute.
      *
      * @return Returns the period2Depreciation1Amount
-     *
      */
     public KualiDecimal getPeriod2Depreciation1Amount() {
         return period2Depreciation1Amount;
@@ -675,7 +627,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Sets the period2Depreciation1Amount attribute.
      *
      * @param period2Depreciation1Amount The period2Depreciation1Amount to set.
-     *
      */
     public void setPeriod2Depreciation1Amount(KualiDecimal period2Depreciation1Amount) {
         this.period2Depreciation1Amount = period2Depreciation1Amount;
@@ -686,7 +637,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the period3Depreciation1Amount attribute.
      *
      * @return Returns the period3Depreciation1Amount
-     *
      */
     public KualiDecimal getPeriod3Depreciation1Amount() {
         return period3Depreciation1Amount;
@@ -696,7 +646,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Sets the period3Depreciation1Amount attribute.
      *
      * @param period3Depreciation1Amount The period3Depreciation1Amount to set.
-     *
      */
     public void setPeriod3Depreciation1Amount(KualiDecimal period3Depreciation1Amount) {
         this.period3Depreciation1Amount = period3Depreciation1Amount;
@@ -707,7 +656,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the period4Depreciation1Amount attribute.
      *
      * @return Returns the period4Depreciation1Amount
-     *
      */
     public KualiDecimal getPeriod4Depreciation1Amount() {
         return period4Depreciation1Amount;
@@ -717,7 +665,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Sets the period4Depreciation1Amount attribute.
      *
      * @param period4Depreciation1Amount The period4Depreciation1Amount to set.
-     *
      */
     public void setPeriod4Depreciation1Amount(KualiDecimal period4Depreciation1Amount) {
         this.period4Depreciation1Amount = period4Depreciation1Amount;
@@ -728,7 +675,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the period5Depreciation1Amount attribute.
      *
      * @return Returns the period5Depreciation1Amount
-     *
      */
     public KualiDecimal getPeriod5Depreciation1Amount() {
         return period5Depreciation1Amount;
@@ -738,7 +684,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Sets the period5Depreciation1Amount attribute.
      *
      * @param period5Depreciation1Amount The period5Depreciation1Amount to set.
-     *
      */
     public void setPeriod5Depreciation1Amount(KualiDecimal period5Depreciation1Amount) {
         this.period5Depreciation1Amount = period5Depreciation1Amount;
@@ -749,7 +694,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the period6Depreciation1Amount attribute.
      *
      * @return Returns the period6Depreciation1Amount
-     *
      */
     public KualiDecimal getPeriod6Depreciation1Amount() {
         return period6Depreciation1Amount;
@@ -759,7 +703,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Sets the period6Depreciation1Amount attribute.
      *
      * @param period6Depreciation1Amount The period6Depreciation1Amount to set.
-     *
      */
     public void setPeriod6Depreciation1Amount(KualiDecimal period6Depreciation1Amount) {
         this.period6Depreciation1Amount = period6Depreciation1Amount;
@@ -770,7 +713,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the period7Depreciation1Amount attribute.
      *
      * @return Returns the period7Depreciation1Amount
-     *
      */
     public KualiDecimal getPeriod7Depreciation1Amount() {
         return period7Depreciation1Amount;
@@ -780,7 +722,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Sets the period7Depreciation1Amount attribute.
      *
      * @param period7Depreciation1Amount The period7Depreciation1Amount to set.
-     *
      */
     public void setPeriod7Depreciation1Amount(KualiDecimal period7Depreciation1Amount) {
         this.period7Depreciation1Amount = period7Depreciation1Amount;
@@ -791,7 +732,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the period8Depreciation1Amount attribute.
      *
      * @return Returns the period8Depreciation1Amount
-     *
      */
     public KualiDecimal getPeriod8Depreciation1Amount() {
         return period8Depreciation1Amount;
@@ -801,7 +741,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Sets the period8Depreciation1Amount attribute.
      *
      * @param period8Depreciation1Amount The period8Depreciation1Amount to set.
-     *
      */
     public void setPeriod8Depreciation1Amount(KualiDecimal period8Depreciation1Amount) {
         this.period8Depreciation1Amount = period8Depreciation1Amount;
@@ -812,7 +751,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the period9Depreciation1Amount attribute.
      *
      * @return Returns the period9Depreciation1Amount
-     *
      */
     public KualiDecimal getPeriod9Depreciation1Amount() {
         return period9Depreciation1Amount;
@@ -822,7 +760,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Sets the period9Depreciation1Amount attribute.
      *
      * @param period9Depreciation1Amount The period9Depreciation1Amount to set.
-     *
      */
     public void setPeriod9Depreciation1Amount(KualiDecimal period9Depreciation1Amount) {
         this.period9Depreciation1Amount = period9Depreciation1Amount;
@@ -833,7 +770,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the period10Depreciation1Amount attribute.
      *
      * @return Returns the period10Depreciation1Amount
-     *
      */
     public KualiDecimal getPeriod10Depreciation1Amount() {
         return period10Depreciation1Amount;
@@ -843,7 +779,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Sets the period10Depreciation1Amount attribute.
      *
      * @param period10Depreciation1Amount The period10Depreciation1Amount to set.
-     *
      */
     public void setPeriod10Depreciation1Amount(KualiDecimal period10Depreciation1Amount) {
         this.period10Depreciation1Amount = period10Depreciation1Amount;
@@ -854,7 +789,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the period11Depreciation1Amount attribute.
      *
      * @return Returns the period11Depreciation1Amount
-     *
      */
     public KualiDecimal getPeriod11Depreciation1Amount() {
         return period11Depreciation1Amount;
@@ -864,7 +798,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Sets the period11Depreciation1Amount attribute.
      *
      * @param period11Depreciation1Amount The period11Depreciation1Amount to set.
-     *
      */
     public void setPeriod11Depreciation1Amount(KualiDecimal period11Depreciation1Amount) {
         this.period11Depreciation1Amount = period11Depreciation1Amount;
@@ -875,7 +808,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the period12Depreciation1Amount attribute.
      *
      * @return Returns the period12Depreciation1Amount
-     *
      */
     public KualiDecimal getPeriod12Depreciation1Amount() {
         return period12Depreciation1Amount;
@@ -885,18 +817,23 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Sets the period12Depreciation1Amount attribute.
      *
      * @param period12Depreciation1Amount The period12Depreciation1Amount to set.
-     *
      */
     public void setPeriod12Depreciation1Amount(KualiDecimal period12Depreciation1Amount) {
         this.period12Depreciation1Amount = period12Depreciation1Amount;
     }
 
+    public Integer getAccumulatedRoundingErrorInMillicents() {
+        return accumulatedRoundingErrorInMillicents;
+    }
+
+    public void setAccumulatedRoundingErrorInMillicents(Integer accumulatedRoundingErrorInMillicents) {
+        this.accumulatedRoundingErrorInMillicents = accumulatedRoundingErrorInMillicents;
+    }
 
     /**
      * Gets the transferPaymentCode attribute.
      *
      * @return Returns the transferPaymentCode
-     *
      */
     public String getTransferPaymentCode() {
         return transferPaymentCode;
@@ -906,7 +843,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Sets the transferPaymentCode attribute.
      *
      * @param transferPaymentCode The transferPaymentCode to set.
-     *
      */
     public void setTransferPaymentCode(String transferPaymentCode) {
         this.transferPaymentCode = transferPaymentCode;
@@ -917,7 +853,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the asset attribute.
      *
      * @return Returns the asset
-     *
      */
     public Asset getAsset() {
         return asset;
@@ -938,7 +873,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the chartOfAccounts attribute.
      *
      * @return Returns the chartOfAccounts
-     *
      */
     public Chart getChartOfAccounts() {
         return chartOfAccounts;
@@ -959,7 +893,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the subAccount attribute.
      *
      * @return Returns the subAccount
-     *
      */
     public SubAccount getSubAccount() {
         return subAccount;
@@ -980,7 +913,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the financialObject attribute.
      *
      * @return Returns the financialObject
-     *
      */
     public ObjectCode getFinancialObject() {
         return financialObject;
@@ -1001,7 +933,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the account attribute.
      *
      * @return Returns the account
-     *
      */
     public Account getAccount() {
         return account;
@@ -1022,7 +953,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the financialSubObject attribute.
      *
      * @return Returns the financialSubObject
-     *
      */
     public SubObjectCode getFinancialSubObject() {
         return financialSubObject;
@@ -1043,7 +973,6 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * Gets the project attribute.
      *
      * @return Returns the project
-     *
      */
     public ProjectCode getProject() {
         return project;
@@ -1082,14 +1011,15 @@ public class AssetPayment extends PersistableBusinessObjectBase {
 
     /**
      * Gets the financialSystemDocumentTypeCode attribute.
+     *
      * @return Returns the financialSystemDocumentTypeCode.
      */
     public DocumentTypeEBO getFinancialSystemDocumentTypeCode() {
-        if ( financialSystemDocumentTypeCode == null || !StringUtils.equals(financialSystemDocumentTypeCode.getName(), financialDocumentTypeCode) ) {
+        if (financialSystemDocumentTypeCode == null || !StringUtils.equals(financialSystemDocumentTypeCode.getName(), financialDocumentTypeCode)) {
             financialSystemDocumentTypeCode = null;
-            if ( StringUtils.isNotBlank(financialDocumentTypeCode) ) {
+            if (StringUtils.isNotBlank(financialDocumentTypeCode)) {
                 DocumentType docType = KewApiServiceLocator.getDocumentTypeService().getDocumentTypeByName(financialDocumentTypeCode);
-                if ( docType != null ) {
+                if (docType != null) {
                     financialSystemDocumentTypeCode = org.kuali.rice.kew.doctype.bo.DocumentType.from(docType);
                 }
             }
@@ -1165,39 +1095,39 @@ public class AssetPayment extends PersistableBusinessObjectBase {
         m.put("capitalAssetNumber", this.capitalAssetNumber.toString());
         m.put("paymentSequenceNumber", this.paymentSequenceNumber.toString());
         m.put("objectId", this.getObjectId());
-        m.put("versionNumber" ,(this.getVersionNumber() == null ? "" : this.getVersionNumber().toString()) );
-        m.put("chartOfAccountsCode" , this.getChartOfAccountsCode());
-        m.put("accountNumber",getAccountNumber());
-        m.put("subAccountNumber",getSubAccountNumber());
-        m.put("financialObjectCode",getFinancialObjectCode());
-        m.put("financialSubObjectCode",getFinancialSubObjectCode());
-        m.put("financialSystemOriginationCode" ,this.getFinancialSystemOriginationCode() );
-        m.put("financialDocumentTypeCode" , this.getFinancialDocumentTypeCode());
+        m.put("versionNumber", (this.getVersionNumber() == null ? "" : this.getVersionNumber().toString()));
+        m.put("chartOfAccountsCode", this.getChartOfAccountsCode());
+        m.put("accountNumber", getAccountNumber());
+        m.put("subAccountNumber", getSubAccountNumber());
+        m.put("financialObjectCode", getFinancialObjectCode());
+        m.put("financialSubObjectCode", getFinancialSubObjectCode());
+        m.put("financialSystemOriginationCode", this.getFinancialSystemOriginationCode());
+        m.put("financialDocumentTypeCode", this.getFinancialDocumentTypeCode());
         m.put("documentNumber", this.getDocumentNumber());
-        m.put("FinancialDocumentPostingYear",this.getFinancialDocumentPostingYear().toString());
-        m.put("FinancialDocumentPostingPeriodCode",this.getFinancialDocumentPostingPeriodCode());
-        m.put("financialDocumentPostingDate" , (this.getFinancialDocumentPostingDate() != null ? this.getFinancialDocumentPostingDate().toString() : ""));
-        m.put("projectCode",getProjectCode());
-        m.put("organizationReferenceId" , this.getOrganizationReferenceId());
-        m.put("accountChargeAmount", ( this.getAccountChargeAmount() == null ? "NULL" : this.getAccountChargeAmount().toString()));
-        m.put("purchaseOrderNumber" , this.getPurchaseOrderNumber());
-        m.put("requisitionNumber" , this.getRequisitionNumber());
-        m.put("primaryDepreciationBaseAmount" , (this.getPrimaryDepreciationBaseAmount() != null ? this.getPrimaryDepreciationBaseAmount().toString() : "0.00"));
-        m.put("accumulatedPrimaryDepreciationAmount" , (this.getAccumulatedPrimaryDepreciationAmount() != null ? this.getAccumulatedPrimaryDepreciationAmount().toString():"0.00"));
-        m.put("previousYearPrimaryDepreciationAmount" , (this.getPreviousYearPrimaryDepreciationAmount() != null ? this.getPreviousYearPrimaryDepreciationAmount().toString() : "0.00"));
-        m.put("period1Depreciation1Amount" , (this.getPeriod1Depreciation1Amount() != null ? this.getPeriod1Depreciation1Amount().toString() : "NULL"));
-        m.put("period2Depreciation1Amount" , (this.getPeriod2Depreciation1Amount() != null ? this.getPeriod2Depreciation1Amount().toString() : "NULL"));
-        m.put("period3Depreciation1Amount" , (this.getPeriod3Depreciation1Amount() != null ? this.getPeriod3Depreciation1Amount().toString() : "NULL"));
-        m.put("period4Depreciation1Amount" , (this.getPeriod4Depreciation1Amount() != null ? this.getPeriod4Depreciation1Amount().toString() : "NULL"));
-        m.put("period5Depreciation1Amount" , (this.getPeriod5Depreciation1Amount() != null ? this.getPeriod5Depreciation1Amount().toString() : "NULL"));
-        m.put("period6Depreciation1Amount" , (this.getPeriod6Depreciation1Amount() != null ? this.getPeriod6Depreciation1Amount().toString() : "NULL"));
-        m.put("period7Depreciation1Amount" , (this.getPeriod7Depreciation1Amount() != null ? this.getPeriod7Depreciation1Amount().toString() : "NULL"));
-        m.put("period8Depreciation1Amount" , (this.getPeriod8Depreciation1Amount() != null ? this.getPeriod8Depreciation1Amount().toString() : "NULL"));
-        m.put("period9Depreciation1Amount" , (this.getPeriod9Depreciation1Amount() != null ? this.getPeriod9Depreciation1Amount().toString() : "NULL"));
-        m.put("period10Depreciation1Amount" ,(this.getPeriod10Depreciation1Amount() != null ? this.getPeriod10Depreciation1Amount().toString() : "NULL"));
-        m.put("period11Depreciation1Amount" ,(this.getPeriod11Depreciation1Amount() != null ? this.getPeriod11Depreciation1Amount().toString() : "NULL"));
-        m.put("period12Depreciation1Amount" ,(this.getPeriod12Depreciation1Amount() != null ? this.getPeriod12Depreciation1Amount().toString() : "NULL"));
-        m.put("transferPaymentCode" , this.getTransferPaymentCode());
+        m.put("FinancialDocumentPostingYear", this.getFinancialDocumentPostingYear().toString());
+        m.put("FinancialDocumentPostingPeriodCode", this.getFinancialDocumentPostingPeriodCode());
+        m.put("financialDocumentPostingDate", (this.getFinancialDocumentPostingDate() != null ? this.getFinancialDocumentPostingDate().toString() : ""));
+        m.put("projectCode", getProjectCode());
+        m.put("organizationReferenceId", this.getOrganizationReferenceId());
+        m.put("accountChargeAmount", (this.getAccountChargeAmount() == null ? "NULL" : this.getAccountChargeAmount().toString()));
+        m.put("purchaseOrderNumber", this.getPurchaseOrderNumber());
+        m.put("requisitionNumber", this.getRequisitionNumber());
+        m.put("primaryDepreciationBaseAmount", (this.getPrimaryDepreciationBaseAmount() != null ? this.getPrimaryDepreciationBaseAmount().toString() : "0.00"));
+        m.put("accumulatedPrimaryDepreciationAmount", (this.getAccumulatedPrimaryDepreciationAmount() != null ? this.getAccumulatedPrimaryDepreciationAmount().toString() : "0.00"));
+        m.put("previousYearPrimaryDepreciationAmount", (this.getPreviousYearPrimaryDepreciationAmount() != null ? this.getPreviousYearPrimaryDepreciationAmount().toString() : "0.00"));
+        m.put("period1Depreciation1Amount", (this.getPeriod1Depreciation1Amount() != null ? this.getPeriod1Depreciation1Amount().toString() : "NULL"));
+        m.put("period2Depreciation1Amount", (this.getPeriod2Depreciation1Amount() != null ? this.getPeriod2Depreciation1Amount().toString() : "NULL"));
+        m.put("period3Depreciation1Amount", (this.getPeriod3Depreciation1Amount() != null ? this.getPeriod3Depreciation1Amount().toString() : "NULL"));
+        m.put("period4Depreciation1Amount", (this.getPeriod4Depreciation1Amount() != null ? this.getPeriod4Depreciation1Amount().toString() : "NULL"));
+        m.put("period5Depreciation1Amount", (this.getPeriod5Depreciation1Amount() != null ? this.getPeriod5Depreciation1Amount().toString() : "NULL"));
+        m.put("period6Depreciation1Amount", (this.getPeriod6Depreciation1Amount() != null ? this.getPeriod6Depreciation1Amount().toString() : "NULL"));
+        m.put("period7Depreciation1Amount", (this.getPeriod7Depreciation1Amount() != null ? this.getPeriod7Depreciation1Amount().toString() : "NULL"));
+        m.put("period8Depreciation1Amount", (this.getPeriod8Depreciation1Amount() != null ? this.getPeriod8Depreciation1Amount().toString() : "NULL"));
+        m.put("period9Depreciation1Amount", (this.getPeriod9Depreciation1Amount() != null ? this.getPeriod9Depreciation1Amount().toString() : "NULL"));
+        m.put("period10Depreciation1Amount", (this.getPeriod10Depreciation1Amount() != null ? this.getPeriod10Depreciation1Amount().toString() : "NULL"));
+        m.put("period11Depreciation1Amount", (this.getPeriod11Depreciation1Amount() != null ? this.getPeriod11Depreciation1Amount().toString() : "NULL"));
+        m.put("period12Depreciation1Amount", (this.getPeriod12Depreciation1Amount() != null ? this.getPeriod12Depreciation1Amount().toString() : "NULL"));
+        m.put("transferPaymentCode", this.getTransferPaymentCode());
         return m;
     }
 
@@ -1207,8 +1137,28 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * @return Returns the yearToDate
      */
     public KualiDecimal getYearToDate() {
-        SpringContext.getBean(PaymentSummaryService.class).calculateAndSetPaymentSummary(asset);
+        KualiDecimal yearToDate = KualiDecimal.ZERO;
+        yearToDate = addAmount(yearToDate, getPeriod1Depreciation1Amount());
+        yearToDate = addAmount(yearToDate, getPeriod2Depreciation1Amount());
+        yearToDate = addAmount(yearToDate, getPeriod3Depreciation1Amount());
+        yearToDate = addAmount(yearToDate, getPeriod4Depreciation1Amount());
+        yearToDate = addAmount(yearToDate, getPeriod5Depreciation1Amount());
+        yearToDate = addAmount(yearToDate, getPeriod6Depreciation1Amount());
+        yearToDate = addAmount(yearToDate, getPeriod7Depreciation1Amount());
+        yearToDate = addAmount(yearToDate, getPeriod8Depreciation1Amount());
+        yearToDate = addAmount(yearToDate, getPeriod9Depreciation1Amount());
+        yearToDate = addAmount(yearToDate, getPeriod10Depreciation1Amount());
+        yearToDate = addAmount(yearToDate, getPeriod11Depreciation1Amount());
+        yearToDate = addAmount(yearToDate, getPeriod12Depreciation1Amount());
+        this.yearToDate = yearToDate;
         return yearToDate;
+    }
+
+    protected KualiDecimal addAmount(KualiDecimal amount, KualiDecimal addend) {
+        if (addend != null) {
+            return amount.add(addend);
+        }
+        return amount;
     }
 
     /**
@@ -1221,8 +1171,57 @@ public class AssetPayment extends PersistableBusinessObjectBase {
     }
 
     /**
+     * Gets the most recent fiscal period with depreciation.
      *
+     * @return
+     */
+    public int getLastDepreciationPeriod() {
+        if (nonZero(getPeriod12Depreciation1Amount())) {
+            return 12;
+        }
+        if (nonZero(getPeriod11Depreciation1Amount())) {
+            return 11;
+        }
+        if (nonZero(getPeriod10Depreciation1Amount())) {
+            return 10;
+        }
+        if (nonZero(getPeriod9Depreciation1Amount())) {
+            return 9;
+        }
+        if (nonZero(getPeriod8Depreciation1Amount())) {
+            return 8;
+        }
+        if (nonZero(getPeriod7Depreciation1Amount())) {
+            return 7;
+        }
+        if (nonZero(getPeriod6Depreciation1Amount())) {
+            return 6;
+        }
+        if (nonZero(getPeriod5Depreciation1Amount())) {
+            return 5;
+        }
+        if (nonZero(getPeriod4Depreciation1Amount())) {
+            return 4;
+        }
+        if (nonZero(getPeriod3Depreciation1Amount())) {
+            return 3;
+        }
+        if (nonZero(getPeriod2Depreciation1Amount())) {
+            return 2;
+        }
+        if (nonZero(getPeriod1Depreciation1Amount())) {
+            return 1;
+        }
+        return 0;
+    }
+
+    private boolean nonZero(KualiDecimal testAmount) {
+        return (testAmount != null && !KualiDecimal.ZERO.equals(testAmount));
+    }
+
+    /**
      * Get the current year object code
+     *
      * @return Returns the current year object code
      */
     public ObjectCodeCurrent getObjectCodeCurrent() {
@@ -1231,8 +1230,8 @@ public class AssetPayment extends PersistableBusinessObjectBase {
 
 
     /**
-     *
      * Sets the current year object code
+     *
      * @param financialCurrentObject
      */
     public void setObjectCodeCurrent(ObjectCodeCurrent objectCodeCurrent) {

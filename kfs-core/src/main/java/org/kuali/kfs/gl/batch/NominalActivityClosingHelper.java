@@ -1,44 +1,44 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.batch;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.log4j.Logger;
 import org.kuali.kfs.coa.service.ObjectTypeService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.ObjectHelper;
 import org.kuali.kfs.gl.batch.service.impl.exception.FatalErrorException;
 import org.kuali.kfs.gl.businessobject.Balance;
 import org.kuali.kfs.gl.businessobject.OriginEntryFull;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.FlexibleOffsetAccountService;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class helps generate the entries for the nominal activity closing year end job.
@@ -60,9 +60,10 @@ public class NominalActivityClosingHelper {
 
     /**
      * Constructs a NominalActivityClosingHelper
-     * @param fiscalYear the fiscal year this job is being run for
-     * @param transactionDate the transaction date that origin entries should hit the ledger
-     * @param parameterService an implementation of the ParameterService
+     *
+     * @param fiscalYear           the fiscal year this job is being run for
+     * @param transactionDate      the transaction date that origin entries should hit the ledger
+     * @param parameterService     an implementation of the ParameterService
      * @param configurationService an implementation of the ConfigurationService
      */
     public NominalActivityClosingHelper(Integer fiscalYear, Date transactionDate, ParameterService parameterService, ConfigurationService configurationService, ObjectTypeService objectTypeService) {
@@ -98,7 +99,8 @@ public class NominalActivityClosingHelper {
 
     /**
      * Generates an origin entry that will summarize close out of nominal items (income and expense)
-     * @param balance the balance this activity closing entry needs to be created for
+     *
+     * @param balance        the balance this activity closing entry needs to be created for
      * @param sequenceNumber the sequence number of the origin entry
      * @return an origin entry which will close out nominal activity on a balance
      * @throws FatalErrorException thrown if the given balance lacks an object type code
@@ -114,8 +116,7 @@ public class NominalActivityClosingHelper {
 
         if (ObjectHelper.isOneOf(balance.getObjectTypeCode(), expenseObjectCodeTypes)) {
             activityEntry.setFinancialObjectCode(varNetExpenseObjectCode);
-        }
-        else {
+        } else {
             activityEntry.setFinancialObjectCode(varNetRevenueObjectCode);
         }
 
@@ -136,8 +137,7 @@ public class NominalActivityClosingHelper {
 
         if (ObjectHelper.isOneOf(balance.getObjectTypeCode(), expenseObjectCodeTypes)) {
             activityEntry.setTransactionLedgerEntryDescription(this.createTransactionLedgerEntryDescription(configurationService.getPropertyValueAsString(KFSKeyConstants.MSG_CLOSE_ENTRY_TO_NOMINAL_EXPENSE), balance));
-        }
-        else {
+        } else {
             activityEntry.setTransactionLedgerEntryDescription(this.createTransactionLedgerEntryDescription(configurationService.getPropertyValueAsString(KFSKeyConstants.MSG_CLOSE_ENTRY_TO_NOMINAL_REVENUE), balance));
         }
 
@@ -148,10 +148,9 @@ public class NominalActivityClosingHelper {
 
         if (null != balance.getObjectType()) {
 
-            if (ObjectHelper.isOneOf(balance.getObjectType().getFinObjectTypeDebitcreditCd(), new String[] { KFSConstants.GL_CREDIT_CODE, KFSConstants.GL_DEBIT_CODE })) {
+            if (ObjectHelper.isOneOf(balance.getObjectType().getFinObjectTypeDebitcreditCd(), new String[]{KFSConstants.GL_CREDIT_CODE, KFSConstants.GL_DEBIT_CODE})) {
                 debitCreditCode = balance.getObjectType().getFinObjectTypeDebitcreditCd();
-            }
-            else {
+            } else {
                 debitCreditCode = KFSConstants.GL_CREDIT_CODE;
             }
 
@@ -160,33 +159,27 @@ public class NominalActivityClosingHelper {
             // indirection.
             if (balance.getAccountLineAnnualBalanceAmount().isNegative()) {
 
-                if (ObjectHelper.isOneOf(balance.getObjectType().getFinObjectTypeDebitcreditCd(), new String[] { KFSConstants.GL_CREDIT_CODE, KFSConstants.GL_DEBIT_CODE })) {
+                if (ObjectHelper.isOneOf(balance.getObjectType().getFinObjectTypeDebitcreditCd(), new String[]{KFSConstants.GL_CREDIT_CODE, KFSConstants.GL_DEBIT_CODE})) {
                     activityEntry.setTransactionDebitCreditCode(balance.getObjectType().getFinObjectTypeDebitcreditCd());
-                }
-                else {
+                } else {
                     activityEntry.setTransactionDebitCreditCode(KFSConstants.GL_CREDIT_CODE);
                 }
 
-            }
-            else {
+            } else {
                 if (KFSConstants.GL_CREDIT_CODE.equals(balance.getObjectType().getFinObjectTypeDebitcreditCd())) {
                     activityEntry.setTransactionDebitCreditCode(KFSConstants.GL_DEBIT_CODE);
-                }
-                else {
+                } else {
                     if (KFSConstants.GL_DEBIT_CODE.equals(balance.getObjectType().getFinObjectTypeDebitcreditCd())) {
                         activityEntry.setTransactionDebitCreditCode(KFSConstants.GL_CREDIT_CODE);
-                    }
-                    else {
+                    } else {
                         activityEntry.setTransactionDebitCreditCode(KFSConstants.GL_DEBIT_CODE);
                     }
                 }
             }
-        }
-        else {
+        } else {
             if (balance.getAccountLineAnnualBalanceAmount().isNegative()) {
                 activityEntry.setTransactionDebitCreditCode(KFSConstants.GL_CREDIT_CODE);
-            }
-            else {
+            } else {
                 activityEntry.setTransactionDebitCreditCode(KFSConstants.GL_DEBIT_CODE);
             }
 
@@ -216,7 +209,8 @@ public class NominalActivityClosingHelper {
 
     /**
      * Genereates an origin entry to update a fund balance as a result of closing income and expense
-     * @param balance the balance this offset needs to be created for
+     *
+     * @param balance        the balance this offset needs to be created for
      * @param sequenceNumber the sequence number of the origin entry full
      * @return an origin entry which will offset the nominal closing activity
      * @throws FatalErrorException thrown if the given balance lacks an object type code
@@ -229,10 +223,9 @@ public class NominalActivityClosingHelper {
 
         }
 
-        if (ObjectHelper.isOneOf(balance.getObjectType().getFinObjectTypeDebitcreditCd(), new String[] { KFSConstants.GL_CREDIT_CODE, KFSConstants.GL_DEBIT_CODE })) {
+        if (ObjectHelper.isOneOf(balance.getObjectType().getFinObjectTypeDebitcreditCd(), new String[]{KFSConstants.GL_CREDIT_CODE, KFSConstants.GL_DEBIT_CODE})) {
             debitCreditCode = balance.getObjectType().getFinObjectTypeDebitcreditCd();
-        }
-        else {
+        } else {
             debitCreditCode = KFSConstants.GL_CREDIT_CODE;
         }
 
@@ -266,8 +259,7 @@ public class NominalActivityClosingHelper {
         if (balance.getAccountLineAnnualBalanceAmount().isNegative()) {
             if (KFSConstants.GL_CREDIT_CODE.equals(debitCreditCode)) {
                 offsetEntry.setTransactionDebitCreditCode(KFSConstants.GL_DEBIT_CODE);
-            }
-            else {
+            } else {
                 offsetEntry.setTransactionDebitCreditCode(KFSConstants.GL_CREDIT_CODE);
             }
 
@@ -284,6 +276,7 @@ public class NominalActivityClosingHelper {
 
     /**
      * Adds the job parameters used to generate the origin entries to the given map
+     *
      * @param nominalClosingJobParameters a map of batch job parameters to add nominal activity closing parameters to
      */
     public void addNominalClosingJobParameters(Map nominalClosingJobParameters) {
@@ -299,7 +292,7 @@ public class NominalActivityClosingHelper {
      * Generates the transaction ledger entry description for a given balance
      *
      * @param descriptorIntro the introduction to the description
-     * @param balance the balance the transaction description will refer to
+     * @param balance         the balance the transaction description will refer to
      * @return the generated transaction ledger entry description
      */
     private String createTransactionLedgerEntryDescription(String descriptorIntro, Balance balance) {
@@ -311,7 +304,7 @@ public class NominalActivityClosingHelper {
     /**
      * Pads out a string so that it will be a certain length
      *
-     * @param size the size to pad to
+     * @param size  the size to pad to
      * @param value the String being padded
      * @return the padded String
      */
@@ -322,8 +315,7 @@ public class NominalActivityClosingHelper {
             while (fieldString.length() < size) {
                 fieldString.append(' ');
             }
-        }
-        else {
+        } else {
             while (fieldString.length() < size) {
                 fieldString.append('-');
             }
@@ -333,6 +325,7 @@ public class NominalActivityClosingHelper {
 
     /**
      * Returns the count of non-fatal errors encountered during the process by this helper
+     *
      * @return the count of non-fatal errors
      */
     public Integer getNonFatalErrorCount() {
@@ -341,9 +334,10 @@ public class NominalActivityClosingHelper {
 
     /**
      * Returns the boolean from the chart parameter list being empty
+     *
      * @return isEmpty boolean value for chart List
      */
-    public boolean isAnnualClosingChartParamterBlank(){
+    public boolean isAnnualClosingChartParamterBlank() {
         return varCharts.isEmpty();
     }
 

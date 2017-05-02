@@ -1,28 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.external.kc.businessobject;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
@@ -33,25 +27,26 @@ import org.kuali.kfs.coa.businessobject.Organization;
 import org.kuali.kfs.coa.businessobject.SubFundGroup;
 import org.kuali.kfs.coa.businessobject.SufficientFundsCode;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsUnit;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.rice.krad.service.KualiModuleService;
-import org.kuali.rice.krad.service.ModuleService;
 import org.kuali.rice.location.api.LocationConstants;
 import org.kuali.rice.location.framework.campus.CampusEbo;
 import org.kuali.rice.location.framework.postalcode.PostalCodeEbo;
 import org.kuali.rice.location.framework.state.StateEbo;
 
-/**
- *
- */
-/**
- *
- */
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+
 public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase implements MutableInactivatable {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AccountAutoCreateDefaults.class);
 
@@ -123,6 +118,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the kcUnit attribute.
+     *
      * @return Returns the kcUnit.
      */
     public String getKcUnit() {
@@ -131,6 +127,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the kcUnit attribute value.
+     *
      * @param kcUnit The kcUnit to set.
      */
     public void setKcUnit(String kcUnit) {
@@ -139,6 +136,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the kcUnitName attribute.
+     *
      * @return Returns the kcUnitName.
      */
     public String getKcUnitName() {
@@ -147,6 +145,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the kcUnitName attribute value.
+     *
      * @param kcUnitName The kcUnitName to set.
      */
     public void setKcUnitName(String kcUnitName) {
@@ -155,6 +154,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the chartOfAccounts attribute.
+     *
      * @return Returns the chartOfAccounts.
      */
     public Chart getChartOfAccounts() {
@@ -163,6 +163,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the chartOfAccounts attribute value.
+     *
      * @param chartOfAccounts The chartOfAccounts to set.
      */
     public void setChartOfAccounts(Chart chartOfAccounts) {
@@ -171,6 +172,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the chartOfAccountsCode attribute.
+     *
      * @return Returns the chartOfAccountsCode.
      */
     public String getChartOfAccountsCode() {
@@ -179,6 +181,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the chartOfAccountsCode attribute value.
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -187,6 +190,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the organization attribute.
+     *
      * @return Returns the organization.
      */
     public Organization getOrganization() {
@@ -195,6 +199,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the organization attribute value.
+     *
      * @param organization The organization to set.
      */
     public void setOrganization(Organization organization) {
@@ -203,6 +208,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the organizationCode attribute.
+     *
      * @return Returns the organizationCode.
      */
     public String getOrganizationCode() {
@@ -211,6 +217,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the organizationCode attribute value.
+     *
      * @param organizationCode The organizationCode to set.
      */
     public void setOrganizationCode(String organizationCode) {
@@ -219,6 +226,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the accountZipCode attribute.
+     *
      * @return Returns the accountZipCode.
      */
     public String getAccountZipCode() {
@@ -227,6 +235,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the accountZipCode attribute value.
+     *
      * @param accountZipCode The accountZipCode to set.
      */
     public void setAccountZipCode(String accountZipCode) {
@@ -235,22 +244,23 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the postalZipCode attribute.
+     *
      * @return Returns the postalZipCode.
      */
     public PostalCodeEbo getPostalZipCode() {
-        if ( StringUtils.isBlank(accountZipCode) || StringUtils.isBlank( accountCountryCode ) ) {
+        if (StringUtils.isBlank(accountZipCode) || StringUtils.isBlank(accountCountryCode)) {
             postalZipCode = null;
         } else {
-            if ( postalZipCode == null || !StringUtils.equals( postalZipCode.getCode(),accountZipCode)
-                    || !StringUtils.equals(postalZipCode.getCountryCode(), accountCountryCode ) ) {
+            if (postalZipCode == null || !StringUtils.equals(postalZipCode.getCode(), accountZipCode)
+                || !StringUtils.equals(postalZipCode.getCountryCode(), accountCountryCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(PostalCodeEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(2);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(2);
                     keys.put(LocationConstants.PrimaryKeyConstants.COUNTRY_CODE, accountCountryCode);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, accountZipCode);
                     postalZipCode = moduleService.getExternalizableBusinessObject(PostalCodeEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -259,6 +269,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the postalZipCode attribute value.
+     *
      * @param postalZipCode The postalZipCode to set.
      */
     public void setPostalZipCode(PostalCodeEbo postalZipCode) {
@@ -268,6 +279,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the accountCityName attribute.
+     *
      * @return Returns the accountCityName.
      */
     public String getAccountCityName() {
@@ -276,6 +288,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the accountCityName attribute value.
+     *
      * @param accountCityName The accountCityName to set.
      */
     public void setAccountCityName(String accountCityName) {
@@ -284,6 +297,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the accountStateCode attribute.
+     *
      * @return Returns the accountStateCode.
      */
     public String getAccountStateCode() {
@@ -292,6 +306,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the accountStateCode attribute value.
+     *
      * @param accountStateCode The accountStateCode to set.
      */
     public void setAccountStateCode(String accountStateCode) {
@@ -300,21 +315,22 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the accountState attribute.
+     *
      * @return Returns the accountState.
      */
     public StateEbo getAccountState() {
-        if ( StringUtils.isBlank(accountStateCode) || StringUtils.isBlank(accountCountryCode) ) {
+        if (StringUtils.isBlank(accountStateCode) || StringUtils.isBlank(accountCountryCode)) {
             accountState = null;
         } else {
-            if ( accountState == null || !StringUtils.equals( accountState.getCode(),accountStateCode) || !StringUtils.equals(accountState.getCountryCode(), accountCountryCode ) ) {
+            if (accountState == null || !StringUtils.equals(accountState.getCode(), accountStateCode) || !StringUtils.equals(accountState.getCountryCode(), accountCountryCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(StateEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(2);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(2);
                     keys.put(LocationConstants.PrimaryKeyConstants.COUNTRY_CODE, accountCountryCode);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, accountStateCode);
                     accountState = moduleService.getExternalizableBusinessObject(StateEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -324,6 +340,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the accountStreetAddress attribute.
+     *
      * @return Returns the accountStreetAddress.
      */
     public String getAccountStreetAddress() {
@@ -332,6 +349,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the accountStreetAddress attribute value.
+     *
      * @param accountStreetAddress The accountStreetAddress to set.
      */
     public void setAccountStreetAddress(String accountStreetAddress) {
@@ -340,6 +358,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the accountType attribute.
+     *
      * @return Returns the accountType.
      */
     public AccountType getAccountType() {
@@ -348,6 +367,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the accountType attribute value.
+     *
      * @param accountType The accountType to set.
      */
     public void setAccountType(AccountType accountType) {
@@ -356,6 +376,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the accountTypeCode attribute.
+     *
      * @return Returns the accountTypeCode.
      */
     public String getAccountTypeCode() {
@@ -364,6 +385,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the accountTypeCode attribute value.
+     *
      * @param accountTypeCode The accountTypeCode to set.
      */
     public void setAccountTypeCode(String accountTypeCode) {
@@ -372,6 +394,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the accountPhysicalCampusCode attribute.
+     *
      * @return Returns the accountPhysicalCampusCode.
      */
     public String getAccountPhysicalCampusCode() {
@@ -380,6 +403,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the accountPhysicalCampusCode attribute value.
+     *
      * @param accountPhysicalCampusCode The accountPhysicalCampusCode to set.
      */
     public void setAccountPhysicalCampusCode(String accountPhysicalCampusCode) {
@@ -388,20 +412,21 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the accountPhysicalCampus attribute.
+     *
      * @return Returns the accountPhysicalCampus.
      */
     public CampusEbo getAccountPhysicalCampus() {
-        if ( StringUtils.isBlank(accountPhysicalCampusCode) ) {
+        if (StringUtils.isBlank(accountPhysicalCampusCode)) {
             accountPhysicalCampus = null;
         } else {
-            if ( accountPhysicalCampus == null || !StringUtils.equals( accountPhysicalCampus.getCode(),accountPhysicalCampusCode) ) {
+            if (accountPhysicalCampus == null || !StringUtils.equals(accountPhysicalCampus.getCode(), accountPhysicalCampusCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(CampusEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(1);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(1);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, accountPhysicalCampusCode);
                     accountPhysicalCampus = moduleService.getExternalizableBusinessObject(CampusEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -410,6 +435,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the accountPhysicalCampus attribute.
+     *
      * @param accountPhysicalCampus The accountPhysicalCampus to set.
      */
     public void setAccountPhysicalCampus(CampusEbo accountPhysicalCampus) {
@@ -418,6 +444,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the subFundGroup attribute.
+     *
      * @return Returns the subFundGroup.
      */
     public SubFundGroup getSubFundGroup() {
@@ -426,6 +453,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the subFundGroup attribute value.
+     *
      * @param subFundGroup The subFundGroup to set.
      */
     public void setSubFundGroup(SubFundGroup subFundGroup) {
@@ -434,6 +462,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the subFundGroupCode attribute.
+     *
      * @return Returns the subFundGroupCode.
      */
     public String getSubFundGroupCode() {
@@ -442,6 +471,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the subFundGroupCode attribute value.
+     *
      * @param subFundGroupCode The subFundGroupCode to set.
      */
     public void setSubFundGroupCode(String subFundGroupCode) {
@@ -450,6 +480,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the accountsFringesBnftIndicator attribute.
+     *
      * @return Returns the accountsFringesBnftIndicator.
      */
     public boolean isAccountsFringesBnftIndicator() {
@@ -458,6 +489,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the accountsFringesBnftIndicator attribute value.
+     *
      * @param accountsFringesBnftIndicator The accountsFringesBnftIndicator to set.
      */
     public void setAccountsFringesBnftIndicator(boolean accountsFringesBnftIndicator) {
@@ -466,6 +498,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the fringeBenefitsChartOfAccount attribute.
+     *
      * @return Returns the fringeBenefitsChartOfAccount.
      */
     public Chart getFringeBenefitsChartOfAccount() {
@@ -474,6 +507,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the fringeBenefitsChartOfAccount attribute value.
+     *
      * @param fringeBenefitsChartOfAccount The fringeBenefitsChartOfAccount to set.
      */
     public void setFringeBenefitsChartOfAccount(Chart fringeBenefitsChartOfAccount) {
@@ -482,6 +516,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the reportsToChartOfAccountsCode attribute.
+     *
      * @return Returns the reportsToChartOfAccountsCode.
      */
     public String getReportsToChartOfAccountsCode() {
@@ -490,6 +525,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the reportsToChartOfAccountsCode attribute value.
+     *
      * @param reportsToChartOfAccountsCode The reportsToChartOfAccountsCode to set.
      */
     public void setReportsToChartOfAccountsCode(String reportsToChartOfAccountsCode) {
@@ -533,6 +569,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the accountFiscalOfficerSystemIdentifier attribute.
+     *
      * @return Returns the accountFiscalOfficerSystemIdentifier.
      */
     public String getAccountFiscalOfficerSystemIdentifier() {
@@ -555,6 +592,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the accountFiscalOfficerSystemIdentifier attribute value.
+     *
      * @param accountFiscalOfficerSystemIdentifier The accountFiscalOfficerSystemIdentifier to set.
      */
     public void setAccountFiscalOfficerSystemIdentifier(String accountFiscalOfficerSystemIdentifier) {
@@ -563,6 +601,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the accountsSupervisorySystemsIdentifier attribute.
+     *
      * @return Returns the accountsSupervisorySystemsIdentifier.
      */
     public String getAccountsSupervisorySystemsIdentifier() {
@@ -571,6 +610,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the accountsSupervisorySystemsIdentifier attribute value.
+     *
      * @param accountsSupervisorySystemsIdentifier The accountsSupervisorySystemsIdentifier to set.
      */
     public void setAccountsSupervisorySystemsIdentifier(String accountsSupervisorySystemsIdentifier) {
@@ -579,11 +619,13 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the accountManagerSystemIdentifier attribute.
+     *
      * @return Returns the accountManagerSystemIdentifier.
      */
     public String getAccountManagerSystemIdentifier() {
         return accountManagerSystemIdentifier;
     }
+
     /**
      * @return Returns the accountManagerSystemIdentifier.
      */
@@ -594,6 +636,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the accountManagerSystemIdentifier attribute value.
+     *
      * @param accountManagerSystemIdentifier The accountManagerSystemIdentifier to set.
      */
     public void setAccountManagerSystemIdentifier(String accountManagerSystemIdentifier) {
@@ -602,6 +645,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the continuationChartOfAccount attribute.
+     *
      * @return Returns the continuationChartOfAccount.
      */
     public Chart getContinuationChartOfAccount() {
@@ -610,6 +654,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the continuationChartOfAccount attribute value.
+     *
      * @param continuationChartOfAccount The continuationChartOfAccount to set.
      */
     public void setContinuationChartOfAccount(Chart continuationChartOfAccount) {
@@ -618,6 +663,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the continuationFinChrtOfAcctCd attribute.
+     *
      * @return Returns the continuationFinChrtOfAcctCd.
      */
     public String getContinuationFinChrtOfAcctCd() {
@@ -626,6 +672,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the continuationFinChrtOfAcctCd attribute value.
+     *
      * @param continuationFinChrtOfAcctCd The continuationFinChrtOfAcctCd to set.
      */
     public void setContinuationFinChrtOfAcctCd(String continuationFinChrtOfAcctCd) {
@@ -634,6 +681,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the continuationAccount attribute.
+     *
      * @return Returns the continuationAccount.
      */
     public Account getContinuationAccount() {
@@ -642,6 +690,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the continuationAccount attribute value.
+     *
      * @param continuationAccount The continuationAccount to set.
      */
     public void setContinuationAccount(Account continuationAccount) {
@@ -650,6 +699,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the continuationAccountNumber attribute.
+     *
      * @return Returns the continuationAccountNumber.
      */
     public String getContinuationAccountNumber() {
@@ -658,6 +708,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the continuationAccountNumber attribute value.
+     *
      * @param continuationAccountNumber The continuationAccountNumber to set.
      */
     public void setContinuationAccountNumber(String continuationAccountNumber) {
@@ -666,6 +717,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the incomeStreamAccount attribute.
+     *
      * @return Returns the incomeStreamAccount.
      */
     public Account getIncomeStreamAccount() {
@@ -674,6 +726,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the incomeStreamAccount attribute value.
+     *
      * @param incomeStreamAccount The incomeStreamAccount to set.
      */
     public void setIncomeStreamAccount(Account incomeStreamAccount) {
@@ -682,6 +735,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the incomeStreamChartOfAccounts attribute.
+     *
      * @return Returns the incomeStreamChartOfAccounts.
      */
     public Chart getIncomeStreamChartOfAccounts() {
@@ -690,6 +744,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the incomeStreamChartOfAccounts attribute value.
+     *
      * @param incomeStreamChartOfAccounts The incomeStreamChartOfAccounts to set.
      */
     public void setIncomeStreamChartOfAccounts(Chart incomeStreamChartOfAccounts) {
@@ -698,6 +753,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the incomeStreamFinancialCoaCode attribute.
+     *
      * @return Returns the incomeStreamFinancialCoaCode.
      */
     public String getIncomeStreamFinancialCoaCode() {
@@ -706,6 +762,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the incomeStreamFinancialCoaCode attribute value.
+     *
      * @param incomeStreamFinancialCoaCode The incomeStreamFinancialCoaCode to set.
      */
     public void setIncomeStreamFinancialCoaCode(String incomeStreamFinancialCoaCode) {
@@ -714,6 +771,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the incomeStreamAccountNumber attribute.
+     *
      * @return Returns the incomeStreamAccountNumber.
      */
     public String getIncomeStreamAccountNumber() {
@@ -722,6 +780,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the incomeStreamAccountNumber attribute value.
+     *
      * @param incomeStreamAccountNumber The incomeStreamAccountNumber to set.
      */
     public void setIncomeStreamAccountNumber(String incomeStreamAccountNumber) {
@@ -730,6 +789,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the budgetRecordingLevelCode attribute.
+     *
      * @return Returns the budgetRecordingLevelCode.
      */
     public String getBudgetRecordingLevelCode() {
@@ -738,6 +798,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the budgetRecordingLevelCode attribute value.
+     *
      * @param budgetRecordingLevelCode The budgetRecordingLevelCode to set.
      */
     public void setBudgetRecordingLevelCode(String budgetRecordingLevelCode) {
@@ -763,8 +824,9 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
     }
 
     /**
-    /**
+     * /**
      * Gets the sufficientFundsCode attribute.
+     *
      * @return Returns the sufficientFundsCode.
      */
     public SufficientFundsCode getSufficientFundsCode() {
@@ -773,6 +835,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the sufficientFundsCode attribute value.
+     *
      * @param sufficientFundsCode The sufficientFundsCode to set.
      */
     public void setSufficientFundsCode(SufficientFundsCode sufficientFundsCode) {
@@ -781,6 +844,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the accountSufficientFundsCode attribute.
+     *
      * @return Returns the accountSufficientFundsCode.
      */
     public String getAccountSufficientFundsCode() {
@@ -789,6 +853,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the accountSufficientFundsCode attribute value.
+     *
      * @param accountSufficientFundsCode The accountSufficientFundsCode to set.
      */
     public void setAccountSufficientFundsCode(String accountSufficientFundsCode) {
@@ -797,6 +862,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the pendingAcctSufficientFundsIndicator attribute.
+     *
      * @return Returns the pendingAcctSufficientFundsIndicator.
      */
     public boolean isPendingAcctSufficientFundsIndicator() {
@@ -805,6 +871,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the pendingAcctSufficientFundsIndicator attribute value.
+     *
      * @param pendingAcctSufficientFundsIndicator The pendingAcctSufficientFundsIndicator to set.
      */
     public void setPendingAcctSufficientFundsIndicator(boolean pendingAcctSufficientFundsIndicator) {
@@ -813,6 +880,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the extrnlFinEncumSufficntFndIndicator attribute.
+     *
      * @return Returns the extrnlFinEncumSufficntFndIndicator.
      */
     public boolean isExtrnlFinEncumSufficntFndIndicator() {
@@ -821,6 +889,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the extrnlFinEncumSufficntFndIndicator attribute value.
+     *
      * @param extrnlFinEncumSufficntFndIndicator The extrnlFinEncumSufficntFndIndicator to set.
      */
     public void setExtrnlFinEncumSufficntFndIndicator(boolean extrnlFinEncumSufficntFndIndicator) {
@@ -829,6 +898,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the intrnlFinEncumSufficntFndIndicator attribute.
+     *
      * @return Returns the intrnlFinEncumSufficntFndIndicator.
      */
     public boolean isIntrnlFinEncumSufficntFndIndicator() {
@@ -837,6 +907,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the intrnlFinEncumSufficntFndIndicator attribute value.
+     *
      * @param intrnlFinEncumSufficntFndIndicator The intrnlFinEncumSufficntFndIndicator to set.
      */
     public void setIntrnlFinEncumSufficntFndIndicator(boolean intrnlFinEncumSufficntFndIndicator) {
@@ -845,6 +916,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the finPreencumSufficientFundIndicator attribute.
+     *
      * @return Returns the finPreencumSufficientFundIndicator.
      */
     public boolean isFinPreencumSufficientFundIndicator() {
@@ -853,6 +925,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the finPreencumSufficientFundIndicator attribute value.
+     *
      * @param finPreencumSufficientFundIndicator The finPreencumSufficientFundIndicator to set.
      */
     public void setFinPreencumSufficientFundIndicator(boolean finPreencumSufficientFundIndicator) {
@@ -861,6 +934,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the financialObjectivePrsctrlIndicator attribute.
+     *
      * @return Returns the financialObjectivePrsctrlIndicator.
      */
     public boolean isFinancialObjectivePrsctrlIndicator() {
@@ -869,6 +943,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the financialObjectivePrsctrlIndicator attribute value.
+     *
      * @param financialObjectivePrsctrlIndicator The financialObjectivePrsctrlIndicator to set.
      */
     public void setFinancialObjectivePrsctrlIndicator(boolean financialObjectivePrsctrlIndicator) {
@@ -878,6 +953,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the contractsAndGrantsAccountResponsibilityId attribute.
+     *
      * @return Returns the contractsAndGrantsAccountResponsibilityId.
      */
     public Integer getContractsAndGrantsAccountResponsibilityId() {
@@ -886,6 +962,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the contractsAndGrantsAccountResponsibilityId attribute value.
+     *
      * @param contractsAndGrantsAccountResponsibilityId The contractsAndGrantsAccountResponsibilityId to set.
      */
     public void setContractsAndGrantsAccountResponsibilityId(Integer contractsAndGrantsAccountResponsibilityId) {
@@ -894,6 +971,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the accountDescriptionCampusCode attribute.
+     *
      * @return Returns the accountDescriptionCampusCode.
      */
     public String getAccountDescriptionCampusCode() {
@@ -902,6 +980,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the accountDescriptionCampusCode attribute value.
+     *
      * @param accountDescriptionCampusCode The accountDescriptionCampusCode to set.
      */
     public void setAccountDescriptionCampusCode(String accountDescriptionCampusCode) {
@@ -910,6 +989,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the accountDescriptionBuildingCode attribute.
+     *
      * @return Returns the accountDescriptionBuildingCode.
      */
     public String getAccountDescriptionBuildingCode() {
@@ -918,6 +998,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the accountDescriptionBuildingCode attribute value.
+     *
      * @param accountDescriptionBuildingCode The accountDescriptionBuildingCode to set.
      */
     public void setAccountDescriptionBuildingCode(String accountDescriptionBuildingCode) {
@@ -926,6 +1007,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the active attribute.
+     *
      * @return Returns the active.
      */
     @Override
@@ -935,6 +1017,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the active attribute value.
+     *
      * @param active The active to set.
      */
     @Override
@@ -944,6 +1027,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the accountFiscalOfficerUser attribute.
+     *
      * @return Returns the accountFiscalOfficerUser.
      */
     public Person getAccountFiscalOfficerUser() {
@@ -953,6 +1037,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the accountFiscalOfficerUser attribute value.
+     *
      * @param accountFiscalOfficerUser The accountFiscalOfficerUser to set.
      */
     public void setAccountFiscalOfficerUser(Person accountFiscalOfficerUser) {
@@ -961,6 +1046,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the accountSupervisoryUser attribute.
+     *
      * @return Returns the accountSupervisoryUser.
      */
     public Person getAccountSupervisoryUser() {
@@ -970,6 +1056,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the accountSupervisoryUser attribute value.
+     *
      * @param accountSupervisoryUser The accountSupervisoryUser to set.
      */
     public void setAccountSupervisoryUser(Person accountSupervisoryUser) {
@@ -978,6 +1065,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the accountManagerUser attribute.
+     *
      * @return Returns the accountManagerUser.
      */
     public Person getAccountManagerUser() {
@@ -987,6 +1075,7 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the accountManagerUser attribute value.
+     *
      * @param accountManagerUser The accountManagerUser to set.
      */
     public void setAccountManagerUser(Person accountManagerUser) {
@@ -1001,16 +1090,12 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
         this.unitDTO = unitDTO;
     }
 
-    /**
-     *
-     */
+
     public Integer getAccountDefaultId() {
         return accountDefaultId;
     }
 
-    /**
-     *
-     */
+
     public void setAccountDefaultId(Integer accountDefaultId) {
         this.accountDefaultId = accountDefaultId;
     }
@@ -1021,8 +1106,8 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     public List<IndirectCostRecoveryAutoDefAccount> getActiveIndirectCostRecoveryAccounts() {
         List<IndirectCostRecoveryAutoDefAccount> activeList = new ArrayList<IndirectCostRecoveryAutoDefAccount>();
-        for (IndirectCostRecoveryAutoDefAccount icr : getIndirectCostRecoveryAutoDefAccounts()){
-            if (icr.isActive()){
+        for (IndirectCostRecoveryAutoDefAccount icr : getIndirectCostRecoveryAutoDefAccounts()) {
+            if (icr.isActive()) {
                 activeList.add(IndirectCostRecoveryAutoDefAccount.copyICRAccount(icr));
             }
         }
@@ -1031,18 +1116,19 @@ public class AccountAutoCreateDefaults extends PersistableBusinessObjectBase imp
 
     public void setIndirectCostRecoveryAutoDefAccounts(List<? extends IndirectCostRecoveryAutoDefAccount> indirectCostRecoveryAccounts) {
         List<IndirectCostRecoveryAutoDefAccount> accountIcrList = new ArrayList<IndirectCostRecoveryAutoDefAccount>();
-        for (IndirectCostRecoveryAutoDefAccount icr : indirectCostRecoveryAccounts){
+        for (IndirectCostRecoveryAutoDefAccount icr : indirectCostRecoveryAccounts) {
             accountIcrList.add(icr);
         }
         this.indirectCostRecoveryAutoDefAccounts = accountIcrList;
     }
+
     /**
      * @see org.kuali.rice.krad.bo.PersistableBusinessObjectBase#buildListOfDeletionAwareLists()
      */
     @Override
     public List<Collection<PersistableBusinessObject>> buildListOfDeletionAwareLists() {
         List<Collection<PersistableBusinessObject>> managedLists = super.buildListOfDeletionAwareLists();
-        managedLists.add((List)getIndirectCostRecoveryAutoDefAccounts());
+        managedLists.add((List) getIndirectCostRecoveryAutoDefAccounts());
         return managedLists;
     }
 

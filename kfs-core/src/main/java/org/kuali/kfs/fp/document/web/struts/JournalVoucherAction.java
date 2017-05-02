@@ -1,29 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document.web.struts;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
@@ -36,6 +29,9 @@ import org.kuali.kfs.fp.businessobject.VoucherAccountingLineHelperBase;
 import org.kuali.kfs.fp.businessobject.VoucherSourceAccountingLine;
 import org.kuali.kfs.fp.document.JournalVoucherDocument;
 import org.kuali.kfs.fp.document.VoucherDocument;
+import org.kuali.kfs.kns.question.ConfirmationQuestion;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -45,9 +41,12 @@ import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.kns.question.ConfirmationQuestion;
-import org.kuali.rice.kns.util.KNSGlobalVariables;
-import org.kuali.rice.kns.web.struts.form.KualiDocumentFormBase;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * This class piggy backs on all of the functionality in the FinancialSystemTransactionalDocumentActionBase but is necessary for
@@ -67,9 +66,9 @@ public class JournalVoucherAction extends VoucherAction {
     /**
      * Overrides the parent and then calls the super method after building the array lists for valid accounting periods and balance
      * types.
-     * 
+     *
      * @see org.kuali.rice.kns.web.struts.action.KualiAction#execute(ActionMapping mapping, ActionForm form, HttpServletRequest
-     *      request, HttpServletResponse response)
+     * request, HttpServletResponse response)
      */
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -87,8 +86,7 @@ public class JournalVoucherAction extends VoucherAction {
             // must call this here, because execute in the super method will never have control for this particular action
             // this is called in the parent by super.execute()
             this.populateAuthorizationFields(journalVoucherForm);
-        }
-        else { // otherwise call the super
+        } else { // otherwise call the super
             returnForward = super.execute(mapping, journalVoucherForm, request, response);
         }
         return returnForward;
@@ -97,9 +95,9 @@ public class JournalVoucherAction extends VoucherAction {
     /**
      * Overrides the parent to first prompt the user appropriately to make sure that they want to submit and out of balance
      * document, then calls super's route method.
-     * 
+     *
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#route(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward route(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -124,7 +122,7 @@ public class JournalVoucherAction extends VoucherAction {
 
     /**
      * This method handles grabbing the values from the form and pushing them into the document appropriately.
-     * 
+     *
      * @param journalVoucherForm
      */
     protected void populateBalanceTypeOneDocument(JournalVoucherForm journalVoucherForm) {
@@ -141,9 +139,9 @@ public class JournalVoucherAction extends VoucherAction {
     /**
      * Overrides to call super, and then to repopulate the credit/debit amounts b/c the credit/debit code might change during a JV
      * error correction.
-     * 
+     *
      * @see org.kuali.kfs.fp.document.web.struts.VoucherAction#correct(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward correct(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -164,7 +162,7 @@ public class JournalVoucherAction extends VoucherAction {
     /**
      * This method processes a change in the balance type for a Journal Voucher document - from either a offset generation balance
      * type to a non-offset generation balance type or visa-versa.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -187,13 +185,11 @@ public class JournalVoucherAction extends VoucherAction {
             // or the person choose the "cancel" or "no" button otherwise we have control
             if (returnForward != null) {
                 return returnForward;
-            }
-            else {
+            } else {
                 // deal with balance type changes first amount change
                 if (balanceTypeAmountChangeMode == CREDIT_DEBIT_TO_SINGLE_AMT_MODE) {
                     switchFromCreditDebitModeToSingleAmountMode(journalVoucherForm);
-                }
-                else if (balanceTypeAmountChangeMode == SINGLE_AMT_TO_CREDIT_DEBIT_MODE) {
+                } else if (balanceTypeAmountChangeMode == SINGLE_AMT_TO_CREDIT_DEBIT_MODE) {
                     switchFromSingleAmountModeToCreditDebitMode(journalVoucherForm);
                 }
 
@@ -211,7 +207,7 @@ public class JournalVoucherAction extends VoucherAction {
      * This method will determine which balance type amount mode to switch to. A change in the balance type selection will
      * eventually invoke this mechanism, which looks at the old balance type value, and the new balance type value to determine what
      * the next mode is.
-     * 
+     *
      * @param journalVoucherForm
      * @throws Exception
      */
@@ -225,8 +221,7 @@ public class JournalVoucherAction extends VoucherAction {
         // figure out which ways we are switching the modes first deal with amount changes
         if (origBalType.isFinancialOffsetGenerationIndicator() && !newBalType.isFinancialOffsetGenerationIndicator()) { // credit/debit
             balanceTypeAmountChangeMode = CREDIT_DEBIT_TO_SINGLE_AMT_MODE;
-        }
-        else if (!origBalType.isFinancialOffsetGenerationIndicator() && newBalType.isFinancialOffsetGenerationIndicator()) { // single
+        } else if (!origBalType.isFinancialOffsetGenerationIndicator() && newBalType.isFinancialOffsetGenerationIndicator()) { // single
             balanceTypeAmountChangeMode = SINGLE_AMT_TO_CREDIT_DEBIT_MODE;
         }
 
@@ -237,7 +232,7 @@ public class JournalVoucherAction extends VoucherAction {
      * This method will determine which balance type encumbrance mode to switch to. A change in the balance type selection will
      * eventually invoke this mechanism, which looks at the old balance type value, and the new balance type value to determine what
      * the next mode is.
-     * 
+     *
      * @param journalVoucherForm
      * @throws Exception
      */
@@ -251,8 +246,7 @@ public class JournalVoucherAction extends VoucherAction {
         // then deal with external encumbrance changes
         if (origBalType.getCode().equals(KFSConstants.BALANCE_TYPE_EXTERNAL_ENCUMBRANCE) && !newBalType.getCode().equals(KFSConstants.BALANCE_TYPE_EXTERNAL_ENCUMBRANCE)) {
             balanceTypeExternalEncumbranceChangeMode = EXT_ENCUMB_TO_NON_EXT_ENCUMB;
-        }
-        else if (!origBalType.getCode().equals(KFSConstants.BALANCE_TYPE_EXTERNAL_ENCUMBRANCE) && newBalType.getCode().equals(KFSConstants.BALANCE_TYPE_EXTERNAL_ENCUMBRANCE)) {
+        } else if (!origBalType.getCode().equals(KFSConstants.BALANCE_TYPE_EXTERNAL_ENCUMBRANCE) && newBalType.getCode().equals(KFSConstants.BALANCE_TYPE_EXTERNAL_ENCUMBRANCE)) {
             balanceTypeExternalEncumbranceChangeMode = NON_EXT_ENCUMB_TO_EXT_ENCUMB;
         }
 
@@ -262,7 +256,7 @@ public class JournalVoucherAction extends VoucherAction {
     /**
      * This method takes control from the changeBalanceType action method in order to present a question prompt to the user so that
      * they can confirm the change in balance type.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -285,8 +279,7 @@ public class JournalVoucherAction extends VoucherAction {
 
                 // now transfer control over to the question component
                 return this.performQuestionWithoutInput(mapping, form, request, response, KFSConstants.JOURNAL_VOUCHER_CHANGE_BALANCE_TYPE_QUESTION, message, KFSConstants.CONFIRMATION_QUESTION, KFSConstants.CHANGE_JOURNAL_VOUCHER_BALANCE_TYPE_METHOD, "");
-            }
-            else {
+            } else {
                 String buttonClicked = request.getParameter(KFSConstants.QUESTION_CLICKED_BUTTON);
                 if ((KFSConstants.JOURNAL_VOUCHER_CHANGE_BALANCE_TYPE_QUESTION.equals(question)) && ConfirmationQuestion.NO.equals(buttonClicked)) {
                     // if no button clicked keep the old value and reload doc
@@ -305,7 +298,7 @@ public class JournalVoucherAction extends VoucherAction {
      * This method will setup the message that will get displayed to the user when they are asked to confirm the balance type
      * change. The message is tuned to the particular context, the value chosen, and also the previous value. It also combines with
      * the core part of the message which is part of the ApplicationResources.properties file.
-     * 
+     *
      * @param jvForm
      * @param kualiConfiguration
      * @return The message to display to the user in the question prompt window.
@@ -325,28 +318,23 @@ public class JournalVoucherAction extends VoucherAction {
             String newMessage = new String("");
             if (balanceTypeExternalEncumbranceChangeMode == NON_EXT_ENCUMB_TO_EXT_ENCUMB) {
                 newMessage = StringUtils.replace(message, "{3}", kualiConfiguration.getPropertyValueAsString(KFSKeyConstants.QUESTION_CHANGE_JV_BAL_TYPE_FROM_SINGLE_AMT_TO_EXT_ENCUMB_CREDIT_DEBIT_MODE));
-            }
-            else {
+            } else {
                 newMessage = StringUtils.replace(message, "{3}", "");
             }
             message = new String(newMessage);
-        }
-        else if (balanceTypeAmountChangeMode == CREDIT_DEBIT_TO_SINGLE_AMT_MODE) {
+        } else if (balanceTypeAmountChangeMode == CREDIT_DEBIT_TO_SINGLE_AMT_MODE) {
             message = kualiConfiguration.getPropertyValueAsString(KFSKeyConstants.QUESTION_CHANGE_JV_BAL_TYPE_FROM_CREDIT_DEBIT_TO_SINGLE_AMT_MODE);
             // see if we need the extra bit about the external encumbrance
             String newMessage = new String("");
             if (balanceTypeExternalEncumbranceChangeMode == EXT_ENCUMB_TO_NON_EXT_ENCUMB) {
                 newMessage = StringUtils.replace(message, "{3}", kualiConfiguration.getPropertyValueAsString(KFSKeyConstants.QUESTION_CHANGE_JV_BAL_TYPE_FROM_EXT_ENCUMB_CREDIT_DEBIT_TO_SINGLE_AMT_MODE));
-            }
-            else {
+            } else {
                 newMessage = StringUtils.replace(message, "{3}", "");
             }
             message = new String(newMessage);
-        }
-        else if (balanceTypeExternalEncumbranceChangeMode == EXT_ENCUMB_TO_NON_EXT_ENCUMB) {
+        } else if (balanceTypeExternalEncumbranceChangeMode == EXT_ENCUMB_TO_NON_EXT_ENCUMB) {
             message = kualiConfiguration.getPropertyValueAsString(KFSKeyConstants.QUESTION_CHANGE_JV_BAL_TYPE_FROM_EXT_ENCUMB_TO_NON_EXT_ENCUMB);
-        }
-        else if (balanceTypeExternalEncumbranceChangeMode == NON_EXT_ENCUMB_TO_EXT_ENCUMB) {
+        } else if (balanceTypeExternalEncumbranceChangeMode == NON_EXT_ENCUMB_TO_EXT_ENCUMB) {
             message = kualiConfiguration.getPropertyValueAsString(KFSKeyConstants.QUESTION_CHANGE_JV_BAL_TYPE_FROM_NON_EXT_ENCUMB_TO_EXT_ENCUMB);
         }
 
@@ -367,7 +355,7 @@ public class JournalVoucherAction extends VoucherAction {
     /**
      * This method will fully populate a balance type given the passed in code, by calling the business object service that
      * retrieves the rest of the instances' information.
-     * 
+     *
      * @param balanceTypeCode
      * @return BalanceTyp
      */
@@ -378,7 +366,7 @@ public class JournalVoucherAction extends VoucherAction {
 
     /**
      * This method will clear out the source line values that aren't needed for the "Single Amount" mode.
-     * 
+     *
      * @param journalVoucherForm
      */
     protected void switchFromSingleAmountModeToCreditDebitMode(JournalVoucherForm journalVoucherForm) {
@@ -404,7 +392,7 @@ public class JournalVoucherAction extends VoucherAction {
     /**
      * This method will clear out the extra "reference" fields that the external encumbrance balance type uses, but will leave the
      * amounts since we aren't changing the offset generation code stuff.
-     * 
+     *
      * @param journalVoucherForm
      */
     protected void switchFromExternalEncumbranceModeToNonExternalEncumbrance(JournalVoucherForm journalVoucherForm) {
@@ -423,7 +411,7 @@ public class JournalVoucherAction extends VoucherAction {
 
     /**
      * This method will clear out the source line values that aren't needed for the "Credit/Debit" mode.
-     * 
+     *
      * @param journalVoucherForm
      */
     protected void switchFromCreditDebitModeToSingleAmountMode(JournalVoucherForm journalVoucherForm) {
@@ -448,7 +436,7 @@ public class JournalVoucherAction extends VoucherAction {
     /**
      * Overrides the parent to make sure that the JV specific accounting line helper forms are properly populated when the document
      * is first loaded. This first calls super, then populates the helper objects.
-     * 
+     *
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#loadDocument(org.kuali.rice.kns.web.struts.form.KualiDocumentFormBase)
      */
     @Override
@@ -476,7 +464,7 @@ public class JournalVoucherAction extends VoucherAction {
 
     /**
      * This method grabs the value from the document bo and sets the selected balance type appropriately.
-     * 
+     *
      * @param journalVoucherDocument
      * @param journalVoucherForm
      */
@@ -495,7 +483,7 @@ public class JournalVoucherAction extends VoucherAction {
      * stating that they chose that value and return an ActionForward of a MAPPING_BASIC which keeps them at the same page that they
      * were on. If they choose "Yes", then we return a null ActionForward, which the calling action method recognizes as a "Yes" and
      * continues on processing the "Route."
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -520,15 +508,13 @@ public class JournalVoucherAction extends VoucherAction {
             if (jvDoc.getBalanceType().isFinancialOffsetGenerationIndicator()) {
                 message = StringUtils.replace(kualiConfiguration.getPropertyValueAsString(KFSKeyConstants.QUESTION_ROUTE_OUT_OF_BALANCE_JV_DOC), "{0}", currencyFormattedDebitTotal);
                 message = StringUtils.replace(message, "{1}", currencyFormattedCreditTotal);
-            }
-            else {
+            } else {
                 message = StringUtils.replace(kualiConfiguration.getPropertyValueAsString(KFSKeyConstants.QUESTION_ROUTE_OUT_OF_BALANCE_JV_DOC_SINGLE_AMT_MODE), "{0}", currencyFormattedTotal);
             }
 
             // now transfer control over to the question component
             return this.performQuestionWithoutInput(mapping, form, request, response, KFSConstants.JOURNAL_VOUCHER_ROUTE_OUT_OF_BALANCE_DOCUMENT_QUESTION, message, KFSConstants.CONFIRMATION_QUESTION, KFSConstants.ROUTE_METHOD, "");
-        }
-        else {
+        } else {
             String buttonClicked = request.getParameter(KFSConstants.QUESTION_CLICKED_BUTTON);
             if ((KFSConstants.JOURNAL_VOUCHER_ROUTE_OUT_OF_BALANCE_DOCUMENT_QUESTION.equals(question)) && ConfirmationQuestion.NO.equals(buttonClicked)) {
                 KNSGlobalVariables.getMessageList().add(KFSKeyConstants.MESSAGE_JV_CANCELLED_ROUTE);
@@ -541,7 +527,7 @@ public class JournalVoucherAction extends VoucherAction {
     /**
      * This action executes a call to upload CSV accounting line values as SourceAccountingLines for a given transactional document.
      * The "uploadAccountingLines()" method handles the multi-part request.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -561,7 +547,7 @@ public class JournalVoucherAction extends VoucherAction {
     /**
      * This method determines whether we are uploading source or target lines, and then calls uploadAccountingLines directly on the
      * document object. This method handles retrieving the actual upload file as an input stream into the document.
-     * 
+     *
      * @param isSource
      * @param form
      * @throws FileNotFoundException

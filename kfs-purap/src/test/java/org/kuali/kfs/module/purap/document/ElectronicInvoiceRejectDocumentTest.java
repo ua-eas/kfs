@@ -1,26 +1,29 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.appleton;
 import junit.framework.Assert;
-
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.businessobject.ElectronicInvoiceLoadSummary;
 import org.kuali.kfs.module.purap.fixture.ElectronicInvoiceLoadSummaryFixture;
 import org.kuali.kfs.module.purap.fixture.ElectronicInvoiceRejectDocumentFixture;
@@ -32,11 +35,8 @@ import org.kuali.kfs.sys.document.AccountingDocumentTestUtils;
 import org.kuali.kfs.sys.document.workflow.WorkflowTestUtils;
 import org.kuali.rice.kew.api.document.DocumentStatus;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.exception.ValidationException;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.util.GlobalVariables;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.appleton;
 
 /**
  * Used to create and test populated Requisition Documents of various kinds.
@@ -64,7 +64,7 @@ public class ElectronicInvoiceRejectDocumentTest extends KualiTestBase {
         BusinessObjectService boService = SpringContext.getBean(BusinessObjectService.class);
         boService.save(eils);
 
-        GlobalVariables.getUserSession().setBackdoorUser( "kfs" );
+        GlobalVariables.getUserSession().setBackdoorUser("kfs");
         eirDoc = ElectronicInvoiceRejectDocumentFixture.EIR_ONLY_REQUIRED_FIELDS.createElectronicInvoiceRejectDocument(eils);
         eirDoc.prepareForSave();
         DocumentService documentService = SpringContext.getBean(DocumentService.class);
@@ -81,13 +81,13 @@ public class ElectronicInvoiceRejectDocumentTest extends KualiTestBase {
     @ConfigureContext(session = appleton, shouldCommitTransactions = true)
     public final void testSaveDocumentWithNonMatchingPO() throws Exception {
         ElectronicInvoiceLoadSummary eils = ElectronicInvoiceLoadSummaryFixture.EILS_BASIC.createElectronicInvoiceLoadSummary();
-        BusinessObjectService boService =  SpringContext.getBean(BusinessObjectService.class);
+        BusinessObjectService boService = SpringContext.getBean(BusinessObjectService.class);
         boService.save(eils);
 
-        GlobalVariables.getUserSession().setBackdoorUser( "parke" );
+        GlobalVariables.getUserSession().setBackdoorUser("parke");
         Integer poId = routePO();
 
-        GlobalVariables.getUserSession().setBackdoorUser( "kfs" );
+        GlobalVariables.getUserSession().setBackdoorUser("kfs");
         eirDoc = ElectronicInvoiceRejectDocumentFixture.EIR_ONLY_REQUIRED_FIELDS.createElectronicInvoiceRejectDocument(eils);
         eirDoc.setPurchaseOrderIdentifier(poId);
         eirDoc.setInvoicePurchaseOrderNumber(poId.toString());
@@ -106,13 +106,13 @@ public class ElectronicInvoiceRejectDocumentTest extends KualiTestBase {
     @ConfigureContext(session = appleton, shouldCommitTransactions = true)
     public final void testSaveDocumentWithMatchingPO() throws Exception {
         ElectronicInvoiceLoadSummary eils = ElectronicInvoiceLoadSummaryFixture.EILS_MATCHING.createElectronicInvoiceLoadSummary();
-        BusinessObjectService boService =  SpringContext.getBean(BusinessObjectService.class);
+        BusinessObjectService boService = SpringContext.getBean(BusinessObjectService.class);
         boService.save(eils);
 
-        GlobalVariables.getUserSession().setBackdoorUser( "parke" );
+        GlobalVariables.getUserSession().setBackdoorUser("parke");
         Integer poId = routeMatchingPO();
 
-        GlobalVariables.getUserSession().setBackdoorUser( "kfs" );
+        GlobalVariables.getUserSession().setBackdoorUser("kfs");
         eirDoc = ElectronicInvoiceRejectDocumentFixture.EIR_MATCHING.createElectronicInvoiceRejectDocument(eils);
         eirDoc.setPurchaseOrderIdentifier(poId);
         eirDoc.setInvoicePurchaseOrderNumber(poId.toString());
@@ -173,16 +173,15 @@ public class ElectronicInvoiceRejectDocumentTest extends KualiTestBase {
     /**
      * Helper method to route the document.
      *
-     * @param document                 The assign contract manager document to be routed.
-     * @param annotation               The annotation String.
-     * @param documentService          The service to use to route the document.
+     * @param document        The assign contract manager document to be routed.
+     * @param annotation      The annotation String.
+     * @param documentService The service to use to route the document.
      * @throws WorkflowException
      */
     private void routeDocument(Document document, String annotation, DocumentService documentService) throws WorkflowException {
         try {
             documentService.routeDocument(document, annotation, null);
-        }
-        catch (ValidationException e) {
+        } catch (ValidationException e) {
             // If the business rule evaluation fails then give us more info for debugging this test.
             fail(e.getMessage() + ", " + GlobalVariables.getMessageMap());
         }
@@ -191,16 +190,15 @@ public class ElectronicInvoiceRejectDocumentTest extends KualiTestBase {
     /**
      * Helper method to route the document.
      *
-     * @param document                 The assign contract manager document to be routed.
-     * @param annotation               The annotation String.
-     * @param documentService          The service to use to route the document.
+     * @param document        The assign contract manager document to be routed.
+     * @param annotation      The annotation String.
+     * @param documentService The service to use to route the document.
      * @throws WorkflowException
      */
     private void saveDocument(Document document, String annotation, DocumentService documentService) throws WorkflowException {
         try {
             documentService.saveDocument(document);
-        }
-        catch (ValidationException e) {
+        } catch (ValidationException e) {
             // If the business rule evaluation fails then give us more info for debugging this test.
             fail(e.getMessage() + ", " + GlobalVariables.getMessageMap());
         }
@@ -236,8 +234,7 @@ public class ElectronicInvoiceRejectDocumentTest extends KualiTestBase {
             AccountingDocumentTestUtils.routeDocument(poDocument, "saving copy source document", null, documentService);
             WorkflowTestUtils.waitForDocumentApproval(poDocument.getDocumentNumber());
             return poDocument.getPurapDocumentIdentifier();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             return null;
@@ -254,8 +251,7 @@ public class ElectronicInvoiceRejectDocumentTest extends KualiTestBase {
             AccountingDocumentTestUtils.routeDocument(poDocument, "saving copy source document", null, documentService);
             WorkflowTestUtils.waitForDocumentApproval(poDocument.getDocumentNumber());
             return poDocument.getPurapDocumentIdentifier();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             return null;

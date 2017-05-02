@@ -1,43 +1,42 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.vnd.businessobject.lookup;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.lookup.AbstractLookupableHelperServiceImpl;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.dao.LookupDao;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.util.BeanPropertyComparator;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.vnd.VendorConstants;
 import org.kuali.kfs.vnd.VendorKeyConstants;
 import org.kuali.kfs.vnd.VendorPropertyConstants;
 import org.kuali.kfs.vnd.businessobject.VendorContract;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.core.api.search.SearchOperator;
-import org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.dao.LookupDao;
-import org.kuali.rice.krad.exception.ValidationException;
-import org.kuali.rice.krad.util.BeanPropertyComparator;
-import org.kuali.rice.krad.util.GlobalVariables;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 public class VendorContractLookupableHelperServiceImpl extends AbstractLookupableHelperServiceImpl {
     private LookupDao lookupDao;
@@ -53,7 +52,7 @@ public class VendorContractLookupableHelperServiceImpl extends AbstractLookupabl
 
     /**
      * Overrides the getSearchResults in the super class so that we can do some customization in our vendor contract lookup.
-     * 
+     *
      * @see org.kuali.rice.kns.lookup.Lookupable#getSearchResults(java.util.Map)
      */
     @Override
@@ -138,7 +137,7 @@ public class VendorContractLookupableHelperServiceImpl extends AbstractLookupabl
      * method will add error message to the errorMap in GlobalVariables that the vendor number must be numeric or numerics separated
      * by a dash.
      *
-     * @param fieldValues a Map containing only those key-value pairs that have been filled in on the lookup
+     * @param fieldValues  a Map containing only those key-value pairs that have been filled in on the lookup
      * @param vendorNumber vendor number String
      */
     private void extractVendorNumberToVendorIds(Map fieldValues, String vendorNumber) {
@@ -147,8 +146,7 @@ public class VendorContractLookupableHelperServiceImpl extends AbstractLookupabl
         int indexOfDash = vendorNumber.indexOf(VendorConstants.DASH);
         if (indexOfDash < 0) {
             vendorHeaderGeneratedIdentifier = vendorNumber;
-        }
-        else {
+        } else {
             vendorHeaderGeneratedIdentifier = vendorNumber.substring(0, indexOfDash);
             vendorDetailAssignedIdentifier = vendorNumber.substring(indexOfDash + 1, vendorNumber.length());
         }
@@ -162,10 +160,9 @@ public class VendorContractLookupableHelperServiceImpl extends AbstractLookupabl
             fieldValues.remove(VendorPropertyConstants.VENDOR_NUMBER);
             fieldValues.put(VendorPropertyConstants.VENDOR_HEADER_GENERATED_ID, vendorHeaderGeneratedIdentifier);
             fieldValues.put(VendorPropertyConstants.VENDOR_DETAIL_ASSIGNED_ID, vendorDetailAssignedIdentifier);
-        }
-        catch (NumberFormatException headerExc) {
+        } catch (NumberFormatException headerExc) {
             GlobalVariables.getMessageMap().putError(VendorPropertyConstants.VENDOR_NUMBER, VendorKeyConstants.ERROR_VENDOR_LOOKUP_VNDR_NUM_NUMERIC_DASH_SEPARATED);
         }
     }
-    
+
 }

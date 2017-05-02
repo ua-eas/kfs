@@ -1,27 +1,27 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.report;
 
+import org.kuali.kfs.sys.KFSConstants;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.kuali.kfs.sys.KFSConstants;
 
 /**
  * This class represents a summary amount used in reporst
@@ -46,16 +46,15 @@ public class Summary implements Comparable {
      */
     private long count;
 
-    /**
-     * 
-     */
+
     public Summary() {
         super();
     }
 
-    
+
     /**
      * Constructs a Summary.java.
+     *
      * @param sortOrder
      * @param description
      * @param count
@@ -68,6 +67,7 @@ public class Summary implements Comparable {
 
     /**
      * Constructs a Summary.java.
+     *
      * @param sortOrder
      * @param description
      * @param count
@@ -77,17 +77,16 @@ public class Summary implements Comparable {
         this.description = description;
         if (count == null) {
             this.count = 0;
-        }
-        else {
+        } else {
             this.count = count.longValue();
         }
     }
 
     /**
      * Compare this Summary object with another summary object
-     * 
+     * <p>
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
     public int compareTo(Object arg0) {
@@ -96,15 +95,14 @@ public class Summary implements Comparable {
             Integer otherSort = new Integer(otherObject.getSortOrder());
             Integer thisSort = new Integer(sortOrder);
             return thisSort.compareTo(otherSort);
-        }
-        else {
+        } else {
             return 0;
         }
     }
 
     /**
      * Returns true if the description of this summary object and the passed in summary object are the same
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -120,8 +118,8 @@ public class Summary implements Comparable {
 
     /**
      * Build a report summary list for labor general ledger posting
-     * 
-     * @param destination description of summary displayed
+     *
+     * @param destination   description of summary displayed
      * @param startingOrder order how information is displayed
      * @return a list of summary objects
      */
@@ -135,12 +133,12 @@ public class Summary implements Comparable {
 
     /**
      * Update the report summary with the given information
-     * 
-     * @param reportSummary list of summaries
+     *
+     * @param reportSummary   list of summaries
      * @param destinationName description of summary displayed
-     * @param operationType description of what action is related to the summary (i.e. insert, updated, deleted)
-     * @param count count of how many "objects" are affected
-     * @param order order how information is displayed
+     * @param operationType   description of what action is related to the summary (i.e. insert, updated, deleted)
+     * @param count           count of how many "objects" are affected
+     * @param order           order how information is displayed
      */
     public static void updateReportSummary(List<Summary> reportSummary, String destinationName, String operationType, int count, int order) {
         StringBuilder summaryDescription = buildSummaryDescription(destinationName, operationType);
@@ -149,11 +147,11 @@ public class Summary implements Comparable {
 
     /**
      * Update the report summary with the given information
-     * 
-     * @param reportSummary list of summaries
+     *
+     * @param reportSummary      list of summaries
      * @param summaryDescription description of summary displayed
-     * @param count count of how many "objects" are affected
-     * @param order order how information is displayed
+     * @param count              count of how many "objects" are affected
+     * @param order              order how information is displayed
      */
     public static void updateReportSummary(List<Summary> reportSummary, String summaryDescription, int count, int order) {
         Summary inputSummary = new Summary(order, summaryDescription, count);
@@ -162,17 +160,16 @@ public class Summary implements Comparable {
         if (index >= 0) {
             Summary summary = reportSummary.get(index);
             summary.setCount(summary.getCount() + count);
-        }
-        else {
+        } else {
             reportSummary.add(inputSummary);
         }
     }
 
     /**
      * Build the description of summary with the given information
-     * 
+     *
      * @param destinationName description of summary displayed
-     * @param operationType description of what action is related to the summary (i.e. insert, updated, deleted)
+     * @param operationType   description of what action is related to the summary (i.e. insert, updated, deleted)
      * @return
      */
     public static StringBuilder buildSummaryDescription(String destinationName, String operationType) {

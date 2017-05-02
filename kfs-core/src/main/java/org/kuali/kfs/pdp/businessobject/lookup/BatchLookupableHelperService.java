@@ -1,29 +1,33 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.pdp.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.krad.dao.LookupDao;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.pdp.PdpConstants;
 import org.kuali.kfs.pdp.PdpKeyConstants;
 import org.kuali.kfs.pdp.PdpParameterConstants;
@@ -36,16 +40,12 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.web.format.BooleanFormatter;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kns.lookup.HtmlData;
-import org.kuali.rice.kns.lookup.HtmlData.AnchorHtmlData;
-import org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.rice.kns.util.KNSGlobalVariables;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.dao.LookupDao;
-import org.kuali.rice.krad.exception.ValidationException;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.UrlFactory;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * This class allows custom handling of Batches within the lookup framework.
@@ -86,8 +86,7 @@ public class BatchLookupableHelperService extends KualiLookupableHelperServiceIm
                             }
                         }
                     }
-                }
-                else {
+                } else {
                     if (parameters.containsKey(PdpParameterConstants.MESSAGE_PARAM)) {
                         String[] messageRequestParm = (String[]) parameters.get(PdpParameterConstants.MESSAGE_PARAM);
                         String message = messageRequestParm[0];
@@ -103,7 +102,7 @@ public class BatchLookupableHelperService extends KualiLookupableHelperServiceIm
 
     /**
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#getInquiryUrl(org.kuali.rice.krad.bo.BusinessObject,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Override
     public HtmlData getInquiryUrl(BusinessObject bo, String propertyName) {
@@ -125,7 +124,7 @@ public class BatchLookupableHelperService extends KualiLookupableHelperServiceIm
 
     /**
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#getCustomActionUrls(org.kuali.rice.krad.bo.BusinessObject,
-     *      java.util.List)
+     * java.util.List)
      */
     @Override
     public List<HtmlData> getCustomActionUrls(BusinessObject businessObject, List pkNames) {
@@ -139,7 +138,7 @@ public class BatchLookupableHelperService extends KualiLookupableHelperServiceIm
             String url = KFSConstants.EMPTY_STRING;
             String basePath = configurationService.getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY) + "/" + PdpConstants.Actions.BATCH_SEARCH_DETAIL_ACTION;
 
-            if ( pdpAuthorizationService.hasCancelPaymentPermission(person.getPrincipalId()) && batchMaintenanceService.doBatchPaymentsHaveOpenOrHeldStatus(batchId)) {
+            if (pdpAuthorizationService.hasCancelPaymentPermission(person.getPrincipalId()) && batchMaintenanceService.doBatchPaymentsHaveOpenOrHeldStatus(batchId)) {
 
                 Properties params = new Properties();
                 params.put(KFSConstants.DISPATCH_REQUEST_PARAMETER, PdpConstants.ActionMethods.CONFIRM_CANCEL_ACTION);
@@ -151,8 +150,8 @@ public class BatchLookupableHelperService extends KualiLookupableHelperServiceIm
                 AnchorHtmlData anchorHtmlData = new AnchorHtmlData(url, PdpConstants.ActionMethods.CONFIRM_CANCEL_ACTION, linkText);
                 anchorHtmlDataList.add(anchorHtmlData);
             }
-            
-            if ( pdpAuthorizationService.hasHoldPaymentPermission(person.getPrincipalId())) {
+
+            if (pdpAuthorizationService.hasHoldPaymentPermission(person.getPrincipalId())) {
 
                 if (batchMaintenanceService.doBatchPaymentsHaveHeldStatus(batchId)) {
 
@@ -165,8 +164,7 @@ public class BatchLookupableHelperService extends KualiLookupableHelperServiceIm
 
                     AnchorHtmlData anchorHtmlData = new AnchorHtmlData(url, PdpConstants.ActionMethods.CONFIRM_REMOVE_HOLD_ACTION, linkText);
                     anchorHtmlDataList.add(anchorHtmlData);
-                }
-                else if (batchMaintenanceService.doBatchPaymentsHaveOpenStatus(batchId)) {
+                } else if (batchMaintenanceService.doBatchPaymentsHaveOpenStatus(batchId)) {
 
                     Properties params = new Properties();
                     params.put(KFSConstants.DISPATCH_REQUEST_PARAMETER, PdpConstants.ActionMethods.CONFIRM_HOLD_ACTION);
@@ -210,13 +208,11 @@ public class BatchLookupableHelperService extends KualiLookupableHelperServiceIm
         // check if there is any search criteria entered
         if (StringUtils.isBlank(batchIdValue) && StringUtils.isBlank(chartCodeValue) && StringUtils.isBlank(orgCodeValue) && StringUtils.isBlank(subUnitCodeValue) && StringUtils.isBlank(paymentCountValue) && StringUtils.isBlank(paymentTotalAmountValue) && StringUtils.isBlank(fileCreationTimeValueLower) && StringUtils.isBlank(fileCreationTimeValueUpper)) {
             GlobalVariables.getMessageMap().putError(KFSConstants.DOCUMENT_HEADER_ERRORS, PdpKeyConstants.BatchConstants.ErrorMessages.ERROR_BATCH_CRITERIA_NONE_ENTERED);
-        }
-        else if (StringUtils.isBlank(batchIdValue) && StringUtils.isBlank(paymentCountValue) && StringUtils.isBlank(paymentTotalAmountValue)) {
+        } else if (StringUtils.isBlank(batchIdValue) && StringUtils.isBlank(paymentCountValue) && StringUtils.isBlank(paymentTotalAmountValue)) {
             // If batchId, paymentCount, and paymentTotalAmount are empty then at least creation date is required
-            if (StringUtils.isBlank(fileCreationTimeValueLower) && StringUtils.isBlank(fileCreationTimeValueUpper) ) {
+            if (StringUtils.isBlank(fileCreationTimeValueLower) && StringUtils.isBlank(fileCreationTimeValueUpper)) {
                 GlobalVariables.getMessageMap().putError(PdpPropertyConstants.BatchConstants.FILE_CREATION_TIME, PdpKeyConstants.BatchConstants.ErrorMessages.ERROR_BATCH_CRITERIA_NO_DATE);
-            }
-            else if (StringUtils.isBlank(fileCreationTimeValueLower) || StringUtils.isBlank(fileCreationTimeValueUpper)) {
+            } else if (StringUtils.isBlank(fileCreationTimeValueLower) || StringUtils.isBlank(fileCreationTimeValueUpper)) {
                 // If we have one (but not both) dates the user must enter either the chartCode, orgCode, or subUnitCode
                 if (StringUtils.isBlank(chartCodeValue) && StringUtils.isBlank(orgCodeValue) && StringUtils.isBlank(subUnitCodeValue)) {
                     GlobalVariables.getMessageMap().putError(KRADConstants.GLOBAL_ERRORS, PdpKeyConstants.BatchConstants.ErrorMessages.ERROR_BATCH_CRITERIA_SOURCE_MISSING);
@@ -231,7 +227,7 @@ public class BatchLookupableHelperService extends KualiLookupableHelperServiceIm
 
     /**
      * This method gets the kualiConfigurationService.
-     * 
+     *
      * @return the configurationService
      */
     public ConfigurationService getConfigurationService() {
@@ -240,7 +236,7 @@ public class BatchLookupableHelperService extends KualiLookupableHelperServiceIm
 
     /**
      * This method sets the configurationService.
-     * 
+     *
      * @param configurationService ConfigurationService
      */
     public void setConfigurationService(ConfigurationService configurationService) {
@@ -249,7 +245,7 @@ public class BatchLookupableHelperService extends KualiLookupableHelperServiceIm
 
     /**
      * This method gets the batchMaintenanceService.
-     * 
+     *
      * @return the batchMaintenanceService
      */
     public BatchMaintenanceService getBatchMaintenanceService() {
@@ -258,7 +254,7 @@ public class BatchLookupableHelperService extends KualiLookupableHelperServiceIm
 
     /**
      * This method sets the batchMaintenanceService.
-     * 
+     *
      * @param batchMaintenanceService BatchMaintenanceService
      */
     public void setBatchMaintenanceService(BatchMaintenanceService batchMaintenanceService) {
@@ -267,7 +263,7 @@ public class BatchLookupableHelperService extends KualiLookupableHelperServiceIm
 
     /**
      * This method gets the lookupDao.
-     * 
+     *
      * @return the lookupDao
      */
     public LookupDao getLookupDao() {
@@ -276,7 +272,7 @@ public class BatchLookupableHelperService extends KualiLookupableHelperServiceIm
 
     /**
      * This method sets lookupDao.
-     * 
+     *
      * @param lookupDao LookupDao
      */
     public void setLookupDao(LookupDao lookupDao) {
@@ -285,6 +281,7 @@ public class BatchLookupableHelperService extends KualiLookupableHelperServiceIm
 
     /**
      * This method sets the pdpAuthorizationService.
+     *
      * @param pdpAuthorizationService The pdpAuthorizationService to be set.
      */
     public void setPdpAuthorizationService(PdpAuthorizationService pdpAuthorizationService) {

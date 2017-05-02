@@ -1,32 +1,32 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.document.datadictionary;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.datadictionary.DataDictionaryDefinitionBase;
+import org.kuali.kfs.krad.datadictionary.exception.AttributeValidationException;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.web.AccountingLineViewLineFillingElement;
 import org.kuali.kfs.sys.document.web.AccountingLineViewLines;
 import org.kuali.kfs.sys.document.web.TableJoining;
-import org.kuali.rice.krad.datadictionary.DataDictionaryDefinitionBase;
-import org.kuali.rice.krad.datadictionary.exception.AttributeValidationException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Data dictionary definition for a group of multiple lines to render.  This also renders blocks - though each block will be rendered as a line with an embedded table
@@ -38,6 +38,7 @@ public class AccountingLineViewLinesDefinition extends DataDictionaryDefinitionB
     /**
      * Validates that:
      * 1) there is at least one child line
+     *
      * @see org.kuali.rice.krad.datadictionary.DataDictionaryDefinition#completeValidation(java.lang.Class, java.lang.Class)
      */
     public void completeValidation(Class rootBusinessObjectClass, Class otherBusinessObjectClass) {
@@ -47,7 +48,8 @@ public class AccountingLineViewLinesDefinition extends DataDictionaryDefinitionB
     }
 
     /**
-     * Gets the lines attribute. 
+     * Gets the lines attribute.
+     *
      * @return Returns the lines.
      */
     public List<AccountingLineViewLineFillingDefinition> getLines() {
@@ -56,6 +58,7 @@ public class AccountingLineViewLinesDefinition extends DataDictionaryDefinitionB
 
     /**
      * Sets the lines attribute value.
+     *
      * @param lines The lines to set.
      */
     public void setLines(List<AccountingLineViewLineFillingDefinition> lines) {
@@ -63,7 +66,8 @@ public class AccountingLineViewLinesDefinition extends DataDictionaryDefinitionB
     }
 
     /**
-     * Gets the elementName attribute. 
+     * Gets the elementName attribute.
+     *
      * @return Returns the elementName.
      */
     public String getElementName() {
@@ -72,6 +76,7 @@ public class AccountingLineViewLinesDefinition extends DataDictionaryDefinitionB
 
     /**
      * Sets the elementName attribute value.
+     *
      * @param elementName The elementName to set.
      */
     public void setElementName(String elementName) {
@@ -87,10 +92,11 @@ public class AccountingLineViewLinesDefinition extends DataDictionaryDefinitionB
         layoutElement.setElements(getLayoutElementsForLines(accountingLineClass));
         return layoutElement;
     }
-    
+
     /**
      * Generates layout elements for all the child lines of this lines definition
-     * @return a List with the line elements for all child lines of this element definition 
+     *
+     * @return a List with the line elements for all child lines of this element definition
      */
     protected List<AccountingLineViewLineFillingElement> getLayoutElementsForLines(Class<? extends AccountingLine> accountingLineClass) {
         List<AccountingLineViewLineFillingElement> elements = new ArrayList<AccountingLineViewLineFillingElement>();

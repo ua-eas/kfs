@@ -1,26 +1,25 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.businessobject;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.document.BulkReceivingDocument;
 import org.kuali.kfs.module.purap.document.ElectronicInvoiceRejectDocument;
@@ -44,8 +43,9 @@ import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.DocumentService;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @ConfigureContext(session = UserNameFixture.appleton)
 public class RelatedViewsTest extends KualiTestBase {
@@ -70,14 +70,14 @@ public class RelatedViewsTest extends KualiTestBase {
     }
 
     private PurchaseOrderDocument createBasicPurchaseOrderDocument() throws Exception {
-        return preqDocTest.createPurchaseOrderDocument(PurchaseOrderDocumentFixture.PO_APPROVAL_REQUIRED,false);
+        return preqDocTest.createPurchaseOrderDocument(PurchaseOrderDocumentFixture.PO_APPROVAL_REQUIRED, false);
     }
 
     private PaymentRequestDocument createBasicPaymentRequestDocument() throws Exception {
         PaymentRequestDocument preq = preqDocTest.createPaymentRequestDocument(
-                PaymentRequestDocumentFixture.PREQ_APPROVAL_REQUIRED,
-                createBasicPurchaseOrderDocument(),
-                true, new KualiDecimal[] {new KualiDecimal(100)});
+            PaymentRequestDocumentFixture.PREQ_APPROVAL_REQUIRED,
+            createBasicPurchaseOrderDocument(),
+            true, new KualiDecimal[]{new KualiDecimal(100)});
 
         return preq;
     }
@@ -109,12 +109,13 @@ public class RelatedViewsTest extends KualiTestBase {
 
         return ElectronicInvoiceRejectDocumentFixture.EIR_ONLY_REQUIRED_FIELDS.createElectronicInvoiceRejectDocument(eils);
     }
+
     public void testPaymentRequestView() throws Exception {
         PaymentRequestDocument preq = createBasicPaymentRequestDocument();
         preq.setApplicationDocumentStatus(PurapConstants.PaymentRequestStatuses.APPDOC_AWAITING_FISCAL_REVIEW);
         documentService.saveDocument(preq);
 
-        Map <String, String> keys = new HashMap <String, String>();
+        Map<String, String> keys = new HashMap<String, String>();
         keys.put("documentNumber", preq.getDocumentNumber());
         keys.put("purapDocumentIdentifier", preq.getPurapDocumentIdentifier().toString());
 
@@ -128,7 +129,7 @@ public class RelatedViewsTest extends KualiTestBase {
         po.setApplicationDocumentStatus(PurapConstants.PurchaseOrderStatuses.APPDOC_AMENDMENT);
         documentService.saveDocument(po);
 
-        Map <String, String> keys = new HashMap <String, String>();
+        Map<String, String> keys = new HashMap<String, String>();
         keys.put("documentNumber", po.getDocumentNumber());
         keys.put("purapDocumentIdentifier", po.getPurapDocumentIdentifier().toString());
 
@@ -142,7 +143,7 @@ public class RelatedViewsTest extends KualiTestBase {
         vcm.setApplicationDocumentStatus(PurapConstants.CreditMemoStatuses.APPDOC_AWAITING_ACCOUNTS_PAYABLE_REVIEW);
         documentService.saveDocument(vcm);
 
-        Map <String, String> keys = new HashMap <String, String>();
+        Map<String, String> keys = new HashMap<String, String>();
         keys.put("documentNumber", vcm.getDocumentNumber());
         keys.put("purapDocumentIdentifier", vcm.getPurapDocumentIdentifier().toString());
 
@@ -156,7 +157,7 @@ public class RelatedViewsTest extends KualiTestBase {
         br.setApplicationDocumentStatus(PurapConstants.CreditMemoStatuses.APPDOC_AWAITING_ACCOUNTS_PAYABLE_REVIEW);
         documentService.saveDocument(br);
 
-        Map <String, String> keys = new HashMap <String, String>();
+        Map<String, String> keys = new HashMap<String, String>();
         keys.put("documentNumber", br.getDocumentNumber());
 
         BulkReceivingView brv = businessObjectService.findByPrimaryKey(BulkReceivingView.class, keys);
@@ -169,7 +170,7 @@ public class RelatedViewsTest extends KualiTestBase {
         eirt.setApplicationDocumentStatus(PurapConstants.CreditMemoStatuses.APPDOC_AWAITING_ACCOUNTS_PAYABLE_REVIEW);
         documentService.saveDocument(eirt);
 
-        Map <String, String> keys = new HashMap <String, String>();
+        Map<String, String> keys = new HashMap<String, String>();
         keys.put("documentNumber", eirt.getDocumentNumber());
 
         ElectronicInvoiceRejectView erv = businessObjectService.findByPrimaryKey(ElectronicInvoiceRejectView.class, keys);
@@ -182,7 +183,7 @@ public class RelatedViewsTest extends KualiTestBase {
         lird.setApplicationDocumentStatus(PurapConstants.LineItemReceivingStatuses.APPDOC_IN_PROCESS);
         documentService.saveDocument(lird);
 
-        Map <String, String> keys = new HashMap <String, String>();
+        Map<String, String> keys = new HashMap<String, String>();
         keys.put("documentNumber", lird.getDocumentNumber());
 
         LineItemReceivingView lirv = businessObjectService.findByPrimaryKey(LineItemReceivingView.class, keys);
@@ -195,7 +196,7 @@ public class RelatedViewsTest extends KualiTestBase {
         reqs.setApplicationDocumentStatus(PurapConstants.RequisitionStatuses.APPDOC_AWAIT_CHART_REVIEW);
         documentService.saveDocument(reqs);
 
-        Map <String, String> keys = new HashMap <String, String>();
+        Map<String, String> keys = new HashMap<String, String>();
         keys.put("documentNumber", reqs.getDocumentNumber());
 
         RequisitionView reqsv = businessObjectService.findByPrimaryKey(RequisitionView.class, keys);

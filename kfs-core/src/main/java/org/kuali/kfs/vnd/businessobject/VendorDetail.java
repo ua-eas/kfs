@@ -1,23 +1,36 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.vnd.businessobject;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.log4j.Logger;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.LookupService;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.vnd.VendorPropertyConstants;
+import org.kuali.kfs.vnd.document.service.VendorService;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+import org.kuali.rice.kim.api.identity.Person;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -25,19 +38,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.log4j.Logger;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.vnd.VendorPropertyConstants;
-import org.kuali.kfs.vnd.document.service.VendorService;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.krad.bo.Note;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.rice.krad.service.LookupService;
-import org.kuali.rice.krad.util.ObjectUtils;
 
 /**
  * Contains all data for a specific parent or division Vendor, including a link to the <code>VendorHeader</code>, which only
@@ -106,7 +106,8 @@ public class VendorDetail extends PersistableBusinessObjectBase implements Vendo
     private String defaultAddressPostalCode; // not persisted in the db
     private String defaultAddressCountryCode; // not persisted in the db
     private String defaultFaxNumber; // not persisted in the db
-    private List    boNotes;
+    private List boNotes;
+
     /**
      * Default constructor.
      */
@@ -184,8 +185,7 @@ public class VendorDetail extends PersistableBusinessObjectBase implements Vendo
             try {
                 vendorHeaderGeneratedIdentifier = new Integer(vendorNumber.substring(0, dashInd));
                 vendorDetailAssignedIdentifier = new Integer(vendorNumber.substring(dashInd + 1));
-            }
-            catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 // in case of invalid number format
             }
         }
@@ -260,8 +260,7 @@ public class VendorDetail extends PersistableBusinessObjectBase implements Vendo
             try {
                 vendorSoldToGeneratedIdentifier = new Integer(vendorSoldToNumber.substring(0, dashInd));
                 vendorSoldToAssignedIdentifier = new Integer(vendorSoldToNumber.substring(dashInd + 1));
-            }
-            catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 // in case of invalid number format
             }
         }
@@ -713,46 +712,44 @@ public class VendorDetail extends PersistableBusinessObjectBase implements Vendo
         LOG.debug("Entering isEqualForRouting.");
         if ((ObjectUtils.isNull(toCompare)) || !(toCompare instanceof VendorDetail)) {
             return false;
-        }
-        else {
+        } else {
             VendorDetail detail = (VendorDetail) toCompare;
             return new EqualsBuilder().append(
-                    this.getVendorHeaderGeneratedIdentifier(), detail.getVendorHeaderGeneratedIdentifier()).append(
-                    this.getVendorDetailAssignedIdentifier(), detail.getVendorDetailAssignedIdentifier()).append(
-                    this.isVendorParentIndicator(), detail.isVendorParentIndicator()).append(
-                    this.getVendorName(), detail.getVendorName()).append(
-                    this.getVendorLastName(), detail.getVendorLastName()).append(
-                    this.getVendorFirstName(), detail.getVendorFirstName()).append(
-                    this.isActiveIndicator(), detail.isActiveIndicator()).append(
-                    this.getVendorInactiveReasonCode(), detail.getVendorInactiveReasonCode()).append(
-                    this.getVendorDunsNumber(), detail.getVendorDunsNumber()).append(
-                    this.getVendorPaymentTermsCode(), detail.getVendorPaymentTermsCode()).append(
-                    this.getVendorShippingTitleCode(), detail.getVendorShippingTitleCode()).append(
-                    this.getVendorShippingPaymentTermsCode(), detail.getVendorShippingPaymentTermsCode()).append(
-                    this.getVendorConfirmationIndicator(), detail.getVendorConfirmationIndicator()).append(
-                    this.getVendorPrepaymentIndicator(), detail.getVendorPrepaymentIndicator()).append(
-                    this.getVendorCreditCardIndicator(), detail.getVendorCreditCardIndicator()).append(
-                    this.getVendorMinimumOrderAmount(), detail.getVendorMinimumOrderAmount()).append(
-                    this.getVendorUrlAddress(), detail.getVendorUrlAddress()).append(
-                    this.getVendorRemitName(), detail.getVendorRemitName()).append(
-                    this.getVendorRestrictedIndicator(), detail.getVendorRestrictedIndicator()).append(
-                    this.getVendorRestrictedReasonText(), detail.getVendorRestrictedReasonText()).append(
-                    this.getVendorRestrictedDate(), detail.getVendorRestrictedDate()).append(
-                    this.getVendorRestrictedPersonIdentifier(), detail.getVendorRestrictedPersonIdentifier()).append(
-                    this.getVendorSoldToGeneratedIdentifier(), detail.getVendorSoldToGeneratedIdentifier()).append(
-                    this.getVendorSoldToAssignedIdentifier(), detail.getVendorSoldToAssignedIdentifier()).append(
-                    this.getVendorSoldToName(), detail.getVendorSoldToName()).append(
-                    this.isVendorFirstLastNameIndicator(), detail.isVendorFirstLastNameIndicator()).isEquals();
+                this.getVendorHeaderGeneratedIdentifier(), detail.getVendorHeaderGeneratedIdentifier()).append(
+                this.getVendorDetailAssignedIdentifier(), detail.getVendorDetailAssignedIdentifier()).append(
+                this.isVendorParentIndicator(), detail.isVendorParentIndicator()).append(
+                this.getVendorName(), detail.getVendorName()).append(
+                this.getVendorLastName(), detail.getVendorLastName()).append(
+                this.getVendorFirstName(), detail.getVendorFirstName()).append(
+                this.isActiveIndicator(), detail.isActiveIndicator()).append(
+                this.getVendorInactiveReasonCode(), detail.getVendorInactiveReasonCode()).append(
+                this.getVendorDunsNumber(), detail.getVendorDunsNumber()).append(
+                this.getVendorPaymentTermsCode(), detail.getVendorPaymentTermsCode()).append(
+                this.getVendorShippingTitleCode(), detail.getVendorShippingTitleCode()).append(
+                this.getVendorShippingPaymentTermsCode(), detail.getVendorShippingPaymentTermsCode()).append(
+                this.getVendorConfirmationIndicator(), detail.getVendorConfirmationIndicator()).append(
+                this.getVendorPrepaymentIndicator(), detail.getVendorPrepaymentIndicator()).append(
+                this.getVendorCreditCardIndicator(), detail.getVendorCreditCardIndicator()).append(
+                this.getVendorMinimumOrderAmount(), detail.getVendorMinimumOrderAmount()).append(
+                this.getVendorUrlAddress(), detail.getVendorUrlAddress()).append(
+                this.getVendorRemitName(), detail.getVendorRemitName()).append(
+                this.getVendorRestrictedIndicator(), detail.getVendorRestrictedIndicator()).append(
+                this.getVendorRestrictedReasonText(), detail.getVendorRestrictedReasonText()).append(
+                this.getVendorRestrictedDate(), detail.getVendorRestrictedDate()).append(
+                this.getVendorRestrictedPersonIdentifier(), detail.getVendorRestrictedPersonIdentifier()).append(
+                this.getVendorSoldToGeneratedIdentifier(), detail.getVendorSoldToGeneratedIdentifier()).append(
+                this.getVendorSoldToAssignedIdentifier(), detail.getVendorSoldToAssignedIdentifier()).append(
+                this.getVendorSoldToName(), detail.getVendorSoldToName()).append(
+                this.isVendorFirstLastNameIndicator(), detail.isVendorFirstLastNameIndicator()).isEquals();
         }
     }
 
     /**
-     *  The vendor is B2B if they have a contract that has the B2B
-     *  indicator set to Yes. This method returns true if this vendor
-     *  is a B2B vendor and false otherwise.
+     * The vendor is B2B if they have a contract that has the B2B
+     * indicator set to Yes. This method returns true if this vendor
+     * is a B2B vendor and false otherwise.
      *
      * @return true if this vendor is a B2B vendor and false otherwise.
-     *
      */
     public boolean isB2BVendor() {
         for (VendorContract contract : this.getVendorContracts()) {
@@ -775,12 +772,10 @@ public class VendorDetail extends PersistableBusinessObjectBase implements Vendo
     public String getVendorParentName() {
         if (StringUtils.isNotBlank(this.vendorParentName)) {
             return vendorParentName;
-        }
-        else if (isVendorParentIndicator()) {
+        } else if (isVendorParentIndicator()) {
             setVendorParentName(this.getVendorName());
             return vendorParentName;
-        }
-        else {
+        } else {
             this.setVendorParentName(getVendorParent().getVendorName());
             return vendorParentName;
         }
@@ -796,7 +791,7 @@ public class VendorDetail extends PersistableBusinessObjectBase implements Vendo
 
         boolean first = true;
         for (VendorAlias vsd : this.getVendorAliases()) {
-            if(vsd.isActive()){
+            if (vsd.isActive()) {
                 if (!first) {
                     sb.append(", ");
                 } else {

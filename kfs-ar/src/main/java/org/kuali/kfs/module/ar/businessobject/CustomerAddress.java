@@ -1,46 +1,44 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.businessobject;
+
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.integration.ar.AccountsReceivableCustomer;
+import org.kuali.kfs.integration.ar.AccountsReceivableCustomerAddress;
+import org.kuali.kfs.integration.ar.AccountsReceivableCustomerAddressType;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.ar.ArKeyConstants;
+import org.kuali.kfs.module.ar.document.service.CustomerAddressService;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.location.api.LocationConstants;
+import org.kuali.rice.location.framework.country.CountryEbo;
 
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.integration.ar.AccountsReceivableCustomer;
-import org.kuali.kfs.integration.ar.AccountsReceivableCustomerAddress;
-import org.kuali.kfs.integration.ar.AccountsReceivableCustomerAddressType;
-import org.kuali.kfs.module.ar.ArKeyConstants;
-import org.kuali.kfs.module.ar.document.service.CustomerAddressService;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.rice.krad.service.KualiModuleService;
-import org.kuali.rice.krad.service.ModuleService;
-import org.kuali.rice.krad.util.ObjectUtils;
-import org.kuali.rice.location.api.LocationConstants;
-import org.kuali.rice.location.framework.country.CountryEbo;
 
-/**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
- */
 public class CustomerAddress extends PersistableBusinessObjectBase implements Comparable<CustomerAddress>, AccountsReceivableCustomerAddress {
 
     private String customerNumber;
@@ -423,6 +421,7 @@ public class CustomerAddress extends PersistableBusinessObjectBase implements Co
     public void setInvoiceTransmissionMethodCode(String invoiceTransmissionMethodCode) {
         this.invoiceTransmissionMethodCode = invoiceTransmissionMethodCode;
     }
+
     /**
      * Gets the customerCountry attribute.
      *
@@ -434,12 +433,12 @@ public class CustomerAddress extends PersistableBusinessObjectBase implements Co
         } else {
             if (customerCountry == null || !StringUtils.equals(customerCountry.getCode(), customerCountryCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(CountryEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(1);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(1);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, customerCountryCode);
                     customerCountry = moduleService.getExternalizableBusinessObject(CountryEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -515,7 +514,7 @@ public class CustomerAddress extends PersistableBusinessObjectBase implements Co
             || (this.getCustomerAddressTypeCode() == null && address.getCustomerAddressTypeCode() != null) || (this.getCustomerAddressTypeCode() != null && address.getCustomerAddressTypeCode() == null)) {
             return -1;
         }
-        if (this.getCustomerAddressIdentifier() != null && address.getCustomerAddressIdentifier() != null && this.getCustomerAddressIdentifier().compareTo(address.getCustomerAddressIdentifier())!= 0
+        if (this.getCustomerAddressIdentifier() != null && address.getCustomerAddressIdentifier() != null && this.getCustomerAddressIdentifier().compareTo(address.getCustomerAddressIdentifier()) != 0
             || (this.getCustomerAddressIdentifier() == null && address.getCustomerAddressIdentifier() != null) || (this.getCustomerAddressIdentifier() != null && address.getCustomerAddressIdentifier() == null)) {
             return -1;
         }

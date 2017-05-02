@@ -1,28 +1,30 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.fp.document.DisbursementVoucherConstants;
 import org.kuali.kfs.fp.document.DisbursementVoucherDocument;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.service.DictionaryValidationService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -30,11 +32,8 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.rice.kns.service.DictionaryValidationService;
-import org.kuali.rice.krad.bo.Note;
-import org.kuali.rice.krad.service.NoteService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.MessageMap;
+
+import java.util.List;
 
 public class DisbursementVoucherDocumentFieldValidation extends GenericValidation {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DisbursementVoucherDocumentFieldValidation.class);
@@ -62,7 +61,7 @@ public class DisbursementVoucherDocumentFieldValidation extends GenericValidatio
         errors.removeFromErrorPath(KFSPropertyConstants.DV_PAYEE_DETAIL);
         errors.removeFromErrorPath(KFSPropertyConstants.DOCUMENT);
 
-        //hasErrors() returns true if it not empty else false.  
+        //hasErrors() returns true if it not empty else false.
         if (errors.hasErrors()) {
             return false;
         }
@@ -100,7 +99,7 @@ public class DisbursementVoucherDocumentFieldValidation extends GenericValidatio
 
     /**
      * Return true if disbursement voucher does not have any notes
-     * 
+     *
      * @param document submitted disbursement voucher document
      * @return whether the given document has no notes
      */
@@ -112,7 +111,7 @@ public class DisbursementVoucherDocumentFieldValidation extends GenericValidatio
 
     /**
      * Sets the accountingDocumentForValidation attribute value.
-     * 
+     *
      * @param accountingDocumentForValidation The accountingDocumentForValidation to set.
      */
     public void setAccountingDocumentForValidation(AccountingDocument accountingDocumentForValidation) {
@@ -121,7 +120,7 @@ public class DisbursementVoucherDocumentFieldValidation extends GenericValidatio
 
     /**
      * Gets the accountingDocumentForValidation attribute.
-     * 
+     *
      * @return Returns the accountingDocumentForValidation.
      */
     public AccountingDocument getAccountingDocumentForValidation() {

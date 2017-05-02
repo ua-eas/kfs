@@ -1,22 +1,32 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys;
+
+import org.apache.commons.beanutils.DynaClass;
+import org.apache.commons.beanutils.DynaProperty;
+import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.beanutils.WrapDynaClass;
+import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+import org.kuali.rice.core.api.util.type.KualiInteger;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -31,16 +41,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import org.apache.commons.beanutils.DynaClass;
-import org.apache.commons.beanutils.DynaProperty;
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.beanutils.WrapDynaClass;
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
-
 /**
  * This class provides a set of facilities that can be used to manipulate objects, for example, object population
  */
@@ -49,7 +49,7 @@ public class ObjectUtil {
 
     /**
      * create an object of the specified type
-     * 
+     *
      * @param clazz the specified type of the object
      * @return an object of the specified type
      */
@@ -58,12 +58,10 @@ public class ObjectUtil {
 
         try {
             object = clazz.newInstance();
-        }
-        catch (InstantiationException ie) {
+        } catch (InstantiationException ie) {
             LOG.error(ie);
             throw new RuntimeException(ie);
-        }
-        catch (IllegalAccessException iae) {
+        } catch (IllegalAccessException iae) {
             LOG.error(iae);
             throw new RuntimeException(iae);
         }
@@ -73,10 +71,10 @@ public class ObjectUtil {
 
     /**
      * Populate the given fields of the target object with the corresponding field values of source object
-     * 
+     *
      * @param targetObject the target object
      * @param sourceObject the source object
-     * @param keyFields the given fields of the target object that need to be popluated
+     * @param keyFields    the given fields of the target object that need to be popluated
      */
     public static void buildObject(Object targetObject, Object sourceObject, List<String> keyFields) {
         if (sourceObject.getClass().isArray()) {
@@ -89,8 +87,7 @@ public class ObjectUtil {
                 try {
                     Object propertyValue = PropertyUtils.getProperty(sourceObject, propertyName);
                     PropertyUtils.setProperty(targetObject, propertyName, propertyValue);
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     LOG.debug(e);
                 }
             }
@@ -99,10 +96,10 @@ public class ObjectUtil {
 
     /**
      * Populate the given fields of the target object with the values of an array
-     * 
+     *
      * @param targetObject the target object
      * @param sourceObject the given array
-     * @param keyFields the given fields of the target object that need to be popluated
+     * @param keyFields    the given fields of the target object that need to be popluated
      */
     public static void buildObject(Object targetObject, Object[] sourceObject, List<String> keyFields) {
         int indexOfArray = 0;
@@ -117,35 +114,32 @@ public class ObjectUtil {
 
                     if (realPropertyValue != null && !StringUtils.isEmpty(realPropertyValue.toString())) {
                         PropertyUtils.setProperty(targetObject, propertyName, realPropertyValue);
-                    }
-                    else {
+                    } else {
                         PropertyUtils.setProperty(targetObject, propertyName, null);
                     }
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     LOG.debug(e);
                 }
             }
             indexOfArray++;
         }
     }
-    
+
     public static String getSimpleTypeName(Object targetObject, String propertyName) {
         String simpleTypeName = StringUtils.EMPTY;
         try {
             simpleTypeName = PropertyUtils.getPropertyType(targetObject, propertyName).getSimpleName();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.debug(e);
         }
-        
+
         return simpleTypeName;
     }
 
     /**
      * Get an object of the given type holding the property value of the specified String.
-     * 
-     * @param type the given type of the returning object
+     *
+     * @param type          the given type of the returning object
      * @param propertyValue the property value of the specified string
      * @return an object of the given type holding the property value of the specified String
      */
@@ -154,26 +148,19 @@ public class ObjectUtil {
 
         if (type.equals("Integer")) {
             realPropertyValue = isInteger(propertyValue) ? Integer.valueOf(propertyValue) : null;
-        }
-        else if (type.equals("KualiInteger")) {
+        } else if (type.equals("KualiInteger")) {
             realPropertyValue = isInteger(propertyValue) ? new KualiInteger(propertyValue) : null;
-        }
-        else if (type.equalsIgnoreCase("Boolean")) {
+        } else if (type.equalsIgnoreCase("Boolean")) {
             realPropertyValue = Boolean.valueOf(propertyValue);
-        }
-        else if (type.equals("KualiDecimal")) {
+        } else if (type.equals("KualiDecimal")) {
             realPropertyValue = isDecimal(propertyValue) ? new KualiDecimal(propertyValue) : null;
-        }
-        else if (type.equals("Date")) {
+        } else if (type.equals("Date")) {
             realPropertyValue = formatDate(propertyValue);
-        }
-        else if (type.equals("BigDecimal")) {
+        } else if (type.equals("BigDecimal")) {
             realPropertyValue = isDecimal(propertyValue) ? new BigDecimal(propertyValue) : null;
-        }
-        else if (type.equals("Timestamp")) {
+        } else if (type.equals("Timestamp")) {
             realPropertyValue = formatTimeStamp(propertyValue);
-        }
-        else {
+        } else {
             realPropertyValue = propertyValue;
         }
         return realPropertyValue;
@@ -181,7 +168,7 @@ public class ObjectUtil {
 
     /**
      * determine if the given string can be converted into an Integer
-     * 
+     *
      * @param value the value of the specified string
      * @return true if the string can be converted into an Integer; otherwise, return false
      */
@@ -192,7 +179,7 @@ public class ObjectUtil {
 
     /**
      * determine if the given string can be converted into a decimal
-     * 
+     *
      * @param value the value of the specified string
      * @return true if the string can be converted into a decimal; otherwise, return false
      */
@@ -203,7 +190,7 @@ public class ObjectUtil {
 
     /**
      * convert the given string into a date
-     * 
+     *
      * @param value the given string
      * @return a date converted from the given string
      */
@@ -212,8 +199,7 @@ public class ObjectUtil {
 
         try {
             formattedDate = Date.valueOf(value);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return formattedDate;
         }
         return formattedDate;
@@ -221,7 +207,7 @@ public class ObjectUtil {
 
     /**
      * convert the given string into a timestamp object if the string is in the valid format of timestamp
-     * 
+     *
      * @param value the given string
      * @return a timestamp converted from the given string
      */
@@ -234,12 +220,10 @@ public class ObjectUtil {
         try {
             if (isTimestamp) {
                 formattedTimestamp = Timestamp.valueOf(value);
-            }
-            else {
+            } else {
                 formattedTimestamp = new Timestamp(formatDate(value).getTime());
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return formattedTimestamp;
         }
         return formattedTimestamp;
@@ -247,7 +231,7 @@ public class ObjectUtil {
 
     /**
      * Populate the target object with the source object
-     * 
+     *
      * @param targetObject the target object
      * @param sourceObject the source object
      */
@@ -262,7 +246,7 @@ public class ObjectUtil {
 
     /**
      * Populate the target object with the source object
-     * 
+     *
      * @param targetObject the target object
      * @param sourceObject the source object
      */
@@ -277,10 +261,10 @@ public class ObjectUtil {
 
     /**
      * Populate the property of the target object with the counterpart of the source object
-     * 
-     * @param targetObject the target object
-     * @param sourceObject the source object
-     * @param property the specified propety of the target object
+     *
+     * @param targetObject        the target object
+     * @param sourceObject        the source object
+     * @param property            the specified propety of the target object
      * @param skipReferenceFields determine whether the referencing fields need to be populated
      */
     public static void setProperty(Object targetObject, Object sourceObject, DynaProperty property, boolean skipReferenceFields) {
@@ -296,31 +280,26 @@ public class ObjectUtil {
             }
 
             if (PropertyUtils.isReadable(sourceObject, propertyName) && PropertyUtils.isWriteable(targetObject, propertyName)) {
-                Object propertyValue = PropertyUtils.getProperty(sourceObject, propertyName);                        
+                Object propertyValue = PropertyUtils.getProperty(sourceObject, propertyName);
                 PropertyUtils.setProperty(targetObject, propertyName, propertyValue);
             }
-        }
-        catch (IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug(e.getMessage() + ":" + propertyName);
             }
-        }
-        catch (InvocationTargetException e) {
+        } catch (InvocationTargetException e) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug(e.getMessage() + ":" + propertyName);
             }
-        }
-        catch (NoSuchMethodException e) {
+        } catch (NoSuchMethodException e) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug(e.getMessage() + ":" + propertyName);
             }
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug(e.getMessage() + ":" + propertyName);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug(e.getMessage() + ":" + propertyName);
             }
@@ -329,10 +308,10 @@ public class ObjectUtil {
 
     /**
      * Determine if they have the same values in the specified fields
-     * 
+     *
      * @param targetObject the target object
      * @param sourceObject the source object
-     * @param keyFields the specified fields
+     * @param keyFields    the specified fields
      * @return true if the two objects have the same values in the specified fields; otherwise, false
      */
     public static boolean equals(Object targetObject, Object sourceObject, List<String> keyFields) {
@@ -352,8 +331,7 @@ public class ObjectUtil {
                 if (!ObjectUtils.equals(propertyValueOfSource, propertyValueOfTarget)) {
                     return false;
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 LOG.info(e);
                 return false;
             }
@@ -363,8 +341,8 @@ public class ObjectUtil {
 
     /**
      * compute the hash code for the given object from the given fields
-     * 
-     * @param object the given object
+     *
+     * @param object    the given object
      * @param keyFields the specified fields
      * @return the hash code for the given object from the given fields
      */
@@ -379,8 +357,7 @@ public class ObjectUtil {
             try {
                 Object propertyValue = PropertyUtils.getProperty(object, propertyName);
                 result = prime * result + ((propertyValue == null) ? 0 : propertyValue.hashCode());
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 LOG.info(e);
             }
         }
@@ -389,9 +366,9 @@ public class ObjectUtil {
 
     /**
      * build a map of business object with its specified property names and corresponding values
-     * 
+     *
      * @param businessObject the given business object
-     * @param the specified fields that need to be included in the return map
+     * @param the            specified fields that need to be included in the return map
      * @return the map of business object with its property names and values
      */
     public static Map<String, Object> buildPropertyMap(Object object, List<String> keyFields) {
@@ -409,8 +386,7 @@ public class ObjectUtil {
                     if (propertyValue != null && !StringUtils.isEmpty(propertyValue.toString())) {
                         propertyMap.put(propertyName, propertyValue);
                     }
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     LOG.info(e);
                 }
             }
@@ -420,9 +396,9 @@ public class ObjectUtil {
 
     /**
      * concat the specified properties of the given object as a string
-     * 
+     *
      * @param object the given object
-     * @param the specified fields that need to be included in the return string
+     * @param the    specified fields that need to be included in the return string
      * @return the specified properties of the given object as a string
      */
     public static String concatPropertyAsString(Object object, List<String> keyFields) {
@@ -431,8 +407,7 @@ public class ObjectUtil {
             if (PropertyUtils.isReadable(object, field)) {
                 try {
                     propertyAsString.append(PropertyUtils.getProperty(object, field));
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     LOG.error(e);
                 }
             }
@@ -443,11 +418,11 @@ public class ObjectUtil {
 
     /**
      * Tokenize the input line with the given deliminator and populate the given object with values of the tokens
-     * 
+     *
      * @param targetObject the target object
-     * @param line the input line
-     * @param delim the deminator that separates the fields in the given line
-     * @param keyFields the specified fields
+     * @param line         the input line
+     * @param delim        the deminator that separates the fields in the given line
+     * @param keyFields    the specified fields
      */
     public static void convertLineToBusinessObject(Object targetObject, String line, String delim, List<String> keyFields) {
         String[] tokens = StringUtils.split(line, delim);
@@ -456,11 +431,11 @@ public class ObjectUtil {
 
     /**
      * Tokenize the input line with the given deliminator and populate the given object with values of the tokens
-     * 
+     *
      * @param targetObject the target object
-     * @param line the input line
-     * @param delim the deminator that separates the fields in the given line
-     * @param keyFields the specified fields
+     * @param line         the input line
+     * @param delim        the deminator that separates the fields in the given line
+     * @param keyFields    the specified fields
      */
     public static void convertLineToBusinessObject(Object targetObject, String line, String delim, String fieldNames) {
         List<String> tokens = split(line, delim);
@@ -470,8 +445,8 @@ public class ObjectUtil {
 
     /**
      * Tokenize the input line with the given deliminator and store the tokens in a list
-     * 
-     * @param line the input line
+     *
+     * @param line  the input line
      * @param delim the deminator that separates the fields in the given line
      * @return a list of tokens
      */
@@ -497,11 +472,11 @@ public class ObjectUtil {
 
     /**
      * Tokenize the input line with the given deliminator and populate the given object with values of the tokens
-     * 
+     *
      * @param targetObject the target object
-     * @param line the input line
-     * @param delim the deminator that separates the fields in the given line
-     * @param keyFields the specified fields
+     * @param line         the input line
+     * @param delim        the deminator that separates the fields in the given line
+     * @param keyFields    the specified fields
      */
     public static void convertLineToBusinessObject(Object targetObject, String line, int[] fieldLength, List<String> keyFields) {
         String[] tokens = new String[fieldLength.length];
@@ -516,12 +491,12 @@ public class ObjectUtil {
 
     /**
      * Populate a business object with the given properities and information
-     * 
+     *
      * @param businessOjbject the business object to be populated
-     * @param properties the given properties
-     * @param propertyKey the property keys in the properties
-     * @param fieldNames the names of the fields to be populated
-     * @param deliminator the deliminator that separates the values to be used in a string
+     * @param properties      the given properties
+     * @param propertyKey     the property keys in the properties
+     * @param fieldNames      the names of the fields to be populated
+     * @param deliminator     the deliminator that separates the values to be used in a string
      */
     public static void populateBusinessObject(Object businessOjbject, Properties properties, String propertyKey, String fieldNames, String deliminator) {
         String data = properties.getProperty(propertyKey);
@@ -530,12 +505,12 @@ public class ObjectUtil {
 
     /**
      * Populate a business object with the given properities and information
-     * 
+     *
      * @param businessOjbject the business object to be populated
-     * @param properties the given properties
-     * @param propertyKey the property keys in the properties
-     * @param fieldNames the names of the fields to be populated
-     * @param deliminator the deliminator that separates the values to be used in a string
+     * @param properties      the given properties
+     * @param propertyKey     the property keys in the properties
+     * @param fieldNames      the names of the fields to be populated
+     * @param deliminator     the deliminator that separates the values to be used in a string
      */
     public static void populateBusinessObject(Object businessOjbject, Properties properties, String propertyKey, int[] fieldLength, List<String> keyFields) {
         String data = properties.getProperty(propertyKey);
@@ -544,7 +519,7 @@ public class ObjectUtil {
 
     /**
      * determine if the source object has a field with null as its value
-     * 
+     *
      * @param sourceObject the source object
      */
     public static boolean hasNullValueField(Object sourceObject) {
@@ -560,8 +535,7 @@ public class ObjectUtil {
                     if (propertyValue == null) {
                         return true;
                     }
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     LOG.info(e);
                     return false;
                 }
@@ -572,8 +546,8 @@ public class ObjectUtil {
 
     /**
      * get the types of the nested attributes starting at the given class
-     * 
-     * @param clazz the given class
+     *
+     * @param clazz           the given class
      * @param nestedAttribute the nested attributes of the given class
      * @return a map that contains the types of the nested attributes and the attribute names
      */
@@ -588,8 +562,7 @@ public class ObjectUtil {
                 Method method = currentClass.getMethod(methodName);
                 currentClass = method.getReturnType();
                 nestedAttributes.put(currentClass, propertyName);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 LOG.info(e);
                 break;
             }

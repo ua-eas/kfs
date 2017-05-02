@@ -1,0 +1,6 @@
+HEADER[~&~	~&~RULE_TMPL_ID::VARCHAR~&~	~&~NM::VARCHAR~&~	~&~RULE_TMPL_DESC::VARCHAR~&~	~&~DLGN_RULE_TMPL_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~OBJ_ID::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'1015'~&~	~&~'WorkflowDocumentDelegationTemplate'~&~	~&~'WorkflowDocumentDelegationTemplate'~&~	~&~NULL~&~	~&~'2'~&~	~&~'6166CBA1BA86644DE0404F8189D86C09'~&~	~&~]RECORD
+RECORD[~&~	~&~'1016'~&~	~&~'WorkflowDocumentTemplate'~&~	~&~'Workflow Document Template'~&~	~&~'1015'~&~	~&~'4'~&~	~&~'6166CBA1BA87644DE0404F8189D86C09'~&~	~&~]RECORD
+RECORD[~&~	~&~'1023'~&~	~&~'ReviewersRouting'~&~	~&~'Routes to channel reviewers'~&~	~&~NULL~&~	~&~'2'~&~	~&~'6166CBA1BA8C644DE0404F8189D86C09'~&~	~&~]RECORD
+RECORD[~&~	~&~'1025'~&~	~&~'NotificationRouting'~&~	~&~'The standard rule template for sending notification messages.'~&~	~&~NULL~&~	~&~'2'~&~	~&~'6166CBA1BA8D644DE0404F8189D86C09'~&~	~&~]RECORD
+RECORD[~&~	~&~'1320'~&~	~&~'RuleRoutingTemplate'~&~	~&~'RuleRoutingTemplate'~&~	~&~NULL~&~	~&~'2'~&~	~&~'6166CBA1BA96644DE0404F8189D86C09'~&~	~&~]RECORD

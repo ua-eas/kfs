@@ -1,30 +1,30 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.util;
 
+import org.apache.commons.beanutils.PropertyUtilsBean;
+import org.kuali.kfs.krad.util.ObjectUtils;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
-
-import org.apache.commons.beanutils.PropertyUtilsBean;
-import org.kuali.rice.krad.util.ObjectUtils;
 
 /**
  * A Map implementation which wraps a Java bean and can return values from that based on property Strings.  Unlike Apache Common's BeanMap, this Map can handle nested properties - though for the sake of that power,
@@ -66,12 +66,11 @@ public class ReflectionMap implements Map<String, Object> {
 
     @Override
     public Object get(Object key) {
-        final String keyAsString = (String)key;
+        final String keyAsString = (String) key;
         Object value;
         try {
             value = propertyUtilsBean.getProperty(this.bean, keyAsString);
-        }
-        catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException | IndexOutOfBoundsException ex) {
+        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException | IndexOutOfBoundsException ex) {
             // yep - we know we're swallowing the exception here.  However, we know that bean can't be null, so
             // to fit within regular map semantics, we're just going to return null for the missing key
             return null;

@@ -1,32 +1,30 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cam.document.validation.impl;
 
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.rules.TransactionalDocumentRuleBase;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsKeyConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
@@ -36,12 +34,14 @@ import org.kuali.kfs.module.cam.service.AssetLockService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.util.KfsDateUtils;
-import org.kuali.rice.kns.rules.TransactionalDocumentRuleBase;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
 import org.kuali.rice.location.api.state.StateContract;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.List;
 
 public class EquipmentLoanOrReturnDocumentRule extends TransactionalDocumentRuleBase {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(EquipmentLoanOrReturnDocumentRule.class);
@@ -202,12 +202,11 @@ public class EquipmentLoanOrReturnDocumentRule extends TransactionalDocumentRule
 
         String storageCountryCode = equipmentLoanOrReturnDocument.getBorrowerStorageCountryCode();
         String storageAddress = equipmentLoanOrReturnDocument.getBorrowerStorageAddress();
-        if (StringUtils.isNotBlank(storageAddress)&& StringUtils.isNotBlank(storageCountryCode) && storageCountryCode.equals(KFSConstants.COUNTRY_CODE_UNITED_STATES)){
+        if (StringUtils.isNotBlank(storageAddress) && StringUtils.isNotBlank(storageCountryCode) && storageCountryCode.equals(KFSConstants.COUNTRY_CODE_UNITED_STATES)) {
             if (StringUtils.isBlank(equipmentLoanOrReturnDocument.getBorrowerStorageStateCode())) {
                 GlobalVariables.getMessageMap().putError(KFSConstants.DOCUMENT_PROPERTY_NAME + "." + CamsPropertyConstants.EquipmentLoanOrReturnDocument.BORROWER_STAORAGE_STATE_CODE, CamsKeyConstants.EquipmentLoanOrReturn.ERROR_BORROWER_STORAGE_STATE_REQUIRED, equipmentLoanOrReturnDocument.getBorrowerCountryCode());
                 valid = false;
-            }
-            else {
+            } else {
                 StateContract borrowStorageStateCode = equipmentLoanOrReturnDocument.getBorrowerStorageState();
                 if (ObjectUtils.isNull(borrowStorageStateCode)) {
                     GlobalVariables.getMessageMap().putError(KFSConstants.DOCUMENT_PROPERTY_NAME + "." + CamsPropertyConstants.EquipmentLoanOrReturnDocument.BORROWER_STAORAGE_STATE_CODE, CamsKeyConstants.EquipmentLoanOrReturn.ERROR_INVALID_BORROWER_STORAGE_STATE, equipmentLoanOrReturnDocument.getBorrowerStorageStateCode());

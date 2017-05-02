@@ -1,29 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.coa.batch.dataaccess.impl;
-
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.kuali.kfs.coa.batch.dataaccess.LedgerReferenceValuePreparedStatementCachingDao;
 import org.kuali.kfs.coa.businessobject.A21IndirectCostRecoveryAccount;
@@ -45,8 +38,16 @@ import org.kuali.kfs.coa.businessobject.SubObjectCode;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.batch.dataaccess.impl.AbstractPreparedStatementCachingDaoJdbc;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class LedgerReferenceValuePreparedStatementCachingDaoJdbc extends AbstractPreparedStatementCachingDaoJdbc implements LedgerReferenceValuePreparedStatementCachingDao {
-    static final Map<String,String> sql = new HashMap<String,String>();
+    static final Map<String, String> sql = new HashMap<String, String>();
+
     static {
         sql.put(RETRIEVE_PREFIX + Chart.class, "select fin_coa_active_cd, fin_cash_obj_cd, fin_ap_obj_cd, FND_BAL_OBJ_CD from CA_CHART_T where fin_coa_cd = ?");
         sql.put(RETRIEVE_PREFIX + Account.class, "select acct_expiration_dt, acct_closed_ind, sub_fund_grp_cd, org_cd, cont_fin_coa_cd, cont_account_nbr, fin_series_id, acct_icr_typ_cd, acct_sf_cd from CA_ACCOUNT_T where fin_coa_cd = ? and account_nbr = ?");
@@ -79,6 +80,7 @@ public class LedgerReferenceValuePreparedStatementCachingDaoJdbc extends Abstrac
                 preparedStatement.setString(2, accountNumber);
                 preparedStatement.setString(3, subAccountNumber);
             }
+
             @Override
             protected A21SubAccount extractResult(ResultSet resultSet) throws SQLException {
                 A21SubAccount a21SubAccount = new A21SubAccount();
@@ -105,6 +107,7 @@ public class LedgerReferenceValuePreparedStatementCachingDaoJdbc extends Abstrac
                 preparedStatement.setString(2, accountNumber);
                 preparedStatement.setString(3, subAccountNumber);
             }
+
             @Override
             protected A21IndirectCostRecoveryAccount extractResult(ResultSet resultSet) throws SQLException {
                 A21IndirectCostRecoveryAccount a21 = new A21IndirectCostRecoveryAccount();
@@ -128,6 +131,7 @@ public class LedgerReferenceValuePreparedStatementCachingDaoJdbc extends Abstrac
                 preparedStatement.setString(1, chartCode);
                 preparedStatement.setString(2, accountNumber);
             }
+
             @Override
             protected Account extractResult(ResultSet resultSet) throws SQLException {
                 Account account = new Account();
@@ -154,6 +158,7 @@ public class LedgerReferenceValuePreparedStatementCachingDaoJdbc extends Abstrac
                 preparedStatement.setInt(1, fiscalYear);
                 preparedStatement.setString(2, fiscalPeriodCode);
             }
+
             @Override
             protected AccountingPeriod extractResult(ResultSet resultSet) throws SQLException {
                 AccountingPeriod accountingPeriod = new AccountingPeriod();
@@ -171,6 +176,7 @@ public class LedgerReferenceValuePreparedStatementCachingDaoJdbc extends Abstrac
             protected void populateStatement(PreparedStatement preparedStatement) throws SQLException {
                 preparedStatement.setString(1, financialBalanceTypeCode);
             }
+
             @Override
             protected BalanceType extractResult(ResultSet resultSet) throws SQLException {
                 BalanceType balanceType = new BalanceType();
@@ -189,6 +195,7 @@ public class LedgerReferenceValuePreparedStatementCachingDaoJdbc extends Abstrac
             protected void populateStatement(PreparedStatement preparedStatement) throws SQLException {
                 preparedStatement.setString(1, chartOfAccountsCode);
             }
+
             @Override
             protected Chart extractResult(ResultSet resultSet) throws SQLException {
                 Chart chart = new Chart();
@@ -208,6 +215,7 @@ public class LedgerReferenceValuePreparedStatementCachingDaoJdbc extends Abstrac
             protected void populateStatement(PreparedStatement preparedStatement) throws SQLException {
                 preparedStatement.setString(1, accountIcrTypeCode);
             }
+
             @Override
             protected IndirectCostRecoveryType extractResult(ResultSet resultSet) throws SQLException {
                 IndirectCostRecoveryType indirectCostRecoveryType = new IndirectCostRecoveryType();
@@ -225,6 +233,7 @@ public class LedgerReferenceValuePreparedStatementCachingDaoJdbc extends Abstrac
                 preparedStatement.setString(2, chartOfAccountsCode);
                 preparedStatement.setString(3, financialObjectCode);
             }
+
             @Override
             protected ObjectCode extractResult(ResultSet resultSet) throws SQLException {
                 ObjectCode objectCode = new ObjectCode();
@@ -249,6 +258,7 @@ public class LedgerReferenceValuePreparedStatementCachingDaoJdbc extends Abstrac
                 preparedStatement.setString(1, chartOfAccountsCode);
                 preparedStatement.setString(2, financialObjectLevelCode);
             }
+
             @Override
             protected ObjectLevel extractResult(ResultSet resultSet) throws SQLException {
                 ObjectLevel objectLevel = new ObjectLevel();
@@ -266,6 +276,7 @@ public class LedgerReferenceValuePreparedStatementCachingDaoJdbc extends Abstrac
             protected void populateStatement(PreparedStatement preparedStatement) throws SQLException {
                 preparedStatement.setString(1, financialObjectTypeCode);
             }
+
             @Override
             protected ObjectType extractResult(ResultSet resultSet) throws SQLException {
                 ObjectType objectType = new ObjectType();
@@ -288,6 +299,7 @@ public class LedgerReferenceValuePreparedStatementCachingDaoJdbc extends Abstrac
                 preparedStatement.setString(3, financialDocumentTypeCode);
                 preparedStatement.setString(4, financialBalanceTypeCode);
             }
+
             @Override
             protected OffsetDefinition extractResult(ResultSet resultSet) throws SQLException {
                 OffsetDefinition offsetDefinition = new OffsetDefinition();
@@ -308,6 +320,7 @@ public class LedgerReferenceValuePreparedStatementCachingDaoJdbc extends Abstrac
                 preparedStatement.setString(1, chartOfAccountsCode);
                 preparedStatement.setString(2, organizationCode);
             }
+
             @Override
             protected Organization extractResult(ResultSet resultSet) throws SQLException {
                 Organization organization = new Organization();
@@ -328,6 +341,7 @@ public class LedgerReferenceValuePreparedStatementCachingDaoJdbc extends Abstrac
             protected void populateStatement(PreparedStatement preparedStatement) throws SQLException {
                 preparedStatement.setString(1, financialSystemProjectCode);
             }
+
             @Override
             protected ProjectCode extractResult(ResultSet resultSet) throws SQLException {
                 ProjectCode projectCode = new ProjectCode();
@@ -346,6 +360,7 @@ public class LedgerReferenceValuePreparedStatementCachingDaoJdbc extends Abstrac
                 preparedStatement.setString(2, accountNumber);
                 preparedStatement.setString(3, subAccountNumber);
             }
+
             @Override
             protected SubAccount extractResult(ResultSet resultSet) throws SQLException {
                 SubAccount subAccount = new SubAccount();
@@ -364,6 +379,7 @@ public class LedgerReferenceValuePreparedStatementCachingDaoJdbc extends Abstrac
             protected void populateStatement(PreparedStatement preparedStatement) throws SQLException {
                 preparedStatement.setString(1, subFundGroupCode);
             }
+
             @Override
             protected SubFundGroup extractResult(ResultSet resultSet) throws SQLException {
                 SubFundGroup subFundGroup = new SubFundGroup();
@@ -384,6 +400,7 @@ public class LedgerReferenceValuePreparedStatementCachingDaoJdbc extends Abstrac
                 preparedStatement.setString(4, financialObjectCode);
                 preparedStatement.setString(5, financialSubObjectCode);
             }
+
             @Override
             protected SubObjectCode extractResult(ResultSet resultSet) throws SQLException {
                 SubObjectCode subObjectCode = new SubObjectCode();

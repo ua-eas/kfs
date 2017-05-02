@@ -1,180 +1,168 @@
-<?xml version="1.0" encoding="UTF-8"?><project>
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>edu.kuali.kfs</groupId>
-  <artifactId>kfs-war</artifactId>
-  <packaging>war</packaging>
-  <name>KFS war</name>
-  <version>current</version>
-  <description>
-    This project wraps the KFS war with a war overlay.
-  </description>
-  <inceptionYear>2013</inceptionYear>
-  <organization>
-    <name>KualiCo</name>
-    <url>http://www.kuali.co</url>
-  </organization>
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<project>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>edu.kuali.kfs</groupId>
+    <artifactId>kfs-war</artifactId>
+    <packaging>war</packaging>
+    <name>KFS war</name>
+    <version>current</version>
+    <description>
+        This project wraps the KFS war with a war overlay.
+    </description>
+    <inceptionYear>2013</inceptionYear>
+    <organization>
+        <name>Education University</name>
+        <url>http://www.edu.edu</url>
+    </organization>
 
 
-  <properties>
-    <job.name>${project.artifactId}</job.name>
-    <rice.version>2.1.9</rice.version>
-    <kfs.version>6.0.1-SNAPSHOT</kfs.version>
-    <skipTests>true</skipTests>
-    <test.excludes>**/*Test.java.bogus</test.excludes>
-    <buildNumber>1.0-SNAPSHOT</buildNumber>
-  </properties>
+    <properties>
+        <kfs.version>6.0.1-SNAPSHOT</kfs.version>
+        <test.excludes>**/*Test.java.bogus</test.excludes>
+        <buildNumber>1.0-SNAPSHOT</buildNumber>
+    </properties>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.17</version>
-        <configuration>
-          <argLine>-Xmx2G -Xms2G -XX:MaxPermSize=512m</argLine>
-          <skipTests>${skipTests}</skipTests>
-          <excludes>
-            <exclude>${test.excludes}</exclude>
-          </excludes>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.1</version>
-        <configuration>
-          <source>1.7</source>
-          <target>1.7</target>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>2.3</version>
-        <configuration>
-          <archive>
-            <manifest>
-              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-            </manifest>
-            <manifestEntries>
-              <Implementation-Build>${buildNumber}</Implementation-Build>
-            </manifestEntries>
-          </archive>
-          <nonFilteredFileExtensions>
-            <!-- default value contains jpg,jpeg,gif,bmp,png -->
-            <nonFilteredFileExtension>jar</nonFilteredFileExtension>
-            <nonFilteredFileExtension>class</nonFilteredFileExtension>
-            <nonFilteredFileExtension>tld</nonFilteredFileExtension>
-            <nonFilteredFileExtension>jsp</nonFilteredFileExtension>
-            <nonFilteredFileExtension>tag</nonFilteredFileExtension>
-          </nonFilteredFileExtensions>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.17</version>
+                <configuration>
+                    <argLine>-Xmx2G -Xms2G -XX:MaxPermSize=512m</argLine>
+                    <skipTests>${skipTests}</skipTests>
+                    <excludes>
+                        <exclude>${test.excludes}</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <Implementation-Build>${buildNumber}</Implementation-Build>
+                        </manifestEntries>
+                    </archive>
+                    <nonFilteredFileExtensions>
+                        <!-- default value contains jpg,jpeg,gif,bmp,png -->
+                        <nonFilteredFileExtension>jar</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>class</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>tld</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>jsp</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>tag</nonFilteredFileExtension>
+                    </nonFilteredFileExtensions>
 
-          <overlays>
-            <overlay>
-              <groupId>org.kuali.kfs</groupId>
-              <artifactId>kfs-web</artifactId>
-              <filtered>false</filtered>
-            </overlay>
-          </overlays>
+                    <overlays>
+                        <overlay>
+                            <groupId>org.kuali.kfs</groupId>
+                            <artifactId>kfs-web</artifactId>
+                            <filtered>false</filtered>
+                        </overlay>
+                    </overlays>
 
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.kuali.kfs</groupId>
-      <artifactId>kfs-ar</artifactId>
-      <version>${kfs.version}</version>
-      <type>jar</type>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.kuali.kfs</groupId>
-      <artifactId>kfs-bc</artifactId>
-      <version>${kfs.version}</version>
-      <type>jar</type>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.kuali.kfs</groupId>
-      <artifactId>kfs-cam</artifactId>
-      <version>${kfs.version}</version>
-      <type>jar</type>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.kuali.kfs</groupId>
-      <artifactId>kfs-cg</artifactId>
-      <version>${kfs.version}</version>
-      <type>jar</type>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.kuali.kfs</groupId>
-      <artifactId>kfs-core</artifactId>
-      <version>${kfs.version}</version>
-      <type>jar</type>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.kuali.kfs</groupId>
-      <artifactId>kfs-ec</artifactId>
-      <version>${kfs.version}</version>
-      <type>jar</type>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.kuali.kfs</groupId>
-      <artifactId>kfs-kc</artifactId>
-      <version>${kfs.version}</version>
-      <type>jar</type>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.kuali.kfs</groupId>
-      <artifactId>kfs-ld</artifactId>
-      <version>${kfs.version}</version>
-      <type>jar</type>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.kuali.kfs</groupId>
-      <artifactId>kfs-purap</artifactId>
-      <version>${kfs.version}</version>
-      <type>jar</type>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.kuali.kfs</groupId>
-      <artifactId>kfs-tem</artifactId>
-      <version>${kfs.version}</version>
-      <type>jar</type>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.kuali.kfs</groupId>
-      <artifactId>kfs-web</artifactId>
-      <version>${kfs.version}</version>
-      <type>war</type>
-    </dependency>
+    <dependencies>
+        <dependency>
+            <groupId>org.kuali.kfs</groupId>
+            <artifactId>kfs-ar</artifactId>
+            <version>${kfs.version}</version>
+            <type>jar</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.kuali.kfs</groupId>
+            <artifactId>kfs-cam</artifactId>
+            <version>${kfs.version}</version>
+            <type>jar</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.kuali.kfs</groupId>
+            <artifactId>kfs-cg</artifactId>
+            <version>${kfs.version}</version>
+            <type>jar</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.kuali.kfs</groupId>
+            <artifactId>kfs-core</artifactId>
+            <version>${kfs.version}</version>
+            <type>jar</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.kuali.kfs</groupId>
+            <artifactId>kfs-ec</artifactId>
+            <version>${kfs.version}</version>
+            <type>jar</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.kuali.kfs</groupId>
+            <artifactId>kfs-kc</artifactId>
+            <version>${kfs.version}</version>
+            <type>jar</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.kuali.kfs</groupId>
+            <artifactId>kfs-ld</artifactId>
+            <version>${kfs.version}</version>
+            <type>jar</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.kuali.kfs</groupId>
+            <artifactId>kfs-purap</artifactId>
+            <version>${kfs.version}</version>
+            <type>jar</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.kuali.kfs</groupId>
+            <artifactId>kfs-web</artifactId>
+            <version>${kfs.version}</version>
+            <type>war</type>
+        </dependency>
 
-  </dependencies>
+    </dependencies>
 
-  <distributionManagement/>
-
-  <repositories>
-    <repository>
-      <id>kuali.nexus</id>
-      <name>Nexus Repository Manager</name>
-      <url>http://nexus.kuali.org/content/groups/public</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
 
 </project>

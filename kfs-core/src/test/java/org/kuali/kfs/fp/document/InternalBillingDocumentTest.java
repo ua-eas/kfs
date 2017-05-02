@@ -1,34 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document;
 
-import static org.kuali.kfs.sys.document.AccountingDocumentTestUtils.approveDocument;
-import static org.kuali.kfs.sys.document.AccountingDocumentTestUtils.routeDocument;
-import static org.kuali.kfs.sys.document.AccountingDocumentTestUtils.testGetNewDocument_byDocumentClass;
-import static org.kuali.kfs.sys.fixture.AccountingLineFixture.LINE2;
-import static org.kuali.kfs.sys.fixture.AccountingLineFixture.LINE3;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.rorenfro;
-
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.service.TransactionalDocumentDictionaryService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.exception.DocumentAuthorizationException;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.PersistenceService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.DocumentTestUtils;
 import org.kuali.kfs.sys.KFSKeyConstants;
@@ -40,17 +37,18 @@ import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.AccountingDocumentTestUtils;
 import org.kuali.kfs.sys.fixture.AccountingLineFixture;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
-import org.kuali.kfs.sys.suite.AnnotationTestSuite;
-import org.kuali.kfs.sys.suite.CrossSectionSuite;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.kns.service.TransactionalDocumentDictionaryService;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.exception.DocumentAuthorizationException;
-import org.kuali.rice.krad.exception.ValidationException;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.service.PersistenceService;
-import org.kuali.rice.krad.util.GlobalVariables;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.kuali.kfs.sys.document.AccountingDocumentTestUtils.approveDocument;
+import static org.kuali.kfs.sys.document.AccountingDocumentTestUtils.routeDocument;
+import static org.kuali.kfs.sys.document.AccountingDocumentTestUtils.testGetNewDocument_byDocumentClass;
+import static org.kuali.kfs.sys.fixture.AccountingLineFixture.LINE2;
+import static org.kuali.kfs.sys.fixture.AccountingLineFixture.LINE3;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.rorenfro;
 
 /**
  * This class is used to test InternalBillingDocument.
@@ -107,16 +105,14 @@ public class InternalBillingDocumentTest extends KualiTestBase {
         boolean failedAsExpected = false;
         try {
             approveDocument(retrieved, SpringContext.getBean(DocumentService.class));
-        }
-        catch (ValidationException e) {
+        } catch (ValidationException e) {
             failedAsExpected = true;
-        }
-        catch (DocumentAuthorizationException dae) {
+        } catch (DocumentAuthorizationException dae) {
             // this means that the workflow status didn't change in time for the check, so this is
             // an expected exception
             failedAsExpected = true;
         }
-        assertTrue("document should have failed validation: " + dumpMessageMapErrors(),failedAsExpected);
+        assertTrue("document should have failed validation: " + dumpMessageMapErrors(), failedAsExpected);
     }
 
     @ConfigureContext(session = khuntley, shouldCommitTransactions = true)
@@ -143,16 +139,14 @@ public class InternalBillingDocumentTest extends KualiTestBase {
         boolean failedAsExpected = false;
         try {
             approveDocument(retrieved, SpringContext.getBean(DocumentService.class));
-        }
-        catch (ValidationException e) {
+        } catch (ValidationException e) {
             failedAsExpected = true;
-        }
-        catch (DocumentAuthorizationException dae) {
+        } catch (DocumentAuthorizationException dae) {
             // this means that the workflow status didn't change in time for the check, so this is
             // an expected exception
             failedAsExpected = true;
         }
-        assertTrue("document should have failed validation: " + dumpMessageMapErrors(),failedAsExpected);
+        assertTrue("document should have failed validation: " + dumpMessageMapErrors(), failedAsExpected);
     }
 
     @ConfigureContext(session = khuntley, shouldCommitTransactions = true)
@@ -180,20 +174,19 @@ public class InternalBillingDocumentTest extends KualiTestBase {
         boolean failedAsExpected = false;
         try {
             approveDocument(retrieved, SpringContext.getBean(DocumentService.class));
-        }
-        catch (ValidationException e) {
+        } catch (ValidationException e) {
             failedAsExpected = true;
-        }
-        catch (DocumentAuthorizationException dae) {
+        } catch (DocumentAuthorizationException dae) {
             // this means that the workflow status didn't change in time for the check, so this is
             // an expected exception
             failedAsExpected = true;
         }
-        assertTrue("document should have failed validation: " + dumpMessageMapErrors(),failedAsExpected);
+        assertTrue("document should have failed validation: " + dumpMessageMapErrors(), failedAsExpected);
     }
 
     /**
      * This method...
+     *
      * @throws Exception
      */
     @ConfigureContext(session = khuntley, shouldCommitTransactions = true)
@@ -221,19 +214,16 @@ public class InternalBillingDocumentTest extends KualiTestBase {
         boolean failedAsExpected = false;
         try {
             approveDocument(retrieved, SpringContext.getBean(DocumentService.class));
-        }
-        catch (ValidationException e) {
+        } catch (ValidationException e) {
             failedAsExpected = true;
-        }
-        catch (DocumentAuthorizationException dae) {
+        } catch (DocumentAuthorizationException dae) {
             // this means that the workflow status didn't change in time for the check, so this is
             // an expected exception
             failedAsExpected = true;
         }
-        assertTrue("document should have failed validation: " + dumpMessageMapErrors(),failedAsExpected);
+        assertTrue("document should have failed validation: " + dumpMessageMapErrors(), failedAsExpected);
     }
 
-    @AnnotationTestSuite(CrossSectionSuite.class)
     @ConfigureContext(session = khuntley, shouldCommitTransactions = true)
     public final void testApprove_updateAccessibleAccount() throws Exception {
         // switch user to WESPRICE, build and route document with
@@ -273,12 +263,11 @@ public class InternalBillingDocumentTest extends KualiTestBase {
 
         try {
             approveDocument(retrieved, SpringContext.getBean(DocumentService.class));
-        }
-        catch (DocumentAuthorizationException dae) {
+        } catch (DocumentAuthorizationException dae) {
             // this means that the workflow status didn't change in time for the check, so this is
             // an expected exception
-        } catch ( ValidationException ex ) {
-            fail( "Business Rules Failed: " + dumpMessageMapErrors() );
+        } catch (ValidationException ex) {
+            fail("Business Rules Failed: " + dumpMessageMapErrors());
         }
     }
 
@@ -311,11 +300,10 @@ public class InternalBillingDocumentTest extends KualiTestBase {
         boolean failedAsExpected = false;
         try {
             approveDocument(retrieved, SpringContext.getBean(DocumentService.class));
-        }
-        catch (ValidationException e) {
+        } catch (ValidationException e) {
             failedAsExpected = GlobalVariables.getMessageMap().containsMessageKey(KFSKeyConstants.ERROR_ACCOUNTINGLINE_INACCESSIBLE_UPDATE);
         }
-        assertTrue("document should have failed validation: " + dumpMessageMapErrors(),failedAsExpected);
+        assertTrue("document should have failed validation: " + dumpMessageMapErrors(), failedAsExpected);
     }
 
     @ConfigureContext(session = khuntley, shouldCommitTransactions = true)
@@ -347,16 +335,14 @@ public class InternalBillingDocumentTest extends KualiTestBase {
         boolean failedAsExpected = false;
         try {
             approveDocument(retrieved, SpringContext.getBean(DocumentService.class));
-        }
-        catch (ValidationException e) {
+        } catch (ValidationException e) {
             failedAsExpected = GlobalVariables.getMessageMap().containsMessageKey(KFSKeyConstants.ERROR_ACCOUNTINGLINE_INACCESSIBLE_UPDATE);
-        }
-        catch (DocumentAuthorizationException dae) {
+        } catch (DocumentAuthorizationException dae) {
             // this means that the workflow status didn't change in time for the check, so this is
             // an expected exception
             failedAsExpected = true;
         }
-        assertTrue( "Test did not fail as expected: " + dumpMessageMapErrors(), failedAsExpected);
+        assertTrue("Test did not fail as expected: " + dumpMessageMapErrors(), failedAsExpected);
     }
 
 

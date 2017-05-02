@@ -1,30 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import org.kuali.kfs.integration.cg.ContractsAndGrantsAgency;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsAward;
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
@@ -33,7 +29,11 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.krad.bo.TransientBusinessObjectBase;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * Business object for the Generate Dunning Letters Lookup Result.
@@ -41,7 +41,7 @@ import org.kuali.rice.krad.bo.TransientBusinessObjectBase;
 public class GenerateDunningLettersLookupResult extends TransientBusinessObjectBase {
 
     private String principalId;
-    private Long proposalNumber;
+    private String proposalNumber;
     private String accountNumber;
     private String agencyNumber;
     private String customerNumber;
@@ -169,7 +169,7 @@ public class GenerateDunningLettersLookupResult extends TransientBusinessObjectB
      *
      * @return Returns the proposalNumber.
      */
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -179,7 +179,7 @@ public class GenerateDunningLettersLookupResult extends TransientBusinessObjectB
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 
@@ -362,7 +362,6 @@ public class GenerateDunningLettersLookupResult extends TransientBusinessObjectB
     public void setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
     }
-
 
 
     public String getChartOfAccountsCode() {

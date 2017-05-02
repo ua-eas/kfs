@@ -1,29 +1,32 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.batch.service.impl;
 
-import java.text.ParseException;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
-
 import org.joda.time.DateTime;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.datadictionary.exception.UnknownDocumentTypeException;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.NoteService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSParameterKeyConstants;
 import org.kuali.kfs.sys.batch.AutoDisapproveDocumentsStep;
@@ -35,21 +38,18 @@ import org.kuali.kfs.sys.service.ReportWriterService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.parameter.ParameterEvaluator;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.doctype.DocumentType;
 import org.kuali.rice.kew.api.doctype.DocumentTypeService;
 import org.kuali.rice.kew.api.document.DocumentStatus;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.rice.krad.bo.DocumentHeader;
-import org.kuali.rice.krad.bo.Note;
-import org.kuali.rice.krad.datadictionary.exception.UnknownDocumentTypeException;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.service.NoteService;
-import org.kuali.rice.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
 
 /**
  * This class implements the AutoDisapproveDocumentsService batch job.
@@ -80,11 +80,12 @@ public class AutoDisapproveDocumentsServiceImpl implements AutoDisapproveDocumen
 
     /**
      * Gathers all documents that are in ENROUTE status and auto disapproves them.
+     *
      * @see org.kuali.kfs.sys.batch.service.autoDisapproveDocumentsInEnrouteStatus#autoDisapproveDocumentsInEnrouteStatus()
      */
     @Override
     public boolean autoDisapproveDocumentsInEnrouteStatus() {
-        boolean success = true ;
+        boolean success = true;
 
         if (systemParametersForAutoDisapproveDocumentsJobExist()) {
             if (canAutoDisapproveJobRun()) {
@@ -105,6 +106,7 @@ public class AutoDisapproveDocumentsServiceImpl implements AutoDisapproveDocumen
 
     /**
      * This method checks if the System parameters have been set up for this batch job.
+     *
      * @result return true if the system parameters exist, else false
      */
     protected boolean systemParametersForAutoDisapproveDocumentsJobExist() {
@@ -123,6 +125,7 @@ public class AutoDisapproveDocumentsServiceImpl implements AutoDisapproveDocumen
 
     /**
      * This method checks for the system parameter for YEAR_END_AUTO_DISAPPROVE_DOCUMENTS_RUN_DATE
+     *
      * @param outputErrorFile_ps output error file stream to write any error messages.
      * @return true if YEAR_END_AUTO_DISAPPROVE_DOCUMENTS_RUN_DATE exists else false
      */
@@ -141,6 +144,7 @@ public class AutoDisapproveDocumentsServiceImpl implements AutoDisapproveDocumen
 
     /**
      * This method checks for the system parameter for YEAR_END_AUTO_DISAPPROVE_PARENT_DOCUMENT_TYPE
+     *
      * @param outputErrorFile_ps output error file stream to write any error messages.
      * @return true if YEAR_END_AUTO_DISAPPROVE_PARENT_DOCUMENT_TYPE exists else false
      */
@@ -159,6 +163,7 @@ public class AutoDisapproveDocumentsServiceImpl implements AutoDisapproveDocumen
 
     /**
      * This method checks for the system parameter for YEAR_END_AUTO_DISAPPROVE_DOCUMENT_CREATE_DATE
+     *
      * @param outputErrorFile_ps output error file stream to write any error messages.
      * @return true if YEAR_END_AUTO_DISAPPROVE_DOCUMENT_CREATE_DATE exists else false
      */
@@ -167,9 +172,9 @@ public class AutoDisapproveDocumentsServiceImpl implements AutoDisapproveDocumen
 
         // check to make sure the system parameter for create date to compare has been setup...
         if (!getParameterService().parameterExists(AutoDisapproveDocumentsStep.class, KFSParameterKeyConstants.YearEndAutoDisapprovalConstants.YEAR_END_AUTO_DISAPPROVE_DOCUMENT_CREATE_DATE)) {
-          LOG.warn("YEAR_END_AUTO_DISAPPROVE_DOCUMENT_CREATE_DATE System parameter does not exist in the parameters list.  The job can not continue without this parameter");
-          autoDisapproveErrorReportWriterService.writeFormattedMessageLine("YEAR_END_AUTO_DISAPPROVE_DOCUMENT_CREATE_DATE System parameter does not exist in the parameters list.  The job can not continue without this parameter");
-          return false;
+            LOG.warn("YEAR_END_AUTO_DISAPPROVE_DOCUMENT_CREATE_DATE System parameter does not exist in the parameters list.  The job can not continue without this parameter");
+            autoDisapproveErrorReportWriterService.writeFormattedMessageLine("YEAR_END_AUTO_DISAPPROVE_DOCUMENT_CREATE_DATE System parameter does not exist in the parameters list.  The job can not continue without this parameter");
+            return false;
         }
 
         return parameterExists;
@@ -177,6 +182,7 @@ public class AutoDisapproveDocumentsServiceImpl implements AutoDisapproveDocumen
 
     /**
      * This method checks for the system parameter for YEAR_END_AUTO_DISAPPROVE_DOCUMENT_TYPES
+     *
      * @param outputErrorFile_ps output error file stream to write any error messages.
      * @return true if YEAR_END_AUTO_DISAPPROVE_DOCUMENT_TYPES exists else false
      */
@@ -185,9 +191,9 @@ public class AutoDisapproveDocumentsServiceImpl implements AutoDisapproveDocumen
 
         // check to make sure the system parameter for Document Types that are exceptions has been setup...
         if (!getParameterService().parameterExists(AutoDisapproveDocumentsStep.class, KFSParameterKeyConstants.YearEndAutoDisapprovalConstants.YEAR_END_AUTO_DISAPPROVE_DOCUMENT_TYPES)) {
-          LOG.warn("YEAR_END_AUTO_DISAPPROVE_DOCUMENT_TYPES System parameter does not exist in the parameters list.  The job can not continue without this parameter");
-          autoDisapproveErrorReportWriterService.writeFormattedMessageLine("YEAR_END_AUTO_DISAPPROVE_DOCUMENT_TYPES System parameter does not exist in the parameters list.  The job can not continue without this parameter");
-          return false;
+            LOG.warn("YEAR_END_AUTO_DISAPPROVE_DOCUMENT_TYPES System parameter does not exist in the parameters list.  The job can not continue without this parameter");
+            autoDisapproveErrorReportWriterService.writeFormattedMessageLine("YEAR_END_AUTO_DISAPPROVE_DOCUMENT_TYPES System parameter does not exist in the parameters list.  The job can not continue without this parameter");
+            return false;
         }
 
         return parameterExists;
@@ -195,6 +201,7 @@ public class AutoDisapproveDocumentsServiceImpl implements AutoDisapproveDocumen
 
     /**
      * This method checks for the system parameter for YEAR_END_AUTO_DISAPPROVE_ANNOTATION
+     *
      * @param outputErrorFile_ps output error file stream to write any error messages.
      * @return true if YEAR_END_AUTO_DISAPPROVE_ANNOTATION exists else false
      */
@@ -203,9 +210,9 @@ public class AutoDisapproveDocumentsServiceImpl implements AutoDisapproveDocumen
 
         // check to make sure the system parameter for annotation for notes has been setup...
         if (!getParameterService().parameterExists(AutoDisapproveDocumentsStep.class, KFSParameterKeyConstants.YearEndAutoDisapprovalConstants.YEAR_END_AUTO_DISAPPROVE_ANNOTATION)) {
-          LOG.warn("YEAR_END_AUTO_DISAPPROVE_ANNOTATION System parameter does not exist in the parameters list.  The job can not continue without this parameter");
-          autoDisapproveErrorReportWriterService.writeFormattedMessageLine("YEAR_END_AUTO_DISAPPROVE_ANNOTATION System parameter does not exist in the parameters list.  The job can not continue without this parameter");
-          return false;
+            LOG.warn("YEAR_END_AUTO_DISAPPROVE_ANNOTATION System parameter does not exist in the parameters list.  The job can not continue without this parameter");
+            autoDisapproveErrorReportWriterService.writeFormattedMessageLine("YEAR_END_AUTO_DISAPPROVE_ANNOTATION System parameter does not exist in the parameters list.  The job can not continue without this parameter");
+            return false;
         }
 
         return parameterExists;
@@ -213,31 +220,32 @@ public class AutoDisapproveDocumentsServiceImpl implements AutoDisapproveDocumen
 
     /**
      * This method will compare today's date to the system parameter for year end auto disapproval run date
+     *
      * @return true if today's date equals to the system parameter run date
      */
     protected boolean canAutoDisapproveJobRun() {
-      boolean autoDisapproveCanRun = true;
+        boolean autoDisapproveCanRun = true;
 
-      // IF trunc(SYSDATE - 14/24) = v_yec_cncl_doc_run_dt THEN...FIS CODE equivalent here...
-      String yearEndAutoDisapproveRunDate = getParameterService().getParameterValueAsString(AutoDisapproveDocumentsStep.class, KFSParameterKeyConstants.YearEndAutoDisapprovalConstants.YEAR_END_AUTO_DISAPPROVE_DOCUMENT_STEP_RUN_DATE);
+        // IF trunc(SYSDATE - 14/24) = v_yec_cncl_doc_run_dt THEN...FIS CODE equivalent here...
+        String yearEndAutoDisapproveRunDate = getParameterService().getParameterValueAsString(AutoDisapproveDocumentsStep.class, KFSParameterKeyConstants.YearEndAutoDisapprovalConstants.YEAR_END_AUTO_DISAPPROVE_DOCUMENT_STEP_RUN_DATE);
 
-      String today = getDateTimeService().toDateString(getDateTimeService().getCurrentDate());
+        String today = getDateTimeService().toDateString(getDateTimeService().getCurrentDate());
 
-      if (!yearEndAutoDisapproveRunDate.equals(today)) {
-          LOG.warn("YEAR_END_AUTO_DISAPPROVE_DOCUMENTS_RUN_DATE: Automatic disapproval bypassed. The date on which the auto disapproval step should run: " + yearEndAutoDisapproveRunDate + " does not equal to today's date: " + today);
-          String message = ("YEAR_END_AUTO_DISAPPROVE_DOCUMENTS_RUN_DATE: Automatic disapproval bypassed. The date on which the auto disapproval step should run: ").concat(yearEndAutoDisapproveRunDate).concat(" does not equal to today's date: ").concat(today);
-          autoDisapproveErrorReportWriterService.writeFormattedMessageLine(message);
-          autoDisapproveCanRun = false;
-      }
+        if (!yearEndAutoDisapproveRunDate.equals(today)) {
+            LOG.warn("YEAR_END_AUTO_DISAPPROVE_DOCUMENTS_RUN_DATE: Automatic disapproval bypassed. The date on which the auto disapproval step should run: " + yearEndAutoDisapproveRunDate + " does not equal to today's date: " + today);
+            String message = ("YEAR_END_AUTO_DISAPPROVE_DOCUMENTS_RUN_DATE: Automatic disapproval bypassed. The date on which the auto disapproval step should run: ").concat(yearEndAutoDisapproveRunDate).concat(" does not equal to today's date: ").concat(today);
+            autoDisapproveErrorReportWriterService.writeFormattedMessageLine(message);
+            autoDisapproveCanRun = false;
+        }
 
-      return autoDisapproveCanRun;
+        return autoDisapproveCanRun;
     }
 
     /**
      * This method will use DocumentSearchCriteria to search for the documents that are in enroute status and disapproves them
      *
-     * @param principalId The principal id which is KFS-SYS System user to run the process under.
-     * @param annotation The annotation to be set as note in the note of the document.
+     * @param principalId         The principal id which is KFS-SYS System user to run the process under.
+     * @param annotation          The annotation to be set as note in the note of the document.
      * @param documentCompareDate The document create date to compare to
      */
     protected boolean processAutoDisapproveDocuments(String principalId, String annotation, Date documentCompareDate) {
@@ -252,24 +260,23 @@ public class AutoDisapproveDocumentsServiceImpl implements AutoDisapproveDocumen
                     try {
                         autoDisapprovalYearEndDocument(financialSystemDocumentHeader, annotation);
                         LOG.info("The document with header id: " + financialSystemDocumentHeader.getDocumentNumber() + " is automatically disapproved by this job.");
-                    }
-                    catch (Exception e) {
+                    } catch (Exception e) {
                         LOG.error("Exception encountered trying to auto disapprove the document " + e.getMessage());
                         String message = ("Exception encountered trying to auto disapprove the document: ").concat(financialSystemDocumentHeader.getDocumentNumber());
                         autoDisapproveErrorReportWriterService.writeFormattedMessageLine(message);
                     }
-                }
-                else {
+                } else {
                     LOG.info("Year End Auto Disapproval Exceptions:  The document: " + financialSystemDocumentHeader.getDocumentNumber() + " is NOT AUTO DISAPPROVED.");
                 }
             }
         }
 
-       return success;
+        return success;
     }
 
     /**
      * This method will check the document's document type against the parent document type as specified in the system parameter
+     *
      * @param document
      * @return true if  document type of the document is a child of the parent document.
      */
@@ -289,7 +296,8 @@ public class AutoDisapproveDocumentsServiceImpl implements AutoDisapproveDocumen
     /**
      * This method finds the date in the system parameters that will be used to compare the create date.
      * It then adds 23 hours, 59 minutes and 59 seconds to the compare date.
-     * @return  documentCompareDate returns YEAR_END_AUTO_DISAPPROVE_DOCUMENT_CREATE_DATE from the system parameter
+     *
+     * @return documentCompareDate returns YEAR_END_AUTO_DISAPPROVE_DOCUMENT_CREATE_DATE from the system parameter
      */
     protected Date getDocumentCompareDateParameter() {
         Date documentCompareDate = null;
@@ -311,8 +319,7 @@ public class AutoDisapproveDocumentsServiceImpl implements AutoDisapproveDocumen
             calendar.set(Calendar.MINUTE, 59);
             calendar.set(Calendar.SECOND, 59);
             documentCompareDate = calendar.getTime();
-        }
-        catch (ParseException pe) {
+        } catch (ParseException pe) {
             LOG.warn("ParseException: System Parameter YEAR_END_AUTO_DISAPPROVE_DOCUMENT_CREATE_DATE can not be determined.");
             String message = ("ParseException: The value for System Parameter YEAR_END_AUTO_DISAPPROVE_DOCUMENT_CREATE_DATE is invalid.  The auto disapproval job is stopped.");
             autoDisapproveErrorReportWriterService.writeFormattedMessageLine(message);
@@ -324,6 +331,7 @@ public class AutoDisapproveDocumentsServiceImpl implements AutoDisapproveDocumen
 
     /**
      * This method finds the document for the given document header id
+     *
      * @param documentHeaderId
      * @return document The document in the workflow that matches the document header id.
      */
@@ -332,12 +340,11 @@ public class AutoDisapproveDocumentsServiceImpl implements AutoDisapproveDocumen
 
         try {
             document = documentService.getByDocumentHeaderId(documentHeaderId);
-        }
-        catch (WorkflowException ex) {
-            LOG.error("Exception encountered on finding the document: " + documentHeaderId, ex );
-        } catch ( UnknownDocumentTypeException ex ) {
+        } catch (WorkflowException ex) {
+            LOG.error("Exception encountered on finding the document: " + documentHeaderId, ex);
+        } catch (UnknownDocumentTypeException ex) {
             // don't blow up just because a document type is not installed (but don't return it either)
-            LOG.error("Exception encountered on finding the document: " + documentHeaderId, ex );
+            LOG.error("Exception encountered on finding the document: " + documentHeaderId, ex);
         }
 
         return document;
@@ -346,8 +353,9 @@ public class AutoDisapproveDocumentsServiceImpl implements AutoDisapproveDocumen
     /**
      * This method first checks the document's create date with system parameter date and then
      * checks the document type name to the system parameter values and returns true if the type name exists
+     *
      * @param document document to check for its document type,  documentCompareDate the system parameter specified date
-     * to compare the current date to this date.
+     *                 to compare the current date to this date.
      * @return true if  document's create date is <= documentCompareDate and if document type is not in the
      * system parameter document types that are set to disallow.
      */
@@ -355,7 +363,7 @@ public class AutoDisapproveDocumentsServiceImpl implements AutoDisapproveDocumen
         boolean exceptionToDisapprove = true;
         Date createDate = null;
 
-        String documentNumber =  documentHeader.getDocumentNumber();
+        String documentNumber = documentHeader.getDocumentNumber();
 
         DateTime documentCreateDate = documentHeader.getWorkflowDocument().getDateCreated();
         createDate = documentCreateDate.toDate();
@@ -375,8 +383,7 @@ public class AutoDisapproveDocumentsServiceImpl implements AutoDisapproveDocumen
             if (exceptionToDisapprove) {
                 LOG.info("Document Id: " + documentNumber + " - Exception to Auto Disapprove:  Document's type: " + documentTypeName + " is in the System Parameter For Document Types Exception List.");
             }
-        }
-        else {
+        } else {
             LOG.info("Document Id: " + documentNumber + " - Exception to Auto Disapprove:  Document's create date: " + strCreateDate + " is NOT less than or equal to System Parameter Compare Date: " + strCompareDate);
             exceptionToDisapprove = true;
         }
@@ -384,14 +391,14 @@ public class AutoDisapproveDocumentsServiceImpl implements AutoDisapproveDocumen
         return exceptionToDisapprove;
     }
 
-    /** autoDisapprovalYearEndDocument uses DocumentServiceImpl to  mark as disapproved by calling
-     *  DocumentServiceImpl's disapproveDocument method.
+    /**
+     * autoDisapprovalYearEndDocument uses DocumentServiceImpl to  mark as disapproved by calling
+     * DocumentServiceImpl's disapproveDocument method.
      *
-     *@param document The document that needs to be auto disapproved in this process
-     *@param annotationForAutoDisapprovalDocument The annotationForAutoDisapprovalDocument that is set as annotations when canceling the edoc.
-     *
+     * @param document                             The document that needs to be auto disapproved in this process
+     * @param annotationForAutoDisapprovalDocument The annotationForAutoDisapprovalDocument that is set as annotations when canceling the edoc.
      */
-    protected void autoDisapprovalYearEndDocument(DocumentHeader documentHeader, String annotationForAutoDisapprovalDocument)  throws Exception {
+    protected void autoDisapprovalYearEndDocument(DocumentHeader documentHeader, String annotationForAutoDisapprovalDocument) throws Exception {
         Person systemUser = getPersonService().getPersonByPrincipalName(KFSConstants.SYSTEM_USER);
 
         Note approveNote = noteService.createNote(new Note(), documentHeader, systemUser.getPrincipalId());
@@ -466,6 +473,7 @@ public class AutoDisapproveDocumentsServiceImpl implements AutoDisapproveDocumen
 
     /**
      * Gets the NoteService, lazily initializing if necessary
+     *
      * @return the NoteService
      */
     protected synchronized NoteService getNoteService() {
@@ -488,7 +496,7 @@ public class AutoDisapproveDocumentsServiceImpl implements AutoDisapproveDocumen
      * @return Returns the personService.
      */
     protected PersonService getPersonService() {
-        if(personService==null) {
+        if (personService == null) {
             personService = SpringContext.getBean(PersonService.class);
         }
         return personService;
@@ -500,7 +508,7 @@ public class AutoDisapproveDocumentsServiceImpl implements AutoDisapproveDocumen
      * @return Returns the documentTypeService.
      */
     protected DocumentTypeService getDocumentTypeService() {
-        if(documentTypeService==null) {
+        if (documentTypeService == null) {
             documentTypeService = SpringContext.getBean(DocumentTypeService.class);
         }
         return documentTypeService;
@@ -508,6 +516,7 @@ public class AutoDisapproveDocumentsServiceImpl implements AutoDisapproveDocumen
 
     /**
      * Gets the autoDisapproveErrorReportWriterService attribute.
+     *
      * @return Returns the autoDisapproveErrorReportWriterService.
      */
     protected ReportWriterService getAutoDisapproveErrorReportWriterService() {
@@ -516,6 +525,7 @@ public class AutoDisapproveDocumentsServiceImpl implements AutoDisapproveDocumen
 
     /**
      * Sets the autoDisapproveErrorReportWriterService attribute value.
+     *
      * @param autoDisapproveErrorReportWriterService The autoDisapproveErrorReportWriterService to set.
      */
     public void setAutoDisapproveErrorReportWriterService(ReportWriterService autoDisapproveErrorReportWriterService) {
@@ -539,7 +549,6 @@ public class AutoDisapproveDocumentsServiceImpl implements AutoDisapproveDocumen
     public void setFinancialSystemDocumentService(FinancialSystemDocumentService financialSystemDocumentService) {
         this.financialSystemDocumentService = financialSystemDocumentService;
     }
-
 
 
 }

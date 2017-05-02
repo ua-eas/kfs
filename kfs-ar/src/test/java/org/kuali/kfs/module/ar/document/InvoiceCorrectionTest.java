@@ -1,33 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.document;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.wklykins;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
+import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.Bill;
 import org.kuali.kfs.module.ar.businessobject.ContractsGrantsInvoiceDetail;
@@ -47,7 +40,14 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.krad.service.KualiModuleService;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.wklykins;
 
 /**
  * This class tests the invoice correction process.
@@ -70,17 +70,17 @@ public class InvoiceCorrectionTest extends CGInvoiceDocumentTestBase {
     }
 
     public void testGeneralCorrection() throws WorkflowException {
-        for (InvoiceAddressDetail invoiceAddressDetail: document.getInvoiceAddressDetails()) {
+        for (InvoiceAddressDetail invoiceAddressDetail : document.getInvoiceAddressDetails()) {
             invoiceAddressDetail.setInitialTransmissionDate(dateTimeService.getCurrentSqlDate());
         }
         document.getInvoiceGeneralDetail().setFinalBillIndicator(true);
 
         contractsGrantsInvoiceDocumentService.correctContractsGrantsInvoiceDocument(document);
-        for (InvoiceAddressDetail invoiceAddressDetail: document.getInvoiceAddressDetails()) {
+        for (InvoiceAddressDetail invoiceAddressDetail : document.getInvoiceAddressDetails()) {
             assertNull(invoiceAddressDetail.getInitialTransmissionDate());
         }
 
-        contractsGrantsInvoiceDocumentService.updateUnfinalizationToAwardAccount(document.getAccountDetails(),document.getInvoiceGeneralDetail().getProposalNumber());
+        contractsGrantsInvoiceDocumentService.updateUnfinalizationToAwardAccount(document.getAccountDetails(), document.getInvoiceGeneralDetail().getProposalNumber());
         Iterator iterator = document.getAccountDetails().iterator();
 
         while (iterator.hasNext()) {
@@ -95,12 +95,12 @@ public class InvoiceCorrectionTest extends CGInvoiceDocumentTestBase {
     }
 
     public void testCorrectedMilestones() throws WorkflowException {
-        document.getInvoiceGeneralDetail().setBillingFrequencyCode(ArConstants.MILESTONE_BILLING_SCHEDULE_CODE);
+        document.getInvoiceGeneralDetail().setBillingFrequencyCode(ArConstants.BillingFrequencyValues.MILESTONE.getCode());
 
         documentService.saveDocument(document);
 
         String documentNumber = document.getDocumentNumber();
-        Long proposalNumber = document.getInvoiceGeneralDetail().getProposalNumber();
+        String proposalNumber = document.getInvoiceGeneralDetail().getProposalNumber();
 
         setupMilestones(documentNumber, proposalNumber, true);
 
@@ -134,11 +134,11 @@ public class InvoiceCorrectionTest extends CGInvoiceDocumentTestBase {
     }
 
     public void testCorrectedBills() throws WorkflowException {
-        document.getInvoiceGeneralDetail().setBillingFrequencyCode(ArConstants.PREDETERMINED_BILLING_SCHEDULE_CODE);
+        document.getInvoiceGeneralDetail().setBillingFrequencyCode(ArConstants.BillingFrequencyValues.PREDETERMINED_BILLING.getCode());
         documentService.saveDocument(document);
 
         String documentNumber = document.getDocumentNumber();
-        Long proposalNumber = document.getInvoiceGeneralDetail().getProposalNumber();
+        String proposalNumber = document.getInvoiceGeneralDetail().getProposalNumber();
 
         setupBills(documentNumber, proposalNumber, true);
 
@@ -155,7 +155,7 @@ public class InvoiceCorrectionTest extends CGInvoiceDocumentTestBase {
             assertTrue(id.getEstimatedAmount().equals(cid.getEstimatedAmount().negated()));
         }
 
-        contractsGrantsInvoiceDocumentService.updateBillsBilledIndicator(false,document.getInvoiceBills());
+        contractsGrantsInvoiceDocumentService.updateBillsBilledIndicator(false, document.getInvoiceBills());
 
         Map<String, Object> map = new HashMap<String, Object>();
         map.put(KFSPropertyConstants.PROPOSAL_NUMBER, proposalNumber);

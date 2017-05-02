@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -19,21 +19,27 @@
 
 package org.kuali.kfs.module.external.kc.businessobject;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.integration.ar.AccountsReceivableBillingFrequency;
+import org.kuali.kfs.integration.ar.ArIntegrationConstants;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
-import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingFrequency;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsLetterOfCreditFund;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsOrganization;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsProjectDirector;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.module.external.kc.KcConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.Person;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Defines a financial award object.
@@ -41,7 +47,8 @@ import org.kuali.rice.kim.api.identity.Person;
 public class Award implements ContractsAndGrantsBillingAward {
     private static final String AWARD_INQUIRY_TITLE_PROPERTY = "message.inquiry.award.title";
 
-    private Long proposalNumber;
+    private String proposalNumber;
+    private Long awardId;
     private String awardNumber;
     private String agencyNumber;
     private String primeAgencyNumber;
@@ -87,7 +94,6 @@ public class Award implements ContractsAndGrantsBillingAward {
     private String awardPurposeCode;
     private boolean active;
     private String kimGroupNames;
-    private List<ContractsAndGrantsBillingAwardAccount> activeAwardAccounts;
     private String routingOrg;
     private String routingChart;
     private boolean stateTransferIndicator;
@@ -108,13 +114,16 @@ public class Award implements ContractsAndGrantsBillingAward {
     private ContractsAndGrantsLetterOfCreditFund letterOfCreditFund;
     private String userLookupRoleName;
     private AwardFundManager awardPrimaryFundManager;
-    private ContractsAndGrantsBillingFrequency billingFrequency;
+    private AccountsReceivableBillingFrequency billingFrequency;
     private ContractsAndGrantsProjectDirector awardPrimaryProjectDirector;
     private ContractsAndGrantsOrganization primaryAwardOrganization;
     private Date fundingExpirationDate;
     private String dunningCampaign;
     private boolean stopWorkIndicator;
     private String stopWorkReason;
+
+    private Integer sequenceNumber;
+    private String sequenceStatus;
 
     /**
      * Default no-args constructor.
@@ -129,8 +138,13 @@ public class Award implements ContractsAndGrantsBillingAward {
      * @return Returns the proposalNumber
      */
     @Override
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
+    }
+
+    @Override
+    public String getObjectId() {
+        return proposalNumber.toString();
     }
 
     /**
@@ -138,7 +152,7 @@ public class Award implements ContractsAndGrantsBillingAward {
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 
@@ -157,11 +171,13 @@ public class Award implements ContractsAndGrantsBillingAward {
     }
 
 
-    public void prepareForWorkflow() {}
+    public void prepareForWorkflow() {
+    }
 
 
     @Override
-    public void refresh() {}
+    public void refresh() {
+    }
 
 
     public void setProposal(Proposal proposal) {
@@ -231,12 +247,12 @@ public class Award implements ContractsAndGrantsBillingAward {
         this.primeAgency = primeAgency;
     }
 
-    public String getAwardNumber() {
-        return awardNumber;
+    public Long getAwardId() {
+        return awardId;
     }
 
-    public void setAwardNumber(String awardNumber) {
-        this.awardNumber = awardNumber;
+    public void setAwardId(Long awardId) {
+        this.awardId = awardId;
     }
 
     public String getGrantNumber() {
@@ -386,6 +402,7 @@ public class Award implements ContractsAndGrantsBillingAward {
     public boolean isFederalPassThroughIndicator() {
         return federalPassThroughIndicator;
     }
+
     @Override
     public boolean getFederalPassThroughIndicator() {
         return federalPassThroughIndicator;
@@ -633,6 +650,7 @@ public class Award implements ContractsAndGrantsBillingAward {
     public boolean isAutoApproveIndicator() {
         return autoApproveIndicator;
     }
+
     @Override
     public boolean getAutoApproveIndicator() {
         return autoApproveIndicator;
@@ -716,11 +734,14 @@ public class Award implements ContractsAndGrantsBillingAward {
     }
 
     @Override
-    public ContractsAndGrantsBillingFrequency getBillingFrequency() {
+    public AccountsReceivableBillingFrequency getBillingFrequency() {
+        if (billingFrequency == null || !StringUtils.equals(billingFrequency.getFrequency(), billingFrequencyCode)) {
+            billingFrequency = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(AccountsReceivableBillingFrequency.class).retrieveExternalizableBusinessObjectIfNecessary(this, billingFrequency, KcConstants.BILLING_FREQUENCY);
+        }
         return billingFrequency;
     }
 
-    public void setBillingFrequency(ContractsAndGrantsBillingFrequency billingFrequency) {
+    public void setBillingFrequency(AccountsReceivableBillingFrequency billingFrequency) {
         this.billingFrequency = billingFrequency;
     }
 
@@ -780,11 +801,54 @@ public class Award implements ContractsAndGrantsBillingAward {
 
     @Override
     public List<ContractsAndGrantsBillingAwardAccount> getActiveAwardAccounts() {
+        List<ContractsAndGrantsBillingAwardAccount> activeAwardAccounts = new ArrayList<>();
+        for (AwardAccount awardAccount : awardAccounts) {
+            if (awardAccount.isActive() && awardAccountMatchesInvoicingOption(awardAccount)) {
+                activeAwardAccounts.add(awardAccount);
+            }
+        }
         return activeAwardAccounts;
     }
 
-    public void setActiveAwardAccounts(List<ContractsAndGrantsBillingAwardAccount> activeAwardAccounts) {
-        this.activeAwardAccounts = activeAwardAccounts;
+    /**
+     * KC delivers all awards within the hierarchy as award accounts for each
+     * award in the hierarchy, potentially leading to multiple-counting; here we
+     * choose which ones to use based on the award invoicing option.
+     *
+     * @param awardAccount
+     * @return
+     */
+    private boolean awardAccountMatchesInvoicingOption(AwardAccount awardAccount) {
+        switch (invoicingOptionCode) {
+        case ArIntegrationConstants.AwardInvoicingOptions.INV_ACCOUNT:
+            // When invoicing by account, only the award account matching the
+            // award gets billed.
+            return (StringUtils.equals(awardNumber, awardAccount.getAward().getAwardNumber()));
+
+        case ArIntegrationConstants.AwardInvoicingOptions.INV_AWARD:
+        case ArIntegrationConstants.AwardInvoicingOptions.INV_CONTRACT_CONTROL_ACCOUNT:
+            // When invoicing by award hierarchy or contract control account,
+            // the primary award in the hierarchy
+            // controls all options for the underlying award accounts.
+            return isPrimaryAwardInHierarchy();
+
+        default:
+            // This would be unexpected; let the calling routine decide what to
+            // make of it.
+            return true;
+        }
+    }
+
+    /**
+     * The primary award in the hierarchy is the first in the list of award
+     * accounts.
+     *
+     * @return
+     */
+    private boolean isPrimaryAwardInHierarchy() {
+        Optional<String> primaryAwardNumber = awardAccounts.stream().map(a -> a.getAward().getAwardNumber()).sorted()
+                .findFirst();
+        return (primaryAwardNumber.isPresent() && StringUtils.equals(awardNumber, primaryAwardNumber.get()));
     }
 
     @Override
@@ -812,6 +876,30 @@ public class Award implements ContractsAndGrantsBillingAward {
 
     public void setInvoicingOptionDescription(String invoicingOptionDescription) {
         this.invoicingOptionDescription = invoicingOptionDescription;
+    }
+
+    public Integer getSequenceNumber() {
+        return sequenceNumber;
+    }
+
+    public void setSequenceNumber(Integer sequenceNumber) {
+        this.sequenceNumber = sequenceNumber;
+    }
+
+    public String getSequenceStatus() {
+        return sequenceStatus;
+    }
+
+    public void setSequenceStatus(String sequenceStatus) {
+        this.sequenceStatus = sequenceStatus;
+    }
+
+    public String getAwardNumber() {
+        return awardNumber;
+    }
+
+    public void setAwardNumber(String awardNumber) {
+        this.awardNumber = awardNumber;
     }
 }
 

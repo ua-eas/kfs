@@ -1,54 +1,54 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.fixture;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-
+import org.kuali.kfs.krad.service.SequenceAccessorService;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderVendorQuote;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.krad.service.SequenceAccessorService;
+
+import java.sql.Date;
+import java.sql.Timestamp;
 
 public enum PurchaseOrderVendorQuoteFixture {
     BASIC_VENDOR_QUOTE_1(
-                         1000, //vendorHeaderGeneratedIdentifier
-                         0,    //vendorDetailAssignedIdentifier
-                         "A Name For Vendor", //vendorName
-                         "123 Hagadorn Rd", //vendorLine1Address
-                         "East Lansing", //vendorCityName
-                         "MI", //vendorStateCode
-                         "48823", //vendorPostalCode
-                         "5173533121", //vendorPhoneNumber
-                         "", //vendorFaxNumber
-                         "msu@msu.edu", //vendorEmailAddress
-                         "Attention Name", //vendorAttentionName
-                         "PRIN", //purchaseOrderQuoteTransmitTypeCode
-                         SpringContext.getBean(DateTimeService.class).getCurrentTimestamp(), //purchaseOrderQuoteTransmitTimestamp
-                         null, //purchaseOrderQuotePriceExpirationDate
-                         PurapConstants.QuoteStatusCode.FUIP, //purchaseOrderQuoteStatusCode
-                         null, //purchaseOrderQuoteAwardTimestamp
-                         "1", //purchaseOrderQuoteRankNumber
-                         "US", //vendorCountryCode
-                         null //vendorAddressInternationalProvinceName
-                         ),  ;
+        1000, //vendorHeaderGeneratedIdentifier
+        0,    //vendorDetailAssignedIdentifier
+        "A Name For Vendor", //vendorName
+        "123 Hagadorn Rd", //vendorLine1Address
+        "East Lansing", //vendorCityName
+        "MI", //vendorStateCode
+        "48823", //vendorPostalCode
+        "5173533121", //vendorPhoneNumber
+        "", //vendorFaxNumber
+        "msu@msu.edu", //vendorEmailAddress
+        "Attention Name", //vendorAttentionName
+        "PRIN", //purchaseOrderQuoteTransmitTypeCode
+        SpringContext.getBean(DateTimeService.class).getCurrentTimestamp(), //purchaseOrderQuoteTransmitTimestamp
+        null, //purchaseOrderQuotePriceExpirationDate
+        PurapConstants.QuoteStatusCode.FUIP, //purchaseOrderQuoteStatusCode
+        null, //purchaseOrderQuoteAwardTimestamp
+        "1", //purchaseOrderQuoteRankNumber
+        "US", //vendorCountryCode
+        null //vendorAddressInternationalProvinceName
+    ),;
 
     private Integer vendorHeaderGeneratedIdentifier;
     private Integer vendorDetailAssignedIdentifier;
@@ -95,31 +95,31 @@ public enum PurchaseOrderVendorQuoteFixture {
 
     public PurchaseOrderVendorQuote createPurchaseOrderVendorQuote() {
         PurchaseOrderVendorQuote vendorQuote = new PurchaseOrderVendorQuote();
-        vendorQuote.setVendorHeaderGeneratedIdentifier (vendorHeaderGeneratedIdentifier);
-        vendorQuote.setVendorDetailAssignedIdentifier (vendorDetailAssignedIdentifier);
-        vendorQuote.setVendorName (vendorName);
-        vendorQuote.setVendorLine1Address (vendorLine1Address);
-        vendorQuote.setVendorCityName (vendorCityName);
-        vendorQuote.setVendorStateCode (vendorStateCode);
-        vendorQuote.setVendorPostalCode (vendorPostalCode);
-        vendorQuote.setVendorPhoneNumber (vendorPhoneNumber);
-        vendorQuote.setVendorFaxNumber (vendorFaxNumber);
-        vendorQuote.setVendorEmailAddress (vendorEmailAddress);
-        vendorQuote.setVendorAttentionName (vendorAttentionName);
-        vendorQuote.setPurchaseOrderQuoteTransmitTypeCode (purchaseOrderQuoteTransmitTypeCode);
-        vendorQuote.setPurchaseOrderQuoteTransmitTimestamp (purchaseOrderQuoteTransmitTimestamp);
-        vendorQuote.setPurchaseOrderQuotePriceExpirationDate (purchaseOrderQuotePriceExpirationDate);
+        vendorQuote.setVendorHeaderGeneratedIdentifier(vendorHeaderGeneratedIdentifier);
+        vendorQuote.setVendorDetailAssignedIdentifier(vendorDetailAssignedIdentifier);
+        vendorQuote.setVendorName(vendorName);
+        vendorQuote.setVendorLine1Address(vendorLine1Address);
+        vendorQuote.setVendorCityName(vendorCityName);
+        vendorQuote.setVendorStateCode(vendorStateCode);
+        vendorQuote.setVendorPostalCode(vendorPostalCode);
+        vendorQuote.setVendorPhoneNumber(vendorPhoneNumber);
+        vendorQuote.setVendorFaxNumber(vendorFaxNumber);
+        vendorQuote.setVendorEmailAddress(vendorEmailAddress);
+        vendorQuote.setVendorAttentionName(vendorAttentionName);
+        vendorQuote.setPurchaseOrderQuoteTransmitTypeCode(purchaseOrderQuoteTransmitTypeCode);
+        vendorQuote.setPurchaseOrderQuoteTransmitTimestamp(purchaseOrderQuoteTransmitTimestamp);
+        vendorQuote.setPurchaseOrderQuotePriceExpirationDate(purchaseOrderQuotePriceExpirationDate);
         vendorQuote.setPurchaseOrderQuoteStatusCode(purchaseOrderQuoteStatusCode);
-        vendorQuote.setPurchaseOrderQuoteAwardTimestamp (purchaseOrderQuoteAwardTimestamp);
-        vendorQuote.setPurchaseOrderQuoteRankNumber (purchaseOrderQuoteRankNumber);
-        vendorQuote.setVendorCountryCode (vendorCountryCode);
-        vendorQuote.setVendorAddressInternationalProvinceName (vendorAddressInternationalProvinceName);
+        vendorQuote.setPurchaseOrderQuoteAwardTimestamp(purchaseOrderQuoteAwardTimestamp);
+        vendorQuote.setPurchaseOrderQuoteRankNumber(purchaseOrderQuoteRankNumber);
+        vendorQuote.setVendorCountryCode(vendorCountryCode);
+        vendorQuote.setVendorAddressInternationalProvinceName(vendorAddressInternationalProvinceName);
 
         SequenceAccessorService sequenceAccessorService = SpringContext.getBean(SequenceAccessorService.class);
         Integer purchaseOrderVendorQuoteIdentifier = new Integer(sequenceAccessorService.getNextAvailableSequenceNumber("PO_VNDR_QT_ID").toString());
         vendorQuote.setPurchaseOrderVendorQuoteIdentifier(purchaseOrderVendorQuoteIdentifier);
         vendorQuote.refreshNonUpdateableReferences();
-        
+
         return vendorQuote;
     }
 }

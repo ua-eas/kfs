@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<rules>
+    <rule name="cf_changes">
+        <pattern>
+            <match>org\.kuali\.rice\.krad\.(?!(bo\.(Externalizable)*BusinessObject)|web\.filter\.BootstrapFilter)</match>
+            <replacement>org.kuali.kfs.krad.</replacement>
+        </pattern>
+        <pattern>
+            <match>org\.kuali\.rice\.kns\.</match>
+            <replacement>org.kuali.kfs.kns.</replacement>
+        </pattern>
+        <pattern>
+            <match>org\.kuali\.rice\.coreservice\.</match>
+            <replacement>org.kuali.kfs.coreservice.</replacement>
+        </pattern>
+        <pattern>
+            <match>org\.kuali\.rice\.kew\.doctype\.service\.impl\.KimDocumentTypeAuthorizer</match>
+            <replacement>org.kuali.kfs.krad.workflow.authorizer.CfDocumentTypeAuthorizer</replacement>
+        </pattern>
+        <pattern>
+            <match>org\.kuali\.kfs\.sys\.batch\.Step</match>
+            <replacement>org.kuali.kfs.kns.bo.Step</replacement>
+        </pattern>
+        <pattern>
+            <match>parent=\"kualiLookupable\"</match>
+            <replacement>parent="cf.kualiLookupable"</replacement>
+        </pattern>
+        <pattern>
+            <match>parent=\"kualiInquirable\"</match>
+            <replacement>parent="cf.kualiInquirable"</replacement>
+        </pattern>
+        <pattern>
+            <match>parent=\"kualiMaintainable\"</match>
+            <replacement>parent="cf.kualiMaintainable"</replacement>
+        </pattern>
+        <pattern>
+            <match>parent=\"lookupableHelperService\"</match>
+            <replacement>parent="cf.lookupableHelperService"</replacement>
+        </pattern>
+        <pattern>
+            <match>org\.kuali\.rice\.kim.\bo\.options\.ActionPolicyValuesFinder</match>
+            <replacement>org.kuali.kfs.kns.bo.lookup.ActionPolicyValuesFinder</replacement>
+        </pattern>
+        <pattern>
+            <match>org\.kuali\.rice\.kew\.actionrequest\.bo\.ActionRequestCodeValuesFinder</match>
+            <replacement>org.kuali.kfs.kns.bo.lookup.ActionRequestCodeValuesFinder</replacement>
+        </pattern>
+        <pattern>
+            <match>org\.kuali\.rice\.kim\.bo\.options\.ActionTypeValuesFinder</match>
+            <replacement>org.kuali.kfs.kns.bo.lookup.ActionTypeValuesFinder</replacement>
+        </pattern>
+        <pattern>
+            <match>org\.kuali\.rice\.location\.framework\.campus\.CampusValuesFinder</match>
+            <replacement>org.kuali.kfs.kns.bo.lookup.CampusValuesFinder</replacement>
+        </pattern>
+        <pattern>
+            <match>org\.kuali\.rice\.location\.framework\.country\.CountryNotRestrictedValuesFinder</match>
+            <replacement>org.kuali.kfs.kns.bo.lookup.CountryNotRestrictedValuesFinder</replacement>
+        </pattern>
+        <pattern>
+            <match>org\.kuali\.rice\.location\.framework\.country\.CountryValuesFinder</match>
+            <replacement>org.kuali.kfs.kns.bo.lookup.CountryValuesFinder</replacement>
+        </pattern>
+        <pattern>
+            <match>org\.kuali\.rice\.kim\.lookup\.valuefinder\.DelegationTypeValuesFinder</match>
+            <replacement>org.kuali.kfs.kns.bo.lookup.DelegationTypeValuesFinder</replacement>
+        </pattern>
+        <pattern>
+            <match>org\.kuali\.rice\.kim\.bo\.options\.MemberTypeValuesFinder</match>
+            <replacement>org.kuali.kfs.kns.bo.lookup.MemberTypeValuesFinder</replacement>
+        </pattern>
+        <pattern>
+            <match>org\.kuali\.rice\.coreservice\.web\.namespace\.NamespaceValuesFinder</match>
+            <replacement>org.kuali.kfs.coreservice.web.namespace.NamespaceValuesFinder</replacement>
+        </pattern>
+        <pattern>
+            <match>org\.kuali\.rice\.location\.framework\.state\.StateValuesFinder</match>
+            <replacement>org.kuali.kfs.kns.bo.lookup.StateValuesFinder</replacement>
+        </pattern>
+        <pattern>
+            <match>org\.kuali\.rice\.core\.framework\.persistence\.ojb\.conversion</match>
+            <replacement>org.kuali.kfs.core.framework.persistence.ojb.conversion</replacement>
+        </pattern>
+    </rule>
+</rules>

@@ -1,29 +1,25 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ld.service.impl;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.LookupService;
 import org.kuali.kfs.module.ld.businessobject.LaborLedgerPendingEntry;
 import org.kuali.kfs.module.ld.dataaccess.LaborLedgerPendingEntryDao;
 import org.kuali.kfs.module.ld.document.LaborLedgerPostingDocument;
@@ -35,9 +31,13 @@ import org.kuali.kfs.sys.businessobject.UniversityDate;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.GeneralLedgerPendingEntryService;
 import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.LookupService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Service implementation of LaborLedgerPendingEntryService.
@@ -82,7 +82,7 @@ public class LaborLedgerPendingEntryServiceImpl implements LaborLedgerPendingEnt
 
     /**
      * Invokes generateEntries method on the salary expense transfer document.
-     * 
+     *
      * @param document - document whose pending entries need generated
      * @return whether the business rules succeeded
      */
@@ -135,7 +135,7 @@ public class LaborLedgerPendingEntryServiceImpl implements LaborLedgerPendingEnt
 
     /**
      * @see org.kuali.module.gl.service.GeneralLedgerPendingEntryService#findPendingLedgerEntriesForAccountBalance(java.util.Map,
-     *      boolean, boolean)
+     * boolean, boolean)
      */
     public Iterator findPendingLedgerEntriesForLedgerBalance(Map fieldValues, boolean isApproved) {
         LOG.debug("findPendingLedgerEntriesForAccountBalance() started");
@@ -164,7 +164,7 @@ public class LaborLedgerPendingEntryServiceImpl implements LaborLedgerPendingEnt
 
     /**
      * Sets the laborLedgerPendingEntryDao attribute value.
-     * 
+     *
      * @param laborLedgerPendingEntryDao The laborLedgerPendingEntryDao to set.
      */
     public void setLaborLedgerPendingEntryDao(LaborLedgerPendingEntryDao laborLedgerPendingEntryDao) {
@@ -173,7 +173,7 @@ public class LaborLedgerPendingEntryServiceImpl implements LaborLedgerPendingEnt
 
     /**
      * Sets the businessObjectService attribute value.
-     * 
+     *
      * @param businessObjectService The businessObjectService to set.
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
@@ -182,7 +182,7 @@ public class LaborLedgerPendingEntryServiceImpl implements LaborLedgerPendingEnt
 
     /**
      * Sets the universityDateService.
-     * 
+     *
      * @param universityDateService
      */
     public void setUniversityDateService(UniversityDateService universityDateService) {
@@ -191,7 +191,7 @@ public class LaborLedgerPendingEntryServiceImpl implements LaborLedgerPendingEnt
 
     /**
      * Sets the generalLedgerPendingEntryService.
-     * 
+     *
      * @param generalLedgerPendingEntryService
      */
     public void setGeneralLedgerPendingEntryService(GeneralLedgerPendingEntryService generalLedgerPendingEntryService) {

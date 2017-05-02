@@ -1,33 +1,33 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.businessobject;
+
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coa.businessobject.OrganizationReversionCategory;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.coa.businessobject.OrganizationReversionCategory;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 
 /**
  * This class represents a unit of work for the organization reversion
@@ -55,7 +55,7 @@ public class OrgReversionUnitOfWork extends PersistableBusinessObjectBase {
 
     /**
      * Returns true if COA code and account number are not blank.
-     * 
+     *
      * @return true if COA code and account number are not blank.
      */
     public boolean isInitialized() {
@@ -72,6 +72,7 @@ public class OrgReversionUnitOfWork extends PersistableBusinessObjectBase {
 
     /**
      * Set category amounts
+     *
      * @param cats list of organization reversion categories
      */
     public void setCategories(List<OrganizationReversionCategory> cats) {
@@ -83,8 +84,9 @@ public class OrgReversionUnitOfWork extends PersistableBusinessObjectBase {
 
     /**
      * This method adds to the actual amount for a specific category code
+     *
      * @param categoryCode category code
-     * @param amount amount
+     * @param amount       amount
      */
     public void addActualAmount(String categoryCode, KualiDecimal amount) {
         OrgReversionUnitOfWorkCategoryAmount ca = amounts.get(categoryCode);
@@ -93,8 +95,9 @@ public class OrgReversionUnitOfWork extends PersistableBusinessObjectBase {
 
     /**
      * This method adds to the budget amount for a specific category code
+     *
      * @param categoryCode category code
-     * @param amount amount
+     * @param amount       amount
      */
     public void addBudgetAmount(String categoryCode, KualiDecimal amount) {
         OrgReversionUnitOfWorkCategoryAmount ca = amounts.get(categoryCode);
@@ -103,8 +106,9 @@ public class OrgReversionUnitOfWork extends PersistableBusinessObjectBase {
 
     /**
      * This method adds to the encumbrance amount for a specific category code
+     *
      * @param categoryCode category code
-     * @param amount amount
+     * @param amount       amount
      */
     public void addEncumbranceAmount(String categoryCode, KualiDecimal amount) {
         OrgReversionUnitOfWorkCategoryAmount ca = amounts.get(categoryCode);
@@ -113,8 +117,9 @@ public class OrgReversionUnitOfWork extends PersistableBusinessObjectBase {
 
     /**
      * This method adds to the carry forward amount for a specific category code
+     *
      * @param categoryCode category code
-     * @param amount amount
+     * @param amount       amount
      */
     public void addCarryForwardAmount(String categoryCode, KualiDecimal amount) {
         OrgReversionUnitOfWorkCategoryAmount ca = amounts.get(categoryCode);
@@ -130,7 +135,7 @@ public class OrgReversionUnitOfWork extends PersistableBusinessObjectBase {
         totalCash = KualiDecimal.ZERO;
         totalReversion = KualiDecimal.ZERO;
 
-        for (Iterator<OrgReversionUnitOfWorkCategoryAmount> iter = amounts.values().iterator(); iter.hasNext();) {
+        for (Iterator<OrgReversionUnitOfWorkCategoryAmount> iter = amounts.values().iterator(); iter.hasNext(); ) {
             OrgReversionUnitOfWorkCategoryAmount element = iter.next();
             element.setActual(KualiDecimal.ZERO);
             element.setBudget(KualiDecimal.ZERO);
@@ -152,6 +157,7 @@ public class OrgReversionUnitOfWork extends PersistableBusinessObjectBase {
 
     /**
      * This method returns true if this unit of work's chart of accounts code, account number, and sub account number match the passed in parameter values
+     *
      * @param chart
      * @param acct
      * @param subAcct
@@ -163,6 +169,7 @@ public class OrgReversionUnitOfWork extends PersistableBusinessObjectBase {
 
     /**
      * Return true of this unit of work has the same chart of accounts code, account number, and sub account number as the passed in balance
+     *
      * @param balance
      * @return
      */
@@ -172,7 +179,7 @@ public class OrgReversionUnitOfWork extends PersistableBusinessObjectBase {
 
     public KualiDecimal getTotalAccountAvailable() {
         KualiDecimal amount = KualiDecimal.ZERO;
-        for (Iterator<OrgReversionUnitOfWorkCategoryAmount> iter = amounts.values().iterator(); iter.hasNext();) {
+        for (Iterator<OrgReversionUnitOfWorkCategoryAmount> iter = amounts.values().iterator(); iter.hasNext(); ) {
             OrgReversionUnitOfWorkCategoryAmount element = iter.next();
             amount = amount.add(element.getAvailable());
         }
@@ -234,7 +241,7 @@ public class OrgReversionUnitOfWork extends PersistableBusinessObjectBase {
     /**
      * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
      */
-    
+
     public LinkedHashMap toStringMapper_RICE20_REFACTORME() {
         LinkedHashMap pkMap = new LinkedHashMap();
         pkMap.put("chartOfAccountsCode", this.chartOfAccountsCode);
@@ -245,7 +252,7 @@ public class OrgReversionUnitOfWork extends PersistableBusinessObjectBase {
 
     /**
      * Gets the accountNumber attribute.
-     * 
+     *
      * @return Returns the accountNumber.
      */
     public String getAccountNumber() {
@@ -254,7 +261,7 @@ public class OrgReversionUnitOfWork extends PersistableBusinessObjectBase {
 
     /**
      * Sets the accountNumber attribute value.
-     * 
+     *
      * @param accountNumber The accountNumber to set.
      */
     public void setAccountNumber(String accountNumber) {
@@ -263,7 +270,7 @@ public class OrgReversionUnitOfWork extends PersistableBusinessObjectBase {
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode.
      */
     public String getChartOfAccountsCode() {
@@ -272,7 +279,7 @@ public class OrgReversionUnitOfWork extends PersistableBusinessObjectBase {
 
     /**
      * Sets the chartOfAccountsCode attribute value.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -281,7 +288,7 @@ public class OrgReversionUnitOfWork extends PersistableBusinessObjectBase {
 
     /**
      * Gets the subAccountNumber attribute.
-     * 
+     *
      * @return Returns the subAccountNumber.
      */
     public String getSubAccountNumber() {
@@ -290,7 +297,7 @@ public class OrgReversionUnitOfWork extends PersistableBusinessObjectBase {
 
     /**
      * Sets the subAccountNumber attribute value.
-     * 
+     *
      * @param subAccountNumber The subAccountNumber to set.
      */
     public void setSubAccountNumber(String subAccountNumber) {

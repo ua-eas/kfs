@@ -1,35 +1,32 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cam.document.service.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.service.ObjectCodeService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
 import org.kuali.kfs.module.cam.businessobject.Asset;
@@ -40,18 +37,21 @@ import org.kuali.kfs.module.cam.businessobject.AssetPayment;
 import org.kuali.kfs.module.cam.businessobject.AssetType;
 import org.kuali.kfs.module.cam.document.service.AssetService;
 import org.kuali.kfs.module.cam.document.service.PaymentSummaryService;
-import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.KFSConstants.DocumentStatusCodes;
+import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.UniversityDate;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.exception.ValidationException;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class AssetServiceImpl implements AssetService {
     protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AssetServiceImpl.class);
@@ -82,8 +82,7 @@ public class AssetServiceImpl implements AssetService {
         // assetPayment.accumulatedPrimaryDepreciationAmount. If it's not set yet, we'll check assetPayment one by one.
         if (ObjectUtils.isNotNull(asset.getAccumulatedDepreciation()) && asset.getAccumulatedDepreciation().isPositive()) {
             return true;
-        }
-        else {
+        } else {
             for (AssetPayment assetPayment : asset.getAssetPayments()) {
                 if (ObjectUtils.isNotNull(assetPayment.getAccumulatedPrimaryDepreciationAmount()) && assetPayment.getAccumulatedPrimaryDepreciationAmount().isPositive()) {
                     return true;
@@ -147,7 +146,7 @@ public class AssetServiceImpl implements AssetService {
 
     /**
      * @see org.kuali.kfs.module.cam.document.service.AssetService#isFinancialObjectSubTypeCodeChanged(org.kuali.kfs.module.cam.businessobject.Asset,
-     *      org.kuali.kfs.module.cam.businessobject.Asset)
+     * org.kuali.kfs.module.cam.businessobject.Asset)
      */
     public boolean isFinancialObjectSubTypeCodeChanged(Asset oldAsset, Asset newAsset) {
         return !StringUtils.equalsIgnoreCase(oldAsset.getFinancialObjectSubTypeCode(), newAsset.getFinancialObjectSubTypeCode());
@@ -155,7 +154,7 @@ public class AssetServiceImpl implements AssetService {
 
     /**
      * @see org.kuali.kfs.module.cam.document.service.AssetService#isAssetTypeCodeChanged(org.kuali.kfs.module.cam.businessobject.Asset,
-     *      org.kuali.kfs.module.cam.businessobject.Asset)
+     * org.kuali.kfs.module.cam.businessobject.Asset)
      */
     public boolean isAssetTypeCodeChanged(Asset oldAsset, Asset newAsset) {
         return !StringUtils.equalsIgnoreCase(oldAsset.getCapitalAssetTypeCode(), newAsset.getCapitalAssetTypeCode());
@@ -183,7 +182,7 @@ public class AssetServiceImpl implements AssetService {
 
     /**
      * This method calls the service codes to calculate the summary fields for each asset
-     * 
+     *
      * @param asset
      */
     public void setAssetSummaryFields(Asset asset) {
@@ -212,11 +211,9 @@ public class AssetServiceImpl implements AssetService {
 
         if (parameterService.getParameterValuesAsString(Asset.class, CamsConstants.Parameters.MOVABLE_EQUIPMENT_OBJECT_SUB_TYPES).contains(financialObjectSubTypeCode)) {
             return true;
-        }
-        else if (parameterService.getParameterValuesAsString(Asset.class, CamsConstants.Parameters.NON_MOVABLE_EQUIPMENT_OBJECT_SUB_TYPES).contains(financialObjectSubTypeCode)) {
+        } else if (parameterService.getParameterValuesAsString(Asset.class, CamsConstants.Parameters.NON_MOVABLE_EQUIPMENT_OBJECT_SUB_TYPES).contains(financialObjectSubTypeCode)) {
             return false;
-        }
-        else {
+        } else {
             throw new ValidationException("Could not determine movable or non-movable for this object sub-type code " + financialObjectSubTypeCode);
         }
     }
@@ -226,26 +223,25 @@ public class AssetServiceImpl implements AssetService {
      */
     public boolean isAssetMovableCheckByPayment(Asset asset) {
         String financialObjectSubTypeCode = asset.getFinancialObjectSubTypeCode();
-        
+
         if (ObjectUtils.isNotNull(asset.getAssetPayments()) && !asset.getAssetPayments().isEmpty()) {
             // use the last payment, so it's more recent and less likely to hit an out-dated object code
             int size = asset.getAssetPayments().size();
-            AssetPayment lastAssetPayment = asset.getAssetPayments().get(size-1);
+            AssetPayment lastAssetPayment = asset.getAssetPayments().get(size - 1);
             lastAssetPayment.refreshReferenceObject(CamsPropertyConstants.AssetPayment.FINANCIAL_OBJECT);
             ObjectCodeService objectCodeService = (ObjectCodeService) SpringContext.getBean(ObjectCodeService.class);
             String chartCode = lastAssetPayment.getChartOfAccountsCode();
             String finObjectCode = lastAssetPayment.getFinancialObjectCode();
             ObjectCode objectCode = objectCodeService.getByPrimaryIdForCurrentYear(chartCode, finObjectCode);
-            
+
             // if objectCode is null, we likely have hit an out-dated object code from some old payment
             if (ObjectUtils.isNotNull(objectCode)) {
                 financialObjectSubTypeCode = objectCode.getFinancialObjectSubTypeCode();
-            }
-            else {
+            } else {
                 LOG.warn("Possibly out-dated object code " + finObjectCode + " for chart " + chartCode + " for current fiscal year in payments for asset " + asset.getCapitalAssetNumber());
             }
         }
-        
+
         return this.isAssetMovableCheckByPayment(financialObjectSubTypeCode);
     }
 
@@ -287,7 +283,7 @@ public class AssetServiceImpl implements AssetService {
             return true;
         }
 
-        List<String> subTypes = new ArrayList<String>( parameterService.getParameterValuesAsString(Asset.class, CamsConstants.Parameters.OBJECT_SUB_TYPE_GROUPS) );
+        List<String> subTypes = new ArrayList<String>(parameterService.getParameterValuesAsString(Asset.class, CamsConstants.Parameters.OBJECT_SUB_TYPE_GROUPS));
         String firstObjectSubType = (String) financialObjectSubTypeCode.get(0);
         List<String> validObjectSubTypes = new ArrayList<String>();
 
@@ -324,8 +320,7 @@ public class AssetServiceImpl implements AssetService {
 
         if (assetGlobalDetails.size() > 1) {
             throw new IllegalStateException("Asset #" + asset.getCapitalAssetNumber().toString() + " was created from more then one asset document.");
-        }
-        else if (assetGlobalDetails.size() == 1) {
+        } else if (assetGlobalDetails.size() == 1) {
             // Find the document associated to that
             Map<String, String> paramsAssetGlobal = new HashMap<String, String>();
             paramsAssetGlobal.put(CamsPropertyConstants.AssetGlobal.DOCUMENT_NUMBER, assetGlobalDetails.iterator().next().getDocumentNumber());
@@ -349,7 +344,7 @@ public class AssetServiceImpl implements AssetService {
         Collection<AssetGlobal> assetGlobals = SpringContext.getBean(BusinessObjectService.class).findMatching(AssetGlobal.class, paramsAssetGlobal);
 
         List<String> separateDocumentNumbers = new ArrayList<String>();
-        for (Iterator<AssetGlobal> assetGlobalIter = assetGlobals.iterator(); assetGlobalIter.hasNext();) {
+        for (Iterator<AssetGlobal> assetGlobalIter = assetGlobals.iterator(); assetGlobalIter.hasNext(); ) {
             AssetGlobal assetGlobal = assetGlobalIter.next();
 
             if (DocumentStatusCodes.APPROVED.equals(assetGlobal.getDocumentHeader().getFinancialDocumentStatusCode())) {
@@ -362,7 +357,7 @@ public class AssetServiceImpl implements AssetService {
 
     /**
      * sets the posting year and posting month based on the asset creation date
-     * 
+     *
      * @param asset
      * @return none
      */

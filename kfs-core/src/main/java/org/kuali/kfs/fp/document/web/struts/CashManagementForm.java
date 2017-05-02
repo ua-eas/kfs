@@ -1,30 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document.web.struts;
-
-import java.io.Serializable;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.kuali.kfs.fp.businessobject.CashDrawer;
@@ -42,7 +34,8 @@ import org.kuali.kfs.fp.document.authorization.CashManagementDocumentPresentatio
 import org.kuali.kfs.fp.document.service.CashManagementService;
 import org.kuali.kfs.fp.document.service.CashReceiptService;
 import org.kuali.kfs.fp.service.CashDrawerService;
-import org.kuali.kfs.sys.KFSParameterKeyConstants;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
 import org.kuali.kfs.sys.KFSConstants.DepositConstants;
 import org.kuali.kfs.sys.KFSConstants.DocumentStatusCodes.CashReceipt;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -51,9 +44,14 @@ import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
 import org.kuali.rice.core.web.format.TimestampAMPMFormatter;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.kns.web.struts.form.KualiDocumentFormBase;
+
+import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class is the action form for CashManagement
@@ -107,7 +105,7 @@ public class CashManagementForm extends KualiDocumentFormBase {
         depositHelpers = new ArrayList();
 
         List deposits = getCashManagementDocument().getDeposits();
-        for (Iterator i = deposits.iterator(); i.hasNext();) {
+        for (Iterator i = deposits.iterator(); i.hasNext(); ) {
             Deposit d = (Deposit) i.next();
 
             DepositHelper dh = new DepositHelper(d);
@@ -123,7 +121,7 @@ public class CashManagementForm extends KualiDocumentFormBase {
         if (cmd != null) {
             CashDrawer cd = SpringContext.getBean(CashDrawerService.class).getByCampusCode(cmd.getCampusCode());
             if (cd == null) {
-                throw new RuntimeException("No cash drawer exists for campus code "+cmd.getCampusCode()+"; please create on via the Cash Drawer Maintenance Document before attemping to create a CashManagementDocument for campus "+cmd.getCampusCode());
+                throw new RuntimeException("No cash drawer exists for campus code " + cmd.getCampusCode() + "; please create on via the Cash Drawer Maintenance Document before attemping to create a CashManagementDocument for campus " + cmd.getCampusCode());
             }
             if (!cd.isClosed()) {
                 cashDrawerSummary = new CashDrawerSummary(cmd);
@@ -198,21 +196,20 @@ public class CashManagementForm extends KualiDocumentFormBase {
 
     /**
      * Creates an instance of the appropriate implementation of CashManagementDocumentPresentationController to check the cash drawer opening logic
+     *
      * @return an instance of the CashManagementDocumentPresentationController for the document
      */
     protected CashManagementDocumentPresentationController createCashManagementDocumentPresentationController() {
         final DataDictionaryService dataDictionaryService = SpringContext.getBean(DataDictionaryService.class);
-        final FinancialSystemTransactionalDocumentEntry cmDocEntry = (FinancialSystemTransactionalDocumentEntry)dataDictionaryService.getDataDictionary().getDocumentEntry(dataDictionaryService.getDocumentTypeNameByClass(getDocument().getClass()));
+        final FinancialSystemTransactionalDocumentEntry cmDocEntry = (FinancialSystemTransactionalDocumentEntry) dataDictionaryService.getDataDictionary().getDocumentEntry(dataDictionaryService.getDocumentTypeNameByClass(getDocument().getClass()));
 
         final CashManagementDocumentPresentationController cmDocPrezController;
         try {
-            cmDocPrezController = (CashManagementDocumentPresentationController)cmDocEntry.getDocumentPresentationControllerClass().newInstance();
-        }
-        catch (InstantiationException ie) {
-            throw new RuntimeException("Cannot instantiate instance of document presentation controller with class "+cmDocEntry.getDocumentPresentationControllerClass().getName(), ie);
-        }
-        catch (IllegalAccessException iae) {
-            throw new RuntimeException("Illegal access occurred while instantiating instance of maintainable implementation "+cmDocEntry.getDocumentPresentationControllerClass().getName(), iae);
+            cmDocPrezController = (CashManagementDocumentPresentationController) cmDocEntry.getDocumentPresentationControllerClass().newInstance();
+        } catch (InstantiationException ie) {
+            throw new RuntimeException("Cannot instantiate instance of document presentation controller with class " + cmDocEntry.getDocumentPresentationControllerClass().getName(), ie);
+        } catch (IllegalAccessException iae) {
+            throw new RuntimeException("Illegal access occurred while instantiating instance of maintainable implementation " + cmDocEntry.getDocumentPresentationControllerClass().getName(), iae);
         }
         return cmDocPrezController;
     }
@@ -544,7 +541,7 @@ public class CashManagementForm extends KualiDocumentFormBase {
         }
 
 
-        protected static final String[] INTERESTING_STATII = { CashReceipt.VERIFIED, CashReceipt.INTERIM, CashReceipt.FINAL };
+        protected static final String[] INTERESTING_STATII = {CashReceipt.VERIFIED, CashReceipt.INTERIM, CashReceipt.FINAL};
 
         public void resummarize(CashManagementDocument cmDoc) {
             //
@@ -565,14 +562,11 @@ public class CashManagementForm extends KualiDocumentFormBase {
                 overallReceiptStats.add(receipt);
                 if (status.equals(CashReceipt.VERIFIED)) {
                     verifiedReceiptStats.add(receipt);
-                }
-                else if (status.equals(CashReceipt.INTERIM)) {
+                } else if (status.equals(CashReceipt.INTERIM)) {
                     interimReceiptStats.add(receipt);
-                }
-                else if (status.equals(CashReceipt.FINAL)) {
+                } else if (status.equals(CashReceipt.FINAL)) {
                     finalReceiptStats.add(receipt);
-                }
-                else {
+                } else {
                     throw new IllegalStateException("invalid (unknown) financialDocumentStatusCode '" + status + "'");
                 }
             }
@@ -1024,7 +1018,7 @@ public class CashManagementForm extends KualiDocumentFormBase {
             return overallReceiptStats;
         }
 
-        public static final class CashReceiptStatistics implements Serializable{
+        public static final class CashReceiptStatistics implements Serializable {
             protected int receiptCount;
             protected KualiDecimal checkTotal;
             protected KualiDecimal currencyTotal;

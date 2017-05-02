@@ -1,33 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document.web.struts;
-
-import static org.kuali.kfs.sys.KFSConstants.AuxiliaryVoucher.ACCRUAL_DOC_TYPE;
-import static org.kuali.kfs.sys.KFSConstants.AuxiliaryVoucher.ADJUSTMENT_DOC_TYPE;
-import static org.kuali.kfs.sys.KFSConstants.AuxiliaryVoucher.RECODE_DOC_TYPE;
-
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -35,16 +24,26 @@ import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
 import org.kuali.kfs.coa.service.AccountingPeriodService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.document.AuxiliaryVoucherDocument;
 import org.kuali.kfs.fp.document.validation.impl.AuxiliaryVoucherDocumentRuleConstants;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import static org.kuali.kfs.sys.KFSConstants.AuxiliaryVoucher.ACCRUAL_DOC_TYPE;
+import static org.kuali.kfs.sys.KFSConstants.AuxiliaryVoucher.ADJUSTMENT_DOC_TYPE;
+import static org.kuali.kfs.sys.KFSConstants.AuxiliaryVoucher.RECODE_DOC_TYPE;
 
 /**
  * Struts form so <code>{@link AuxiliaryVoucherDocument}</code> can be accessed and modified through UI.
@@ -94,6 +93,7 @@ public class AuxiliaryVoucherForm extends VoucherForm {
 
     /**
      * Gets today's date and then sets the day of the month as 15th, irrespective of the current day of the month
+     *
      * @return the modified reversal date
      */
     protected Date getAvReversalDate() {
@@ -111,17 +111,16 @@ public class AuxiliaryVoucherForm extends VoucherForm {
 
         if (getAuxiliaryVoucherDocument().getAccountingPeriod().getUniversityFiscalPeriodCode().equals(KFSConstants.MONTH13)) {
             thisMonth = cal.JULY;
-        }
-        else {
+        } else {
             thisMonth = getAuxiliaryVoucherDocument().getAccountingPeriod().getMonth();
         }
 
         cal.set(Calendar.MONTH, (thisMonth));
 
         //if today's day > 15 then set the month to next month.
-     //   if (cal.get(Calendar.DAY_OF_MONTH) > KFSConstants.AuxiliaryVoucher.ACCRUAL_DOC_DAY_OF_MONTH) {
-      //      cal.add(Calendar.MONTH, 1);
-      //  }
+        //   if (cal.get(Calendar.DAY_OF_MONTH) > KFSConstants.AuxiliaryVoucher.ACCRUAL_DOC_DAY_OF_MONTH) {
+        //      cal.add(Calendar.MONTH, 1);
+        //  }
 
         int reversalDateDefaultDayOfMonth = this.getReversalDateDefaultDayOfMonth();
 
@@ -141,11 +140,9 @@ public class AuxiliaryVoucherForm extends VoucherForm {
 
         if (getAuxiliaryVoucherDocument().getTypeCode().equals(ACCRUAL_DOC_TYPE)) {
             getAuxiliaryVoucherDocument().setReversalDate(today);
-        }
-        else if (getAuxiliaryVoucherDocument().getTypeCode().equals(ADJUSTMENT_DOC_TYPE)) {
+        } else if (getAuxiliaryVoucherDocument().getTypeCode().equals(ADJUSTMENT_DOC_TYPE)) {
             getAuxiliaryVoucherDocument().setReversalDate(null);
-        }
-        else if (getAuxiliaryVoucherDocument().getTypeCode().equals(RECODE_DOC_TYPE)) {
+        } else if (getAuxiliaryVoucherDocument().getTypeCode().equals(RECODE_DOC_TYPE)) {
             DateTime ts = new DateTime(getAuxiliaryVoucherDocument().getDocumentHeader().getWorkflowDocument().getDateCreated());
             Date newts = new Date(ts.getMillis());
 
@@ -188,14 +185,11 @@ public class AuxiliaryVoucherForm extends VoucherForm {
 
         if (KFSConstants.AuxiliaryVoucher.ACCRUAL_DOC_TYPE.equals(voucherTypeCode)) {
             formattedVoucherType = KFSConstants.AuxiliaryVoucher.ACCRUAL_DOC_TYPE_NAME;
-        }
-        else if (KFSConstants.AuxiliaryVoucher.ADJUSTMENT_DOC_TYPE.equals(voucherTypeCode)) {
+        } else if (KFSConstants.AuxiliaryVoucher.ADJUSTMENT_DOC_TYPE.equals(voucherTypeCode)) {
             formattedVoucherType = KFSConstants.AuxiliaryVoucher.ADJUSTMENT_DOC_TYPE_NAME;
-        }
-        else if (KFSConstants.AuxiliaryVoucher.RECODE_DOC_TYPE.equals(voucherTypeCode)) {
+        } else if (KFSConstants.AuxiliaryVoucher.RECODE_DOC_TYPE.equals(voucherTypeCode)) {
             formattedVoucherType = KFSConstants.AuxiliaryVoucher.RECODE_DOC_TYPE_NAME;
-        }
-        else {
+        } else {
             throw new IllegalStateException("Invalid auxiliary voucher type code: " + voucherTypeCode);
         }
 
@@ -232,8 +226,8 @@ public class AuxiliaryVoucherForm extends VoucherForm {
         populateSelectedVoucherAccountingPeriod();
     }
 
-    public boolean getAccountingPeriodReadOnly(){
-        AuxiliaryVoucherDocument doc = (AuxiliaryVoucherDocument)this.getDocument();
+    public boolean getAccountingPeriodReadOnly() {
+        AuxiliaryVoucherDocument doc = (AuxiliaryVoucherDocument) this.getDocument();
         return !StringUtils.equals(doc.getFinancialSystemDocumentHeader().getFinancialDocumentStatusCode(), "?");
     }
 
@@ -263,7 +257,7 @@ public class AuxiliaryVoucherForm extends VoucherForm {
                 AccountingPeriod period = (AccountingPeriod) o;
                 result = /*REFACTORME*/SpringContext.getBean(ParameterEvaluatorService.class).getParameterEvaluator(AuxiliaryVoucherDocument.class, AuxiliaryVoucherDocumentRuleConstants.RESTRICTED_PERIOD_CODES, period.getUniversityFiscalPeriodCode()).evaluationSucceeds();
                 if (result) {
-                    result = (period.getUniversityFiscalYear().equals( currentFiscalYear ));
+                    result = (period.getUniversityFiscalYear().equals(currentFiscalYear));
                     if (result) {
                         // did this accounting period end before now?
                         result = acctPeriodService.compareAccountingPeriodsByDate(period, currPeriod) >= 0;
@@ -271,8 +265,7 @@ public class AuxiliaryVoucherForm extends VoucherForm {
                             // if yes, are we still in the grace period?
                             result = getAuxiliaryVoucherDocument().calculateIfWithinGracePeriod(currentDate, period);
                         }
-                    }
-                    else {
+                    } else {
                         // are we in current in the grace period of an ending accounting period of the previous fiscal year?
                         result = getAuxiliaryVoucherDocument().calculateIfWithinGracePeriod(currentDate, period);
                     }
@@ -315,8 +308,7 @@ public class AuxiliaryVoucherForm extends VoucherForm {
             Integer reversalDateDefaultDayOfMonth = Integer.parseInt(defaultDayOfMonth);
 
             return reversalDateDefaultDayOfMonth;
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             LOG.info("Invalid value was assigned to the paremeter: " + REVERSAL_DATE_DEFAULT_DAY_OF_THE_MONTH_PARM_NAME + ". The default value " + KFSConstants.AuxiliaryVoucher.ACCRUAL_DOC_DAY_OF_MONTH + " is applied.");
         }
 

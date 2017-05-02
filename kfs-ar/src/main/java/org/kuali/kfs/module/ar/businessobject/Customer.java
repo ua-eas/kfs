@@ -1,42 +1,40 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.businessobject;
+
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.integration.ar.AccountsReceivableCustomer;
+import org.kuali.kfs.integration.ar.AccountsReceivableCustomerAddress;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.module.ar.document.service.CustomerAddressService;
+import org.kuali.kfs.module.ar.document.service.CustomerService;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.integration.ar.AccountsReceivableCustomer;
-import org.kuali.kfs.integration.ar.AccountsReceivableCustomerAddress;
-import org.kuali.kfs.module.ar.document.service.CustomerAddressService;
-import org.kuali.kfs.module.ar.document.service.CustomerService;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.bo.Note;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 
-/**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
- */
 public class Customer extends PersistableBusinessObjectBase implements MutableInactivatable, AccountsReceivableCustomer {
 
     private String customerNumber;
@@ -63,20 +61,21 @@ public class Customer extends PersistableBusinessObjectBase implements MutableIn
 
     private Customer customerParentCompany;
     private CustomerType customerType;
-    private List    boNotes;
+    private List boNotes;
 
     private List<CustomerAddress> customerAddresses;
 
-  private String bankruptcyType;
-  private Date bankruptcyDate;
-  private Date bankruptcyReviewDate;
-  private boolean stopWorkIndicator;
-  private String stopWorkReason;
+    private String bankruptcyType;
+    private Date bankruptcyDate;
+    private Date bankruptcyReviewDate;
+    private boolean stopWorkIndicator;
+    private String stopWorkReason;
 
-  // Invoice Types link
+    // Invoice Types link
 
-  private String customerInvoiceTemplateCode;
-  private InvoiceTemplate customerInvoiceTemplate;
+    private String customerInvoiceTemplateCode;
+    private InvoiceTemplate customerInvoiceTemplate;
+
     /**
      * Default constructor.
      */
@@ -167,6 +166,7 @@ public class Customer extends PersistableBusinessObjectBase implements MutableIn
 
     /**
      * Gets the customerTypeDescription attribute.
+     *
      * @return Returns the customerTypeDescription.
      */
     @Override
@@ -246,7 +246,7 @@ public class Customer extends PersistableBusinessObjectBase implements MutableIn
     }
 
 
-      /**
+    /**
      * Gets the active attribute.
      *
      * @return Returns the active
@@ -666,7 +666,7 @@ public class Customer extends PersistableBusinessObjectBase implements MutableIn
     @Override
     public List<AccountsReceivableCustomerAddress> getAccountsReceivableCustomerAddresses() {
         List<AccountsReceivableCustomerAddress> accountsReceivableCustomerAddresses = new ArrayList<AccountsReceivableCustomerAddress>();
-        if (this.customerAddresses != null && !this.customerAddresses.isEmpty()){
+        if (this.customerAddresses != null && !this.customerAddresses.isEmpty()) {
             accountsReceivableCustomerAddresses.addAll(customerAddresses);
         }
 
@@ -675,11 +675,11 @@ public class Customer extends PersistableBusinessObjectBase implements MutableIn
 
     @Override
     public void setAccountsReceivableCustomerAddresses(List<AccountsReceivableCustomerAddress> customerAddresses) {
-        if (this.customerAddresses != null && customerAddresses != null){
+        if (this.customerAddresses != null && customerAddresses != null) {
             this.customerAddresses.clear();
 
-            for (AccountsReceivableCustomerAddress arca : customerAddresses){
-                this.customerAddresses.add((CustomerAddress)arca);
+            for (AccountsReceivableCustomerAddress arca : customerAddresses) {
+                this.customerAddresses.add((CustomerAddress) arca);
             }
         }
     }

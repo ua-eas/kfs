@@ -1,36 +1,37 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.batch;
 
-import java.io.File;
-
 import org.apache.commons.io.filefilter.IOFileFilter;
+
+import java.io.File;
 
 /**
  * A file filter which only allows through files in a given directory
  */
 public class DirectoryNameFileFilter implements IOFileFilter {
     private String directoryName;
-    
+
     /**
      * Constructs a DirectoryNameFileFilter, using the directory name from the FilePurgeCustomAge configuration
      * as the directory to match
+     *
      * @param filePurgeCustomAge the filePurgeCustomAge to get the directory name from
      */
     public DirectoryNameFileFilter(FilePurgeCustomAge filePurgeCustomAge) {
@@ -38,7 +39,6 @@ public class DirectoryNameFileFilter implements IOFileFilter {
     }
 
     /**
-     * 
      * @see org.apache.commons.io.filefilter.IOFileFilter#accept(java.io.File)
      */
     public boolean accept(File file) {
@@ -47,11 +47,10 @@ public class DirectoryNameFileFilter implements IOFileFilter {
     }
 
     /**
-     * 
      * @see org.apache.commons.io.filefilter.IOFileFilter#accept(java.io.File, java.lang.String)
      */
     public boolean accept(File directory, String fileName) {
-        final File file = new File(directory.getName()+File.separator+fileName);
+        final File file = new File(directory.getName() + File.separator + fileName);
         if (file.isDirectory()) return true;
         return directory.equals(directoryName);
     }

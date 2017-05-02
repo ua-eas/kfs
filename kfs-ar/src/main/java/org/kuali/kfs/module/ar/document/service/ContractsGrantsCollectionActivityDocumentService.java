@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.ar.document.service;
 
-import java.util.Collection;
-
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.module.ar.document.ContractsGrantsCollectionActivityDocument;
 import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.Collection;
 
 /**
  * Service class for Collection Activity Document.
@@ -43,7 +43,7 @@ public interface ContractsGrantsCollectionActivityDocumentService {
      * @param proposalNumber The proposal number of award.
      * @return Returns the award object.
      */
-    public ContractsAndGrantsBillingAward retrieveAwardByProposalNumber(Long proposalNumber);
+    public ContractsAndGrantsBillingAward retrieveAwardByProposalNumber(String proposalNumber);
 
     /**
      * To retrieve the payment amount by given document number.
@@ -60,5 +60,5 @@ public interface ContractsGrantsCollectionActivityDocumentService {
      * @param proposalNumber
      * @return
      */
-    public Collection<ContractsGrantsInvoiceDocument> retrieveCollectionActivityEligibleContractsGrantsInvoicesByProposalNumber(Long proposalNumber);
+    public Collection<ContractsGrantsInvoiceDocument> retrieveCollectionActivityEligibleContractsGrantsInvoicesByProposalNumber(String proposalNumber);
 }

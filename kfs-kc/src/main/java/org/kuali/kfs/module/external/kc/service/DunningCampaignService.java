@@ -1,42 +1,41 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.external.kc.service;
 
-import java.util.List;
-
-import javax.jws.WebParam;
-import javax.jws.WebService;
-import javax.jws.soap.SOAPBinding;
-
 import org.kuali.kfs.integration.cg.dto.HashMapElement;
 import org.kuali.kfs.module.external.kc.KcConstants;
 import org.kuali.kfs.module.external.kc.dto.DunningCampaignDTO;
 
+import javax.jws.WebParam;
+import javax.jws.WebService;
+import javax.jws.soap.SOAPBinding;
+import java.util.List;
+
 @WebService(name = KcConstants.DunningCampaignService.WEB_SERVICE_NAME,
-            targetNamespace = KcConstants.KFS_NAMESPACE_URI)
+    targetNamespace = KcConstants.KFS_NAMESPACE_URI)
 @SOAPBinding(style = SOAPBinding.Style.DOCUMENT, use = SOAPBinding.Use.LITERAL,
-             parameterStyle = SOAPBinding.ParameterStyle.WRAPPED)
+    parameterStyle = SOAPBinding.ParameterStyle.WRAPPED)
 public interface DunningCampaignService {
 
     public DunningCampaignDTO getDunningCampaign(
-            @WebParam(name="campaignID")String campaignID);
+        @WebParam(name = "campaignID") String campaignID);
 
     public List<DunningCampaignDTO> getMatching(
-            @WebParam(name="searchCriteria")  List<HashMapElement> searchCriteria);
+        @WebParam(name = "searchCriteria") List<HashMapElement> searchCriteria);
 }

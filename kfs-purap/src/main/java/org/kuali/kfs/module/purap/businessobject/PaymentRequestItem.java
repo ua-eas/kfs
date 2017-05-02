@@ -1,29 +1,25 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.module.purap.businessobject;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.document.PaymentRequestDocument;
@@ -36,7 +32,11 @@ import org.kuali.kfs.module.purap.util.PurApItemUtils;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.util.ObjectPopulationUtils;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Payment Request Item Business Object.
@@ -58,7 +58,7 @@ public class PaymentRequestItem extends AccountsPayableItemBase {
     /**
      * preq item constructor - Delegate
      *
-     * @param poi - purchase order item
+     * @param poi  - purchase order item
      * @param preq - payment request document
      */
     public PaymentRequestItem(PurchaseOrderItem poi, PaymentRequestDocument preq) {
@@ -68,8 +68,8 @@ public class PaymentRequestItem extends AccountsPayableItemBase {
     /**
      * Constructs a new payment request item, but also merges expired accounts.
      *
-     * @param poi - purchase order item
-     * @param preq - payment request document
+     * @param poi                        - purchase order item
+     * @param preq                       - payment request document
      * @param expiredOrClosedAccountList - list of expired or closed accounts to merge
      */
     public PaymentRequestItem(PurchaseOrderItem poi, PaymentRequestDocument preq, HashMap<String, ExpiredOrClosedAccountEntry> expiredOrClosedAccountList) {
@@ -103,7 +103,7 @@ public class PaymentRequestItem extends AccountsPayableItemBase {
         this.setSourceAccountingLines(accounts);
         this.getUseTaxItems().clear();
         //List<PurApItemUseTax> newUseTaxItems = new ArrayList<PurApItemUseTax>();
-       /// this.setUseTaxItems(newUseTaxItems);
+        /// this.setUseTaxItems(newUseTaxItems);
         //copy use tax items over, and blank out keys (useTaxId and itemIdentifier)
         /*
         this.getUseTaxItems().clear();
@@ -160,21 +160,18 @@ public class PaymentRequestItem extends AccountsPayableItemBase {
                         }
                     }
                 }
-            }
-            else {
+            } else {
                 poi = (PurchaseOrderItem) SpringContext.getBean(PurapService.class).getBelowTheLineByType(po, this.getItemType());
             }
             if (poi != null) {
                 return poi;
-            }
-            else {
+            } else {
                 if (LOG.isDebugEnabled()) {
                     LOG.debug("getPurchaseOrderItem() Returning null because PurchaseOrderItem object for line number" + getItemLineNumber() + "or itemType " + getItemTypeCode() + " is null");
                 }
                 return null;
             }
-        }
-        else {
+        } else {
 
             LOG.error("getPurchaseOrderItem() Returning null because paymentRequest object is null");
             throw new PurError("Payment Request Object in Purchase Order item line number " + getItemLineNumber() + "or itemType " + getItemTypeCode() + " is null");
@@ -183,9 +180,9 @@ public class PaymentRequestItem extends AccountsPayableItemBase {
 
     public KualiDecimal getPoOutstandingAmount() {
         PurchaseOrderItem poi = getPurchaseOrderItem();
-        if(ObjectUtils.isNull(this.getPurchaseOrderItemUnitPrice()) || KualiDecimal.ZERO.equals(this.getPurchaseOrderItemUnitPrice())){
+        if (ObjectUtils.isNull(this.getPurchaseOrderItemUnitPrice()) || KualiDecimal.ZERO.equals(this.getPurchaseOrderItemUnitPrice())) {
             return null;
-        }else{
+        } else {
             return this.getPoOutstandingAmount(poi);
         }
     }
@@ -193,8 +190,7 @@ public class PaymentRequestItem extends AccountsPayableItemBase {
     private KualiDecimal getPoOutstandingAmount(PurchaseOrderItem poi) {
         if (poi == null) {
             return KualiDecimal.ZERO;
-        }
-        else {
+        } else {
             return poi.getItemOutstandingEncumberedAmount();
         }
     }
@@ -203,16 +199,16 @@ public class PaymentRequestItem extends AccountsPayableItemBase {
         PurchaseOrderItem poi = getPurchaseOrderItem();
         if (poi == null) {
             return null;
-        }
-        else {
+        } else {
             return poi.getExtendedPrice();
         }
     }
 
     /**
      * Exists due to a setter requirement by the htmlControlAttribute
-     * @deprecated
+     *
      * @param amount - po outstanding amount
+     * @deprecated
      */
     @Deprecated
     public void setPoOutstandingAmount(KualiDecimal amount) {
@@ -224,11 +220,10 @@ public class PaymentRequestItem extends AccountsPayableItemBase {
         PurchaseOrderItem poi = getPurchaseOrderItem();
         if (poi == null) {
             return null;
-        }
-        else {
-            if(PurapConstants.ItemTypeCodes.ITEM_TYPE_SERVICE_CODE.equals(this.getItemTypeCode())){
+        } else {
+            if (PurapConstants.ItemTypeCodes.ITEM_TYPE_SERVICE_CODE.equals(this.getItemTypeCode())) {
                 return null;
-            }else{
+            } else {
                 return poi.getOutstandingQuantity();
             }
         }
@@ -236,8 +231,9 @@ public class PaymentRequestItem extends AccountsPayableItemBase {
 
     /**
      * Exists due to a setter requirement by the htmlControlAttribute
-     * @deprecated
+     *
      * @param amount - po outstanding quantity
+     * @deprecated
      */
     @Deprecated
     public void setPoOutstandingQuantity(KualiDecimal qty) {
@@ -326,20 +322,17 @@ public class PaymentRequestItem extends AccountsPayableItemBase {
         if (poiType.isQuantityBasedGeneralLedgerIndicator()) {
             if (poi.getItemQuantity().isGreaterThan(poi.getItemInvoicedTotalQuantity())) {
                 return true;
-            }
-            else {
+            } else {
                 if (ObjectUtils.isNotNull(this.getItemQuantity()) && this.getItemQuantity().isGreaterThan(KualiDecimal.ZERO)) {
                     return true;
                 }
             }
 
             return false;
-        }
-        else { // not quantity based
+        } else { // not quantity based
             if (poi.getItemOutstandingEncumberedAmount().isGreaterThan(KualiDecimal.ZERO)) {
                 return true;
-            }
-            else {
+            } else {
                 if (PurApItemUtils.isNonZeroExtended(this)) {
                     return true;
                 }

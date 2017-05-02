@@ -1,42 +1,45 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document.dataaccess.impl;
-
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
 import org.apache.ojb.broker.query.ReportQueryByCriteria;
 import org.kuali.kfs.module.purap.PurapConstants;
+import org.kuali.kfs.module.purap.PurapConstants.PaymentRequestStatuses;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.document.PaymentRequestDocument;
 import org.kuali.kfs.module.purap.document.dataaccess.PaymentRequestDao;
 import org.kuali.kfs.module.purap.util.VendorGroupingHelper;
+import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+import org.kuali.rice.kew.api.document.DocumentStatus;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * OJB Implementation of PaymentRequestDao.
@@ -89,8 +92,7 @@ public class PaymentRequestDaoOjb extends PlatformAwareDaoBaseOjb implements Pay
             c5.addOrCriteria(a);
 
             criteria.addAndCriteria(a);
-        }
-        else {
+        } else {
             Criteria c1 = new Criteria();
             c1.addLessOrEqualThan("paymentRequestPayDate", onOrBeforePaymentRequestPayDate);
 
@@ -125,7 +127,7 @@ public class PaymentRequestDaoOjb extends PlatformAwareDaoBaseOjb implements Pay
 
     /**
      * @see org.kuali.kfs.module.purap.document.dataaccess.PaymentRequestDao#getPaymentRequestsToExtract(java.lang.String,
-     *      java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     * java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer)
      */
     @Override
     @Deprecated
@@ -161,7 +163,7 @@ public class PaymentRequestDaoOjb extends PlatformAwareDaoBaseOjb implements Pay
 
     /**
      * @see org.kuali.kfs.module.purap.document.dataaccess.PaymentRequestDao#getPaymentRequestsToExtractForVendor(java.lang.String,
-     *      org.kuali.kfs.module.purap.util.VendorGroupingHelper)
+     * org.kuali.kfs.module.purap.util.VendorGroupingHelper)
      */
     @Override
     public Collection<PaymentRequestDocument> getPaymentRequestsToExtractForVendor(String campusCode, VendorGroupingHelper vendor, Date onOrBeforePaymentRequestPayDate) {
@@ -200,7 +202,7 @@ public class PaymentRequestDaoOjb extends PlatformAwareDaoBaseOjb implements Pay
         criteria.addEqualTo("holdIndicator", "N");
         criteria.addEqualTo("paymentRequestedCancelIndicator", "N");
         criteria.addIn(KFSPropertyConstants.DOCUMENT_HEADER + "." + KFSPropertyConstants.APPLICATION_DOCUMENT_STATUS,
-                Arrays.asList(PurapConstants.PaymentRequestStatuses.PREQ_STATUSES_FOR_AUTO_APPROVE));
+            Arrays.asList(PurapConstants.PaymentRequestStatuses.PREQ_STATUSES_FOR_AUTO_APPROVE));
 
         List<String> returnList = getDocumentNumbersOfPaymentRequestByCriteria(criteria, false);
 
@@ -261,7 +263,7 @@ public class PaymentRequestDaoOjb extends PlatformAwareDaoBaseOjb implements Pay
      * Retrieves a document number for a payment request by user defined criteria and sorts the values ascending if orderByAscending
      * parameter is true, descending otherwise.
      *
-     * @param criteria - list of criteria to use in the retrieve
+     * @param criteria         - list of criteria to use in the retrieve
      * @param orderByAscending - boolean to sort results ascending if true, descending otherwise
      * @return - Iterator of document numbers
      */
@@ -270,8 +272,7 @@ public class PaymentRequestDaoOjb extends PlatformAwareDaoBaseOjb implements Pay
         ReportQueryByCriteria rqbc = new ReportQueryByCriteria(PaymentRequestDocument.class, criteria);
         if (orderByAscending) {
             rqbc.addOrderByAscending(KFSPropertyConstants.DOCUMENT_NUMBER);
-        }
-        else {
+        } else {
             rqbc.addOrderByDescending(KFSPropertyConstants.DOCUMENT_NUMBER);
         }
 
@@ -293,15 +294,15 @@ public class PaymentRequestDaoOjb extends PlatformAwareDaoBaseOjb implements Pay
      */
     protected List<PaymentRequestDocument> getPaymentRequestsByQueryByCriteria(QueryByCriteria qbc) {
         LOG.debug("getPaymentRequestsByQueryByCriteria() started");
-        return (List<PaymentRequestDocument>)getPersistenceBrokerTemplate().getCollectionByQuery(qbc);
+        return (List<PaymentRequestDocument>) getPersistenceBrokerTemplate().getCollectionByQuery(qbc);
     }
 
     /**
      * Retrieves a list of payment requests with the given vendor id and invoice number.
      *
      * @param vendorHeaderGeneratedId - header id of the vendor id
-     * @param vendorDetailAssignedId - detail id of the vendor id
-     * @param invoiceNumber - invoice number as entered by AP
+     * @param vendorDetailAssignedId  - detail id of the vendor id
+     * @param invoiceNumber           - invoice number as entered by AP
      * @return - List of payment requests.
      */
     @Override
@@ -320,8 +321,8 @@ public class PaymentRequestDaoOjb extends PlatformAwareDaoBaseOjb implements Pay
      * Retrieves a list of payment requests with the given vendor id and invoice number.
      *
      * @param vendorHeaderGeneratedId - header id of the vendor id
-     * @param vendorDetailAssignedId - detail id of the vendor id
-     * @param invoiceNumber - invoice number as entered by AP
+     * @param vendorDetailAssignedId  - detail id of the vendor id
+     * @param invoiceNumber           - invoice number as entered by AP
      * @return - List of payment requests.
      */
     @Override
@@ -338,7 +339,7 @@ public class PaymentRequestDaoOjb extends PlatformAwareDaoBaseOjb implements Pay
 
     /**
      * @see org.kuali.kfs.module.purap.document.dataaccess.PaymentRequestDao#getActivePaymentRequestsByPOIdInvoiceAmountInvoiceDate(java.lang.Integer,
-     *      org.kuali.rice.core.api.util.type.KualiDecimal, java.sql.Date)
+     * org.kuali.rice.core.api.util.type.KualiDecimal, java.sql.Date)
      */
     @Override
     public List<PaymentRequestDocument> getActivePaymentRequestsByPOIdInvoiceAmountInvoiceDate(Integer poId, KualiDecimal vendorInvoiceAmount, Date invoiceDate) {
@@ -353,26 +354,30 @@ public class PaymentRequestDaoOjb extends PlatformAwareDaoBaseOjb implements Pay
     }
 
     @Override
-    public List<PaymentRequestDocument> getActivePaymentRequestDocumentNumbersForPurchaseOrder(Integer purchaseOrderId) {
+    public int getActivePaymentRequestCountForPurchaseOrder(Integer purchaseOrderId) {
         LOG.debug("getActivePaymentRequestsByVendorNumberInvoiceNumber() started");
 
-        List<String> returnList = new ArrayList<String>();
         Criteria criteria = new Criteria();
 
         criteria.addEqualTo(PurapPropertyConstants.PURCHASE_ORDER_IDENTIFIER, purchaseOrderId);
+        criteria.addIn(KFSPropertyConstants.DOCUMENT_HEADER + "." + KFSPropertyConstants.APPLICATION_DOCUMENT_STATUS,
+            Arrays.asList(PurapConstants.PaymentRequestStatuses.STATUSES_POTENTIALLY_ACTIVE));
+        Collection<String> workflowNotActiveStatuses = Arrays.asList(new String[]{DocumentStatus.CANCELED.getCode(), DocumentStatus.EXCEPTION.getCode()});
+        criteria.addNotIn(KFSPropertyConstants.DOCUMENT_HEADER + "." + KFSPropertyConstants.WORKFLOW_DOCUMENT_STATUS_CODE, workflowNotActiveStatuses);
         QueryByCriteria qbc = new QueryByCriteria(PaymentRequestDocument.class, criteria);
-        return this.getPaymentRequestsByQueryByCriteria(qbc);
-
+        return this.getPersistenceBrokerTemplate().getCount(qbc);
     }
+
     @Override
     public List<PaymentRequestDocument> getPaymentRequestInReceivingStatus() {
         Criteria criteria = new Criteria();
-        criteria.addNotEqualTo("holdIndicator", "Y");
-        criteria.addNotEqualTo("paymentRequestedCancelIndicator", "Y");
+        criteria.addNotEqualTo(PurapPropertyConstants.HOLD_INDICATOR, "Y");
+        criteria.addNotEqualTo(PurapPropertyConstants.PAYMENT_REQUEST_CANCEL_INDICATOR, "Y");
+        criteria.addEqualTo(KFSConstants.DOCUMENT_HEADER_PROPERTY_NAME + "." + KFSPropertyConstants.APPLICATION_DOCUMENT_STATUS, PaymentRequestStatuses.APPDOC_AWAITING_RECEIVING_REVIEW);
 
         QueryByCriteria qbc = new QueryByCriteria(PaymentRequestDocument.class, criteria);
         return this.getPaymentRequestsByQueryByCriteria(qbc);
 
     }
- }
+}
 

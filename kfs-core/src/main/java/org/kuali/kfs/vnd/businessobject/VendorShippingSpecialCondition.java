@@ -1,34 +1,34 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.vnd.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.apache.commons.lang.builder.EqualsBuilder;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.util.LinkedHashMap;
 
 /**
  * Relationship between a Vendor and a <code>ShippingSpecialCondition</code>.
- * 
+ *
  * @see org.kuali.kfs.vnd.businessobject.ShippingSpecialCondition
  */
 public class VendorShippingSpecialCondition extends PersistableBusinessObjectBase implements VendorRoutingComparable, MutableInactivatable {
@@ -91,7 +91,7 @@ public class VendorShippingSpecialCondition extends PersistableBusinessObjectBas
 
     /**
      * Sets the vendorDetail attribute value.
-     * 
+     *
      * @param vendorDetail The vendorDetail to set.
      * @deprecated
      */
@@ -106,7 +106,7 @@ public class VendorShippingSpecialCondition extends PersistableBusinessObjectBas
 
     /**
      * Sets the vendorShippingSpecialCondition attribute value.
-     * 
+     *
      * @param vendorShippingSpecialCondition The vendorShippingSpecialCondition to set.
      * @deprecated
      */
@@ -120,8 +120,7 @@ public class VendorShippingSpecialCondition extends PersistableBusinessObjectBas
     public boolean isEqualForRouting(Object toCompare) {
         if ((ObjectUtils.isNull(toCompare)) || !(toCompare instanceof VendorShippingSpecialCondition)) {
             return false;
-        }
-        else {
+        } else {
             VendorShippingSpecialCondition vssc = (VendorShippingSpecialCondition) toCompare;
 
             return new EqualsBuilder().append(this.getVendorHeaderGeneratedIdentifier(), vssc.getVendorHeaderGeneratedIdentifier()).append(this.getVendorDetailAssignedIdentifier(), vssc.getVendorDetailAssignedIdentifier()).append(this.getVendorShippingSpecialConditionCode(), vssc.getVendorShippingSpecialConditionCode()).isEquals();

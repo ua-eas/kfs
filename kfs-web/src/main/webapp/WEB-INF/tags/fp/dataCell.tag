@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -22,7 +22,7 @@
               description="The name of the CSS class for this data cell." %>
 <%@ attribute name="dataFieldCssClass" required="false"
               description="The name of the CSS class for this data field." %>
-              
+
 <%@ attribute name="field" required="true"
               description="The name of the field of  the business object being edited or displayed by this cell.
               Combined with the businessObjectFormName, this identifies the value (i.e., the data) of this cell." %>
@@ -58,7 +58,7 @@
               This may be used to return a lookup value from the BO, or generate an inquiry.
               For a lookup, the value of this data cell becomes the value of this field.
               If not provided, this attribute defaults to the same value as the field attribute." %>
-  
+
 <%@ attribute name="lookupOrInquiryKeys" required="false"
               description="comma separated list of inquiry key names in the businessObjectValuesMap" %>
 <%@ attribute name="lookupUnkeyedFieldConversions" required="false"
@@ -70,7 +70,7 @@
               description="map of the business object primitive fields and values, for inquiry keys" %>
 <%@ attribute name="inquiryExtraKeyValues" required="false"
               description="ampersand separated list of inquiry key=value pairs not in businessObjectValuesMap" %>
-              
+
 <%@ attribute name="detailFunction" required="false"
               description="The name of the JavaScript function to asynchronously
               update the detailed description of the value in this data cell on blur.
@@ -78,11 +78,11 @@
 <%@ attribute name="detailFunctionExtraParam" required="false"
               description="The value of an extra parameter required by some of the detail JavaScript functions." %>
 <%@ attribute name="detailField" required="false"
-              description="The name of the field in the business object containing the detail to be displayed." %>  
+              description="The name of the field in the business object containing the detail to be displayed." %>
 <%@ attribute name="detailFields" required="false"
               description="The name of multiple fields in the business object containing details to be display.
-			  Any supplied field that starts with a semicolon will be treated as a text field, rather 
-			  than a database field. The semicolon will be ignored in the output." %>            
+			  Any supplied field that starts with a semicolon will be treated as a text field, rather
+			  than a database field. The semicolon will be ignored in the output." %>
 
 <%@ attribute name="rowSpan" required="false" description="row span for the data cell" %>
 <%@ attribute name="colSpan" required="false" description="column span for the data cell" %>
@@ -114,7 +114,7 @@
         <c:set var="boClassName" value="${boPackageName}.${boClassSimpleName}"/>
     </c:otherwise>
 </c:choose>
-        
+
 <td class="${dataCellCssClass}" valign="top" rowspan="${rowSpan}" colspan="${colSpan}"><span class="nowrap">
     <c:choose>
         <c:when test="${useXmlHttp}">
@@ -124,9 +124,9 @@
             <c:set var="onblur" value=""/>
         </c:otherwise>
     </c:choose>
-    
+
     <jsp:doBody/>
-    
+
     <c:set var="datePicker" value="${attributes[field].validationPattern.type eq 'date' ? true : false}" />
     <kul:htmlControlAttribute
         property="${cellProperty}"
@@ -136,11 +136,11 @@
         readOnlyBody="true"
         styleClass="${dataFieldCssClass}"
         datePicker="${datePicker}">
-                    
+
         <c:set var="aKeyIsMissing" value="${empty businessObjectValuesMap[field]}"/>
 		<c:set var="keyValues" value="${conversionField}=${businessObjectValuesMap[field]}"/>
 		<c:set var="dashedValue" value="false" />
-		
+
 		<c:forTokens var="key" items="${lookupOrInquiryKeys}" delims=",">
 			<c:set var="aKeyIsMissing" value="${missingKey || empty businessObjectValuesMap[key]}"/>
 			<c:set var="keyValues" value="${keyValues}&${key}=${businessObjectValuesMap[key]}"/>
@@ -148,17 +148,17 @@
 				<c:set var="dashedValue" value="true" />
 			</c:if>
 		</c:forTokens>
-		
+
 		<c:set var="keyValues" value="${keyValues}${empty inquiryExtraKeyValues ? '' : '&'}${inquiryExtraKeyValues}"/>
 		<c:set var="canRenderInquiry" value="${not empty keyValues && not aKeyIsMissing && !dashedValue}"/>
-		
+
 		<kul:inquiry
 		    boClassName="${boClassName}"
 		    keyValues="${keyValues}"
 		    render="${inquiry && canRenderInquiry}"
 		    >
 		    <html:hidden write="true" property="${cellProperty}" style="${textStyle}" />
-		</kul:inquiry>&nbsp;    
+		</kul:inquiry>&nbsp;
     </kul:htmlControlAttribute>
 
     <%-- lookup control --%>
@@ -166,11 +166,11 @@
         <c:set var="fieldConversions" value="${lookupUnkeyedFieldConversions}"/>
         <c:forTokens var="key" items="${lookupOrInquiryKeys}" delims=",">
             <c:set var="businessObjectKey" value="${businessObjectFormName}.${key}"/>
-            
+
             <c:if test="${!empty lookupParameters}">
                 <c:set var="lookupParameters" value="${lookupParameters},"/>
             </c:if>
-            
+
             <c:set var="lookupParameters" value="${lookupParameters}${businessObjectKey}:${key}"/>
             <c:set var="fieldConversions" value="${fieldConversions}${key}:${businessObjectKey},"/>
         </c:forTokens>
@@ -179,9 +179,9 @@
             boClassName="${boClassName}"
             fieldConversions="${fieldConversions}${conversionField}:${qualifiedField}"
             lookupParameters="${lookupParameters}" fieldLabel="${attributes[field].shortLabel}" />
-    </c:if>    
+    </c:if>
 	</span>
-	
+
 	<fp:dataCellDetail
     	detailField="${detailField}"
     	businessObjectFormName="${businessObjectFormName}"

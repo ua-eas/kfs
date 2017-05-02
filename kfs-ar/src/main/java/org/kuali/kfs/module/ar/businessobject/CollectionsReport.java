@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2015 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -27,7 +27,7 @@ public interface CollectionsReport {
 
     public Long getEventId();
 
-    public Long getProposalNumber();
+    public String getProposalNumber();
 
     public String getInvoiceNumber();
 

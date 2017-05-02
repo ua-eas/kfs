@@ -1,28 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.businessobject;
-
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -38,6 +32,8 @@ import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
 import org.kuali.kfs.coa.service.AccountService;
 import org.kuali.kfs.fp.businessobject.SalesTax;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.UniversityDateService;
@@ -45,8 +41,12 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.doctype.DocumentTypeService;
 import org.kuali.rice.kew.doctype.bo.DocumentType;
 import org.kuali.rice.kew.doctype.bo.DocumentTypeEBO;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * This is the generic class which contains all the elements on a typical line of accounting elements. These are all the accounting
@@ -250,17 +250,18 @@ public abstract class AccountingLineBase extends PersistableBusinessObjectBase i
 
     /**
      * Gets the referenceFinancialSystemDocumentTypeCode attribute.
+     *
      * @return Returns the referenceFinancialSystemDocumentTypeCode.
      */
     @Override
     public DocumentTypeEBO getReferenceFinancialSystemDocumentTypeCode() {
-        if ( StringUtils.isBlank( referenceTypeCode ) ) {
+        if (StringUtils.isBlank(referenceTypeCode)) {
             referenceFinancialSystemDocumentTypeCode = null;
         } else {
-            if ( referenceFinancialSystemDocumentTypeCode == null || !StringUtils.equals(referenceTypeCode, referenceFinancialSystemDocumentTypeCode.getName() ) ) {
+            if (referenceFinancialSystemDocumentTypeCode == null || !StringUtils.equals(referenceTypeCode, referenceFinancialSystemDocumentTypeCode.getName())) {
                 org.kuali.rice.kew.api.doctype.DocumentType temp = SpringContext.getBean(DocumentTypeService.class).getDocumentTypeByName(referenceTypeCode);
-                if ( temp != null ) {
-                    referenceFinancialSystemDocumentTypeCode = DocumentType.from( temp );
+                if (temp != null) {
+                    referenceFinancialSystemDocumentTypeCode = DocumentType.from(temp);
                 } else {
                     referenceFinancialSystemDocumentTypeCode = null;
                 }
@@ -516,7 +517,7 @@ public abstract class AccountingLineBase extends PersistableBusinessObjectBase i
      */
     @Override
     public ObjectType getObjectType() {
-        if ( getObjectTypeCode() != null ) {
+        if (getObjectTypeCode() != null) {
             return objectCode.getFinancialObjectType();
         }
         return null;
@@ -609,11 +610,11 @@ public abstract class AccountingLineBase extends PersistableBusinessObjectBase i
      */
     @Override
     public String getObjectTypeCode() {
-        if ( ObjectUtils.isNull(objectCode)
-                || !StringUtils.equals(getFinancialObjectCode(), objectCode.getFinancialObjectCode())
-                || !StringUtils.equals(getChartOfAccountsCode(), objectCode.getChartOfAccountsCode())
-                || !getPostingYear().equals(objectCode.getUniversityFiscalYear() )
-                        ) {
+        if (ObjectUtils.isNull(objectCode)
+            || !StringUtils.equals(getFinancialObjectCode(), objectCode.getFinancialObjectCode())
+            || !StringUtils.equals(getChartOfAccountsCode(), objectCode.getChartOfAccountsCode())
+            || !getPostingYear().equals(objectCode.getUniversityFiscalYear())
+            ) {
             refreshReferenceObject("objectCode");
         }
 
@@ -797,8 +798,7 @@ public abstract class AccountingLineBase extends PersistableBusinessObjectBase i
                     salesTax.setDocumentNumber(other.getDocumentNumber());
                     salesTax.setFinancialDocumentLineNumber(other.getSequenceNumber());
                     salesTax.setFinancialDocumentLineTypeCode(other.getFinancialDocumentLineTypeCode());
-                }
-                else {
+                } else {
                     salesTax = origSalesTax;
                 }
             }
@@ -825,8 +825,7 @@ public abstract class AccountingLineBase extends PersistableBusinessObjectBase i
         if (other != null) {
             if (other == this) {
                 isLike = true;
-            }
-            else {
+            } else {
                 Map thisValues = this.getValuesMap();
                 Map otherValues = other.getValuesMap();
 
@@ -836,7 +835,7 @@ public abstract class AccountingLineBase extends PersistableBusinessObjectBase i
                     StringBuffer inequalities = new StringBuffer();
                     boolean first = true;
 
-                    for (Iterator i = thisValues.keySet().iterator(); i.hasNext();) {
+                    for (Iterator i = thisValues.keySet().iterator(); i.hasNext(); ) {
                         String key = (String) i.next();
 
                         Object thisValue = thisValues.get(key);
@@ -846,8 +845,7 @@ public abstract class AccountingLineBase extends PersistableBusinessObjectBase i
 
                             if (first) {
                                 first = false;
-                            }
-                            else {
+                            } else {
                                 inequalities.append(",");
                             }
                         }
@@ -1050,7 +1048,6 @@ public abstract class AccountingLineBase extends PersistableBusinessObjectBase i
         builder.append("]");
         return builder.toString();
     }
-
 
 
 }

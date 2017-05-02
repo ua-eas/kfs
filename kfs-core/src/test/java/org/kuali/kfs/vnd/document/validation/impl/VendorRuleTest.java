@@ -1,27 +1,24 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.vnd.document.validation.impl;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.util.List;
-
+import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.document.validation.MaintenanceRuleTestBase;
 import org.kuali.kfs.vnd.businessobject.VendorAddress;
@@ -31,7 +28,10 @@ import org.kuali.kfs.vnd.fixture.VendorContractBeginEndDatesFixture;
 import org.kuali.kfs.vnd.fixture.VendorContractPurchaseOrderLimitAmountPresenceFixture;
 import org.kuali.kfs.vnd.fixture.VendorRuleAddressStateZipFixture;
 import org.kuali.kfs.vnd.fixture.VendorRuleAddressTypeFixture;
-import org.kuali.rice.kns.document.MaintenanceDocument;
+
+import java.util.List;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 /**
  * This class should contain all tests of methods implementing Vendor rules. For this purpose, we need to set up the parts of a
@@ -171,7 +171,7 @@ public class VendorRuleTest extends MaintenanceRuleTestBase {
      * This method does the setup for the tests which examine the implementation of the requirement that certain vendor type codes
      * require certain address type codes. Address type codes are in the collection of VendorAddresses.
      *
-     * @param typeCode A VendorTypeCode, which here could be any String
+     * @param typeCode      A VendorTypeCode, which here could be any String
      * @param addrTypeCode1 A VendorAddressTypeCode, which here could be any String
      * @param addrTypeCode2 The VendorAddressTypeCode for the second VendorAddress of the collection
      */
@@ -248,8 +248,7 @@ public class VendorRuleTest extends MaintenanceRuleTestBase {
             VendorAddress address = addrList.get(i);
             if (i == 0) {
                 assertTrue(rule.checkAddressCountryEmptyStateZip(address));
-            }
-            else if (i == 1) {
+            } else if (i == 1) {
                 assertFalse(rule.checkAddressCountryEmptyStateZip(address));
             }
         }
@@ -263,8 +262,7 @@ public class VendorRuleTest extends MaintenanceRuleTestBase {
             VendorAddress address = addrList.get(i);
             if (i == 0) {
                 assertTrue(rule.checkAddressCountryEmptyStateZip(address));
-            }
-            else if (i == 1) {
+            } else if (i == 1) {
                 assertFalse(rule.checkAddressCountryEmptyStateZip(address));
             }
         }

@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -26,7 +26,7 @@ import java.sql.Date;
  * Defines a data holder class for the Contracts & Grants Invoice Report.
  */
 public class ContractsGrantsInvoiceReportDetailDataHolder {
-    private Long proposalNumber;
+    private String proposalNumber;
     private String documentNumber;
     private String invoiceType;
     private Date invoiceDate;
@@ -49,7 +49,7 @@ public class ContractsGrantsInvoiceReportDetailDataHolder {
      *
      * @return Returns the proposalNumber
      */
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -58,7 +58,7 @@ public class ContractsGrantsInvoiceReportDetailDataHolder {
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

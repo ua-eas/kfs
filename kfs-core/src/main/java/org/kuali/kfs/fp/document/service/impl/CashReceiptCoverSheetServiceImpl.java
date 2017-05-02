@@ -1,39 +1,23 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.fp.document.service.impl;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.kuali.kfs.fp.businessobject.Check;
-import org.kuali.kfs.fp.document.CashReceiptDocument;
-import org.kuali.kfs.fp.document.service.CashReceiptCoverSheetService;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.kns.service.DocumentHelperService;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -45,6 +29,21 @@ import com.lowagie.text.pdf.PdfImportedPage;
 import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.PdfStamper;
 import com.lowagie.text.pdf.PdfWriter;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.kuali.kfs.fp.businessobject.Check;
+import org.kuali.kfs.fp.document.CashReceiptDocument;
+import org.kuali.kfs.fp.document.service.CashReceiptCoverSheetService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+import org.kuali.rice.kew.api.WorkflowDocument;
+import org.springframework.core.io.ClassPathResource;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * Implementation of service for handling creation of the cover sheet of the <code>{@link CashReceiptDocument}</code>
@@ -55,7 +54,7 @@ public class CashReceiptCoverSheetServiceImpl implements CashReceiptCoverSheetSe
     private DataDictionaryService dataDictionaryService;
     private DocumentHelperService documentHelperService;
 
-    public static final String CR_COVERSHEET_TEMPLATE_NM = "CashReceiptCoverSheetTemplate.pdf";
+    public static final String CR_COVERSHEET_TEMPLATE_NM = "/org/kuali/kfs/fp/document/CashReceiptCoverSheetTemplate.pdf";
 
     private static final float LEFT_MARGIN = 45;
     private static final float TOP_MARGIN = 45;
@@ -114,36 +113,33 @@ public class CashReceiptCoverSheetServiceImpl implements CashReceiptCoverSheetSe
      *
      * @param crDoc The document the cover sheet is being printed for.
      * @return True if the cover sheet is printable, false otherwise.
-     *
      * @see org.kuali.kfs.fp.document.service.CashReceiptCoverSheetService#isCoverSheetPrintingAllowed(org.kuali.kfs.fp.document.CashReceiptDocument)
-     * @see org.kuali.kfs.fp.document.validation.impl.CashReceiptDocumentRule#isCoverSheetPrintable(org.kuali.kfs.fp.document.CashReceiptFamilyBase)
      */
     @Override
     public boolean isCoverSheetPrintingAllowed(CashReceiptDocument crDoc) {
         WorkflowDocument workflowDocument = crDoc.getDocumentHeader().getWorkflowDocument();
         return !(workflowDocument.isCanceled() || workflowDocument.isInitiated() || workflowDocument.isDisapproved() ||
-                workflowDocument.isException() || workflowDocument.isSaved());
+            workflowDocument.isException() || workflowDocument.isSaved());
     }
 
     /**
      * Generate a cover sheet for the <code>{@link CashReceiptDocument}</code>. An <code>{@link OutputStream}</code> is written
      * to for the cover sheet.
      *
-     * @param document The cash receipt document the cover sheet is for.
-     * @param searchPath The directory path to the template to be used to generate the cover sheet.
+     * @param document     The cash receipt document the cover sheet is for.
      * @param returnStream The output stream the cover sheet will be written to.
-     * @exception DocumentException Thrown if the document provided is invalid, including null.
-     * @exception IOException Thrown if there is a problem writing to the output stream.
-     * @see org.kuali.rice.kns.module.financial.service.CashReceiptCoverSheetServiceImpl#generateCoverSheet(
-     *      org.kuali.module.financial.documentCashReceiptDocument )
+     * @throws DocumentException Thrown if the document provided is invalid, including null.
+     * @throws IOException       Thrown if there is a problem writing to the output stream.
+     * @see org.kuali.kfs.fp.document.service.CashReceiptCoverSheetService#generateCoverSheet(
+     *org.kuali.kfs.fp.document.CashReceiptDocument, OutputStream)
      */
     @Override
-    public void generateCoverSheet(CashReceiptDocument document, String searchPath, OutputStream returnStream) throws Exception {
+    public void generateCoverSheet(CashReceiptDocument document, OutputStream returnStream) throws Exception {
 
         if (isCoverSheetPrintingAllowed(document)) {
             ByteArrayOutputStream stamperStream = new ByteArrayOutputStream();
 
-            stampPdfFormValues(document, searchPath, stamperStream);
+            stampPdfFormValues(document, stamperStream);
 
             PdfReader reader = new PdfReader(stamperStream.toByteArray());
             Document pdfDoc = new Document(reader.getPageSize(FRONT_PAGE));
@@ -160,22 +156,17 @@ public class CashReceiptCoverSheetServiceImpl implements CashReceiptCoverSheetSe
      * Use iText <code>{@link PdfStamper}</code> to stamp information from <code>{@link CashReceiptDocument}</code> into field
      * values on a PDF Form Template.
      *
-     * @param document The cash receipt document the values will be pulled from.
-     * @param searchPath The directory path of the template to be used to generate the cover sheet.
+     * @param document     The cash receipt document the values will be pulled from.
      * @param returnStream The output stream the cover sheet will be written to.
      */
-    protected void stampPdfFormValues(CashReceiptDocument document, String searchPath, OutputStream returnStream) throws Exception {
-        String templateName = CR_COVERSHEET_TEMPLATE_NM;
-
+    protected void stampPdfFormValues(CashReceiptDocument document, OutputStream returnStream) throws Exception {
         try {
-            // populate form with document values
+            String templateName = CR_COVERSHEET_TEMPLATE_NM;
+            ClassPathResource classPathResource = new ClassPathResource(templateName);
+            InputStream templateInputStream = classPathResource.getInputStream();
+            PdfReader reader = new PdfReader(templateInputStream);
 
-            //KFSMI-7303
-            //The PDF template is retrieved through web static URL rather than file path, so the File separator is unnecessary
-            final boolean isWebResourcePath = StringUtils.containsIgnoreCase(searchPath, "HTTP");
-
-            //skip the File.separator if reference by web resource
-            PdfStamper stamper = new PdfStamper(new PdfReader(searchPath + (isWebResourcePath? "" : File.separator) + templateName), returnStream);
+            PdfStamper stamper = new PdfStamper(reader, returnStream);
             AcroFields populatedCoverSheet = stamper.getAcroFields();
 
             populatedCoverSheet.setField(DOCUMENT_NUMBER_FIELD, document.getDocumentNumber());
@@ -229,59 +220,58 @@ public class CashReceiptCoverSheetServiceImpl implements CashReceiptCoverSheetSe
 
             stamper.setFormFlattening(true);
             stamper.close();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("Error creating coversheet for: " + document.getDocumentNumber() + ". ::" + e);
             throw e;
         }
     }
 
     /**
-     *
      * This method writes the check number from the check provided to the PDF template.
+     *
      * @param output The PDF output field the check number will be written to.
-     * @param check The check the check number will be retrieved from.
+     * @param check  The check the check number will be retrieved from.
      */
     protected void writeCheckNumber(PdfContentByte output, Check check) {
         writeCheckField(output, CHECK_NUMBER_FIELD_POSITION, check.getCheckNumber().toString());
     }
 
     /**
-     *
      * This method writes the check date from the check provided to the PDF template.
+     *
      * @param output The PDF output field the check date will be written to.
-     * @param check The check the check date will be retrieved from.
+     * @param check  The check the check date will be retrieved from.
      */
     protected void writeCheckDate(PdfContentByte output, Check check) {
         writeCheckField(output, CHECK_DATE_FIELD_POSITION, check.getCheckDate().toString());
     }
 
     /**
-     *
      * This method writes the check description from the check provided to the PDF template.
+     *
      * @param output The PDF output field the check description will be written to.
-     * @param check The check the check description will be retrieved from.
+     * @param check  The check the check description will be retrieved from.
      */
     protected void writeCheckDescription(PdfContentByte output, Check check) {
         writeCheckField(output, CHECK_DESCRIPTION_FIELD_POSITION, check.getDescription());
     }
 
     /**
-     *
      * This method writes the check amount from the check provided to the PDF template.
+     *
      * @param output The PDF output field the check amount will be written to.
-     * @param check The check the check amount will be retrieved from.
+     * @param check  The check the check amount will be retrieved from.
      */
     protected void writeCheckAmount(PdfContentByte output, Check check) {
         writeCheckField(output, CHECK_AMOUNT_FIELD_POSITION, check.getAmount().toString());
     }
 
     /**
-     *
      * This method writes out the value provided to the output provided and aligns the value outputted using the xPos float
      * provided.
-     * @param output The content byte used to write out the field to the PDF template.
-     * @param xPos The x coordinate of the starting point on the document where the value will be written to.
+     *
+     * @param output     The content byte used to write out the field to the PDF template.
+     * @param xPos       The x coordinate of the starting point on the document where the value will be written to.
      * @param fieldValue The value to be written to the PDF cover sheet.
      */
     protected void writeCheckField(PdfContentByte output, float xPos, String fieldValue) {
@@ -322,7 +312,7 @@ public class CashReceiptCoverSheetServiceImpl implements CashReceiptCoverSheetSe
     /**
      * Method responsible for producing Check Detail section of the cover sheet. Not all Cash Receipt documents have checks.
      *
-     * @param crDoc The CashReceipt document the cover sheet is being created for.
+     * @param crDoc  The CashReceipt document the cover sheet is being created for.
      * @param writer The output writer used to write the check data to the PDF file.
      * @param reader The input reader used to read data from the PDF file.
      */
@@ -356,13 +346,12 @@ public class CashReceiptCoverSheetServiceImpl implements CashReceiptCoverSheetSe
      * Responsible for creating a new PDF page and workspace through <code>{@link PdfContentByte}</code> for direct writing to the
      * PDF.
      *
-     * @param writer The PDF writer used to write to the new page with.
-     * @param reader The PDF reader used to read information from the PDF file.
+     * @param writer     The PDF writer used to write to the new page with.
+     * @param reader     The PDF reader used to read information from the PDF file.
      * @param pageNumber The current number of pages in the PDF file, which will be incremented by one inside this method.
-     *
      * @return The PDFContentByte used to access the new PDF page.
-     * @exception DocumentException
-     * @exception IOException
+     * @throws DocumentException
+     * @throws IOException
      */
     protected PdfContentByte startNewPage(PdfWriter writer, PdfReader reader, ModifiableInteger pageNumber) throws DocumentException, IOException {
         PdfContentByte retval;
@@ -379,8 +368,7 @@ public class CashReceiptCoverSheetServiceImpl implements CashReceiptCoverSheetSe
         if (pageNumber.getInt() > FRONT_PAGE) {
             newPage = writer.getImportedPage(reader, CHECK_PAGE_NORMAL);
             setCurrentRenderingYPosition(pageSize.top(TOP_MARGIN + CHECK_DETAIL_HEADING_HEIGHT));
-        }
-        else {
+        } else {
             newPage = writer.getImportedPage(reader, FRONT_PAGE);
             setCurrentRenderingYPosition(pageSize.top(TOP_FIRST_PAGE));
         }
@@ -395,6 +383,7 @@ public class CashReceiptCoverSheetServiceImpl implements CashReceiptCoverSheetSe
 
     /**
      * Gets the dataDictionaryService attribute.
+     *
      * @return Returns the dataDictionaryService.
      */
     public DataDictionaryService getDataDictionaryService() {
@@ -403,6 +392,7 @@ public class CashReceiptCoverSheetServiceImpl implements CashReceiptCoverSheetSe
 
     /**
      * Sets the dataDictionaryService attribute value.
+     *
      * @param dataDictionaryService The dataDictionaryService to set.
      */
     public void setDataDictionaryService(DataDictionaryService dataDictionaryService) {
@@ -411,6 +401,7 @@ public class CashReceiptCoverSheetServiceImpl implements CashReceiptCoverSheetSe
 
     /**
      * Gets the documentHelperService attribute.
+     *
      * @return Returns the documentHelperService.
      */
     public DocumentHelperService getDocumentHelperService() {
@@ -419,6 +410,7 @@ public class CashReceiptCoverSheetServiceImpl implements CashReceiptCoverSheetSe
 
     /**
      * Sets the documentHelperService attribute value.
+     *
      * @param documentHelperService The documentHelperService to set.
      */
     public void setDocumentHelperService(DocumentHelperService documentHelperService) {
@@ -426,7 +418,6 @@ public class CashReceiptCoverSheetServiceImpl implements CashReceiptCoverSheetSe
     }
 
 }
-
 
 
 /**
@@ -437,8 +428,8 @@ class ModifiableInteger {
     int _value;
 
     /**
-     *
      * Constructs a ModifiableInteger object.
+     *
      * @param val The initial value of the object.
      */
     public ModifiableInteger(Integer val) {
@@ -446,8 +437,8 @@ class ModifiableInteger {
     }
 
     /**
-     *
      * Constructs a ModifiableInteger object.
+     *
      * @param val The initial value of the object.
      */
     public ModifiableInteger(int val) {
@@ -455,8 +446,8 @@ class ModifiableInteger {
     }
 
     /**
-     *
      * This method sets the local attribute to the value given.
+     *
      * @param val The int value to be set.
      */
     public void setInt(int val) {
@@ -464,8 +455,8 @@ class ModifiableInteger {
     }
 
     /**
-     *
      * This method retrieves the value of the object.
+     *
      * @return The int value of this object.
      */
     public int getInt() {
@@ -473,8 +464,8 @@ class ModifiableInteger {
     }
 
     /**
-     *
      * This method increments the value of this class by one.
+     *
      * @return An instance of this class with the value incremented by one.
      */
     public ModifiableInteger increment() {
@@ -483,8 +474,8 @@ class ModifiableInteger {
     }
 
     /**
-     *
      * This method increments the value of this class by the amount specified.
+     *
      * @param inc The amount the class value should be incremented by.
      * @return An instance of this class with the value incremented by the amount specified.
      */
@@ -494,8 +485,8 @@ class ModifiableInteger {
     }
 
     /**
-     *
      * This method decrements the value of this class by one.
+     *
      * @return An instance of this class with the value decremented by one.
      */
     public ModifiableInteger decrement() {
@@ -504,8 +495,8 @@ class ModifiableInteger {
     }
 
     /**
-     *
      * This method decrements the value of this class by the amount specified.
+     *
      * @param dec The amount the class value should be decremented by.
      * @return An instance of this class with the value decremented by the amount specified.
      */
@@ -515,8 +506,8 @@ class ModifiableInteger {
     }
 
     /**
-     *
      * This method converts the value of this class and returns it as an Integer object.
+     *
      * @return The value of this class formatted as an Integer.
      */
     public Integer getInteger() {
@@ -525,8 +516,8 @@ class ModifiableInteger {
 
     /**
      * This method generates and returns a String representation of this class.
-     * @return A string representation of this object.
      *
+     * @return A string representation of this object.
      * @see java.lang.Object#toString()
      */
     @Override

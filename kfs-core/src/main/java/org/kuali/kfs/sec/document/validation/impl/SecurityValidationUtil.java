@@ -1,34 +1,34 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sec.document.validation.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sec.SecConstants;
 import org.kuali.kfs.sec.SecKeyConstants;
 import org.kuali.kfs.sec.SecPropertyConstants;
 import org.kuali.kfs.sec.businessobject.SecurityAttributeMetadata;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.util.GlobalVariables;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -39,8 +39,8 @@ public class SecurityValidationUtil {
     /**
      * Validates the given value exist for the attribute. SECURITY_ATTRIBUTE_METADATA_MAP maps the attribute to the business object class and primitive key field need to do the
      * existence search.
-     * 
-     * @param attributeName name of attribute for value
+     *
+     * @param attributeName  name of attribute for value
      * @param attributeValue the value to validate
      * @param errorKeyPrefix prefix for error key if the value does not exist
      * @return boolean true if the value exist, false if it does not
@@ -56,8 +56,7 @@ public class SecurityValidationUtil {
         String[] attributeValues;
         if (StringUtils.contains(attributeValue, SecConstants.SecurityValueSpecialCharacters.MULTI_VALUE_SEPERATION_CHARACTER)) {
             attributeValues = StringUtils.split(attributeValue, SecConstants.SecurityValueSpecialCharacters.MULTI_VALUE_SEPERATION_CHARACTER);
-        }
-        else {
+        } else {
             attributeValues = new String[1];
             attributeValues[0] = attributeValue;
         }

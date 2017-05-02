@@ -1,232 +1,232 @@
 <?xml version="1.0" encoding="UTF-8"  ?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <!-- Created with iReport - A designer for JasperReports -->
 <!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 <jasperReport
-		 name="collectionActivityReportDetails"
-		 columnCount="1"
-		 printOrder="Vertical"
-		 orientation="Portrait"
-		 pageWidth="575"
-		 pageHeight="842"
-		 columnWidth="575"
-		 columnSpacing="0"
-		 leftMargin="0"
-		 rightMargin="0"
-		 topMargin="0"
-		 bottomMargin="0"
-		 whenNoDataType="AllSectionsNoDetail"
-		 isTitleNewPage="false"
-		 isSummaryNewPage="false">
-	<property name="ireport.scriptlethandling" value="0" />
-	<property name="ireport.encoding" value="UTF-8" />
-	<import value="java.util.*" />
-	<import value="net.sf.jasperreports.engine.*" />
-	<import value="net.sf.jasperreports.engine.data.*" />
+        name="collectionActivityReportDetails"
+        columnCount="1"
+        printOrder="Vertical"
+        orientation="Portrait"
+        pageWidth="575"
+        pageHeight="842"
+        columnWidth="575"
+        columnSpacing="0"
+        leftMargin="0"
+        rightMargin="0"
+        topMargin="0"
+        bottomMargin="0"
+        whenNoDataType="AllSectionsNoDetail"
+        isTitleNewPage="false"
+        isSummaryNewPage="false">
+    <property name="ireport.scriptlethandling" value="0"/>
+    <property name="ireport.encoding" value="UTF-8"/>
+    <import value="java.util.*"/>
+    <import value="net.sf.jasperreports.engine.*"/>
+    <import value="net.sf.jasperreports.engine.data.*"/>
 
 
-	<field name="invoiceNumber" class="java.lang.String"/>
-	<field name="accountNumber" class="java.lang.String"/>
-	<field name="activityType" class="java.lang.String"/>
-	<field name="userPrincipalId" class="java.lang.String"/>
-	<field name="followupDate" class="java.util.Date"/>
-	<field name="activityDate" class="java.util.Date"/>
-	<field name="completedDate" class="java.util.Date"/>
-	<field name="activityComment" class="java.lang.String"/>
-	<field name="agencyNumber" class="java.lang.String"/>
-	<field name="chartOfAccountsCode" class="java.lang.String"/>
-	<field name="proposalNumber" class="java.lang.Long"/>
+    <field name="invoiceNumber" class="java.lang.String"/>
+    <field name="accountNumber" class="java.lang.String"/>
+    <field name="activityType" class="java.lang.String"/>
+    <field name="userPrincipalId" class="java.lang.String"/>
+    <field name="followupDate" class="java.util.Date"/>
+    <field name="activityDate" class="java.util.Date"/>
+    <field name="completedDate" class="java.util.Date"/>
+    <field name="activityComment" class="java.lang.String"/>
+    <field name="agencyNumber" class="java.lang.String"/>
+    <field name="chartOfAccountsCode" class="java.lang.String"/>
+    <field name="proposalNumber" class="java.lang.String"/>
 
-		<background>
-			<band height="0"  isSplitAllowed="true" >
-			</band>
-		</background>
-		<title>
-			<band height="0"  isSplitAllowed="true" >
-			</band>
-		</title>
-		<pageHeader>
-			<band height="0"  isSplitAllowed="true" >
-			</band>
-		</pageHeader>
-		<columnHeader>
-			<band height="0"  isSplitAllowed="true" >
-			</band>
-		</columnHeader>
-		<detail>
-			<band height="15"  isSplitAllowed="true" >
-				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="108"
-						y="0"
-						width="55"
-						height="11"
-						key="textField-17"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center">
-						<font fontName="SansSerif" size="7" isBold="false"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{accountNumber}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="146"
-						y="0"
-						width="55"
-						height="11"
-						key="textField-18"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center">
-						<font fontName="SansSerif" size="7" isBold="false"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{invoiceNumber}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true" pattern="MM/dd/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="197"
-						y="0"
-						width="57"
-						height="11"
-						key="textField-19"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center">
-						<font fontName="SansSerif" size="7" isBold="false"/>
-					</textElement>
-				<textFieldExpression   class="java.util.Date"><![CDATA[$F{activityDate}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true" pattern="MM/dd/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="416"
-						y="0"
-						width="45"
-						height="11"
-						key="textField-20"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center">
-						<font fontName="SansSerif" size="7" isBold="false"/>
-					</textElement>
-				<textFieldExpression   class="java.util.Date"><![CDATA[$F{followupDate}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="0"
-						y="0"
-						width="65"
-						height="11"
-						key="textField-21"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center">
-						<font fontName="SansSerif" size="7" isBold="false"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{agencyNumber}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true" pattern="MM/dd/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="461"
-						y="0"
-						width="45"
-						height="11"
-						key="textField-22"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Right">
-						<font fontName="SansSerif" size="7" isBold="false"/>
-					</textElement>
-				<textFieldExpression   class="java.util.Date"><![CDATA[$F{completedDate}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="506"
-						y="0"
-						width="65"
-						height="11"
-						key="textField-23"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Left">
-						<font fontName="SansSerif" size="7" isBold="false"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{userPrincipalId}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="254"
-						y="0"
-						width="70"
-						height="11"
-						key="textField-25"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Left">
-						<font fontName="SansSerif" size="7" isBold="false"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{activityType}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="324"
-						y="0"
-						width="92"
-						height="11"
-						key="textField-26"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Left">
-						<font fontName="SansSerif" size="7" isBold="false"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{activityComment}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="56"
-						y="0"
-						width="65"
-						height="11"
-						key="textField-27"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center">
-						<font fontName="SansSerif" size="7" isBold="false"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{chartOfAccountsCode}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="31"
-						y="0"
-						width="65"
-						height="11"
-						key="textField-28"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center">
-						<font fontName="SansSerif" size="7" isBold="false"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{proposalNumber}]]></textFieldExpression>
-				</textField>
-			</band>
-		</detail>
-		<columnFooter>
-			<band height="0"  isSplitAllowed="true" >
-			</band>
-		</columnFooter>
-		<pageFooter>
-			<band height="0"  isSplitAllowed="true" >
-			</band>
-		</pageFooter>
-		<summary>
-			<band height="0"  isSplitAllowed="true" >
-			</band>
-		</summary>
+    <background>
+        <band height="0" isSplitAllowed="true">
+        </band>
+    </background>
+    <title>
+        <band height="0" isSplitAllowed="true">
+        </band>
+    </title>
+    <pageHeader>
+        <band height="0" isSplitAllowed="true">
+        </band>
+    </pageHeader>
+    <columnHeader>
+        <band height="0" isSplitAllowed="true">
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="15" isSplitAllowed="true">
+            <textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None" hyperlinkTarget="Self">
+                <reportElement
+                        x="108"
+                        y="0"
+                        width="55"
+                        height="11"
+                        key="textField-17"/>
+                <box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+                <textElement textAlignment="Center">
+                    <font fontName="SansSerif" size="7" isBold="false"/>
+                </textElement>
+                <textFieldExpression class="java.lang.String"><![CDATA[$F{accountNumber}]]></textFieldExpression>
+            </textField>
+            <textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None" hyperlinkTarget="Self">
+                <reportElement
+                        x="146"
+                        y="0"
+                        width="55"
+                        height="11"
+                        key="textField-18"/>
+                <box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+                <textElement textAlignment="Center">
+                    <font fontName="SansSerif" size="7" isBold="false"/>
+                </textElement>
+                <textFieldExpression class="java.lang.String"><![CDATA[$F{invoiceNumber}]]></textFieldExpression>
+            </textField>
+            <textField isStretchWithOverflow="true" pattern="MM/dd/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None" hyperlinkTarget="Self">
+                <reportElement
+                        x="197"
+                        y="0"
+                        width="57"
+                        height="11"
+                        key="textField-19"/>
+                <box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+                <textElement textAlignment="Center">
+                    <font fontName="SansSerif" size="7" isBold="false"/>
+                </textElement>
+                <textFieldExpression class="java.util.Date"><![CDATA[$F{activityDate}]]></textFieldExpression>
+            </textField>
+            <textField isStretchWithOverflow="true" pattern="MM/dd/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None" hyperlinkTarget="Self">
+                <reportElement
+                        x="416"
+                        y="0"
+                        width="45"
+                        height="11"
+                        key="textField-20"/>
+                <box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+                <textElement textAlignment="Center">
+                    <font fontName="SansSerif" size="7" isBold="false"/>
+                </textElement>
+                <textFieldExpression class="java.util.Date"><![CDATA[$F{followupDate}]]></textFieldExpression>
+            </textField>
+            <textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None" hyperlinkTarget="Self">
+                <reportElement
+                        x="0"
+                        y="0"
+                        width="65"
+                        height="11"
+                        key="textField-21"/>
+                <box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+                <textElement textAlignment="Center">
+                    <font fontName="SansSerif" size="7" isBold="false"/>
+                </textElement>
+                <textFieldExpression class="java.lang.String"><![CDATA[$F{agencyNumber}]]></textFieldExpression>
+            </textField>
+            <textField isStretchWithOverflow="true" pattern="MM/dd/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None" hyperlinkTarget="Self">
+                <reportElement
+                        x="461"
+                        y="0"
+                        width="45"
+                        height="11"
+                        key="textField-22"/>
+                <box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+                <textElement textAlignment="Right">
+                    <font fontName="SansSerif" size="7" isBold="false"/>
+                </textElement>
+                <textFieldExpression class="java.util.Date"><![CDATA[$F{completedDate}]]></textFieldExpression>
+            </textField>
+            <textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None" hyperlinkTarget="Self">
+                <reportElement
+                        x="506"
+                        y="0"
+                        width="65"
+                        height="11"
+                        key="textField-23"/>
+                <box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+                <textElement textAlignment="Left">
+                    <font fontName="SansSerif" size="7" isBold="false"/>
+                </textElement>
+                <textFieldExpression class="java.lang.String"><![CDATA[$F{userPrincipalId}]]></textFieldExpression>
+            </textField>
+            <textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None" hyperlinkTarget="Self">
+                <reportElement
+                        x="254"
+                        y="0"
+                        width="70"
+                        height="11"
+                        key="textField-25"/>
+                <box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+                <textElement textAlignment="Left">
+                    <font fontName="SansSerif" size="7" isBold="false"/>
+                </textElement>
+                <textFieldExpression class="java.lang.String"><![CDATA[$F{activityType}]]></textFieldExpression>
+            </textField>
+            <textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None" hyperlinkTarget="Self">
+                <reportElement
+                        x="324"
+                        y="0"
+                        width="92"
+                        height="11"
+                        key="textField-26"/>
+                <box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+                <textElement textAlignment="Left">
+                    <font fontName="SansSerif" size="7" isBold="false"/>
+                </textElement>
+                <textFieldExpression class="java.lang.String"><![CDATA[$F{activityComment}]]></textFieldExpression>
+            </textField>
+            <textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None" hyperlinkTarget="Self">
+                <reportElement
+                        x="56"
+                        y="0"
+                        width="65"
+                        height="11"
+                        key="textField-27"/>
+                <box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+                <textElement textAlignment="Center">
+                    <font fontName="SansSerif" size="7" isBold="false"/>
+                </textElement>
+                <textFieldExpression class="java.lang.String"><![CDATA[$F{chartOfAccountsCode}]]></textFieldExpression>
+            </textField>
+            <textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None" hyperlinkTarget="Self">
+                <reportElement
+                        x="31"
+                        y="0"
+                        width="65"
+                        height="11"
+                        key="textField-28"/>
+                <box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+                <textElement textAlignment="Center">
+                    <font fontName="SansSerif" size="7" isBold="false"/>
+                </textElement>
+                <textFieldExpression class="java.lang.String"><![CDATA[$F{proposalNumber}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+    <columnFooter>
+        <band height="0" isSplitAllowed="true">
+        </band>
+    </columnFooter>
+    <pageFooter>
+        <band height="0" isSplitAllowed="true">
+        </band>
+    </pageFooter>
+    <summary>
+        <band height="0" isSplitAllowed="true">
+        </band>
+    </summary>
 </jasperReport>

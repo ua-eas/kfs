@@ -1,29 +1,29 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sec.service.impl;
 
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sec.SecConstants;
 import org.kuali.kfs.sec.service.AccessPermissionEvaluator;
 import org.kuali.rice.kim.api.identity.Person;
+
+import java.util.Map;
 
 
 /**
@@ -74,8 +74,7 @@ public class AccessPermissionEvaluatorImpl implements AccessPermissionEvaluator 
 
         if ((allowConstraint && notOperator) || (!allowConstraint && !notOperator)) {
             allowed = !match;
-        }
-        else {
+        } else {
             allowed = match;
         }
 
@@ -84,9 +83,9 @@ public class AccessPermissionEvaluatorImpl implements AccessPermissionEvaluator 
 
     /**
      * Determines whether two values match performing an equal, greater than, or less than check and also considering wildcards
-     * 
+     *
      * @param matchValue String value to match, can contain the * wildcard
-     * @param value String value to compare
+     * @param value      String value to compare
      * @return boolean true if values match, false otherwise
      */
     protected boolean isMatch(String matchValue, String value) {
@@ -101,8 +100,7 @@ public class AccessPermissionEvaluatorImpl implements AccessPermissionEvaluator 
         if (performEqualMatch) {
             if (performWildcardMatch) {
                 match = value.startsWith(matchValue);
-            }
-            else {
+            } else {
                 match = value.equals(matchValue);
             }
         }
@@ -127,7 +125,7 @@ public class AccessPermissionEvaluatorImpl implements AccessPermissionEvaluator 
         }
 
         if (SecConstants.SecurityDefinitionOperatorCodes.EQUAL.equals(operatorCode) || SecConstants.SecurityDefinitionOperatorCodes.NOT_EQUAL.equals(operatorCode) || SecConstants.SecurityDefinitionOperatorCodes.LESS_THAN_EQUAL.equals(operatorCode)
-                || SecConstants.SecurityDefinitionOperatorCodes.GREATER_THAN_EQUAL.equals(operatorCode)) {
+            || SecConstants.SecurityDefinitionOperatorCodes.GREATER_THAN_EQUAL.equals(operatorCode)) {
             performEqualMatch = true;
         }
 
@@ -138,7 +136,7 @@ public class AccessPermissionEvaluatorImpl implements AccessPermissionEvaluator 
         if (SecConstants.SecurityDefinitionOperatorCodes.GREATER_THAN.equals(operatorCode) || SecConstants.SecurityDefinitionOperatorCodes.GREATER_THAN_EQUAL.equals(operatorCode)) {
             performGreaterThanMatch = true;
         }
-        
+
         if (SecConstants.SecurityDefinitionOperatorCodes.NOT_EQUAL.equals(operatorCode)) {
             notOperator = true;
         }
@@ -152,8 +150,7 @@ public class AccessPermissionEvaluatorImpl implements AccessPermissionEvaluator 
     protected void setMatchValues() {
         if (StringUtils.contains(propertyValue, SecConstants.SecurityValueSpecialCharacters.MULTI_VALUE_SEPERATION_CHARACTER)) {
             matchValues = StringUtils.split(propertyValue, SecConstants.SecurityValueSpecialCharacters.MULTI_VALUE_SEPERATION_CHARACTER);
-        }
-        else {
+        } else {
             matchValues = new String[1];
             matchValues[0] = propertyValue;
         }

@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,21 +18,17 @@
  */
 package org.kuali.kfs.module.ar.document;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsLetterOfCreditFund;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsLetterOfCreditFundGroup;
+import org.kuali.kfs.integration.cg.ContractsAndGrantsModuleBillingService;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
@@ -46,12 +42,17 @@ import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.FinancialSystemTransactionalDocumentBase;
 import org.kuali.kfs.sys.service.OptionsService;
-import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
-import org.kuali.rice.krad.service.KualiModuleService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Contracts & Grants LOC Review Document.
@@ -239,26 +240,20 @@ public class ContractsGrantsLetterOfCreditReviewDocument extends FinancialSystem
     public boolean populateContractsGrantsLOCReviewDetails(Collection<ContractsGrantsInvoiceDocumentErrorLog> contractsGrantsInvoiceDocumentErrorLogs) {
         boolean valid = true;
 
-        DateTimeService dateTimeService = SpringContext.getBean(DateTimeService.class);
         ContractsGrantsInvoiceDocumentService contractsGrantsInvoiceDocumentService = SpringContext.getBean(ContractsGrantsInvoiceDocumentService.class);
         ContractsGrantsInvoiceCreateDocumentService contractsGrantsInvoiceCreateDocumentService = SpringContext.getBean(ContractsGrantsInvoiceCreateDocumentService.class);
         ContractsGrantsLetterOfCreditReviewDetail locReviewDtl;
-        Map<String, Object> criteria = new HashMap<String, Object>();
-        if (ObjectUtils.isNotNull(this.getLetterOfCreditFundGroupCode())) {
-            criteria.put("letterOfCreditFund.letterOfCreditFundGroupCode", this.getLetterOfCreditFundGroupCode());
-        }
-        if (ObjectUtils.isNotNull(this.getLetterOfCreditFundCode())) {
-            criteria.put("letterOfCreditFundCode", this.getLetterOfCreditFundCode());
-        }
+        ContractsAndGrantsModuleBillingService contractsAndGrantsModuleBillingService = SpringContext.getBean(ContractsAndGrantsModuleBillingService.class);
+
+        Map<String, Object> criteria = contractsAndGrantsModuleBillingService.getLetterOfCreditAwardCriteria(this.getLetterOfCreditFundGroupCode(), this.getLetterOfCreditFundCode());
         // To exclude awards with milestones and predetermined schedule.
-        criteria.put(ArPropertyConstants.BILLING_FREQUENCY_CODE, ArConstants.LOC_BILLING_SCHEDULE_CODE);
+        criteria.put(ArPropertyConstants.BILLING_FREQUENCY_CODE, ArConstants.BillingFrequencyValues.LETTER_OF_CREDIT.getCode());
 
         List<ContractsAndGrantsBillingAward> awards = getContractsGrantsLetterOfCreditReviewDocumentService().getActiveAwardsByCriteria(criteria);
 
         if (CollectionUtils.isEmpty(awards)) {
             GlobalVariables.getMessageMap().putErrorForSectionId("Contracts & Grants LOC Review Initiation", ArKeyConstants.ContractsGrantsInvoiceConstants.ERROR_NO_AWARDS_RETRIEVED);
-        }
-        else {
+        } else {
 
             List<ContractsAndGrantsBillingAward> validAwards = new ArrayList<ContractsAndGrantsBillingAward>();
 
@@ -267,8 +262,7 @@ public class ContractsGrantsLetterOfCreditReviewDocument extends FinancialSystem
             if (CollectionUtils.isEmpty(validAwards)) {
                 GlobalVariables.getMessageMap().putWarningForSectionId("Contracts & Grants LOC Review Initiation", ArKeyConstants.ContractsGrantsInvoiceConstants.ERROR_AWARDS_INVALID);
                 valid = false;
-            }
-            else {
+            } else {
                 for (ContractsAndGrantsBillingAward award : validAwards) {
 
                     // To set the amount to draw for the award accounts as a whole.
@@ -312,8 +306,7 @@ public class ContractsGrantsLetterOfCreditReviewDocument extends FinancialSystem
                         totalAwardBudgetAmount = totalAwardBudgetAmount.add(locReviewDtl.getAwardBudgetAmount());
                         if (ObjectUtils.isNotNull(awardAccount.getAccount().getContractControlAccountNumber()) && awardAccount.getAccountNumber().equalsIgnoreCase(awardAccount.getAccount().getContractControlAccountNumber())) {
                             locReviewDtl.setAccountDescription(ArConstants.CONTRACT_CONTROL_ACCOUNT);
-                        }
-                        else {
+                        } else {
                             locReviewDtl.setAccountDescription(ArConstants.ACCOUNT);
                         }
                         locReviewDtl.setAmountToDraw(awardAccountAmountsToDraw.get(awardAccountKey));
@@ -344,7 +337,7 @@ public class ContractsGrantsLetterOfCreditReviewDocument extends FinancialSystem
 
     /**
      * @see org.kuali.kfs.sys.document.FinancialSystemTransactionalDocumentBase#prepareForSave() To check if the amount to Draw
-     *      field has been changed and to set the award locReviewIndicator to true.
+     * field has been changed and to set the award locReviewIndicator to true.
      */
     @Override
     public void prepareForSave() {
@@ -360,7 +353,7 @@ public class ContractsGrantsLetterOfCreditReviewDocument extends FinancialSystem
 
 
             // To set amount to Draw to 0 if there are blank values, to avoid exceptions.
-            if (ObjectUtils.isNull(detail.getAmountToDraw()) ) {
+            if (ObjectUtils.isNull(detail.getAmountToDraw())) {
                 detail.setAmountToDraw(KualiDecimal.ZERO);
             }
             detail.setFundsNotDrawn(detail.getHiddenAmountToDraw().subtract(detail.getAmountToDraw()));
@@ -373,7 +366,7 @@ public class ContractsGrantsLetterOfCreditReviewDocument extends FinancialSystem
         }
 
         // To sum up amount to draw values.
-        Set<Long> proposalNumberSet = new HashSet<Long>();
+        Set<String> proposalNumberSet = new HashSet<>();
         for (ContractsGrantsLetterOfCreditReviewDetail detail : getHeaderReviewDetails()) {
             // Adding the awards to a set, to get unique values.
             proposalNumberSet.add(detail.getProposalNumber());
@@ -383,16 +376,16 @@ public class ContractsGrantsLetterOfCreditReviewDocument extends FinancialSystem
         // 2. create invoices. - independent whether the amounts were changed or not.
 
         // To get the list of awards from the proposal Number set.
-        for (Long proposalNumber : proposalNumberSet) {
+        for (String proposalNumber : proposalNumberSet) {
             KualiDecimal totalAmountToDraw = KualiDecimal.ZERO;
             for (ContractsGrantsLetterOfCreditReviewDetail detail : getAccountReviewDetails()) {// To identify the header row
-                if (ObjectUtils.isNotNull(detail.getAccountDescription()) && detail.getProposalNumber().equals(proposalNumber)) {
+                if (ObjectUtils.isNotNull(detail.getAccountDescription()) && StringUtils.equals(detail.getProposalNumber(), proposalNumber)) {
                     totalAmountToDraw = totalAmountToDraw.add(detail.getAmountToDraw());
                 }
             }
 
             for (ContractsGrantsLetterOfCreditReviewDetail detail : getHeaderReviewDetails()) {// To identify the header row
-                if (ObjectUtils.isNotNull(detail.getAgencyNumber()) && ObjectUtils.isNull(detail.getAccountDescription()) && detail.getProposalNumber().equals(proposalNumber)) {
+                if (ObjectUtils.isNotNull(detail.getAgencyNumber()) && ObjectUtils.isNull(detail.getAccountDescription()) && StringUtils.equals(detail.getProposalNumber(), proposalNumber)) {
                     detail.setAmountToDraw(totalAmountToDraw);
                 }
             }

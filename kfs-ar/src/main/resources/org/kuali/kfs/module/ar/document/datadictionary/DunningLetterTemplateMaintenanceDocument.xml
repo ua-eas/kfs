@@ -1,102 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:dd="http://rice.kuali.org/dd"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd         http://rice.kuali.org/dd         http://rice.kuali.org/dd/dd.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-	<bean id="DunningLetterTemplateMaintenanceDocument" parent="DunningLetterTemplateMaintenanceDocument-parentBean" />
+    <bean id="DunningLetterTemplateMaintenanceDocument" parent="DunningLetterTemplateMaintenanceDocument-parentBean"/>
 
-	<bean id="DunningLetterTemplateMaintenanceDocument-parentBean" abstract="true"
-		parent="MaintenanceDocumentEntry">
-		<property name="businessObjectClass"
-			value="org.kuali.kfs.module.ar.businessobject.DunningLetterTemplate" />
-		<property name="maintainableClass"
-			value="org.kuali.kfs.sys.document.FinancialSystemMaintainable" />
-		<property name="maintainableSections">
-			<list>
-				<ref bean="DunningLetterTemplateMaintenanceDocument-EditOrganisation" />
-				<ref bean="DunningLetterTemplateMaintenanceDocument-EditDunningLetterTemplate" />
-			</list>
-		</property>
-		<property name="lockingKeys">
-			<list>
-				<value>dunningLetterTemplateCode</value>
-			</list>
-		</property>
-		<property name="documentTypeName" value="DLTM" />
-		<property name="documentAuthorizerClass"
-			value="org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentAuthorizerBase" />
-		<property name="workflowAttributes">
-			<ref bean="DunningLetterTemplateMaintenanceDocument-workflowAttributes" />
-		</property>
-	</bean>
+    <bean id="DunningLetterTemplateMaintenanceDocument-parentBean" abstract="true"
+          parent="MaintenanceDocumentEntry">
+        <property name="businessObjectClass"
+                  value="org.kuali.kfs.module.ar.businessobject.DunningLetterTemplate"/>
+        <property name="maintainableClass"
+                  value="org.kuali.kfs.sys.document.FinancialSystemMaintainable"/>
+        <property name="maintainableSections">
+            <list>
+                <ref bean="DunningLetterTemplateMaintenanceDocument-EditOrganisation"/>
+                <ref bean="DunningLetterTemplateMaintenanceDocument-EditDunningLetterTemplate"/>
+            </list>
+        </property>
+        <property name="lockingKeys">
+            <list>
+                <value>dunningLetterTemplateCode</value>
+            </list>
+        </property>
+        <property name="documentTypeName" value="DLTM"/>
+        <property name="documentAuthorizerClass"
+                  value="org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentAuthorizerBase"/>
+        <property name="workflowAttributes">
+            <ref bean="DunningLetterTemplateMaintenanceDocument-workflowAttributes"/>
+        </property>
+    </bean>
 
-	<!-- Maintenance Section Definitions -->
+    <!-- Maintenance Section Definitions -->
 
-	<bean id="DunningLetterTemplateMaintenanceDocument-EditOrganisation"
-		parent="DunningLetterTemplateMaintenanceDocument-EditOrganisation-parentBean" />
+    <bean id="DunningLetterTemplateMaintenanceDocument-EditOrganisation"
+          parent="DunningLetterTemplateMaintenanceDocument-EditOrganisation-parentBean"/>
 
-	<bean id="DunningLetterTemplateMaintenanceDocument-EditOrganisation-parentBean"
-		abstract="true" parent="MaintainableSectionDefinition">
-		<property name="id" value="Organization" />
-		<property name="title" value="Organization" />
-		<property name="maintainableItems">
-			<list>
-				<bean parent="MaintainableFieldDefinition" p:name="billByChartOfAccountCode"
-					p:required="true"
-					p:defaultValueFinderClass="org.kuali.kfs.coa.businessobject.defaultvalue.CurrentUserChartValueFinder" />
-				<bean parent="MaintainableFieldDefinition" p:name="billedByOrganizationCode"
-					p:required="true"
-					p:defaultValueFinderClass="org.kuali.kfs.coa.businessobject.defaultvalue.CurrentUserOrgValueFinder" />
-			</list>
-		</property>
-	</bean>
+    <bean id="DunningLetterTemplateMaintenanceDocument-EditOrganisation-parentBean"
+          abstract="true" parent="MaintainableSectionDefinition">
+        <property name="id" value="Organization"/>
+        <property name="title" value="Organization"/>
+        <property name="maintainableItems">
+            <list>
+                <bean parent="MaintainableFieldDefinition" p:name="billByChartOfAccountCode"
+                      p:required="true"
+                      p:defaultValueFinderClass="org.kuali.kfs.coa.businessobject.defaultvalue.CurrentUserChartValueFinder"/>
+                <bean parent="MaintainableFieldDefinition" p:name="billedByOrganizationCode"
+                      p:required="true"
+                      p:defaultValueFinderClass="org.kuali.kfs.coa.businessobject.defaultvalue.CurrentUserOrgValueFinder"/>
+            </list>
+        </property>
+    </bean>
 
-	<bean id="DunningLetterTemplateMaintenanceDocument-EditDunningLetterTemplate"
-		parent="DunningLetterTemplateMaintenanceDocument-EditDunningLetterTemplate-parentBean" />
+    <bean id="DunningLetterTemplateMaintenanceDocument-EditDunningLetterTemplate"
+          parent="DunningLetterTemplateMaintenanceDocument-EditDunningLetterTemplate-parentBean"/>
 
-	<bean
-		id="DunningLetterTemplateMaintenanceDocument-EditDunningLetterTemplate-parentBean"
-		abstract="true" parent="MaintainableSectionDefinition">
-		<property name="id" value="Dunning Letter Template" />
-		<property name="title" value="Dunning Letter Template" />
-		<property name="maintainableItems">
-			<list>
-				<bean parent="MaintainableFieldDefinition" p:name="dunningLetterTemplateCode"
-					p:required="true" />
-				<bean parent="MaintainableFieldDefinition" p:name="dunningLetterTemplateDescription"
-					p:required="true" />
-				<bean parent="MaintainableFieldDefinition" p:name="active"
-					p:defaultValue="true" />
-				<bean parent="MaintainableFieldDefinition" p:name="restrictUseByChartOrg"
-					p:defaultValue="false" />
-			</list>
-		</property>
-	</bean>
+    <bean
+            id="DunningLetterTemplateMaintenanceDocument-EditDunningLetterTemplate-parentBean"
+            abstract="true" parent="MaintainableSectionDefinition">
+        <property name="id" value="Dunning Letter Template"/>
+        <property name="title" value="Dunning Letter Template"/>
+        <property name="maintainableItems">
+            <list>
+                <bean parent="MaintainableFieldDefinition" p:name="dunningLetterTemplateCode"
+                      p:required="true"/>
+                <bean parent="MaintainableFieldDefinition" p:name="dunningLetterTemplateDescription"
+                      p:required="true"/>
+                <bean parent="MaintainableFieldDefinition" p:name="active"
+                      p:defaultValue="true"/>
+                <bean parent="MaintainableFieldDefinition" p:name="restrictUseByChartOrg"
+                      p:defaultValue="false"/>
+            </list>
+        </property>
+    </bean>
 
-	<!-- workflow attributes -->
-	<bean id="DunningLetterTemplateMaintenanceDocument-workflowAttributes"
-		parent="DunningLetterTemplateMaintenanceDocument-workflowAttributes-parentBean" />
+    <!-- workflow attributes -->
+    <bean id="DunningLetterTemplateMaintenanceDocument-workflowAttributes"
+          parent="DunningLetterTemplateMaintenanceDocument-workflowAttributes-parentBean"/>
 
-	<bean
-		id="DunningLetterTemplateMaintenanceDocument-workflowAttributes-parentBean"
-		class="org.kuali.rice.krad.datadictionary.WorkflowAttributes" abstract="true" />
+    <bean
+            id="DunningLetterTemplateMaintenanceDocument-workflowAttributes-parentBean"
+            class="org.kuali.kfs.krad.datadictionary.WorkflowAttributes" abstract="true"/>
 </beans>

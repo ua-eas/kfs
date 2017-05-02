@@ -1,33 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sec.businessobject.lookup;
 
-import static org.kuali.rice.core.api.criteria.PredicateFactory.equal;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.util.FieldUtils;
+import org.kuali.kfs.kns.web.ui.Row;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.KRADPropertyConstants;
 import org.kuali.kfs.sec.SecPropertyConstants;
 import org.kuali.kfs.sec.businessobject.ModelMember;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -41,15 +39,16 @@ import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.role.Role;
 import org.kuali.rice.kim.api.role.RoleQueryResults;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.rice.kim.impl.KIMPropertyConstants;
-import org.kuali.rice.kns.datadictionary.BusinessObjectEntry;
-import org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.kns.util.FieldUtils;
-import org.kuali.rice.kns.web.ui.Row;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.KRADPropertyConstants;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import static org.kuali.rice.core.api.criteria.PredicateFactory.equal;
 
 
 /**
@@ -92,8 +91,7 @@ public class ModelMemberLookupableHelperServiceImpl extends KualiLookupableHelpe
 
                 results.add(member);
             }
-        }
-        else if ( MemberType.GROUP.getCode().equals(memberTypeCode)) {
+        } else if (MemberType.GROUP.getCode().equals(memberTypeCode)) {
             List<String> groupSearchFields = getGroupLookupFields();
             groupSearchFields.remove(SecPropertyConstants.MEMBER_TYPE_CODE);
             for (String groupField : groupSearchFields) {
@@ -106,14 +104,13 @@ public class ModelMemberLookupableHelperServiceImpl extends KualiLookupableHelpe
             for (Group group : resultGroups.getResults()) {
                 ModelMember member = new ModelMember();
                 member.setMemberId(group.getId());
-                member.setMemberTypeCode( MemberType.GROUP.getCode() );
+                member.setMemberTypeCode(MemberType.GROUP.getCode());
                 member.setMemberName(group.getNamespaceCode() + "-" + group.getName());
                 member.setActive(group.isActive());
 
                 results.add(member);
             }
-        }
-        else {
+        } else {
             List<String> personSearchFields = getPersonLookupFields();
             personSearchFields.remove(SecPropertyConstants.MEMBER_TYPE_CODE);
             for (String personField : personSearchFields) {
@@ -148,15 +145,12 @@ public class ModelMemberLookupableHelperServiceImpl extends KualiLookupableHelpe
 
             if (MemberType.ROLE.getCode().equals(memberTypeCode)) {
                 lookupFieldAttributeList = getRoleLookupFields();
-            }
-            else if (MemberType.GROUP.getCode().equals(memberTypeCode)) {
+            } else if (MemberType.GROUP.getCode().equals(memberTypeCode)) {
                 lookupFieldAttributeList = getGroupLookupFields();
-            }
-            else {
+            } else {
                 lookupFieldAttributeList = getPersonLookupFields();
             }
-        }
-        else {
+        } else {
             lookupFieldAttributeList = getPersonLookupFields();
         }
 
@@ -169,11 +163,9 @@ public class ModelMemberLookupableHelperServiceImpl extends KualiLookupableHelpe
             BusinessObjectEntry boe = (BusinessObjectEntry) SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getBusinessObjectEntry(this.getBusinessObjectClass().getName());
             numCols = boe.getLookupDefinition().getNumOfColumns();
 
-        }
-        catch (InstantiationException e) {
+        } catch (InstantiationException e) {
             throw new RuntimeException("Unable to create instance of business object class", e);
-        }
-        catch (IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
             throw new RuntimeException("Unable to create instance of business object class", e);
         }
 
@@ -186,7 +178,7 @@ public class ModelMemberLookupableHelperServiceImpl extends KualiLookupableHelpe
 
     /**
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#getRows()
-     *
+     * <p>
      * KRAD Conversion: Performs retrieving the rows.
      * No use data dictionary.
      */
@@ -250,7 +242,7 @@ public class ModelMemberLookupableHelperServiceImpl extends KualiLookupableHelpe
         return lookupFields;
     }
 
-    private QueryByCriteria toQuery(Map<String,?> fieldValues) {
+    private QueryByCriteria toQuery(Map<String, ?> fieldValues) {
         Set<Predicate> preds = new HashSet<Predicate>();
         for (String key : fieldValues.keySet()) {
             preds.add(equal(key, fieldValues.get(key)));

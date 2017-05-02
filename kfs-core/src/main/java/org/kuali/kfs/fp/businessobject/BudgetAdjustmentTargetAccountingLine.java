@@ -1,29 +1,29 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.businessobject;
 
-import java.util.Map;
-
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.TargetAccountingLine;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
+
+import java.util.Map;
 
 /**
  * This class represents a target accounting line for budget adjustment
@@ -109,7 +109,7 @@ public class BudgetAdjustmentTargetAccountingLine extends TargetAccountingLine i
 
     /**
      * Gets the financialDocumentMonth1LineAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentMonth1LineAmount
      */
     public KualiDecimal getFinancialDocumentMonth1LineAmount() {
@@ -118,7 +118,7 @@ public class BudgetAdjustmentTargetAccountingLine extends TargetAccountingLine i
 
     /**
      * Sets the financialDocumentMonth1LineAmount attribute.
-     * 
+     *
      * @param financialDocumentMonth1LineAmount The financialDocumentMonth1LineAmount to set.
      */
     public void setFinancialDocumentMonth1LineAmount(KualiDecimal financialDocumentMonth1LineAmount) {
@@ -130,7 +130,7 @@ public class BudgetAdjustmentTargetAccountingLine extends TargetAccountingLine i
 
     /**
      * Gets the financialDocumentMonth2LineAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentMonth2LineAmount
      */
     public KualiDecimal getFinancialDocumentMonth2LineAmount() {
@@ -139,7 +139,7 @@ public class BudgetAdjustmentTargetAccountingLine extends TargetAccountingLine i
 
     /**
      * Sets the financialDocumentMonth2LineAmount attribute.
-     * 
+     *
      * @param financialDocumentMonth2LineAmount The financialDocumentMonth2LineAmount to set.
      */
     public void setFinancialDocumentMonth2LineAmount(KualiDecimal financialDocumentMonth2LineAmount) {
@@ -151,7 +151,7 @@ public class BudgetAdjustmentTargetAccountingLine extends TargetAccountingLine i
 
     /**
      * Gets the financialDocumentMonth3LineAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentMonth3LineAmount
      */
     public KualiDecimal getFinancialDocumentMonth3LineAmount() {
@@ -160,7 +160,7 @@ public class BudgetAdjustmentTargetAccountingLine extends TargetAccountingLine i
 
     /**
      * Sets the financialDocumentMonth3LineAmount attribute.
-     * 
+     *
      * @param financialDocumentMonth3LineAmount The financialDocumentMonth3LineAmount to set.
      */
     public void setFinancialDocumentMonth3LineAmount(KualiDecimal financialDocumentMonth3LineAmount) {
@@ -172,7 +172,7 @@ public class BudgetAdjustmentTargetAccountingLine extends TargetAccountingLine i
 
     /**
      * Gets the financialDocumentMonth4LineAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentMonth4LineAmount
      */
     public KualiDecimal getFinancialDocumentMonth4LineAmount() {
@@ -181,7 +181,7 @@ public class BudgetAdjustmentTargetAccountingLine extends TargetAccountingLine i
 
     /**
      * Sets the financialDocumentMonth4LineAmount attribute.
-     * 
+     *
      * @param financialDocumentMonth4LineAmount The financialDocumentMonth4LineAmount to set.
      */
     public void setFinancialDocumentMonth4LineAmount(KualiDecimal financialDocumentMonth4LineAmount) {
@@ -193,7 +193,7 @@ public class BudgetAdjustmentTargetAccountingLine extends TargetAccountingLine i
 
     /**
      * Gets the financialDocumentMonth5LineAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentMonth5LineAmount
      */
     public KualiDecimal getFinancialDocumentMonth5LineAmount() {
@@ -202,7 +202,7 @@ public class BudgetAdjustmentTargetAccountingLine extends TargetAccountingLine i
 
     /**
      * Sets the financialDocumentMonth5LineAmount attribute.
-     * 
+     *
      * @param financialDocumentMonth5LineAmount The financialDocumentMonth5LineAmount to set.
      */
     public void setFinancialDocumentMonth5LineAmount(KualiDecimal financialDocumentMonth5LineAmount) {
@@ -214,7 +214,7 @@ public class BudgetAdjustmentTargetAccountingLine extends TargetAccountingLine i
 
     /**
      * Gets the financialDocumentMonth6LineAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentMonth6LineAmount
      */
     public KualiDecimal getFinancialDocumentMonth6LineAmount() {
@@ -223,7 +223,7 @@ public class BudgetAdjustmentTargetAccountingLine extends TargetAccountingLine i
 
     /**
      * Sets the financialDocumentMonth6LineAmount attribute.
-     * 
+     *
      * @param financialDocumentMonth6LineAmount The financialDocumentMonth6LineAmount to set.
      */
     public void setFinancialDocumentMonth6LineAmount(KualiDecimal financialDocumentMonth6LineAmount) {
@@ -235,7 +235,7 @@ public class BudgetAdjustmentTargetAccountingLine extends TargetAccountingLine i
 
     /**
      * Gets the financialDocumentMonth7LineAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentMonth7LineAmount
      */
     public KualiDecimal getFinancialDocumentMonth7LineAmount() {
@@ -244,7 +244,7 @@ public class BudgetAdjustmentTargetAccountingLine extends TargetAccountingLine i
 
     /**
      * Sets the financialDocumentMonth7LineAmount attribute.
-     * 
+     *
      * @param financialDocumentMonth7LineAmount The financialDocumentMonth7LineAmount to set.
      */
     public void setFinancialDocumentMonth7LineAmount(KualiDecimal financialDocumentMonth7LineAmount) {
@@ -256,7 +256,7 @@ public class BudgetAdjustmentTargetAccountingLine extends TargetAccountingLine i
 
     /**
      * Gets the financialDocumentMonth8LineAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentMonth8LineAmount
      */
     public KualiDecimal getFinancialDocumentMonth8LineAmount() {
@@ -265,7 +265,7 @@ public class BudgetAdjustmentTargetAccountingLine extends TargetAccountingLine i
 
     /**
      * Sets the financialDocumentMonth8LineAmount attribute.
-     * 
+     *
      * @param financialDocumentMonth8LineAmount The financialDocumentMonth8LineAmount to set.
      */
     public void setFinancialDocumentMonth8LineAmount(KualiDecimal financialDocumentMonth8LineAmount) {
@@ -277,7 +277,7 @@ public class BudgetAdjustmentTargetAccountingLine extends TargetAccountingLine i
 
     /**
      * Gets the financialDocumentMonth9LineAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentMonth9LineAmount
      */
     public KualiDecimal getFinancialDocumentMonth9LineAmount() {
@@ -286,7 +286,7 @@ public class BudgetAdjustmentTargetAccountingLine extends TargetAccountingLine i
 
     /**
      * Sets the financialDocumentMonth9LineAmount attribute.
-     * 
+     *
      * @param financialDocumentMonth9LineAmount The financialDocumentMonth9LineAmount to set.
      */
     public void setFinancialDocumentMonth9LineAmount(KualiDecimal financialDocumentMonth9LineAmount) {
@@ -298,7 +298,7 @@ public class BudgetAdjustmentTargetAccountingLine extends TargetAccountingLine i
 
     /**
      * Gets the financialDocumentMonth10LineAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentMonth10LineAmount
      */
     public KualiDecimal getFinancialDocumentMonth10LineAmount() {
@@ -307,7 +307,7 @@ public class BudgetAdjustmentTargetAccountingLine extends TargetAccountingLine i
 
     /**
      * Sets the financialDocumentMonth10LineAmount attribute.
-     * 
+     *
      * @param financialDocumentMonth10LineAmount The financialDocumentMonth10LineAmount to set.
      */
     public void setFinancialDocumentMonth10LineAmount(KualiDecimal financialDocumentMonth10LineAmount) {
@@ -318,7 +318,7 @@ public class BudgetAdjustmentTargetAccountingLine extends TargetAccountingLine i
 
     /**
      * Gets the financialDocumentMonth11LineAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentMonth11LineAmount
      */
     public KualiDecimal getFinancialDocumentMonth11LineAmount() {
@@ -327,7 +327,7 @@ public class BudgetAdjustmentTargetAccountingLine extends TargetAccountingLine i
 
     /**
      * Sets the financialDocumentMonth11LineAmount attribute.
-     * 
+     *
      * @param financialDocumentMonth11LineAmount The financialDocumentMonth11LineAmount to set.
      */
     public void setFinancialDocumentMonth11LineAmount(KualiDecimal financialDocumentMonth11LineAmount) {
@@ -338,7 +338,7 @@ public class BudgetAdjustmentTargetAccountingLine extends TargetAccountingLine i
 
     /**
      * Gets the financialDocumentMonth12LineAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentMonth12LineAmount
      */
     public KualiDecimal getFinancialDocumentMonth12LineAmount() {
@@ -347,7 +347,7 @@ public class BudgetAdjustmentTargetAccountingLine extends TargetAccountingLine i
 
     /**
      * Sets the financialDocumentMonth12LineAmount attribute.
-     * 
+     *
      * @param financialDocumentMonth12LineAmount The financialDocumentMonth12LineAmount to set.
      */
     public void setFinancialDocumentMonth12LineAmount(KualiDecimal financialDocumentMonth12LineAmount) {
@@ -358,7 +358,7 @@ public class BudgetAdjustmentTargetAccountingLine extends TargetAccountingLine i
 
     /**
      * Gets the fringeBenefitIndicator attribute.
-     * 
+     *
      * @return Returns the fringeBenefitIndicator.
      */
     public boolean isFringeBenefitIndicator() {
@@ -367,7 +367,7 @@ public class BudgetAdjustmentTargetAccountingLine extends TargetAccountingLine i
 
     /**
      * Sets the fringeBenefitIndicator attribute value.
-     * 
+     *
      * @param fringeBenefitIndicator The fringeBenefitIndicator to set.
      */
     public void setFringeBenefitIndicator(boolean fringeBenefitIndicator) {

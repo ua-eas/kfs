@@ -1,22 +1,29 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.service.impl;
+
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.gl.GeneralLedgerConstants;
+import org.kuali.kfs.gl.service.OriginEntryGroupService;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -27,13 +34,6 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.gl.GeneralLedgerConstants;
-import org.kuali.kfs.gl.service.OriginEntryGroupService;
-import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.krad.service.KualiModuleService;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @see org.kuali.kfs.gl.service.OriginEntryGroupService
@@ -65,15 +65,13 @@ public class OriginEntryGroupServiceImpl implements OriginEntryGroupService {
             for (File eachFile : fileList) {
                 if (newestFile == null) {
                     newestFile = eachFile;
-                }
-                else {
+                } else {
                     if (newestFile.lastModified() < eachFile.lastModified()) {
                         newestFile = eachFile;
                     }
                 }
             }
-        }
-        else {
+        } else {
             return null;
         }
 
@@ -83,7 +81,7 @@ public class OriginEntryGroupServiceImpl implements OriginEntryGroupService {
 
     /**
      * Retrieves all groups to be created today, and creates backup group versions of them
-     * 
+     *
      * @see org.kuali.kfs.gl.service.OriginEntryGroupService#createBackupGroup()
      */
     public void createBackupGroup() {
@@ -98,8 +96,7 @@ public class OriginEntryGroupServiceImpl implements OriginEntryGroupService {
         PrintStream backupPs = null;
         try {
             backupPs = new PrintStream(backupFile);
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             throw new RuntimeException("backupFile doesn't exist " + backupFile);
         }
 
@@ -127,28 +124,25 @@ public class OriginEntryGroupServiceImpl implements OriginEntryGroupService {
                     while ((line = inputFileReader.readLine()) != null) {
                         try {
                             ps.printf("%s\n", line);
-                        }
-                        catch (Exception e) {
+                        } catch (Exception e) {
                             throw new IOException(e.toString());
                         }
                     }
                     inputFileReader.close();
                     inputFileReader = null;
 
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     throw new RuntimeException(e.toString());
                 }
 
                 doneFile.delete();
                 postProcessDataFile(dataFile);
-                
+
             }
         }
     }
-    
-    protected void postProcessDataFile( File dataFile )
-    {
+
+    protected void postProcessDataFile(File dataFile) {
         // do nothing.  A hook for institution extension.
     }
 
@@ -168,8 +162,7 @@ public class OriginEntryGroupServiceImpl implements OriginEntryGroupService {
         File file = new File(batchFileDirectoryName + File.separator + groupId);
         if (file == null) {
             return false;
-        }
-        else {
+        } else {
             return true;
         }
     }
@@ -243,7 +236,7 @@ public class OriginEntryGroupServiceImpl implements OriginEntryGroupService {
         }
         return dataFile;
     }
-    
+
     public void setBatchFileDirectoryName(String batchFileDirectoryName) {
         this.batchFileDirectoryName = batchFileDirectoryName;
     }
@@ -252,7 +245,7 @@ public class OriginEntryGroupServiceImpl implements OriginEntryGroupService {
     public void setKualiModuleService(KualiModuleService kualiModuleService) {
         this.kualiModuleService = kualiModuleService;
     }
-    
+
     public void setDateTimeService(DateTimeService dts) {
         dateTimeService = dts;
     }
@@ -276,6 +269,6 @@ public class OriginEntryGroupServiceImpl implements OriginEntryGroupService {
     protected KualiModuleService getKualiModuleService() {
         return kualiModuleService;
     }
-    
-    
+
+
 }

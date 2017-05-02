@@ -1,25 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.service;
-
-import java.util.List;
-import java.util.Set;
 
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLine;
 import org.kuali.kfs.module.purap.businessobject.PurApItem;
@@ -30,6 +27,9 @@ import org.kuali.kfs.module.purap.util.UseTaxContainer;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
+import java.util.List;
+import java.util.Set;
+
 /**
  * This class is used to generate Account Summaries for the Purchasing Accounts Payable Module account lists as well as to generate account lists that can be
  * used for distribution to below the line items or any other items that may require distribution
@@ -38,64 +38,62 @@ public interface PurapAccountingService {
 
     /**
      * unused see other generateAccountDistribution methods
-     * @deprecated
+     *
      * @param accounts
      * @param totalAmount
      * @param percentScale
      * @return
+     * @deprecated
      */
     @Deprecated
     public List<PurApAccountingLine> generateAccountDistributionForProration(List<SourceAccountingLine> accounts, KualiDecimal totalAmount, Integer percentScale);
 
     /**
-     *
      * Determines an appropriate account distribution for a particular Purchasing Accounts Payable list of Accounts.  It does this by looking at the accounts that were provided
      * which should be generated from a generateSummary method.  It then builds up a list of PurApAccountingLines (specified by the Class variable) and tries to determine the
      * appropriate percents to use on the new accounts, this may require some moving of percents to the last account as a slush.
      *
-     * @param accounts the incoming source accounts from generateSummary
-     * @param totalAmount the total amount of the document
+     * @param accounts     the incoming source accounts from generateSummary
+     * @param totalAmount  the total amount of the document
      * @param percentScale the scale to round to
-     * @param clazz the class of the Purchasing Accounts Payable Account
+     * @param clazz        the class of the Purchasing Accounts Payable Account
      * @return a list of new Purchasing Accounts Payable Accounts
      */
     public List<PurApAccountingLine> generateAccountDistributionForProration(List<SourceAccountingLine> accounts, KualiDecimal totalAmount, Integer percentScale, Class clazz);
 
     /**
-     *
      * Determines an appropriate account distribution for a particular Purchasing Accounts Payable list of Accounts.  It does this by looking at the accounts that were provided
      * which should be generated from a generateSummary method.  It then builds up a list of PurApAccountingLines (specified by the Class variable) and tries to determine the
      * appropriate percents to use on the new accounts, this may require some moving of percents to the last account as a slush.  This is called when a document has a zero dollar
      * total
-
-     * @param accounts the incoming source accounts from generateSummary
+     *
+     * @param accounts     the incoming source accounts from generateSummary
      * @param percentScale the scale to round to
-     * @param clazz the class of the Purchasing Accounts Payable Account
+     * @param clazz        the class of the Purchasing Accounts Payable Account
      * @return a list of new Purchasing Accounts Payable Accounts
      */
     public List<PurApAccountingLine> generateAccountDistributionForProrationWithZeroTotal(PurchasingAccountsPayableDocument purapdoc);
 
     /**
-     *
      * This creates summary accounts based on a list of items.
+     *
      * @param document the document to generate the summary accounts from
      * @return a list of summary accounts.
      */
     public List<SummaryAccount> generateSummaryAccounts(PurchasingAccountsPayableDocument document);
 
     /**
-     *
      * This creates summary accounts based on a list of items excluding zero totals.
+     *
      * @param document the document to generate the summary accounts from
      * @return a list of summary accounts.
      */
     public List<SummaryAccount> generateSummaryAccountsWithNoZeroTotals(PurchasingAccountsPayableDocument document);
 
 
-
     /**
-     *
      * This creates summary accounts based on a list of items excluding zero totals and use tax.
+     *
      * @param document the document to generate the summary accounts from
      * @return a list of summary accounts.
      */
@@ -103,7 +101,6 @@ public interface PurapAccountingService {
 
 
     /**
-     *
      * Generates an account summary, that is it creates a list of source accounts
      * by rounding up the Purchasing Accounts Payable accounts off of the Purchasing Accounts Payable items.
      *
@@ -121,7 +118,6 @@ public interface PurapAccountingService {
     public List<SourceAccountingLine> generateSummaryTaxableAccounts(List<PurApItem> items);
 
     /**
-     *
      * convenience method that generates a list of source accounts while excluding items with
      * $0 amounts
      *
@@ -131,7 +127,6 @@ public interface PurapAccountingService {
     public List<SourceAccountingLine> generateSummaryWithNoZeroTotals(List<PurApItem> items);
 
     /**
-     *
      * convenience method that generates a list of source accounts while excluding items with
      * $0 amounts and use tax
      *
@@ -141,7 +136,6 @@ public interface PurapAccountingService {
     public List<SourceAccountingLine> generateSummaryWithNoZeroTotalsNoUseTax(List<PurApItem> items);
 
     /**
-     *
      * convenience method that generates a list of source accounts while excluding items with
      * $0 amounts and using the alternate amount
      *
@@ -151,44 +145,40 @@ public interface PurapAccountingService {
     public List<SourceAccountingLine> generateSummaryWithNoZeroTotalsUsingAlternateAmount(List<PurApItem> items);
 
     /**
-     *
      * convenience method that generates a list of source accounts while excluding items with
      * the specified item types
      *
-     * @param items the items to generate source accounts from
+     * @param items                 the items to generate source accounts from
      * @param excludedItemTypeCodes the item types to exclude
      * @return a list of source accounts "rolled up" from the purap accounts
      */
     public List<SourceAccountingLine> generateSummaryExcludeItemTypes(List<PurApItem> items, Set excludedItemTypeCodes);
 
     /**
-     *
      * convenience method that generates a list of source accounts while excluding items with
      * the specified item types and not including items with zero totals
      *
-     * @param items the items to generate source accounts from
+     * @param items                 the items to generate source accounts from
      * @param excludedItemTypeCodes the item types to exclude
      * @return a list of source accounts "rolled up" from the purap accounts
      */
     public List<SourceAccountingLine> generateSummaryExcludeItemTypesAndNoZeroTotals(List<PurApItem> items, Set excludedItemTypeCodes);
 
     /**
-     *
      * convenience method that generates a list of source accounts while only including items with
      * the specified item types
      *
-     * @param items the items to generate source accounts from
+     * @param items                 the items to generate source accounts from
      * @param excludedItemTypeCodes the item types to include
      * @return a list of source accounts "rolled up" from the purap accounts
      */
     public List<SourceAccountingLine> generateSummaryIncludeItemTypes(List<PurApItem> items, Set includedItemTypeCodes);
 
     /**
-     *
      * convenience method that generates a list of source accounts while only including items with
      * the specified item types and not including items with zero totals
      *
-     * @param items the items to generate source accounts from
+     * @param items                 the items to generate source accounts from
      * @param excludedItemTypeCodes the item types to include
      * @return a list of source accounts "rolled up" from the purap accounts
      */
@@ -228,22 +218,22 @@ public interface PurapAccountingService {
     /**
      * Deletes the ap summary accounts by the id of the doc type (Payment Request - PREQ or Credit Memo - CM)
      *
-     * @param purapDocumentIdentifier  The purapDocumentIdentifier of the document whose summary accounts are to be deleted.
+     * @param purapDocumentIdentifier The purapDocumentIdentifier of the document whose summary accounts are to be deleted.
      */
     public void deleteSummaryAccounts(Integer purapDocumentIdentifier, String docType);
 
     /**
      * Retrieves the ap summary accounts by the id of the doc type (Payment Request - PREQ or Credit Memo - CM)
      *
-     * @param purapDocumentIdentifier  The purapDocumentIdentifier of the document.
+     * @param purapDocumentIdentifier The purapDocumentIdentifier of the document.
      */
     public List getAccountsPayableSummaryAccounts(Integer purapDocumentIdentifier, String docType);
 
     /**
-     *
      * This method generates summary accounts for a vendor payment.
+     *
      * @param document
-     * @return   This will get the proper amount on the items that is sent to the vendor
+     * @return This will get the proper amount on the items that is sent to the vendor
      */
     public List<SourceAccountingLine> generateSourceAccountsForVendorRemit(PurchasingAccountsPayableDocument document);
 
@@ -256,6 +246,7 @@ public interface PurapAccountingService {
 
     /**
      * Generates use tax helper class for a purap document
+     *
      * @param document
      * @return useTaxContainer
      */
@@ -264,8 +255,9 @@ public interface PurapAccountingService {
     /**
      * Checks whether the specified accounting line in the specified PurAP document is used for tax withholding.
      * This applies only to PaymentRequestDocument; otherwise it always returns false.
+     *
      * @param document the specified PurAP document
-     * @param account the specified accounting line
+     * @param account  the specified accounting line
      * @return true if the accounting line is a tax account
      */
     public boolean isTaxAccount(PurchasingAccountsPayableDocument document, SourceAccountingLine account);

@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+<changeSet author="kfs" id="456" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,ACCOUNT_NBR" baseTableName="AP_AUTO_APRV_EXCL_T" constraintName="AP_AUTO_APRV_EXCL_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR" referencedTableName="CA_ACCOUNT_T"/>
+    </changeSet>
+<changeSet author="kfs" id="457" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD" baseTableName="AP_AUTO_APRV_EXCL_T" constraintName="AP_AUTO_APRV_EXCL_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD" referencedTableName="CA_CHART_T"/>
+    </changeSet>
+<changeSet author="kfs" id="458" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CRDT_MEMO_ITM_ID" baseTableName="AP_CRDT_MEMO_ACCT_CHG_T" constraintName="AP_CRDT_MEMO_ACCT_CHG_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CRDT_MEMO_ITM_ID" referencedTableName="AP_CRDT_MEMO_ITM_T"/>
+    </changeSet>
+<changeSet author="kfs" id="459" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD" baseTableName="AP_CRDT_MEMO_ACCT_CHG_T" constraintName="AP_CRDT_MEMO_ACCT_CHG_TR3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD" referencedTableName="CA_CHART_T"/>
+    </changeSet>
+<changeSet author="kfs" id="460" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,ACCOUNT_NBR" baseTableName="AP_CRDT_MEMO_ACCT_CHG_T" constraintName="AP_CRDT_MEMO_ACCT_CHG_TR4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR" referencedTableName="CA_ACCOUNT_T"/>
+    </changeSet>
+<changeSet author="kfs" id="461" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,ACCOUNT_NBR,SUB_ACCT_NBR" baseTableName="AP_CRDT_MEMO_ACCT_CHG_T" constraintName="AP_CRDT_MEMO_ACCT_CHG_TR5" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR,SUB_ACCT_NBR" referencedTableName="CA_SUB_ACCT_T"/>
+    </changeSet>
+<changeSet author="kfs" id="462" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_POST_YR,FDOC_POST_PRD_CD" baseTableName="AP_CRDT_MEMO_ACCT_CHG_T" constraintName="AP_CRDT_MEMO_ACCT_CHG_TR6" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="UNIV_FISCAL_YR,UNIV_FISCAL_PRD_CD" referencedTableName="SH_ACCT_PERIOD_T"/>
+    </changeSet>
+<changeSet author="kfs" id="463" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CRDT_MEMO_ITM_ID" baseTableName="AP_CRDT_MEMO_ACCT_T" constraintName="AP_CRDT_MEMO_ACCT_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CRDT_MEMO_ITM_ID" referencedTableName="AP_CRDT_MEMO_ITM_T"/>
+    </changeSet>
+<changeSet author="kfs" id="464" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD" baseTableName="AP_CRDT_MEMO_ACCT_T" constraintName="AP_CRDT_MEMO_ACCT_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD" referencedTableName="CA_CHART_T"/>
+    </changeSet>
+<changeSet author="kfs" id="465" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,ACCOUNT_NBR" baseTableName="AP_CRDT_MEMO_ACCT_T" constraintName="AP_CRDT_MEMO_ACCT_TR3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR" referencedTableName="CA_ACCOUNT_T"/>
+    </changeSet>
+<changeSet author="kfs" id="466" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,ACCOUNT_NBR,SUB_ACCT_NBR" baseTableName="AP_CRDT_MEMO_ACCT_T" constraintName="AP_CRDT_MEMO_ACCT_TR4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR,SUB_ACCT_NBR" referencedTableName="CA_SUB_ACCT_T"/>
+    </changeSet>
+<changeSet author="kfs" id="467" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CRDT_MEMO_ID" baseTableName="AP_CRDT_MEMO_ITM_T" constraintName="AP_CRDT_MEMO_ITM_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CRDT_MEMO_ID" referencedTableName="AP_CRDT_MEMO_T"/>
+    </changeSet>
+<changeSet author="kfs" id="468" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="ITM_TYP_CD" baseTableName="AP_CRDT_MEMO_ITM_T" constraintName="AP_CRDT_MEMO_ITM_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ITM_TYP_CD" referencedTableName="PUR_AP_ITM_TYP_T"/>
+    </changeSet>
+<changeSet author="kfs" id="469" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="BNK_CD" baseTableName="AP_CRDT_MEMO_T" constraintName="AP_CRDT_MEMO_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="BNK_CD" referencedTableName="FP_BANK_T"/>
+    </changeSet>
+<changeSet author="kfs" id="470" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="VNDR_HDR_GNRTD_ID,VNDR_DTL_ASND_ID" baseTableName="AP_CRDT_MEMO_T" constraintName="AP_CRDT_MEMO_TR3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="VNDR_HDR_GNRTD_ID,VNDR_DTL_ASND_ID" referencedTableName="PUR_VNDR_DTL_T"/>
+    </changeSet>
+<changeSet author="kfs" id="471" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="PMT_RQST_ID" baseTableName="AP_CRDT_MEMO_T" constraintName="AP_CRDT_MEMO_TR6" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PMT_RQST_ID" referencedTableName="AP_PMT_RQST_T"/>
+    </changeSet>
+<changeSet author="kfs" id="472" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="INV_RJT_ID" baseTableName="AP_ELCTRNC_INV_RJT_ITM_T" constraintName="AP_ELCTRNC_INV_RJT_ITM_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="INV_RJT_ID" referencedTableName="AP_ELCTRNC_INV_RJT_DOC_T"/>
+    </changeSet>
+<changeSet author="kfs" id="473" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="INV_RJT_ID" baseTableName="AP_ELCTRNC_INV_RJT_REAS_T" constraintName="AP_ELCTRNC_INV_RJT_REAS_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="INV_RJT_ID" referencedTableName="AP_ELCTRNC_INV_RJT_DOC_T"/>
+    </changeSet>
+<changeSet author="kfs" id="474" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="INV_RJT_REAS_TYP_CD" baseTableName="AP_ELCTRNC_INV_RJT_REAS_T" constraintName="AP_ELCTRNC_INV_RJT_REAS_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="INV_RJT_REAS_TYP_CD" referencedTableName="AP_ELCTRNC_INV_RJT_REAS_TYP_T"/>
+    </changeSet>
+<changeSet author="kfs" id="475" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD" baseTableName="AP_NEG_PMT_RQST_APRVL_LMT_T" constraintName="AP_NEG_PMT_RQST_APRVL_LMT_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD" referencedTableName="CA_CHART_T"/>
+    </changeSet>
+<changeSet author="kfs" id="476" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,ACCT_NBR" baseTableName="AP_NEG_PMT_RQST_APRVL_LMT_T" constraintName="AP_NEG_PMT_RQST_APRVL_LMT_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR" referencedTableName="CA_ACCOUNT_T"/>
+    </changeSet>
+<changeSet author="kfs" id="477" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,ORG_CD" baseTableName="AP_NEG_PMT_RQST_APRVL_LMT_T" constraintName="AP_NEG_PMT_RQST_APRVL_LMT_TR3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ORG_CD" referencedTableName="CA_ORG_T"/>
+    </changeSet>
+<changeSet author="kfs" id="478" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="PMT_RQST_ITM_ID" baseTableName="AP_PMT_RQST_ACCT_CHG_T" constraintName="AP_PMT_RQST_ACCT_CHG_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PMT_RQST_ITM_ID" referencedTableName="AP_PMT_RQST_ITM_T"/>
+    </changeSet>
+<changeSet author="kfs" id="479" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD" baseTableName="AP_PMT_RQST_ACCT_CHG_T" constraintName="AP_PMT_RQST_ACCT_CHG_TR3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD" referencedTableName="CA_CHART_T"/>
+    </changeSet>
+<changeSet author="kfs" id="480" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,ACCOUNT_NBR" baseTableName="AP_PMT_RQST_ACCT_CHG_T" constraintName="AP_PMT_RQST_ACCT_CHG_TR4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR" referencedTableName="CA_ACCOUNT_T"/>
+    </changeSet>
+<changeSet author="kfs" id="481" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,ACCOUNT_NBR,SUB_ACCT_NBR" baseTableName="AP_PMT_RQST_ACCT_CHG_T" constraintName="AP_PMT_RQST_ACCT_CHG_TR5" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR,SUB_ACCT_NBR" referencedTableName="CA_SUB_ACCT_T"/>
+    </changeSet>
+<changeSet author="kfs" id="482" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_POST_YR,FDOC_POST_PRD_CD" baseTableName="AP_PMT_RQST_ACCT_CHG_T" constraintName="AP_PMT_RQST_ACCT_CHG_TR6" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="UNIV_FISCAL_YR,UNIV_FISCAL_PRD_CD" referencedTableName="SH_ACCT_PERIOD_T"/>
+    </changeSet>
+<changeSet author="kfs" id="483" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="PMT_RQST_ITM_ID" baseTableName="AP_PMT_RQST_ACCT_T" constraintName="AP_PMT_RQST_ACCT_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PMT_RQST_ITM_ID" referencedTableName="AP_PMT_RQST_ITM_T"/>
+    </changeSet>
+<changeSet author="kfs" id="484" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD" baseTableName="AP_PMT_RQST_ACCT_T" constraintName="AP_PMT_RQST_ACCT_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD" referencedTableName="CA_CHART_T"/>
+    </changeSet>
+<changeSet author="kfs" id="485" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,ACCOUNT_NBR" baseTableName="AP_PMT_RQST_ACCT_T" constraintName="AP_PMT_RQST_ACCT_TR3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR" referencedTableName="CA_ACCOUNT_T"/>
+    </changeSet>
+<changeSet author="kfs" id="486" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,ACCOUNT_NBR,SUB_ACCT_NBR" baseTableName="AP_PMT_RQST_ACCT_T" constraintName="AP_PMT_RQST_ACCT_TR4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR,SUB_ACCT_NBR" referencedTableName="CA_SUB_ACCT_T"/>
+    </changeSet>
+<changeSet author="kfs" id="487" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="PMT_RQST_ID" baseTableName="AP_PMT_RQST_ITM_T" constraintName="AP_PMT_RQST_ITM_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PMT_RQST_ID" referencedTableName="AP_PMT_RQST_T"/>
+    </changeSet>
+<changeSet author="kfs" id="488" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="ITM_TYP_CD" baseTableName="AP_PMT_RQST_ITM_T" constraintName="AP_PMT_RQST_ITM_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ITM_TYP_CD" referencedTableName="PUR_AP_ITM_TYP_T"/>
+    </changeSet>
+<changeSet author="kfs" id="489" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="BNK_CD" baseTableName="AP_PMT_RQST_T" constraintName="AP_PMT_RQST_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="BNK_CD" referencedTableName="FP_BANK_T"/>
+    </changeSet>
+<changeSet author="kfs" id="490" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="VNDR_HDR_GNRTD_ID,VNDR_DTL_ASND_ID" baseTableName="AP_PMT_RQST_T" constraintName="AP_PMT_RQST_TR5" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="VNDR_HDR_GNRTD_ID,VNDR_DTL_ASND_ID" referencedTableName="PUR_VNDR_DTL_T"/>
+    </changeSet>
+<changeSet author="kfs" id="491" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="VNDR_SHP_PMT_TERM_CD" baseTableName="AP_PMT_RQST_T" constraintName="AP_PMT_RQST_TR6" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="VNDR_SHP_PMT_TERM_CD" referencedTableName="PUR_SHP_PMT_TERM_T"/>
+    </changeSet>
+<changeSet author="kfs" id="492" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="VNDR_PMT_TERMS_CD" baseTableName="AP_PMT_RQST_T" constraintName="AP_PMT_RQST_TR7" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="VNDR_PMT_TERM_CD" referencedTableName="PUR_PMT_TERM_TYP_T"/>
+    </changeSet>
+<changeSet author="kfs" id="493" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="PMT_RQST_CST_SRC_CD" baseTableName="AP_PMT_RQST_T" constraintName="AP_PMT_RQST_TR9" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PO_CST_SRC_CD" referencedTableName="PUR_PO_CST_SRC_T"/>
+    </changeSet>
+<changeSet author="kfs" id="494" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="PMT_RQST_ID" baseTableName="AP_SUM_ACCT_T" constraintName="AP_SUM_ACCT_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PMT_RQST_ID" referencedTableName="AP_PMT_RQST_T"/>
+    </changeSet>
+<changeSet author="kfs" id="495" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD" baseTableName="AP_SUM_ACCT_T" constraintName="AP_SUM_ACCT_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD" referencedTableName="CA_CHART_T"/>
+    </changeSet>
+<changeSet author="kfs" id="496" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,ACCOUNT_NBR" baseTableName="AP_SUM_ACCT_T" constraintName="AP_SUM_ACCT_TR3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR" referencedTableName="CA_ACCOUNT_T"/>
+    </changeSet>
+<changeSet author="kfs" id="497" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,ACCOUNT_NBR,SUB_ACCT_NBR" baseTableName="AP_SUM_ACCT_T" constraintName="AP_SUM_ACCT_TR4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR,SUB_ACCT_NBR" referencedTableName="CA_SUB_ACCT_T"/>
+    </changeSet>
+<changeSet author="kfs" id="498" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CRDT_MEMO_ID" baseTableName="AP_SUM_ACCT_T" constraintName="AP_SUM_ACCT_TR6" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CRDT_MEMO_ID" referencedTableName="AP_CRDT_MEMO_T"/>
+    </changeSet>
+<changeSet author="kfs" id="499" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD" baseTableName="PUR_AP_ORG_PARM_T" constraintName="PUR_AP_ORG_PARM_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD" referencedTableName="CA_CHART_T"/>
+    </changeSet>
+<changeSet author="kfs" id="500" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,ORG_CD" baseTableName="PUR_AP_ORG_PARM_T" constraintName="PUR_AP_ORG_PARM_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ORG_CD" referencedTableName="CA_ORG_T"/>
+    </changeSet>
+<changeSet author="kfs" id="501" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="REQS_ID" baseTableName="PUR_ASGN_CONTR_MGR_DTL_T" constraintName="PUR_ASGN_CONTR_MGR_DTL_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="REQS_ID" referencedTableName="PUR_REQS_T"/>
+    </changeSet>
+<changeSet author="kfs" id="502" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CONTR_MGR_CD" baseTableName="PUR_ASGN_CONTR_MGR_DTL_T" constraintName="PUR_ASGN_CONTR_MGR_DTL_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CONTR_MGR_CD" referencedTableName="PUR_CONTR_MGR_T"/>
+    </changeSet>
+<changeSet author="kfs" id="503" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_NBR" baseTableName="PUR_ASGN_CONTR_MGR_DTL_T" constraintName="PUR_ASGN_CONTR_MGR_DTL_TR3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FDOC_NBR" referencedTableName="PUR_ASGN_CONTR_MGR_T"/>
+    </changeSet>
+<changeSet author="kfs" id="504" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="VNDR_HDR_GNRTD_ID,VNDR_DTL_ASND_ID" baseTableName="PUR_BLK_RCVNG_T" constraintName="PUR_BLK_RCVNG_T4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="VNDR_HDR_GNRTD_ID,VNDR_DTL_ASND_ID" referencedTableName="PUR_VNDR_DTL_T"/>
+    </changeSet>
+<changeSet author="kfs" id="505" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CARI_CD" baseTableName="PUR_BLK_RCVNG_T" constraintName="PUR_BLK_RCVNG_TR3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CARI_CD" referencedTableName="PUR_CARI_T"/>
+    </changeSet>
+<changeSet author="kfs" id="506" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CAMPUS_CD,BLDG_CD" baseTableName="PUR_DFLT_PRNCPL_ADDR_T" constraintName="PUR_DFLT_PRNCPL_ADDR_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CAMPUS_CD,BLDG_CD" referencedTableName="SH_BUILDING_T"/>
+    </changeSet>
+<changeSet author="kfs" id="507" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_NBR,PO_ITM_ID" baseTableName="PUR_PO_ACCT_T" constraintName="PUR_PO_ACCT_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FDOC_NBR,PO_ITM_ID" referencedTableName="PUR_PO_ITM_T"/>
+    </changeSet>
+<changeSet author="kfs" id="508" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD" baseTableName="PUR_PO_ACCT_T" constraintName="PUR_PO_ACCT_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD" referencedTableName="CA_CHART_T"/>
+    </changeSet>
+<changeSet author="kfs" id="509" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,ACCOUNT_NBR" baseTableName="PUR_PO_ACCT_T" constraintName="PUR_PO_ACCT_TR3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR" referencedTableName="CA_ACCOUNT_T"/>
+    </changeSet>
+<changeSet author="kfs" id="510" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,ACCOUNT_NBR,SUB_ACCT_NBR" baseTableName="PUR_PO_ACCT_T" constraintName="PUR_PO_ACCT_TR4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR,SUB_ACCT_NBR" referencedTableName="CA_SUB_ACCT_T"/>
+    </changeSet>
+<changeSet author="kfs" id="511" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CPTL_AST_SYS_ID" baseTableName="PUR_PO_CPTL_AST_ITM_AST_T" constraintName="PUR_PO_CPTL_AST_ITM_AST_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CPTL_AST_SYS_ID" referencedTableName="PUR_PO_CPTL_AST_SYS_T"/>
+    </changeSet>
+<changeSet author="kfs" id="512" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_NBR" baseTableName="PUR_PO_CPTL_AST_ITM_T" constraintName="PUR_PO_CPTL_AST_ITM_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FDOC_NBR" referencedTableName="PUR_PO_T"/>
+    </changeSet>
+<changeSet author="kfs" id="513" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_NBR,PO_ITM_ID" baseTableName="PUR_PO_CPTL_AST_ITM_T" constraintName="PUR_PO_CPTL_AST_ITM_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FDOC_NBR,PO_ITM_ID" referencedTableName="PUR_PO_ITM_T"/>
+    </changeSet>
+<changeSet author="kfs" id="514" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CPTL_AST_SYS_ID" baseTableName="PUR_PO_CPTL_AST_ITM_T" constraintName="PUR_PO_CPTL_AST_ITM_TR4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CPTL_AST_SYS_ID" referencedTableName="PUR_PO_CPTL_AST_SYS_T"/>
+    </changeSet>
+<changeSet author="kfs" id="515" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CPTL_AST_SYS_ID" baseTableName="PUR_PO_CPTL_AST_LOC_T" constraintName="PUR_PO_CPTL_AST_LOC_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CPTL_AST_SYS_ID" referencedTableName="PUR_PO_CPTL_AST_SYS_T"/>
+    </changeSet>
+<changeSet author="kfs" id="516" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_NBR" baseTableName="PUR_PO_ITM_T" constraintName="PUR_PO_ITM_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FDOC_NBR" referencedTableName="PUR_PO_T"/>
+    </changeSet>
+<changeSet author="kfs" id="517" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="ITM_TYP_CD" baseTableName="PUR_PO_ITM_T" constraintName="PUR_PO_ITM_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ITM_TYP_CD" referencedTableName="PUR_AP_ITM_TYP_T"/>
+    </changeSet>
+<changeSet author="kfs" id="518" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="PUR_COMM_CD" baseTableName="PUR_PO_ITM_T" constraintName="PUR_PO_ITM_TR4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PUR_COMM_CD" referencedTableName="PUR_COMM_T"/>
+    </changeSet>
+<changeSet author="kfs" id="519" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="PO_QT_LST_ID" baseTableName="PUR_PO_QT_LST_VNDR_T" constraintName="PUR_PO_QT_LST_VNDR_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PO_QT_LST_ID" referencedTableName="PUR_PO_QT_LST_T"/>
+    </changeSet>
+<changeSet author="kfs" id="520" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="SNSTV_DTA_CD" baseTableName="PUR_PO_SNSTV_DTA_T" constraintName="PUR_PO_SNSTV_DTA_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="SNSTV_DTA_CD" referencedTableName="PUR_SNSTV_DTA_T"/>
+    </changeSet>
+<changeSet author="kfs" id="521" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,ORG_CD" baseTableName="PUR_PO_T" constraintName="PUR_PO_TR10" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ORG_CD" referencedTableName="CA_ORG_T"/>
+    </changeSet>
+<changeSet author="kfs" id="522" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD" baseTableName="PUR_PO_T" constraintName="PUR_PO_TR11" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD" referencedTableName="CA_CHART_T"/>
+    </changeSet>
+<changeSet author="kfs" id="523" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="NON_INST_FND_ORG_COA_CD" baseTableName="PUR_PO_T" constraintName="PUR_PO_TR13" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD" referencedTableName="CA_CHART_T"/>
+    </changeSet>
+<changeSet author="kfs" id="524" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="NON_INST_FND_COA_CD,NON_INST_FND_ORG_CD" baseTableName="PUR_PO_T" constraintName="PUR_PO_TR14" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ORG_CD" referencedTableName="CA_ORG_T"/>
+    </changeSet>
+<changeSet author="kfs" id="525" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="NON_INST_FND_COA_CD,NON_INST_FND_ACCT_NBR" baseTableName="PUR_PO_T" constraintName="PUR_PO_TR15" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR" referencedTableName="CA_ACCOUNT_T"/>
+    </changeSet>
+<changeSet author="kfs" id="526" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="NON_INST_FND_COA_CD" baseTableName="PUR_PO_T" constraintName="PUR_PO_TR16" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD" referencedTableName="CA_CHART_T"/>
+    </changeSet>
+<changeSet author="kfs" id="527" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="VNDR_CONTR_GNRTD_ID" baseTableName="PUR_PO_T" constraintName="PUR_PO_TR17" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="VNDR_CONTR_GNRTD_ID" referencedTableName="PUR_VNDR_CONTR_T"/>
+    </changeSet>
+<changeSet author="kfs" id="528" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="PO_VNDR_CHC_CD" baseTableName="PUR_PO_T" constraintName="PUR_PO_TR18" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PO_VNDR_CHC_CD" referencedTableName="PUR_PO_VNDR_CHC_T"/>
+    </changeSet>
+<changeSet author="kfs" id="529" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="RECUR_PMT_FREQ_CD" baseTableName="PUR_PO_T" constraintName="PUR_PO_TR19" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="RECUR_PMT_FREQ_CD" referencedTableName="PUR_AP_RECUR_PMT_FREQ_T"/>
+    </changeSet>
+<changeSet author="kfs" id="530" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="VNDR_PMT_TERM_CD" baseTableName="PUR_PO_T" constraintName="PUR_PO_TR20" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="VNDR_PMT_TERM_CD" referencedTableName="PUR_PMT_TERM_TYP_T"/>
+    </changeSet>
+<changeSet author="kfs" id="531" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="VNDR_SHP_TTL_CD" baseTableName="PUR_PO_T" constraintName="PUR_PO_TR21" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="VNDR_SHP_TTL_CD" referencedTableName="PUR_SHP_TTL_T"/>
+    </changeSet>
+<changeSet author="kfs" id="532" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="VNDR_SHP_PMT_TERM_CD" baseTableName="PUR_PO_T" constraintName="PUR_PO_TR22" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="VNDR_SHP_PMT_TERM_CD" referencedTableName="PUR_SHP_PMT_TERM_T"/>
+    </changeSet>
+<changeSet author="kfs" id="533" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CONTR_MGR_CD" baseTableName="PUR_PO_T" constraintName="PUR_PO_TR24" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CONTR_MGR_CD" referencedTableName="PUR_CONTR_MGR_T"/>
+    </changeSet>
+<changeSet author="kfs" id="534" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CPTL_AST_SYS_TYP_CD" baseTableName="PUR_PO_T" constraintName="PUR_PO_TR25" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CPTL_AST_SYS_TYP_CD" referencedTableName="PUR_CPTL_AST_SYS_TYP_T"/>
+    </changeSet>
+<changeSet author="kfs" id="535" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CPTL_AST_SYS_ST_CD" baseTableName="PUR_PO_T" constraintName="PUR_PO_TR26" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CPTL_AST_SYS_ST_CD" referencedTableName="PUR_CPTL_AST_SYS_ST_T"/>
+    </changeSet>
+<changeSet author="kfs" id="536" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="VNDR_HDR_GNRTD_ID,VNDR_DTL_ASND_ID" baseTableName="PUR_PO_T" constraintName="PUR_PO_TR3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="VNDR_HDR_GNRTD_ID,VNDR_DTL_ASND_ID" referencedTableName="PUR_VNDR_DTL_T"/>
+    </changeSet>
+<changeSet author="kfs" id="537" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FND_SRC_CD" baseTableName="PUR_PO_T" constraintName="PUR_PO_TR4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FND_SRC_CD" referencedTableName="PUR_FND_SRC_T"/>
+    </changeSet>
+<changeSet author="kfs" id="538" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="REQS_SRC_CD" baseTableName="PUR_PO_T" constraintName="PUR_PO_TR5" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="REQS_SRC_CD" referencedTableName="PUR_REQS_SRC_T"/>
+    </changeSet>
+<changeSet author="kfs" id="539" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="PO_TRNS_MTHD_CD" baseTableName="PUR_PO_T" constraintName="PUR_PO_TR6" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PO_TRNS_MTHD_CD" referencedTableName="PUR_PO_TRNS_MTHD_T"/>
+    </changeSet>
+<changeSet author="kfs" id="540" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="PO_CST_SRC_CD" baseTableName="PUR_PO_T" constraintName="PUR_PO_TR7" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PO_CST_SRC_CD" referencedTableName="PUR_PO_CST_SRC_T"/>
+    </changeSet>
+<changeSet author="kfs" id="541" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="DLVY_REQ_DT_REAS_CD" baseTableName="PUR_PO_T" constraintName="PUR_PO_TR8" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="DLVY_REQ_DT_REAS_CD" referencedTableName="PUR_DLVY_REQ_DT_REAS_T"/>
+    </changeSet>
+<changeSet author="kfs" id="542" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="RECUR_PMT_TYP_CD" baseTableName="PUR_PO_T" constraintName="PUR_PO_TR9" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="RECUR_PMT_TYP_CD" referencedTableName="PUR_AP_RECUR_PMT_TYP_T"/>
+    </changeSet>
+<changeSet author="kfs" id="543" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_NBR" baseTableName="PUR_PO_VNDR_QT_T" constraintName="PUR_PO_VNDR_QT_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FDOC_NBR" referencedTableName="PUR_PO_T"/>
+    </changeSet>
+<changeSet author="kfs" id="544" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="PO_QT_STAT_CD" baseTableName="PUR_PO_VNDR_QT_T" constraintName="PUR_PO_VNDR_QT_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PO_QT_STAT_CD" referencedTableName="PUR_PO_QT_STAT_T"/>
+    </changeSet>
+<changeSet author="kfs" id="545" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_NBR" baseTableName="PUR_PO_VNDR_STPLTN_T" constraintName="PUR_PO_VNDR_STPLTN_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FDOC_NBR" referencedTableName="PUR_PO_T"/>
+    </changeSet>
+<changeSet author="kfs" id="546" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD" baseTableName="PUR_RCVNG_ADDR_T" constraintName="PUR_RCVNG_ADDR_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD" referencedTableName="CA_CHART_T"/>
+    </changeSet>
+<changeSet author="kfs" id="547" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,ORG_CD" baseTableName="PUR_RCVNG_ADDR_T" constraintName="PUR_RCVNG_ADDR_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ORG_CD" referencedTableName="CA_ORG_T"/>
+    </changeSet>
+<changeSet author="kfs" id="548" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_NBR" baseTableName="PUR_RCVNG_COR_ITM_T" constraintName="PUR_RCVNG_COR_ITM_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FDOC_NBR" referencedTableName="PUR_RCVNG_COR_T"/>
+    </changeSet>
+<changeSet author="kfs" id="549" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="ITM_REAS_ADD_CD" baseTableName="PUR_RCVNG_COR_ITM_T" constraintName="PUR_RCVNG_COR_ITM_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ITM_REAS_ADD_CD" referencedTableName="PUR_ITM_REAS_ADD_T"/>
+    </changeSet>
+<changeSet author="kfs" id="550" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="ITM_TYP_CD" baseTableName="PUR_RCVNG_COR_ITM_T" constraintName="PUR_RCVNG_COR_ITM_TR3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ITM_TYP_CD" referencedTableName="PUR_AP_ITM_TYP_T"/>
+    </changeSet>
+<changeSet author="kfs" id="551" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="ITM_UOM_CD" baseTableName="PUR_RCVNG_COR_ITM_T" constraintName="PUR_RCVNG_COR_ITM_TR4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ITM_UOM_CD" referencedTableName="SH_UOM_T"/>
+    </changeSet>
+<changeSet author="kfs" id="552" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="RCVNG_LN_FDOC_NBR" baseTableName="PUR_RCVNG_COR_T" constraintName="PUR_RCVNG_COR_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FDOC_NBR" referencedTableName="PUR_RCVNG_LN_T"/>
+    </changeSet>
+<changeSet author="kfs" id="553" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_NBR" baseTableName="PUR_RCVNG_LN_ITM_T" constraintName="PUR_RCVNG_LN_ITM_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FDOC_NBR" referencedTableName="PUR_RCVNG_LN_T"/>
+    </changeSet>
+<changeSet author="kfs" id="554" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="ITM_REAS_ADD_CD" baseTableName="PUR_RCVNG_LN_ITM_T" constraintName="PUR_RCVNG_LN_ITM_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ITM_REAS_ADD_CD" referencedTableName="PUR_ITM_REAS_ADD_T"/>
+    </changeSet>
+<changeSet author="kfs" id="555" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="ITM_TYP_CD" baseTableName="PUR_RCVNG_LN_ITM_T" constraintName="PUR_RCVNG_LN_ITM_TR3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ITM_TYP_CD" referencedTableName="PUR_AP_ITM_TYP_T"/>
+    </changeSet>
+<changeSet author="kfs" id="556" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="ITM_UOM_CD" baseTableName="PUR_RCVNG_LN_ITM_T" constraintName="PUR_RCVNG_LN_ITM_TR4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ITM_UOM_CD" referencedTableName="SH_UOM_T"/>
+    </changeSet>
+<changeSet author="kfs" id="557" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CARI_CD" baseTableName="PUR_RCVNG_LN_T" constraintName="PUR_RCVNG_LN_TR4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CARI_CD" referencedTableName="PUR_CARI_T"/>
+    </changeSet>
+<changeSet author="kfs" id="558" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="VNDR_HDR_GNRTD_ID,VNDR_DTL_ASND_ID" baseTableName="PUR_RCVNG_LN_T" constraintName="PUR_RCVNG_LN_TR5" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="VNDR_HDR_GNRTD_ID,VNDR_DTL_ASND_ID" referencedTableName="PUR_VNDR_DTL_T"/>
+    </changeSet>
+<changeSet author="kfs" id="559" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="DLVY_REQ_DT_REAS_CD" baseTableName="PUR_RCVNG_LN_T" constraintName="PUR_RCVNG_LN_TR6" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="DLVY_REQ_DT_REAS_CD" referencedTableName="PUR_DLVY_REQ_DT_REAS_T"/>
+    </changeSet>
+<changeSet author="kfs" id="560" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="REQS_ITM_ID" baseTableName="PUR_REQS_ACCT_T" constraintName="PUR_REQS_ACCT_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="REQS_ITM_ID" referencedTableName="PUR_REQS_ITM_T"/>
+    </changeSet>
+<changeSet author="kfs" id="561" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD" baseTableName="PUR_REQS_ACCT_T" constraintName="PUR_REQS_ACCT_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD" referencedTableName="CA_CHART_T"/>
+    </changeSet>
+<changeSet author="kfs" id="562" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,ACCOUNT_NBR" baseTableName="PUR_REQS_ACCT_T" constraintName="PUR_REQS_ACCT_TR3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR" referencedTableName="CA_ACCOUNT_T"/>
+    </changeSet>
+<changeSet author="kfs" id="563" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,ACCOUNT_NBR,SUB_ACCT_NBR" baseTableName="PUR_REQS_ACCT_T" constraintName="PUR_REQS_ACCT_TR4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR,SUB_ACCT_NBR" referencedTableName="CA_SUB_ACCT_T"/>
+    </changeSet>
+<changeSet author="kfs" id="564" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CPTL_AST_SYS_ID" baseTableName="PUR_REQS_CPTL_AST_ITM_AST_T" constraintName="PUR_REQS_CPTL_AST_ITM_AST_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CPTL_AST_SYS_ID" referencedTableName="PUR_REQS_CPTL_AST_SYS_T"/>
+    </changeSet>
+<changeSet author="kfs" id="565" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="REQS_ID" baseTableName="PUR_REQS_CPTL_AST_ITM_T" constraintName="PUR_REQS_CPTL_AST_ITM_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="REQS_ID" referencedTableName="PUR_REQS_T"/>
+    </changeSet>
+<changeSet author="kfs" id="566" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CPTL_AST_SYS_ID" baseTableName="PUR_REQS_CPTL_AST_ITM_T" constraintName="PUR_REQS_CPTL_AST_ITM_TR3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CPTL_AST_SYS_ID" referencedTableName="PUR_REQS_CPTL_AST_SYS_T"/>
+    </changeSet>
+<changeSet author="kfs" id="567" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="REQS_ITM_ID" baseTableName="PUR_REQS_CPTL_AST_ITM_T" constraintName="PUR_REQS_CPTL_AST_ITM_TR4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="REQS_ITM_ID" referencedTableName="PUR_REQS_ITM_T"/>
+    </changeSet>
+<changeSet author="kfs" id="568" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CPTL_AST_SYS_ID" baseTableName="PUR_REQS_CPTL_AST_LOC_T" constraintName="PUR_REQS_CPTL_AST_LOC_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CPTL_AST_SYS_ID" referencedTableName="PUR_REQS_CPTL_AST_SYS_T"/>
+    </changeSet>
+<changeSet author="kfs" id="569" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="REQS_ID" baseTableName="PUR_REQS_CPTL_AST_SYS_T" constraintName="PUR_REQS_CPTL_AST_SYS_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="REQS_ID" referencedTableName="PUR_REQS_T"/>
+    </changeSet>
+<changeSet author="kfs" id="570" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="REQS_ID" baseTableName="PUR_REQS_ITM_T" constraintName="PUR_REQS_ITM_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="REQS_ID" referencedTableName="PUR_REQS_T"/>
+    </changeSet>
+<changeSet author="kfs" id="571" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="ITM_TYP_CD" baseTableName="PUR_REQS_ITM_T" constraintName="PUR_REQS_ITM_TR3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ITM_TYP_CD" referencedTableName="PUR_AP_ITM_TYP_T"/>
+    </changeSet>
+<changeSet author="kfs" id="572" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="PUR_COMM_CD" baseTableName="PUR_REQS_ITM_T" constraintName="PUR_REQS_ITM_TR4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PUR_COMM_CD" referencedTableName="PUR_COMM_T"/>
+    </changeSet>
+<changeSet author="kfs" id="573" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,ORG_CD" baseTableName="PUR_REQS_T" constraintName="PUR_REQS_TR10" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ORG_CD" referencedTableName="CA_ORG_T"/>
+    </changeSet>
+<changeSet author="kfs" id="574" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD" baseTableName="PUR_REQS_T" constraintName="PUR_REQS_TR11" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD" referencedTableName="CA_CHART_T"/>
+    </changeSet>
+<changeSet author="kfs" id="575" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="NON_INST_FND_ORG_COA_CD" baseTableName="PUR_REQS_T" constraintName="PUR_REQS_TR13" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD" referencedTableName="CA_CHART_T"/>
+    </changeSet>
+<changeSet author="kfs" id="576" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="NON_INST_FND_COA_CD,NON_INST_FND_ORG_CD" baseTableName="PUR_REQS_T" constraintName="PUR_REQS_TR14" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ORG_CD" referencedTableName="CA_ORG_T"/>
+    </changeSet>
+<changeSet author="kfs" id="577" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="NON_INST_FND_COA_CD,NON_INST_FND_ACCT_NBR" baseTableName="PUR_REQS_T" constraintName="PUR_REQS_TR15" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR" referencedTableName="CA_ACCOUNT_T"/>
+    </changeSet>
+<changeSet author="kfs" id="578" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="NON_INST_FND_COA_CD" baseTableName="PUR_REQS_T" constraintName="PUR_REQS_TR16" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD" referencedTableName="CA_CHART_T"/>
+    </changeSet>
+<changeSet author="kfs" id="579" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="VNDR_CONTR_GNRTD_ID" baseTableName="PUR_REQS_T" constraintName="PUR_REQS_TR17" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="VNDR_CONTR_GNRTD_ID" referencedTableName="PUR_VNDR_CONTR_T"/>
+    </changeSet>
+<changeSet author="kfs" id="580" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CPTL_AST_SYS_TYP_CD" baseTableName="PUR_REQS_T" constraintName="PUR_REQS_TR20" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CPTL_AST_SYS_TYP_CD" referencedTableName="PUR_CPTL_AST_SYS_TYP_T"/>
+    </changeSet>
+<changeSet author="kfs" id="581" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="VNDR_HDR_GNRTD_ID,VNDR_DTL_ASND_ID" baseTableName="PUR_REQS_T" constraintName="PUR_REQS_TR3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="VNDR_HDR_GNRTD_ID,VNDR_DTL_ASND_ID" referencedTableName="PUR_VNDR_DTL_T"/>
+    </changeSet>
+<changeSet author="kfs" id="582" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FND_SRC_CD" baseTableName="PUR_REQS_T" constraintName="PUR_REQS_TR4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FND_SRC_CD" referencedTableName="PUR_FND_SRC_T"/>
+    </changeSet>
+<changeSet author="kfs" id="583" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="REQS_SRC_CD" baseTableName="PUR_REQS_T" constraintName="PUR_REQS_TR5" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="REQS_SRC_CD" referencedTableName="PUR_REQS_SRC_T"/>
+    </changeSet>
+<changeSet author="kfs" id="584" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="PO_TRNS_MTHD_CD" baseTableName="PUR_REQS_T" constraintName="PUR_REQS_TR6" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PO_TRNS_MTHD_CD" referencedTableName="PUR_PO_TRNS_MTHD_T"/>
+    </changeSet>
+<changeSet author="kfs" id="585" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="PO_CST_SRC_CD" baseTableName="PUR_REQS_T" constraintName="PUR_REQS_TR7" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PO_CST_SRC_CD" referencedTableName="PUR_PO_CST_SRC_T"/>
+    </changeSet>
+<changeSet author="kfs" id="586" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="DLVY_REQ_DT_REAS_CD" baseTableName="PUR_REQS_T" constraintName="PUR_REQS_TR8" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="DLVY_REQ_DT_REAS_CD" referencedTableName="PUR_DLVY_REQ_DT_REAS_T"/>
+    </changeSet>
+<changeSet author="kfs" id="587" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CPTL_AST_SYS_ST_CD" baseTableName="PUR_REQS_T" constraintName="PUR_REQS_TR89" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CPTL_AST_SYS_ST_CD" referencedTableName="PUR_CPTL_AST_SYS_ST_T"/>
+    </changeSet>
+<changeSet author="kfs" id="588" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="RECUR_PMT_TYP_CD" baseTableName="PUR_REQS_T" constraintName="PUR_REQS_TR9" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="RECUR_PMT_TYP_CD" referencedTableName="PUR_AP_RECUR_PMT_TYP_T"/>
+    </changeSet>
+<changeSet author="kfs" id="589" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="SNSTV_DTA_ASGN_ID" baseTableName="PUR_SNSTV_DTA_ASGN_DTL_T" constraintName="PUR_SNSTV_DTA_ASGN_DTL_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="SNSTV_DTA_ASGN_ID" referencedTableName="PUR_SNSTV_DTA_ASGN_T"/>
+    </changeSet>
+<changeSet author="kfs" id="590" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="SNSTV_DTA_CD" baseTableName="PUR_SNSTV_DTA_ASGN_DTL_T" constraintName="PUR_SNSTV_DTA_ASGN_DTL_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="SNSTV_DTA_CD" referencedTableName="PUR_SNSTV_DTA_T"/>
+    </changeSet>
+<changeSet author="kfs" id="591" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="ACCT_TYP_CD" baseTableName="PUR_THRSHLD_T" constraintName="PUR_THRSHLD_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ACCT_TYP_CD" referencedTableName="CA_ACCOUNT_TYPE_T"/>
+    </changeSet>
+<changeSet author="kfs" id="592" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="SUB_FUND_GRP_CD" baseTableName="PUR_THRSHLD_T" constraintName="PUR_THRSHLD_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="SUB_FUND_GRP_CD" referencedTableName="CA_SUB_FUND_GRP_T"/>
+    </changeSet>
+<changeSet author="kfs" id="593" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="VNDR_HDR_GNRTD_ID,VNDR_DTL_ASND_ID" baseTableName="PUR_THRSHLD_T" constraintName="PUR_THRSHLD_TR3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="VNDR_HDR_GNRTD_ID,VNDR_DTL_ASND_ID" referencedTableName="PUR_VNDR_DTL_T"/>
+    </changeSet>
+<changeSet author="kfs" id="594" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD" baseTableName="PUR_THRSHLD_T" constraintName="PUR_THRSHLD_TR4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD" referencedTableName="CA_CHART_T"/>
+    </changeSet>
+<changeSet author="kfs" id="595" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="PUR_COMM_CD" baseTableName="PUR_THRSHLD_T" constraintName="PUR_THRSHLD_TR5" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PUR_COMM_CD" referencedTableName="PUR_COMM_T"/>
+    </changeSet>
+<changeSet author="kfs" id="596" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,ORG_CD" baseTableName="PUR_THRSHLD_T" constraintName="PUR_THRSHLD_TR6" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ORG_CD" referencedTableName="CA_ORG_T"/>
+    </changeSet>
+</databaseChangeLog>

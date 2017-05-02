@@ -1,0 +1,24 @@
+HEADER[~&~	~&~NMSPC_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~NM::VARCHAR~&~	~&~ACTV_IND::CHAR~&~	~&~APPL_ID::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'KFS-AR'~&~	~&~'KFS-AR'~&~	~&~'1'~&~	~&~'Accounts Receivable'~&~	~&~'Y'~&~	~&~'KFS'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS-CAB'~&~	~&~'KFS-CAB'~&~	~&~'1'~&~	~&~'Capital Asset Builder'~&~	~&~'Y'~&~	~&~'KFS'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS-CAM'~&~	~&~'KFS-CAM'~&~	~&~'1'~&~	~&~'Capital Asset Management'~&~	~&~'Y'~&~	~&~'KFS'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS-CG'~&~	~&~'KFS-CG'~&~	~&~'1'~&~	~&~'Contracts & Grants'~&~	~&~'Y'~&~	~&~'KFS'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS-COA'~&~	~&~'KFS-COA'~&~	~&~'1'~&~	~&~'Chart of Accounts'~&~	~&~'Y'~&~	~&~'KFS'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS-EC'~&~	~&~'KFS-EC'~&~	~&~'1'~&~	~&~'Effort Certification'~&~	~&~'Y'~&~	~&~'KFS'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS-FP'~&~	~&~'KFS-FP'~&~	~&~'1'~&~	~&~'Financial Processing'~&~	~&~'Y'~&~	~&~'KFS'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS-GL'~&~	~&~'KFS-GL'~&~	~&~'1'~&~	~&~'General Ledger'~&~	~&~'Y'~&~	~&~'KFS'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS-LD'~&~	~&~'KFS-LD'~&~	~&~'1'~&~	~&~'Labor Distribution'~&~	~&~'Y'~&~	~&~'KFS'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS-PDP'~&~	~&~'KFS-PDP'~&~	~&~'1'~&~	~&~'Pre-Disbursement Processor'~&~	~&~'Y'~&~	~&~'KFS'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS-PURAP'~&~	~&~'KFS-PURAP'~&~	~&~'1'~&~	~&~'Purchasing/Accounts Payable'~&~	~&~'Y'~&~	~&~'KFS'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS-SEC'~&~	~&~'KFS-SEC'~&~	~&~'1'~&~	~&~'Access Security'~&~	~&~'Y'~&~	~&~'KFS'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS-SYS'~&~	~&~'KFS-SYS'~&~	~&~'1'~&~	~&~'Financial System'~&~	~&~'Y'~&~	~&~'KFS'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS-VND'~&~	~&~'KFS-VND'~&~	~&~'1'~&~	~&~'Vendor'~&~	~&~'Y'~&~	~&~'KFS'~&~	~&~]RECORD
+RECORD[~&~	~&~'KR-BUS'~&~	~&~'5B960CFDBB370FDFE0404F8189D83CBD'~&~	~&~'1'~&~	~&~'Service Bus'~&~	~&~'Y'~&~	~&~'RICE'~&~	~&~]RECORD
+RECORD[~&~	~&~'KR-IDM'~&~	~&~'61645D045B0005D7E0404F8189D849B1'~&~	~&~'1'~&~	~&~'Identity Management'~&~	~&~'Y'~&~	~&~'RICE'~&~	~&~]RECORD
+RECORD[~&~	~&~'KR-KRAD'~&~	~&~'B5BA065471F8326EE0404F8189D87F9A'~&~	~&~'1'~&~	~&~'Kuali Rapid Application Development'~&~	~&~'Y'~&~	~&~'RICE'~&~	~&~]RECORD
+RECORD[~&~	~&~'KR-NS'~&~	~&~'53680C68F595AD9BE0404F8189D80A6C'~&~	~&~'1'~&~	~&~'Kuali Nervous System'~&~	~&~'Y'~&~	~&~'RICE'~&~	~&~]RECORD
+RECORD[~&~	~&~'KR-NTFCN'~&~	~&~'5B960CFDBB360FDFE0404F8189D83CBD'~&~	~&~'1'~&~	~&~'Notification'~&~	~&~'Y'~&~	~&~'RICE'~&~	~&~]RECORD
+RECORD[~&~	~&~'KR-RULE'~&~	~&~'AE3195EDFF2300E2E0404F8189D822AE'~&~	~&~'1'~&~	~&~'Kuali Rules'~&~	~&~'Y'~&~	~&~'RICE'~&~	~&~]RECORD
+RECORD[~&~	~&~'KR-SYS'~&~	~&~'5B960CFDBB390FDFE0404F8189D83CBD'~&~	~&~'1'~&~	~&~'Enterprise Infrastructure'~&~	~&~'Y'~&~	~&~'RICE'~&~	~&~]RECORD
+RECORD[~&~	~&~'KR-WKFLW'~&~	~&~'5E1D690C419B3E2EE0404F8189D82677'~&~	~&~'0'~&~	~&~'Workflow'~&~	~&~'Y'~&~	~&~'RICE'~&~	~&~]RECORD
+RECORD[~&~	~&~'KUALI'~&~	~&~'5ADF18B6D4817954E0404F8189D85002'~&~	~&~'1'~&~	~&~'Kuali Systems'~&~	~&~'Y'~&~	~&~NULL~&~	~&~]RECORD

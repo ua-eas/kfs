@@ -1,0 +1,89 @@
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="Uif-InquiryView" abstract="true" parent="Uif-InquiryView-parentBean"/>
+    <bean id="Uif-InquiryView-parentBean" abstract="true"
+          class="org.kuali.kfs.krad.uif.view.InquiryView" parent="Uif-FormView-KnsTheme">
+        <property name="styleClasses">
+            <list merge="true">
+                <value>uif-inquiryView</value>
+            </list>
+        </property>
+        <property name="viewTypeName" value="INQUIRY"/>
+        <property name="viewHelperServiceClassName" value="org.kuali.kfs.krad.inquiry.InquirableImpl"/>
+        <property name="presentationControllerClass"
+                  value="org.kuali.kfs.krad.inquiry.InquiryViewPresentationControllerBase"/>
+        <property name="authorizerClass" value="org.kuali.kfs.krad.inquiry.InquiryViewAuthorizerBase"/>
+        <property name="formClass" value="org.kuali.kfs.krad.web.form.InquiryForm"/>
+        <property name="defaultBindingObjectPath" value="dataObject"/>
+        <property name="readOnly" value="true"/>
+        <property name="singlePageView" value="true"/>
+        <property name="page">
+            <bean parent="Uif-InquiryPage"/>
+        </property>
+        <property name="footer">
+            <bean parent="Uif-InquiryFooter"/>
+        </property>
+        <property name="propertyReplacers">
+            <list>
+                <bean parent="Uif-ConditionalBeanPropertyReplacer" p:propertyName="page.items" p:condition="dataObject eq null">
+                    <property name="replacement">
+                        <list>
+                            <bean parent="Uif-MessageField" p:messageText="No records found for the given parameters."/>
+                        </list>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="Uif-InquiryPage" parent="Uif-InquiryPage-parentBean"/>
+    <bean id="Uif-InquiryPage-parentBean" abstract="true" parent="Uif-Page">
+        <property name="styleClasses">
+            <list merge="true">
+                <value>uif-inquiryPage</value>
+            </list>
+        </property>
+        <property name="header">
+            <ref bean="Uif-ReadOnlyPageHeaderField"/>
+        </property>
+    </bean>
+
+    <bean id="Uif-InquiryFooter" parent="Uif-FooterBase">
+        <property name="items">
+            <list>
+                <bean parent="Uif-PrimaryActionButton" p:methodToCall="export" p:actionLabel="export"
+                      p:render="@{#actionFlags[#Constants.KUALI_ACTION_CAN_EXPORT]}"
+                      p:onClickScript="writeHiddenToForm(&quot;unblockUIOnLoading&quot;, &quot;true&quot;);"/>
+                <bean parent="Uif-PrimaryActionButton" p:methodToCall="returnToPrevious" p:actionLabel="Cancel"
+                      p:render="@{#view.dialogMode and formHistory != null and !formHistory?.historyEntries?.empty}"/>
+                <bean parent="Uif-PrimaryActionButton" p:methodToCall="returnToHub" p:actionLabel="Home"
+                      p:render="@{#view.dialogMode and formHistory != null and (formHistory?.historyEntries?.size() > 1)}"/>
+                <bean parent="Uif-PrimaryActionButton" p:actionLabel="Close" p:render="@{#view.dialogMode}"
+                      p:onClickScript="e.preventDefault();closeLightbox();return false;"/>
+                <bean parent="Uif-PrimaryActionButton" p:actionLabel="Close" p:render="@{!#view.dialogMode}"
+                      p:onClickScript="e.preventDefault();window.close();return false;"/>
+            </list>
+        </property>
+    </bean>
+</beans>

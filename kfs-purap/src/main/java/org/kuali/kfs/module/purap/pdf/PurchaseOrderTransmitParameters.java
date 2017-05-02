@@ -1,28 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.pdf;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderContractLanguage;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderVendorQuote;
@@ -35,13 +33,15 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.kfs.vnd.businessobject.CampusParameter;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.krad.service.BusinessObjectService;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Contains the parameters needed for creating a purchase order pdf document.
  */
-public class PurchaseOrderTransmitParameters implements PurchaseOrderParameters  {
+public class PurchaseOrderTransmitParameters implements PurchaseOrderParameters {
 
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PurchaseOrderTransmitParameters.class);
 
@@ -56,7 +56,7 @@ public class PurchaseOrderTransmitParameters implements PurchaseOrderParameters 
     private String contractManagerCampusCode;
     private boolean useImage;
 
-  //   common parameters for pdf and fax
+    //   common parameters for pdf and fax
     private String pdfFileLocation;
     private String pdfFileName;
 
@@ -71,203 +71,180 @@ public class PurchaseOrderTransmitParameters implements PurchaseOrderParameters 
 
     @Override
     public void setPurchaseOrderPdfParameters(PurchaseOrderDocument po) {
-          setPurchaseOrderPdfParameters(po, null);
-     }
+        setPurchaseOrderPdfParameters(po, null);
+    }
 
-     @Override
+    @Override
     public void setPurchaseOrderPdfParameters(PurchaseOrderDocument po, PurchaseOrderVendorQuote povq) {
 
 
-         this.key = povq == null ? po.getPurapDocumentIdentifier().toString() : po.getPurapDocumentIdentifier().toString() + povq.getPurchaseOrderVendorQuoteIdentifier().toString(); // key can be any string; chose to use the PO number.
-         String campusCode = po.getDeliveryCampusCode().toLowerCase();
-         boolean useImage = true;
-         if (SpringContext.getBean(ParameterService.class).parameterExists(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapConstants.PDF_IMAGES_AVAILABLE_INDICATOR)) {
-             useImage = SpringContext.getBean(ParameterService.class).getParameterValueAsBoolean(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapConstants.PDF_IMAGES_AVAILABLE_INDICATOR);
-         }
-         // We'll get the imageTempLocation and the actual images only if the useImage is true. If useImage is false, we'll leave the
-         // images as blank space
-         if (useImage) {
-             if (getImageTempLocation() == null) {
-                 throw new PurapConfigurationException("IMAGE_TEMP_PATH is missing");
-             }
+        this.key = povq == null ? po.getPurapDocumentIdentifier().toString() : po.getPurapDocumentIdentifier().toString() + povq.getPurchaseOrderVendorQuoteIdentifier().toString(); // key can be any string; chose to use the PO number.
+        String campusCode = po.getDeliveryCampusCode().toLowerCase();
+        boolean useImage = true;
+        if (SpringContext.getBean(ParameterService.class).parameterExists(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapConstants.PDF_IMAGES_AVAILABLE_INDICATOR)) {
+            useImage = SpringContext.getBean(ParameterService.class).getParameterValueAsBoolean(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapConstants.PDF_IMAGES_AVAILABLE_INDICATOR);
+        }
+        // We'll get the imageTempLocation and the actual images only if the useImage is true. If useImage is false, we'll leave the
+        // images as blank space
+        pickLogoImage(po, campusCode, useImage);
 
-             // Get images
-             if ((this.logoImage = SpringContext.getBean(ImageService.class).getLogo(key, campusCode, imageTempLocation)) == null) {
-                 throw new PurapConfigurationException("logoImage is null.");
-             }
-             if ((this.directorSignatureImage = SpringContext.getBean(ImageService.class).getPurchasingDirectorImage(key, campusCode, imageTempLocation)) == null) {
-                 throw new PurapConfigurationException("directorSignatureImage is null.");
-             }
-             if ((this.contractManagerSignatureImage = SpringContext.getBean(ImageService.class).getContractManagerImage(key, po.getContractManagerCode(), imageTempLocation)) == null) {
-                 throw new PurapConfigurationException("contractManagerSignatureImage is null.");
-             }
-         }
+        Map<String, Object> criteria = new HashMap<String, Object>();
+        criteria.put(KFSPropertyConstants.CAMPUS_CODE, po.getDeliveryCampusCode());
+        this.campusParameter = ((List<CampusParameter>) SpringContext.getBean(BusinessObjectService.class).findMatching(CampusParameter.class, criteria)).get(0);
 
-         Map<String, Object> criteria = new HashMap<String, Object>();
-         criteria.put(KFSPropertyConstants.CAMPUS_CODE, po.getDeliveryCampusCode());
-         this.campusParameter = ((List<CampusParameter>) SpringContext.getBean(BusinessObjectService.class).findMatching(CampusParameter.class, criteria)).get(0);
+        if (getStatusInquiryUrl() == null) {
+            LOG.debug("generatePurchaseOrderPdf() ended");
+            throw new PurapConfigurationException("Application Setting INVOICE_STATUS_INQUIRY_URL is missing.");
+        }
 
-         if (getStatusInquiryUrl() == null) {
-             LOG.debug("generatePurchaseOrderPdf() ended");
-             throw new PurapConfigurationException("Application Setting INVOICE_STATUS_INQUIRY_URL is missing.");
-         }
+        criteria.put(KFSPropertyConstants.ACTIVE, true);
+        List<PurchaseOrderContractLanguage> contractLanguageList = (List<PurchaseOrderContractLanguage>) (SpringContext.getBean(BusinessObjectService.class).findMatching(PurchaseOrderContractLanguage.class, criteria));
+        this.contractLanguage = updateContractLanguage(po, contractLanguageList);
 
-         StringBuffer contractLanguage = new StringBuffer();
-         criteria.put(KFSPropertyConstants.ACTIVE, true);
-         List<PurchaseOrderContractLanguage> contractLanguageList = (List<PurchaseOrderContractLanguage>) (SpringContext.getBean(BusinessObjectService.class).findMatching(PurchaseOrderContractLanguage.class, criteria));
-         if (!contractLanguageList.isEmpty()) {
-             int lineNumber = 1;
-             for (PurchaseOrderContractLanguage row : contractLanguageList) {
-                 if (row.getCampusCode().equals(po.getDeliveryCampusCode())) {
-                     contractLanguage.append(lineNumber + " " + row.getPurchaseOrderContractLanguageDescription() + "\n");
-                     ++lineNumber;
-                 }
-             }
-         }
+        if (getPdfFileLocation() == null) {
+            LOG.debug("savePurchaseOrderPdf() ended");
+            throw new PurapConfigurationException("Application Setting PDF_DIRECTORY is missing.");
+        }
 
-         this.contractLanguage = contractLanguage.toString();
+        String environment = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KFSConstants.ENVIRONMENT_KEY);
 
-         if (getPdfFileLocation() == null) {
-             LOG.debug("savePurchaseOrderPdf() ended");
-             throw new PurapConfigurationException("Application Setting PDF_DIRECTORY is missing.");
-         }
-
-         String environment = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KFSConstants.ENVIRONMENT_KEY);
-
-          this.pdfFileName = povq != null ? "PURAP_PO_" + po.getPurapDocumentIdentifier().toString() + "_Quote" + povq.getPurchaseOrderVendorQuoteIdentifier().toString()+ "_"  +  environment + "_" + System.currentTimeMillis() + ".pdf" :
-                               "PURAP_PO_" + po.getPurapDocumentIdentifier().toString() + "_" + environment + "_" + System.currentTimeMillis() + ".pdf";
+        this.pdfFileName = povq != null ? "PURAP_PO_" + po.getPurapDocumentIdentifier().toString() + "_Quote" + povq.getPurchaseOrderVendorQuoteIdentifier().toString() + "_" + environment + "_" + System.currentTimeMillis() + ".pdf" :
+            "PURAP_PO_" + po.getPurapDocumentIdentifier().toString() + "_" + environment + "_" + System.currentTimeMillis() + ".pdf";
 
 
-          this.contractManagerCampusCode = po.getContractManager().getContractManagerPerson()!= null ? po.getContractManager().getContractManagerPerson().getCampusCode() : "";
-          this.contractLanguage = contractLanguage.toString();
+        this.contractManagerCampusCode = po.getContractManager().getContractManagerPerson() != null ? po.getContractManager().getContractManagerPerson().getCampusCode() : "";
+        this.contractLanguage = contractLanguage.toString();
 
-     }
+    }
+
+    protected void pickLogoImage(PurchaseOrderDocument po, String campusCode, boolean useImage) {
+        if (useImage) {
+            if (getImageTempLocation() == null) {
+                throw new PurapConfigurationException("IMAGE_TEMP_PATH is missing");
+            }
+
+            // Get images
+            if ((this.logoImage = SpringContext.getBean(ImageService.class).getLogo(key, campusCode, imageTempLocation)) == null) {
+                throw new PurapConfigurationException("logoImage is null.");
+            }
+            if ((this.directorSignatureImage = SpringContext.getBean(ImageService.class).getPurchasingDirectorImage(key, campusCode, imageTempLocation)) == null) {
+                throw new PurapConfigurationException("directorSignatureImage is null.");
+            }
+            if ((this.contractManagerSignatureImage = SpringContext.getBean(ImageService.class).getContractManagerImage(key, po.getContractManagerCode(), imageTempLocation)) == null) {
+                throw new PurapConfigurationException("contractManagerSignatureImage is null.");
+            }
+        }
+    }
 
 
-     @Override
+    @Override
     public void setPurchaseOrderFaxParameters(PurchaseOrderDocument po, PurchaseOrderVendorQuote povq) {
-         // get parameters to send fax
+        // get parameters to send fax
 
-         if (getPdfFileLocation() == null) {
-             LOG.debug("savePurchaseOrderPdf() ended");
-             throw new PurapConfigurationException("Application Setting PDF_DIRECTORY is missing.");
-         }
-
-
-         this.pdfFileName = povq != null ? "PURAP_PO_" + po.getPurapDocumentIdentifier().toString() + "_Quote" + povq.getPurchaseOrderVendorQuoteIdentifier().toString()+ "_"  + System.currentTimeMillis() + ".pdf" :
-                              "PURAP_PO_" + po.getPurapDocumentIdentifier().toString() + "_" + System.currentTimeMillis() + ".pdf";
+        if (getPdfFileLocation() == null) {
+            LOG.debug("savePurchaseOrderPdf() ended");
+            throw new PurapConfigurationException("Application Setting PDF_DIRECTORY is missing.");
+        }
 
 
-          this.faxDescription =  povq != null ? "PO: " + po.getPurapDocumentIdentifier() + " Quote ID: " + povq.getPurchaseOrderVendorQuoteIdentifier():
-                                                  "PO: " + po.getPurapDocumentIdentifier() + " Cntrct Mgr: " + po.getContractManager().getContractManagerCode();
-
-          String productionEnvironmentCode = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KFSConstants.PROD_ENVIRONMENT_CODE_KEY);
-          String environmentCode           = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KFSConstants.ENVIRONMENT_KEY);
-
-          if (!StringUtils.equals(productionEnvironmentCode, environmentCode)) {
-              this.faxDescription = environmentCode + " TEST - " + this.faxDescription;
-          }
-
-          this.vendorName = povq != null ? povq.getVendorName() : po.getVendorName();
+        this.pdfFileName = povq != null ? "PURAP_PO_" + po.getPurapDocumentIdentifier().toString() + "_Quote" + povq.getPurchaseOrderVendorQuoteIdentifier().toString() + "_" + System.currentTimeMillis() + ".pdf" :
+            "PURAP_PO_" + po.getPurapDocumentIdentifier().toString() + "_" + System.currentTimeMillis() + ".pdf";
 
 
+        this.faxDescription = povq != null ? "PO: " + po.getPurapDocumentIdentifier() + " Quote ID: " + povq.getPurchaseOrderVendorQuoteIdentifier() :
+            "PO: " + po.getPurapDocumentIdentifier() + " Cntrct Mgr: " + po.getContractManager().getContractManagerCode();
+
+        String productionEnvironmentCode = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KFSConstants.PROD_ENVIRONMENT_CODE_KEY);
+        String environmentCode = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KFSConstants.ENVIRONMENT_KEY);
+
+        if (!StringUtils.equals(productionEnvironmentCode, environmentCode)) {
+            this.faxDescription = environmentCode + " TEST - " + this.faxDescription;
+        }
+
+        this.vendorName = povq != null ? povq.getVendorName() : po.getVendorName();
 
 
-
-     }
-
+    }
 
 
-     @Override
+    @Override
     public void setPurchaseOrderPdfAndFaxParameters(PurchaseOrderDocument po) {
-          setPurchaseOrderPdfAndFaxParameters(po, null);
-     }
+        setPurchaseOrderPdfAndFaxParameters(po, null);
+    }
 
-     @Override
+    @Override
     public void setPurchaseOrderPdfAndFaxParameters(PurchaseOrderDocument po, PurchaseOrderVendorQuote povq) {
 
-         this.key = povq == null ? po.getPurapDocumentIdentifier().toString() : po.getPurapDocumentIdentifier().toString() + povq.getPurchaseOrderVendorQuoteIdentifier().toString(); // key can be any string; chose to use the PO number.
-         String campusCode = po.getDeliveryCampusCode().toLowerCase();
+        this.key = povq == null ? po.getPurapDocumentIdentifier().toString() : po.getPurapDocumentIdentifier().toString() + povq.getPurchaseOrderVendorQuoteIdentifier().toString(); // key can be any string; chose to use the PO number.
+        String campusCode = po.getDeliveryCampusCode().toLowerCase();
         // String imageTempLocation = "";
         // String logoImage = "";
         // String directorSignatureImage = "";
-       //  String contractManagerSignatureImage = "";
-         boolean useImage = true;
-         if (SpringContext.getBean(ParameterService.class).parameterExists(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapConstants.PDF_IMAGES_AVAILABLE_INDICATOR)) {
-             useImage = SpringContext.getBean(ParameterService.class).getParameterValueAsBoolean(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapConstants.PDF_IMAGES_AVAILABLE_INDICATOR);
-         }
-         // We'll get the imageTempLocation and the actual images only if the useImage is true. If useImage is false, we'll leave the
-         // images as blank space
-         if (useImage) {
-             if (getImageTempLocation() == null) {
-                 throw new PurapConfigurationException("IMAGE_TEMP_PATH is missing");
-             }
+        //  String contractManagerSignatureImage = "";
+        boolean useImage = true;
+        if (SpringContext.getBean(ParameterService.class).parameterExists(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapConstants.PDF_IMAGES_AVAILABLE_INDICATOR)) {
+            useImage = SpringContext.getBean(ParameterService.class).getParameterValueAsBoolean(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapConstants.PDF_IMAGES_AVAILABLE_INDICATOR);
+        }
+        // We'll get the imageTempLocation and the actual images only if the useImage is true. If useImage is false, we'll leave the
+        // images as blank space
+        pickLogoImage(po, campusCode, useImage);
 
-             // Get images
-             if ((this.logoImage = SpringContext.getBean(ImageService.class).getLogo(key, campusCode, imageTempLocation)) == null) {
-                 throw new PurapConfigurationException("logoImage is null.");
-             }
-             if ((this.directorSignatureImage = SpringContext.getBean(ImageService.class).getPurchasingDirectorImage(key, campusCode, imageTempLocation)) == null) {
-                 throw new PurapConfigurationException("directorSignatureImage is null.");
-             }
-             if ((this.contractManagerSignatureImage = SpringContext.getBean(ImageService.class).getContractManagerImage(key, po.getContractManagerCode(), imageTempLocation)) == null) {
-                 throw new PurapConfigurationException("contractManagerSignatureImage is null.");
-             }
-         }
+        Map<String, Object> criteria = new HashMap<String, Object>();
+        criteria.put(KFSPropertyConstants.CAMPUS_CODE, po.getDeliveryCampusCode());
+        this.campusParameter = ((List<CampusParameter>) SpringContext.getBean(BusinessObjectService.class).findMatching(CampusParameter.class, criteria)).get(0);
 
-         Map<String, Object> criteria = new HashMap<String, Object>();
-         criteria.put(KFSPropertyConstants.CAMPUS_CODE, po.getDeliveryCampusCode());
-         this.campusParameter = ((List<CampusParameter>) SpringContext.getBean(BusinessObjectService.class).findMatching(CampusParameter.class, criteria)).get(0);
+        if (getStatusInquiryUrl() == null) {
+            LOG.debug("generatePurchaseOrderPdf() ended");
+            throw new PurapConfigurationException("Application Setting INVOICE_STATUS_INQUIRY_URL is missing.");
+        }
 
-         if (getStatusInquiryUrl() == null) {
-             LOG.debug("generatePurchaseOrderPdf() ended");
-             throw new PurapConfigurationException("Application Setting INVOICE_STATUS_INQUIRY_URL is missing.");
-         }
-
-         StringBuffer contractLanguage = new StringBuffer();
-         criteria.put(KFSPropertyConstants.ACTIVE, true);
-         List<PurchaseOrderContractLanguage> contractLanguageList = (List<PurchaseOrderContractLanguage>) (SpringContext.getBean(BusinessObjectService.class).findMatching(PurchaseOrderContractLanguage.class, criteria));
-         if (!contractLanguageList.isEmpty()) {
-             int lineNumber = 1;
-             for (PurchaseOrderContractLanguage row : contractLanguageList) {
-                 if (row.getCampusCode().equals(po.getDeliveryCampusCode())) {
-                     contractLanguage.append(lineNumber + " " + row.getPurchaseOrderContractLanguageDescription() + "\n");
-                     ++lineNumber;
-                 }
-             }
-         }
-
-         this.contractLanguage = contractLanguage.toString();
-
-         if (getPdfFileLocation() == null) {
-             LOG.debug("savePurchaseOrderPdf() ended");
-             throw new PurapConfigurationException("Application Setting PDF_DIRECTORY is missing.");
-         }
-
-          this.pdfFileName = povq != null ? "PURAP_PO_" + po.getPurapDocumentIdentifier().toString() + "_Quote" + povq.getPurchaseOrderVendorQuoteIdentifier().toString()+ "_"  + System.currentTimeMillis() + ".pdf" :
-                             "PURAP_PO_" + po.getPurapDocumentIdentifier().toString() + "_" + System.currentTimeMillis() + ".pdf";
+        criteria.put(KFSPropertyConstants.ACTIVE, true);
+        List<PurchaseOrderContractLanguage> contractLanguageList = (List<PurchaseOrderContractLanguage>) (SpringContext.getBean(BusinessObjectService.class).findMatching(PurchaseOrderContractLanguage.class, criteria));
+        this.contractLanguage = updateContractLanguage(po, contractLanguageList);
 
 
-          this.contractManagerCampusCode = po.getContractManager().getContractManagerPerson()!= null ? po.getContractManager().getContractManagerPerson().getCampusCode() : "";
+        if (getPdfFileLocation() == null) {
+            LOG.debug("savePurchaseOrderPdf() ended");
+            throw new PurapConfigurationException("Application Setting PDF_DIRECTORY is missing.");
+        }
 
-         // get parameters to send fax
-
-          this.faxDescription =  povq != null ? "PO: " + po.getPurapDocumentIdentifier() + " Quote ID: " + povq.getPurchaseOrderVendorQuoteIdentifier():
-                                                  "PO: " + po.getPurapDocumentIdentifier() + " Cntrct Mgr: " + po.getContractManager().getContractManagerCode();
-
-          String productionEnvironmentCode = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KFSConstants.PROD_ENVIRONMENT_CODE_KEY);
-          String environmentCode           = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KFSConstants.ENVIRONMENT_KEY);
-
-          if (!StringUtils.equals(productionEnvironmentCode, environmentCode)) {
-              this.faxDescription = environmentCode + " TEST - " + this.faxDescription;
-          }
-
-          this.vendorName = povq != null ? povq.getVendorName() : po.getVendorName();
-          this.recipientFaxNumber = povq == null ? po.getVendorFaxNumber(): povq.getVendorFaxNumber();
+        this.pdfFileName = povq != null ? "PURAP_PO_" + po.getPurapDocumentIdentifier().toString() + "_Quote" + povq.getPurchaseOrderVendorQuoteIdentifier().toString() + "_" + System.currentTimeMillis() + ".pdf" :
+            "PURAP_PO_" + po.getPurapDocumentIdentifier().toString() + "_" + System.currentTimeMillis() + ".pdf";
 
 
-     }
+        this.contractManagerCampusCode = po.getContractManager().getContractManagerPerson() != null ? po.getContractManager().getContractManagerPerson().getCampusCode() : "";
 
+        // get parameters to send fax
+
+        this.faxDescription = povq != null ? "PO: " + po.getPurapDocumentIdentifier() + " Quote ID: " + povq.getPurchaseOrderVendorQuoteIdentifier() :
+            "PO: " + po.getPurapDocumentIdentifier() + " Cntrct Mgr: " + po.getContractManager().getContractManagerCode();
+
+        String productionEnvironmentCode = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KFSConstants.PROD_ENVIRONMENT_CODE_KEY);
+        String environmentCode = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KFSConstants.ENVIRONMENT_KEY);
+
+        if (!StringUtils.equals(productionEnvironmentCode, environmentCode)) {
+            this.faxDescription = environmentCode + " TEST - " + this.faxDescription;
+        }
+
+        this.vendorName = povq != null ? povq.getVendorName() : po.getVendorName();
+        this.recipientFaxNumber = povq == null ? po.getVendorFaxNumber() : povq.getVendorFaxNumber();
+
+
+    }
+
+    protected String updateContractLanguage(PurchaseOrderDocument po, List<PurchaseOrderContractLanguage> contractLanguageList) {
+        StringBuilder builder = new StringBuilder();
+        if (!contractLanguageList.isEmpty()) {
+            int lineNumber = 1;
+            for (PurchaseOrderContractLanguage row : contractLanguageList) {
+                if (row.getCampusCode().equals(po.getDeliveryCampusCode())) {
+                    builder.append(lineNumber + " " + row.getPurchaseOrderContractLanguageDescription() + "\n");
+                    ++lineNumber;
+                }
+            }
+        }
+        return builder.toString();
+    }
 
 
     public String getContractManagerCampusCode() {
@@ -376,7 +353,7 @@ public class PurchaseOrderTransmitParameters implements PurchaseOrderParameters 
     }
 
     public String getRecipientFaxNumber() {
-      return recipientFaxNumber;
+        return recipientFaxNumber;
     }
 
     public void setRecipientFaxNumber(String recipientFaxNumber) {
@@ -398,8 +375,6 @@ public class PurchaseOrderTransmitParameters implements PurchaseOrderParameters 
     public void setFaxDescription(String faxDescription) {
         this.faxDescription = faxDescription;
     }
-
-
 
 
 }

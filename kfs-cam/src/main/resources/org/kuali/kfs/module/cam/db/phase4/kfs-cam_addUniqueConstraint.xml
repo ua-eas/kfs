@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="kfs" id="2436" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CB_AST_TRN_TYP_TC0" tableName="CB_AST_TRN_TYP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2437" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CB_GL_ENTRY_AST_TC0" tableName="CB_GL_ENTRY_AST_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2438" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CB_PRTG_DTL_TC0" tableName="CB_PRTG_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2439" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CB_PRTG_TC0" tableName="CB_PRTG_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2440" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CB_PUR_ACTN_HIST_TC0" tableName="CB_PUR_ACTN_HIST_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2441" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CB_PUR_DOC_TC0" tableName="CB_PUR_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2442" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CB_PUR_ITM_AST_TC0" tableName="CB_PUR_ITM_AST_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2443" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CB_PUR_LN_AST_ACCT_TC0"
+                             tableName="CB_PUR_LN_AST_ACCT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2444" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CM_ACQ_TYPE_TC0" tableName="CM_ACQ_TYPE_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2445" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CM_ASSET_TYPE_TC0" tableName="CM_ASSET_TYPE_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2446" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CM_AST_COMPONENT_TC0" tableName="CM_AST_COMPONENT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2447" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CM_AST_CONDITION_TC0" tableName="CM_AST_CONDITION_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2448" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CM_AST_DEPR_CNVNTN_TC0"
+                             tableName="CM_AST_DEPR_CNVNTN_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2449" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CM_AST_DEPR_MTHD_TC0" tableName="CM_AST_DEPR_MTHD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2450" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CM_AST_LOC_DOC_TC0" tableName="CM_AST_LOC_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2451" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CM_AST_LOC_DTL_TC0" tableName="CM_AST_LOC_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2452" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CM_AST_LOC_TC0" tableName="CM_AST_LOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2453" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CM_AST_LOC_TYP_TC0" tableName="CM_AST_LOC_TYP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2454" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CM_AST_ORG_TC0" tableName="CM_AST_ORG_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2455" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CM_AST_PAYMENT_TC0" tableName="CM_AST_PAYMENT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2456" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CM_AST_PMT_AST_DTL_TC0"
+                             tableName="CM_AST_PMT_AST_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2457" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CM_AST_PMT_DOC_TC0" tableName="CM_AST_PMT_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2458" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CM_AST_PMT_DOC_TYP_T_TC0"
+                             tableName="CM_AST_PMT_DOC_TYP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2459" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CM_AST_PMT_DST_CD_TC0"
+                             tableName="CM_AST_PMT_DST_CD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2460" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CM_AST_PMT_DTL_TC0" tableName="CM_AST_PMT_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2461" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CM_AST_RETIRE_DOC_TC0"
+                             tableName="CM_AST_RETIRE_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2462" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CM_AST_RETIRE_DTL_TC0"
+                             tableName="CM_AST_RETIRE_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2463" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CM_AST_RPR_HIST_TC0" tableName="CM_AST_RPR_HIST_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2464" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CM_AST_STATUS_TC0" tableName="CM_AST_STATUS_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2465" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CM_AST_TRNFR_DOC_TC0" tableName="CM_AST_TRNFR_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2466" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CM_AST_WRNTY_TC0" tableName="CM_AST_WRNTY_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="1496" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CM_CPTLAST_TC0" tableName="CM_CPTLAST_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2467" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CM_CPTLAST_DOC_TC0" tableName="CM_CPTLAST_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2468" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CM_CPTLAST_DTL_TC0" tableName="CM_CPTLAST_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2469" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CM_CPTLAST_LOCK_TC0" tableName="CM_CPTLAST_LOCK_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2470" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CM_CPTLAST_OBJ_TC0" tableName="CM_CPTLAST_OBJ_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2471" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CM_EQPLNRTRN_DOC_TC0" tableName="CM_EQPLNRTRN_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2472" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CM_FSCL_YR_END_DEPR_DTL_TC0"
+                             tableName="CM_FSCL_YR_END_DEPR_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2473" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CM_FSCL_YR_END_DEPR_HDR_TC0"
+                             tableName="CM_FSCL_YR_END_DEPR_HDR_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2474" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CM_INVN_ERR_DOC_TC0" tableName="CM_INVN_ERR_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2475" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CM_INVN_ERR_DTL_TC0" tableName="CM_INVN_ERR_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2476" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CM_RETIRE_REAS_TC0" tableName="CM_RETIRE_REAS_T"/>
+    </changeSet>
+</databaseChangeLog>

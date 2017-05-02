@@ -1,29 +1,32 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sec.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.util.FieldUtils;
+import org.kuali.kfs.kns.web.ui.Column;
+import org.kuali.kfs.kns.web.ui.Field;
+import org.kuali.kfs.kns.web.ui.Row;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.sec.SecConstants;
 import org.kuali.kfs.sec.SecPropertyConstants;
 import org.kuali.kfs.sec.businessobject.SecurityAttributeMetadata;
@@ -36,15 +39,12 @@ import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.rice.kns.datadictionary.BusinessObjectEntry;
-import org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.kns.util.FieldUtils;
-import org.kuali.rice.kns.web.ui.Column;
-import org.kuali.rice.kns.web.ui.Field;
-import org.kuali.rice.kns.web.ui.Row;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.util.KRADConstants;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -62,7 +62,7 @@ public class AccessSecuritySimulationLookupableHelperServiceImpl extends KualiLo
 
     /**
      * @see org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl#getSearchResults(java.util.Map)
-     *
+     * <p>
      * KRAD Conversion: Lookupable performs customization of the search results.
      * by retrieving the default sort columns using data dictionary service.
      */
@@ -74,12 +74,11 @@ public class AccessSecuritySimulationLookupableHelperServiceImpl extends KualiLo
         String attributeName = fieldValues.get(SecPropertyConstants.ATTRIBUTE_NAME);
         String templateId = fieldValues.get(SecPropertyConstants.TEMPLATE_ID);
 
-        Map<String,String> additionalPermissionDetails = new HashMap<String,String>();
+        Map<String, String> additionalPermissionDetails = new HashMap<String, String>();
         if (accessSecurityService.getInquiryWithFieldValueTemplate().getId().equals(templateId)) {
             String namespaceCode = fieldValues.get(SecPropertyConstants.INQUIRY_NAMESPACE_CODE);
             additionalPermissionDetails.put(KimConstants.AttributeConstants.NAMESPACE_CODE, namespaceCode);
-        }
-        else if (!accessSecurityService.getLookupWithFieldValueTemplate().getId().equals(templateId)) {
+        } else if (!accessSecurityService.getLookupWithFieldValueTemplate().getId().equals(templateId)) {
             String documentTypeCode = fieldValues.get(SecPropertyConstants.FINANCIAL_SYSTEM_DOCUMENT_TYPE_CODE);
             additionalPermissionDetails.put(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME, documentTypeCode);
         }
@@ -92,13 +91,10 @@ public class AccessSecuritySimulationLookupableHelperServiceImpl extends KualiLo
      * @param attribute
      * @param templateId
      * @param additionalPermissionDetails
-     * @return
-     *
-     * KRAD Conversion: Lookupable performs customization of the search results.
+     * @return KRAD Conversion: Lookupable performs customization of the search results.
      * by retrieving the columns using data dictionary service.
-     *
      */
-    protected List<? extends BusinessObject> runSimulation(Person person, String attributeName, String templateId, Map<String,String> additionalPermissionDetails) {
+    protected List<? extends BusinessObject> runSimulation(Person person, String attributeName, String templateId, Map<String, String> additionalPermissionDetails) {
         List<BusinessObject> resultRecords = new ArrayList<BusinessObject>();
 
         if (!SecConstants.ATTRIBUTE_SIMULATION_MAP.containsKey(attributeName)) {
@@ -151,15 +147,12 @@ public class AccessSecuritySimulationLookupableHelperServiceImpl extends KualiLo
 
             if (accessSecurityService.getInquiryWithFieldValueTemplate().getId().equals(templateId)) {
                 lookupFieldAttributeList = getInquiryTemplateFields();
-            }
-            else if (accessSecurityService.getLookupWithFieldValueTemplate().getId().equals(templateId)) {
+            } else if (accessSecurityService.getLookupWithFieldValueTemplate().getId().equals(templateId)) {
                 lookupFieldAttributeList = getLookupTemplateFields();
-            }
-            else {
+            } else {
                 lookupFieldAttributeList = getDocumentTemplateFields();
             }
-        }
-        else {
+        } else {
             lookupFieldAttributeList = getLookupTemplateFields();
         }
 
@@ -172,11 +165,9 @@ public class AccessSecuritySimulationLookupableHelperServiceImpl extends KualiLo
             BusinessObjectEntry boe = (BusinessObjectEntry) SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getBusinessObjectEntry(this.getBusinessObjectClass().getName());
             numCols = boe.getLookupDefinition().getNumOfColumns();
 
-        }
-        catch (InstantiationException e) {
+        } catch (InstantiationException e) {
             throw new RuntimeException("Unable to create instance of business object class" + e.getMessage());
-        }
-        catch (IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
             throw new RuntimeException("Unable to create instance of business object class" + e.getMessage());
         }
 
@@ -197,7 +188,7 @@ public class AccessSecuritySimulationLookupableHelperServiceImpl extends KualiLo
 
     /**
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#getColumns()
-     *
+     * <p>
      * KRAD Conversion: Lookupable performs the customization of columns
      * by  using data dictionary service for attribute properties.
      */
@@ -227,8 +218,7 @@ public class AccessSecuritySimulationLookupableHelperServiceImpl extends KualiLo
             if (fieldDefinedMaxLength == null) {
                 try {
                     fieldDefinedMaxLength = Integer.valueOf(getParameterService().getParameterValueAsString(KRADConstants.KNS_NAMESPACE, KRADConstants.DetailTypes.LOOKUP_PARM_DETAIL_TYPE, KRADConstants.RESULTS_DEFAULT_MAX_COLUMN_LENGTH));
-                }
-                catch (NumberFormatException ex) {
+                } catch (NumberFormatException ex) {
                     LOG.error("Lookup field max length parameter not found for " + attributeClass.getName() + "." + attributeName + " -- and unable to parse default set in system parameters (RESULTS_DEFAULT_MAX_COLUMN_LENGTH).");
                     fieldDefinedMaxLength = 50;
                 }
@@ -239,12 +229,10 @@ public class AccessSecuritySimulationLookupableHelperServiceImpl extends KualiLo
             if (formatterClass != null) {
                 try {
                     column.setFormatter((Formatter) formatterClass.newInstance());
-                }
-                catch (InstantiationException e) {
+                } catch (InstantiationException e) {
                     LOG.error("Unable to get new instance of formatter class: " + formatterClass.getName());
                     throw new RuntimeException("Unable to get new instance of formatter class: " + formatterClass.getName());
-                }
-                catch (IllegalAccessException e) {
+                } catch (IllegalAccessException e) {
                     LOG.error("Unable to get new instance of formatter class: " + formatterClass.getName());
                     throw new RuntimeException("Unable to get new instance of formatter class: " + formatterClass.getName());
                 }

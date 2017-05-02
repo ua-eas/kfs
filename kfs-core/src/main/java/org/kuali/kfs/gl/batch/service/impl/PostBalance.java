@@ -1,26 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.batch.service.impl;
-
-import java.util.Collection;
-import java.util.Date;
-import java.util.Iterator;
 
 import org.kuali.kfs.gl.batch.service.AccountingCycleCachingService;
 import org.kuali.kfs.gl.batch.service.BalanceCalculator;
@@ -34,15 +30,20 @@ import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
+import java.util.Date;
+import java.util.Iterator;
+
 /**
  * This implementation of PostTransaction updates the appropriate Balance
  */
 @Transactional
 public class PostBalance implements PostTransaction, BalanceCalculator {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PostBalance.class);
-    
+
     private AccountingCycleCachingService accountingCycleCachingService;
     private static final KualiDecimal NEGATIVE_ONE = new KualiDecimal(-1);
+
     /**
      * Constructs a PostBalance instance
      */
@@ -52,10 +53,10 @@ public class PostBalance implements PostTransaction, BalanceCalculator {
 
     /**
      * This posts the effect of the transaction upon the appropriate balance record.
-     * 
-     * @param t the transaction which is being posted
-     * @param mode the mode the poster is currently running in
-     * @param postDate the date this transaction should post to
+     *
+     * @param t                         the transaction which is being posted
+     * @param mode                      the mode the poster is currently running in
+     * @param postDate                  the date this transaction should post to
      * @param posterReportWriterService the writer service where the poster is writing its report
      * @return the accomplished post type
      * @see org.kuali.kfs.gl.batch.service.PostTransaction#post(org.kuali.kfs.gl.businessobject.Transaction, int, java.util.Date)
@@ -88,21 +89,21 @@ public class PostBalance implements PostTransaction, BalanceCalculator {
         } else {
             accountingCycleCachingService.updateBalance(b);
         }
-        
+
         return postType;
     }
 
     /**
      * Given a list of balances, determines which one the given trsnaction should post to
-     * 
+     *
      * @param balanceList a Collection of balances
-     * @param t the transaction that is being posted
+     * @param t           the transaction that is being posted
      * @return the balance, either found from the list, or, if not present in the list, newly created
      * @see org.kuali.kfs.gl.batch.service.BalanceCalculator#findBalance(java.util.Collection, org.kuali.kfs.gl.businessobject.Transaction)
      */
     public Balance findBalance(Collection balanceList, Transaction t) {
         // Try to find one that already exists
-        for (Iterator iter = balanceList.iterator(); iter.hasNext();) {
+        for (Iterator iter = balanceList.iterator(); iter.hasNext(); ) {
             Balance b = (Balance) iter.next();
 
             if (b.getUniversityFiscalYear().equals(t.getUniversityFiscalYear()) && b.getChartOfAccountsCode().equals(t.getChartOfAccountsCode()) && b.getAccountNumber().equals(t.getAccountNumber()) && b.getSubAccountNumber().equals(t.getSubAccountNumber()) && b.getObjectCode().equals(t.getFinancialObjectCode()) && b.getSubObjectCode().equals(t.getFinancialSubObjectCode()) && b.getBalanceTypeCode().equals(t.getFinancialBalanceTypeCode()) && b.getObjectTypeCode().equals(t.getFinancialObjectTypeCode())) {

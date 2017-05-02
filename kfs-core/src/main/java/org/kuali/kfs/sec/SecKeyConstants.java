@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -28,7 +28,7 @@ public class SecKeyConstants {
     public static final String ERROR_MODEL_DEFINITION_OPERATOR_CODE_NOT_EQUAL = "error.sec.modelDefinition.operatorCodeNotEqual";
     public static final String ERROR_MODEL_MEMBER_ID_NOT_VALID = "error.sec.model.memberIdNotValid";
     public static final String ERROR_ATTRIBUTE_VALUE_EXISTENCE = "error.sec.attributeValue.existence";
-    
+
     public static final String MESSAGE_ACCOUNTING_LINE_VIEW_RESTRICTED = "message.sec.accountingLines.viewRestricted";
     public static final String MESSAGE_ACCOUNTING_LINE_EDIT_RESTRICTED = "message.sec.accountingLines.editRestricted";
     public static final String MESSAGE_DOCUMENT_NOTES_RESTRICTED = "message.sec.document.notesRestricted";

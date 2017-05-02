@@ -1,25 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.document.authorization;
-
-import java.util.Collection;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
@@ -29,21 +26,24 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentAuthorizerBase;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
 
+import java.util.Collection;
+import java.util.Map;
+
 public class CustomerInvoiceWriteoffDocumentAuthorizer extends FinancialSystemTransactionalDocumentAuthorizerBase {
 
     @Override
     protected void addRoleQualification(Object businessObject, Map<String, String> attributes) {
         super.addRoleQualification(businessObject, attributes);
-        
+
         CustomerInvoiceWriteoffDocument writeoffDoc = (CustomerInvoiceWriteoffDocument) businessObject;
         String invoiceDocNumber = writeoffDoc.getFinancialDocumentReferenceInvoiceNumber();
         if (StringUtils.isBlank(invoiceDocNumber)) {
             return;
         }
         CustomerInvoiceDocumentService invoiceService = SpringContext.getBean(CustomerInvoiceDocumentService.class);
-        
+
         Collection<CustomerInvoiceDetail> invoiceDetails = invoiceService.getCustomerInvoiceDetailsForCustomerInvoiceDocument(invoiceDocNumber);
-        
+
         //  adds the chart/account for each account used on the original invoice that will be credited by this
         for (CustomerInvoiceDetail invoiceDetail : invoiceDetails) {
             if (StringUtils.isNotBlank(invoiceDetail.getChartOfAccountsCode()) && StringUtils.isNotBlank(invoiceDetail.getAccountNumber())) {
@@ -61,9 +61,9 @@ public class CustomerInvoiceWriteoffDocumentAuthorizer extends FinancialSystemTr
 //    @Override
 //    public void canInitiate(String documentTypeName, Person user) throws DocumentTypeAuthorizationException {
 //        super.canInitiate(documentTypeName, user);
-//        
+//
 //        if (!ARUtil.isUserInArBillingOrg(user)) {
-//            throw new DocumentInitiationAuthorizationException(ArKeyConstants.ERROR_ORGANIZATION_OPTIONS_MUST_BE_SET_FOR_USER_ORG, 
+//            throw new DocumentInitiationAuthorizationException(ArKeyConstants.ERROR_ORGANIZATION_OPTIONS_MUST_BE_SET_FOR_USER_ORG,
 //                    new String[] { "(Users in an AR Billing Org)", "Customer Invoice WriteOff" });
 //        }
 //

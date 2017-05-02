@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns='http://www.liquibase.org/xml/ns/dbchangelog'
+                   xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+                   xsi:schemaLocation='http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd'>
+
+    <changeSet author="KFS601" id="HACKWEEK-JSISSOM-APIAUTH-TABLE" context="bootstrap,demo,unit">
+        <createTable tableName="SH_API_KEY_T">
+            <column defaultValue="" name="ID" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="PRNCPL_ID" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="KEY" type="VARCHAR(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="DESC" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ROW_ACTV_IND" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="HACKWEEK-JSISSOM-APIAUTH-SEQM" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="SH_API_KEY_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="SH_API_KEY_S">
+            <column name="id" value="1000"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="HACKWEEK-JSISSOM-APIAUTH-SEQO" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="SH_API_KEY_S" startValue="1000"/>
+    </changeSet>
+    <changeSet author="kfs" id="HACKWEEK-JSISSOM-APIAUTH-INDEX" context="bootstrap,demo,unit">
+        <createIndex indexName="SH_API_KEY_TI1" tableName="SH_API_KEY_T">
+            <column name="KEY" />
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINI-537_MOVE_BILLING_FREQUENCY_TABLE_TO_AR" context="bootstrap,demo,unit">
+        <renameTable oldTableName="CG_BILL_FREQ_T" newTableName="AR_BILL_FREQ_T"/>
+    </changeSet>
+</databaseChangeLog>

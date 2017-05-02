@@ -1,29 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.batch.service;
-
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
@@ -31,6 +24,13 @@ import org.kuali.kfs.gl.businessobject.OriginEntryTestBase;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.TestUtils;
+
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Tests the PosterService
@@ -42,7 +42,6 @@ public class PosterServiceTest extends OriginEntryTestBase {
     private PosterService posterService;
 
     /**
-     *
      * @see org.kuali.kfs.gl.businessobject.OriginEntryTestBase#setUp()
      */
     @Override
@@ -64,7 +63,7 @@ public class PosterServiceTest extends OriginEntryTestBase {
         // Set the run date of the job
         dateTimeService.setCurrentDate(date);
 
-        posterService = SpringContext.getBean(PosterService.class,"glMockPosterService");
+        posterService = SpringContext.getBean(PosterService.class, "glMockPosterService");
         posterService.setDateTimeService(dateTimeService);
     }
 
@@ -242,11 +241,11 @@ public class PosterServiceTest extends OriginEntryTestBase {
         LOG.debug("testPostGlEntry() started");
 
         String[] inputTransactions = {
-                TestUtils.getFiscalYearForTesting()+"BA6044909-----5300---ACEX07CHKDPDBLANKFISC     12345214090047 EVERETT J PRESCOTT INC.                     1445.00D"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                                                                       ",
-                TestUtils.getFiscalYearForTesting()+"BA6044909-----5300---ACEX07CHKDPDBLANKFISC     12345214090047 EVERETT J PRESCOTT INC.                     1445.00D"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                                                                       "
+            TestUtils.getFiscalYearForTesting() + "BA6044909-----5300---ACEX07CHKDPDBLANKFISC     12345214090047 EVERETT J PRESCOTT INC.                     1445.00D" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                                                                       ",
+            TestUtils.getFiscalYearForTesting() + "BA6044909-----5300---ACEX07CHKDPDBLANKFISC     12345214090047 EVERETT J PRESCOTT INC.                     1445.00D" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                                                                       "
         };
 
-        EntryHolder[] outputTransactions = { new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, inputTransactions[0]), new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, inputTransactions[1]) };
+        EntryHolder[] outputTransactions = {new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, inputTransactions[0]), new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, inputTransactions[1])};
 
         clearBatchFiles();
         clearGlEntryTable("BA", "6044909");
@@ -279,7 +278,7 @@ public class PosterServiceTest extends OriginEntryTestBase {
         assertEquals("TRN_LDGR_ENTR_AMT wrong", 1445.00, getAmount(glEntry, "TRN_LDGR_ENTR_AMT"), 0.01);
         assertEquals("TRN_DEBIT_CRDT_CD wrong", "D", (String) glEntry.get("TRN_DEBIT_CRDT_CD"));
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        assertEquals("TRANSACTION_DT wrong", TestUtils.getFiscalYearForTesting()+"-01-05", sdf.format((Date) glEntry.get("TRANSACTION_DT")));
+        assertEquals("TRANSACTION_DT wrong", TestUtils.getFiscalYearForTesting() + "-01-05", sdf.format((Date) glEntry.get("TRANSACTION_DT")));
         assertEquals("ORG_DOC_NBR wrong", "ABCDEFGHIJ", (String) glEntry.get("ORG_DOC_NBR"));
         assertEquals("PROJECT_CD wrong", "----------", (String) glEntry.get("PROJECT_CD"));
         assertEquals("ORG_REFERENCE_ID wrong", "12345678", (String) glEntry.get("ORG_REFERENCE_ID"));
@@ -307,12 +306,12 @@ public class PosterServiceTest extends OriginEntryTestBase {
         // if this test fails, ensure that the cutoff time is set to 10am.
 
         String[] inputTransactions = {
-                TestUtils.getFiscalYearForTesting()+"BA6044900-----5300---ACEX07CHKDPDREVTEST01     12345214090047 EVERETT J PRESCOTT INC.                     1445.00D"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                    "+TestUtils.getFiscalYearForTesting()+"-03-01    ",
-                TestUtils.getFiscalYearForTesting()+"BA6044900-----5300---ACEX07CHKDPDREVTEST01     12345214090047 EVERETT J PRESCOTT INC.                     1445.00D"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                    "+TestUtils.getFiscalYearForTesting()+"-03-01    ",
-                TestUtils.getFiscalYearForTesting()+"BA6044900-----5300---ACEX07CHKDPDREVTEST02     12345214090047 EVERETT J PRESCOTT INC.                     1445.00D"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                                  "
+            TestUtils.getFiscalYearForTesting() + "BA6044900-----5300---ACEX07CHKDPDREVTEST01     12345214090047 EVERETT J PRESCOTT INC.                     1445.00D" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                    " + TestUtils.getFiscalYearForTesting() + "-03-01    ",
+            TestUtils.getFiscalYearForTesting() + "BA6044900-----5300---ACEX07CHKDPDREVTEST01     12345214090047 EVERETT J PRESCOTT INC.                     1445.00D" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                    " + TestUtils.getFiscalYearForTesting() + "-03-01    ",
+            TestUtils.getFiscalYearForTesting() + "BA6044900-----5300---ACEX07CHKDPDREVTEST02     12345214090047 EVERETT J PRESCOTT INC.                     1445.00D" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                                  "
         };
 
-        EntryHolder[] outputTransactions = { new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, inputTransactions[0]), new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, inputTransactions[1]), new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, inputTransactions[2]) };
+        EntryHolder[] outputTransactions = {new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, inputTransactions[0]), new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, inputTransactions[1]), new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, inputTransactions[2])};
 
         clearBatchFiles();
         clearReversalTable();
@@ -327,7 +326,7 @@ public class PosterServiceTest extends OriginEntryTestBase {
         Map reversalEntry = (Map) reversalEntries.get(0);
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        assertEquals("FDOC_REVERSAL_DT wrong", TestUtils.getFiscalYearForTesting()+"-03-01", sdf.format((Date) reversalEntry.get("FDOC_REVERSAL_DT")));
+        assertEquals("FDOC_REVERSAL_DT wrong", TestUtils.getFiscalYearForTesting() + "-03-01", sdf.format((Date) reversalEntry.get("FDOC_REVERSAL_DT")));
     }
 
     /**
@@ -338,10 +337,10 @@ public class PosterServiceTest extends OriginEntryTestBase {
     public void testPostBalance() throws Exception {
         LOG.debug("testPostBalance() started");
 
-        String[] inputTransactions = { TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---ACEX01CHKDPDBALTEST01     12345214090047 EVERETT J PRESCOTT INC.                       10.01D"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                                  ", TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---ACEX02CHKDPDBALTEST02     12345214090047 EVERETT J PRESCOTT INC.                       20.02D"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                                  ", TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---ACEX03CHKDPDBALTEST03     12345214090047 EVERETT J PRESCOTT INC.                       30.03D"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                                  ", TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---ACEX04CHKDPDBALTEST04     12345214090047 EVERETT J PRESCOTT INC.                       40.04D"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                                  ", TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---ACEX05CHKDPDBALTEST05     12345214090047 EVERETT J PRESCOTT INC.                       50.05D"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                                  ",
-                TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---ACEX06CHKDPDBALTEST06     12345214090047 EVERETT J PRESCOTT INC.                       60.06D"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                                  ", TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---ACEX07CHKDPDBALTEST07     12345214090047 EVERETT J PRESCOTT INC.                       70.07D"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                                  ", TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---ACEX08CHKDPDBALTEST08     12345214090047 EVERETT J PRESCOTT INC.                       80.08D"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                                  ", TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---ACEX09CHKDPDBALTEST09     12345214090047 EVERETT J PRESCOTT INC.                       90.09D"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                                  ", TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---ACEX10CHKDPDBALTEST10     12345214090047 EVERETT J PRESCOTT INC.                      100.10D"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                                  ",
-                TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---ACEX11CHKDPDBALTEST11     12345214090047 EVERETT J PRESCOTT INC.                      110.11D"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                                  ", TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---ACEX12CHKDPDBALTEST12     12345214090047 EVERETT J PRESCOTT INC.                      120.12D"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                                  ", TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---ACEX13CHKDPDBALTEST12     12345214090047 EVERETT J PRESCOTT INC.                      130.13D"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                                  ", TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---ACEXABCHKDPDBALTEST12     12345214090047 EVERETT J PRESCOTT INC.                      140.14D"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                                  ", TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---ACEXBBCHKDPDBALTEST12     12345214090047 EVERETT J PRESCOTT INC.                      150.15D"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                                  ",
-                TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---ACEXCBCHKDPDBALTEST12     12345214090047 EVERETT J PRESCOTT INC.                      160.16D"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                                  " };
+        String[] inputTransactions = {TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---ACEX01CHKDPDBALTEST01     12345214090047 EVERETT J PRESCOTT INC.                       10.01D" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                                  ", TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---ACEX02CHKDPDBALTEST02     12345214090047 EVERETT J PRESCOTT INC.                       20.02D" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                                  ", TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---ACEX03CHKDPDBALTEST03     12345214090047 EVERETT J PRESCOTT INC.                       30.03D" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                                  ", TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---ACEX04CHKDPDBALTEST04     12345214090047 EVERETT J PRESCOTT INC.                       40.04D" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                                  ", TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---ACEX05CHKDPDBALTEST05     12345214090047 EVERETT J PRESCOTT INC.                       50.05D" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                                  ",
+            TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---ACEX06CHKDPDBALTEST06     12345214090047 EVERETT J PRESCOTT INC.                       60.06D" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                                  ", TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---ACEX07CHKDPDBALTEST07     12345214090047 EVERETT J PRESCOTT INC.                       70.07D" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                                  ", TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---ACEX08CHKDPDBALTEST08     12345214090047 EVERETT J PRESCOTT INC.                       80.08D" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                                  ", TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---ACEX09CHKDPDBALTEST09     12345214090047 EVERETT J PRESCOTT INC.                       90.09D" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                                  ", TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---ACEX10CHKDPDBALTEST10     12345214090047 EVERETT J PRESCOTT INC.                      100.10D" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                                  ",
+            TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---ACEX11CHKDPDBALTEST11     12345214090047 EVERETT J PRESCOTT INC.                      110.11D" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                                  ", TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---ACEX12CHKDPDBALTEST12     12345214090047 EVERETT J PRESCOTT INC.                      120.12D" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                                  ", TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---ACEX13CHKDPDBALTEST12     12345214090047 EVERETT J PRESCOTT INC.                      130.13D" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                                  ", TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---ACEXABCHKDPDBALTEST12     12345214090047 EVERETT J PRESCOTT INC.                      140.14D" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                                  ", TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---ACEXBBCHKDPDBALTEST12     12345214090047 EVERETT J PRESCOTT INC.                      150.15D" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                                  ",
+            TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---ACEXCBCHKDPDBALTEST12     12345214090047 EVERETT J PRESCOTT INC.                      160.16D" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                                  "};
 
         EntryHolder[] outputTransactions = new EntryHolder[inputTransactions.length];
         for (int i = 0; i < inputTransactions.length; i++) {
@@ -386,9 +385,9 @@ public class PosterServiceTest extends OriginEntryTestBase {
         assertEquals("MO12_ACCT_LN_AMT is wrong", 120.12, getAmount(balance, "MO12_ACCT_LN_AMT"), 0.01);
         assertEquals("MO13_ACCT_LN_AMT is wrong", 130.13, getAmount(balance, "MO13_ACCT_LN_AMT"), 0.01);
 
-        String[] inputTransactions2 = { TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---ACEX01CHKDPDBALTEST01     12345214090047 EVERETT J PRESCOTT INC.                        0.01C"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                             ", TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---ACEX02CHKDPDBALTEST02     12345214090047 EVERETT J PRESCOTT INC.                        0.02C"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                             ", TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---ACEX03CHKDPDBALTEST03     12345214090047 EVERETT J PRESCOTT INC.                        0.03C"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                             ", TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---ACEX04CHKDPDBALTEST04     12345214090047 EVERETT J PRESCOTT INC.                        0.04C"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                             ", TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---ACEX05CHKDPDBALTEST05     12345214090047 EVERETT J PRESCOTT INC.                        0.05C"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                             ",
-                TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---ACEX06CHKDPDBALTEST06     12345214090047 EVERETT J PRESCOTT INC.                        0.06C"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                             ", TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---ACEX07CHKDPDBALTEST07     12345214090047 EVERETT J PRESCOTT INC.                        0.07C"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                             ", TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---ACEX08CHKDPDBALTEST08     12345214090047 EVERETT J PRESCOTT INC.                        0.08C"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                             ", TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---ACEX09CHKDPDBALTEST09     12345214090047 EVERETT J PRESCOTT INC.                        0.09C"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                             ", TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---ACEX10CHKDPDBALTEST10     12345214090047 EVERETT J PRESCOTT INC.                        0.10C"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                             ",
-                TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---ACEX11CHKDPDBALTEST11     12345214090047 EVERETT J PRESCOTT INC.                        0.11C"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                             ", TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---ACEX12CHKDPDBALTEST12     12345214090047 EVERETT J PRESCOTT INC.                        0.12C"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                             ", TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---ACEX13CHKDPDBALTEST12     12345214090047 EVERETT J PRESCOTT INC.                        0.13C"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                             ", };
+        String[] inputTransactions2 = {TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---ACEX01CHKDPDBALTEST01     12345214090047 EVERETT J PRESCOTT INC.                        0.01C" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                             ", TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---ACEX02CHKDPDBALTEST02     12345214090047 EVERETT J PRESCOTT INC.                        0.02C" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                             ", TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---ACEX03CHKDPDBALTEST03     12345214090047 EVERETT J PRESCOTT INC.                        0.03C" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                             ", TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---ACEX04CHKDPDBALTEST04     12345214090047 EVERETT J PRESCOTT INC.                        0.04C" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                             ", TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---ACEX05CHKDPDBALTEST05     12345214090047 EVERETT J PRESCOTT INC.                        0.05C" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                             ",
+            TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---ACEX06CHKDPDBALTEST06     12345214090047 EVERETT J PRESCOTT INC.                        0.06C" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                             ", TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---ACEX07CHKDPDBALTEST07     12345214090047 EVERETT J PRESCOTT INC.                        0.07C" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                             ", TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---ACEX08CHKDPDBALTEST08     12345214090047 EVERETT J PRESCOTT INC.                        0.08C" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                             ", TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---ACEX09CHKDPDBALTEST09     12345214090047 EVERETT J PRESCOTT INC.                        0.09C" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                             ", TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---ACEX10CHKDPDBALTEST10     12345214090047 EVERETT J PRESCOTT INC.                        0.10C" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                             ",
+            TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---ACEX11CHKDPDBALTEST11     12345214090047 EVERETT J PRESCOTT INC.                        0.11C" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                             ", TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---ACEX12CHKDPDBALTEST12     12345214090047 EVERETT J PRESCOTT INC.                        0.12C" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                             ", TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---ACEX13CHKDPDBALTEST12     12345214090047 EVERETT J PRESCOTT INC.                        0.13C" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                             ",};
 
         EntryHolder[] outputTransactions2 = new EntryHolder[inputTransactions2.length];
         for (int i = 0; i < inputTransactions2.length; i++) {
@@ -441,10 +440,10 @@ public class PosterServiceTest extends OriginEntryTestBase {
     public void testPostEncumbrance() throws Exception {
         LOG.debug("testPostEncumbrance() started");
 
-        String[] inputTransactions = { TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---IEEX06CHKDPDENCTEST01     12345214090047 EVERETT J PRESCOTT INC.                      100.01D"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                              D    ", TestUtils.getFiscalYearForTesting()+"BA6044900-----5215---IEEX06CHKDPDENCTEST01     12345214090047 EVERETT J PRESCOTT INC.                      200.02D"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                              D    ", TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---IEEX06CHKDPDENCTEST02     12345214090047 EVERETT J PRESCOTT INC.                       50.00C"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678CHKDPDENCTEST01               R    ", TestUtils.getFiscalYearForTesting()+"BA6044900-----5215---IEEX06CHKDPDENCTEST02     12345214090047 EVERETT J PRESCOTT INC.                       60.00C"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678CHKDPDENCTEST01               R    ", TestUtils.getFiscalYearForTesting()+"BA6044900-----5215---ACEX06CHKDPDENCTEST02     12345214090047 EVERETT J PRESCOTT INC.                       60.00C"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                                   ", };
+        String[] inputTransactions = {TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---IEEX06CHKDPDENCTEST01     12345214090047 EVERETT J PRESCOTT INC.                      100.01D" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                              D    ", TestUtils.getFiscalYearForTesting() + "BA6044900-----5215---IEEX06CHKDPDENCTEST01     12345214090047 EVERETT J PRESCOTT INC.                      200.02D" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                              D    ", TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---IEEX06CHKDPDENCTEST02     12345214090047 EVERETT J PRESCOTT INC.                       50.00C" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678CHKDPDENCTEST01               R    ", TestUtils.getFiscalYearForTesting() + "BA6044900-----5215---IEEX06CHKDPDENCTEST02     12345214090047 EVERETT J PRESCOTT INC.                       60.00C" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678CHKDPDENCTEST01               R    ", TestUtils.getFiscalYearForTesting() + "BA6044900-----5215---ACEX06CHKDPDENCTEST02     12345214090047 EVERETT J PRESCOTT INC.                       60.00C" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                                   ",};
 
-        EntryHolder[] outputTransactions = new EntryHolder[] { new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---IEEX06CHKDPDENCTEST01     12345214090047 EVERETT J PRESCOTT INC.                      100.01D"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                              D    "), new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting()+"BA6044900-----5215---IEEX06CHKDPDENCTEST01     12345214090047 EVERETT J PRESCOTT INC.                      200.02D"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                              D    "), new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---IEEX06CHKDPDENCTEST02     12345214090047 EVERETT J PRESCOTT INC.                       50.00C"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678CHKDPDENCTEST01               R    "),
-                new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting()+"BA6044900-----5215---IEEX06CHKDPDENCTEST02     12345214090047 EVERETT J PRESCOTT INC.                       60.00C"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678CHKDPDENCTEST01               R    "), new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting()+"BA6044900-----5215---ACEX06CHKDPDENCTEST02     12345214090047 EVERETT J PRESCOTT INC.                       60.00C"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                                   ") };
+        EntryHolder[] outputTransactions = new EntryHolder[]{new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---IEEX06CHKDPDENCTEST01     12345214090047 EVERETT J PRESCOTT INC.                      100.01D" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                              D    "), new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting() + "BA6044900-----5215---IEEX06CHKDPDENCTEST01     12345214090047 EVERETT J PRESCOTT INC.                      200.02D" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                              D    "), new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---IEEX06CHKDPDENCTEST02     12345214090047 EVERETT J PRESCOTT INC.                       50.00C" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678CHKDPDENCTEST01               R    "),
+            new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting() + "BA6044900-----5215---IEEX06CHKDPDENCTEST02     12345214090047 EVERETT J PRESCOTT INC.                       60.00C" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678CHKDPDENCTEST01               R    "), new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting() + "BA6044900-----5215---ACEX06CHKDPDENCTEST02     12345214090047 EVERETT J PRESCOTT INC.                       60.00C" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                                   ")};
 
         clearBatchFiles();
         clearEncumbranceTable();
@@ -498,22 +497,22 @@ public class PosterServiceTest extends OriginEntryTestBase {
     public void testPostGlAccountBalance() throws Exception {
         LOG.debug("testPostGlAccountBalance() started");
 
-        String[] inputTransactions = { TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---TREX07CHKDPDGLACCTBA1     12345DESCRIPTION                                            123.45D"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                                                                       ",
-                                       TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---ACEX07CHKDPDGLACCTBA1     12345DESCRIPTION                                           1445.00D"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                                                                       ",
-                                       TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---TREX07CHKDPDGLACCTBA1     12345DESCRIPTION                                            345.00D"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                                                                       ",
-                                       TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---CBEX07CHKDPDGLACCTBA1     12345DESCRIPTION                                            222.00 "+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                                                                       ",
-                                       TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---ACEX07CHKDPDGLACCTBA1     12345DESCRIPTION                                              5.00C"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                                                                       ",
-                                       TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---TREX07CHKDPDGLACCTBA1     12345DESCRIPTION                                              5.00C"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                                                                       ",
-                                       TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---CBEX07CHKDPDGLACCTBA1     12345DESCRIPTION                                             -2.00 "+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                                                                       " };
+        String[] inputTransactions = {TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---TREX07CHKDPDGLACCTBA1     12345DESCRIPTION                                            123.45D" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                                                                       ",
+            TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---ACEX07CHKDPDGLACCTBA1     12345DESCRIPTION                                           1445.00D" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                                                                       ",
+            TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---TREX07CHKDPDGLACCTBA1     12345DESCRIPTION                                            345.00D" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                                                                       ",
+            TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---CBEX07CHKDPDGLACCTBA1     12345DESCRIPTION                                            222.00 " + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                                                                       ",
+            TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---ACEX07CHKDPDGLACCTBA1     12345DESCRIPTION                                              5.00C" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                                                                       ",
+            TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---TREX07CHKDPDGLACCTBA1     12345DESCRIPTION                                              5.00C" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                                                                       ",
+            TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---CBEX07CHKDPDGLACCTBA1     12345DESCRIPTION                                             -2.00 " + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                                                                       "};
 
-        EntryHolder[] outputTransactions = new EntryHolder[] {
-                                           new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---TREX07CHKDPDGLACCTBA1     12345DESCRIPTION                                            123.45D"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                                                                       "),
-                                           new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---ACEX07CHKDPDGLACCTBA1     12345DESCRIPTION                                           1445.00D"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                                                                       "),
-                                           new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---TREX07CHKDPDGLACCTBA1     12345DESCRIPTION                                            345.00D"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                                                                       "),
-                                           new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---CBEX07CHKDPDGLACCTBA1     12345DESCRIPTION                                            222.00 "+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                                                                       "),
-                                           new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---ACEX07CHKDPDGLACCTBA1     12345DESCRIPTION                                              5.00C"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                                                                       "),
-                                           new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---TREX07CHKDPDGLACCTBA1     12345DESCRIPTION                                              5.00C"+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                                                                       "),
-                                           new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting()+"BA6044900-----4166---CBEX07CHKDPDGLACCTBA1     12345DESCRIPTION                                             -2.00 "+TestUtils.getFiscalYearForTesting()+"-01-05ABCDEFGHIJ----------12345678                                                                       ") };
+        EntryHolder[] outputTransactions = new EntryHolder[]{
+            new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---TREX07CHKDPDGLACCTBA1     12345DESCRIPTION                                            123.45D" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                                                                       "),
+            new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---ACEX07CHKDPDGLACCTBA1     12345DESCRIPTION                                           1445.00D" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                                                                       "),
+            new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---TREX07CHKDPDGLACCTBA1     12345DESCRIPTION                                            345.00D" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                                                                       "),
+            new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---CBEX07CHKDPDGLACCTBA1     12345DESCRIPTION                                            222.00 " + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                                                                       "),
+            new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---ACEX07CHKDPDGLACCTBA1     12345DESCRIPTION                                              5.00C" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                                                                       "),
+            new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---TREX07CHKDPDGLACCTBA1     12345DESCRIPTION                                              5.00C" + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                                                                       "),
+            new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting() + "BA6044900-----4166---CBEX07CHKDPDGLACCTBA1     12345DESCRIPTION                                             -2.00 " + TestUtils.getFiscalYearForTesting() + "-01-05ABCDEFGHIJ----------12345678                                                                       ")};
 
         clearBatchFiles();
         clearGlAccountBalanceTable();
@@ -548,53 +547,53 @@ public class PosterServiceTest extends OriginEntryTestBase {
         LOG.debug("testPostExpenditureTransaction() started");
 
         String[] inputTransactions = {
-        // Not posted because icr type cd = 10
-                TestUtils.getFiscalYearForTesting()+ "BL2231499-----4166---ACEX07CHKDPDET0000011     12345DESCRIPTION                                          11000.00D2006-01-05ABCDEFGHIJ----------12345678                                                                       ",
+            // Not posted because icr type cd = 10
+            TestUtils.getFiscalYearForTesting() + "BL2231499-----4166---ACEX07CHKDPDET0000011     12345DESCRIPTION                                          11000.00D2006-01-05ABCDEFGHIJ----------12345678                                                                       ",
 
-                // Not posted because icr type cd is null
-                TestUtils.getFiscalYearForTesting()+"BA9019993-----4166---ACEX07CHKDPDET0000011     12345DESCRIPTION                                          11000.00D2006-01-05ABCDEFGHIJ----------12345678                                                                       ",
+            // Not posted because icr type cd is null
+            TestUtils.getFiscalYearForTesting() + "BA9019993-----4166---ACEX07CHKDPDET0000011     12345DESCRIPTION                                          11000.00D2006-01-05ABCDEFGHIJ----------12345678                                                                       ",
 
-                // Not posted because the period code is AB, BB or CB
-                TestUtils.getFiscalYearForTesting()+"BL4031407-----4166---ACEXABCHKDPDET0000011     12345DESCRIPTION                                          12000.00D2006-01-05ABCDEFGHIJ----------12345678                                                                       ",
-                TestUtils.getFiscalYearForTesting()+"BL4031407-----4166---ACEXBBCHKDPDET0000011     12345DESCRIPTION                                              0.12C2006-01-05ABCDEFGHIJ----------12345678                                                                       ",
-                TestUtils.getFiscalYearForTesting()+"BL4031407-----4166---ACEXCBCHKDPDET0000011     12345DESCRIPTION                                          12000.00D2006-01-05ABCDEFGHIJ----------12345678                                                                       ",
+            // Not posted because the period code is AB, BB or CB
+            TestUtils.getFiscalYearForTesting() + "BL4031407-----4166---ACEXABCHKDPDET0000011     12345DESCRIPTION                                          12000.00D2006-01-05ABCDEFGHIJ----------12345678                                                                       ",
+            TestUtils.getFiscalYearForTesting() + "BL4031407-----4166---ACEXBBCHKDPDET0000011     12345DESCRIPTION                                              0.12C2006-01-05ABCDEFGHIJ----------12345678                                                                       ",
+            TestUtils.getFiscalYearForTesting() + "BL4031407-----4166---ACEXCBCHKDPDET0000011     12345DESCRIPTION                                          12000.00D2006-01-05ABCDEFGHIJ----------12345678                                                                       ",
 
-                // Posted
-                TestUtils.getFiscalYearForTesting()+"BL4031407-----4166---ACEX07CHKDPDET0000011     12345DESCRIPTION                                          12000.00D2006-01-05ABCDEFGHIJ----------12345678                                                                       ",
-                TestUtils.getFiscalYearForTesting()+"BL4031407-----4166---ACEX07CHKDPDET0000011     12345DESCRIPTION                                              0.12C2006-01-05ABCDEFGHIJ----------12345678                                                                       ",
+            // Posted
+            TestUtils.getFiscalYearForTesting() + "BL4031407-----4166---ACEX07CHKDPDET0000011     12345DESCRIPTION                                          12000.00D2006-01-05ABCDEFGHIJ----------12345678                                                                       ",
+            TestUtils.getFiscalYearForTesting() + "BL4031407-----4166---ACEX07CHKDPDET0000011     12345DESCRIPTION                                              0.12C2006-01-05ABCDEFGHIJ----------12345678                                                                       ",
 
-                // Posted
-                TestUtils.getFiscalYearForTesting()+"BL4131406-----2400---ACEX07CHKDPDET0000011     12345DESCRIPTION                                             12.00C2006-01-05ABCDEFGHIJ----------12345678                                                                       ",
-                TestUtils.getFiscalYearForTesting()+"BL4131406-----2400---ACEX07CHKDPDET0000011     12345DESCRIPTION                                              2.00D2006-01-05ABCDEFGHIJ----------12345678                                                                       ",
+            // Posted
+            TestUtils.getFiscalYearForTesting() + "BL4131406-----2400---ACEX07CHKDPDET0000011     12345DESCRIPTION                                             12.00C2006-01-05ABCDEFGHIJ----------12345678                                                                       ",
+            TestUtils.getFiscalYearForTesting() + "BL4131406-----2400---ACEX07CHKDPDET0000011     12345DESCRIPTION                                              2.00D2006-01-05ABCDEFGHIJ----------12345678                                                                       ",
 
-                // Not posted - excluded account
-                TestUtils.getFiscalYearForTesting()+"BL4431406-----2400---ACEX07CHKDPDET0000011     12345DESCRIPTION                                             33.00C2006-01-05ABCDEFGHIJ----------12345678                                                                       ",
-                TestUtils.getFiscalYearForTesting()+"BL4431406-----2400---ACEX07CHKDPDET0000011     12345DESCRIPTION                                              4.00D2006-01-05ABCDEFGHIJ----------12345678                                                                       ",
+            // Not posted - excluded account
+            TestUtils.getFiscalYearForTesting() + "BL4431406-----2400---ACEX07CHKDPDET0000011     12345DESCRIPTION                                             33.00C2006-01-05ABCDEFGHIJ----------12345678                                                                       ",
+            TestUtils.getFiscalYearForTesting() + "BL4431406-----2400---ACEX07CHKDPDET0000011     12345DESCRIPTION                                              4.00D2006-01-05ABCDEFGHIJ----------12345678                                                                       ",
 
-                // Not posted - excluded type (23)
-                TestUtils.getFiscalYearForTesting()+"BL4431407-----2400---ACEX07CHKDPDET0000011     12345DESCRIPTION                                             44.00C2006-01-05ABCDEFGHIJ----------12345678                                                                       ",
-                TestUtils.getFiscalYearForTesting()+"BL4431407-----2400---ACEX07CHKDPDET0000011     12345DESCRIPTION                                              5.00D2006-01-05ABCDEFGHIJ----------12345678                                                                       ",
+            // Not posted - excluded type (23)
+            TestUtils.getFiscalYearForTesting() + "BL4431407-----2400---ACEX07CHKDPDET0000011     12345DESCRIPTION                                             44.00C2006-01-05ABCDEFGHIJ----------12345678                                                                       ",
+            TestUtils.getFiscalYearForTesting() + "BL4431407-----2400---ACEX07CHKDPDET0000011     12345DESCRIPTION                                              5.00D2006-01-05ABCDEFGHIJ----------12345678                                                                       ",
 
-                // Posted, non-CS sub acct
-                TestUtils.getFiscalYearForTesting()+"BL4631464XXX  4166---ACEX07CHKDPDET0000021     12345DESCRIPTION                                             25.00D2006-01-05ABCDEFGHIJ----------12345678                                                                       ",
-                TestUtils.getFiscalYearForTesting()+"BL4631464XXX  4166---ACEX07CHKDPDET0000021     12345DESCRIPTION                                              2.00C2006-01-05ABCDEFGHIJ----------12345678                                                                       ", };
+            // Posted, non-CS sub acct
+            TestUtils.getFiscalYearForTesting() + "BL4631464XXX  4166---ACEX07CHKDPDET0000021     12345DESCRIPTION                                             25.00D2006-01-05ABCDEFGHIJ----------12345678                                                                       ",
+            TestUtils.getFiscalYearForTesting() + "BL4631464XXX  4166---ACEX07CHKDPDET0000021     12345DESCRIPTION                                              2.00C2006-01-05ABCDEFGHIJ----------12345678                                                                       ",};
 
-        EntryHolder[] outputTransactions = new EntryHolder[] {
-                new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting()+"BL2231499-----4166---ACEX07CHKDPDET0000011     12345DESCRIPTION                                          11000.00D2006-01-05ABCDEFGHIJ----------12345678                                                                       "),
-                new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting()+"BA9019993-----4166---ACEX07CHKDPDET0000011     12345DESCRIPTION                                          11000.00D2006-01-05ABCDEFGHIJ----------12345678                                                                       "),
-                new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting()+"BL4031407-----4166---ACEXABCHKDPDET0000011     12345DESCRIPTION                                          12000.00D2006-01-05ABCDEFGHIJ----------12345678                                                                       "),
-                new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting()+"BL4031407-----4166---ACEXBBCHKDPDET0000011     12345DESCRIPTION                                              0.12C2006-01-05ABCDEFGHIJ----------12345678                                                                       "),
-                new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting()+"BL4031407-----4166---ACEXCBCHKDPDET0000011     12345DESCRIPTION                                          12000.00D2006-01-05ABCDEFGHIJ----------12345678                                                                       "),
-                new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting()+"BL4031407-----4166---ACEX07CHKDPDET0000011     12345DESCRIPTION                                          12000.00D2006-01-05ABCDEFGHIJ----------12345678                                                                       "),
-                new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting()+"BL4031407-----4166---ACEX07CHKDPDET0000011     12345DESCRIPTION                                              0.12C2006-01-05ABCDEFGHIJ----------12345678                                                                       "),
-                new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting()+"BL4131406-----2400---ACEX07CHKDPDET0000011     12345DESCRIPTION                                             12.00C2006-01-05ABCDEFGHIJ----------12345678                                                                       "),
-                new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting()+"BL4131406-----2400---ACEX07CHKDPDET0000011     12345DESCRIPTION                                              2.00D2006-01-05ABCDEFGHIJ----------12345678                                                                       "),
-                new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting()+"BL4431406-----2400---ACEX07CHKDPDET0000011     12345DESCRIPTION                                             33.00C2006-01-05ABCDEFGHIJ----------12345678                                                                       "),
-                new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting()+"BL4431406-----2400---ACEX07CHKDPDET0000011     12345DESCRIPTION                                              4.00D2006-01-05ABCDEFGHIJ----------12345678                                                                       "),
-                new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting()+"BL4431407-----2400---ACEX07CHKDPDET0000011     12345DESCRIPTION                                             44.00C2006-01-05ABCDEFGHIJ----------12345678                                                                       "),
-                new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting()+"BL4431407-----2400---ACEX07CHKDPDET0000011     12345DESCRIPTION                                              5.00D2006-01-05ABCDEFGHIJ----------12345678                                                                       "),
-                new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting()+"BL4631464XXX  4166---ACEX07CHKDPDET0000021     12345DESCRIPTION                                             25.00D2006-01-05ABCDEFGHIJ----------12345678                                                                       "),
-                new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting()+"BL4631464XXX  4166---ACEX07CHKDPDET0000021     12345DESCRIPTION                                              2.00C2006-01-05ABCDEFGHIJ----------12345678                                                                       "),
+        EntryHolder[] outputTransactions = new EntryHolder[]{
+            new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting() + "BL2231499-----4166---ACEX07CHKDPDET0000011     12345DESCRIPTION                                          11000.00D2006-01-05ABCDEFGHIJ----------12345678                                                                       "),
+            new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting() + "BA9019993-----4166---ACEX07CHKDPDET0000011     12345DESCRIPTION                                          11000.00D2006-01-05ABCDEFGHIJ----------12345678                                                                       "),
+            new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting() + "BL4031407-----4166---ACEXABCHKDPDET0000011     12345DESCRIPTION                                          12000.00D2006-01-05ABCDEFGHIJ----------12345678                                                                       "),
+            new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting() + "BL4031407-----4166---ACEXBBCHKDPDET0000011     12345DESCRIPTION                                              0.12C2006-01-05ABCDEFGHIJ----------12345678                                                                       "),
+            new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting() + "BL4031407-----4166---ACEXCBCHKDPDET0000011     12345DESCRIPTION                                          12000.00D2006-01-05ABCDEFGHIJ----------12345678                                                                       "),
+            new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting() + "BL4031407-----4166---ACEX07CHKDPDET0000011     12345DESCRIPTION                                          12000.00D2006-01-05ABCDEFGHIJ----------12345678                                                                       "),
+            new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting() + "BL4031407-----4166---ACEX07CHKDPDET0000011     12345DESCRIPTION                                              0.12C2006-01-05ABCDEFGHIJ----------12345678                                                                       "),
+            new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting() + "BL4131406-----2400---ACEX07CHKDPDET0000011     12345DESCRIPTION                                             12.00C2006-01-05ABCDEFGHIJ----------12345678                                                                       "),
+            new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting() + "BL4131406-----2400---ACEX07CHKDPDET0000011     12345DESCRIPTION                                              2.00D2006-01-05ABCDEFGHIJ----------12345678                                                                       "),
+            new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting() + "BL4431406-----2400---ACEX07CHKDPDET0000011     12345DESCRIPTION                                             33.00C2006-01-05ABCDEFGHIJ----------12345678                                                                       "),
+            new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting() + "BL4431406-----2400---ACEX07CHKDPDET0000011     12345DESCRIPTION                                              4.00D2006-01-05ABCDEFGHIJ----------12345678                                                                       "),
+            new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting() + "BL4431407-----2400---ACEX07CHKDPDET0000011     12345DESCRIPTION                                             44.00C2006-01-05ABCDEFGHIJ----------12345678                                                                       "),
+            new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting() + "BL4431407-----2400---ACEX07CHKDPDET0000011     12345DESCRIPTION                                              5.00D2006-01-05ABCDEFGHIJ----------12345678                                                                       "),
+            new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting() + "BL4631464XXX  4166---ACEX07CHKDPDET0000021     12345DESCRIPTION                                             25.00D2006-01-05ABCDEFGHIJ----------12345678                                                                       "),
+            new EntryHolder(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, TestUtils.getFiscalYearForTesting() + "BL4631464XXX  4166---ACEX07CHKDPDET0000021     12345DESCRIPTION                                              2.00C2006-01-05ABCDEFGHIJ----------12345678                                                                       "),
 
         };
 
@@ -612,7 +611,7 @@ public class PosterServiceTest extends OriginEntryTestBase {
 
         // Exclude account
         unitTestSqlDao.sqlCommand("delete from CA_ICR_EXCL_ACCT_T where account_nbr = '4431406'");
-        unitTestSqlDao.sqlCommand("insert into CA_ICR_EXCL_ACCT_T (FIN_COA_CD, ACCOUNT_NBR, FIN_OBJ_COA_CD, FIN_OBJECT_CD, OBJ_ID, VER_NBR) values ('BL','4431406','BL','2400','" + java.util.UUID.randomUUID().toString() + "',1)");
+        unitTestSqlDao.sqlCommand("insert into CA_ICR_EXCL_ACCT_T (FIN_COA_CD, ACCOUNT_NBR, FIN_OBJ_COA_CD, FIN_OBJECT_CD, OBJ_ID, VER_NBR, ACTV_IND) values ('BL','4431406','BL','2400','" + java.util.UUID.randomUUID().toString() + "',1, 'Y')");
 
         // Exclude type
         unitTestSqlDao.sqlCommand("delete from CA_ICR_EXCL_TYPE_T where acct_icr_typ_cd = '23' and fin_coa_cd = 'BL'");
@@ -646,11 +645,11 @@ public class PosterServiceTest extends OriginEntryTestBase {
         LOG.debug("testPostReversalPosting() started");
 
         // First post these entries to the reversal table
-        String[] inputTransactions = { TestUtils.getFiscalYearForTesting()+"BL2231408-----5300---ACEX07CHKDPDREVTEST01     12345214090047 EVERETT J PRESCOTT INC.                     1445.00D2008-01-05ABCDEFGHIJ----------12345678                    2007-10-01    ",
-                                       TestUtils.getFiscalYearForTesting()+"BL2231408-----5300---ACEX07CHKDPDREVTEST02     12345214090047 EVERETT J PRESCOTT INC.                     1445.00D2008-01-05ABCDEFGHIJ----------12345678                    2007-12-31    ",
-                                       TestUtils.getFiscalYearForTesting()+"BL2231408-----5300---ACEX07CHKDPDREVTEST03     12345214090047 EVERETT J PRESCOTT INC.                     1445.00D2008-01-05ABCDEFGHIJ----------12345678                    2008-01-01    ",
-                                       TestUtils.getFiscalYearForTesting()+"BL2231408-----5300---ACEX07CHKDPDREVTEST04     12345214090047 EVERETT J PRESCOTT INC.                     1445.00D2008-01-05ABCDEFGHIJ----------12345678                    2008-01-02    ",
-                                       TestUtils.getFiscalYearForTesting()+"BL2231408-----5300---ACEX07CHKDPDREVTEST05     12345214090047 EVERETT J PRESCOTT INC.                     1445.00D2008-01-05ABCDEFGHIJ----------12345678                    2009-03-01    " };
+        String[] inputTransactions = {TestUtils.getFiscalYearForTesting() + "BL2231408-----5300---ACEX07CHKDPDREVTEST01     12345214090047 EVERETT J PRESCOTT INC.                     1445.00D2008-01-05ABCDEFGHIJ----------12345678                    2007-10-01    ",
+            TestUtils.getFiscalYearForTesting() + "BL2231408-----5300---ACEX07CHKDPDREVTEST02     12345214090047 EVERETT J PRESCOTT INC.                     1445.00D2008-01-05ABCDEFGHIJ----------12345678                    2007-12-31    ",
+            TestUtils.getFiscalYearForTesting() + "BL2231408-----5300---ACEX07CHKDPDREVTEST03     12345214090047 EVERETT J PRESCOTT INC.                     1445.00D2008-01-05ABCDEFGHIJ----------12345678                    2008-01-01    ",
+            TestUtils.getFiscalYearForTesting() + "BL2231408-----5300---ACEX07CHKDPDREVTEST04     12345214090047 EVERETT J PRESCOTT INC.                     1445.00D2008-01-05ABCDEFGHIJ----------12345678                    2008-01-02    ",
+            TestUtils.getFiscalYearForTesting() + "BL2231408-----5300---ACEX07CHKDPDREVTEST05     12345214090047 EVERETT J PRESCOTT INC.                     1445.00D2008-01-05ABCDEFGHIJ----------12345678                    2009-03-01    "};
 
         clearBatchFiles();
         clearReversalTable();
@@ -763,7 +762,7 @@ public class PosterServiceTest extends OriginEntryTestBase {
     /**
      * Converts an amount in a Map to a double (to make it easier to compare)
      *
-     * @param map the Map with values in it
+     * @param map   the Map with values in it
      * @param field the key of the Map with a double in it
      * @return a double from that map
      */
@@ -771,8 +770,7 @@ public class PosterServiceTest extends OriginEntryTestBase {
         BigDecimal amt = (BigDecimal) map.get(field);
         if (amt == null) {
             return Double.NaN;
-        }
-        else {
+        } else {
             return amt.doubleValue();
         }
     }

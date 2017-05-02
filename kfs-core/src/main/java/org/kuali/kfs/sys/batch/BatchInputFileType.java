@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -40,9 +40,9 @@ public interface BatchInputFileType extends BatchInputType {
      * Constructs a file name using the name given by the user and file contents if necessary. Returned name should not contain file
      * extension.
      *
-     * @param principalName - principal name of the user who is uploading the file
+     * @param principalName      - principal name of the user who is uploading the file
      * @param parsedFileContents - object populated with the uploaded file contents
-     * @param fileUserIdentifer - file identifier given by user through the batch upload UI
+     * @param fileUserIdentifer  - file identifier given by user through the batch upload UI
      */
     public String getFileName(String principalName, Object parsedFileContents, String fileUserIdentifuer);
 
@@ -64,7 +64,7 @@ public interface BatchInputFileType extends BatchInputType {
     /**
      * Invokes optional processing of file after validation
      *
-     * @param fileName name of the file
+     * @param fileName           name of the file
      * @param parsedFileContents objects populated with file contents
      */
     public void process(String fileName, Object parsedFileContents);

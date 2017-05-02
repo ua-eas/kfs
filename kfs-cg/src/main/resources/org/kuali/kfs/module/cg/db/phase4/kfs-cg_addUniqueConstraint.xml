@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="kfs" id="2622" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CG_AGENCY_ADDR_TC0" tableName="CG_AGENCY_ADDR_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2623" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CG_AGENCY_TC0" tableName="CG_AGENCY_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2624" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CG_AGENCY_TYP_TC0" tableName="CG_AGENCY_TYP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2625" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CG_AWD_ACCT_TC0" tableName="CG_AWD_ACCT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2626" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CG_AWD_FNDMGR_TC0" tableName="CG_AWD_FNDMGR_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2627" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CG_AWD_ORG_TC0" tableName="CG_AWD_ORG_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2628" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CG_AWD_PRJDR_TC0" tableName="CG_AWD_PRJDR_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2629" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CG_AWD_STAT_TC0" tableName="CG_AWD_STAT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2630" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CG_AWD_SUBCN_TC0" tableName="CG_AWD_SUBCN_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2631" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CG_AWD_TC0" tableName="CG_AWD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2632" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CG_BILL_FREQ_TC0" tableName="CG_BILL_FREQ_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2633" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CG_CFDA_REF_TC0" tableName="CG_CFDA_REF_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2634" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CG_GRANT_DESC_TC0" tableName="CG_GRANT_DESC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2635" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CG_INSTRMNT_TYP_TC0" tableName="CG_INSTRMNT_TYP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2636" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CG_LTRCR_FNDGRP_TC0" tableName="CG_LTRCR_FNDGRP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2637" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CG_LTRCR_FND_TC0" tableName="CG_LTRCR_FND_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2638" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CG_PRPSL_AWD_TYP_TC0" tableName="CG_PRPSL_AWD_TYP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2639" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CG_PRPSL_CLOSE_TC0" tableName="CG_PRPSL_CLOSE_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2640" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CG_PRPSL_ORG_TC0" tableName="CG_PRPSL_ORG_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2641" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CG_PRPSL_PRJDR_TC0" tableName="CG_PRPSL_PRJDR_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2642" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CG_PRPSL_PURPOSE_TC0" tableName="CG_PRPSL_PURPOSE_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2643" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CG_PRPSL_RSRCH_RSK_TC0"
+                             tableName="CG_PRPSL_RSRCH_RSK_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2644" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CG_PRPSL_STAT_TC0" tableName="CG_PRPSL_STAT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2645" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CG_PRPSL_SUBCN_TC0" tableName="CG_PRPSL_SUBCN_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2646" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CG_PRPSL_TC0" tableName="CG_PRPSL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2647" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="CG_SUBCNR_TC0" tableName="CG_SUBCNR_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2648" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="ER_CTRL_ATTRIB_TYP_TC0"
+                             tableName="ER_CTRL_ATTRIB_TYP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="2649" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="ER_RSRCH_RSK_TYP_TC0" tableName="ER_RSRCH_RSK_TYP_T"/>
+    </changeSet>
+</databaseChangeLog>

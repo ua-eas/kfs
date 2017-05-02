@@ -1,0 +1,678 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="kfs" id="842" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="PRPSL_NBR" baseTableName="AR_BILL_T" constraintName="AR_BILL_TR1"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="PRPSL_NBR" referencedTableName="AR_PRDTRMND_BILL_SCHDL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="843" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_NBR" baseTableName="AR_CGB_INV_DTL_T"
+                                 constraintName="AR_CGB_INV_DTL_TR1" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FDOC_NBR"
+                                 referencedTableName="AR_INV_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="844" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="INV_NBR" baseTableName="AR_CLCTN_EVNT_T"
+                                 constraintName="AR_CLCTN_EVNT_TR1" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FDOC_NBR"
+                                 referencedTableName="AR_INV_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="845" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_NBR" baseTableName="AR_CRDT_MEMO_DTL_T"
+                                 constraintName="AR_CRDT_MEMO_DTL_TR1" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FDOC_NBR"
+                                 referencedTableName="AR_CRDT_MEMO_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="846" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_NBR" baseTableName="AR_CSH_CTRL_DTL_T"
+                                 constraintName="AR_CSH_CTRL_DTL_TR2" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FDOC_NBR"
+                                 referencedTableName="AR_CSH_CTRL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="847" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CUST_NBR" baseTableName="AR_CSH_CTRL_DTL_T"
+                                 constraintName="AR_CSH_CTRL_DTL_TR3" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CUST_NBR"
+                                 referencedTableName="AR_CUST_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="848" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="UNIV_FISCAL_YR,UNIV_FISCAL_PRD_CD" baseTableName="AR_CSH_CTRL_T"
+                                 constraintName="AR_CSH_CTRL_TR1" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="UNIV_FISCAL_YR,UNIV_FISCAL_PRD_CD"
+                                 referencedTableName="SH_ACCT_PERIOD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="849" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_NBR" baseTableName="AR_CSH_CTRL_T"
+                                 constraintName="AR_CSH_CTRL_TR2" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FDOC_NBR"
+                                 referencedTableName="AR_DOC_HDR_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="850" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="BNK_CD" baseTableName="AR_CSH_CTRL_T" constraintName="AR_CSH_CTRL_TR3"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="BNK_CD" referencedTableName="FP_BANK_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="851" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CTGRY_CD" baseTableName="AR_CST_CTGRY_FIN_CONSOLDTN_T"
+                                 constraintName="AR_CST_CTGRY_FIN_CONSOLDTN_TR1" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="CTGRY_CD" referencedTableName="AR_CST_CTGRY_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="852" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD" baseTableName="AR_CST_CTGRY_FIN_CONSOLDTN_T"
+                                 constraintName="AR_CST_CTGRY_FIN_CONSOLDTN_TR2" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="FIN_COA_CD" referencedTableName="CA_CHART_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="853" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,FIN_CONS_OBJ_CD"
+                                 baseTableName="AR_CST_CTGRY_FIN_CONSOLDTN_T"
+                                 constraintName="AR_CST_CTGRY_FIN_CONSOLDTN_TR3" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="FIN_COA_CD,FIN_CONS_OBJ_CD"
+                                 referencedTableName="CA_OBJ_CONSOLDTN_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="854" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CTGRY_CD" baseTableName="AR_CST_CTGRY_FIN_OBJ_CD_T"
+                                 constraintName="AR_CST_CTGRY_FIN_OBJ_CD_TR1" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="CTGRY_CD" referencedTableName="AR_CST_CTGRY_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="855" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD" baseTableName="AR_CST_CTGRY_FIN_OBJ_CD_T"
+                                 constraintName="AR_CST_CTGRY_FIN_OBJ_CD_TR2" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="FIN_COA_CD" referencedTableName="CA_CHART_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="856" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CTGRY_CD" baseTableName="AR_CST_CTGRY_FIN_OBJ_LEVEL_T"
+                                 constraintName="AR_CST_CTGRY_FIN_OBJ_LEVEL_TR1" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="CTGRY_CD" referencedTableName="AR_CST_CTGRY_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="857" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD" baseTableName="AR_CST_CTGRY_FIN_OBJ_LEVEL_T"
+                                 constraintName="AR_CST_CTGRY_FIN_OBJ_LEVEL_TR2" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="FIN_COA_CD" referencedTableName="CA_CHART_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="858" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,FIN_OBJ_LEVEL_CD"
+                                 baseTableName="AR_CST_CTGRY_FIN_OBJ_LEVEL_T"
+                                 constraintName="AR_CST_CTGRY_FIN_OBJ_LEVEL_TR3" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="FIN_COA_CD,FIN_OBJ_LEVEL_CD"
+                                 referencedTableName="CA_OBJ_LEVEL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="859" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CUST_ADDR_TYPE_CD" baseTableName="AR_CUST_ADDR_T"
+                                 constraintName="AR_CUST_ADDR_TR1" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CUST_ADDR_TYPE_CD"
+                                 referencedTableName="AR_CUST_ADDR_TYP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="860" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CUST_NBR" baseTableName="AR_CUST_ADDR_T"
+                                 constraintName="AR_CUST_ADDR_TR2" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CUST_NBR"
+                                 referencedTableName="AR_CUST_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="861" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CUST_NBR" baseTableName="AR_CUST_BILLING_STMT_T"
+                                 constraintName="AR_CUST_BILLING_STMT_TR1" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CUST_NBR"
+                                 referencedTableName="AR_CUST_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="862" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CUST_PARENT_CO_NBR" baseTableName="AR_CUST_T"
+                                 constraintName="AR_CUST_TR1" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CUST_NBR"
+                                 referencedTableName="AR_CUST_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="863" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CUST_TYP_CD" baseTableName="AR_CUST_T" constraintName="AR_CUST_TR2"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="CUST_TYP_CD" referencedTableName="AR_CUST_TYP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="864" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CUST_NBR" baseTableName="AR_DOC_HDR_T" constraintName="AR_DOC_HDR_TR2"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="CUST_NBR" referencedTableName="AR_CUST_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="865" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="PRCS_FIN_COA_CD" baseTableName="AR_DOC_HDR_T"
+                                 constraintName="AR_DOC_HDR_TR3" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD"
+                                 referencedTableName="CA_CHART_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="866" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="PRCS_FIN_COA_CD,PRCS_ORG_CD" baseTableName="AR_DOC_HDR_T"
+                                 constraintName="AR_DOC_HDR_TR4" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ORG_CD"
+                                 referencedTableName="CA_ORG_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="867" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CUST_NBR" baseTableName="AR_DOC_RCURRNC_T"
+                                 constraintName="AR_DOC_RCURRNC_TR2" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CUST_NBR"
+                                 referencedTableName="AR_CUST_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="868" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CMPGN_ID" baseTableName="AR_DUN_LTR_DIST_T"
+                                 constraintName="AR_DUN_LTR_DIST_DOC_TR1" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CMPGN_ID"
+                                 referencedTableName="AR_DUN_CMPGN_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="869" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_NBR" baseTableName="AR_INV_ACCT_DTL_T"
+                                 constraintName="AR_INV_ACCT_DTL_TR1" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FDOC_NBR"
+                                 referencedTableName="AR_INV_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="870" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_NBR" baseTableName="AR_INV_ADDR_DTL_T"
+                                 constraintName="AR_INV_ADDR_DTL_TR1" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FDOC_NBR"
+                                 referencedTableName="AR_INV_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="871" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_NBR" baseTableName="AR_INV_BILL_T"
+                                 constraintName="AR_INV_BILL_TR1" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FDOC_NBR"
+                                 referencedTableName="AR_INV_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="872" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="ERROR_LOG_ID" baseTableName="AR_INV_DOC_ERROR_MSG_T"
+                                 constraintName="AR_INV_DOC_ERROR_MSG_TR1" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ERROR_LOG_ID"
+                                 referencedTableName="AR_INV_DOC_ERROR_LOG_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="873" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CUST_SPCL_PRCS_CD" baseTableName="AR_INV_DOC_T"
+                                 constraintName="AR_INV_DOC_TR1" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CUST_SPCL_PRCS_CD"
+                                 referencedTableName="AR_CUST_PRCS_TYP_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="874" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_NBR" baseTableName="AR_INV_DOC_T" constraintName="AR_INV_DOC_TR2"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="FDOC_NBR" referencedTableName="AR_DOC_HDR_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="875" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="UNIV_FISCAL_YR,UNIV_FISCAL_PRD_CD" baseTableName="AR_INV_DOC_T"
+                                 constraintName="AR_INV_DOC_TR3" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="UNIV_FISCAL_YR,UNIV_FISCAL_PRD_CD"
+                                 referencedTableName="SH_ACCT_PERIOD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="876" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="AR_BILL_BY_COA_CD" baseTableName="AR_INV_DOC_T"
+                                 constraintName="AR_INV_DOC_TR4" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD"
+                                 referencedTableName="CA_CHART_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="877" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="AR_BILL_BY_COA_CD,AR_BILL_BY_ORG_CD" baseTableName="AR_INV_DOC_T"
+                                 constraintName="AR_INV_DOC_TR5" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ORG_CD"
+                                 referencedTableName="CA_ORG_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="878" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_NBR" baseTableName="AR_INV_DTL_T" constraintName="AR_INV_DTL_TR1"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="FDOC_NBR" referencedTableName="AR_INV_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="879" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,ACCOUNT_NBR" baseTableName="AR_INV_DTL_T"
+                                 constraintName="AR_INV_DTL_TR2" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR" referencedTableName="CA_ACCOUNT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="880" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_POST_YR,FIN_COA_CD,FIN_OBJECT_CD" baseTableName="AR_INV_DTL_T"
+                                 constraintName="AR_INV_DTL_TR3" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="UNIV_FISCAL_YR,FIN_COA_CD,FIN_OBJECT_CD"
+                                 referencedTableName="CA_OBJECT_CODE_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="881" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD" baseTableName="AR_INV_DTL_T"
+                                 constraintName="AR_INV_DTL_TR4" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD"
+                                 referencedTableName="CA_CHART_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="882" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_POST_YR,FIN_COA_CD,FIN_AR_OBJ_CD" baseTableName="AR_INV_DTL_T"
+                                 constraintName="AR_INV_DTL_TR5" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="UNIV_FISCAL_YR,FIN_COA_CD,FIN_OBJECT_CD"
+                                 referencedTableName="CA_OBJECT_CODE_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="883" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,ACCOUNT_NBR,SUB_ACCT_NBR" baseTableName="AR_INV_DTL_T"
+                                 constraintName="AR_INV_DTL_TR6" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR,SUB_ACCT_NBR"
+                                 referencedTableName="CA_SUB_ACCT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="884" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_POST_YR,FIN_COA_CD,ACCOUNT_NBR,FIN_OBJECT_CD,FIN_SUB_OBJ_CD"
+                                 baseTableName="AR_INV_DTL_T" constraintName="AR_INV_DTL_TR7" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="UNIV_FISCAL_YR,FIN_COA_CD,ACCOUNT_NBR,FIN_OBJECT_CD,FIN_SUB_OBJ_CD"
+                                 referencedTableName="CA_SUB_OBJECT_CD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="885" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_POST_YR,FIN_COA_CD,ACCOUNT_NBR,FIN_AR_OBJ_CD,FIN_AR_SUB_OBJ_CD"
+                                 baseTableName="AR_INV_DTL_T" constraintName="AR_INV_DTL_TR8" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="UNIV_FISCAL_YR,FIN_COA_CD,ACCOUNT_NBR,FIN_OBJECT_CD,FIN_SUB_OBJ_CD"
+                                 referencedTableName="CA_SUB_OBJECT_CD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="886" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="PROJECT_CD" baseTableName="AR_INV_DTL_T"
+                                 constraintName="AR_INV_DTL_TR9" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PROJECT_CD"
+                                 referencedTableName="CA_PROJECT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="887" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD" baseTableName="AR_INV_ITM_CODE_T"
+                                 constraintName="AR_INV_ITM_CODE_TR1" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD"
+                                 referencedTableName="CA_CHART_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="888" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,ORG_CD" baseTableName="AR_INV_ITM_CODE_T"
+                                 constraintName="AR_INV_ITM_CODE_TR2" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ORG_CD"
+                                 referencedTableName="CA_ORG_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="889" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="INV_FIN_COA_CD,INV_ACCT_NBR" baseTableName="AR_INV_ITM_CODE_T"
+                                 constraintName="AR_INV_ITM_CODE_TR3" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR" referencedTableName="CA_ACCOUNT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="890" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="INV_FIN_COA_CD,INV_ACCT_NBR,INV_SUB_ACCT_NBR"
+                                 baseTableName="AR_INV_ITM_CODE_T" constraintName="AR_INV_ITM_CODE_TR4"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR,SUB_ACCT_NBR"
+                                 referencedTableName="CA_SUB_ACCT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="891" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="INV_FIN_COA_CD" baseTableName="AR_INV_ITM_CODE_T"
+                                 constraintName="AR_INV_ITM_CODE_TR5" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD"
+                                 referencedTableName="CA_CHART_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="892" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="INV_PROJECT_CD" baseTableName="AR_INV_ITM_CODE_T"
+                                 constraintName="AR_INV_ITM_CODE_TR6" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PROJECT_CD"
+                                 referencedTableName="CA_PROJECT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="893" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_NBR" baseTableName="AR_INV_MLSTN_T"
+                                 constraintName="AR_INV_MLSTN_TR1" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FDOC_NBR"
+                                 referencedTableName="AR_INV_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="894" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_NBR" baseTableName="AR_INV_PD_APLD_T"
+                                 constraintName="AR_INV_PD_APLD_TR1" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FDOC_NBR"
+                                 referencedTableName="AR_DOC_HDR_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="895" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_REF_INV_NBR,AR_INV_ITM_NBR" baseTableName="AR_INV_PD_APLD_T"
+                                 constraintName="AR_INV_PD_APLD_TR2" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="FDOC_NBR,AR_INV_ITM_NBR" referencedTableName="AR_INV_DTL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="896" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="UNIV_FISCAL_YR,UNIV_FISCAL_PRD_CD" baseTableName="AR_INV_PD_APLD_T"
+                                 constraintName="AR_INV_PD_APLD_TR3" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="UNIV_FISCAL_YR,UNIV_FISCAL_PRD_CD"
+                                 referencedTableName="SH_ACCT_PERIOD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="897" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CUST_PMT_MEDIUM_CD" baseTableName="AR_LOCKBOX_T"
+                                 constraintName="AR_LOCKBOX_TR1" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CUST_PMT_MEDIUM_CD"
+                                 referencedTableName="AR_PMT_MEDIUM_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="898" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="BNK_CD" baseTableName="AR_LOCKBOX_T" constraintName="AR_LOCKBOX_TR2"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="BNK_CD" referencedTableName="FP_BANK_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="899" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_NBR" baseTableName="AR_LTRCR_RVW_DTL_T"
+                                 constraintName="AR_LTRCR_RVW_DTL_TR1" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FDOC_NBR"
+                                 referencedTableName="AR_LTRCR_RVW_DOC_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="900" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="PRPSL_NBR" baseTableName="AR_MLSTN_T" constraintName="AR_MLSTN_TR1"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="PRPSL_NBR" referencedTableName="AR_MLSTN_SCHDL_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="901" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="UNIV_FISCAL_YR,UNIV_FISCAL_PRD_CD" baseTableName="AR_NON_APLD_DIST_T"
+                                 constraintName="AR_NON_APLD_DIST_TR1" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="UNIV_FISCAL_YR,UNIV_FISCAL_PRD_CD"
+                                 referencedTableName="SH_ACCT_PERIOD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="902" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_REF_NBR" baseTableName="AR_NON_APLD_DIST_T"
+                                 constraintName="AR_NON_APLD_DIST_TR2" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FDOC_REF_NBR"
+                                 referencedTableName="AR_NON_APLD_HLDG_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="903" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="CUST_NBR" baseTableName="AR_NON_APLD_HLDG_T"
+                                 constraintName="AR_NON_APLD_HLDG_TR1" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CUST_NBR"
+                                 referencedTableName="AR_CUST_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="904" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_REF_NBR" baseTableName="AR_NON_APLD_HLDG_T"
+                                 constraintName="AR_NON_APLD_HLDG_TR2" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FDOC_NBR"
+                                 referencedTableName="AR_DOC_HDR_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="905" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_REF_NBR" baseTableName="AR_NON_INV_DIST_T"
+                                 constraintName="AR_NON_INV_DIST_TR1" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FDOC_REF_NBR"
+                                 referencedTableName="AR_NON_APLD_HLDG_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="906" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_NBR" baseTableName="AR_NON_INV_DIST_T"
+                                 constraintName="AR_NON_INV_DIST_TR2" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FDOC_NBR"
+                                 referencedTableName="AR_DOC_HDR_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="907" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_NBR,FDOC_LINE_NBR" baseTableName="AR_NON_INV_DIST_T"
+                                 constraintName="AR_NON_INV_DIST_TR3" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="FDOC_NBR,FDOC_LINE_NBR" referencedTableName="AR_NON_INV_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="908" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_NBR" baseTableName="AR_NON_INV_T" constraintName="AR_NON_INV_TR1"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="FDOC_NBR" referencedTableName="AR_DOC_HDR_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="909" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,ACCOUNT_NBR" baseTableName="AR_NON_INV_T"
+                                 constraintName="AR_NON_INV_TR2" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR" referencedTableName="CA_ACCOUNT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="910" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_POST_YR,FIN_COA_CD,FIN_OBJECT_CD" baseTableName="AR_NON_INV_T"
+                                 constraintName="AR_NON_INV_TR3" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="UNIV_FISCAL_YR,FIN_COA_CD,FIN_OBJECT_CD"
+                                 referencedTableName="CA_OBJECT_CODE_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="911" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="PROJECT_CD" baseTableName="AR_NON_INV_T"
+                                 constraintName="AR_NON_INV_TR4" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PROJECT_CD"
+                                 referencedTableName="CA_PROJECT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="912" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD" baseTableName="AR_NON_INV_T"
+                                 constraintName="AR_NON_INV_TR5" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD"
+                                 referencedTableName="CA_CHART_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="913" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,ACCOUNT_NBR,SUB_ACCT_NBR" baseTableName="AR_NON_INV_T"
+                                 constraintName="AR_NON_INV_TR6" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR,SUB_ACCT_NBR"
+                                 referencedTableName="CA_SUB_ACCT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="914" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_POST_YR,FIN_COA_CD,ACCOUNT_NBR,FIN_OBJECT_CD,FIN_SUB_OBJ_CD"
+                                 baseTableName="AR_NON_INV_T" constraintName="AR_NON_INV_TR7" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="UNIV_FISCAL_YR,FIN_COA_CD,ACCOUNT_NBR,FIN_OBJECT_CD,FIN_SUB_OBJ_CD"
+                                 referencedTableName="CA_SUB_OBJECT_CD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="915" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,ORG_CD" baseTableName="AR_ORG_ACCTGDFLT_T"
+                                 constraintName="AR_ORG_ACCTGDFLT_TR1" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ORG_CD"
+                                 referencedTableName="CA_ORG_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="916" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="INV_FIN_COA_CD,INV_ACCT_NBR,INV_SUB_ACCT_NBR"
+                                 baseTableName="AR_ORG_ACCTGDFLT_T" constraintName="AR_ORG_ACCTGDFLT_TR10"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR,SUB_ACCT_NBR"
+                                 referencedTableName="CA_SUB_ACCT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="917" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="UNIV_FISCAL_YR,FIN_COA_CD,ORG_LT_CHRG_OBJ_CD"
+                                 baseTableName="AR_ORG_ACCTGDFLT_T" constraintName="AR_ORG_ACCTGDFLT_TR11"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="UNIV_FISCAL_YR,FIN_COA_CD,FIN_OBJECT_CD"
+                                 referencedTableName="CA_OBJECT_CODE_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="918" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="UNIV_FISCAL_YR,INV_FIN_COA_CD,INV_FIN_OBJ_CD"
+                                 baseTableName="AR_ORG_ACCTGDFLT_T" constraintName="AR_ORG_ACCTGDFLT_TR12"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="UNIV_FISCAL_YR,FIN_COA_CD,FIN_OBJECT_CD"
+                                 referencedTableName="CA_OBJECT_CODE_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="919" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint
+                baseColumnNames="UNIV_FISCAL_YR,INV_FIN_COA_CD,INV_ACCT_NBR,INV_FIN_OBJ_CD,INV_FIN_SUB_OBJ_CD"
+                baseTableName="AR_ORG_ACCTGDFLT_T" constraintName="AR_ORG_ACCTGDFLT_TR13" deferrable="false"
+                initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                referencedColumnNames="UNIV_FISCAL_YR,FIN_COA_CD,ACCOUNT_NBR,FIN_OBJECT_CD,FIN_SUB_OBJ_CD"
+                referencedTableName="CA_SUB_OBJECT_CD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="920" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="UNIV_FISCAL_YR" baseTableName="AR_ORG_ACCTGDFLT_T"
+                                 constraintName="AR_ORG_ACCTGDFLT_TR14" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="UNIV_FISCAL_YR"
+                                 referencedTableName="FS_OPTION_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="921" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="UNIV_FISCAL_YR,PMT_FIN_COA_CD,PMT_FIN_OBJ_CD"
+                                 baseTableName="AR_ORG_ACCTGDFLT_T" constraintName="AR_ORG_ACCTGDFLT_TR15"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="UNIV_FISCAL_YR,FIN_COA_CD,FIN_OBJECT_CD"
+                                 referencedTableName="CA_OBJECT_CODE_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="922" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint
+                baseColumnNames="UNIV_FISCAL_YR,PMT_FIN_COA_CD,PMT_ACCT_NBR,PMT_FIN_OBJ_CD,PMT_FIN_SUB_OBJ_CD"
+                baseTableName="AR_ORG_ACCTGDFLT_T" constraintName="AR_ORG_ACCTGDFLT_TR16" deferrable="false"
+                initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                referencedColumnNames="UNIV_FISCAL_YR,FIN_COA_CD,ACCOUNT_NBR,FIN_OBJECT_CD,FIN_SUB_OBJ_CD"
+                referencedTableName="CA_SUB_OBJECT_CD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="923" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="WRITEOFF_FIN_COA_CD" baseTableName="AR_ORG_ACCTGDFLT_T"
+                                 constraintName="AR_ORG_ACCTGDFLT_TR17" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD"
+                                 referencedTableName="CA_CHART_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="924" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="WRITEOFF_FIN_COA_CD,WRITEOFF_ACCT_NBR"
+                                 baseTableName="AR_ORG_ACCTGDFLT_T" constraintName="AR_ORG_ACCTGDFLT_TR18"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR" referencedTableName="CA_ACCOUNT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="925" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="WRITEOFF_FIN_COA_CD,WRITEOFF_ACCT_NBR,WRITEOFF_SUB_ACCT_NBR"
+                                 baseTableName="AR_ORG_ACCTGDFLT_T" constraintName="AR_ORG_ACCTGDFLT_TR19"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR,SUB_ACCT_NBR"
+                                 referencedTableName="CA_SUB_ACCT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="926" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD" baseTableName="AR_ORG_ACCTGDFLT_T"
+                                 constraintName="AR_ORG_ACCTGDFLT_TR2" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD"
+                                 referencedTableName="CA_CHART_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="927" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="UNIV_FISCAL_YR,WRITEOFF_FIN_COA_CD,WRITEOFF_FIN_OBJ_CD"
+                                 baseTableName="AR_ORG_ACCTGDFLT_T" constraintName="AR_ORG_ACCTGDFLT_TR20"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="UNIV_FISCAL_YR,FIN_COA_CD,FIN_OBJECT_CD"
+                                 referencedTableName="CA_OBJECT_CODE_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="928" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint
+                baseColumnNames="UNIV_FISCAL_YR,WRITEOFF_FIN_COA_CD,WRITEOFF_ACCT_NBR,WRITEOFF_FIN_OBJ_CD,WRITEOFF_FIN_SUB_OBJ_CD"
+                baseTableName="AR_ORG_ACCTGDFLT_T" constraintName="AR_ORG_ACCTGDFLT_TR21" deferrable="false"
+                initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                referencedColumnNames="UNIV_FISCAL_YR,FIN_COA_CD,ACCOUNT_NBR,FIN_OBJECT_CD,FIN_SUB_OBJ_CD"
+                referencedTableName="CA_SUB_OBJECT_CD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="929" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="WRITEOFF_PROJECT_CD" baseTableName="AR_ORG_ACCTGDFLT_T"
+                                 constraintName="AR_ORG_ACCTGDFLT_TR22" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PROJECT_CD"
+                                 referencedTableName="CA_PROJECT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="930" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="INV_FIN_COA_CD" baseTableName="AR_ORG_ACCTGDFLT_T"
+                                 constraintName="AR_ORG_ACCTGDFLT_TR3" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD"
+                                 referencedTableName="CA_CHART_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="931" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="PMT_FIN_COA_CD" baseTableName="AR_ORG_ACCTGDFLT_T"
+                                 constraintName="AR_ORG_ACCTGDFLT_TR4" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD"
+                                 referencedTableName="CA_CHART_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="932" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="PMT_PROJECT_CD" baseTableName="AR_ORG_ACCTGDFLT_T"
+                                 constraintName="AR_ORG_ACCTGDFLT_TR5" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PROJECT_CD"
+                                 referencedTableName="CA_PROJECT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="933" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="PMT_FIN_COA_CD,PMT_ACCT_NBR" baseTableName="AR_ORG_ACCTGDFLT_T"
+                                 constraintName="AR_ORG_ACCTGDFLT_TR6" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR" referencedTableName="CA_ACCOUNT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="934" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="INV_FIN_COA_CD,INV_ACCT_NBR" baseTableName="AR_ORG_ACCTGDFLT_T"
+                                 constraintName="AR_ORG_ACCTGDFLT_TR7" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR" referencedTableName="CA_ACCOUNT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="935" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="INV_PROJECT_CD" baseTableName="AR_ORG_ACCTGDFLT_T"
+                                 constraintName="AR_ORG_ACCTGDFLT_TR8" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PROJECT_CD"
+                                 referencedTableName="CA_PROJECT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="936" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="PMT_FIN_COA_CD,PMT_ACCT_NBR,PMT_SUB_ACCT_NBR"
+                                 baseTableName="AR_ORG_ACCTGDFLT_T" constraintName="AR_ORG_ACCTGDFLT_TR9"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR,SUB_ACCT_NBR"
+                                 referencedTableName="CA_SUB_ACCT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="937" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD" baseTableName="AR_ORG_OPTION_T"
+                                 constraintName="AR_ORG_OPTION_TR1" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD"
+                                 referencedTableName="CA_CHART_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="938" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="PRCS_FIN_COA_CD" baseTableName="AR_ORG_OPTION_T"
+                                 constraintName="AR_ORG_OPTION_TR2" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD"
+                                 referencedTableName="CA_CHART_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="939" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,ORG_CD" baseTableName="AR_ORG_OPTION_T"
+                                 constraintName="AR_ORG_OPTION_TR3" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ORG_CD"
+                                 referencedTableName="CA_ORG_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="940" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="PRCS_FIN_COA_CD,PRCS_ORG_CD" baseTableName="AR_ORG_OPTION_T"
+                                 constraintName="AR_ORG_OPTION_TR4" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ORG_CD"
+                                 referencedTableName="CA_ORG_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="941" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD" baseTableName="AR_WRITEOFF_DOC_T"
+                                 constraintName="AR_WRITEOFF_DOC_TR2" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD"
+                                 referencedTableName="CA_CHART_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="942" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,ACCOUNT_NBR" baseTableName="AR_WRITEOFF_DOC_T"
+                                 constraintName="AR_WRITEOFF_DOC_TR3" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR" referencedTableName="CA_ACCOUNT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="943" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FIN_COA_CD,ACCOUNT_NBR,SUB_ACCT_NBR" baseTableName="AR_WRITEOFF_DOC_T"
+                                 constraintName="AR_WRITEOFF_DOC_TR4" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR,SUB_ACCT_NBR"
+                                 referencedTableName="CA_SUB_ACCT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="944" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="PROJECT_CD" baseTableName="AR_WRITEOFF_DOC_T"
+                                 constraintName="AR_WRITEOFF_DOC_TR5" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PROJECT_CD"
+                                 referencedTableName="CA_PROJECT_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="945" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_POST_YR,FIN_COA_CD,FIN_OBJECT_CD"
+                                 baseTableName="AR_WRITEOFF_DOC_T" constraintName="AR_WRITEOFF_DOC_TR6"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="UNIV_FISCAL_YR,FIN_COA_CD,FIN_OBJECT_CD"
+                                 referencedTableName="CA_OBJECT_CODE_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="946" context="bootstrap,demo,unit">
+        <addForeignKeyConstraint baseColumnNames="FDOC_POST_YR,FIN_COA_CD,ACCOUNT_NBR,FIN_OBJECT_CD,FIN_SUB_OBJ_CD"
+                                 baseTableName="AR_WRITEOFF_DOC_T" constraintName="AR_WRITEOFF_DOC_TR7"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="UNIV_FISCAL_YR,FIN_COA_CD,ACCOUNT_NBR,FIN_OBJECT_CD,FIN_SUB_OBJ_CD"
+                                 referencedTableName="CA_SUB_OBJECT_CD_T"/>
+    </changeSet>
+</databaseChangeLog>

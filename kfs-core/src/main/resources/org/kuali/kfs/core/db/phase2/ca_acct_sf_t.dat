@@ -1,0 +1,7 @@
+HEADER[~&~	~&~ACCT_SF_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~ACCT_SF_NM::VARCHAR~&~	~&~ROW_ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'A'~&~	~&~'3C4DCACBEA9830FEE043814FD88130FE'~&~	~&~'1'~&~	~&~'Account'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'C'~&~	~&~'3C4DCACBEA9930FEE043814FD88130FE'~&~	~&~'1'~&~	~&~'Consolidation'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'H'~&~	~&~'3C4DCACBEA9A30FEE043814FD88130FE'~&~	~&~'1'~&~	~&~'Cash'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'L'~&~	~&~'3C4DCACBEA9B30FEE043814FD88130FE'~&~	~&~'1'~&~	~&~'Level'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'N'~&~	~&~'3C4DCACBEA9C30FEE043814FD88130FE'~&~	~&~'1'~&~	~&~'No Checking'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'O'~&~	~&~'3C4DCACBEA9D30FEE043814FD88130FE'~&~	~&~'1'~&~	~&~'Object Code'~&~	~&~'Y'~&~	~&~]RECORD

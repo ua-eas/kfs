@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import java.util.Date;
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsAgency;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsAward;
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.krad.bo.TransientBusinessObjectBase;
+
+import java.util.Date;
+import java.util.LinkedHashMap;
 
 /**
  * This class is used to generate the collection activity report
@@ -37,7 +37,7 @@ public class CollectionActivityReport extends TransientBusinessObjectBase implem
 
     private Long eventId;
     private String principalId;
-    private Long proposalNumber;
+    private String proposalNumber;
     private String agencyNumber;
 
     private String invoiceNumber;
@@ -103,7 +103,7 @@ public class CollectionActivityReport extends TransientBusinessObjectBase implem
      * @return Return the proposalNumber.
      */
     @Override
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -112,7 +112,7 @@ public class CollectionActivityReport extends TransientBusinessObjectBase implem
      *
      * @param proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

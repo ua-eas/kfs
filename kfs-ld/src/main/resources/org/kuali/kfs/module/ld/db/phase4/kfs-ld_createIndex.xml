@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="2860">
+        <createIndex indexName="LD_BCN_BUILD_EXSALTOT02_MTI2" tableName="LD_BCN_BUILD_EXSALTOT02_MT">
+            <column name="SESID"/>
+            <column name="EMPLID"/>
+            <column name="POSITION_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="2861">
+        <createIndex indexName="LD_BCN_BUILD_POS_SEL01_MTI2" tableName="LD_BCN_BUILD_POS_SEL01_MT">
+            <column name="ORG_CD"/>
+            <column name="FIN_COA_CD"/>
+            <column name="SESID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="2862">
+        <createIndex indexName="LD_BCN_BUILD_SALSUMM01_MTI2" tableName="LD_BCN_BUILD_SALSUMM01_MT">
+            <column name="SESID"/>
+            <column name="EMPLID"/>
+            <column name="POSITION_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="2863">
+        <createIndex indexName="LD_BCN_BUILD_SALTOT01_MTI2" tableName="LD_BCN_BUILD_SALTOT01_MT">
+            <column name="SESID"/>
+            <column name="EMPLID"/>
+            <column name="POSITION_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="2864">
+        <createIndex indexName="LD_BCN_DOC_PULLUP03_MTI2" tableName="LD_BCN_DOC_PULLUP03_MT">
+            <column name="FDOC_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2865">
+        <createIndex indexName="LD_BENEFITS_CALC_TI2" tableName="LD_BENEFITS_CALC_T">
+            <column name="UNIV_FISCAL_YR"/>
+            <column name="FIN_COA_CD"/>
+            <column name="POS_FRNGBEN_OBJ_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2866">
+        <createIndex indexName="LD_BENEFITS_CALC_TR2" tableName="LD_BENEFITS_CALC_T">
+            <column name="FIN_COA_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2867">
+        <createIndex indexName="LD_BENEFITS_CALC_TR3" tableName="LD_BENEFITS_CALC_T">
+            <column name="POS_BENEFIT_TYP_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2868">
+        <createIndex indexName="LD_CSF_TRACKER_TI2" tableName="LD_CSF_TRACKER_T">
+            <column name="EMPLID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="2869">
+        <createIndex indexName="LD_CSF_TRACKER_TI4" tableName="LD_CSF_TRACKER_T">
+            <column name="POSITION_NBR"/>
+            <column name="UNIV_FISCAL_YR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2870">
+        <createIndex indexName="LD_CSF_TRACKER_TR1" tableName="LD_CSF_TRACKER_T">
+            <column name="UNIV_FISCAL_YR"/>
+            <column name="FIN_COA_CD"/>
+            <column name="FIN_OBJECT_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2871">
+        <createIndex indexName="LD_CSF_TRACKER_TR3" tableName="LD_CSF_TRACKER_T">
+            <column name="FIN_COA_CD"/>
+            <column name="ACCOUNT_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2872">
+        <createIndex indexName="LD_EXP_TRNFR_DOC_TI2" tableName="LD_EXP_TRNFR_DOC_T">
+            <column name="EMPLID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2873">
+        <createIndex indexName="LD_EXP_TRNFR_DOC_TR2" tableName="LD_EXP_TRNFR_DOC_T">
+            <column name="FDOC_POST_YR"/>
+            <column name="FDOC_POST_PRD_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2874">
+        <createIndex indexName="LD_EXP_TRNFR_FRM_TI2" tableName="LD_EXP_TRNFR_FRM_T">
+            <column name="FIN_COA_CD"/>
+            <column name="ACCOUNT_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2875">
+        <createIndex indexName="LD_EXP_TRNFR_FRM_TI3" tableName="LD_EXP_TRNFR_FRM_T">
+            <column name="FDOC_POST_YR"/>
+            <column name="FIN_COA_CD"/>
+            <column name="FIN_OBJECT_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="2876">
+        <createIndex indexName="LD_EXP_TRNFR_FRM_TI4" tableName="LD_EXP_TRNFR_FRM_T">
+            <column name="FDOC_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2877">
+        <createIndex indexName="LD_EXP_TRNFR_FRM_TR6" tableName="LD_EXP_TRNFR_FRM_T">
+            <column name="FIN_BALANCE_TYP_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2878">
+        <createIndex indexName="LD_EXP_TRNFR_FRM_TR7" tableName="LD_EXP_TRNFR_FRM_T">
+            <column name="PROJECT_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2879">
+        <createIndex indexName="LD_EXP_TRNFR_TO_TI2" tableName="LD_EXP_TRNFR_TO_T">
+            <column name="FDOC_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2880">
+        <createIndex indexName="LD_EXP_TRNFR_TO_TI3" tableName="LD_EXP_TRNFR_TO_T">
+            <column name="FIN_COA_CD"/>
+            <column name="ACCOUNT_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="2881">
+        <createIndex indexName="LD_EXP_TRNFR_TO_TI4" tableName="LD_EXP_TRNFR_TO_T">
+            <column name="FDOC_POST_YR"/>
+            <column name="FIN_COA_CD"/>
+            <column name="FIN_OBJECT_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2882">
+        <createIndex indexName="LD_EXP_TRNFR_TO_TR6" tableName="LD_EXP_TRNFR_TO_T">
+            <column name="FIN_BALANCE_TYP_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2883">
+        <createIndex indexName="LD_EXP_TRNFR_TO_TR7" tableName="LD_EXP_TRNFR_TO_T">
+            <column name="PROJECT_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2884">
+        <createIndex indexName="LD_JRNL_VCHR_DOC_TR2" tableName="LD_JRNL_VCHR_DOC_T">
+            <column name="FIN_BALANCE_TYP_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2885">
+        <createIndex indexName="LD_JRNL_VCHR_DOC_TR3" tableName="LD_JRNL_VCHR_DOC_T">
+            <column name="FDOC_POST_YR"/>
+            <column name="FDOC_POST_PRD_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2886">
+        <createIndex indexName="LD_JRNL_VCHR_DTL_TR10" tableName="LD_JRNL_VCHR_DTL_T">
+            <column name="PYRL_DT_FSCL_YR"/>
+            <column name="PYRL_DT_FSCLPRD_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2887">
+        <createIndex indexName="LD_JRNL_VCHR_DTL_TR3" tableName="LD_JRNL_VCHR_DTL_T">
+            <column name="FIN_COA_CD"/>
+            <column name="ACCOUNT_NBR"/>
+            <column name="SUB_ACCT_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2888">
+        <createIndex indexName="LD_JRNL_VCHR_DTL_TR4" tableName="LD_JRNL_VCHR_DTL_T">
+            <column name="FDOC_POST_YR"/>
+            <column name="FIN_COA_CD"/>
+            <column name="ACCOUNT_NBR"/>
+            <column name="FIN_OBJECT_CD"/>
+            <column name="FIN_SUB_OBJ_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2889">
+        <createIndex indexName="LD_JRNL_VCHR_DTL_TR5" tableName="LD_JRNL_VCHR_DTL_T">
+            <column name="FDOC_POST_YR"/>
+            <column name="FIN_COA_CD"/>
+            <column name="FIN_OBJECT_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2890">
+        <createIndex indexName="LD_JRNL_VCHR_DTL_TR7" tableName="LD_JRNL_VCHR_DTL_T">
+            <column name="FIN_BALANCE_TYP_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2891">
+        <createIndex indexName="LD_JRNL_VCHR_DTL_TR8" tableName="LD_JRNL_VCHR_DTL_T">
+            <column name="PROJECT_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2892">
+        <createIndex indexName="LD_JRNL_VCHR_DTL_TR9" tableName="LD_JRNL_VCHR_DTL_T">
+            <column name="FIN_OBJ_TYP_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2893">
+        <createIndex indexName="LD_JULY1_POS_FND_TR1" tableName="LD_JULY1_POS_FND_T">
+            <column name="UNIV_FISCAL_YR"/>
+            <column name="FIN_COA_CD"/>
+            <column name="FIN_OBJECT_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2894">
+        <createIndex indexName="LD_JULY1_POS_FND_TR3" tableName="LD_JULY1_POS_FND_T">
+            <column name="FIN_COA_CD"/>
+            <column name="ACCOUNT_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2895">
+        <createIndex indexName="LD_LABOR_OBJ_TR2" tableName="LD_LABOR_OBJ_T">
+            <column name="FIN_COA_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2896">
+        <createIndex indexName="LD_LABOR_OBJ_TR3" tableName="LD_LABOR_OBJ_T">
+            <column name="POS_OBJ_GRP_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2897">
+        <createIndex indexName="LD_LBR_GL_ENTRY_TR1" tableName="LD_LBR_GL_ENTRY_T">
+            <column name="UNIV_FISCAL_YR"/>
+            <column name="FIN_COA_CD"/>
+            <column name="FIN_OBJECT_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2898">
+        <createIndex indexName="LD_LBR_GL_ENTRY_TR2" tableName="LD_LBR_GL_ENTRY_T">
+            <column name="FIN_COA_CD"/>
+            <column name="ACCOUNT_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2899">
+        <createIndex indexName="LD_LBR_GL_ENTRY_TR6" tableName="LD_LBR_GL_ENTRY_T">
+            <column name="FIN_BALANCE_TYP_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2900">
+        <createIndex indexName="LD_LBR_GL_ENTRY_TR8" tableName="LD_LBR_GL_ENTRY_T">
+            <column name="FIN_OBJ_TYP_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2901">
+        <createIndex indexName="LD_LBR_GL_ENTRY_TR9" tableName="LD_LBR_GL_ENTRY_T">
+            <column name="UNIV_FISCAL_YR"/>
+            <column name="UNIV_FISCAL_PRD_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" id="2902">
+        <createIndex indexName="LD_LBR_OBJ_BENE_TI2" tableName="LD_LBR_OBJ_BENE_T">
+            <column name="UNIV_FISCAL_YR"/>
+            <column name="FIN_COA_CD"/>
+            <column name="FINOBJ_BENE_TYP_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2903">
+        <createIndex indexName="LD_LBR_OBJ_BENE_TR3" tableName="LD_LBR_OBJ_BENE_T">
+            <column name="FINOBJ_BENE_TYP_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2904">
+        <createIndex indexName="LD_LBR_OBJ_BENE_TR4" tableName="LD_LBR_OBJ_BENE_T">
+            <column name="FIN_COA_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2905">
+        <createIndex indexName="LD_LDGR_BAL_HIST_TR1" tableName="LD_LDGR_BAL_HIST_T">
+            <column name="UNIV_FISCAL_YR"/>
+            <column name="FIN_COA_CD"/>
+            <column name="FIN_OBJECT_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2906">
+        <createIndex indexName="LD_LDGR_BAL_HIST_TR2" tableName="LD_LDGR_BAL_HIST_T">
+            <column name="FIN_COA_CD"/>
+            <column name="ACCOUNT_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2907">
+        <createIndex indexName="LD_LDGR_BAL_HIST_TR4" tableName="LD_LDGR_BAL_HIST_T">
+            <column name="FIN_OBJ_TYP_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2908">
+        <createIndex indexName="LD_LDGR_BAL_HIST_TR5" tableName="LD_LDGR_BAL_HIST_T">
+            <column name="FIN_BALANCE_TYP_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2909">
+        <createIndex indexName="LD_LDGR_BAL_TI2" tableName="LD_LDGR_BAL_T">
+            <column name="UNIV_FISCAL_YR"/>
+            <column name="EMPLID"/>
+            <column name="FIN_BALANCE_TYP_CD"/>
+            <column name="FIN_OBJ_TYP_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2910">
+        <createIndex indexName="LD_LDGR_BAL_TR1" tableName="LD_LDGR_BAL_T">
+            <column name="UNIV_FISCAL_YR"/>
+            <column name="FIN_COA_CD"/>
+            <column name="FIN_OBJECT_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2911">
+        <createIndex indexName="LD_LDGR_BAL_TR2" tableName="LD_LDGR_BAL_T">
+            <column name="FIN_COA_CD"/>
+            <column name="ACCOUNT_NBR"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2912">
+        <createIndex indexName="LD_LDGR_BAL_TR6" tableName="LD_LDGR_BAL_T">
+            <column name="FIN_OBJ_TYP_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2913">
+        <createIndex indexName="LD_LDGR_BAL_TR7" tableName="LD_LDGR_BAL_T">
+            <column name="FIN_BALANCE_TYP_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2914">
+        <createIndex indexName="LD_LDGR_ENTR_HIST_TR1" tableName="LD_LDGR_ENTR_HIST_T">
+            <column name="FIN_COA_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2915">
+        <createIndex indexName="LD_LDGR_ENTR_HIST_TR2" tableName="LD_LDGR_ENTR_HIST_T">
+            <column name="UNIV_FISCAL_YR"/>
+            <column name="FIN_COA_CD"/>
+            <column name="FIN_OBJECT_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2916">
+        <createIndex indexName="LD_LDGR_ENTR_HIST_TR5" tableName="LD_LDGR_ENTR_HIST_T">
+            <column name="FIN_BALANCE_TYP_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2917">
+        <createIndex indexName="LD_LDGR_ENTR_TI2" tableName="LD_LDGR_ENTR_T">
+            <column name="UNIV_FISCAL_YR"/>
+            <column name="FIN_COA_CD"/>
+            <column name="ACCOUNT_NBR"/>
+            <column name="SUB_ACCT_NBR"/>
+            <column name="FIN_OBJECT_CD"/>
+            <column name="FIN_SUB_OBJ_CD"/>
+            <column name="FIN_BALANCE_TYP_CD"/>
+            <column name="FIN_OBJ_TYP_CD"/>
+            <column name="POSITION_NBR"/>
+            <column name="EMPLID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2918">
+        <createIndex indexName="LD_LDGR_ENTR_TI3" tableName="LD_LDGR_ENTR_T">
+            <column name="UNIV_FISCAL_YR"/>
+            <column name="FIN_BALANCE_TYP_CD"/>
+            <column name="UNIV_FISCAL_PRD_CD"/>
+            <column name="ERNCD"/>
+            <column name="PAYGROUP"/>
+            <column name="SAL_ADMIN_PLAN"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2919">
+        <createIndex indexName="LD_LDGR_ENTR_TI4" tableName="LD_LDGR_ENTR_T">
+            <column name="UNIV_FISCAL_YR"/>
+            <column name="UNIV_FISCAL_PRD_CD"/>
+            <column name="FIN_BALANCE_TYP_CD"/>
+            <column name="EMPLID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2920">
+        <createIndex indexName="LD_LDGR_ENTR_TR11" tableName="LD_LDGR_ENTR_T">
+            <column name="FIN_OBJ_TYP_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2921">
+        <createIndex indexName="LD_LDGR_ENTR_TR12" tableName="LD_LDGR_ENTR_T">
+            <column name="FIN_BALANCE_TYP_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2922">
+        <createIndex indexName="LD_LDGR_ENTR_TR2" tableName="LD_LDGR_ENTR_T">
+            <column name="UNIV_FISCAL_YR"/>
+            <column name="FIN_COA_CD"/>
+            <column name="FIN_OBJECT_CD"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="kfs" context="bootstrap,demo,unit" dbms="oracle" id="2923">
+        <createIndex indexName="LD_LDGR_ENTR_TR4" tableName="LD_LDGR_ENTR_T">
+            <column name="FIN_COA_CD"/>
+            <column name="ACCOUNT_NBR"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

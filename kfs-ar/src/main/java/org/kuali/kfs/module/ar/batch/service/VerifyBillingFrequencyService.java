@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -17,9 +17,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.batch.service;
-
-import java.sql.Date;
-import java.util.ArrayList;
 
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
@@ -51,27 +48,10 @@ public interface VerifyBillingFrequencyService {
     /**
      * This method returns the start and end date of previous billing period.
      *
-     * @param award ContractsAndGrantsBillingAward used to get dates and billing frequency for calculations
+     * @param award      ContractsAndGrantsBillingAward used to get dates and billing frequency for calculations
      * @param currPeriod accounting period used for calculations (typically the current period)
      * @return Date array containing start date and end date of previous billing period
      */
     public BillingPeriod getStartDateAndEndDateOfPreviousBillingPeriod(ContractsAndGrantsBillingAward award, AccountingPeriod currPeriod);
-
-    /**
-     * This method gets a sorted list of end dates of each period of current fiscal year.
-     *
-     * @param currPeriod accounting period used to obtain period end dates for the current fiscal year (typically the current period)
-     * @return ArrayList of period end dates
-     */
-    public ArrayList<Date> getSortedListOfPeriodEndDatesOfCurrentFiscalYear(AccountingPeriod currPeriod);
-
-    /**
-     * This method checks if a given moment of time is within an accounting period, or its billing frequency grace period.
-     *
-     * @param today a date to check if it is within the period
-     * @param periodToCheck the account period to check against
-     * @return true if a given moment in time is within an accounting period or an billing frequency grace period
-     */
-    public boolean calculateIfWithinGracePeriod(Date today, Date previousAccountingPeriodEndDate, Date previousAccountingPeriodStartDate, Date lastBilledDate, int gracePeriodDays);
 
 }

@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -72,7 +72,7 @@
                 				<tr>
                     				<td colspan=5 class="tab-subhead">Cash Drawer Activity: <bean:write name="KualiForm" property="cashDrawerSummary.overallReceiptStats.receiptCount"/> available Cash Receipts</td>
                 				</tr>
-                
+
                 				<tr>
                     				<td rowspan=4 >&nbsp;&nbsp;</td>
                     				<td colspan=2 class="infoline">Checks</td>
@@ -134,7 +134,7 @@
                     				<td style="text-align: right">$
                     				<bean:write name="KualiForm" property="cashDrawerSummary.remainingCoinTotal"/></td>
                 				</tr>
-		    
+
             			</c:if>
         			</table>
 			</td>
@@ -146,11 +146,11 @@
 			<td colspan="2">
        	 		<div style="padding: 10px; text-align: center;">
             			<c:if test="${allowOpen}">
-                				<html:image src="${ConfigProperties.externalizable.images.url}buttonsmall_openCashDrawer.gif" style="border: none" property="methodToCall.openCashDrawer" title="Open Cash Drawer" alt="Open Cash Drawer" />
+                				<html:submit value="Open Cash Drawer" property="methodToCall.openCashDrawer" title="Open Cash Drawer" alt="Open Cash Drawer" styleClass="btn btn-default"/>
             			</c:if>
-            
+
             			<c:if test="${allowRefresh}">
-                				<html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_refresh.gif" style="border: none" property="methodToCall.refreshSummary" title="Refresh Cash Drawer Summary" alt="Refresh Cash Drawer Summary" />
+                				<html:submit value="Refresh" property="methodToCall.refreshSummary" title="Refresh Cash Drawer Summary" alt="Refresh Cash Drawer Summary" styleClass="btn btn-default"/>
             			</c:if>
         			</div>
 			</td>

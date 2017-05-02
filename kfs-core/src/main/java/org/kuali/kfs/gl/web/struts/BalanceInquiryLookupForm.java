@@ -1,31 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.web.struts;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.businessobject.Entry;
+import org.kuali.kfs.kns.lookup.Lookupable;
+import org.kuali.kfs.kns.web.struts.form.MultipleValueLookupForm;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.businessobject.lookup.LookupableSpringContext;
-import org.kuali.rice.kns.lookup.Lookupable;
-import org.kuali.rice.kns.web.struts.form.MultipleValueLookupForm;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Balance inquiries are pretty much just lookups already, but are not used in the traditional sense. In most cases, balance
@@ -36,7 +36,7 @@ import org.kuali.rice.kns.web.struts.form.MultipleValueLookupForm;
  * ledger balance inquiry screen.<br/> <br/> This is a <code>{@link KualiMultipleValueLookupAction}</code> which required some
  * customization because requirements were not possible with displaytag. There are a number of properties/attributes that are used
  * for pagination, formatting, etc...
- * 
+ *
  * @see org.kuali.kfs.module.ld.document.SalaryExpenseTransferDocument
  * @see org.kuali.kfs.module.ld.document.web.struts.SalaryExpenseTransferAction;
  * @see org.kuali.kfs.module.ld.document.web.struts.SalaryExpenseTransferForm;
@@ -55,7 +55,7 @@ public class BalanceInquiryLookupForm extends MultipleValueLookupForm {
 
     /**
      * Picks out business object name from the request to get retrieve a lookupable and set properties.
-     * 
+     *
      * @param request <code>{@link javax.servlet.http.HttpServletRequest}</code> instance for Struts
      */
     @Override
@@ -93,7 +93,7 @@ public class BalanceInquiryLookupForm extends MultipleValueLookupForm {
 
     /**
      * Determines if the balance inquiry lookup should be segmented or not
-     * 
+     *
      * @return boolean
      */
     public boolean isSegmented() {
@@ -102,7 +102,7 @@ public class BalanceInquiryLookupForm extends MultipleValueLookupForm {
 
     /**
      * Tells the balance inquiry lookup whether to be segmented or not
-     * 
+     *
      * @param seg
      */
     public void setSegmented(boolean seg) {

@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
-    
-<xsd:schema elementFormDefault="qualified"
-		    targetNamespace="http://www.kuali.org/kfs/purap/b2bPOResponse"
-		    xmlns="http://www.kuali.org/kfs/purap/b2bPOResponse" 
-		    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
-<xsd:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/xml.xsd" />
+<xsd:schema elementFormDefault="qualified"
+            targetNamespace="http://www.kuali.org/kfs/purap/b2bPOResponse"
+            xmlns="http://www.kuali.org/kfs/purap/b2bPOResponse"
+            xmlns:purap="http://www.kuali.org/kfs/purap/types"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <xsd:import namespace="http://www.kuali.org/kfs/purap/types" schemaLocation="classpath:org/kuali/kfs/module/purap/purapTypes.xsd"/>
 
 <!-- Simple Data Types from purapTypes.xsd -->
 
@@ -123,4 +124,4 @@
        </xsd:complexType>
     </xsd:element>    		      		
 
-</xsd:schema>		    
+</xsd:schema>

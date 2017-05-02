@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -22,11 +22,11 @@
  */
 package org.kuali.kfs.module.ar.report.service;
 
+import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
+
 import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
 
 /**
  * This class is used to get the services for PDF generation and other services for Contracts & Grants Aging Report
@@ -35,6 +35,7 @@ public interface ContractsGrantsAgingReportService {
 
     /**
      * This method is used to filter the Contracts & Grants Invoice Documents according to criteria
+     *
      * @param fieldValues
      * @param startDate
      * @param endDate
@@ -45,6 +46,7 @@ public interface ContractsGrantsAgingReportService {
 
     /**
      * Looks up ContractsGrantsInvoiceDocuments matching the criteria in the given fieldValues
+     *
      * @param fieldValues the criteria to find matching ContractsGrantsInvoiceDocument's
      * @return a Map of ContractsGrantsInvoiceDocument which match the given Criteria, keyed by customer number
      */

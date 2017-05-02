@@ -1,31 +1,29 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.coa.businessobject;
 
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
 import java.util.LinkedHashMap;
 
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 
-/**
- * 
- */
 public class ObjectConsolidation extends PersistableBusinessObjectBase implements MutableInactivatable {
 
     /**
@@ -41,12 +39,12 @@ public class ObjectConsolidation extends PersistableBusinessObjectBase implement
     private String finConsolidationObjShortName;
     private boolean active;
     private String financialReportingSortCode;
-    
+
     private Chart chartOfAccounts;
-    
+
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode.
      */
     public String getChartOfAccountsCode() {
@@ -55,17 +53,17 @@ public class ObjectConsolidation extends PersistableBusinessObjectBase implement
 
     /**
      * Sets the chartOfAccountsCode attribute value.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
         this.chartOfAccountsCode = chartOfAccountsCode;
     }
 
-   
+
     /**
      * Gets the finConsolidationObjectCode attribute.
-     * 
+     *
      * @return Returns the finConsolidationObjectCode.
      */
     public String getFinConsolidationObjectCode() {
@@ -74,7 +72,7 @@ public class ObjectConsolidation extends PersistableBusinessObjectBase implement
 
     /**
      * Sets the finConsolidationObjectCode attribute value.
-     * 
+     *
      * @param finConsolidationObjectCode The finConsolidationObjectCode to set.
      */
     public void setFinConsolidationObjectCode(String finConsolidationObjectCode) {
@@ -83,7 +81,7 @@ public class ObjectConsolidation extends PersistableBusinessObjectBase implement
 
     /**
      * Gets the finConsolidationObjectName attribute.
-     * 
+     *
      * @return Returns the finConsolidationObjectName
      */
     public String getFinConsolidationObjectName() {
@@ -92,7 +90,7 @@ public class ObjectConsolidation extends PersistableBusinessObjectBase implement
 
     /**
      * Sets the finConsolidationObjectName attribute.
-     * 
+     *
      * @param finConsolidationObjectName The finConsolidationObjectName to set.
      */
     public void setFinConsolidationObjectName(String finConsolidationObjectName) {
@@ -101,7 +99,7 @@ public class ObjectConsolidation extends PersistableBusinessObjectBase implement
 
     /**
      * Gets the finConsolidationObjShortName attribute.
-     * 
+     *
      * @return Returns the finConsolidationObjShortName
      */
     public String getFinConsolidationObjShortName() {
@@ -110,7 +108,7 @@ public class ObjectConsolidation extends PersistableBusinessObjectBase implement
 
     /**
      * Sets the finConsolidationObjShortName attribute.
-     * 
+     *
      * @param finConsolidationObjShortName The finConsolidationObjShortName to set.
      */
     public void setFinConsolidationObjShortName(String finConsolidationObjShortName) {
@@ -119,7 +117,7 @@ public class ObjectConsolidation extends PersistableBusinessObjectBase implement
 
     /**
      * Gets the active attribute.
-     * 
+     *
      * @return Returns the active
      */
     public boolean isActive() {
@@ -128,7 +126,7 @@ public class ObjectConsolidation extends PersistableBusinessObjectBase implement
 
     /**
      * Sets the active attribute.
-     * 
+     *
      * @param active The active to set.
      */
     public void setActive(boolean active) {
@@ -137,7 +135,7 @@ public class ObjectConsolidation extends PersistableBusinessObjectBase implement
 
     /**
      * Gets the financialReportingSortCode attribute.
-     * 
+     *
      * @return Returns the financialReportingSortCode
      */
     public String getFinancialReportingSortCode() {
@@ -146,7 +144,7 @@ public class ObjectConsolidation extends PersistableBusinessObjectBase implement
 
     /**
      * Sets the financialReportingSortCode attribute.
-     * 
+     *
      * @param financialReportingSortCode The financialReportingSortCode to set.
      */
     public void setFinancialReportingSortCode(String financialReportingSortCode) {
@@ -155,7 +153,7 @@ public class ObjectConsolidation extends PersistableBusinessObjectBase implement
 
     /**
      * Gets the chartOfAccounts attribute.
-     * 
+     *
      * @return Returns the chartOfAccounts
      */
     public Chart getChartOfAccounts() {
@@ -164,7 +162,7 @@ public class ObjectConsolidation extends PersistableBusinessObjectBase implement
 
     /**
      * Sets the chartOfAccounts attribute.
-     * 
+     *
      * @param chartOfAccounts The chartOfAccounts to set.
      * @deprecated
      */

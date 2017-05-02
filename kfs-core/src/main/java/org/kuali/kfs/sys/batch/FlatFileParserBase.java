@@ -1,33 +1,33 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.batch;
-
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.InputStreamReader;
 
 import org.apache.log4j.Logger;
 import org.kuali.kfs.gl.service.impl.StringHelper;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.exception.ParseException;
 import org.kuali.rice.core.api.datetime.DateTimeService;
+
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.InputStreamReader;
 
 /**
  * Implementation of BatchInputFileType which parses flat files
@@ -47,7 +47,7 @@ public class FlatFileParserBase extends BatchInputFileTypeBase {
     @Override
     public String getFileName(String principalName, Object parsedFileContents, String fileUserIdentifier) {
         String fileName = processor.getFileName(principalName, parsedFileContents, fileUserIdentifier);
-        if(StringHelper.isNullOrEmpty(fileName)) {
+        if (StringHelper.isNullOrEmpty(fileName)) {
             fileName = getFileNamePrefix();
             fileName += principalName;
             if (org.apache.commons.lang.StringUtils.isNotBlank(fileUserIdentifier)) {
@@ -81,6 +81,7 @@ public class FlatFileParserBase extends BatchInputFileTypeBase {
 
     /**
      * Sets the key of the message to show in the title bar of the upload page for this file
+     *
      * @param titleKey
      */
     public void setTitleKey(String titleKey) {
@@ -96,6 +97,7 @@ public class FlatFileParserBase extends BatchInputFileTypeBase {
 
     /**
      * Sets the processor which will validate and process the file once all flat file data has been parsed
+     *
      * @param processor the implementation of FlatFileDataHandler to utilize
      */
     public void setProcessor(FlatFileDataHandler processor) {
@@ -104,6 +106,7 @@ public class FlatFileParserBase extends BatchInputFileTypeBase {
 
     /**
      * Reads each line of the flat file and uses the injected FlatFileSpecification to parse into an object graph
+     *
      * @param fileByteContent the contents file to parse
      * @return an object graph of parsed objects
      * @see org.kuali.kfs.sys.batch.BatchInputFileType#parse(byte[])
@@ -115,7 +118,7 @@ public class FlatFileParserBase extends BatchInputFileTypeBase {
         Object returnObject = null;
         FlatFileParseTracker tracker = SpringContext.getBean(FlatFileParseTracker.class);
         tracker.initialize(flatFileSpecification);
-        int  lineNumber = 1;
+        int lineNumber = 1;
         try {
             while ((lineToParse = bufferedFileReader.readLine()) != null) {
                 Object parseIntoObject = tracker.getObjectToParseInto(lineToParse);
@@ -128,13 +131,12 @@ public class FlatFileParserBase extends BatchInputFileTypeBase {
                         tracker.completeLineParse();
                     }
                 }
-               lineNumber++;
+                lineNumber++;
             }
             returnObject = tracker.getParsedObjects();
 
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error(e.getMessage() + " happend in parsing file content ", e);
             throw new ParseException(e.getMessage());
         }
@@ -165,6 +167,7 @@ public class FlatFileParserBase extends BatchInputFileTypeBase {
 
     /**
      * Sets the FlatFileSpecification that instructs how to carry out the parse
+     *
      * @param flatFileClassIdentifier the FlatFileSpecification that instructs how to carry out the parse
      */
     public void setFlatFileSpecification(AbstractFlatFileSpecificationBase flatFileClassIdentifier) {
@@ -173,6 +176,7 @@ public class FlatFileParserBase extends BatchInputFileTypeBase {
 
     /**
      * Sets the prefix of the file name which this parser reads
+     *
      * @param fileNamePrefix
      */
     public void setFileNamePrefix(String fileNamePrefix) {
@@ -181,6 +185,7 @@ public class FlatFileParserBase extends BatchInputFileTypeBase {
 
     /**
      * Sets an implementation of the DateTimeService for use in parsing
+     *
      * @param dateTimeService
      */
     public void setDateTimeService(DateTimeService dateTimeService) {
@@ -189,6 +194,7 @@ public class FlatFileParserBase extends BatchInputFileTypeBase {
 
     /**
      * Determines the principal name of the author of a file from the file name
+     *
      * @param file the file to determine the author of
      * @return the principal name of the author
      */

@@ -1,29 +1,29 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.coa.document.authorization;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-
 import org.kuali.kfs.coa.businessobject.Organization;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.datadictionary.AttributeSecurity;
+import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -31,10 +31,10 @@ import org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocume
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.services.IdentityManagementService;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.krad.datadictionary.AttributeSecurity;
-import org.kuali.rice.krad.service.DataDictionaryService;
-import org.kuali.rice.krad.util.GlobalVariables;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * This class can be shared by all account-involved maintenance documents which have special nested reference accounts.
@@ -42,7 +42,7 @@ import org.kuali.rice.krad.util.GlobalVariables;
 public class OrganizationtMaintenanceDocumentPresentationController extends FinancialSystemMaintenanceDocumentPresentationControllerBase {
     /**
      * @see org.kuali.rice.krad.document.authorization.MaintenanceDocumentPresentationControllerBase#getConditionallyReadOnlyPropertyNames(org.kuali.rice.kns.document.MaintenanceDocument)
-     *
+     * <p>
      * This methods adds the extra COA code fields that are PKs of nested reference accounts but don't exist in the BO as FKs
      * to the readOnlyPropertyNames set when accounts can't cross charts.
      * Since these fields aren't included in AccountPersistenceStructureService.listChartOfAccountsCodeNames as
@@ -70,7 +70,7 @@ public class OrganizationtMaintenanceDocumentPresentationController extends Fina
 
         // get user
         Person user = GlobalVariables.getUserSession().getPerson();
-        Map<String,String> roleQualifiers = new HashMap<String,String>();
+        Map<String, String> roleQualifiers = new HashMap<String, String>();
 
         if (isCampusChartManagerAuthorized(user, KFSPropertyConstants.CAMPUS_PLANT_CHART_CODE, roleQualifiers)) {
             chartReadOnlyAttributeSecurity.setReadOnly(false);
@@ -95,16 +95,16 @@ public class OrganizationtMaintenanceDocumentPresentationController extends Fina
      * at the campus chart level when the plant fund attributes are null.
      *
      * @param user
-     * @parm propertyName
      * @param roleQualifiers
      * @return true if belongs to campus chart group else return false.
+     * @parm propertyName
      */
-    protected boolean isCampusChartManagerAuthorized(Person user, String propertyName, Map<String,String> roleQualifiers) {
+    protected boolean isCampusChartManagerAuthorized(Person user, String propertyName, Map<String, String> roleQualifiers) {
         String principalId = user.getPrincipalId();
         String namespaceCode = KFSConstants.ParameterNamespaces.KNS;
         String permissionTemplateName = KimConstants.PermissionTemplateNames.MODIFY_FIELD;
 
-        Map<String,String> permissionDetails = new HashMap<String,String>();
+        Map<String, String> permissionDetails = new HashMap<String, String>();
         permissionDetails.put(KimConstants.AttributeConstants.COMPONENT_NAME, Organization.class.getSimpleName());
         permissionDetails.put(KimConstants.AttributeConstants.PROPERTY_NAME, propertyName);
 

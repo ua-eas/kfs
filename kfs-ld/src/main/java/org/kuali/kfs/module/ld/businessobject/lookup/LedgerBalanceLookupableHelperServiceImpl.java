@@ -1,32 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ld.businessobject.lookup;
-
-import static org.kuali.kfs.module.ld.LaborConstants.BalanceInquiries.BALANCE_TYPE_AC_AND_A21;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -36,6 +26,11 @@ import org.kuali.kfs.gl.Constant;
 import org.kuali.kfs.gl.OJBUtility;
 import org.kuali.kfs.gl.businessobject.lookup.BalanceLookupableHelperServiceImpl;
 import org.kuali.kfs.integration.ld.businessobject.inquiry.AbstractPositionDataDetailsInquirableImpl;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.util.BeanPropertyComparator;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ld.businessobject.LedgerBalance;
 import org.kuali.kfs.module.ld.businessobject.inquiry.LedgerBalanceInquirableImpl;
 import org.kuali.kfs.module.ld.businessobject.inquiry.PositionDataDetailsInquirableImpl;
@@ -46,12 +41,17 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.search.SearchOperator;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.kns.lookup.HtmlData;
-import org.kuali.rice.kns.lookup.HtmlData.AnchorHtmlData;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.lookup.CollectionIncomplete;
-import org.kuali.rice.krad.util.BeanPropertyComparator;
-import org.kuali.rice.krad.util.GlobalVariables;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import static org.kuali.kfs.module.ld.LaborConstants.BalanceInquiries.BALANCE_TYPE_AC_AND_A21;
 
 /**
  * Service implementation of LedgerBalanceLookupableHelperService. The class is the front-end for all Ledger balance inquiry
@@ -166,7 +166,7 @@ public class LedgerBalanceLookupableHelperServiceImpl extends BalanceLookupableH
      */
     protected Collection<LedgerBalance> filterOutCGBeginningBalanceOnlyRows(Collection<LedgerBalance> searchResultsCollection) {
         Collection<LedgerBalance> filteredSearchResults = new ArrayList<LedgerBalance>();
-        for (LedgerBalance balance: searchResultsCollection) {
+        for (LedgerBalance balance : searchResultsCollection) {
             if (!balance.isCGBeginningBalanceOnly()) {
                 filteredSearchResults.add(balance);
             }
@@ -177,8 +177,8 @@ public class LedgerBalanceLookupableHelperServiceImpl extends BalanceLookupableH
     /**
      * This method builds the balance collection based on the input iterator
      *
-     * @param iterator the iterator of search results of balance
-     * @param isConsolidated determine if the consolidated result is desired
+     * @param iterator           the iterator of search results of balance
+     * @param isConsolidated     determine if the consolidated result is desired
      * @param pendingEntryOption the given pending entry option that can be no, approved or all
      * @return the balance collection
      */
@@ -187,8 +187,7 @@ public class LedgerBalanceLookupableHelperServiceImpl extends BalanceLookupableH
 
         if (isConsolidated) {
             balanceCollection = buildConsolidatedBalanceCollection(iterator, pendingEntryOption);
-        }
-        else {
+        } else {
             balanceCollection = buildDetailedBalanceCollection(iterator, pendingEntryOption);
         }
         return balanceCollection;
@@ -215,12 +214,10 @@ public class LedgerBalanceLookupableHelperServiceImpl extends BalanceLookupableH
                 if (LedgerBalance.class.isAssignableFrom(getBusinessObjectClass())) {
                     try {
                         balance = (LedgerBalance) getBusinessObjectClass().newInstance();
-                    }
-                    catch (Exception e) {
+                    } catch (Exception e) {
                         LOG.warn("Using " + LedgerBalance.class + " for results because I couldn't instantiate the " + getBusinessObjectClass());
                     }
-                }
-                else {
+                } else {
                     LOG.warn("Using " + LedgerBalance.class + " for results because I couldn't instantiate the " + getBusinessObjectClass());
                 }
 
@@ -271,7 +268,7 @@ public class LedgerBalanceLookupableHelperServiceImpl extends BalanceLookupableH
     /**
      * This method builds the balance collection with detail option from an iterator
      *
-     * @param iterator the balance iterator
+     * @param iterator           the balance iterator
      * @param pendingEntryOption the selected pending entry option
      * @return the detailed balance collection
      */
@@ -285,12 +282,10 @@ public class LedgerBalanceLookupableHelperServiceImpl extends BalanceLookupableH
             if (LedgerBalance.class.isAssignableFrom(getBusinessObjectClass())) {
                 try {
                     balance = (LedgerBalance) getBusinessObjectClass().newInstance();
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     LOG.warn("Using " + LedgerBalance.class + " for results because I couldn't instantiate the " + getBusinessObjectClass());
                 }
-            }
-            else {
+            } else {
                 LOG.warn("Using " + LedgerBalance.class + " for results because I couldn't instantiate the " + getBusinessObjectClass());
             }
 
@@ -334,7 +329,7 @@ public class LedgerBalanceLookupableHelperServiceImpl extends BalanceLookupableH
      * build the serach result list from the given collection and the number of all qualified search results
      *
      * @param searchResultsCollection the given search results, which may be a subset of the qualified search results
-     * @param actualSize the number of all qualified search results
+     * @param actualSize              the number of all qualified search results
      * @return the serach result list with the given results and actual size
      */
     @Override

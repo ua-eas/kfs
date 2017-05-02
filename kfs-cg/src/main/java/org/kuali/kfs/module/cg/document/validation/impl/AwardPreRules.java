@@ -1,36 +1,36 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cg.document.validation.impl;
 
-import java.sql.Date;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.document.validation.impl.MaintenancePreRulesBase;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cg.businessobject.Award;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.sql.Date;
 
 /**
  * PreRules checks for the Account that needs to occur while still in the Struts processing. This includes defaults, confirmations,
@@ -77,7 +77,7 @@ public class AwardPreRules extends MaintenancePreRulesBase {
     /**
      * Checks if the entry date is before the begin date. if so asks the user if they want to continue validation. if no is selected
      * further validation is aborted and the user is returned to the award document.
-     * 
+     *
      * @return true if the user selects yes, false otherwise
      */
     protected boolean continueIfEntryDateBeforeBeginDate() {
@@ -96,7 +96,7 @@ public class AwardPreRules extends MaintenancePreRulesBase {
     /**
      * Checks if the {@link Subcontractor} total amount is greater than the award total. If so asks the user if they want to
      * continue validation. if no is selected further validation is aborted and the user is returned to the award document.
-     * 
+     *
      * @return true if the user selects yes, false otherwise
      */
     protected boolean continueIfSubcontractorTotalGreaterThanAwardTotal() {
@@ -117,7 +117,7 @@ public class AwardPreRules extends MaintenancePreRulesBase {
 
     /**
      * Builds out the confirmation question.
-     * 
+     *
      * @param messageKey
      * @param parameters
      * @return

@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -19,18 +19,19 @@
 
 package org.kuali.kfs.module.external.kc.businessobject;
 
-import java.sql.Date;
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
-import org.kuali.kfs.module.external.kc.dto.AwardAccountDTO;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kra.external.award.AwardAccountDTO;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.sql.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * This class represents an association between an award and an account. It's like a reference to the account from the award. This
@@ -38,7 +39,7 @@ import org.kuali.rice.krad.util.ObjectUtils;
  */
 public class AwardAccount implements ContractsAndGrantsBillingAwardAccount, MutableInactivatable {
 
-    private Long proposalNumber;
+    private String proposalNumber;
     private String chartOfAccountsCode;
     private String accountNumber;
     private String principalId;
@@ -55,81 +56,58 @@ public class AwardAccount implements ContractsAndGrantsBillingAwardAccount, Muta
     private Person projectDirector;
     private Award award;
 
-    /**
-     * Default constructor.
-     */
+
     public AwardAccount() {
-        // Struts needs this instance to populate the secondary key, principalName.
-        try {
-            //projectDirector = (Person) SpringContext.getBean(PersonService.class).getPersonImplementationClass().newInstance();
-        }
-        catch (Exception e) {
-        }
     }
 
-    /**
-     * @param awardAccountDTO
-     * @param accountNumber
-     * @param chartOfAccountsCode
-     * @param cfdaNumber
-     */
-    public AwardAccount(AwardAccountDTO awardAccountDTO, String accountNumber, String chartOfAccountsCode, String cfdaNumber) {
-        // Struts needs this instance to populate the secondary key, principalName.
-        try {
-            projectDirector = SpringContext.getBean(PersonService.class).getPersonImplementationClass().newInstance();
+    public AwardAccount(AwardAccountDTO awardAccountDTO) {
+        setAccountNumber(awardAccountDTO.getAccountNumber());
+        setChartOfAccountsCode(awardAccountDTO.getChartOfAcccountsCode());
+        setPrincipalId(awardAccountDTO.getProjectDirector());
+        setProposalNumber(awardAccountDTO.getAwardNumber());
+        setActive(true);
+        setFederalSponsor(awardAccountDTO.isFederalSponsor());
+        setFinalBilledIndicator(awardAccountDTO.isFinalBill());
+        if (ObjectUtils.isNotNull(awardAccountDTO.getLastBilledDate())) {
+            setCurrentLastBilledDate(new Date(awardAccountDTO.getLastBilledDate().getTime()));
         }
-        catch (Exception e) {
+        if (ObjectUtils.isNotNull(awardAccountDTO.getPreviousLastBilledDate())) {
+            setPreviousLastBilledDate(new Date(awardAccountDTO.getPreviousLastBilledDate().getTime()));
         }
 
-
-        // setup this class from DTO
-        Proposal proposal = new Proposal();
         Award award = new Award();
-        Agency agency = new Agency();
-        Agency primeAgency = new Agency();
-
-        this.setAccountNumber(accountNumber);
-        this.setChartOfAccountsCode(chartOfAccountsCode);
-        this.setPrincipalId(awardAccountDTO.getProjectDirector());
-        this.setProposalNumber(awardAccountDTO.getAwardId());
-        this.setActive(true);
-        this.setFederalSponsor(awardAccountDTO.isFederalSponsor());
-
-        award.setAwardNumber(awardAccountDTO.getProposalNumber());
-        award.setProposalNumber(awardAccountDTO.getAwardId());
+        award.setAwardId(awardAccountDTO.getAwardId());
+        award.setProposalNumber(awardAccountDTO.getAwardNumber());
         award.setAgencyNumber(awardAccountDTO.getSponsorCode());
         award.setAwardTitle(awardAccountDTO.getAwardTitle());
         award.setGrantNumber(awardAccountDTO.getGrantNumber());
-        award.setCfdaNumber(cfdaNumber);
+        award.setCfdaNumber("");
+        award.setAwardNumber(awardAccountDTO.getAwardNumber());
 
+        Proposal proposal = new Proposal();
         proposal.setFederalPassThroughAgencyNumber(awardAccountDTO.getProposalFederalPassThroughAgencyNumber());
-        proposal.setProposalNumber(awardAccountDTO.getAwardId());
-
+        proposal.setProposalNumber(awardAccountDTO.getAwardNumber());
         proposal.setAward(award);
-        this.setAward(award);
-        this.getAward().setProposal(proposal);
+        award.setProposal(proposal);
 
+        Agency agency = new Agency();
         agency.setAgencyNumber(awardAccountDTO.getSponsorCode());
         agency.setReportingName(awardAccountDTO.getSponsorName());
+        award.setAgency(agency);
+
+        Agency primeAgency = new Agency();
         primeAgency.setAgencyNumber(awardAccountDTO.getPrimeSponsorCode());
         primeAgency.setReportingName(awardAccountDTO.getPrimeSponsorName());
-        this.getAward().setAgency(agency);
-        this.getAward().setPrimeAgency(primeAgency);
+        award.setPrimeAgency(primeAgency);
 
-        finalBilledIndicator = awardAccountDTO.isFinalBill();
-        currentLastBilledDate = (!ObjectUtils.isNull(awardAccountDTO.getLastBilledDate())) ?
-                new Date(awardAccountDTO.getLastBilledDate().getTime())
-                : null;
-        previousLastBilledDate = (!ObjectUtils.isNull(awardAccountDTO.getPreviousLastBilledDate())) ?
-                new Date(awardAccountDTO.getPreviousLastBilledDate().getTime())
-                : null;
+        setAward(award);
     }
 
     /**
      * @see org.kuali.kfs.integration.businessobject.cg.ContractsAndGrantsAccountAwardInformation#getProposalNumber()
      */
     @Override
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -138,7 +116,7 @@ public class AwardAccount implements ContractsAndGrantsBillingAwardAccount, Muta
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 
@@ -208,7 +186,6 @@ public class AwardAccount implements ContractsAndGrantsBillingAwardAccount, Muta
      *
      * @param account The account to set.
      */
-    @Deprecated
     public void setAccount(Account account) {
         this.account = account;
     }
@@ -244,7 +221,7 @@ public class AwardAccount implements ContractsAndGrantsBillingAwardAccount, Muta
      *
      * @param projectDirector The projectDirector to set.
      * @deprecated Setter is required by OJB, but should not be used to modify this attribute. This attribute is set on the initial
-     *             creation of the object and should not be changed.
+     * creation of the object and should not be changed.
      */
     @Deprecated
     public void setProjectDirector(Person projectDirector) {
@@ -258,7 +235,7 @@ public class AwardAccount implements ContractsAndGrantsBillingAwardAccount, Muta
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
         LinkedHashMap m = new LinkedHashMap();
         if (this.proposalNumber != null) {
-            m.put("proposalNumber", this.proposalNumber.toString());
+            m.put("proposalNumber", this.proposalNumber);
         }
         m.put("chartOfAccountsCode", this.chartOfAccountsCode);
         m.put("accountNumber", this.accountNumber);
@@ -268,6 +245,13 @@ public class AwardAccount implements ContractsAndGrantsBillingAwardAccount, Muta
         m.put("newCollectionRecord", this.newCollectionRecord);
 
         return m;
+    }
+
+    public Map<String, Object> getPrimaryKeys() {
+        HashMap<String, Object> pks = new HashMap<>(2);
+        pks.put("chartOfAccountsCode", this.chartOfAccountsCode);
+        pks.put("accountNumber", this.accountNumber);
+        return pks;
     }
 
     public Award getAward() {
@@ -340,13 +324,25 @@ public class AwardAccount implements ContractsAndGrantsBillingAwardAccount, Muta
         return currentLastBilledDate;
     }
 
+    public void setCurrentLastBilledDate(Date currentLastBilledDate) {
+        this.currentLastBilledDate = currentLastBilledDate;
+    }
+
     @Override
     public Date getPreviousLastBilledDate() {
         return previousLastBilledDate;
     }
 
+    public void setPreviousLastBilledDate(Date previousLastBilledDate) {
+        this.previousLastBilledDate = previousLastBilledDate;
+    }
+
     @Override
     public boolean isFinalBilledIndicator() {
         return finalBilledIndicator;
+    }
+
+    public void setFinalBilledIndicator(boolean finalBilledIndicator) {
+        this.finalBilledIndicator = finalBilledIndicator;
     }
 }

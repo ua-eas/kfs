@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -45,10 +45,10 @@ public class LedgerBalanceWithMessage {
 
     /**
      * Constructs a LedgerBalanceWithMessage.java.
-     * 
-     * @param emplid the given employee id
+     *
+     * @param emplid       the given employee id
      * @param employeeName the given employee name
-     * @param message the message associated with the given ledger balance
+     * @param message      the message associated with the given ledger balance
      */
     public LedgerBalanceWithMessage(String emplid, String employeeName, String message) {
         super();
@@ -64,9 +64,9 @@ public class LedgerBalanceWithMessage {
 
     /**
      * Constructs a LedgerBalanceWithMessage.java.
-     * 
+     *
      * @param ledgerBalance the given ledger balance
-     * @param message the message associated with the given ledger balance
+     * @param message       the message associated with the given ledger balance
      */
     public LedgerBalanceWithMessage(LaborLedgerBalance ledgerBalance, String message) {
         super();
@@ -77,14 +77,14 @@ public class LedgerBalanceWithMessage {
         this.positionNumber = ledgerBalance.getPositionNumber();
         this.emplid = ledgerBalance.getEmplid();
         this.message = message;
-        
+
         Person employee = ledgerBalance.getLedgerPerson();
         this.employeeName = employee != null ? employee.getName() : KFSConstants.EMPTY_STRING;
     }
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode.
      */
     public String getChartOfAccountsCode() {
@@ -93,7 +93,7 @@ public class LedgerBalanceWithMessage {
 
     /**
      * Sets the chartOfAccountsCode attribute value.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -102,7 +102,7 @@ public class LedgerBalanceWithMessage {
 
     /**
      * Gets the accountNumber attribute.
-     * 
+     *
      * @return Returns the accountNumber.
      */
     public String getAccountNumber() {
@@ -111,7 +111,7 @@ public class LedgerBalanceWithMessage {
 
     /**
      * Sets the accountNumber attribute value.
-     * 
+     *
      * @param accountNumber The accountNumber to set.
      */
     public void setAccountNumber(String accountNumber) {
@@ -120,7 +120,7 @@ public class LedgerBalanceWithMessage {
 
     /**
      * Gets the subAccountNumber attribute.
-     * 
+     *
      * @return Returns the subAccountNumber.
      */
     public String getSubAccountNumber() {
@@ -129,7 +129,7 @@ public class LedgerBalanceWithMessage {
 
     /**
      * Sets the subAccountNumber attribute value.
-     * 
+     *
      * @param subAccountNumber The subAccountNumber to set.
      */
     public void setSubAccountNumber(String subAccountNumber) {
@@ -138,7 +138,7 @@ public class LedgerBalanceWithMessage {
 
     /**
      * Gets the financialObjectCode attribute.
-     * 
+     *
      * @return Returns the financialObjectCode.
      */
     public String getFinancialObjectCode() {
@@ -147,7 +147,7 @@ public class LedgerBalanceWithMessage {
 
     /**
      * Sets the financialObjectCode attribute value.
-     * 
+     *
      * @param financialObjectCode The financialObjectCode to set.
      */
     public void setFinancialObjectCode(String financialObjectCode) {
@@ -156,7 +156,7 @@ public class LedgerBalanceWithMessage {
 
     /**
      * Gets the positionNumber attribute.
-     * 
+     *
      * @return Returns the positionNumber.
      */
     public String getPositionNumber() {
@@ -165,7 +165,7 @@ public class LedgerBalanceWithMessage {
 
     /**
      * Sets the positionNumber attribute value.
-     * 
+     *
      * @param positionNumber The positionNumber to set.
      */
     public void setPositionNumber(String positionNumber) {
@@ -174,7 +174,7 @@ public class LedgerBalanceWithMessage {
 
     /**
      * Gets the emplid attribute.
-     * 
+     *
      * @return Returns the emplid.
      */
     public String getEmplid() {
@@ -183,15 +183,16 @@ public class LedgerBalanceWithMessage {
 
     /**
      * Sets the emplid attribute value.
-     * 
+     *
      * @param emplid The emplid to set.
      */
     public void setEmplid(String emplid) {
         this.emplid = emplid;
     }
-    
+
     /**
-     * Gets the employeeName attribute. 
+     * Gets the employeeName attribute.
+     *
      * @return Returns the employeeName.
      */
     public String getEmployeeName() {
@@ -200,6 +201,7 @@ public class LedgerBalanceWithMessage {
 
     /**
      * Sets the employeeName attribute value.
+     *
      * @param employeeName The employeeName to set.
      */
     public void setEmployeeName(String employeeName) {
@@ -208,7 +210,7 @@ public class LedgerBalanceWithMessage {
 
     /**
      * Gets the message attribute.
-     * 
+     *
      * @return Returns the message.
      */
     public String getMessage() {
@@ -217,7 +219,7 @@ public class LedgerBalanceWithMessage {
 
     /**
      * Sets the message attribute value.
-     * 
+     *
      * @param message The message to set.
      */
     public void setMessage(String message) {

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="kfs" id="rice00694" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRCR_STYLE_TC0" tableName="krcr_style_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00824" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_MAINT_DOC_TC0" tableName="krns_maint_doc_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00819" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_DOC_HDR_TC0" tableName="krns_doc_hdr_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00823" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_MAINT_DOC_ATT_TC0" tableName="krns_maint_doc_att_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00815" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_ADHOC_RTE_ACTN_RECIP_TC0" tableName="krns_adhoc_rte_actn_recip_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00820" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_LOOKUP_RSLT_TC0" tableName="krns_lookup_rslt_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00821" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_LOOKUP_SEL_TC0" tableName="krns_lookup_sel_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00832" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_PESSIMISTIC_LOCK_TC0" tableName="krns_pessimistic_lock_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00822" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_MAINT_DOC_ATT_LST_TC0" tableName="krns_maint_doc_att_lst_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00825" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_MAINT_LOCK_TC0" tableName="krns_maint_lock_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00816" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_ATT_TC0" tableName="krns_att_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00827" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_NTE_TC0" tableName="krns_nte_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00828" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_NTE_TYP_TC0" tableName="krns_nte_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00829" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_PARM_DTL_TYP_TC0" tableName="krcr_cmpnt_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00831" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_PARM_TYP_TC0" tableName="krcr_parm_typ_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00826" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_NMSPC_TC0" tableName="krcr_nmspc_t"/>
+    </changeSet>
+    <changeSet author="kfs" id="rice00830" context="bootstrap,demo,unit">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_PARM_TC0" tableName="krcr_parm_t"/>
+    </changeSet>
+</databaseChangeLog>

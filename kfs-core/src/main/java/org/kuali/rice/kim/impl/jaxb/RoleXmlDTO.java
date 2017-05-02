@@ -1,32 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.rice.kim.impl.jaxb;
-
-import java.io.Serializable;
-import java.util.Set;
-
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.rice.core.util.jaxb.NameAndNamespacePair;
 import org.kuali.rice.core.util.jaxb.NameAndNamespacePairValidatingAdapter;
@@ -34,58 +24,65 @@ import org.kuali.rice.core.util.jaxb.StringTrimmingAdapter;
 import org.kuali.rice.kim.api.jaxb.NameAndNamespacePairToKimTypeIdAdapter;
 import org.kuali.rice.kim.api.role.RoleContract;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.io.Serializable;
+import java.util.Set;
+
 /**
  * This class represents a &lt;role&gt; XML element.
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name="RoleType", propOrder={
-        "roleNameAndNamespace", "kimTypeId", "roleDescription", "active", "roleMembers", "rolePermissions"
+@XmlType(name = "RoleType", propOrder = {
+    "roleNameAndNamespace", "kimTypeId", "roleDescription", "active", "roleMembers", "rolePermissions"
 })
 public class RoleXmlDTO implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
 
     @XmlTransient
     private String roleId;
-    
-    @XmlElement(name="roleName")
+
+    @XmlElement(name = "roleName")
     @XmlJavaTypeAdapter(NameAndNamespacePairValidatingAdapter.class)
     private NameAndNamespacePair roleNameAndNamespace;
-    
-    @XmlElement(name="kimTypeName")
+
+    @XmlElement(name = "kimTypeName")
     @XmlJavaTypeAdapter(NameAndNamespacePairToKimTypeIdAdapter.class)
     private String kimTypeId;
-    
-    @XmlElement(name="description")
+
+    @XmlElement(name = "description")
     @XmlJavaTypeAdapter(StringTrimmingAdapter.class)
     private String roleDescription;
-    
-    @XmlElement(name="active")
+
+    @XmlElement(name = "active")
     private Boolean active;
-    
-    @XmlElement(name="roleMembers")
+
+    @XmlElement(name = "roleMembers")
     private RoleMembersXmlDTO.WithinRole roleMembers;
-    
-    @XmlElement(name="rolePermissions")
+
+    @XmlElement(name = "rolePermissions")
     private RolePermissionsXmlDTO.WithinRole rolePermissions;
 
     @XmlTransient
     private boolean alreadyPersisted = false;
-    
+
     @XmlTransient
     private Set<String> existingRoleMemberIds;
-    
+
     public RoleXmlDTO() {
         this.active = Boolean.TRUE;
     }
-    
+
     public RoleXmlDTO(RoleContract role, RoleMembersXmlDTO.WithinRole roleMembers, RolePermissionsXmlDTO.WithinRole rolePermissions) {
         if (role == null) {
             throw new IllegalArgumentException("role cannot be null");
         }
-        
+
         this.roleNameAndNamespace = new NameAndNamespacePair(role.getNamespaceCode(), role.getName());
         this.kimTypeId = role.getKimTypeId();
         this.roleDescription = role.getDescription();
@@ -205,7 +202,7 @@ public class RoleXmlDTO implements Serializable {
     public void setAlreadyPersisted(boolean alreadyPersisted) {
         this.alreadyPersisted = alreadyPersisted;
     }
-    
+
     /**
      * @return the existingRoleMemberIds
      */
@@ -222,7 +219,7 @@ public class RoleXmlDTO implements Serializable {
 
     /**
      * Retrieves the role's name from the role-name-and-namespace combo.
-     * 
+     *
      * @return The name of the role, or null if the role-name-and-namespace combo is null.
      */
     public String getRoleName() {
@@ -231,7 +228,7 @@ public class RoleXmlDTO implements Serializable {
 
     /**
      * Retrieves the role's namespace code from the role-name-and-namespace combo.
-     * 
+     *
      * @return The namespace code of the role, or null if the role-name-and-namespace combo is null.
      */
     public String getNamespaceCode() {

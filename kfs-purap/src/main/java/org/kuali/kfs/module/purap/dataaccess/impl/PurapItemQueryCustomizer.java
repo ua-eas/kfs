@@ -1,24 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.dataaccess.impl;
-
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.ojb.broker.PersistenceBroker;
@@ -28,6 +26,8 @@ import org.apache.ojb.broker.metadata.FieldDescriptor;
 import org.apache.ojb.broker.platforms.PlatformMySQLImpl;
 import org.apache.ojb.broker.query.Query;
 import org.apache.ojb.broker.query.QueryByCriteria;
+
+import java.util.Map;
 
 /**
  * This class improves the default order by in OJB by enforcing consistency between Oracle and MySQLs handling of Null values in a
@@ -45,9 +45,10 @@ public class PurapItemQueryCustomizer extends KualiQueryCustomizerDefaultImpl {
 
     /**
      * In addition to what the referenced method does, this also fixes a mysql order by issue (see class comments)
+     *
      * @see org.apache.ojb.broker.accesslayer.QueryCustomizerDefaultImpl#customizeQuery(java.lang.Object,
-     *      org.apache.ojb.broker.PersistenceBroker, org.apache.ojb.broker.metadata.CollectionDescriptor,
-     *      org.apache.ojb.broker.query.QueryByCriteria)
+     * org.apache.ojb.broker.PersistenceBroker, org.apache.ojb.broker.metadata.CollectionDescriptor,
+     * org.apache.ojb.broker.query.QueryByCriteria)
      */
     @Override
     public Query customizeQuery(Object anObject, PersistenceBroker broker, CollectionDescriptor cod, QueryByCriteria query) {
@@ -78,8 +79,7 @@ public class PurapItemQueryCustomizer extends KualiQueryCustomizerDefaultImpl {
                 // by negating the column name in MySQL we can get nulls last (ascending or descending)
                 String mysqlPrefix = (ascending) ? MYSQL_NEGATION : "";
                 query.addOrderBy(mysqlPrefix + orderByColumnName, false);
-            }
-            else {
+            } else {
                 query.addOrderBy(orderByColumnName, ascending);
             }
         }

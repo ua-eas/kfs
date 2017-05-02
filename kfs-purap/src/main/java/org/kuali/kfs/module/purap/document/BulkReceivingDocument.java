@@ -1,28 +1,30 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADPropertyConstants;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.document.service.BulkReceivingService;
 import org.kuali.kfs.module.purap.document.service.RequisitionService;
@@ -36,15 +38,13 @@ import org.kuali.kfs.vnd.document.service.VendorService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.bo.DocumentHeader;
-import org.kuali.rice.krad.rules.rule.event.KualiDocumentEvent;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADPropertyConstants;
 import org.kuali.rice.location.api.country.Country;
 import org.kuali.rice.location.api.country.CountryService;
 
-public class BulkReceivingDocument extends ReceivingDocumentBase{
+import java.util.LinkedHashMap;
+import java.util.List;
+
+public class BulkReceivingDocument extends ReceivingDocumentBase {
 
     protected static final Logger LOG = Logger.getLogger(BulkReceivingDocument.class);
 
@@ -87,27 +87,27 @@ public class BulkReceivingDocument extends ReceivingDocumentBase{
     }
 
     @Override
-    public void initiateDocument(){
+    public void initiateDocument() {
         setShipmentReceivedDate(SpringContext.getBean(DateTimeService.class).getCurrentSqlDate());
     }
 
-    public void populateBulkReceivingFromPurchaseOrder(PurchaseOrderDocument po){
+    public void populateBulkReceivingFromPurchaseOrder(PurchaseOrderDocument po) {
 
-        setPurchaseOrderIdentifier( po.getPurapDocumentIdentifier() );
-        getDocumentHeader().setOrganizationDocumentNumber( po.getDocumentHeader().getOrganizationDocumentNumber() );
-        setAccountsPayablePurchasingDocumentLinkIdentifier( po.getAccountsPayablePurchasingDocumentLinkIdentifier() );
+        setPurchaseOrderIdentifier(po.getPurapDocumentIdentifier());
+        getDocumentHeader().setOrganizationDocumentNumber(po.getDocumentHeader().getOrganizationDocumentNumber());
+        setAccountsPayablePurchasingDocumentLinkIdentifier(po.getAccountsPayablePurchasingDocumentLinkIdentifier());
 
         //copy vendor
-        setVendorHeaderGeneratedIdentifier( po.getVendorHeaderGeneratedIdentifier() );
-        setVendorDetailAssignedIdentifier( po.getVendorDetailAssignedIdentifier() );
-        setVendorName( po.getVendorName() );
-        setVendorNumber( po.getVendorNumber() );
-        setVendorLine1Address( po.getVendorLine1Address() );
-        setVendorLine2Address( po.getVendorLine2Address() );
-        setVendorCityName( po.getVendorCityName() );
-        setVendorStateCode( po.getVendorStateCode() );
-        setVendorPostalCode( po.getVendorPostalCode() );
-        setVendorCountryCode( po.getVendorCountryCode() );
+        setVendorHeaderGeneratedIdentifier(po.getVendorHeaderGeneratedIdentifier());
+        setVendorDetailAssignedIdentifier(po.getVendorDetailAssignedIdentifier());
+        setVendorName(po.getVendorName());
+        setVendorNumber(po.getVendorNumber());
+        setVendorLine1Address(po.getVendorLine1Address());
+        setVendorLine2Address(po.getVendorLine2Address());
+        setVendorCityName(po.getVendorCityName());
+        setVendorStateCode(po.getVendorStateCode());
+        setVendorPostalCode(po.getVendorPostalCode());
+        setVendorCountryCode(po.getVendorCountryCode());
         setVendorDetail(po.getVendorDetail());
         setVendorNumber(po.getVendorNumber());
         setVendorAddressInternationalProvinceName(po.getVendorAddressInternationalProvinceName());
@@ -115,26 +115,26 @@ public class BulkReceivingDocument extends ReceivingDocumentBase{
         setVendorAddressGeneratedIdentifier(po.getVendorAddressGeneratedIdentifier());
 
         //copy alternate vendor
-        setAlternateVendorName( po.getAlternateVendorName() );
-        setAlternateVendorNumber( StringUtils.isEmpty(po.getAlternateVendorNumber()) ? null : po.getAlternateVendorNumber());
-        setAlternateVendorDetailAssignedIdentifier( po.getAlternateVendorDetailAssignedIdentifier() );
-        setAlternateVendorHeaderGeneratedIdentifier( po.getAlternateVendorHeaderGeneratedIdentifier() );
+        setAlternateVendorName(po.getAlternateVendorName());
+        setAlternateVendorNumber(StringUtils.isEmpty(po.getAlternateVendorNumber()) ? null : po.getAlternateVendorNumber());
+        setAlternateVendorDetailAssignedIdentifier(po.getAlternateVendorDetailAssignedIdentifier());
+        setAlternateVendorHeaderGeneratedIdentifier(po.getAlternateVendorHeaderGeneratedIdentifier());
 
         //copy delivery
-        setDeliveryBuildingCode( po.getDeliveryBuildingCode() );
-        setDeliveryBuildingLine1Address( po.getDeliveryBuildingLine1Address() );
-        setDeliveryBuildingLine2Address( po.getDeliveryBuildingLine2Address() );
-        setDeliveryBuildingName( po.getDeliveryBuildingName() );
-        setDeliveryBuildingRoomNumber( po.getDeliveryBuildingRoomNumber() );
-        setDeliveryCampusCode( po.getDeliveryCampusCode() );
-        setDeliveryCityName( po.getDeliveryCityName() );
-        setDeliveryCountryCode( po.getDeliveryCountryCode() );
-        setDeliveryInstructionText( po.getDeliveryInstructionText() );
-        setDeliveryPostalCode( po.getDeliveryPostalCode() );
-        setDeliveryStateCode( po.getDeliveryStateCode() );
-        setDeliveryToEmailAddress( po.getDeliveryToEmailAddress() );
-        setDeliveryToName( po.getDeliveryToName() );
-        setDeliveryToPhoneNumber( po.getDeliveryToPhoneNumber() );
+        setDeliveryBuildingCode(po.getDeliveryBuildingCode());
+        setDeliveryBuildingLine1Address(po.getDeliveryBuildingLine1Address());
+        setDeliveryBuildingLine2Address(po.getDeliveryBuildingLine2Address());
+        setDeliveryBuildingName(po.getDeliveryBuildingName());
+        setDeliveryBuildingRoomNumber(po.getDeliveryBuildingRoomNumber());
+        setDeliveryCampusCode(po.getDeliveryCampusCode());
+        setDeliveryCityName(po.getDeliveryCityName());
+        setDeliveryCountryCode(po.getDeliveryCountryCode());
+        setDeliveryInstructionText(po.getDeliveryInstructionText());
+        setDeliveryPostalCode(po.getDeliveryPostalCode());
+        setDeliveryStateCode(po.getDeliveryStateCode());
+        setDeliveryToEmailAddress(po.getDeliveryToEmailAddress());
+        setDeliveryToName(po.getDeliveryToName());
+        setDeliveryToPhoneNumber(po.getDeliveryToPhoneNumber());
         setInstitutionContactName(po.getInstitutionContactName());
         setInstitutionContactPhoneNumber(po.getInstitutionContactPhoneNumber());
         setInstitutionContactEmailAddress(po.getInstitutionContactEmailAddress());
@@ -145,7 +145,7 @@ public class BulkReceivingDocument extends ReceivingDocumentBase{
         setRequestorPersonEmailAddress(po.getRequestorPersonEmailAddress());
 
         RequisitionDocument reqDoc = SpringContext.getBean(RequisitionService.class).getRequisitionById(po.getRequisitionIdentifier());
-        if (reqDoc != null){ // reqDoc is null when called from unit test
+        if (reqDoc != null) { // reqDoc is null when called from unit test
             String requisitionPreparer = reqDoc.getFinancialSystemDocumentHeader().getWorkflowDocument().getInitiatorPrincipalId();
             /**
              * This is to get the user name for display
@@ -154,7 +154,7 @@ public class BulkReceivingDocument extends ReceivingDocumentBase{
             setPreparerPersonName(initiatorUser.getName());
         }
 
-        if (getVendorNumber() != null){
+        if (getVendorNumber() != null) {
             setGoodsDeliveredVendorHeaderGeneratedIdentifier(getVendorHeaderGeneratedIdentifier());
             setGoodsDeliveredVendorDetailAssignedIdentifier(getVendorDetailAssignedIdentifier());
             setGoodsDeliveredVendorNumber(getVendorNumber());
@@ -166,10 +166,10 @@ public class BulkReceivingDocument extends ReceivingDocumentBase{
 
     }
 
-    protected void populateVendorDetails(){
+    protected void populateVendorDetails() {
 
         if (getVendorHeaderGeneratedIdentifier() != null &&
-            getVendorDetailAssignedIdentifier() != null){
+            getVendorDetailAssignedIdentifier() != null) {
             VendorDetail tempVendor = new VendorDetail();
             tempVendor.setVendorHeaderGeneratedIdentifier(getVendorHeaderGeneratedIdentifier());
             tempVendor.setVendorDetailAssignedIdentifier(getVendorDetailAssignedIdentifier());
@@ -177,25 +177,25 @@ public class BulkReceivingDocument extends ReceivingDocumentBase{
         }
 
         if (getAlternateVendorHeaderGeneratedIdentifier() != null &&
-            getAlternateVendorDetailAssignedIdentifier() != null){
+            getAlternateVendorDetailAssignedIdentifier() != null) {
 
             VendorDetail vendorDetail = SpringContext.getBean(VendorService.class).getVendorDetail(getAlternateVendorHeaderGeneratedIdentifier(),
-                                                                                                   getAlternateVendorDetailAssignedIdentifier());
+                getAlternateVendorDetailAssignedIdentifier());
             //copied from creditmemocreateserviceimpl.populatedocumentfromvendor
             String userCampus = GlobalVariables.getUserSession().getPerson().getCampusCode();
             VendorAddress vendorAddress = SpringContext.getBean(VendorService.class).getVendorDefaultAddress(getAlternateVendorHeaderGeneratedIdentifier(),
-                                                                                                             getAlternateVendorDetailAssignedIdentifier(),
-                                                                                                             VendorConstants.AddressTypes.REMIT,
-                                                                                                             userCampus);
+                getAlternateVendorDetailAssignedIdentifier(),
+                VendorConstants.AddressTypes.REMIT,
+                userCampus);
             if (vendorAddress == null) {
-            // pick up the default vendor po address type
+                // pick up the default vendor po address type
                 vendorAddress = SpringContext.getBean(VendorService.class).getVendorDefaultAddress(getAlternateVendorHeaderGeneratedIdentifier(),
-                                                                                                   getAlternateVendorDetailAssignedIdentifier(),
-                                                                                                   VendorConstants.AddressTypes.PURCHASE_ORDER,
-                                                                                                   userCampus);
+                    getAlternateVendorDetailAssignedIdentifier(),
+                    VendorConstants.AddressTypes.PURCHASE_ORDER,
+                    userCampus);
             }
 
-            if (vendorAddress != null){
+            if (vendorAddress != null) {
                 setAlternateVendorName(vendorDetail.getVendorName());
                 setAlternateVendorNumber(vendorDetail.getVendorNumber());
                 vendorDetail.setDefaultAddressLine1(vendorAddress.getVendorLine1Address());
@@ -211,14 +211,14 @@ public class BulkReceivingDocument extends ReceivingDocumentBase{
         }
 
         if (getGoodsDeliveredVendorHeaderGeneratedIdentifier() != null &&
-            getGoodsDeliveredVendorDetailAssignedIdentifier() != null){
+            getGoodsDeliveredVendorDetailAssignedIdentifier() != null) {
             VendorDetail tempVendor = new VendorDetail();
             tempVendor.setVendorHeaderGeneratedIdentifier(getGoodsDeliveredVendorHeaderGeneratedIdentifier());
             tempVendor.setVendorDetailAssignedIdentifier(getGoodsDeliveredVendorDetailAssignedIdentifier());
             setGoodsDeliveredVendorNumber(tempVendor.getVendorNumber());
-            if (StringUtils.equals(getVendorNumber(),getGoodsDeliveredVendorNumber())){
+            if (StringUtils.equals(getVendorNumber(), getGoodsDeliveredVendorNumber())) {
                 setGoodsDeliveredVendorName(getVendorName());
-            }else {
+            } else {
                 setGoodsDeliveredVendorName(getAlternateVendorName());
             }
         }
@@ -255,11 +255,12 @@ public class BulkReceivingDocument extends ReceivingDocumentBase{
 
         if (event instanceof AttributedContinuePurapEvent) {
             SpringContext.getBean(BulkReceivingService.class).populateBulkReceivingFromPurchaseOrder(this);
-            if (getPurchaseOrderIdentifier() == null){
-                getDocumentHeader().setDocumentDescription(PurapConstants.BulkReceivingDocumentStrings.MESSAGE_BULK_RECEIVING_DEFAULT_DOC_DESCRIPTION);;
+            if (getPurchaseOrderIdentifier() == null) {
+                getDocumentHeader().setDocumentDescription(PurapConstants.BulkReceivingDocumentStrings.MESSAGE_BULK_RECEIVING_DEFAULT_DOC_DESCRIPTION);
+                ;
             }
-        }else{
-            if (getGoodsDeliveredVendorNumber() != null){
+        } else {
+            if (getGoodsDeliveredVendorNumber() != null) {
                 VendorDetail tempVendor = new VendorDetail();
                 tempVendor.setVendorNumber(getGoodsDeliveredVendorNumber());
                 setGoodsDeliveredVendorHeaderGeneratedIdentifier(tempVendor.getVendorHeaderGeneratedIdentifier());
@@ -281,7 +282,7 @@ public class BulkReceivingDocument extends ReceivingDocumentBase{
 
     @Override
     public String getDeliveryCountryName() {
-        if ( StringUtils.isNotBlank(getDeliveryCountryCode()) ) {
+        if (StringUtils.isNotBlank(getDeliveryCountryCode())) {
             Country country = SpringContext.getBean(CountryService.class).getCountry(getDeliveryCountryCode());
             if (country != null) {
                 return country.getName();
@@ -471,13 +472,14 @@ public class BulkReceivingDocument extends ReceivingDocumentBase{
     }
 
     @Override
-    public String getWorkflowStatusForResult(){
+    public String getWorkflowStatusForResult() {
         return PurapSearchUtils.getWorkFlowStatusString(getDocumentHeader());
     }
 
     /**
      * It's not needed to implement this method in this class since bulk receiving doesn't support items.
      * Calling this method will throw an UnsupportedOperationException
+     *
      * @throws UnsupportedOperationException
      */
     @Override
@@ -488,6 +490,7 @@ public class BulkReceivingDocument extends ReceivingDocumentBase{
     /**
      * It's not needed to implement PurapItemOperations methods in this class since bulk receiving doesn't support items.
      * Calling this method will throw an UnsupportedOperationException
+     *
      * @throws UnsupportedOperationException
      */
     @Override
@@ -498,6 +501,7 @@ public class BulkReceivingDocument extends ReceivingDocumentBase{
     /**
      * It's not needed to implement PurapItemOperations methods in this class since bulk receiving doesn't support items.
      * Calling this method will throw an UnsupportedOperationException
+     *
      * @throws UnsupportedOperationException
      */
     @Override
@@ -508,6 +512,7 @@ public class BulkReceivingDocument extends ReceivingDocumentBase{
     /**
      * It's not needed to implement PurapItemOperations methods in this class since bulk receiving doesn't support items.
      * Calling this method will throw an UnsupportedOperationException
+     *
      * @throws UnsupportedOperationException
      */
     @Override

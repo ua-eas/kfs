@@ -1,43 +1,35 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ld.document.web.struts;
 
-import static org.kuali.kfs.sys.KFSKeyConstants.ERROR_ZERO_AMOUNT;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.kns.web.struts.form.KualiForm;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.document.TransactionalDocument;
+import org.kuali.kfs.krad.service.PersistenceService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.module.ld.LaborConstants;
 import org.kuali.kfs.module.ld.businessobject.ExpenseTransferAccountingLine;
 import org.kuali.kfs.module.ld.businessobject.LaborAccountingLineOverride;
@@ -49,21 +41,26 @@ import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.AccountingLineOverride;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocument;
-import org.kuali.kfs.sys.document.validation.event.AddAccountingLineEvent;
 import org.kuali.kfs.sys.service.SegmentedLookupResultsService;
 import org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.rice.kns.web.struts.form.KualiForm;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.document.TransactionalDocument;
-import org.kuali.rice.krad.rules.rule.event.KualiDocumentEventBase;
-import org.kuali.rice.krad.service.KualiRuleService;
-import org.kuali.rice.krad.service.PersistenceService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.UrlFactory;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
+
+import static org.kuali.kfs.sys.KFSKeyConstants.ERROR_ZERO_AMOUNT;
 
 /**
  * Base Struts Action class for Benefit Expense Transfer Document.
@@ -76,7 +73,9 @@ public class ExpenseTransferDocumentActionBase extends KualiAccountingDocumentAc
      */
     @Override
     public ActionForward performBalanceInquiryForSourceLine(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        ExpenseTransferAccountingLine line = (ExpenseTransferAccountingLine)this.getSourceAccountingLine(form, request);
+        LOG.debug("performBalanceInquiryForSourceLine() started");
+
+        ExpenseTransferAccountingLine line = (ExpenseTransferAccountingLine) this.getSourceAccountingLine(form, request);
         line.setPostingYear(line.getPayrollEndDateFiscalYear());
 
         return performBalanceInquiryForAccountingLine(mapping, form, request, line);
@@ -87,7 +86,9 @@ public class ExpenseTransferDocumentActionBase extends KualiAccountingDocumentAc
      */
     @Override
     public ActionForward performBalanceInquiryForTargetLine(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        ExpenseTransferAccountingLine line = (ExpenseTransferAccountingLine)this.getTargetAccountingLine(form, request);
+        LOG.debug("performBalanceInquiryForTargetLine() started");
+
+        ExpenseTransferAccountingLine line = (ExpenseTransferAccountingLine) this.getTargetAccountingLine(form, request);
         line.setPostingYear(line.getPayrollEndDateFiscalYear());
 
         return performBalanceInquiryForAccountingLine(mapping, form, request, line);
@@ -104,6 +105,8 @@ public class ExpenseTransferDocumentActionBase extends KualiAccountingDocumentAc
      * @throws Exception
      */
     public ActionForward performBalanceInquiryLookup(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        LOG.debug("performBalanceInquiryLookup() started");
+
         ExpenseTransferDocumentFormBase financialDocumentForm = (ExpenseTransferDocumentFormBase) form;
 
         // when we return from the lookup, our next request's method to call is going to be refresh
@@ -111,7 +114,7 @@ public class ExpenseTransferDocumentActionBase extends KualiAccountingDocumentAc
 
         TransactionalDocument document = financialDocumentForm.getTransactionalDocument();
 
-        String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+        String basePath = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY);
 
         // parse out the important strings from our methodToCall parameter
         String fullParameter = (String) request.getAttribute(KFSConstants.METHOD_TO_CALL_ATTRIBUTE);
@@ -185,10 +188,12 @@ public class ExpenseTransferDocumentActionBase extends KualiAccountingDocumentAc
      * line amount. 5) Call insertAccountingLine
      *
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#refresh(ActionMapping, ActionForm, HttpServletRequest,
-     *      HttpServletResponse)
+     * HttpServletResponse)
      */
     @Override
     public ActionForward refresh(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        LOG.debug("refresh() started");
+
         super.refresh(mapping, form, request, response);
 
         ExpenseTransferDocumentFormBase expenseTransferDocumentForm = (ExpenseTransferDocumentFormBase) form;
@@ -242,8 +247,7 @@ public class ExpenseTransferDocumentActionBase extends KualiAccountingDocumentAc
                                 // Notice that user tried to import an accounting line which has Zero amount
                                 if (KualiDecimal.ZERO.compareTo(lineAmount) == 0) {
                                     GlobalVariables.getMessageMap().putError(KFSPropertyConstants.SOURCE_ACCOUNTING_LINES, ERROR_ZERO_AMOUNT, "an accounting line");
-                                }
-                                else {
+                                } else {
                                     buildAccountingLineFromLedgerBalance((LedgerBalance) bo, line, lineAmount, periodCode);
 
                                     // SpringContext.getBean(KualiRuleService.class).applyRules(new
@@ -255,8 +259,7 @@ public class ExpenseTransferDocumentActionBase extends KualiAccountingDocumentAc
                                     updateAccountOverrideCode(financialDocument, line);
                                     processAccountingLineOverrides(line);
                                 }
-                            }
-                            catch (Exception e) {
+                            } catch (Exception e) {
                                 // No way to recover gracefully, so throw it back as a RuntimeException
                                 throw new RuntimeException(e);
                             }
@@ -278,13 +281,15 @@ public class ExpenseTransferDocumentActionBase extends KualiAccountingDocumentAc
      */
     @Override
     protected void loadDocument(KualiDocumentFormBase kualiDocumentFormBase) throws WorkflowException {
+        LOG.debug("loadDocument() started");
+
         super.loadDocument(kualiDocumentFormBase);
         ExpenseTransferDocumentFormBase expenseTransferDocumentForm = (ExpenseTransferDocumentFormBase) kualiDocumentFormBase;
         expenseTransferDocumentForm.populateSearchFields();
     }
 
     /**
-     * This method copies all accounting lines from financial document form if they pass validation rules
+     * This method copies all accounting lines from financial document form
      *
      * @param mapping
      * @param form
@@ -294,22 +299,24 @@ public class ExpenseTransferDocumentActionBase extends KualiAccountingDocumentAc
      * @throws Exception
      */
     public ActionForward copyAllAccountingLines(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        LOG.debug("copyAllAccountingLines() started");
+
+        PersistenceService persistenceService = getPersistenceService();
         ExpenseTransferDocumentFormBase financialDocumentForm = (ExpenseTransferDocumentFormBase) form;
         for (Object line : financialDocumentForm.getFinancialDocument().getSourceAccountingLines()) {
             ExpenseTransferAccountingLine to = (ExpenseTransferAccountingLine) financialDocumentForm.getFinancialDocument().getTargetAccountingLineClass().newInstance();
             copyAccountingLine((ExpenseTransferAccountingLine) line, to);
 
-            boolean rulePassed = runRule(new AddAccountingLineEvent(KFSConstants.NEW_TARGET_ACCT_LINE_PROPERTY_NAME, financialDocumentForm.getDocument(), to));
+            persistenceService.retrieveNonKeyFields(line);
+            insertAccountingLine(false, financialDocumentForm, to);
 
-            // if the rule evaluation passed, let's add it
-            if (rulePassed) {
-                // add accountingLine
-                SpringContext.getBean(PersistenceService.class).retrieveNonKeyFields(line);
-                insertAccountingLine(false, financialDocumentForm, to);
-            }
             processAccountingLineOverrides(to);
         }
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
+    }
+
+    protected PersistenceService getPersistenceService() {
+        return SpringContext.getBean(PersistenceService.class);
     }
 
     /**
@@ -323,6 +330,8 @@ public class ExpenseTransferDocumentActionBase extends KualiAccountingDocumentAc
      * @throws Exception
      */
     public ActionForward deleteAllSourceAccountingLines(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        LOG.debug("deleteAllSourceAccountingLines() started");
+
         ExpenseTransferDocumentFormBase financialDocumentForm = (ExpenseTransferDocumentFormBase) form;
         financialDocumentForm.getFinancialDocument().setSourceAccountingLines(new ArrayList());
 
@@ -340,6 +349,8 @@ public class ExpenseTransferDocumentActionBase extends KualiAccountingDocumentAc
      * @throws Exception
      */
     public ActionForward deleteAllTargetAccountingLines(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        LOG.debug("deleteAllTargetAccountingLines() started");
+
         ExpenseTransferDocumentFormBase financialDocumentForm = (ExpenseTransferDocumentFormBase) form;
         financialDocumentForm.getFinancialDocument().setTargetAccountingLines(new ArrayList());
 
@@ -351,9 +362,11 @@ public class ExpenseTransferDocumentActionBase extends KualiAccountingDocumentAc
      * Copy a single accounting line
      *
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#copyAccountingLine(ActionMapping, ActionForm,
-     *      HttpServletRequest, HttpServletResponse)
+     * HttpServletRequest, HttpServletResponse)
      */
     public ActionForward copyAccountingLine(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        LOG.debug("copyAccountingLine() started");
+
         ExpenseTransferDocumentFormBase financialDocumentForm = (ExpenseTransferDocumentFormBase) form;
         LaborExpenseTransferDocumentBase financialDocument = (LaborExpenseTransferDocumentBase) financialDocumentForm.getDocument();
 
@@ -362,16 +375,9 @@ public class ExpenseTransferDocumentActionBase extends KualiAccountingDocumentAc
         ExpenseTransferAccountingLine line = (ExpenseTransferAccountingLine) financialDocumentForm.getFinancialDocument().getTargetAccountingLineClass().newInstance();
         copyAccountingLine((ExpenseTransferAccountingLine) financialDocument.getSourceAccountingLine(index), line);
 
-        boolean rulePassed = runRule(new AddAccountingLineEvent(KFSConstants.NEW_TARGET_ACCT_LINE_PROPERTY_NAME, financialDocumentForm.getDocument(), line));
-        // if the rule evaluation passed, let's add it
-        // KFSMI-9133 : allowing the line to insert even on a rule failure since the user has
-        // no ability to make changes since the source is read only
-        // This will then depend on document final edits catching any problems.
-        //if (rulePassed) {
-            // add accountingLine
-            SpringContext.getBean(PersistenceService.class).retrieveNonKeyFields(line);
-            insertAccountingLine(false, financialDocumentForm, line);
-        //}
+        SpringContext.getBean(PersistenceService.class).retrieveNonKeyFields(line);
+        insertAccountingLine(false, financialDocumentForm, line);
+
         processAccountingLineOverrides(line);
 
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
@@ -381,7 +387,7 @@ public class ExpenseTransferDocumentActionBase extends KualiAccountingDocumentAc
      * Reset the lookup fields in the given expense transfer form with the given ledger balance
      *
      * @param expenseTransferDocumentForm the given expense transfer form
-     * @param the given ledger balance
+     * @param the                         given ledger balance
      */
     protected void resetLookupFields(ExpenseTransferDocumentFormBase expenseTransferDocumentForm, LedgerBalance balance) {
         expenseTransferDocumentForm.setUniversityFiscalYear(balance.getUniversityFiscalYear());
@@ -414,7 +420,7 @@ public class ExpenseTransferDocumentActionBase extends KualiAccountingDocumentAc
     /**
      * Translates <code>{@link LedgerBalance}</code> data into an <code>{@link ExpenseTransferAccountingLine}</code>
      *
-     * @param bo <code>{@link LedgerBalance}</code> instance
+     * @param bo   <code>{@link LedgerBalance}</code> instance
      * @param line <code>{@link ExpenseTransferAccountingLine}</code> to copy data to
      */
     protected void buildAccountingLineFromLedgerBalance(LedgerBalance ledgerBalance, ExpenseTransferAccountingLine line, KualiDecimal amount, String periodCode) {
@@ -447,28 +453,23 @@ public class ExpenseTransferDocumentActionBase extends KualiAccountingDocumentAc
      */
     @Override
     protected void processAccountingLineOverrides(List accountingLines) {
-        processAccountingLineOverrides(null,accountingLines);
+        processAccountingLineOverrides(null, accountingLines);
     }
 
-   /**
-    *
-    * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#processAccountingLineOverrides(org.kuali.kfs.sys.document.AccountingDocument, java.util.List)
-    */
+    /**
+     * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#processAccountingLineOverrides(org.kuali.kfs.sys.document.AccountingDocument, java.util.List)
+     */
     @Override
-     protected void processAccountingLineOverrides(AccountingDocument financialDocument ,List accountingLines) {
+    protected void processAccountingLineOverrides(AccountingDocument financialDocument, List accountingLines) {
         if (!accountingLines.isEmpty()) {
-
-
-            for (Iterator i = accountingLines.iterator(); i.hasNext();) {
+            for (Iterator i = accountingLines.iterator(); i.hasNext(); ) {
                 AccountingLine line = (AccountingLine) i.next();
-               // line.refreshReferenceObject("account");
+                // line.refreshReferenceObject("account");
                 SpringContext.getBean(PersistenceService.class).retrieveReferenceObjects(line, AccountingLineOverride.REFRESH_FIELDS);
                 LaborAccountingLineOverride.processForOutput(financialDocument, line);
             }
         }
     }
-
-
 
     /**
      * For given accounting line, set the corresponding override code
@@ -478,19 +479,6 @@ public class ExpenseTransferDocumentActionBase extends KualiAccountingDocumentAc
     protected void updateAccountOverrideCode(AccountingDocument accountingDocument, ExpenseTransferAccountingLine line) {
         AccountingLineOverride override = LaborAccountingLineOverride.determineNeededOverrides(accountingDocument, line);
         line.setOverrideCode(override.getCode());
-    }
-
-    /**
-     * Executes for the given event. This is more of a convenience method.
-     *
-     * @param event to run the rules for
-     * @return true if rule passes
-     */
-    protected boolean runRule(KualiDocumentEventBase event) {
-        // check any business rules
-
-        boolean rulePassed = SpringContext.getBean(KualiRuleService.class).applyRules(event);
-        return rulePassed;
     }
 
     /**

@@ -1,25 +1,32 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.document.validation.impl;
 
-import java.util.Map;
-
+import org.kuali.kfs.kns.rules.DocumentRuleBase;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.bo.AdHocRoutePerson;
+import org.kuali.kfs.krad.bo.AdHocRouteWorkgroup;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.document.TransactionalDocument;
+import org.kuali.kfs.krad.rules.rule.event.ApproveDocumentEvent;
+import org.kuali.kfs.krad.rules.rule.event.BlanketApproveDocumentEvent;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -35,22 +42,15 @@ import org.kuali.kfs.sys.document.validation.event.AttributedBlanketApproveDocum
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.kfs.sys.document.validation.event.AttributedRouteDocumentEvent;
 import org.kuali.kfs.sys.document.validation.event.AttributedSaveDocumentEvent;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.bo.AdHocRoutePerson;
-import org.kuali.rice.krad.bo.AdHocRouteWorkgroup;
-import org.kuali.rice.krad.bo.Note;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.document.TransactionalDocument;
-import org.kuali.rice.kns.rules.DocumentRuleBase;
-import org.kuali.rice.krad.rules.rule.event.ApproveDocumentEvent;
-import org.kuali.rice.krad.rules.rule.event.BlanketApproveDocumentEvent;
+
+import java.util.Map;
 
 /**
  * A rule that uses the accounting rule engine to perform rule validations.
  */
 public class AccountingRuleEngineRuleBase extends DocumentRuleBase implements AccountingRuleEngineRule {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AccountingRuleEngineRuleBase.class);
-    
+
     /**
      * Constructs a AccountingRuleEngineRuleBase.java.
      */
@@ -62,27 +62,28 @@ public class AccountingRuleEngineRuleBase extends DocumentRuleBase implements Ac
      * @see org.kuali.kfs.sys.document.validation.AccountingRuleEngineRule#validateForEvent(org.kuali.rice.krad.rule.event.KualiDocumentEvent)
      */
     public boolean validateForEvent(AttributedDocumentEvent event) {
-        final FinancialSystemTransactionalDocumentEntry documentEntry = getDataDictionaryEntryForDocument((TransactionalDocument)event.getDocument());
+        final FinancialSystemTransactionalDocumentEntry documentEntry = getDataDictionaryEntryForDocument((TransactionalDocument) event.getDocument());
         final Map<Class, String> validationMap = documentEntry.getValidationMap();
-        
+
         if (validationMap == null || !validationMap.containsKey(event.getClass())) {
             return true; // no validation?  just return true
         } else {
             final String beanName = validationMap.get(event.getClass());
             Validation validationBean = SpringContext.getBean(Validation.class, beanName);
-            
-            final boolean valid = validationBean.stageValidation(event);            
+
+            final boolean valid = validationBean.stageValidation(event);
             return valid;
         }
     }
-    
+
     /**
      * Returns the validation from the data dictionary for the document in the event
+     *
      * @param document the document to look up a data dictionary entry for
      * @return a document entry
      */
     protected FinancialSystemTransactionalDocumentEntry getDataDictionaryEntryForDocument(TransactionalDocument document) {
-        return (FinancialSystemTransactionalDocumentEntry)SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getDictionaryObjectEntry(document.getClass().getName());
+        return (FinancialSystemTransactionalDocumentEntry) SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getDictionaryObjectEntry(document.getClass().getName());
     }
 
     /**
@@ -91,9 +92,9 @@ public class AccountingRuleEngineRuleBase extends DocumentRuleBase implements Ac
     @Override
     protected boolean processCustomAddAdHocRoutePersonBusinessRules(Document document, AdHocRoutePerson person) {
         boolean result = super.processCustomAddAdHocRoutePersonBusinessRules(document, person);
-        
+
         result &= validateForEvent(new AttributedAddAdHocRoutePersonEvent(document, person));
-        
+
         return result;
     }
 
@@ -103,9 +104,9 @@ public class AccountingRuleEngineRuleBase extends DocumentRuleBase implements Ac
     @Override
     protected boolean processCustomAddAdHocRouteWorkgroupBusinessRules(Document document, AdHocRouteWorkgroup workgroup) {
         boolean result = super.processCustomAddAdHocRouteWorkgroupBusinessRules(document, workgroup);
-        
+
         result &= validateForEvent(new AttributedAddAdHocRouteWorkgroupEvent(document, workgroup));
-        
+
         return result;
     }
 
@@ -115,9 +116,9 @@ public class AccountingRuleEngineRuleBase extends DocumentRuleBase implements Ac
     @Override
     protected boolean processCustomAddNoteBusinessRules(Document document, Note note) {
         boolean result = super.processCustomAddNoteBusinessRules(document, note);
-        
+
         result &= validateForEvent(new AttributedAddNoteEvent(document, note));
-        
+
         return result;
     }
 
@@ -127,13 +128,13 @@ public class AccountingRuleEngineRuleBase extends DocumentRuleBase implements Ac
     @Override
     protected boolean processCustomApproveDocumentBusinessRules(ApproveDocumentEvent approveEvent) {
         boolean result = super.processCustomApproveDocumentBusinessRules(approveEvent);
-        
+
         if (approveEvent instanceof BlanketApproveDocumentEvent) {
             result &= validateForEvent(new AttributedBlanketApproveDocumentEvent(approveEvent.getErrorPathPrefix(), approveEvent.getDocument()));
         } else {
             result &= validateForEvent(new AttributedApproveDocumentEvent(approveEvent.getErrorPathPrefix(), approveEvent.getDocument()));
         }
-        
+
         return result;
     }
 
@@ -144,9 +145,9 @@ public class AccountingRuleEngineRuleBase extends DocumentRuleBase implements Ac
     protected boolean processCustomRouteDocumentBusinessRules(Document document) {
         boolean result = super.processCustomRouteDocumentBusinessRules(document);
 
-        AttributedRouteDocumentEvent event = new AttributedRouteDocumentEvent(document);        
+        AttributedRouteDocumentEvent event = new AttributedRouteDocumentEvent(document);
         result &= validateForEvent(event);
-        
+
         return result;
     }
 
@@ -156,27 +157,27 @@ public class AccountingRuleEngineRuleBase extends DocumentRuleBase implements Ac
     @Override
     protected boolean processCustomSaveDocumentBusinessRules(Document document) {
         boolean result = super.processCustomSaveDocumentBusinessRules(document);
-        
+
         result &= validateForEvent(new AttributedSaveDocumentEvent(document));
-        
+
         return result;
     }
-    
+
     /**
      * @see org.kuali.rice.krad.rules.DocumentRuleBase#isDocumentAttributesValid(org.kuali.rice.krad.document.Document, boolean)
      */
     @Override
     public boolean isDocumentAttributesValid(Document document, boolean validateRequired) {
-        FinancialSystemTransactionalDocumentEntry documentEntry = getDataDictionaryEntryForDocument((TransactionalDocument)document);
+        FinancialSystemTransactionalDocumentEntry documentEntry = getDataDictionaryEntryForDocument((TransactionalDocument) document);
         Integer maxDictionaryValidationDepth = documentEntry.getMaxDictionaryValidationDepth();
-        
-        if(maxDictionaryValidationDepth != null) {
+
+        if (maxDictionaryValidationDepth != null) {
             this.setMaxDictionaryValidationDepth(maxDictionaryValidationDepth);
         }
-        
+
         //refresh the document's reference objects..
         document.refreshNonUpdateableReferences();
-        
+
         //refresh GLPE nonupdateable business object references....
         if (document instanceof GeneralLedgerPostingDocumentBase) {
             GeneralLedgerPostingDocumentBase glpeDocument = (GeneralLedgerPostingDocumentBase) document;
@@ -184,7 +185,7 @@ public class AccountingRuleEngineRuleBase extends DocumentRuleBase implements Ac
                 glpe.refreshReferenceObject(KFSPropertyConstants.FINANCIAL_OBJECT);
             }
         }
-        
+
         return super.isDocumentAttributesValid(document, validateRequired);
     }
 }

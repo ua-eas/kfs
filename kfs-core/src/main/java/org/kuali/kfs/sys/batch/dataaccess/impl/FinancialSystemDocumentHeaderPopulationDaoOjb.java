@@ -1,24 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.batch.dataaccess.impl;
-
-import java.util.Collection;
 
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.Query;
@@ -31,13 +29,14 @@ import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
 import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeaderMissingFromWorkflow;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 
+import java.util.Collection;
+
 /**
  * Base implementation of the FinancialSystemDocumentHeaderPopulationDao DAO
  */
 public class FinancialSystemDocumentHeaderPopulationDaoOjb extends PlatformAwareDaoBaseOjb implements FinancialSystemDocumentHeaderPopulationDao {
 
     /**
-     *
      * @see org.kuali.kfs.sys.batch.dataaccess.FinancialSystemDocumentHeaderPopulationDao#countTotalFinancialSystemDocumentHeadersToProcess()
      */
     @Override
@@ -50,6 +49,7 @@ public class FinancialSystemDocumentHeaderPopulationDaoOjb extends PlatformAware
 
     /**
      * Reads in a set of FinancialSystemDocumentHeader records, limited by the indices, ordered by document number
+     *
      * @see org.kuali.kfs.sys.batch.dataaccess.FinancialSystemDocumentHeaderPopulationDao#getFinancialSystemDocumentHeadersForBatch(int, int)
      */
     @Override
@@ -79,7 +79,7 @@ public class FinancialSystemDocumentHeaderPopulationDaoOjb extends PlatformAware
      */
     protected Query buildFinancialSystemDocumentHeadersWithNoWorkflowHeadersSubQuery() {
         ReportQueryByCriteria query = QueryFactory.newReportQuery(FinancialSystemDocumentHeaderMissingFromWorkflow.class, new Criteria());
-        query.setAttributes(new String[] { KFSPropertyConstants.DOCUMENT_NUMBER });
+        query.setAttributes(new String[]{KFSPropertyConstants.DOCUMENT_NUMBER});
         return query;
     }
 }

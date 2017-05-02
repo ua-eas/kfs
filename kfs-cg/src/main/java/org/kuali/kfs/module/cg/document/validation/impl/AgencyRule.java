@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,14 +18,15 @@
  */
 package org.kuali.kfs.module.cg.document.validation.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomer;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cg.CGConstants;
 import org.kuali.kfs.module.cg.CGKeyConstants;
 import org.kuali.kfs.module.cg.CGPropertyConstants;
@@ -35,12 +36,11 @@ import org.kuali.kfs.module.cg.businessobject.AgencyType;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Rules for processing Agency instances.
@@ -142,8 +142,7 @@ public class AgencyRule extends CGMaintenanceDocumentRuleBase {
             if (agencyReportingName.length() < 3) {
                 putFieldError("reportingName", CGKeyConstants.AgencyConstants.ERROR_AGENCY_NAME_LESS_THAN_THREE_CHARACTERS);
                 return false;
-            }
-            else if (agencyReportingName.substring(0, 3).contains(" ")) {
+            } else if (agencyReportingName.substring(0, 3).contains(" ")) {
                 putFieldError("reportingName", CGKeyConstants.AgencyConstants.ERROR_AGENCY_NAME_NO_SPACES_IN_FIRST_THREE_CHARACTERS);
                 return false;
             }
@@ -164,20 +163,17 @@ public class AgencyRule extends CGMaintenanceDocumentRuleBase {
                 putFieldError("reportsToAgencyNumber", KFSKeyConstants.ERROR_AGENCY_NOT_FOUND, newAgency.getReportsToAgencyNumber());
                 success = false;
 
-            }
-            else if (!newAgency.getReportsToAgency().isActive()) { // Agency must be active. See KULCG-263
+            } else if (!newAgency.getReportsToAgency().isActive()) { // Agency must be active. See KULCG-263
 
                 putFieldError("reportsToAgencyNumber", KFSKeyConstants.ERROR_AGENCY_INACTIVE, newAgency.getReportsToAgencyNumber());
                 success = false;
 
-            }
-            else if (newAgency.getAgencyNumber().equals(newAgency.getReportsToAgencyNumber())) {
+            } else if (newAgency.getAgencyNumber().equals(newAgency.getReportsToAgencyNumber())) {
 
                 putFieldError("reportsToAgencyNumber", KFSKeyConstants.ERROR_AGENCY_REPORTS_TO_SELF, newAgency.getAgencyNumber());
                 success = false;
 
-            }
-            else { // No circular references
+            } else { // No circular references
 
                 List agencies = new ArrayList();
 
@@ -186,8 +182,7 @@ public class AgencyRule extends CGMaintenanceDocumentRuleBase {
                 while (agency.getReportsToAgency() != null && success) {
                     if (!agencies.contains(agency.getAgencyNumber())) {
                         agencies.add(agency.getAgencyNumber());
-                    }
-                    else {
+                    } else {
 
                         putFieldError("reportsToAgencyNumber", KFSKeyConstants.ERROR_AGENCY_CIRCULAR_REPORTING, agency.getAgencyNumber());
                         success = false;
@@ -215,7 +210,7 @@ public class AgencyRule extends CGMaintenanceDocumentRuleBase {
      * Primary Agency Addresses. At most one Primary Agency Address is allowed. contract.
      *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processAddCollectionLineBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument,
-     *      java.lang.String, org.kuali.rice.krad.bo.PersistableBusinessObject)
+     * java.lang.String, org.kuali.rice.krad.bo.PersistableBusinessObject)
      */
     @Override
     public boolean processAddCollectionLineBusinessRules(MaintenanceDocument document, String collectionName, PersistableBusinessObject line) {
@@ -237,8 +232,7 @@ public class AgencyRule extends CGMaintenanceDocumentRuleBase {
                                 String elementLabel = SpringContext.getBean(DataDictionaryService.class).getCollectionElementLabel(Agency.class.getName(), collectionName, AgencyAddress.class);
                                 putFieldError(collectionName, KFSKeyConstants.ERROR_MULTIPLE_PRIMARY, elementLabel);
                                 return false;
-                            }
-                            else {
+                            } else {
                                 boolean isValid = checkAddressIsValid(newAgencyAddress);
                                 if (!isValid) {
                                     return isValid;
@@ -273,8 +267,7 @@ public class AgencyRule extends CGMaintenanceDocumentRuleBase {
                     isValid = false;
                     GlobalVariables.getMessageMap().putError(CGPropertyConstants.AgencyFields.AGENCY_ADDRESS_STATE_CODE, CGKeyConstants.AgencyConstants.ERROR_AGENCY_ADDRESS_STATE_CODE_REQUIRED_WHEN_COUNTTRY_US);
                 }
-            }
-            else {
+            } else {
                 if (StringUtils.isBlank(agencyAddress.getAgencyInternationalMailCode())) {
                     isValid = false;
                     GlobalVariables.getMessageMap().putError(CGPropertyConstants.AgencyFields.AGENCY_ADDRESS_INTERNATIONAL_MAIL_CODE, CGKeyConstants.AgencyConstants.ERROR_AGENCY_ADDRESS_INTERNATIONAL_MAIL_CODE_REQUIRED_WHEN_COUNTTRY_NON_US);
@@ -309,8 +302,7 @@ public class AgencyRule extends CGMaintenanceDocumentRuleBase {
                     isValid = false;
                     putFieldError(propertyName + CGPropertyConstants.AgencyFields.AGENCY_ADDRESS_STATE_CODE, CGKeyConstants.AgencyConstants.ERROR_AGENCY_ADDRESS_STATE_CODE_REQUIRED_WHEN_COUNTTRY_US);
                 }
-            }
-            else {
+            } else {
                 if (StringUtils.isBlank(agencyAddress.getAgencyInternationalMailCode())) {
                     isValid = false;
                     putFieldError(propertyName + CGPropertyConstants.AgencyFields.AGENCY_ADDRESS_INTERNATIONAL_MAIL_CODE, CGKeyConstants.AgencyConstants.ERROR_AGENCY_ADDRESS_INTERNATIONAL_MAIL_CODE_REQUIRED_WHEN_COUNTTRY_NON_US);
@@ -347,6 +339,7 @@ public class AgencyRule extends CGMaintenanceDocumentRuleBase {
     /**
      * This method validates that a customer type is selected when the create new customer option is selected, and that if existing customer option
      * is selected that customer number is filled in with an existing customer.
+     *
      * @param agency agency record to verify
      * @return true if agency passes verification, false otherwise
      */
@@ -354,9 +347,9 @@ public class AgencyRule extends CGMaintenanceDocumentRuleBase {
         boolean isValid = true;
 
         // Only validate if new customer create option is selected
-        if ( StringUtils.equalsIgnoreCase(CGConstants.AGENCY_CREATE_NEW_CUSTOMER_CODE, agency.getCustomerCreationOptionCode()) ){
+        if (StringUtils.equalsIgnoreCase(CGConstants.AGENCY_CREATE_NEW_CUSTOMER_CODE, agency.getCustomerCreationOptionCode())) {
             // Customer Type must be filled-in
-            if( StringUtils.isEmpty(agency.getCustomerTypeCode()) ){
+            if (StringUtils.isEmpty(agency.getCustomerTypeCode())) {
                 putFieldError(CGPropertyConstants.AgencyFields.AGENCY_CUSTOMER_TYPE_CODE, CGKeyConstants.AgencyConstants.ERROR_AGENCY_CUSTOMER_TYPE_CODE_REQUIRED_WHEN_AGENCY_CUSTOMER_NEW);
                 isValid &= false;
             }
@@ -367,7 +360,7 @@ public class AgencyRule extends CGMaintenanceDocumentRuleBase {
             } else {
                 final AccountsReceivableCustomer customer = agency.getCustomer();
                 if (ObjectUtils.isNull(customer) || !customer.isActive()) {
-                    putFieldError(CGPropertyConstants.AgencyFields.AGENCY_CUSTOMER_NUMBER, CGKeyConstants.AgencyConstants.ERROR_AGENCY_ACTUAL_CUSTOMER_REQUIRED_WHEN_AGENCY_CUSTOMER_EXISTING, new String[] { agency.getCustomerNumber() });
+                    putFieldError(CGPropertyConstants.AgencyFields.AGENCY_CUSTOMER_NUMBER, CGKeyConstants.AgencyConstants.ERROR_AGENCY_ACTUAL_CUSTOMER_REQUIRED_WHEN_AGENCY_CUSTOMER_EXISTING, new String[]{agency.getCustomerNumber()});
                     isValid = false;
                 }
             }

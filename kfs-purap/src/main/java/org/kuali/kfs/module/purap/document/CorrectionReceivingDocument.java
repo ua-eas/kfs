@@ -1,27 +1,24 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.businessobject.Carrier;
 import org.kuali.kfs.module.purap.businessobject.CorrectionReceivingItem;
 import org.kuali.kfs.module.purap.businessobject.DeliveryRequiredDateReason;
@@ -33,12 +30,13 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.vnd.businessobject.CampusParameter;
 import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
-import org.kuali.rice.krad.util.ObjectUtils;
 import org.kuali.rice.location.framework.country.CountryEbo;
 
-/**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
- */
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class CorrectionReceivingDocument extends ReceivingDocumentBase {
 
     protected String lineItemReceivingDocumentNumber;
@@ -55,13 +53,13 @@ public class CorrectionReceivingDocument extends ReceivingDocumentBase {
         items = new ArrayList<CorrectionReceivingItem>();
     }
 
-    public void populateCorrectionReceivingFromReceivingLine(LineItemReceivingDocument rlDoc){
+    public void populateCorrectionReceivingFromReceivingLine(LineItemReceivingDocument rlDoc) {
 
         //populate receiving line document from purchase order
-        this.setPurchaseOrderIdentifier( rlDoc.getPurchaseOrderIdentifier() );
-        this.getDocumentHeader().setDocumentDescription( rlDoc.getDocumentHeader().getDocumentDescription());
-        this.getDocumentHeader().setOrganizationDocumentNumber( rlDoc.getDocumentHeader().getOrganizationDocumentNumber() );
-        this.setAccountsPayablePurchasingDocumentLinkIdentifier( rlDoc.getAccountsPayablePurchasingDocumentLinkIdentifier() );
+        this.setPurchaseOrderIdentifier(rlDoc.getPurchaseOrderIdentifier());
+        this.getDocumentHeader().setDocumentDescription(rlDoc.getDocumentHeader().getDocumentDescription());
+        this.getDocumentHeader().setOrganizationDocumentNumber(rlDoc.getDocumentHeader().getOrganizationDocumentNumber());
+        this.setAccountsPayablePurchasingDocumentLinkIdentifier(rlDoc.getAccountsPayablePurchasingDocumentLinkIdentifier());
         this.setLineItemReceivingDocumentNumber(rlDoc.getDocumentNumber());
 
         //copy receiving line items
@@ -75,7 +73,7 @@ public class CorrectionReceivingDocument extends ReceivingDocumentBase {
     @Override
     public void doRouteStatusChange(DocumentRouteStatusChange statusChangeEvent) {
 
-        if(this.getFinancialSystemDocumentHeader().getWorkflowDocument().isProcessed()) {
+        if (this.getFinancialSystemDocumentHeader().getWorkflowDocument().isProcessed()) {
             SpringContext.getBean(ReceivingService.class).completeCorrectionReceivingDocument(this);
         }
         super.doRouteStatusChange(statusChangeEvent);
@@ -85,7 +83,6 @@ public class CorrectionReceivingDocument extends ReceivingDocumentBase {
      * Gets the lineItemReceivingDocumentNumber attribute.
      *
      * @return Returns the lineItemReceivingDocumentNumber
-     *
      */
     public String getLineItemReceivingDocumentNumber() {
         return lineItemReceivingDocumentNumber;
@@ -95,7 +92,6 @@ public class CorrectionReceivingDocument extends ReceivingDocumentBase {
      * Sets the lineItemReceivingDocumentNumber attribute.
      *
      * @param lineItemReceivingDocumentNumber The lineItemReceivingDocumentNumber to set.
-     *
      */
     public void setLineItemReceivingDocumentNumber(String lineItemReceivingDocumentNumber) {
         this.lineItemReceivingDocumentNumber = lineItemReceivingDocumentNumber;
@@ -103,6 +99,7 @@ public class CorrectionReceivingDocument extends ReceivingDocumentBase {
 
     /**
      * Gets the lineItemReceivingDocument attribute.
+     *
      * @return Returns the lineItemReceivingDocument.
      */
     public LineItemReceivingDocument getLineItemReceivingDocument() {
@@ -116,13 +113,13 @@ public class CorrectionReceivingDocument extends ReceivingDocumentBase {
         refreshLineReceivingDocument();
     }
 
-    protected void refreshLineReceivingDocument(){
-        if(ObjectUtils.isNull(lineItemReceivingDocument) || lineItemReceivingDocument.getDocumentNumber() == null){
+    protected void refreshLineReceivingDocument() {
+        if (ObjectUtils.isNull(lineItemReceivingDocument) || lineItemReceivingDocument.getDocumentNumber() == null) {
             this.refreshReferenceObject("lineItemReceivingDocument");
             if (ObjectUtils.isNull(lineItemReceivingDocument.getDocumentHeader().getDocumentNumber())) {
                 lineItemReceivingDocument.refreshReferenceObject(KFSPropertyConstants.DOCUMENT_HEADER);
             }
-        }else{
+        } else {
             if (ObjectUtils.isNull(lineItemReceivingDocument.getDocumentHeader().getDocumentNumber())) {
                 lineItemReceivingDocument.refreshReferenceObject(KFSPropertyConstants.DOCUMENT_HEADER);
             }
@@ -131,9 +128,9 @@ public class CorrectionReceivingDocument extends ReceivingDocumentBase {
 
     @Override
     public Integer getPurchaseOrderIdentifier() {
-        if (ObjectUtils.isNull(super.getPurchaseOrderIdentifier())){
+        if (ObjectUtils.isNull(super.getPurchaseOrderIdentifier())) {
             refreshLineReceivingDocument();
-            if (ObjectUtils.isNotNull(lineItemReceivingDocument)){
+            if (ObjectUtils.isNotNull(lineItemReceivingDocument)) {
                 setPurchaseOrderIdentifier(lineItemReceivingDocument.getPurchaseOrderIdentifier());
             }
         }
@@ -142,6 +139,7 @@ public class CorrectionReceivingDocument extends ReceivingDocumentBase {
 
     /**
      * Sets the lineItemReceivingDocument attribute value.
+     *
      * @param lineItemReceivingDocument The lineItemReceivingDocument to set.
      * @deprecated
      */

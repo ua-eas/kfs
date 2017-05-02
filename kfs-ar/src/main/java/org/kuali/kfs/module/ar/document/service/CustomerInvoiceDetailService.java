@@ -1,28 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.document.service;
 
-import java.util.Collection;
-import java.util.List;
-
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
 import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * This class provides services related to the customer invoice document
@@ -30,7 +30,7 @@ import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
 public interface CustomerInvoiceDetailService {
 
     /**
-     * This method returns a customer invoice detail for use on the CustomerInvoiceDocumentAction. If corresponding organization
+     * This method returns a customer invoice detail for use on the CustomerInvoiceAction. If corresponding organization
      * accounting default exists for billing chart and org, then the customer invoice detail is defaulted using the organization
      * accounting default values.
      *
@@ -43,7 +43,7 @@ public interface CustomerInvoiceDetailService {
 
     /**
      * This method returns a customer invoice detail for current user and current fiscal year for use on the
-     * CustomerInvoiceDocumentAction. If corresponding organization accounting default exists for billing chart and org, then the
+     * CustomerInvoiceAction. If corresponding organization accounting default exists for billing chart and org, then the
      * customer invoice detail is defaulted using the organization accounting default values.
      *
      * @return
