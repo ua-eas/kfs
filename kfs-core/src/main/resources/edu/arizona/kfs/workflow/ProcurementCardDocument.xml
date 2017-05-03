@@ -8,6 +8,12 @@
       <docHandler>${kfs.url}/financialProcurementCard.do?methodToCall=docHandler</docHandler>
       <helpDefinitionURL>default.htm?turl=WordDocuments%2Fprocurementcard.htm</helpDefinitionURL>
       <active>true</active>
+      <policies>
+        <policy>
+          <name>NOTIFY_PENDING_ON_RETURN</name>
+          <value>true</value>
+        </policy>        
+      </policies>
       <routingVersion>2</routingVersion>
       <routePaths>
         <routePath>
