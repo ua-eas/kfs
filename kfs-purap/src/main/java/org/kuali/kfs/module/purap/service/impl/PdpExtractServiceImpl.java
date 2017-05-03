@@ -549,7 +549,17 @@ public class PdpExtractServiceImpl implements PdpExtractService {
 
         paymentDetail.setInvoiceDate(creditMemoDocument.getCreditMemoDate());
         paymentDetail.setOrigInvoiceAmount(creditMemoDocument.getCreditMemoAmount().negated());
-        paymentDetail.setNetPaymentAmount(creditMemoDocument.getFinancialSystemDocumentHeader().getFinancialDocumentTotalAmount().negated());
+        /* UAF-4518 : rationale not extend this class for this mod
+        * This method is low in the calling stack, so if extend class, we may have to copy 6 or more methods over to extended class
+        * Someone already made similar change for Payment request in this class,  so I think whoever made
+        * that change came to similar conclusion. 
+        */
+        
+        if (creditMemoDocument.isUseTaxIndicator()) {
+            paymentDetail.setNetPaymentAmount(creditMemoDocument.getGrandPreTaxTotal().negated()); // including discounts
+        } else {
+            paymentDetail.setNetPaymentAmount(creditMemoDocument.getGrandTotal().negated()); // including discounts
+        }
 
         KualiDecimal shippingAmount = KualiDecimal.ZERO;
         KualiDecimal discountAmount = KualiDecimal.ZERO;
