@@ -1,18 +1,12 @@
 package edu.arizona.kfs.module.purap.document.authorization;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
-
-import edu.arizona.kfs.module.purap.PurapWorkflowConstants;
-
 import org.kuali.kfs.module.purap.document.RequisitionDocument;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -30,6 +24,7 @@ import org.kuali.rice.kns.service.KNSServiceLocator;
 import org.kuali.rice.krad.service.KRADServiceLocatorInternal;
 import org.kuali.rice.krad.util.GlobalVariables;
 import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.rice.kew.api.document.node.RouteNodeInstance;
 
 
 
@@ -70,9 +65,10 @@ public class RequisitionAccountingLineAuthorizer extends org.kuali.kfs.module.pu
                 return true;
             }
             IdentityManagementService identityManagementService = SpringContext.getBean(IdentityManagementService.class);
-            PurapWorkflowConstants.NodeDetails nodeDetailEnumByStatus = PurapWorkflowConstants.RequisitionDocument.NodeDetailEnum.getNodeDetailEnumByStatus(reqDocument.getApplicationDocumentStatus());
-            Map<String, String> permissionDetails = resolvePermissionQualifiers(nodeDetailEnumByStatus);
-            List<Map<String, String>> roleQualifiers = resolveRoleQualifiers(accountingDocument, nodeDetailEnumByStatus);
+            List<RouteNodeInstance> routeNodeInstances = reqDocument.getDocumentHeader().getWorkflowDocument().getCurrentRouteNodeInstances();
+            String nodeName = routeNodeInstances.get(0).getName();
+            Map<String, String> permissionDetails = resolvePermissionQualifiers(nodeName);
+            List<Map<String, String>> roleQualifiers = resolveRoleQualifiers(accountingDocument, nodeName);
             if (roleQualifiers != null && !roleQualifiers.isEmpty()) {
                 Map<String, String> matchingAccountingLine = findMatchingAccountingLine(accountingLine, roleQualifiers);
                 if ((matchingAccountingLine != null && identityManagementService.isAuthorizedByTemplateName(GlobalVariables.getUserSession().getPrincipalId(), KFSConstants.CoreModuleNamespaces.KFS, KFSConstants.PermissionTemplate.MODIFY_ACCOUNTING_LINES.name, permissionDetails, matchingAccountingLine)) || PurapConstants.RequisitionStatuses.APPDOC_AWAIT_OBJECT_SUB_TYPE_CODE_REVIEW.equals(reqDocument.getApplicationDocumentStatus())) {
@@ -96,11 +92,10 @@ public class RequisitionAccountingLineAuthorizer extends org.kuali.kfs.module.pu
                 }
                 Map<String, String> permissionDetails = new HashMap<String, String>();
                 permissionDetails.put(KIM_ATTRIBUTE_DOCUMENT_TYPE_NAME, PurapConstants.REQUISITION_DOCUMENT_TYPE);
-                String routeNode = PurapWorkflowConstants.RequisitionDocument.NodeDetailEnum.OBJECT_SUB_TYPE_CODE_REVIEW.getName();
-                permissionDetails.put(KIM_ATTRIBUTE_ROUTE_LEVEL_NAME, routeNode);
+                permissionDetails.put(KIM_ATTRIBUTE_ROUTE_LEVEL_NAME, PurapConstants.RequisitionStatuses.NODE_OBJECT_SUB_TYPE_CODE);
                 String propertyName = KFSPropertyConstants.ITEMS + KFSConstants.DELIMITER + KFSPropertyConstants.SOURCE_ACCOUNTING_LINES + KFSConstants.DELIMITER + fieldName;
                 permissionDetails.put(KIM_ATTRIBUTE_PROPERTY_NAME, propertyName);
-                List<Map<String, String>> roleQualifiers = resolveRoleQualifiers(accountingDocument, PurapWorkflowConstants.RequisitionDocument.NodeDetailEnum.OBJECT_SUB_TYPE_CODE_REVIEW);
+                List<Map<String, String>> roleQualifiers = resolveRoleQualifiers(accountingDocument, PurapConstants.RequisitionStatuses.NODE_OBJECT_SUB_TYPE_CODE);
                 // check the permission here
                 if (roleQualifiers != null && !roleQualifiers.isEmpty()) {
                     Map<String, String> matchingAccountingLine = findMatchingAccountingLine(accountingLine, roleQualifiers);
@@ -126,12 +121,10 @@ public class RequisitionAccountingLineAuthorizer extends org.kuali.kfs.module.pu
         return null;
     }
 
-    protected Map<String, String> resolvePermissionQualifiers(PurapWorkflowConstants.NodeDetails nodeDetailEnumByStatus) {
+    protected Map<String, String> resolvePermissionQualifiers(String nodeName) {
         Map<String, String> permissionDetails = new HashMap<String, String>();
         permissionDetails.put(KIM_ATTRIBUTE_DOCUMENT_TYPE_NAME, PurapConstants.REQUISITION_DOCUMENT_TYPE);
-        if (nodeDetailEnumByStatus != null) {
-            permissionDetails.put(KIM_ATTRIBUTE_ROUTE_LEVEL_NAME, nodeDetailEnumByStatus.getName());
-        }
+        permissionDetails.put(KIM_ATTRIBUTE_ROUTE_LEVEL_NAME, nodeName);
         String propertyName = KFSPropertyConstants.ITEMS + KFSConstants.DELIMITER + KFSPropertyConstants.SOURCE_ACCOUNTING_LINES;
         permissionDetails.put(KIM_ATTRIBUTE_PROPERTY_NAME, propertyName);
         return permissionDetails;
@@ -162,32 +155,16 @@ public class RequisitionAccountingLineAuthorizer extends org.kuali.kfs.module.pu
         return null;
     }
 
-    // Improve performance of documents with many accounting lines (leading to many route nodes)
-    // suggested fix KFSPTS-279 is in org.kuali.rice.kns.workflow.service.impl.WorkflowAttributePropertyResolutionServiceImpl but
-    // I don't want to modify rice - so I am doing the same thing here
-    private List<Map<String, String>> getRoleQualifiers(AccountingDocument accountingDocument, RoutingTypeDefinition routingTypeDefinition) {
-
-        List<Map<String, String>> retval = new ArrayList<Map<String, String>>();
-        List<Map<String, String>> tmp = KRADServiceLocatorInternal.getWorkflowAttributePropertyResolutionService().resolveRoutingTypeQualifiers(accountingDocument, routingTypeDefinition);
-        if ((tmp != null) && !tmp.isEmpty()) {
-            Set<Map<String, String>> set = new HashSet<Map<String, String>>(tmp);
-            retval.addAll(set);
-        }
-
-        return retval;
-    }
-
-
-    protected List<Map<String, String>> resolveRoleQualifiers(AccountingDocument accountingDocument, PurapWorkflowConstants.NodeDetails nodeDetailEnumByStatus) {
+    protected List<Map<String, String>> resolveRoleQualifiers(AccountingDocument accountingDocument, String nodeName) {
         DocumentEntry documentEntry = KNSServiceLocator.getDataDictionaryService().getDataDictionary().getDocumentEntry(PurapConstants.REQUISITION_DOCUMENT_TYPE);
         List<Map<String, String>> roleQualifiers = null;
-        final RoutingTypeDefinition routingTypeDefinition = getWorkflowAttributeDefintion(documentEntry, nodeDetailEnumByStatus.getName());
+        final RoutingTypeDefinition routingTypeDefinition = getWorkflowAttributeDefintion(documentEntry, nodeName);
         if (accountingDocument != null && routingTypeDefinition != null) {
-            roleQualifiers = getRoleQualifiers(accountingDocument, routingTypeDefinition);
+            roleQualifiers = KRADServiceLocatorInternal.getWorkflowAttributePropertyResolutionService().resolveRoutingTypeQualifiers(accountingDocument, routingTypeDefinition);
         }
         
         for (Map<String, String> qualifier : roleQualifiers) {
-            addCommonQualifiersToAttributeSet(qualifier, accountingDocument, documentEntry, nodeDetailEnumByStatus.getName());
+            addCommonQualifiersToAttributeSet(qualifier, accountingDocument, documentEntry, nodeName);
         }
         
         return roleQualifiers;
@@ -202,16 +179,6 @@ public class RequisitionAccountingLineAuthorizer extends org.kuali.kfs.module.pu
             }
             return false;
         }
-        return true;
-    }
-
-    /**
-     * Fields Disappear when Fiscal Officer Clicks 'Set Up Distribution' or 'Remove Accounting Lines' on REQS the new
-     * line should be rendered whenever the document is editable so that "remove all accounts" and "setup distribution" can be used.
-     * For simplicity, the buttons and new line should present at the same time.
-     */
-    @Override
-    public boolean renderNewLine(AccountingDocument accountingDocument, String accountingGroupProperty) {
         return true;
     }
     
