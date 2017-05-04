@@ -34,6 +34,7 @@ import org.kuali.kfs.fp.document.authorization.CashManagementDocumentPresentatio
 import org.kuali.kfs.fp.document.service.CashManagementService;
 import org.kuali.kfs.fp.document.service.CashReceiptService;
 import org.kuali.kfs.fp.service.CashDrawerService;
+import org.kuali.kfs.sys.KFSParameterKeyConstants;
 import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
 import org.kuali.kfs.sys.KFSConstants.DepositConstants;
@@ -44,6 +45,9 @@ import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
 import org.kuali.rice.core.web.format.TimestampAMPMFormatter;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
 
 import java.io.Serializable;
 import java.sql.Timestamp;

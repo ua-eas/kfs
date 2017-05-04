@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  * 
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,13 +18,12 @@
  */
 package org.kuali.kfs.module.cam.document.authorization;
 
-import java.util.Map;
-
-import org.kuali.kfs.module.cab.businessobject.Pretag;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.module.cam.businessobject.Pretag;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentAuthorizerBase;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.krad.bo.BusinessObject;
+
+import java.util.Map;
 
 /**
  * AssetAuthorizer for Asset edit.
@@ -38,8 +37,7 @@ public class PretagAuthorizer extends FinancialSystemMaintenanceDocumentAuthoriz
         Pretag pretag = null;
         if (businessObject instanceof MaintenanceDocument) {
             pretag = (Pretag) ((MaintenanceDocument) businessObject).getNewMaintainableObject().getBusinessObject();
-        }
-        else {
+        } else {
             pretag = (Pretag) businessObject;
         }
         

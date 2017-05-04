@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  * 
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -17,18 +17,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.kuali.kfs.module.cab.businessobject;
+package org.kuali.kfs.module.cam.businessobject;
+
+import org.kuali.kfs.integration.cam.CapitalAssetManagementAssetTransactionType;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 
 import java.util.LinkedHashMap;
-
-import org.kuali.kfs.integration.cab.CapitalAssetBuilderAssetTransactionType;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 
 /**
  * Asset Transaction Type Business Object.
  */
-public class AssetTransactionType extends PersistableBusinessObjectBase implements CapitalAssetBuilderAssetTransactionType, MutableInactivatable {
+public class AssetTransactionType extends PersistableBusinessObjectBase implements CapitalAssetManagementAssetTransactionType, MutableInactivatable {
 
     private String capitalAssetTransactionTypeCode;
     private String capitalAssetTransactionTypeDescription;

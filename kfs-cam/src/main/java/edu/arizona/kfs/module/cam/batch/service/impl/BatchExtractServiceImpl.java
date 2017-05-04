@@ -1,4 +1,4 @@
-package edu.arizona.kfs.module.cab.batch.service.impl;
+package edu.arizona.kfs.module.cam.batch.service.impl;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -8,15 +8,15 @@ import java.util.Map;
 
 import org.kuali.kfs.gl.businessobject.Entry;
 
-import edu.arizona.kfs.module.cab.CabConstants;
+import edu.arizona.kfs.module.cam.CamsConstants;
 import edu.arizona.kfs.module.purap.document.VendorCreditMemoDocument;
 
-import org.kuali.kfs.module.cab.CabPropertyConstants;
-import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableDocument;
+import org.kuali.kfs.module.cam.CamsPropertyConstants;
+import org.kuali.kfs.module.cam.businessobject.PurchasingAccountsPayableDocument;
 import org.kuali.kfs.module.purap.document.AccountsPayableDocumentBase;
 import edu.arizona.kfs.module.purap.document.PaymentRequestDocument;
 
-public class BatchExtractServiceImpl extends org.kuali.kfs.module.cab.batch.service.impl.BatchExtractServiceImpl {
+public class BatchExtractServiceImpl extends org.kuali.kfs.module.cam.batch.service.impl.BatchExtractServiceImpl {
 	
 	/** 			
 	* Retrieves a PRNC document for a specific document number
@@ -27,7 +27,7 @@ public class BatchExtractServiceImpl extends org.kuali.kfs.module.cab.batch.serv
 	protected PaymentRequestDocument findPrncDocument(Entry entry) {
 		PaymentRequestDocument PRNCDocument = null;
 		Map<String, String> keys = new LinkedHashMap<String, String>();
-		keys.put(CabPropertyConstants.DOCUMENT_NUMBER, entry.getDocumentNumber());
+		keys.put(CamsPropertyConstants.DOCUMENT_NUMBER, entry.getDocumentNumber());
 		Collection<PaymentRequestDocument> matchingPreqs = businessObjectService.findMatching(PaymentRequestDocument.class, keys);
 		if (matchingPreqs != null && matchingPreqs.size() == 1) {
 			PRNCDocument = matchingPreqs.iterator().next();
@@ -41,15 +41,15 @@ public class BatchExtractServiceImpl extends org.kuali.kfs.module.cab.batch.serv
         AccountsPayableDocumentBase apDoc = null;
         PurchasingAccountsPayableDocument cabPurapDoc = null;
         // If document is not in CAB, create a new document to save in CAB
-        if (CabConstants.PREQ.equals(entry.getFinancialDocumentTypeCode())) {
+        if (CamsConstants.PREQ.equals(entry.getFinancialDocumentTypeCode())) {
             // find PREQ
             apDoc = findPaymentRequestDocument(entry);
         }
-        else if (CabConstants.CM.equals(entry.getFinancialDocumentTypeCode())) {
+        else if (CamsConstants.CM.equals(entry.getFinancialDocumentTypeCode())) {
             // find CM
             apDoc = findCreditMemoDocument(entry);
         }
-    	else if (CabConstants.PRNC.equals(entry.getFinancialDocumentTypeCode())) {
+    	else if (CamsConstants.PRNC.equals(entry.getFinancialDocumentTypeCode())) {
 	    	// find PRNC
 	    	apDoc = findPrncDocument(entry);
     	}
@@ -63,7 +63,7 @@ public class BatchExtractServiceImpl extends org.kuali.kfs.module.cab.batch.serv
             cabPurapDoc.setPurapDocumentIdentifier(apDoc.getPurapDocumentIdentifier());
             cabPurapDoc.setPurchaseOrderIdentifier(apDoc.getPurchaseOrderIdentifier());
             cabPurapDoc.setDocumentTypeCode(entry.getFinancialDocumentTypeCode());
-            cabPurapDoc.setActivityStatusCode(CabConstants.ActivityStatusCode.NEW);
+            cabPurapDoc.setActivityStatusCode(CamsConstants.ActivityStatusCode.NEW);
             cabPurapDoc.setVersionNumber(0L);
         }
         return cabPurapDoc;
@@ -72,15 +72,15 @@ public class BatchExtractServiceImpl extends org.kuali.kfs.module.cab.batch.serv
     @Override
     public void separatePOLines(List<Entry> fpLines, List<Entry> purapLines, Collection<Entry> elgibleGLEntries) {
         for (Entry entry : elgibleGLEntries) {
-            if (CabConstants.PREQ.equals(entry.getFinancialDocumentTypeCode()) || CabConstants.PRNC.equals(entry.getFinancialDocumentTypeCode())) {
+            if (CamsConstants.PREQ.equals(entry.getFinancialDocumentTypeCode()) || CamsConstants.PRNC.equals(entry.getFinancialDocumentTypeCode())) {
                 purapLines.add(entry);
             }
-            else if (!CabConstants.CM.equals(entry.getFinancialDocumentTypeCode())) {
+            else if (!CamsConstants.CM.equals(entry.getFinancialDocumentTypeCode())) {
                 fpLines.add(entry);
             }
-            else if (CabConstants.CM.equals(entry.getFinancialDocumentTypeCode())) {
+            else if (CamsConstants.CM.equals(entry.getFinancialDocumentTypeCode())) {
                 Map<String, String> fieldValues = new HashMap<String, String>();
-                fieldValues.put(CabPropertyConstants.GeneralLedgerEntry.DOCUMENT_NUMBER, entry.getDocumentNumber());
+                fieldValues.put(CamsPropertyConstants.GeneralLedgerEntry.DOCUMENT_NUMBER, entry.getDocumentNumber());
                 // check if vendor credit memo, then include as FP line
                 Collection<VendorCreditMemoDocument> matchingCreditMemos = businessObjectService.findMatching(VendorCreditMemoDocument.class, fieldValues);
                 for (VendorCreditMemoDocument creditMemoDocument : matchingCreditMemos) {

@@ -2,8 +2,8 @@ package edu.arizona.kfs.module.cam.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
 import edu.arizona.kfs.module.cam.CamsKeyConstants;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 import edu.arizona.kfs.module.cam.CamsPropertyConstants;
 import edu.arizona.kfs.module.cam.document.AssetTransferDocument;

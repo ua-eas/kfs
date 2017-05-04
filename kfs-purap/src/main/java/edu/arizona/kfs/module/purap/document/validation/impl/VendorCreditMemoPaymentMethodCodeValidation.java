@@ -10,7 +10,7 @@ import edu.arizona.kfs.module.purap.PurapKeyConstants;
 import edu.arizona.kfs.module.purap.document.VendorCreditMemoDocument;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 
 

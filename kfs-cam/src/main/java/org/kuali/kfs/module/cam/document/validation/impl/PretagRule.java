@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  * 
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -19,19 +19,19 @@
 package org.kuali.kfs.module.cam.document.validation.impl;
 
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.module.cab.CabKeyConstants;
-import org.kuali.kfs.module.cab.CabPropertyConstants;
-import org.kuali.kfs.module.cab.businessobject.Pretag;
-import org.kuali.kfs.module.cab.businessobject.PretagDetail;
-import org.kuali.kfs.module.cab.document.service.PurApInfoService;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.maintenance.MaintenanceDocumentAuthorizer;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.cam.CamsKeyConstants;
+import org.kuali.kfs.module.cam.CamsPropertyConstants;
+import org.kuali.kfs.module.cam.businessobject.Pretag;
+import org.kuali.kfs.module.cam.businessobject.PretagDetail;
+import org.kuali.kfs.module.cam.document.service.PurApInfoService;
 import org.kuali.kfs.module.cam.businessobject.Asset;
 import org.kuali.kfs.module.purap.businessobject.PurApItem;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
@@ -44,14 +44,12 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.maintenance.MaintenanceDocumentAuthorizer;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.util.GlobalVariables;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class represents the business rules for the maintenance of {@link AccountGlobal} business objects
@@ -84,7 +82,7 @@ public class PretagRule extends MaintenanceDocumentRuleBase {
     /**
      * Does not fail on rules failure
      * 
-     * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomSaveDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
+     * @see MaintenanceDocumentRuleBase#processCustomSaveDocumentBusinessRules(MaintenanceDocument)
      */
     @Override
     protected boolean processCustomSaveDocumentBusinessRules(MaintenanceDocument document) {
@@ -94,7 +92,7 @@ public class PretagRule extends MaintenanceDocumentRuleBase {
     }
 
     /**
-     * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomRouteDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
+     * @see MaintenanceDocumentRuleBase#processCustomRouteDocumentBusinessRules(MaintenanceDocument)
      */
     @Override
     protected boolean processCustomRouteDocumentBusinessRules(MaintenanceDocument document) {
@@ -107,7 +105,7 @@ public class PretagRule extends MaintenanceDocumentRuleBase {
         if (workflowDocument.isInitiated() || workflowDocument.isSaved()){
             success &= documentAuthorizer.canCreateOrMaintain((MaintenanceDocument)document, GlobalVariables.getUserSession().getPerson());
             if (!success) {
-                putFieldError(CabPropertyConstants.Pretag.CHART_OF_ACCOUNTS_CODE, CabKeyConstants.CHART_ORG_DISALLOWED_BY_CURRENT_USER);
+                putFieldError(CamsPropertyConstants.Pretag.CHART_OF_ACCOUNTS_CODE, CamsKeyConstants.CHART_ORG_DISALLOWED_BY_CURRENT_USER);
             }
         }
 
@@ -130,8 +128,7 @@ public class PretagRule extends MaintenanceDocumentRuleBase {
         if (newPretag.isActive()) {
             success &= checkTotalDetailCount(newPretag, newDetailLine);
             success &= isAllCampusBuildingRoomValid(newPretag.getPretagDetails());
-        }
-        else {
+        } else {
             deactivePretagDetails(newPretag);
         }
 
@@ -146,14 +143,13 @@ public class PretagRule extends MaintenanceDocumentRuleBase {
     protected boolean checkAssetRepresentativePrincipalNameExists() {
         boolean valid = true;
         if (StringUtils.isNotBlank(newPretag.getPersonUniversal().getPrincipalName())) {
-            PersonService personService = SpringContext.getBean(org.kuali.rice.kim.api.identity.PersonService.class);
+            PersonService personService = SpringContext.getBean(PersonService.class);
             Person person = personService.getPersonByPrincipalName(newPretag.getPersonUniversal().getPrincipalName());
             if (person != null) {
                 newPretag.setPersonUniversal(person);
                 newPretag.setRepresentativeUniversalIdentifier(person.getPrincipalId());
-            }
-            else {
-                putFieldError(CabPropertyConstants.Pretag.REPRESENTATIVE_ID, CamsKeyConstants.PreTag.ERROR_PRE_TAG_INVALID_REPRESENTATIVE_ID, newPretag.getPersonUniversal().getPrincipalName());
+            } else {
+                putFieldError(CamsPropertyConstants.Pretag.REPRESENTATIVE_ID, CamsKeyConstants.PreTag.ERROR_PRE_TAG_INVALID_REPRESENTATIVE_ID, newPretag.getPersonUniversal().getPrincipalName());
                 newPretag.setPersonUniversal(null);
                 newPretag.setRepresentativeUniversalIdentifier(null);
                 valid &= false;
@@ -172,13 +168,12 @@ public class PretagRule extends MaintenanceDocumentRuleBase {
         if (StringUtils.isNotBlank(newPretag.getPurchaseOrderNumber()) && newPretag.getItemLineNumber() != null) {
             PurchaseOrderDocument purchaseOrderDoc = getPurApInfoService().getCurrentDocumentForPurchaseOrderIdentifier(Integer.valueOf(newPretag.getPurchaseOrderNumber()));
             if (purchaseOrderDoc == null) {
-                String label = SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getBusinessObjectEntry(Pretag.class.getName()).getAttributeDefinition(CabPropertyConstants.Pretag.PURCHASE_ORDER_NUMBER).getLabel();
-                putFieldError(CabPropertyConstants.Pretag.PURCHASE_ORDER_NUMBER, RiceKeyConstants.ERROR_EXISTENCE, label);
+                String label = SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getBusinessObjectEntry(Pretag.class.getName()).getAttributeDefinition(CamsPropertyConstants.Pretag.PURCHASE_ORDER_NUMBER).getLabel();
+                putFieldError(CamsPropertyConstants.Pretag.PURCHASE_ORDER_NUMBER, RiceKeyConstants.ERROR_EXISTENCE, label);
                 valid = false;
-            }
-            else if (getItemByLineNumber(purchaseOrderDoc, newPretag.getItemLineNumber()) == null) {
-                String label = SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getBusinessObjectEntry(Pretag.class.getName()).getAttributeDefinition(CabPropertyConstants.Pretag.ITEM_LINE_NUMBER).getLabel();
-                putFieldError(CabPropertyConstants.Pretag.ITEM_LINE_NUMBER, RiceKeyConstants.ERROR_EXISTENCE, label);
+            } else if (getItemByLineNumber(purchaseOrderDoc, newPretag.getItemLineNumber()) == null) {
+                String label = SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getBusinessObjectEntry(Pretag.class.getName()).getAttributeDefinition(CamsPropertyConstants.Pretag.ITEM_LINE_NUMBER).getLabel();
+                putFieldError(CamsPropertyConstants.Pretag.ITEM_LINE_NUMBER, RiceKeyConstants.ERROR_EXISTENCE, label);
                 valid = false;
             }
         }
@@ -234,8 +229,8 @@ public class PretagRule extends MaintenanceDocumentRuleBase {
     /**
      * This method calls isCampusTagNumberValid whenever a new {@link PretagDetail} is added to Pretag
      * 
-     * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomAddCollectionLineBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument,
-     *      java.lang.String, org.kuali.rice.krad.bo.PersistableBusinessObject)
+     * @see MaintenanceDocumentRuleBase#processCustomAddCollectionLineBusinessRules(MaintenanceDocument,
+     * String, PersistableBusinessObject)
      */
     @Override
     public boolean processCustomAddCollectionLineBusinessRules(MaintenanceDocument document, String collectionName, PersistableBusinessObject bo) {
@@ -270,7 +265,7 @@ public class PretagRule extends MaintenanceDocumentRuleBase {
 
         for (PretagDetail dtl : pretag.getPretagDetails()) {
             if (dtl.getCampusTagNumber().equals(tagNumber) && dtl.isActive()) {
-                GlobalVariables.getMessageMap().putError(CabPropertyConstants.Pretag.CAMPUS_TAG_NUMBER, CamsKeyConstants.ERROR_TAG_NUMBER_DUPLICATE, new String[] { tagNumber });
+                GlobalVariables.getMessageMap().putError(CamsPropertyConstants.Pretag.CAMPUS_TAG_NUMBER, CamsKeyConstants.ERROR_TAG_NUMBER_DUPLICATE, new String[]{tagNumber});
                 success &= false;
             }
         }
@@ -291,7 +286,7 @@ public class PretagRule extends MaintenanceDocumentRuleBase {
             KualiDecimal totalNumerOfDetails = new KualiDecimal(totalActiveDetails);
 
             if (pretag.getQuantityInvoiced().compareTo(totalNumerOfDetails) < 0) {
-                GlobalVariables.getMessageMap().putError(CabPropertyConstants.Pretag.CAMPUS_TAG_NUMBER, CamsKeyConstants.PreTag.ERROR_PRE_TAG_DETAIL_EXCESS, new String[] { pretag.getQuantityInvoiced().toString() + "" + " Total number of detail lines " + totalNumerOfDetails.toString() });
+                GlobalVariables.getMessageMap().putError(CamsPropertyConstants.Pretag.CAMPUS_TAG_NUMBER, CamsKeyConstants.PreTag.ERROR_PRE_TAG_DETAIL_EXCESS, new String[]{pretag.getQuantityInvoiced().toString() + "" + " Total number of detail lines " + totalNumerOfDetails.toString()});
                 success &= false;
             }
         }
@@ -310,8 +305,7 @@ public class PretagRule extends MaintenanceDocumentRuleBase {
         Collection<PretagDetail> pretagDetails = pretag.getPretagDetails();
         if (newDetailLine) {
             return countActive(pretagDetails) + 1;
-        }
-        else {
+        } else {
             return countActive(pretagDetails);
         }
     }
@@ -327,10 +321,10 @@ public class PretagRule extends MaintenanceDocumentRuleBase {
 
         if ((dtl.getCampusTagNumber() != null) && (dtl.isActive() && !dtl.getCampusTagNumber().equalsIgnoreCase("N"))) {
             Map<String, String> tagMap = new HashMap<String, String>();
-            tagMap.put(CabPropertyConstants.Pretag.CAMPUS_TAG_NUMBER, dtl.getCampusTagNumber());
+            tagMap.put(CamsPropertyConstants.Pretag.CAMPUS_TAG_NUMBER, dtl.getCampusTagNumber());
             int matchDetailCount = getMatchDetailCount(tagMap);
             if ((getBoService().countMatching(Asset.class, tagMap) != 0) || (matchDetailCount > 0)) {
-                GlobalVariables.getMessageMap().putError(CabPropertyConstants.Pretag.CAMPUS_TAG_NUMBER, CamsKeyConstants.PreTag.ERROR_PRE_TAG_NUMBER, new String[] { dtl.getCampusTagNumber() });
+                GlobalVariables.getMessageMap().putError(CamsPropertyConstants.Pretag.CAMPUS_TAG_NUMBER, CamsKeyConstants.PreTag.ERROR_PRE_TAG_NUMBER, new String[]{dtl.getCampusTagNumber()});
                 success &= false;
             }
         }

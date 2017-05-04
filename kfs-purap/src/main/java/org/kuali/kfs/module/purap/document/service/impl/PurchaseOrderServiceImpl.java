@@ -120,6 +120,7 @@ import org.kuali.rice.kew.api.document.attribute.DocumentAttributeIndexingQueue;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
+import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.ByteArrayOutputStream;
@@ -1734,6 +1735,9 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
                     createPurchaseOrderDocument(req, KFSConstants.SYSTEM_USER, detail.getContractManagerCode());
                 }
             }
+        }
+    }
+    
     @Override
     public boolean autoCloseRecurringOrders() {
         LOG.debug("autoCloseRecurringOrders() started");

@@ -6,11 +6,11 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import edu.arizona.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
-import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import edu.arizona.kfs.module.purap.document.PaymentRequestDocument;
 import edu.arizona.kfs.module.purap.document.VendorCreditMemoDocument;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class PurchasingAccountsPayableDocument extends org.kuali.kfs.module.cam.businessobject.PurchasingAccountsPayableDocument {
 	

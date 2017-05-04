@@ -18,6 +18,15 @@
  */
 package org.kuali.kfs.module.cam.businessobject;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
@@ -25,10 +34,12 @@ import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.ObjectSubType;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsAgency;
 import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.bo.Note;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.krad.service.NoteService;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.krad.util.UrlFactory;
@@ -51,14 +62,6 @@ import org.kuali.rice.location.framework.campus.CampusEbo;
 
 import edu.arizona.kfs.module.cam.businessobject.AssetExtension;
 import edu.arizona.kfs.module.cam.businessobject.AssetGlobalDetailExtension;
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
 
 public class AssetBase extends PersistableBusinessObjectBase {
 
@@ -2165,15 +2168,7 @@ public class AssetBase extends PersistableBusinessObjectBase {
             boNotes = new ArrayList<Note>();
         }
 
-    /**
-     * override this method so we can remove the offcampus location
-     *
-     * @see org.kuali.rice.krad.bo.PersistableBusinessObjectBase#buildListOfDeletionAwareLists()
-     */
-    @Override
-    public List<Collection<PersistableBusinessObject>> buildListOfDeletionAwareLists() {
-        List<Collection<PersistableBusinessObject>> managedLists = new ArrayList<Collection<PersistableBusinessObject>>();
-        managedLists.add(new ArrayList<PersistableBusinessObject>(getAssetLocations()));
+        return boNotes;
     }
 
     protected NoteService getNoteService() {

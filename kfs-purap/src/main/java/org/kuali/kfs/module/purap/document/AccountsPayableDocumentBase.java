@@ -18,6 +18,12 @@
  */
 package org.kuali.kfs.module.purap.document;
 
+import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.kuali.kfs.fp.document.ProcurementCardDocument;
 import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
 import org.kuali.kfs.krad.util.ObjectUtils;
@@ -46,8 +52,6 @@ import org.kuali.rice.kim.api.identity.Person;
 
 import edu.arizona.kfs.module.purap.PurapConstants;
 import edu.arizona.kfs.module.purap.PurapParameterConstants;
-import java.sql.Timestamp;
-import java.util.List;
 
 /**
  * Accounts Payable Document Base

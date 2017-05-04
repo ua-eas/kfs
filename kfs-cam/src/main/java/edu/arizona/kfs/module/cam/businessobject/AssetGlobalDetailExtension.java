@@ -3,7 +3,7 @@ package edu.arizona.kfs.module.cam.businessobject;
 import java.util.LinkedHashMap;
 
 import org.kuali.kfs.module.cam.businessobject.AssetGlobalDetail;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectExtensionBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectExtensionBase;
 
 import edu.arizona.kfs.sys.KFSPropertyConstants;
 

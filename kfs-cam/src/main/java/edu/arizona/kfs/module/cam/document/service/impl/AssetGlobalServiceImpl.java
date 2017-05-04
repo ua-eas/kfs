@@ -9,7 +9,7 @@ import org.kuali.kfs.module.cam.businessobject.AssetGlobalDetail;
 import org.kuali.kfs.module.cam.businessobject.AssetPayment;
 import org.kuali.kfs.module.cam.util.AssetSeparatePaymentDistributor;
 import org.kuali.kfs.module.cam.util.KualiDecimalUtils;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 
 import edu.arizona.kfs.module.cam.businessobject.AssetExtension;
 

@@ -1,9 +1,9 @@
 package edu.arizona.kfs.module.tax.document.validation.impl;
 
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase;
-import org.kuali.rice.krad.service.DocumentService;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.krad.service.DocumentService;
 
 import edu.arizona.kfs.module.tax.TaxKeyConstants;
 import edu.arizona.kfs.module.tax.TaxPropertyConstants;

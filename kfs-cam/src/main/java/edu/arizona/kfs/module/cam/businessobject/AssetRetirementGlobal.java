@@ -10,8 +10,8 @@ import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.module.cam.businessobject.Asset;
 import org.kuali.kfs.module.cam.document.service.AssetRetirementService;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 
 public class AssetRetirementGlobal extends org.kuali.kfs.module.cam.businessobject.AssetRetirementGlobal {
     private static final String VALID_ASSET_RETIREMENT_STATUSES_BY_ASSET_STATUS = "VALID_ASSET_RETIREMENT_STATUSES_BY_ASSET_STATUS";

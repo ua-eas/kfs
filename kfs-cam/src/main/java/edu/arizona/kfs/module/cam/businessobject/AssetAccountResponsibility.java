@@ -3,7 +3,7 @@ package edu.arizona.kfs.module.cam.businessobject;
 import java.sql.Date;
 
 import org.kuali.kfs.integration.cg.ContractsAndGrantsAgency;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 public class AssetAccountResponsibility extends PersistableBusinessObjectBase {
 	private static final long serialVersionUID = 1L;
