@@ -3,8 +3,8 @@ package edu.arizona.kfs.module.ec.document.authorization;
 import java.util.Set;
 
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.KRADConstants;
 
 /**
  * Document Authorizer for the Effort Certification document.

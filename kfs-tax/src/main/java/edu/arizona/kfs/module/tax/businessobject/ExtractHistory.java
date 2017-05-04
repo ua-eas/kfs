@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.LinkedHashMap;
 
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 import edu.arizona.kfs.module.tax.TaxPropertyConstants;
 

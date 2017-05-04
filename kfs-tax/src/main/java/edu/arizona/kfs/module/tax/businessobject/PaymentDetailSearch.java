@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 
 import org.kuali.kfs.pdp.PdpPropertyConstants;
-import org.kuali.rice.krad.bo.TransientBusinessObjectBase;
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 
 public class PaymentDetailSearch extends TransientBusinessObjectBase {
     private static final long serialVersionUID = 1374286713969285382L;
