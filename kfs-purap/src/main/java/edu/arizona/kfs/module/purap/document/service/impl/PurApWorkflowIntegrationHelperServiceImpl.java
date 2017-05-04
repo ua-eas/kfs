@@ -6,21 +6,29 @@ import org.kuali.rice.kew.api.action.ActionRequest;
 import org.kuali.rice.kew.api.action.ActionRequestType;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
+import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.krad.bo.DocumentHeader;
 import org.kuali.rice.krad.document.Document;
 import org.kuali.rice.krad.service.DocumentService;
 import org.kuali.rice.krad.workflow.service.WorkflowDocumentService;
 import org.springframework.transaction.annotation.Transactional;
 
+import edu.arizona.kfs.module.purap.document.service.PurApWorkflowIntegrationHelperService;
+
 @Transactional
-public class PurApWorkflowIntegrationServiceImpl extends org.kuali.kfs.module.purap.document.service.impl.PurApWorkflowIntegrationServiceImpl implements edu.arizona.kfs.module.purap.document.service.PurApWorkflowIntegrationService {
-    private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PurApWorkflowIntegrationServiceImpl.class);
+public class PurApWorkflowIntegrationHelperServiceImpl implements PurApWorkflowIntegrationHelperService {
+    private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PurApWorkflowIntegrationHelperService.class);
 
     private DocumentService documentService;
+    private PersonService personService;
     private WorkflowDocumentService workflowDocumentService;
 
     public void setDocumentService(DocumentService documentService) {
         this.documentService = documentService;
+    }
+
+    public void setPersonService(PersonService personService) {
+        this.personService = personService;
     }
 
     public void setWorkflowDocumentService(WorkflowDocumentService workflowDocumentService) {
@@ -35,7 +43,7 @@ public class PurApWorkflowIntegrationServiceImpl extends org.kuali.kfs.module.pu
             throw new IllegalArgumentException("Action request for doc " + actionRequest.getDocumentId() + " is not an FYI request");
         }
         try {
-            Person superUser = getPersonService().getPersonByPrincipalName(KFSConstants.SYSTEM_USER);
+            Person superUser = personService.getPersonByPrincipalName(KFSConstants.SYSTEM_USER);
             String documentTypeName = getDocumentTypeName(actionRequest);
             WorkflowDocument workflowDocument = workflowDocumentService.createWorkflowDocument(documentTypeName, superUser);
             workflowDocument.superUserTakeRequestedAction(actionRequest.getId(), annotation);
