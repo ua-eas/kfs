@@ -24,7 +24,7 @@ import org.kuali.kfs.sys.service.BankService;
 import org.kuali.kfs.sys.service.GeneralLedgerPendingEntryService;
 import org.kuali.kfs.sys.service.NonTransactional;
 import org.kuali.kfs.sys.service.OptionsService;
-import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import edu.arizona.kfs.fp.businessobject.PaymentMethod;
 import edu.arizona.kfs.fp.businessobject.PaymentMethodChart;

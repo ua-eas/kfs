@@ -75,10 +75,15 @@ import java.util.Set;
 public class CollectorHelperServiceImpl implements CollectorHelperService {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CollectorHelperServiceImpl.class);
 
-    private ParameterService parameterService;
-    private BusinessObjectService businessObjectService;
-    private CollectorReportService collectorReportService;
-    private ReportWriterService collectorReportWriterService;
+    protected ParameterService parameterService;
+    private BatchInputFileService batchInputFileService;
+    private CollectorScrubberService collectorScrubberService;
+    private AccountService accountService;
+    private PreScrubberService preScrubberService;
+    private String batchFileDirectoryName;
+    protected BusinessObjectService businessObjectService;
+    protected CollectorReportService collectorReportService;
+    protected ReportWriterService collectorReportWriterService;
 
     @Override
     public List<ErrorMessage> loadCollectorApiData(InputStream inputStream, BatchInputFileType collectorInputFileType) {

@@ -1,11 +1,11 @@
-package edu.arizona.kfs.module.cab.document.service.impl;
+package edu.arizona.kfs.module.cam.document.service.impl;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import edu.arizona.kfs.module.cab.CabConstants;
-import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableItemAsset;
-import org.kuali.kfs.module.cab.document.exception.PurApDocumentUnavailableException;
+import edu.arizona.kfs.module.cam.CamsConstants;
+import org.kuali.kfs.module.cam.businessobject.PurchasingAccountsPayableItemAsset;
+import org.kuali.kfs.module.cam.document.exception.PurApDocumentUnavailableException;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.businessobject.CreditMemoItem;
 import org.kuali.kfs.module.purap.businessobject.PaymentRequestItem;
@@ -13,7 +13,7 @@ import org.kuali.kfs.module.purap.businessobject.PurchaseOrderItem;
 import org.kuali.kfs.module.purap.document.VendorCreditMemoDocument;
 import org.kuali.rice.krad.util.ObjectUtils;
 
-public class PurApInfoServiceImpl extends org.kuali.kfs.module.cab.document.service.impl.PurApInfoServiceImpl {
+public class PurApInfoServiceImpl extends org.kuali.kfs.module.cam.document.service.impl.PurApInfoServiceImpl {
 	
 	@Override
 	public void setAccountsPayableItemsFromPurAp(PurchasingAccountsPayableItemAsset purchasingAccountsPayableItemAsset, String docTypeCode) {
@@ -21,7 +21,7 @@ public class PurApInfoServiceImpl extends org.kuali.kfs.module.cab.document.serv
         pKeys.put(PurapPropertyConstants.ITEM_IDENTIFIER, purchasingAccountsPayableItemAsset.getAccountsPayableLineItemIdentifier());
 
         // Access PurAp data based on item type(PREQ or CM).
-        if (CabConstants.PREQ.equalsIgnoreCase(docTypeCode) || CabConstants.PRNC.equalsIgnoreCase(docTypeCode)) {
+        if (CamsConstants.PREQ.equalsIgnoreCase(docTypeCode) || CamsConstants.PRNC.equalsIgnoreCase(docTypeCode)) {
             // for PREQ document
             PaymentRequestItem item = (PaymentRequestItem) getBusinessObjectService().findByPrimaryKey(PaymentRequestItem.class, pKeys);
             if (ObjectUtils.isNull(item)) {

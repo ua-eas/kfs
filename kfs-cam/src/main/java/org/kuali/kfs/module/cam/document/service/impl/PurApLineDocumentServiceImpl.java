@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  * 
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -16,30 +16,27 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.kuali.kfs.module.cab.document.service.impl;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+package org.kuali.kfs.module.cam.document.service.impl;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.integration.purap.CapitalAssetLocation;
 import org.kuali.kfs.integration.purap.ItemCapitalAsset;
-import org.kuali.kfs.module.cab.CabConstants;
-import org.kuali.kfs.module.cab.CabPropertyConstants;
-import org.kuali.kfs.module.cab.businessobject.GeneralLedgerEntry;
-import org.kuali.kfs.module.cab.businessobject.Pretag;
-import org.kuali.kfs.module.cab.businessobject.PretagDetail;
-import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableDocument;
-import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableItemAsset;
-import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableLineAssetAccount;
-import org.kuali.kfs.module.cab.document.service.PurApInfoService;
-import org.kuali.kfs.module.cab.document.service.PurApLineDocumentService;
-import org.kuali.kfs.module.cab.document.service.PurApLineService;
-import org.kuali.kfs.module.cab.document.web.PurApLineSession;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.cam.businessobject.GeneralLedgerEntry;
+import org.kuali.kfs.module.cam.businessobject.Pretag;
+import org.kuali.kfs.module.cam.businessobject.PretagDetail;
+import org.kuali.kfs.module.cam.businessobject.PurchasingAccountsPayableDocument;
+import org.kuali.kfs.module.cam.businessobject.PurchasingAccountsPayableItemAsset;
+import org.kuali.kfs.module.cam.businessobject.PurchasingAccountsPayableLineAssetAccount;
+import org.kuali.kfs.module.cam.document.service.PurApInfoService;
+import org.kuali.kfs.module.cam.document.service.PurApLineDocumentService;
+import org.kuali.kfs.module.cam.document.service.PurApLineService;
+import org.kuali.kfs.module.cam.document.web.PurApLineSession;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
 import org.kuali.kfs.module.cam.businessobject.Asset;
@@ -52,6 +49,7 @@ import org.kuali.kfs.module.cam.businessobject.defaultvalue.NextAssetNumberFinde
 import org.kuali.kfs.module.cam.document.AssetPaymentDocument;
 import org.kuali.kfs.module.cam.document.service.AssetGlobalService;
 import org.kuali.kfs.module.cam.document.service.AssetService;
+import org.kuali.kfs.module.cam.web.struts.PurApLineForm;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderCapitalAssetSystem;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
@@ -61,14 +59,14 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.event.DocumentSystemSaveEvent;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.ObjectUtils;
 import org.kuali.rice.location.api.campus.Campus;
 import org.kuali.rice.location.api.campus.CampusService;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class provides default implementations of {@link PurApLineService}
@@ -84,7 +82,7 @@ public class PurApLineDocumentServiceImpl implements PurApLineDocumentService {
     public static final String DOCUMENT_DESC_PREFIX = "CAB created for ";
 
     /**
-     * @see org.kuali.kfs.module.cab.document.service.PurApLineDocumentService#processApplyPayment(PurchasingAccountsPayableItemAsset,
+     * @see PurApLineDocumentService#processApplyPayment(PurchasingAccountsPayableItemAsset,
      *      List, PurApLineSession, Integer)
      */
     @Override
@@ -158,8 +156,8 @@ public class PurApLineDocumentServiceImpl implements PurApLineDocumentService {
 
 
     /**
-     * @see org.kuali.kfs.module.cab.document.service.PurApLineService#processCreateAsset(org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableItemAsset,
-     *      org.kuali.kfs.module.cab.document.web.struts.PurApLineForm)
+     * @see PurApLineService#processCreateAsset(PurchasingAccountsPayableItemAsset,
+     * PurApLineForm)
      */
     @Override
     public String processCreateAsset(PurchasingAccountsPayableItemAsset selectedItem, List<PurchasingAccountsPayableDocument> purApDocs, PurApLineSession purApLineSession, Integer requisitionIdentifier) throws WorkflowException {
@@ -241,7 +239,7 @@ public class PurApLineDocumentServiceImpl implements PurApLineDocumentService {
             }
         }
 
-        selectedDoc.setActivityStatusCode(CabConstants.ActivityStatusCode.ENROUTE);
+        selectedDoc.setActivityStatusCode(CamsConstants.ActivityStatusCode.ENROUTE);
     }
 
 
@@ -259,8 +257,7 @@ public class PurApLineDocumentServiceImpl implements PurApLineDocumentService {
                 // Add account amount to GL entry submit amount.
                 if (glEntry.getTransactionLedgerSubmitAmount() != null) {
                     glEntry.setTransactionLedgerSubmitAmount(glEntry.getTransactionLedgerSubmitAmount().add(account.getItemAccountTotalAmount()));
-                }
-                else {
+                } else {
                     glEntry.setTransactionLedgerSubmitAmount(new KualiDecimal(account.getItemAccountTotalAmount().toString()));
                 }
             }
@@ -355,13 +352,11 @@ public class PurApLineDocumentServiceImpl implements PurApLineDocumentService {
                     // initialize location quantity by PurAp setting
                     if (assetLocation.getItemQuantity() != null) {
                         locationQuantity = assetLocation.getItemQuantity().intValue();
-                    }
-                    else {
+                    } else {
                         // if Purap not set item quantity, we set it to 1.
                         locationQuantity = 1;
                     }
-                }
-                else if (locationQuantity <= 0 && !locationIterator.hasNext()) {
+                } else if (locationQuantity <= 0 && !locationIterator.hasNext()) {
                     // Consume the current location quantity and no more PurAp locations can be used, stop here.
                     break;
                 }
@@ -402,8 +397,7 @@ public class PurApLineDocumentServiceImpl implements PurApLineDocumentService {
                         assetDetail.setBuildingRoomNumber(buildingRoomNumber);
                     }
                 }
-            }
-            else {
+            } else {
                 // off-campus
                 assetDetail.setOffCampusCityName(assetLocation.getCapitalAssetCityName());
                 assetDetail.setOffCampusAddress(assetLocation.getCapitalAssetLine1Address());
@@ -425,9 +419,9 @@ public class PurApLineDocumentServiceImpl implements PurApLineDocumentService {
      */
     protected boolean checkBuildingRoomNumberValid(String campusCode, String buildingCode, String buildingRoomNumber) {
         Map<String, Object> pKeys = new HashMap<String, Object>();
-        pKeys.put(CabPropertyConstants.AssetGlobalDocumentCreate.CAMPUS_CODE, campusCode);
-        pKeys.put(CabPropertyConstants.AssetGlobalDocumentCreate.BUILDING_CODE, buildingCode);
-        pKeys.put(CabPropertyConstants.AssetGlobalDocumentCreate.BUILDING_ROOM_NUMBER, buildingRoomNumber);
+        pKeys.put(CamsPropertyConstants.AssetGlobalDocumentCreate.CAMPUS_CODE, campusCode);
+        pKeys.put(CamsPropertyConstants.AssetGlobalDocumentCreate.BUILDING_CODE, buildingCode);
+        pKeys.put(CamsPropertyConstants.AssetGlobalDocumentCreate.BUILDING_ROOM_NUMBER, buildingRoomNumber);
         Room room = this.getBusinessObjectService().findByPrimaryKey(Room.class, pKeys);
         return ObjectUtils.isNotNull(room) && room.isActive();
     }
@@ -441,8 +435,8 @@ public class PurApLineDocumentServiceImpl implements PurApLineDocumentService {
      */
     protected boolean checkBuildingCodeValid(String campusCode, String buildingCode) {
         Map<String, Object> pKeys = new HashMap<String, Object>();
-        pKeys.put(CabPropertyConstants.AssetGlobalDocumentCreate.CAMPUS_CODE, campusCode);
-        pKeys.put(CabPropertyConstants.AssetGlobalDocumentCreate.BUILDING_CODE, buildingCode);
+        pKeys.put(CamsPropertyConstants.AssetGlobalDocumentCreate.CAMPUS_CODE, campusCode);
+        pKeys.put(CamsPropertyConstants.AssetGlobalDocumentCreate.BUILDING_CODE, buildingCode);
         Building building = this.getBusinessObjectService().findByPrimaryKey(Building.class, pKeys);
         return ObjectUtils.isNotNull(building) && building.isActive();
     }
@@ -456,7 +450,7 @@ public class PurApLineDocumentServiceImpl implements PurApLineDocumentService {
      */
     protected boolean checkCampusCodeValid(String campusCode) {
         Map<String, Object> criteria = new HashMap<String, Object>();
-        criteria.put(CabPropertyConstants.AssetGlobalDocumentCreate.CAMPUS_CODE, campusCode);
+        criteria.put(CamsPropertyConstants.AssetGlobalDocumentCreate.CAMPUS_CODE, campusCode);
         Campus campus = SpringContext.getBean(CampusService.class).getCampus(campusCode/*RICE_20_REFACTORME  criteria */);
         return ObjectUtils.isNotNull(campus) && campus.isActive();
     }
@@ -573,10 +567,10 @@ public class PurApLineDocumentServiceImpl implements PurApLineDocumentService {
     protected void inActivateItem(PurchasingAccountsPayableItemAsset selectedItem) {
         // in-active each account.
         for (PurchasingAccountsPayableLineAssetAccount selectedAccount : selectedItem.getPurchasingAccountsPayableLineAssetAccounts()) {
-            selectedAccount.setActivityStatusCode(CabConstants.ActivityStatusCode.ENROUTE);
+            selectedAccount.setActivityStatusCode(CamsConstants.ActivityStatusCode.ENROUTE);
         }
         // in-activate selected Item
-        selectedItem.setActivityStatusCode(CabConstants.ActivityStatusCode.ENROUTE);
+        selectedItem.setActivityStatusCode(CamsConstants.ActivityStatusCode.ENROUTE);
     }
 
     /**
@@ -594,7 +588,7 @@ public class PurApLineDocumentServiceImpl implements PurApLineDocumentService {
             KualiDecimal relatedAccountAmount = KualiDecimal.ZERO;
 
             // get persistent account list which should be save before hand
-            glEntry.refreshReferenceObject(CabPropertyConstants.GeneralLedgerEntry.PURAP_LINE_ASSET_ACCOUNTS);
+            glEntry.refreshReferenceObject(CamsPropertyConstants.GeneralLedgerEntry.PURAP_LINE_ASSET_ACCOUNTS);
             // check if all accounts are inactive status
             for (PurchasingAccountsPayableLineAssetAccount account : glEntry.getPurApLineAssetAccounts()) {
                 if (!account.isActive()) {
@@ -604,7 +598,7 @@ public class PurApLineDocumentServiceImpl implements PurApLineDocumentService {
 
             // if one account shows active, won't in-activate this general ledger entry.
             if (relatedAccountAmount.compareTo(glEntry.getAmount()) == 0) {
-                glEntry.setActivityStatusCode(CabConstants.ActivityStatusCode.ENROUTE);
+                glEntry.setActivityStatusCode(CamsConstants.ActivityStatusCode.ENROUTE);
                 glEntryUpdateList.add(glEntry);
             }
         }
@@ -727,7 +721,7 @@ public class PurApLineDocumentServiceImpl implements PurApLineDocumentService {
      */
     protected boolean checkCapitalAssetTypeCodeExist(String capitalAssetTypeCode) {
         Map<String, Object> pKeys = new HashMap<String, Object>();
-        pKeys.put(CabPropertyConstants.AssetGlobalDocumentCreate.CAPITAL_ASSET_TYPE_CODE, capitalAssetTypeCode);
+        pKeys.put(CamsPropertyConstants.AssetGlobalDocumentCreate.CAPITAL_ASSET_TYPE_CODE, capitalAssetTypeCode);
         AssetType assetType = this.getBusinessObjectService().findByPrimaryKey(AssetType.class, pKeys);
         return ObjectUtils.isNotNull(assetType);
     }

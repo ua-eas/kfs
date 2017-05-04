@@ -12,12 +12,13 @@ import org.kuali.kfs.sys.document.web.AccountingLineViewAction;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.KRADConstants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class GeneralErrorCorrectionReversingAccountingLinesAuthorizer extends CapitalAccountingLinesAuthorizerBase {
 
@@ -36,12 +37,12 @@ public class GeneralErrorCorrectionReversingAccountingLinesAuthorizer extends Ca
     }
 
     @Override
-    public boolean hasEditPermissionOnAccountingLine(AccountingDocument accountingDocument, AccountingLine accountingLine, String accountingLineCollectionProperty, Person currentUser, boolean pageIsEditable) {
+    public boolean hasEditPermissionOnAccountingLine(AccountingDocument accountingDocument, AccountingLine accountingLine, String accountingLineCollectionProperty, Person currentUser, boolean pageIsEditable, Set<String> currentNodes) {
         return false;
     }
 
     @Override
-    public boolean hasEditPermissionOnField(AccountingDocument accountingDocument, AccountingLine accountingLine, String accountingLineCollectionProperty, String fieldName, boolean editableLine, boolean editablePage, Person currentUser) {
+    public boolean hasEditPermissionOnField(AccountingDocument accountingDocument, AccountingLine accountingLine, String accountingLineCollectionProperty, String fieldName, boolean editableLine, boolean editablePage, Person currentUser, Set<String> currentNodes) {
         return false;
     }
 
@@ -86,7 +87,8 @@ public class GeneralErrorCorrectionReversingAccountingLinesAuthorizer extends Ca
         ConfigurationService kualiConfigurationService = SpringContext.getBean(ConfigurationService.class);
         String imagesPath = kualiConfigurationService.getPropertyValueAsString(KRADConstants.APPLICATION_EXTERNALIZABLE_IMAGES_URL_KEY);
         String actionImageName = imagesPath + "tinybutton-copy2.gif";
-        AccountingLineViewAction retval = new AccountingLineViewAction(actionMethod, actionLabel, actionImageName);
+        // TODO: UA tech team review last parameter newly added per API change
+        AccountingLineViewAction retval = new AccountingLineViewAction(actionMethod, actionLabel, actionImageName, "Copy");
         return retval;
     }
 

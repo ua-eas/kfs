@@ -37,6 +37,9 @@
         <frontend-maven-plugin.npm.version>3.10.3</frontend-maven-plugin.npm.version>
         <jsfrontend.sources>src/main/webapp</jsfrontend.sources>
 
+        <cachingTimestamp>${maven.build.timestamp}</cachingTimestamp>
+        <maven.build.timestamp.format>yyyyMMddHHmmS</maven.build.timestamp.format>
+    </properties>
 
     <pluginRepositories>
         <pluginRepository>

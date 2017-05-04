@@ -1,4 +1,4 @@
-package edu.arizona.kfs.module.cab.businessobject.lookup;
+package edu.arizona.kfs.module.cam.businessobject.lookup;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,19 +10,19 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableProcessingReport;
+import org.kuali.kfs.module.cam.businessobject.PurchasingAccountsPayableProcessingReport;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.rice.krad.util.ObjectUtils;
 
-import edu.arizona.kfs.module.cab.CabPropertyConstants;
+import edu.arizona.kfs.module.cam.CamsPropertyConstants;
 
 /**
  * This class overrides org for CAB AP lookupable service
  */
-public class PurApReportLookupableHelperServiceImpl extends org.kuali.kfs.module.cab.businessobject.lookup.PurApReportLookupableHelperServiceImpl {
+public class PurApReportLookupableHelperServiceImpl extends org.kuali.kfs.module.cam.businessobject.lookup.PurApReportLookupableHelperServiceImpl {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PurApReportLookupableHelperServiceImpl.class);
     
     /**
@@ -36,14 +36,14 @@ public class PurApReportLookupableHelperServiceImpl extends org.kuali.kfs.module
         setDocFormKey(fieldValues.get(KFSConstants.DOC_FORM_KEY));
 
         // purapDocumentIdentifier should query PurchasingAccountsPayableDocument
-        String purapDocumentIdentifier = getSelectedField(fieldValues, CabPropertyConstants.PurchasingAccountsPayableProcessingReport.PURAP_DOCUMENT_IDENTIFIER);
+        String purapDocumentIdentifier = getSelectedField(fieldValues, CamsPropertyConstants.PurchasingAccountsPayableProcessingReport.PURAP_DOCUMENT_IDENTIFIER);
 
         // Get the user selects 'Y' for "processed by CAMs". We will search for all status GL lines. This is because of the partial
         // submitted GL lines when GL is 'N'(new) or 'M'(modified), partial GL lines could submit to CAMs. we should include these
         // lines into the search result.
-        String active = getSelectedField(fieldValues, CabPropertyConstants.GeneralLedgerEntry.ACTIVITY_STATUS_CODE);
+        String active = getSelectedField(fieldValues, CamsPropertyConstants.GeneralLedgerEntry.ACTIVITY_STATUS_CODE);
         if (KFSConstants.ACTIVE_INDICATOR.equalsIgnoreCase(active)) {
-            fieldValues.remove(CabPropertyConstants.GeneralLedgerEntry.ACTIVITY_STATUS_CODE);
+            fieldValues.remove(CamsPropertyConstants.GeneralLedgerEntry.ACTIVITY_STATUS_CODE);
         }
         // search for GeneralLedgerEntry BO.
         Iterator searchResultIterator = getPurApReportService().findGeneralLedgers(fieldValues);
@@ -85,8 +85,8 @@ public class PurApReportLookupableHelperServiceImpl extends org.kuali.kfs.module
     		String activeSelection, Map<String, String> fieldValues) {
         List<PurchasingAccountsPayableProcessingReport> purApReportList = new ArrayList();
         String invoiceStatusForSearching = "";
-        if (fieldValues.containsKey(CabPropertyConstants.INVOICE_STATUS)) {
-        	invoiceStatusForSearching = fieldValues.get(CabPropertyConstants.INVOICE_STATUS);
+        if (fieldValues.containsKey(CamsPropertyConstants.INVOICE_STATUS)) {
+        	invoiceStatusForSearching = fieldValues.get(CamsPropertyConstants.INVOICE_STATUS);
         }
         
         while (searchResultIterator.hasNext()) {
@@ -151,7 +151,7 @@ public class PurApReportLookupableHelperServiceImpl extends org.kuali.kfs.module
 		// populate search result with App doc status(i.e. invoice status) from financial doc header
 		if (StringUtils.isNotBlank(documentNumber)) {
 			Map<String, String> primaryKeys = new HashMap<String, String>();
-			primaryKeys.put(CabPropertyConstants.DOCUMENT_NUMBER, documentNumber);
+			primaryKeys.put(CamsPropertyConstants.DOCUMENT_NUMBER, documentNumber);
 			fsDocHeader = getBusinessObjectService().findByPrimaryKey(FinancialSystemDocumentHeader.class, primaryKeys);
 		}
 		

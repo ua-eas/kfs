@@ -14,9 +14,9 @@ import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sys.businessobject.Building;
 import org.kuali.kfs.sys.businessobject.Room;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.DataDictionaryService;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.rice.location.impl.campus.CampusBo;
 import org.springframework.transaction.annotation.Transactional;
 

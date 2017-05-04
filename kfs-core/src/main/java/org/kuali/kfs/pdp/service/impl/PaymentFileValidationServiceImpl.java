@@ -83,7 +83,7 @@ public class PaymentFileValidationServiceImpl implements PaymentFileValidationSe
 
     /**
      * @see org.kuali.kfs.pdp.batch.service.PaymentFileValidationService#doHardEdits(org.kuali.kfs.pdp.businessobject.PaymentFile,
-     * org.kuali.rice.krad.util.MessageMap)
+     * org.kuali.kfs.krad.util.MessageMap)
      */
     @Override
     public void doHardEdits(PaymentFileLoad paymentFile, MessageMap errorMap) {

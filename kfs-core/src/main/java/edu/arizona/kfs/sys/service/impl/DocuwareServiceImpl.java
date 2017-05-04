@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 
 import edu.arizona.kfs.sys.KFSConstants;
 import edu.arizona.kfs.sys.service.DocuwareService;

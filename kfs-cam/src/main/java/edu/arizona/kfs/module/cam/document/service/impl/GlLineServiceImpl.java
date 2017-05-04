@@ -1,12 +1,12 @@
-package edu.arizona.kfs.module.cab.document.service.impl;
+package edu.arizona.kfs.module.cam.document.service.impl;
 
 import edu.arizona.kfs.module.cam.document.service.AssetService;
 
-import org.kuali.kfs.module.cab.businessobject.GeneralLedgerEntry;
+import org.kuali.kfs.module.cam.businessobject.GeneralLedgerEntry;
 import org.kuali.rice.kns.document.MaintenanceDocument;
 import org.kuali.kfs.module.cam.businessobject.AssetGlobal;
 
-public class GlLineServiceImpl extends org.kuali.kfs.module.cab.document.service.impl.GlLineServiceImpl {
+public class GlLineServiceImpl extends org.kuali.kfs.module.cam.document.service.impl.GlLineServiceImpl {
 	
 	protected AssetService assetService;
 	

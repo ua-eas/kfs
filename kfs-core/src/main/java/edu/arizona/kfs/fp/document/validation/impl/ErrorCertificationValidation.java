@@ -3,7 +3,7 @@ package edu.arizona.kfs.fp.document.validation.impl;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 import edu.arizona.kfs.fp.businessobject.ErrorCertification;
 import edu.arizona.kfs.fp.document.GeneralErrorCorrectionDocument;

@@ -4,8 +4,8 @@ import org.kuali.kfs.coa.businessobject.FundGroup;
 import org.kuali.kfs.coa.businessobject.SubFundGroup;
 import org.kuali.kfs.sys.businessobject.OriginationCode;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 import java.util.ArrayList;
 import java.util.Collection;

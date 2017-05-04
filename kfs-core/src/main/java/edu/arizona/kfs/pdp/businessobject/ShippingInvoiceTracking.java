@@ -7,7 +7,7 @@ import org.apache.commons.beanutils.converters.SqlDateConverter;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 public class ShippingInvoiceTracking extends PersistableBusinessObjectBase {
     private static final long serialVersionUID = -3917402012628430508L;

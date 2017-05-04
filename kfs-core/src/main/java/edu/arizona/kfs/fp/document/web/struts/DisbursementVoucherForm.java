@@ -4,8 +4,8 @@ import edu.arizona.kfs.fp.document.DisbursementVoucherDocument;
 import edu.arizona.kfs.sys.KFSConstants;
 
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.krad.service.DataDictionaryService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.DataDictionaryService;
 
 
 public class DisbursementVoucherForm extends org.kuali.kfs.fp.document.web.struts.DisbursementVoucherForm {

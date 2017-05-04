@@ -5,8 +5,8 @@ import edu.arizona.kfs.gl.businessobject.GlobalTransactionEditDetail;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.rice.krad.bo.DocumentHeader;
-import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 
 public class GlobalTransactionEditMaintainableImpl extends FinancialSystemMaintainable {
     protected BusinessObjectService businessObjectService;

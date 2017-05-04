@@ -19,4 +19,6 @@ public class CamsPropertyConstants extends org.kuali.kfs.module.cam.CamsProperty
 		public static final String ASSET_EXTENSION_ACCOUNT_RESPONSIBILITIES = "extension.assetAccountResponsibilities";
 		public static final String MAINT_SECTION_ID = "awardHistory";
 	}
+	
+	public static final String INVOICE_STATUS = "invoiceStatus";
 }

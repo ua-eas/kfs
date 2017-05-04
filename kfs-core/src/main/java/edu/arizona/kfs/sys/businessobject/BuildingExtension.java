@@ -17,8 +17,8 @@ package edu.arizona.kfs.sys.businessobject;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectExtensionBase;
-import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectExtensionBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 
 
 /**

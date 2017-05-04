@@ -9,9 +9,9 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.fp.document.DisbursementVoucherConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.DataDictionaryService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DataDictionaryService;
 
 import edu.arizona.kfs.fp.service.DisbursementVoucherInvoiceService;
 import edu.arizona.kfs.sys.KFSPropertyConstants;

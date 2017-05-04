@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  * 
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -16,14 +16,14 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.kuali.kfs.module.cab.document.service.impl;
+package org.kuali.kfs.module.cam.document.service.impl;
 
-import org.kuali.kfs.module.cab.document.service.GlAndPurApHelperService;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.module.cam.document.service.GlAndPurApHelperService;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.KewApiServiceLocator;
 import org.kuali.rice.kew.api.doctype.DocumentType;
 import org.kuali.rice.kew.api.doctype.DocumentTypeService;
-import org.kuali.rice.krad.util.KRADConstants;
 
 public class GlAndPurApHelperServiceImpl implements GlAndPurApHelperService {
 
@@ -34,8 +34,7 @@ public class GlAndPurApHelperServiceImpl implements GlAndPurApHelperService {
         String docHandlerUrl = docType.getResolvedDocumentHandlerUrl();
         if (docHandlerUrl.indexOf("?") == -1) {
             docHandlerUrl += "?";
-        }
-        else {
+        } else {
             docHandlerUrl += "&";
         }
 

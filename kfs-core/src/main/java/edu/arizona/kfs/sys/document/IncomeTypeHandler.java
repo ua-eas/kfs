@@ -13,9 +13,9 @@ import org.kuali.kfs.vnd.businessobject.VendorHeader;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
 import org.kuali.rice.kew.api.KewApiConstants;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.MessageMap;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
 
 import edu.arizona.kfs.sys.KFSConstants;
 import edu.arizona.kfs.sys.KFSKeyConstants;

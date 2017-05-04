@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -16,27 +16,28 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.kuali.kfs.module.cab.document.service.impl;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+package org.kuali.kfs.module.cam.document.service.impl;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.service.ObjectTypeService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.businessobject.CapitalAccountingLines;
 import org.kuali.kfs.fp.businessobject.CapitalAssetAccountsGroupDetails;
 import org.kuali.kfs.fp.businessobject.CapitalAssetInformation;
 import org.kuali.kfs.fp.businessobject.CapitalAssetInformationDetail;
 import org.kuali.kfs.fp.document.dataaccess.CapitalAssetInformationDao;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
-import org.kuali.kfs.module.cab.CabConstants;
-import org.kuali.kfs.module.cab.CabPropertyConstants;
-import org.kuali.kfs.module.cab.businessobject.GeneralLedgerEntry;
-import org.kuali.kfs.module.cab.businessobject.GeneralLedgerEntryAsset;
-import org.kuali.kfs.module.cab.document.service.GlLineService;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentHeaderService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.cam.businessobject.GeneralLedgerEntry;
+import org.kuali.kfs.module.cam.businessobject.GeneralLedgerEntryAsset;
+import org.kuali.kfs.module.cam.document.service.GlLineService;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsConstants.DocumentTypeName;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
@@ -57,17 +58,14 @@ import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.parameter.ParameterEvaluator;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.krad.bo.DocumentHeader;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.DocumentHeaderService;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class GlLineServiceImpl implements GlLineService {
     private static final String CAB_DESC_PREFIX = "CAB created for FP ";
@@ -82,8 +80,8 @@ public class GlLineServiceImpl implements GlLineService {
     protected CapitalAssetInformationDao capitalAssetInformationDao;
 
     /**
-     * @see org.kuali.kfs.module.cab.document.service.GlLineService#createAssetGlobalDocument(java.util.List,
-     *      org.kuali.kfs.module.cab.businessobject.GeneralLedgerEntry)
+     * @see GlLineService#createAssetGlobalDocument(List,
+     * GeneralLedgerEntry)
      */
     @Override
     @NonTransactional
@@ -188,14 +186,14 @@ public class GlLineServiceImpl implements GlLineService {
     }
 
    /**
-     * @see org.kuali.kfs.module.cab.document.service.GlLineService#findCapitalAssetInformation(org.kuali.kfs.module.cab.businessobject.GeneralLedgerEntry)
+     * @see GlLineService#findCapitalAssetInformation(GeneralLedgerEntry)
      */
     @Override
     @NonTransactional
     public CapitalAssetInformation findCapitalAssetInformation(String documentNumber, Integer capitalAssetLineNumber) {
         Map<String, String> primaryKeys = new HashMap<String, String>(2);
-        primaryKeys.put(CabPropertyConstants.CapitalAssetInformation.DOCUMENT_NUMBER, documentNumber);
-        primaryKeys.put(CabPropertyConstants.CapitalAssetInformation.ASSET_LINE_NUMBER, capitalAssetLineNumber.toString());
+        primaryKeys.put(CamsPropertyConstants.CapitalAssetInformation.DOCUMENT_NUMBER, documentNumber);
+        primaryKeys.put(CamsPropertyConstants.CapitalAssetInformation.ASSET_LINE_NUMBER, capitalAssetLineNumber.toString());
 
         CapitalAssetInformation assetInformation = businessObjectService.findByPrimaryKey(CapitalAssetInformation.class, primaryKeys);
         return assetInformation;
@@ -205,23 +203,23 @@ public class GlLineServiceImpl implements GlLineService {
     @NonTransactional
     public List<CapitalAssetInformation> findAllCapitalAssetInformation(String documentNumber) {
         Map<String, String> primaryKeys = new HashMap<String, String>(1);
-        primaryKeys.put(CabPropertyConstants.CapitalAssetInformation.DOCUMENT_NUMBER, documentNumber);
+        primaryKeys.put(CamsPropertyConstants.CapitalAssetInformation.DOCUMENT_NUMBER, documentNumber);
 
-        List<CapitalAssetInformation> assetInformation = (List<CapitalAssetInformation>) businessObjectService.findMatchingOrderBy(CapitalAssetInformation.class, primaryKeys, CabPropertyConstants.CapitalAssetInformation.ACTION_INDICATOR, true);
+        List<CapitalAssetInformation> assetInformation = (List<CapitalAssetInformation>) businessObjectService.findMatchingOrderBy(CapitalAssetInformation.class, primaryKeys, CamsPropertyConstants.CapitalAssetInformation.ACTION_INDICATOR, true);
 
         return assetInformation;
     }
 
     /**
-     * @see org.kuali.kfs.module.cab.document.service.GlLineService#findCapitalAssetInformationForGLLine(org.kuali.kfs.module.cab.businessobject.GeneralLedgerEntry)
+     * @see GlLineService#findCapitalAssetInformationForGLLine(GeneralLedgerEntry)
      */
     @Override
     @NonTransactional
     public List<CapitalAssetInformation> findCapitalAssetInformationForGLLine(GeneralLedgerEntry entry) {
         Map<String, String> primaryKeys = new HashMap<String, String>();
-        primaryKeys.put(CabPropertyConstants.CapitalAssetInformation.DOCUMENT_NUMBER, entry.getDocumentNumber());
+        primaryKeys.put(CamsPropertyConstants.CapitalAssetInformation.DOCUMENT_NUMBER, entry.getDocumentNumber());
 
-        List<CapitalAssetInformation> assetInformation = (List<CapitalAssetInformation>) businessObjectService.findMatchingOrderBy(CapitalAssetInformation.class, primaryKeys, CabPropertyConstants.CapitalAssetInformation.ACTION_INDICATOR, true);
+        List<CapitalAssetInformation> assetInformation = (List<CapitalAssetInformation>) businessObjectService.findMatchingOrderBy(CapitalAssetInformation.class, primaryKeys, CamsPropertyConstants.CapitalAssetInformation.ACTION_INDICATOR, true);
 
         List<CapitalAssetInformation> matchingAssets = new ArrayList<CapitalAssetInformation>();
 
@@ -235,6 +233,7 @@ public class GlLineServiceImpl implements GlLineService {
     /**
      * Compares the gl line to the group accounting lines in each capital asset and
      * when finds a match, adds the capital asset to the list of matching assets
+     *
      * @param matchingAssets
      * @param capitalAsset
      * @param entry
@@ -271,8 +270,8 @@ public class GlLineServiceImpl implements GlLineService {
     @NonTransactional
     public long findUnprocessedCapitalAssetInformation( String documentNumber ) {
         Map<String, String> fieldValues = new HashMap<String, String>(2);
-        fieldValues.put(CabPropertyConstants.CapitalAssetInformation.DOCUMENT_NUMBER, documentNumber);
-        fieldValues.put(CabPropertyConstants.CapitalAssetInformation.ASSET_PROCESSED_IND, KFSConstants.CapitalAssets.CAPITAL_ASSET_PROCESSED_IND);
+        fieldValues.put(CamsPropertyConstants.CapitalAssetInformation.DOCUMENT_NUMBER, documentNumber);
+        fieldValues.put(CamsPropertyConstants.CapitalAssetInformation.ASSET_PROCESSED_IND, KFSConstants.CapitalAssets.CAPITAL_ASSET_PROCESSED_IND);
 
         return businessObjectService.countMatching(CapitalAssetInformation.class, fieldValues);
     }
@@ -353,7 +352,7 @@ public class GlLineServiceImpl implements GlLineService {
     @NonTransactional
     public Collection<GeneralLedgerEntry> findAllGeneralLedgerEntry(String documentNumber) {
         Map<String, String> fieldValues = new HashMap<String, String>(1);
-        fieldValues.put(CabPropertyConstants.GeneralLedgerEntry.DOCUMENT_NUMBER, documentNumber);
+        fieldValues.put(CamsPropertyConstants.GeneralLedgerEntry.DOCUMENT_NUMBER, documentNumber);
 
         return businessObjectService.findMatching(GeneralLedgerEntry.class, fieldValues);
     }
@@ -407,7 +406,7 @@ public class GlLineServiceImpl implements GlLineService {
     }
 
     /**
-     * @see org.kuali.kfs.module.cab.document.service.GlLineService#createAssetPaymentDocument(org.kuali.kfs.module.cab.businessobject.GeneralLedgerEntry, java.lang.Integer)
+     * @see GlLineService#createAssetPaymentDocument(GeneralLedgerEntry, Integer)
      */
     @Override
     @NonTransactional
@@ -489,6 +488,7 @@ public class GlLineServiceImpl implements GlLineService {
     /**
      * Creates asset payment details based on accounting lines distributed
      * for the given capital asset.
+     *
      * @param entry
      * @param document
      * @param seqNo
@@ -547,7 +547,6 @@ public class GlLineServiceImpl implements GlLineService {
     }
 
     /**
-     *
      * @param entry GL entry
      * @param accountingLine accounting line in the capital asset
      * @return accountingLineAmount
@@ -583,6 +582,7 @@ public class GlLineServiceImpl implements GlLineService {
 
     /**
      * determines if the document is an error correction document...
+     *
      * @param entry
      * @return true if the document is an error correction else false
      */
@@ -595,6 +595,7 @@ public class GlLineServiceImpl implements GlLineService {
     /**
      * updates the submit amount by the amount on the accounting line.  When submit amount equals
      * transaction ledger amount, the activity status code is marked as in route status.
+     *
      * @param matchingGLEntry
      * @param accountLineAmount
      */
@@ -608,7 +609,7 @@ public class GlLineServiceImpl implements GlLineService {
         matchingGLEntry.setTransactionLedgerSubmitAmount(submitTotalAmount.add(accountLineAmount.abs()));
 
         if (matchingGLEntry.getTransactionLedgerSubmitAmount().equals(matchingGLEntry.getTransactionLedgerEntryAmount())) {
-            matchingGLEntry.setActivityStatusCode(CabConstants.ActivityStatusCode.ENROUTE);
+            matchingGLEntry.setActivityStatusCode(CamsConstants.ActivityStatusCode.ENROUTE);
         }
 
         //save the updated gl entry in CAB
@@ -650,6 +651,7 @@ public class GlLineServiceImpl implements GlLineService {
 
     /**
      * retrieves the amount from the capital asset
+     *
      * @param entry
      * @param capitalAssetLineNumber
      * @return capital asset amount.
@@ -771,8 +773,6 @@ public class GlLineServiceImpl implements GlLineService {
     }
 
     /**
-     *
-     *
      * @param capitalAccountingLine
      * @param capitalAsset
      */

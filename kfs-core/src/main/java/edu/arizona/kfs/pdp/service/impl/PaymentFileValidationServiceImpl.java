@@ -30,7 +30,7 @@ import org.kuali.kfs.pdp.businessobject.*;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.Message;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.bo.KualiCodeBase;
+import org.kuali.kfs.krad.bo.KualiCodeBase;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;

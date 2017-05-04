@@ -18,6 +18,10 @@
  */
 package org.kuali.kfs.gl.batch.service.impl;
 
+import java.sql.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.A21SubAccount;
 import org.kuali.kfs.coa.businessobject.Account;
@@ -45,6 +49,7 @@ import org.kuali.kfs.gl.businessobject.ExpenditureTransaction;
 import org.kuali.kfs.gl.businessobject.Reversal;
 import org.kuali.kfs.gl.businessobject.SufficientFundBalances;
 import org.kuali.kfs.gl.businessobject.Transaction;
+import org.kuali.kfs.krad.service.SequenceAccessorService;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.batch.service.AbstractBatchTransactionalCachingService;
 import org.kuali.kfs.sys.businessobject.OriginationCode;
@@ -53,10 +58,6 @@ import org.kuali.kfs.sys.businessobject.UniversityDate;
 import org.kuali.kfs.sys.document.service.FinancialSystemDocumentTypeService;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-
-import java.sql.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 public class AccountingCycleCachingServiceImpl extends AbstractBatchTransactionalCachingService implements AccountingCycleCachingService {
     private static final String GL_ENTTRY_ID_SEQ = "GL_ENTRY_ID_SEQ";

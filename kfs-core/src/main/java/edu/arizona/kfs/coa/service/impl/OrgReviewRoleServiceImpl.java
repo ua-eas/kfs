@@ -12,7 +12,7 @@ import edu.arizona.kfs.sys.KFSConstants;
 
 import edu.arizona.kfs.sys.identity.KfsKimAttributes;
 import org.kuali.rice.kim.api.KimConstants;
-import org.kuali.rice.krad.exception.ValidationException;
+import org.kuali.kfs.krad.exception.ValidationException;
 import org.springframework.cache.annotation.Cacheable;
 
 public class OrgReviewRoleServiceImpl extends org.kuali.kfs.coa.service.impl.OrgReviewRoleServiceImpl {

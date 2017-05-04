@@ -2,10 +2,10 @@ package edu.arizona.kfs.fp.businessobject.lookup;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.rice.kns.lookup.HtmlData;
-import org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.util.UrlFactory;
+import org.kuali.kfs.krad.util.UrlFactory;
 
 import java.util.ArrayList;
 import java.util.List;

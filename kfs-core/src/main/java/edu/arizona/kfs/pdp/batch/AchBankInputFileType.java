@@ -22,8 +22,8 @@ import org.kuali.kfs.sys.businessobject.OriginationCode;
 import org.kuali.kfs.sys.dataaccess.OriginationCodeDao;
 import org.kuali.kfs.sys.exception.ParseException;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 import edu.arizona.kfs.sys.KFSConstants;
 import edu.arizona.kfs.sys.KFSKeyConstants;

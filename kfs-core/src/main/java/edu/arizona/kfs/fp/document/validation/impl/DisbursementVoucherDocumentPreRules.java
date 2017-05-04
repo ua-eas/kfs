@@ -11,8 +11,8 @@ import org.kuali.kfs.fp.document.DisbursementVoucherDocument;
 import org.kuali.kfs.integration.purap.PurchasingAccountsPayableModuleService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.krad.document.Document;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.document.Document;
 
 import edu.arizona.kfs.fp.businessobject.DisbursementVoucherSourceAccountingLine;
 import edu.arizona.kfs.fp.businessobject.DisbursementVoucherSourceAccountingLineExtension;

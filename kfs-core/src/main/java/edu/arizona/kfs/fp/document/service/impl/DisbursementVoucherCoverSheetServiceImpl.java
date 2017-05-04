@@ -1,6 +1,7 @@
 package edu.arizona.kfs.fp.document.service.impl;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 
@@ -11,7 +12,8 @@ import org.kuali.kfs.fp.document.DisbursementVoucherDocument;
 import org.kuali.kfs.fp.businessobject.PaymentReasonCode;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.springframework.core.io.ClassPathResource;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -29,7 +31,7 @@ public class DisbursementVoucherCoverSheetServiceImpl extends org.kuali.kfs.fp.d
      * remove the line, bar and rline fields from PDF template and move the payee name, document number and payment reason to lower part
      */
     @Override
-    public void generateDisbursementVoucherCoverSheet(String templateDirectory, String templateName, DisbursementVoucherDocument document, OutputStream outputStream) throws DocumentException, IOException {
+    public void generateDisbursementVoucherCoverSheet(DisbursementVoucherDocument document, OutputStream outputStream) throws DocumentException, IOException {
         if (!this.isCoverSheetPrintable(document)) {
             return;
         }
@@ -77,9 +79,11 @@ public class DisbursementVoucherCoverSheetServiceImpl extends org.kuali.kfs.fp.d
 		}
 		
         try {
-
-            URL url = new URL(templateDirectory + templateName);
-            PdfReader reader = new PdfReader(url);
+        	// TODO: UA tech reconcile needed
+            String templateName = DisbursementVoucherConstants.DV_COVER_SHEET_TEMPLATE_NM;
+            ClassPathResource classPathResource = new ClassPathResource(templateName);
+            InputStream templateInputStream = classPathResource.getInputStream();
+            PdfReader reader = new PdfReader(templateInputStream);
 
             // populate form with document values
             PdfStamper stamper = new PdfStamper(reader, outputStream);

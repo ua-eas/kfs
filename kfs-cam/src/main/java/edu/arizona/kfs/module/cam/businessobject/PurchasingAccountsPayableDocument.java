@@ -1,18 +1,18 @@
-package edu.arizona.kfs.module.cab.businessobject;
+package edu.arizona.kfs.module.cam.businessobject;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import edu.arizona.kfs.module.cab.CabConstants;
-import org.kuali.kfs.module.cab.CabPropertyConstants;
+import edu.arizona.kfs.module.cam.CamsConstants;
+import org.kuali.kfs.module.cam.CamsPropertyConstants;
 import org.kuali.rice.krad.service.BusinessObjectService;
 import edu.arizona.kfs.module.purap.document.PaymentRequestDocument;
 import edu.arizona.kfs.module.purap.document.VendorCreditMemoDocument;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.krad.util.ObjectUtils;
 
-public class PurchasingAccountsPayableDocument extends org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableDocument {
+public class PurchasingAccountsPayableDocument extends org.kuali.kfs.module.cam.businessobject.PurchasingAccountsPayableDocument {
 	
     @Override
     public String getStatusDescription() {
@@ -22,9 +22,9 @@ public class PurchasingAccountsPayableDocument extends org.kuali.kfs.module.cab.
         }
         else {
             Map<String, Integer> objectKeys = new HashMap<String, Integer>();
-            objectKeys.put(CabPropertyConstants.PurchasingAccountsPayableDocument.PURAP_DOCUMENT_IDENTIFIER, this.getPurapDocumentIdentifier());
+            objectKeys.put(CamsPropertyConstants.PurchasingAccountsPayableDocument.PURAP_DOCUMENT_IDENTIFIER, this.getPurapDocumentIdentifier());
 
-            if (CabConstants.PREQ.equals(getDocumentTypeCode()) || CabConstants.PRNC.equals(getDocumentTypeCode())) {
+            if (CamsConstants.PREQ.equals(getDocumentTypeCode()) || CamsConstants.PRNC.equals(getDocumentTypeCode())) {
 
                 PaymentRequestDocument paymentRequestDocument = (PaymentRequestDocument) SpringContext.getBean(BusinessObjectService.class).findByPrimaryKey(PaymentRequestDocument.class, objectKeys);
                 if (ObjectUtils.isNotNull(paymentRequestDocument)) {

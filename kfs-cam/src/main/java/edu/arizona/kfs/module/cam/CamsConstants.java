@@ -14,4 +14,6 @@ public class CamsConstants extends org.kuali.kfs.module.cam.CamsConstants {
 		public static final String ASSET_INVENTORY_UNIT_NULL ="AssetInventoryUnit Null";
 		
 	}
+	
+	public static final String PRNC = "PRNC";
 }

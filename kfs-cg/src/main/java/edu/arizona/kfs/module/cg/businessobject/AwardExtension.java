@@ -1,6 +1,6 @@
 package edu.arizona.kfs.module.cg.businessobject;
 
-import org.kuali.rice.krad.bo.PersistableBusinessObjectExtensionBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectExtensionBase;
 
 public class AwardExtension extends PersistableBusinessObjectExtensionBase {
 	private Long proposalNumber;

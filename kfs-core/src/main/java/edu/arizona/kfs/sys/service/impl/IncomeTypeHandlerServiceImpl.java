@@ -8,8 +8,8 @@ import java.util.StringTokenizer;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.vnd.businessobject.VendorHeader;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 
 import edu.arizona.kfs.sys.KFSConstants;
 import edu.arizona.kfs.sys.businessobject.IncomeType;

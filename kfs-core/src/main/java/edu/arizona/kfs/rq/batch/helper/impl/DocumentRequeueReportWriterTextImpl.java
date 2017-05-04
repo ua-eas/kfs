@@ -3,7 +3,7 @@ package edu.arizona.kfs.rq.batch.helper.impl;
 import edu.arizona.kfs.rq.batch.helper.DocumentRequeueReportWriter;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 import java.io.File;
 import java.io.IOException;

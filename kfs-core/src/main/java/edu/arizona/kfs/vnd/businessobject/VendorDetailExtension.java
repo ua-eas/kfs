@@ -2,8 +2,8 @@ package edu.arizona.kfs.vnd.businessobject;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.log4j.Logger;
-import org.kuali.rice.krad.util.ObjectUtils;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectExtensionBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectExtensionBase;
 
 /**
  * UAF-66 / MOD-PA7000-02 US Export Compliance

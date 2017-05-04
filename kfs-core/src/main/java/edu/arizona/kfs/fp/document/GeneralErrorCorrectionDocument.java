@@ -15,7 +15,7 @@ import org.kuali.kfs.sys.document.service.DebitDeterminerService;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 
 import edu.arizona.kfs.fp.businessobject.ErrorCertification;
 import edu.arizona.kfs.gl.businessobject.GecEntryRelationship;
