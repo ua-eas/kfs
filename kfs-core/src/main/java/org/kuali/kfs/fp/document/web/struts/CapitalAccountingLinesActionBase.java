@@ -540,7 +540,7 @@ public abstract class CapitalAccountingLinesActionBase extends CapitalAssetInfor
         List<CapitalAccountingLines> capitalAccountingLines = caldb.getCapitalAccountingLines();
 
         for (CapitalAccountingLines capitalAccountingLine : capitalAccountingLines) {
-            if (capitalAccountingLine.isSelectLine() && !capitalAccountingLine.isAmountDistributed()) {
+            if (capitalAccountingLine.isSelectLine()) {
                 selected = true;
                 break;
             }
