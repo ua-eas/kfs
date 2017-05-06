@@ -44,7 +44,7 @@
 	<!-- Exported Workflow Properties -->
 
 	<bean id="AssetInventoryUnitMaintenance-workflowAttributes" parent="AssetInventoryUnitMaintenance-workflowAttributes-parentBean" />
-	<bean id="AssetInventoryUnitMaintenance-workflowAttributes-parentBean" class="org.kuali.rice.krad.datadictionary.WorkflowAttributes" abstract="true">
+	<bean id="AssetInventoryUnitMaintenance-workflowAttributes-parentBean" class="org.kuali.kfs.krad.datadictionary.WorkflowAttributes" abstract="true">
 	</bean>
 
 </beans>

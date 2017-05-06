@@ -11,7 +11,7 @@
         </property>
     </bean>
 
-    <bean id="RoutingType-AssetLocationGlobalMaintenanceDocument-Account" class="org.kuali.rice.krad.datadictionary.RoutingTypeDefinition">
+    <bean id="RoutingType-AssetLocationGlobalMaintenanceDocument-Account" class="org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition">
         <property name="routingAttributes">
             <list>
                 <ref bean="RoutingAttribute-chartOfAccountsCode" />
@@ -25,7 +25,7 @@
         </property>
     </bean>
 
-    <bean id="DocumentValuePathGroup-AssetLocationGlobalMaintenanceDocument-Account-assetLocationGlobalDetails" class="org.kuali.rice.krad.datadictionary.DocumentValuePathGroup">
+    <bean id="DocumentValuePathGroup-AssetLocationGlobalMaintenanceDocument-Account-assetLocationGlobalDetails" class="org.kuali.kfs.krad.datadictionary.DocumentValuePathGroup">
         <property name="documentCollectionPath">
             <bean parent="DocumentCollectionPath-AssetDetail-chartAndAccountNumber">
                 <property name="collectionPath" value="newMaintainableObject.businessObject.assetLocationGlobalDetails" />

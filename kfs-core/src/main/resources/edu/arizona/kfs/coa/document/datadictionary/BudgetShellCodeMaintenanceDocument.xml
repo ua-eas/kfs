@@ -66,5 +66,5 @@
 
     <!-- Exported Workflow Properties -->
 
-    <bean id="BudgetShellCodeMaintenanceDocument-workflowAttributes" class="org.kuali.rice.krad.datadictionary.WorkflowAttributes"/>
+    <bean id="BudgetShellCodeMaintenanceDocument-workflowAttributes" class="org.kuali.kfs.krad.datadictionary.WorkflowAttributes"/>
 </beans>

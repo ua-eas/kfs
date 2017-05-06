@@ -21,7 +21,6 @@ package org.kuali.kfs.fp.businessobject;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.service.BalanceTypeService;
-import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
 
@@ -45,15 +44,9 @@ import static org.kuali.kfs.sys.KFSPropertyConstants.REFERENCE_TYPE_CODE;
 import static org.kuali.kfs.sys.KFSPropertyConstants.SUB_ACCOUNT_NUMBER;
 
 import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.coa.service.BalanceTypeService;
-import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 
 /**
  * This class represents a <code>JournalVoucherDocument</code> accounting line parser.

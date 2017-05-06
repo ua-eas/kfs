@@ -97,7 +97,7 @@
                 <bean parent="MaintainableSubSectionHeaderDefinition" p:name="Asset Detail Info"/>
                 <bean parent="MaintainableFieldDefinition" p:name="capitalAssetNumber" p:unconditionallyReadOnly="true"/>
                 <bean parent="MaintainableFieldDefinition" p:name="organizationOwnerChartOfAccountsCode" p:required="true"/>
-                <bean parent="MaintainableFieldDefinition" p:name="organizationOwnerAccountNumber" p:webUILeaveFieldFunction="onblur_accountNumber" p:required="true">
+        		<bean parent="MaintainableFieldDefinition" p:name="organizationOwnerAccountNumber" p:webUILeaveFieldFunction="onblur_accountNumber">
                     <property name="webUILeaveFieldFunctionParameters">
                         <list>
                             <value>organizationOwnerChartOfAccountsCode</value>
@@ -133,49 +133,28 @@
     </bean>
     <bean id="AssetMaintenanceDocument-AssetLocation" parent="AssetMaintenanceDocument-AssetLocation-parentBean"/>
 
-  <bean id="AssetMaintenanceDocument-AssetDetailInformation-parentBean" abstract="true" parent="MaintainableSectionDefinition">
-    <property name="id" value="Asset Detail Information"/>
-    <property name="title" value="Asset Detail Information"/>
+  <bean id="AssetMaintenanceDocument-AssetLocation-parentBean" abstract="true" parent="MaintainableSectionDefinition">
+        <property name="id" value="Location Information"/>
+        <property name="title" value="Asset Location"/>
     <property name="maintainableItems">    
       <list>
-        <bean parent="MaintainableSubSectionHeaderDefinition" p:name="Asset Detail Info"/>
-        <bean parent="MaintainableFieldDefinition" p:name="capitalAssetNumber" p:unconditionallyReadOnly="true"/>
-        <bean parent="MaintainableFieldDefinition" p:name="organizationOwnerChartOfAccountsCode" p:required="true"/>
-        <bean parent="MaintainableFieldDefinition" p:name="organizationOwnerAccountNumber" p:webUILeaveFieldFunction="onblur_accountNumber">
-			<property name="webUILeaveFieldFunctionParameters">
-				<list>
-					<value>organizationOwnerChartOfAccountsCode</value>
-				</list>
-			</property> 
-		</bean>
-        <bean parent="MaintainableFieldDefinition" p:name="organizationOwnerAccount.organizationCode" p:unconditionallyReadOnly="true"/>
-        <bean parent="MaintainableFieldDefinition" p:name="agencyNumber"/>
-        <bean parent="MaintainableFieldDefinition" p:name="acquisitionTypeCode" p:unconditionallyReadOnly="true" p:defaultValue="C"/>
-        <bean parent="MaintainableFieldDefinition" p:name="inventoryStatusCode" p:required="true" p:defaultValue="U"/>
-        <bean parent="MaintainableFieldDefinition" p:name="conditionCode" p:required="true" p:noLookup="true" />
-        <bean parent="MaintainableFieldDefinition" p:name="capitalAssetDescription" p:required="true"/>
-        <bean parent="MaintainableFieldDefinition" p:name="capitalAssetTypeCode" p:required="true"/>
-        <bean parent="MaintainableFieldDefinition" p:name="vendorName" p:required="false" p:defaultValue="CONSTRUCTED"/>
-        <bean parent="MaintainableFieldDefinition" p:name="manufacturerName" p:required="false"/>
-        <bean parent="MaintainableFieldDefinition" p:name="manufacturerModelNumber"/>
-        <bean parent="MaintainableFieldDefinition" p:name="serialNumber"/>
-        <bean parent="MaintainableFieldDefinition" p:name="campusTagNumber"/>
-        <bean parent="MaintainableFieldDefinition" p:name="oldTagNumber"/>
-        <bean parent="MaintainableFieldDefinition" p:name="governmentTagNumber"/>
-        <bean parent="MaintainableFieldDefinition" p:name="nationalStockNumber"/>
-        <bean parent="MaintainableFieldDefinition" p:name="lastInventoryDate" p:unconditionallyReadOnly="true"/>
-        <bean parent="MaintainableFieldDefinition" p:name="createDate" p:unconditionallyReadOnly="true"/>
-        <bean parent="MaintainableFieldDefinition" p:name="financialDocumentPostingYear" p:unconditionallyReadOnly="true"/>
-        <bean parent="MaintainableFieldDefinition" p:name="financialDocumentPostingPeriodCode" p:unconditionallyReadOnly="true"/>
-        <bean parent="MaintainableFieldDefinition" p:name="financialObjectSubTypeCode"/>
-        <bean parent="MaintainableFieldDefinition" p:name="capitalAssetInServiceDate"/>
-        <bean parent="MaintainableFieldDefinition" p:name="depreciationDate" p:unconditionallyReadOnly="true"/>
-        <bean parent="MaintainableFieldDefinition" p:name="totalCostAmount" p:unconditionallyReadOnly="true"/>
-        <bean parent="MaintainableFieldDefinition" p:name="federalContribution" p:unconditionallyReadOnly="true"/>
+                <bean parent="MaintainableSubSectionHeaderDefinition" p:name="On Campus"/>
+                <bean parent="MaintainableFieldDefinition" p:name="campusCode" p:required="true"/>
+                <bean parent="MaintainableFieldDefinition" p:name="buildingCode"/>
+                <bean parent="MaintainableFieldDefinition" p:name="buildingRoomNumber"/>
+                <bean parent="MaintainableFieldDefinition" p:name="buildingSubRoomNumber"/>
+                <bean parent="MaintainableSubSectionHeaderDefinition" p:name="Off Campus"/>
+                <bean parent="MaintainableFieldDefinition" p:name="offCampusLocation.assetLocationContactName"/>
+                <bean parent="MaintainableFieldDefinition" p:name="offCampusLocation.assetLocationStreetAddress"/>
+                <bean parent="MaintainableFieldDefinition" p:name="offCampusLocation.assetLocationCityName"/>
+                <bean parent="MaintainableFieldDefinition" p:name="offCampusLocation.assetLocationStateCode"/>
+                <bean parent="MaintainableFieldDefinition" p:name="offCampusLocation.assetLocationZipCode"/>
+                <bean parent="MaintainableFieldDefinition" p:name="offCampusLocation.assetLocationCountryCode"/>
+                <bean parent="MaintainableFieldDefinition" p:name="lastInventoryDateUpdateButton"/>
       </list>
     </property>
   </bean>
-  <bean id="AssetMaintenanceDocument-AssetLocation" parent="AssetMaintenanceDocument-AssetLocation-parentBean"/>
+    <bean id="AssetMaintenanceDocument-OrganizationInformation" parent="AssetMaintenanceDocument-OrganizationInformation-parentBean"/>
 
     <bean id="AssetMaintenanceDocument-OrganizationInformation-parentBean" abstract="true" parent="MaintainableSectionDefinition">
         <property name="id" value="Organization Information"/>

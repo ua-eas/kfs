@@ -43,7 +43,7 @@
   	</property>
   </bean>  
   
-  <bean id="DocumentCollectionPath-detailLine-chartOrganizationAndOverrideCode" class="org.kuali.rice.krad.datadictionary.DocumentCollectionPath" abstract="true">
+  <bean id="DocumentCollectionPath-detailLine-chartOrganizationAndOverrideCode" class="org.kuali.kfs.krad.datadictionary.DocumentCollectionPath" abstract="true">
   	<property name="documentValues">
   		<list>
   			<value>chartOfAccountsCode</value>

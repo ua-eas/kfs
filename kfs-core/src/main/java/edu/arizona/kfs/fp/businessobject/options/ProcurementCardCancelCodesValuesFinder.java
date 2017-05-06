@@ -1,6 +1,6 @@
 package edu.arizona.kfs.fp.businessobject.options;
 
-import org.kuali.rice.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 

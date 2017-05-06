@@ -3,7 +3,7 @@ package edu.arizona.kfs.module.purap.businessobject;
 import org.apache.ojb.broker.PersistenceBrokerAware;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 
 import edu.arizona.kfs.sys.businessobject.IncomeType;
 

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.rice.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 
 import edu.arizona.kfs.module.tax.TaxConstants;
 import edu.arizona.kfs.sys.KFSConstants;

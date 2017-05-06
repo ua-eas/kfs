@@ -5,7 +5,8 @@ import java.util.Map;
 
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 import edu.arizona.kfs.module.purap.PurapPropertyConstants;
 import edu.arizona.kfs.sys.KFSPropertyConstants;
