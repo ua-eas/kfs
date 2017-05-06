@@ -12,6 +12,7 @@ import org.kuali.rice.core.api.parameter.ParameterEvaluator;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
 import org.kuali.rice.krad.document.Document;
 
+import edu.arizona.kfs.module.purap.PurapAuthorizationConstants;
 import edu.arizona.kfs.module.purap.PurapConstants;
 
 public class RequisitionDocumentPresentationController extends org.kuali.kfs.module.purap.document.authorization.RequisitionDocumentPresentationController {
@@ -32,6 +33,11 @@ public class RequisitionDocumentPresentationController extends org.kuali.kfs.mod
     @Override
     public Set<String> getEditModes(Document document) {
         Set<String> editModes = super.getEditModes(document);
+        
+        RequisitionDocument reqDocument = (RequisitionDocument)document;
+        if (reqDocument.isDocumentStoppedInRouteNode(RequisitionStatuses.NODE_ORG_REVIEW) || reqDocument.isDocumentStoppedInRouteNode(RequisitionStatuses.NODE_OBJECT_SUB_TYPE_CODE)) {
+            editModes.add(PurapAuthorizationConstants.RequisitionEditMode.RESTRICT_FISCAL_ENTRY);
+        }
     
         if (!canEditReceivingAddress((RequisitionDocument) document)) {
             editModes.add(LOCK_TO_RECEIVING_ADDRESS);
