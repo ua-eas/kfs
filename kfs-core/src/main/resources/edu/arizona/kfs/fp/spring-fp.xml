@@ -175,7 +175,7 @@
     </bean>
 
     <bean id="procurementCardDefaultLookupableHelperService" scope="prototype" parent="procurementCardDefaultLookupableHelperService-parentBean" />
-    <bean id="procurementCardDefaultLookupableHelperService-parentBean" abstract="true"  class="edu.arizona.kfs.fp.businessobject.lookup.ProcurementCardDefaultLookupableHelperServiceImpl" scope="prototype" parent="lookupableHelperService" />
+    <bean id="procurementCardDefaultLookupableHelperService-parentBean" abstract="true"  class="edu.arizona.kfs.fp.businessobject.lookup.ProcurementCardDefaultLookupableHelperServiceImpl" scope="prototype" parent="cf.lookupableHelperService" />
 
     <bean id="procurementCardDefaultLookupable"  parent="procurementCardDefaultLookupable-parentBean" scope="prototype"/>
     <bean id="procurementCardDefaultLookupable-parentBean" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" abstract="true">

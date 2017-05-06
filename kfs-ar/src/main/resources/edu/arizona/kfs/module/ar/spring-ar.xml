@@ -86,12 +86,4 @@
         </property>
     </bean>
 
-    <bean id="customerAgingReportNotificationJob" parent="unscheduledJobDescriptor">
-        <property name="steps">
-            <list>
-                <ref bean="customerAgingReportNotificationStep" />
-            </list>
-        </property>
-    </bean>
-
 </beans>

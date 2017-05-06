@@ -333,6 +333,11 @@
             <artifactId>kfs-purap</artifactId>
             <version>${project.version}</version>
         </dependency>
+	    <dependency>
+	      <groupId>org.kuali.kfs</groupId>
+	      <artifactId>kfs-tax</artifactId>
+	      <version>${project.version}</version>
+	    </dependency>
     </dependencies>
 	<distributionManagement>
     <repository>

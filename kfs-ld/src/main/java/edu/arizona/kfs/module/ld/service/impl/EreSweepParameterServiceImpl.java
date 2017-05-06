@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 
 import edu.arizona.kfs.module.ld.LaborConstants;
 import edu.arizona.kfs.module.ld.LaborParameterKeyConstants;

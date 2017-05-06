@@ -475,7 +475,6 @@
     <bean id="autoClosePurchaseOrdersStep" parent="autoClosePurchaseOrdersStep-parentBean"/>
     <bean id="autoClosePurchaseOrdersStep-parentBean" abstract="true" class="org.kuali.kfs.module.purap.batch.AutoClosePurchaseOrdersStep" parent="step">
         <property name="autoClosePurchaseOrderService" ref="autoClosePurchaseOrderService" />
-        <property name="autoClosePurchaseOrderService" ref="autoClosePurchaseOrderService"/>
     </bean>
 
     <bean id="autoCloseRecurringOrdersStep" class="org.kuali.kfs.module.purap.batch.AutoCloseRecurringOrdersStep" parent="step">
