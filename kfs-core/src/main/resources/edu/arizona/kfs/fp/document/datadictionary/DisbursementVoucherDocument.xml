@@ -153,7 +153,7 @@
       <property name="label" value="1099 Classification"/>
       <property name="shortLabel" value="1099 Classification"/>
       <property name="control">
-      		<bean parent="RadioControlDefinition" p:valuesFinderClass="org.kuali.rice.krad.keyvalues.IndicatorValuesFinder" p:includeKeyInLabel="false"/>
+      		<bean parent="RadioControlDefinition" p:valuesFinderClass="org.kuali.kfs.krad.keyvalues.IndicatorValuesFinder" p:includeKeyInLabel="false"/>
       </property>
     </bean>
 </beans>

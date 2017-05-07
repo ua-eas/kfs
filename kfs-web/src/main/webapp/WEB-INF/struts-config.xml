@@ -323,15 +323,37 @@
             <forward name="prd" path="/error.html"/>
         </action>
 
-	<action-mappings>
+        <action path="/portal" name="KualiForm"
+                type="org.kuali.kfs.kns.web.struts.action.KualiPortalAction">
+            <forward name="basic" path="/index.jsp"/>
+        </action>
+        
+        <action path="/index" name="KualiForm"
+                type="org.kuali.kfs.kns.web.struts.action.KualiPortalAction">
+            <forward name="basic" path="/index.jsp"/>
+        </action>
+
+        <action path="/backdoorlogin" name="BackdoorForm" scope="request"
+                parameter="methodToCall" input="/WEB-INF/jsp/backdoor/index.jsp"
+                type="org.kuali.kfs.kns.web.struts.action.BackdoorAction">
+            <forward name="basic" path="/index.jsp"/>
+            <forward name="viewPortal" path="/index.jsp"/>
+            <forward name="logout" path="/logout.do"/>
+        </action>
+        
+        <action path="/logout" name="KualiLogoutForm"
+                type="org.kuali.kfs.kns.web.struts.action.KualiLogoutAction"/>
+                
+        <action path="/updateTextArea" name="KualiForm"
+                type="org.kuali.kfs.kns.web.struts.action.KualiDocumentActionBase">
+            <forward name="basic" path="/kr/WEB-INF/jsp/TextArea.jsp"/>
+        </action>
+        
         <action path="/camsAssetTransfer" name="AssetTransferForm" input="/jsp/module/cams/AssetTransfer.jsp"
             type="edu.arizona.kfs.module.cam.document.web.struts.AssetTransferAction" scope="request"
             parameter="methodToCall" validate="true" attribute="KualiForm">
             <set-property property="cancellable" value="true" />
             <forward name="basic" path="/jsp/module/cams/AssetTransfer.jsp" />
-        <action path="/portal" name="KualiForm"
-                type="org.kuali.kfs.kns.web.struts.action.KualiPortalAction">
-            <forward name="basic" path="/index.jsp"/>
         </action>
 
         <action path="/taxElectronicFilingReport" name="ElectronicFilingReportForm"
@@ -341,10 +363,20 @@
             attribute="KualiForm">
             <set-property property="cancellable" value="true" />
             <forward name="basic" path="/jsp/module/tax/ElectronicFilingReport.jsp" />
-        <action path="/index" name="KualiForm"
-                type="org.kuali.kfs.kns.web.struts.action.KualiPortalAction">
-            <forward name="basic" path="/index.jsp"/>
+         </action>
+          
+        <action path="/financialYearEndGeneralErrorCorrection"
+            name="YearEndGeneralErrorCorrectionForm"
+            input="/jsp/fp/YearEndGeneralErrorCorrection.jsp"
+            type="edu.arizona.kfs.fp.document.web.struts.YearEndGeneralErrorCorrectionAction"
+            scope="request"
+            parameter="methodToCall"
+            validate="true"
+            attribute="KualiForm">
+            <set-property property="cancellable" value="true" />
+            <forward name="basic" path="/jsp/fp/YearEndGeneralErrorCorrection.jsp" />
         </action>
+        
         <action path="/financialGeneralErrorCorrection"
             name="GeneralErrorCorrectionForm"
             input="/jsp/fp/GeneralErrorCorrection.jsp"
@@ -356,33 +388,13 @@
             <set-property property="cancellable" value="true" />
             <forward name="basic" path="/jsp/fp/GeneralErrorCorrection.jsp" />
         </action>
-
-        <action path="/financialYearEndGeneralErrorCorrection"
-            name="YearEndGeneralErrorCorrectionForm"
-            input="/jsp/fp/YearEndGeneralErrorCorrection.jsp"
-            type="edu.arizona.kfs.fp.document.web.struts.YearEndGeneralErrorCorrectionAction"
-            scope="request"
-            parameter="methodToCall"
-            validate="true"
-            attribute="KualiForm">
-            <set-property property="cancellable" value="true" />
-            <forward name="basic" path="/jsp/fp/YearEndGeneralErrorCorrection.jsp" />
-        <action path="/backdoorlogin" name="BackdoorForm" scope="request"
-                parameter="methodToCall" input="/WEB-INF/jsp/backdoor/index.jsp"
-                type="org.kuali.kfs.kns.web.struts.action.BackdoorAction">
-            <forward name="basic" path="/index.jsp"/>
-            <forward name="viewPortal" path="/index.jsp"/>
-            <forward name="logout" path="/logout.do"/>
-        </action>
-
+        
 		<action path="/financialDisbursementVoucher" name="DisbursementVoucherForm" input="/jsp/fp/DisbursementVoucher.jsp"
 			type="edu.arizona.kfs.fp.document.web.struts.DisbursementVoucherAction" scope="request"
 			parameter="methodToCall" validate="true" attribute="KualiForm">
 			<set-property property="cancellable" value="true" />
 			<forward name="basic" path="/jsp/fp/DisbursementVoucher.jsp" />
 		</action>
-        <action path="/logout" name="KualiLogoutForm"
-                type="org.kuali.kfs.kns.web.struts.action.KualiLogoutAction"/>
 
         <action path="/gecEntryLookup" 
             name="MultipleValueLookupForm"
@@ -393,9 +405,6 @@
             attribute="KualiForm">
             <set-property property="cancellable" value="true" />
             <forward name="basic" path="/jsp/gl/gecEntryMultipleValueLookup.jsp" />
-        <action path="/updateTextArea" name="KualiForm"
-                type="org.kuali.kfs.kns.web.struts.action.KualiDocumentActionBase">
-            <forward name="basic" path="/kr/WEB-INF/jsp/TextArea.jsp"/>
         </action>
 
         <action path="/yegecEntryLookup"
@@ -648,14 +657,7 @@
             <forward name="basic" path="/jsp/fp/{1}.jsp"/>
         </action>
 
-
-		<action path="/laborLedgerCorrection" name="LaborCorrectionForm"
-			input="/jsp/gl/Correction.jsp"
-			type="edu.arizona.kfs.module.ld.document.web.struts.LaborCorrectionAction"
-			scope="request" parameter="methodToCall" validate="true" attribute="KualiForm">
-			<set-property property="cancellable" value="true" />
-			<forward name="basic" path="/jsp/gl/Correction.jsp" />
-		</action>
+	
         <action path="/financialCashManagement" name="CashManagementForm"
                 input="/jsp/fp/CashManagement.jsp" type="org.kuali.kfs.fp.document.web.struts.CashManagementAction"
                 scope="request" parameter="methodToCall" validate="true" attribute="KualiForm">
@@ -720,6 +722,15 @@
             <forward name="basic" path="/jsp/module/ld/{1}.jsp"/>
         </action>
 
+		<!-- KFS7 UPGRADe - correction.jsp is replace -->
+		<!--action path="/laborLedgerCorrection" name="LaborCorrectionForm"
+			input="/jsp/gl/Correction.jsp"
+			type="edu.arizona.kfs.module.ld.document.web.struts.LaborCorrectionAction"
+			scope="request" parameter="methodToCall" validate="true" attribute="KualiForm">
+			<set-property property="cancellable" value="true" />
+			<forward name="basic" path="/jsp/gl/Correction.jsp" />
+		</action-->
+
         <action path="/laborLedgerCorrection" name="LaborCorrectionForm"
                 input="/jsp/gl/GeneralLedgerCorrectionProcess.jsp"
                 type="org.kuali.kfs.module.ld.document.web.struts.LedgerCorrectionAction"
@@ -738,13 +749,14 @@
         <action path="/purapPaymentRequest" name="PaymentRequestForm" type="edu.arizona.kfs.module.purap.document.web.struts.PaymentRequestAction" scope="request" attribute="KualiForm">
              <set-property property="cancellable" value="true" />
              <forward name="basic" path="/jsp/module/purap/PaymentRequest.jsp" /> 
+        </action>
+        
         <action path="/fringeBenefitInquiry" name="FringeBenefitInquiryForm"
                 type="org.kuali.kfs.module.ld.document.web.struts.FringeBenefitInquiryAction"
                 scope="session" parameter="methodToCall" validate="true"
                 attribute="KualiForm">
             <set-property property="cancellable" value="true"/>
             <forward name="basic" path="/jsp/module/ld/FringeBenefitInquiry.jsp"/>
-        </action>
         </action>
         
         <action path="/purapRequisition"
