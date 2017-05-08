@@ -29,22 +29,12 @@
                 <bean parent="JournalVoucher-accountingLineEncumbranceReferenceValidation" scope="prototype">
                     <property name="parameterProperties">
                         <list>
-                            <bean parent="validationFieldConversion" p:sourceEventProperty="document" p:targetValidationProperty="journalVoucherForValidation" />
                             <bean parent="validationFieldConversion" p:sourceEventProperty="accountingLine" p:targetValidationProperty="accountingLineForValidation" />
                         </list>
                     </property>
                 </bean>
 
                 <bean parent="LaborJournalVoucherDocument-laborJournalVoucherEmployeeIDExistenceCheckValidation" scope="prototype">
-                    <property name="parameterProperties">
-                        <list>
-                            <bean parent="accountingLineFieldConversion" />
-                        </list>
-                    </property>
-                    <property name="quitOnFail" value="false" />
-                </bean>
-
-                <bean parent="LaborJournalVoucherDocument-laborJournalVoucherPositionCodeExistenceCheckValidation" scope="prototype">
                     <property name="parameterProperties">
                         <list>
                             <bean parent="accountingLineFieldConversion" />
@@ -87,22 +77,12 @@
                 <bean parent="JournalVoucher-accountingLineEncumbranceReferenceValidation" scope="prototype">
                     <property name="parameterProperties">
                         <list>
-                            <bean parent="validationFieldConversion" p:sourceEventProperty="document" p:targetValidationProperty="journalVoucherForValidation" />
                             <bean parent="validationFieldConversion" p:sourceEventProperty="updatedAccountingLine" p:targetValidationProperty="accountingLineForValidation" />
                         </list>
                     </property>
                 </bean>
 
                 <bean parent="LaborJournalVoucherDocument-laborJournalVoucherEmployeeIDExistenceCheckValidation" scope="prototype">
-                    <property name="parameterProperties">
-                        <list>
-                            <bean parent="accountingLineFieldConversion" />
-                        </list>
-                    </property>
-                    <property name="quitOnFail" value="false" />
-                </bean>
-
-                <bean parent="LaborJournalVoucherDocument-laborJournalVoucherPositionCodeExistenceCheckValidation" scope="prototype">
                     <property name="parameterProperties">
                         <list>
                             <bean parent="accountingLineFieldConversion" />
@@ -119,15 +99,6 @@
             <list>
                 <bean parent="AccountingDocument-ReviewAccountingLine-DefaultValidation" scope="prototype" />
                 <bean parent="LaborJournalVoucherDocument-laborJournalVoucherEmployeeIDExistenceCheckValidation" scope="prototype">
-                    <property name="parameterProperties">
-                        <list>
-                            <bean parent="accountingLineFieldConversion" />
-                        </list>
-                    </property>
-                    <property name="quitOnFail" value="false" />
-                </bean>
-
-                <bean parent="LaborJournalVoucherDocument-laborJournalVoucherPositionCodeExistenceCheckValidation" scope="prototype">
                     <property name="parameterProperties">
                         <list>
                             <bean parent="accountingLineFieldConversion" />
