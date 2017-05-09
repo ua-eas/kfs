@@ -1,6 +1,7 @@
 package edu.arizona.kfs.vnd.document.validation.impl;
 
 import java.util.List;
+import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sys.context.SpringContext;
 import edu.arizona.kfs.vnd.VendorPropertyConstants;
 import org.kuali.kfs.vnd.businessobject.VendorDetail;
@@ -64,4 +65,17 @@ public class VendorRule extends org.kuali.kfs.vnd.document.validation.impl.Vendo
     	
 		return valid;
 	}
+      
+    @Override
+    protected boolean validateParentVendorTaxNumber(VendorDetail vendorDetail) {
+    	String taxNumber = vendorDetail.getVendorHeader().getVendorTaxNumber();
+
+        // no parent vendor tax number validation needed if the tax number is blank
+        if (StringUtils.isBlank(taxNumber)) {
+            return true;
+        }
+
+        return super.validateParentVendorTaxNumber(vendorDetail);
+    }
+   
 }
