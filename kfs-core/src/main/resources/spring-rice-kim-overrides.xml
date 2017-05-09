@@ -31,7 +31,7 @@
                            http://www.springframework.org/schema/aop/spring-aop-3.0.xsd" default-lazy-init="false">
 
 
-    <import resource="classpath*:/org/kuali/rice/kim/config/UaKIMLdapSpringBeans.xml" />
+    <!-- import resource="classpath*:/org/kuali/rice/kim/config/UaKIMLdapSpringBeans.xml" /-->
 
 	<!-- UA upgrade 7, this override is no longer working due to kim api changes. We also applied bean override in kimEmbededSpringbeans.xml directly in Rice. -->
     <!-- bean id="kimPermissionService" class="edu.arizona.kfs.sys.identity.service.impl.PermissionServiceImpl"
@@ -41,10 +41,11 @@
        p:roleService-ref="kimRoleService"
        p:cacheManager-ref="kimLocalCacheManager">
         <property name="identityService" ref="kimIdentityService"/>
-    </bean> -->
+    </bean>
 
     <bean id="kimRoleTypeService" class=" edu.arizona.kfs.sys.identity.UaEmployeeDerivedRoleTypeServiceImpl">
         <property name="edsConstants" ref="edsConstants"/>
-    </bean>
+        <property name="parameterService" ref="parameterService"/>
+    </bean-->
 
 </beans>

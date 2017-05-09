@@ -30,7 +30,9 @@ public interface PreferencesDao {
 
     void cacheInstitutionPreferences(String principalName, Map<String, Object> institutionPreferences);
 
-    void clearInstitutionPreferencesCache();
+    void setInstitutionPreferencesCacheLength(int seconds);
+
+    int getInstitutionPreferencesCacheLength();
 
     Map<String, Object> getUserPreferences(String principalName);
 

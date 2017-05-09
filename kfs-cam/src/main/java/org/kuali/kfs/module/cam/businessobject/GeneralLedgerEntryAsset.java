@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2017 Kuali, Inc.
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -29,7 +29,7 @@ public class GeneralLedgerEntryAsset extends PersistableBusinessObjectBase {
 
     /**
      * Gets the generalLedgerAccountIdentifier attribute.
-     * 
+     *
      * @return Returns the generalLedgerAccountIdentifier
      */
     public Long getGeneralLedgerAccountIdentifier() {
@@ -38,7 +38,7 @@ public class GeneralLedgerEntryAsset extends PersistableBusinessObjectBase {
 
     /**
      * Sets the generalLedgerAccountIdentifier attribute.
-     * 
+     *
      * @param generalLedgerAccountIdentifier The generalLedgerAccountIdentifier to set.
      */
     public void setGeneralLedgerAccountIdentifier(Long generalLedgerAccountIdentifier) {
@@ -47,7 +47,7 @@ public class GeneralLedgerEntryAsset extends PersistableBusinessObjectBase {
 
     /**
      * Gets the capitalAssetBuilderLineNumber attribute.
-     * 
+     *
      * @return Returns the capitalAssetBuilderLineNumber
      */
     public Integer getCapitalAssetBuilderLineNumber() {
@@ -56,7 +56,7 @@ public class GeneralLedgerEntryAsset extends PersistableBusinessObjectBase {
 
     /**
      * Sets the capitalAssetBuilderLineNumber attribute.
-     * 
+     *
      * @param capitalAssetBuilderLineNumber The capitalAssetBuilderLineNumber to set.
      */
     public void setCapitalAssetBuilderLineNumber(Integer capitalAssetBuilderLineNumber) {
@@ -66,7 +66,7 @@ public class GeneralLedgerEntryAsset extends PersistableBusinessObjectBase {
 
     /**
      * Gets the capitalAssetManagementDocumentNumber attribute.
-     * 
+     *
      * @return Returns the capitalAssetManagementDocumentNumber
      */
     public String getCapitalAssetManagementDocumentNumber() {
@@ -75,7 +75,7 @@ public class GeneralLedgerEntryAsset extends PersistableBusinessObjectBase {
 
     /**
      * Sets the capitalAssetManagementDocumentNumber attribute.
-     * 
+     *
      * @param capitalAssetManagementDocumentNumber The capitalAssetManagementDocumentNumber to set.
      */
     public void setCapitalAssetManagementDocumentNumber(String capitalAssetManagementDocumentNumber) {
@@ -84,7 +84,7 @@ public class GeneralLedgerEntryAsset extends PersistableBusinessObjectBase {
 
     /**
      * Gets the generalLedgerEntry attribute.
-     * 
+     *
      * @return Returns the generalLedgerEntry.
      */
     public GeneralLedgerEntry getGeneralLedgerEntry() {
@@ -93,7 +93,7 @@ public class GeneralLedgerEntryAsset extends PersistableBusinessObjectBase {
 
     /**
      * Sets the generalLedgerEntry attribute value.
-     * 
+     *
      * @param generalLedgerEntry The generalLedgerEntry to set.
      */
     public void setGeneralLedgerEntry(GeneralLedgerEntry generalLedgerEntry) {

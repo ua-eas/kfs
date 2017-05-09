@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2017 Kuali, Inc.
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -157,10 +157,10 @@ public class PurApLineServiceImpl implements PurApLineService {
      */
     @Override
     public boolean processAllocate(PurchasingAccountsPayableItemAsset allocateSourceLine,
-            List<PurchasingAccountsPayableItemAsset> allocateTargetLines,
-            List<PurchasingAccountsPayableActionHistory> actionsTakeHistory,
-            List<PurchasingAccountsPayableDocument> purApDocs,
-            boolean initiateFromBatch) {
+                                   List<PurchasingAccountsPayableItemAsset> allocateTargetLines,
+                                   List<PurchasingAccountsPayableActionHistory> actionsTakeHistory,
+                                   List<PurchasingAccountsPayableDocument> purApDocs,
+                                   boolean initiateFromBatch) {
 
         boolean allocatedIndicator = true;
         // indicator of additional charge allocation
@@ -317,7 +317,7 @@ public class PurApLineServiceImpl implements PurApLineService {
     /**
      * Allocate one account line to target account lines percentage based on the account line amount.
      *
-     * @param sourceAccount Account line to be allocated.
+     * @param sourceAccount  Account line to be allocated.
      * @param targetAccounts Account lines which accept amount.
      */
     protected void allocateByItemAccountAmount(PurchasingAccountsPayableLineAssetAccount sourceAccount, List<PurchasingAccountsPayableLineAssetAccount> targetAccounts, List<PurchasingAccountsPayableLineAssetAccount> newAccountList, List<PurchasingAccountsPayableActionHistory> actionsTakeHistory) {
@@ -332,7 +332,7 @@ public class PurApLineServiceImpl implements PurApLineService {
             targetAccountsTotalAmount = targetAccountsTotalAmount.add(targetAccount.getItemAccountTotalAmount().abs());
         }
 
-        for (Iterator<PurchasingAccountsPayableLineAssetAccount> iterator = targetAccounts.iterator(); iterator.hasNext();) {
+        for (Iterator<PurchasingAccountsPayableLineAssetAccount> iterator = targetAccounts.iterator(); iterator.hasNext(); ) {
             PurchasingAccountsPayableLineAssetAccount targetAccount = iterator.next();
             if (iterator.hasNext()) {
                 // Not working on the last node. Calculate additional charge amount by percentage. Ignore the sign of the account
@@ -773,7 +773,7 @@ public class PurApLineServiceImpl implements PurApLineService {
     @Override
     public boolean isMultipleTagExisting(Integer purchaseOrderIdentifier, Set<Integer> itemLineNumbers) {
         Pretag firstTag = null;
-        for (Iterator iterator = itemLineNumbers.iterator(); iterator.hasNext();) {
+        for (Iterator iterator = itemLineNumbers.iterator(); iterator.hasNext(); ) {
             Integer itemLineNumber = (Integer) iterator.next();
             Pretag newTag = getPreTagLineItem(purchaseOrderIdentifier, itemLineNumber);
 
@@ -1070,7 +1070,7 @@ public class PurApLineServiceImpl implements PurApLineService {
         setAssetIndicator(purApDocs);
     }
 
-    private void updateAssetDescriptionFromPreTag(PurchasingAccountsPayableItemAsset item, PurchasingAccountsPayableDocument purApDoc){
+    private void updateAssetDescriptionFromPreTag(PurchasingAccountsPayableItemAsset item, PurchasingAccountsPayableDocument purApDoc) {
         Pretag preTag = null;
         if (item.isActive()) {
             preTag = getPreTagLineItem(purApDoc.getPurchaseOrderIdentifier(), item.getItemLineNumber());
@@ -1106,9 +1106,9 @@ public class PurApLineServiceImpl implements PurApLineService {
      * when they are the only items in the document, or they are trade-in allowances, or they are from cancelled AP docs or FO changes.
      * To accommodate this, we relax the rules and defined as:
      * 1. Throughout the AP document list, if there're both unallocated TRDI additional charges and active trade-in ITEM lines,
-     *    then disable the process action links on these lines across the document list;
+     * then disable the process action links on these lines across the document list;
      * 2. Within each AP document in the list, if there're both unallocated non-TRDI additional charges and active ITEM lines,
-     *    then disable the process action links on all lines in this document;
+     * then disable the process action links on all lines in this document;
      * 3. Except for above cases, display action links for other lines.
      * NOTE: Above, AP document list refer to all active PREQs or CMs extracted into CAB for the same PO; they are processed on the same CAB screen.
      *
@@ -1178,7 +1178,7 @@ public class PurApLineServiceImpl implements PurApLineService {
             for (PurchasingAccountsPayableItemAsset item : apDoc.getPurchasingAccountsPayableItemAssets()) {
                 // Each time an asset line is allocated it will be removed from the list, so we can assume that all remaining lines in the doc
                 // are unallocated; thus we don't need to further distinguish the action status code except that the line is active.
-                if (item.isActiveAdditionalTRDI() ) {
+                if (item.isActiveAdditionalTRDI()) {
                     return true;
                 }
             }
@@ -1238,7 +1238,7 @@ public class PurApLineServiceImpl implements PurApLineService {
     /**
      * Set item asset unit cost.
      *
-     * @param item line item
+     * @param item      line item
      * @param totalCost total cost for this line item.
      */
     protected void setItemAssetUnitCost(PurchasingAccountsPayableItemAsset item, KualiDecimal totalCost) {

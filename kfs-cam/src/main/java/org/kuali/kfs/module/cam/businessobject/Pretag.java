@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2017 Kuali, Inc.
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -69,7 +69,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Gets the purchaseOrderNumber attribute.
-     * 
+     *
      * @return Returns the purchaseOrderNumber
      */
     public String getPurchaseOrderNumber() {
@@ -78,7 +78,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Sets the purchaseOrderNumber attribute.
-     * 
+     *
      * @param purchaseOrderNumber The purchaseOrderNumber to set.
      */
     public void setPurchaseOrderNumber(String purchaseOrderNumber) {
@@ -88,7 +88,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Gets the itemLineNumber attribute.
-     * 
+     *
      * @return Returns the itemLineNumber.
      */
     public Integer getItemLineNumber() {
@@ -97,7 +97,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Sets the itemLineNumber attribute value.
-     * 
+     *
      * @param itemLineNumber The itemLineNumber to set.
      */
     public void setItemLineNumber(Integer itemLineNumber) {
@@ -106,7 +106,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Gets the quantityInvoiced attribute.
-     * 
+     *
      * @return Returns the quantityInvoiced
      */
     public KualiDecimal getQuantityInvoiced() {
@@ -115,7 +115,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Sets the quantityInvoiced attribute.
-     * 
+     *
      * @param quantityInvoiced The quantityInvoiced to set.
      */
     public void setQuantityInvoiced(KualiDecimal quantityInvoiced) {
@@ -125,7 +125,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Gets the capitalAssetTypeCode attribute.
-     * 
+     *
      * @return Returns the capitalAssetTypeCode
      */
     public String getCapitalAssetTypeCode() {
@@ -134,7 +134,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Sets the capitalAssetTypeCode attribute.
-     * 
+     *
      * @param capitalAssetTypeCode The capitalAssetTypeCode to set.
      */
     public void setCapitalAssetTypeCode(String capitalAssetTypeCode) {
@@ -144,7 +144,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Gets the manufacturerName attribute.
-     * 
+     *
      * @return Returns the manufacturerName
      */
     public String getManufacturerName() {
@@ -153,7 +153,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Sets the manufacturerName attribute.
-     * 
+     *
      * @param manufacturerName The manufacturerName to set.
      */
     public void setManufacturerName(String manufacturerName) {
@@ -163,7 +163,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Gets the manufacturerModelNumber attribute.
-     * 
+     *
      * @return Returns the manufacturerModelNumber
      */
     public String getManufacturerModelNumber() {
@@ -172,7 +172,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Sets the manufacturerModelNumber attribute.
-     * 
+     *
      * @param manufacturerModelNumber The manufacturerModelNumber to set.
      */
     public void setManufacturerModelNumber(String manufacturerModelNumber) {
@@ -182,7 +182,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Gets the vendorName attribute.
-     * 
+     *
      * @return Returns the vendorName
      */
     public String getVendorName() {
@@ -191,7 +191,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Sets the vendorName attribute.
-     * 
+     *
      * @param vendorName The vendorName to set.
      */
     public void setVendorName(String vendorName) {
@@ -201,7 +201,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Gets the assetTopsDescription attribute.
-     * 
+     *
      * @return Returns the assetTopsDescription
      */
     public String getAssetTopsDescription() {
@@ -210,7 +210,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Sets the assetTopsDescription attribute.
-     * 
+     *
      * @param assetTopsDescription The assetTopsDescription to set.
      */
     public void setAssetTopsDescription(String assetTopsDescription) {
@@ -219,7 +219,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Gets the organizationText attribute.
-     * 
+     *
      * @return Returns the organizationText
      */
     public String getOrganizationText() {
@@ -228,7 +228,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Sets the organizationText attribute.
-     * 
+     *
      * @param organizationText The organizationText to set.
      */
     public void setOrganizationText(String organizationText) {
@@ -238,7 +238,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Gets the organizationInventoryName attribute.
-     * 
+     *
      * @return Returns the organizationInventoryName
      */
     public String getOrganizationInventoryName() {
@@ -247,7 +247,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Sets the organizationInventoryName attribute.
-     * 
+     *
      * @param organizationInventoryName The organizationInventoryName to set.
      */
     public void setOrganizationInventoryName(String organizationInventoryName) {
@@ -265,7 +265,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Gets the representativeUniversalIdentifier attribute.
-     * 
+     *
      * @return Returns the representativeUniversalIdentifier
      */
     public String getRepresentativeUniversalIdentifier() {
@@ -274,7 +274,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Sets the representativeUniversalIdentifier attribute.
-     * 
+     *
      * @param representativeUniversalIdentifier The representativeUniversalIdentifier to set.
      */
     public void setRepresentativeUniversalIdentifier(String representativeUniversalIdentifier) {
@@ -284,7 +284,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode
      */
     public String getChartOfAccountsCode() {
@@ -293,7 +293,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Sets the chartOfAccountsCode attribute.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -303,7 +303,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Gets the pretagCreateDate attribute.
-     * 
+     *
      * @return Returns the pretagCreateDate
      */
     public Date getPretagCreateDate() {
@@ -312,7 +312,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Sets the pretagCreateDate attribute.
-     * 
+     *
      * @param pretagCreateDate The pretagCreateDate to set.
      */
     public void setPretagCreateDate(Date pretagCreateDate) {
@@ -322,7 +322,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Gets the organizationCode attribute.
-     * 
+     *
      * @return Returns the organizationCode
      */
     public String getOrganizationCode() {
@@ -331,7 +331,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Sets the organizationCode attribute.
-     * 
+     *
      * @param organizationCode The organizationCode to set.
      */
     public void setOrganizationCode(String organizationCode) {
@@ -340,7 +340,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Gets the active attribute.
-     * 
+     *
      * @return Returns the active.
      */
     public boolean isActive() {
@@ -349,7 +349,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Sets the active attribute value.
-     * 
+     *
      * @param active The active to set.
      */
     public void setActive(boolean active) {
@@ -358,7 +358,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Gets the chartOfAccounts attribute.
-     * 
+     *
      * @return Returns the chartOfAccounts
      */
     public Chart getChartOfAccounts() {
@@ -367,7 +367,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Sets the chartOfAccounts attribute.
-     * 
+     *
      * @param chartOfAccounts The chartOfAccounts to set.
      * @deprecated
      */
@@ -377,7 +377,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Gets the organization attribute.
-     * 
+     *
      * @return Returns the organization
      */
     public Organization getOrganization() {
@@ -386,7 +386,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Sets the organization attribute.
-     * 
+     *
      * @param organization The organization to set.
      * @deprecated
      */
@@ -396,7 +396,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Gets the pretagDetails attribute.
-     * 
+     *
      * @return Returns the pretagDetails.
      */
     public List<PretagDetail> getPretagDetails() {
@@ -405,7 +405,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Sets the pretagDetails attribute value.
-     * 
+     *
      * @param pretagDetails The pretagDetails to set.
      */
     public void setPretagDetails(List<PretagDetail> pretagDetails) {
@@ -414,7 +414,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Gets the capitalAssetType attribute.
-     * 
+     *
      * @return Returns the capitalAssetType.
      */
     public AssetType getCapitalAssetType() {
@@ -423,7 +423,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Sets the capitalAssetType attribute value.
-     * 
+     *
      * @param capitalAssetType The capitalAssetType to set.
      * @deprecated
      */
@@ -445,7 +445,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Gets the campusTagNumbers attribute.
-     * 
+     *
      * @return Returns the campusTagNumbers.
      */
     public List<String> getCampusTagNumbers() {
@@ -460,7 +460,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Sets the campusTagNumbers attribute value.
-     * 
+     *
      * @param campusTagNumbers The campusTagNumbers to set.
      * @deprecated
      */
@@ -470,7 +470,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Gets the serialNumbers attribute.
-     * 
+     *
      * @return Returns the serialNumbers.
      */
     public List<String> getSerialNumbers() {
@@ -485,7 +485,7 @@ public class Pretag extends PersistableBusinessObjectBase implements MutableInac
 
     /**
      * Sets the serialNumbers attribute value.
-     * 
+     *
      * @param serialNumbers The serialNumbers to set.
      * @deprecated
      */

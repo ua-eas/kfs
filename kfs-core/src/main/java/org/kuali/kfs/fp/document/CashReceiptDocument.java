@@ -36,7 +36,6 @@ import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSParameterKeyConstants;
 import org.kuali.kfs.sys.KFSConstants.CurrencyCoinSources;
 import org.kuali.kfs.sys.KFSConstants.DocumentStatusCodes;
 import org.kuali.kfs.sys.KFSConstants.DocumentStatusCodes.CashReceipt;
@@ -117,7 +116,6 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
     protected boolean recategorized;
 
     protected String createDate;
-    
 
     /**
      * Initializes the array lists and line incrementers.
@@ -1124,7 +1122,6 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
     public String getCreateDate() {
         return SpringContext.getBean(DateTimeService.class).toDateString(getDocumentHeader().getWorkflowDocument().getDateCreated().toDate());
     }
-    
 
     /**
      * Generate the primary key for a currency or coin detail related to this document

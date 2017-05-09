@@ -849,4 +849,6 @@ public class CashManagementDocument extends GeneralLedgerPostingDocumentBase imp
     public void setFinancialDocumentOtherCentAmount(KualiDecimal financialDocumentOtherCentAmount) {
         this.financialDocumentOtherCentAmount = financialDocumentOtherCentAmount;
     }
+
+
 }

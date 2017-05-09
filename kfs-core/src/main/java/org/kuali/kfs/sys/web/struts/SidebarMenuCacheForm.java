@@ -16,8 +16,35 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.kuali.kfs.module.cam.batch.dataaccess;
+package org.kuali.kfs.sys.web.struts;
 
-public interface PurchasingAccountsPayableItemAssetDao {
-    Integer findMaxCabLineNumber(String documentNumber, Integer accountsPayableLineItemIdentifier);
+import org.kuali.kfs.kns.web.struts.form.KualiForm;
+
+public class SidebarMenuCacheForm extends KualiForm {
+    private String cacheLength;
+
+    public boolean isValid() {
+        try {
+            getCacheLengthValue();
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    public String getCacheLength() {
+        return cacheLength;
+    }
+
+    public void setCacheLength(String cacheLength) {
+        this.cacheLength = cacheLength;
+    }
+
+    public void setCacheLengthValue(int cache) {
+        this.cacheLength = Integer.toString(cache);
+    }
+
+    public int getCacheLengthValue() {
+        return Integer.parseInt(cacheLength);
+    }
 }

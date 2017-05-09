@@ -23,7 +23,7 @@ public class AssetMaintainableImpl extends org.kuali.kfs.module.cam.document.Ass
     private static final long serialVersionUID = 5710219294064590806L;
 
     @Override
-    public void processAfterEdit(MaintenanceDocument document, Map<String, String[]> parameters) {
+    public void processAfterEdit(MaintenanceDocument document, Map<String, String[]>  parameters) {
         List<Note> notes = new ArrayList<Note>();
         if (getBusinessObject().getObjectId() != null) {
             NoteService noteService = KRADServiceLocator.getNoteService();

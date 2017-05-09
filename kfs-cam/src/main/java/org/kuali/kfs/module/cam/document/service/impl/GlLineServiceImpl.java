@@ -147,8 +147,8 @@ public class GlLineServiceImpl implements GlLineService {
     /**
      * This method reads the pre-tag information and creates objects for asset global document
      *
-     * @param entry GL Line
-     * @param document Asset Global Maintenance Document
+     * @param entry       GL Line
+     * @param document    Asset Global Maintenance Document
      * @param assetGlobal Asset Global Object
      */
     protected void updatePreTagInformation(GeneralLedgerEntry entry, MaintenanceDocument document, AssetGlobal assetGlobal, Integer capitalAssetLineNumber) {
@@ -185,7 +185,7 @@ public class GlLineServiceImpl implements GlLineService {
         }
     }
 
-   /**
+    /**
      * @see GlLineService#findCapitalAssetInformation(GeneralLedgerEntry)
      */
     @Override
@@ -247,19 +247,19 @@ public class GlLineServiceImpl implements GlLineService {
             // set to "" while the groupAccountLine's organizationReferenceId is set to null. These are equivalent for the
             // present concerns.
             boolean isOrganizationReferenceIdEqual;
-            if (StringUtils.equals(groupAccountLine.getOrganizationReferenceId(), entry.getOrganizationReferenceId())){
+            if (StringUtils.equals(groupAccountLine.getOrganizationReferenceId(), entry.getOrganizationReferenceId())) {
                 isOrganizationReferenceIdEqual = true;
             } else if (StringUtils.isBlank(groupAccountLine.getOrganizationReferenceId()) &&
-                    StringUtils.isBlank(entry.getOrganizationReferenceId())){
+                StringUtils.isBlank(entry.getOrganizationReferenceId())) {
                 isOrganizationReferenceIdEqual = true;
             } else {
                 isOrganizationReferenceIdEqual = false;
             }
             if (isOrganizationReferenceIdEqual &&
-                    StringUtils.equals(groupAccountLine.getDocumentNumber(), entry.getDocumentNumber()) &&
-                    StringUtils.equals(groupAccountLine.getChartOfAccountsCode(), entry.getChartOfAccountsCode()) &&
-                    StringUtils.equals(groupAccountLine.getAccountNumber(), entry.getAccountNumber()) &&
-                    StringUtils.equals(groupAccountLine.getFinancialObjectCode(), entry.getFinancialObjectCode()) ){
+                StringUtils.equals(groupAccountLine.getDocumentNumber(), entry.getDocumentNumber()) &&
+                StringUtils.equals(groupAccountLine.getChartOfAccountsCode(), entry.getChartOfAccountsCode()) &&
+                StringUtils.equals(groupAccountLine.getAccountNumber(), entry.getAccountNumber()) &&
+                StringUtils.equals(groupAccountLine.getFinancialObjectCode(), entry.getFinancialObjectCode())) {
                 matchingAssets.add(capitalAsset);
                 break;
             }
@@ -268,7 +268,7 @@ public class GlLineServiceImpl implements GlLineService {
 
     @Override
     @NonTransactional
-    public long findUnprocessedCapitalAssetInformation( String documentNumber ) {
+    public long findUnprocessedCapitalAssetInformation(String documentNumber) {
         Map<String, String> fieldValues = new HashMap<String, String>(2);
         fieldValues.put(CamsPropertyConstants.CapitalAssetInformation.DOCUMENT_NUMBER, documentNumber);
         fieldValues.put(CamsPropertyConstants.CapitalAssetInformation.ASSET_PROCESSED_IND, KFSConstants.CapitalAssets.CAPITAL_ASSET_PROCESSED_IND);
@@ -278,11 +278,11 @@ public class GlLineServiceImpl implements GlLineService {
 
     @Override
     @NonTransactional
-    public Collection<GeneralLedgerEntry> findMatchingGeneralLedgerEntries( Collection<GeneralLedgerEntry> allGLEntries, CapitalAssetAccountsGroupDetails accountingDetails ) {
+    public Collection<GeneralLedgerEntry> findMatchingGeneralLedgerEntries(Collection<GeneralLedgerEntry> allGLEntries, CapitalAssetAccountsGroupDetails accountingDetails) {
         Collection<GeneralLedgerEntry> matchingGLEntries = new ArrayList<GeneralLedgerEntry>();
 
-        for ( GeneralLedgerEntry entry : allGLEntries ) {
-            if ( doesGeneralLedgerEntryMatchAssetAccountingDetails(entry, accountingDetails) ) {
+        for (GeneralLedgerEntry entry : allGLEntries) {
+            if (doesGeneralLedgerEntryMatchAssetAccountingDetails(entry, accountingDetails)) {
                 matchingGLEntries.add(entry);
             }
         }
@@ -291,28 +291,28 @@ public class GlLineServiceImpl implements GlLineService {
     }
 
 
-    protected boolean doesGeneralLedgerEntryMatchAssetAccountingDetails( GeneralLedgerEntry entry, CapitalAssetAccountsGroupDetails accountingDetails ) {
+    protected boolean doesGeneralLedgerEntryMatchAssetAccountingDetails(GeneralLedgerEntry entry, CapitalAssetAccountsGroupDetails accountingDetails) {
         // this method will short-circuit and return false as soon as possible
 
         // sanity check - the arguments should already have the same document number
-        if ( !StringUtils.equals( entry.getDocumentNumber(), accountingDetails.getDocumentNumber() ) ) {
+        if (!StringUtils.equals(entry.getDocumentNumber(), accountingDetails.getDocumentNumber())) {
             return false;
         }
 
         // required attributes - easy to compare
-        if ( !StringUtils.equals( entry.getAccountNumber(), accountingDetails.getAccountNumber() ) ) {
+        if (!StringUtils.equals(entry.getAccountNumber(), accountingDetails.getAccountNumber())) {
             return false;
         }
-        if ( !StringUtils.equals( entry.getFinancialObjectCode(), accountingDetails.getFinancialObjectCode() ) ) {
+        if (!StringUtils.equals(entry.getFinancialObjectCode(), accountingDetails.getFinancialObjectCode())) {
             return false;
         }
-        if ( !StringUtils.equals( entry.getChartOfAccountsCode(), accountingDetails.getChartOfAccountsCode() ) ) {
+        if (!StringUtils.equals(entry.getChartOfAccountsCode(), accountingDetails.getChartOfAccountsCode())) {
             return false;
         }
         // account for blank equaling null
-        if ( !StringUtils.equals( entry.getOrganizationReferenceId(), accountingDetails.getOrganizationReferenceId() ) ) {
-            if ( StringUtils.isBlank( entry.getOrganizationReferenceId() )
-                    && StringUtils.isBlank( accountingDetails.getOrganizationReferenceId() ) ) {
+        if (!StringUtils.equals(entry.getOrganizationReferenceId(), accountingDetails.getOrganizationReferenceId())) {
+            if (StringUtils.isBlank(entry.getOrganizationReferenceId())
+                && StringUtils.isBlank(accountingDetails.getOrganizationReferenceId())) {
                 // this is a match, keep going
             } else {
                 return false;
@@ -320,25 +320,25 @@ public class GlLineServiceImpl implements GlLineService {
         }
         // optional attributes - need to account for blank being equivalent to dashes
         // it's always dashes on the CAB GL Entry table - but could be blank on the accounting details
-        if ( !StringUtils.equals( entry.getSubAccountNumber(), accountingDetails.getSubAccountNumber() ) ) {
-            if ( StringUtils.equals( entry.getSubAccountNumber(), KFSConstants.getDashSubAccountNumber() )
-                    && StringUtils.isBlank( accountingDetails.getSubAccountNumber() ) ) {
+        if (!StringUtils.equals(entry.getSubAccountNumber(), accountingDetails.getSubAccountNumber())) {
+            if (StringUtils.equals(entry.getSubAccountNumber(), KFSConstants.getDashSubAccountNumber())
+                && StringUtils.isBlank(accountingDetails.getSubAccountNumber())) {
                 // this is a match, keep going
             } else {
                 return false;
             }
         }
-        if ( !StringUtils.equals( entry.getFinancialSubObjectCode(), accountingDetails.getFinancialSubObjectCode() ) ) {
-            if ( StringUtils.equals( entry.getFinancialSubObjectCode(), KFSConstants.getDashFinancialSubObjectCode() )
-                    && StringUtils.isBlank( accountingDetails.getFinancialSubObjectCode() ) ) {
+        if (!StringUtils.equals(entry.getFinancialSubObjectCode(), accountingDetails.getFinancialSubObjectCode())) {
+            if (StringUtils.equals(entry.getFinancialSubObjectCode(), KFSConstants.getDashFinancialSubObjectCode())
+                && StringUtils.isBlank(accountingDetails.getFinancialSubObjectCode())) {
                 // this is a match, keep going
             } else {
                 return false;
             }
         }
-        if ( !StringUtils.equals( entry.getProjectCode(), accountingDetails.getProjectCode() ) ) {
-            if ( StringUtils.equals( entry.getProjectCode(), KFSConstants.getDashProjectCode() )
-                    && StringUtils.isBlank( accountingDetails.getProjectCode() ) ) {
+        if (!StringUtils.equals(entry.getProjectCode(), accountingDetails.getProjectCode())) {
+            if (StringUtils.equals(entry.getProjectCode(), KFSConstants.getDashProjectCode())
+                && StringUtils.isBlank(accountingDetails.getProjectCode())) {
                 // this is a match, keep going
             } else {
                 return false;
@@ -359,9 +359,9 @@ public class GlLineServiceImpl implements GlLineService {
 
     protected void createGeneralLedgerEntryAsset(GeneralLedgerEntry entry, Document document, Integer capitalAssetLineNumber) {
         // KFSMI-9645 : check if the document is already referenced to prevent an OJB locking error
-        for ( GeneralLedgerEntryAsset glEntryAsset : entry.getGeneralLedgerEntryAssets() ) {
-            if ( glEntryAsset.getCapitalAssetManagementDocumentNumber().equals(document.getDocumentNumber() )
-                    && glEntryAsset.getCapitalAssetBuilderLineNumber().equals(capitalAssetLineNumber ) ) {
+        for (GeneralLedgerEntryAsset glEntryAsset : entry.getGeneralLedgerEntryAssets()) {
+            if (glEntryAsset.getCapitalAssetManagementDocumentNumber().equals(document.getDocumentNumber())
+                && glEntryAsset.getCapitalAssetBuilderLineNumber().equals(capitalAssetLineNumber)) {
                 // an object with this key already exists, abort and don't attempt to add another
                 return;
             }
@@ -378,7 +378,7 @@ public class GlLineServiceImpl implements GlLineService {
     /**
      * Creates asset global
      *
-     * @param entry GeneralLedgerEntry
+     * @param entry    GeneralLedgerEntry
      * @param maintDoc MaintenanceDocument
      * @return AssetGlobal
      */
@@ -461,7 +461,7 @@ public class GlLineServiceImpl implements GlLineService {
     /**
      * Updates pre tag information received from FP document
      *
-     * @param entry GeneralLedgerEntry
+     * @param entry    GeneralLedgerEntry
      * @param document AssetPaymentDocument
      */
     protected void updatePreTagInformation(GeneralLedgerEntry entry, AssetPaymentDocument document, Integer capitalAssetLineNumber) {
@@ -508,8 +508,8 @@ public class GlLineServiceImpl implements GlLineService {
                 AssetPaymentDetail detail = new AssetPaymentDetail();
 
                 // find matching gl entry for asset accounting line
-                for (GeneralLedgerEntry glEntry : documentGlEntries){
-                    if(doesGeneralLedgerEntryMatchAssetAccountingDetails(glEntry, accountingLine)) {
+                for (GeneralLedgerEntry glEntry : documentGlEntries) {
+                    if (doesGeneralLedgerEntryMatchAssetAccountingDetails(glEntry, accountingLine)) {
                         entry = glEntry;
                     }
                 }
@@ -547,7 +547,7 @@ public class GlLineServiceImpl implements GlLineService {
     }
 
     /**
-     * @param entry GL entry
+     * @param entry          GL entry
      * @param accountingLine accounting line in the capital asset
      * @return accountingLineAmount
      */
@@ -567,9 +567,9 @@ public class GlLineServiceImpl implements GlLineService {
         }
 
         if (expenseObjectTypes.contains(entry.getFinancialObjectTypeCode()) &&
-                KFSConstants.SOURCE_ACCT_LINE_TYPE_CODE.equals(accountingLine.getFinancialDocumentLineTypeCode()) &&
-                KFSConstants.GL_CREDIT_CODE.equals(entry.getTransactionDebitCreditCode()) &&
-                accountLineAmount.compareTo(KualiDecimal.ZERO) > 0) {
+            KFSConstants.SOURCE_ACCT_LINE_TYPE_CODE.equals(accountingLine.getFinancialDocumentLineTypeCode()) &&
+            KFSConstants.GL_CREDIT_CODE.equals(entry.getTransactionDebitCreditCode()) &&
+            accountLineAmount.compareTo(KualiDecimal.ZERO) > 0) {
             return accountLineAmount.negated();
         }
 
@@ -592,6 +592,7 @@ public class GlLineServiceImpl implements GlLineService {
 
         return fsDocumentHeader != null && StringUtils.isNotBlank(fsDocumentHeader.getFinancialDocumentInErrorNumber());
     }
+
     /**
      * updates the submit amount by the amount on the accounting line.  When submit amount equals
      * transaction ledger amount, the activity status code is marked as in route status.
@@ -620,7 +621,7 @@ public class GlLineServiceImpl implements GlLineService {
      * NOTE: This method is not used anywhere in project.
      * Creates asset payment detail based on GL line. to CAB
      *
-     * @param entry GeneralLedgerEntry
+     * @param entry    GeneralLedgerEntry
      * @param document Document
      * @return AssetPaymentDetail
      */
@@ -699,7 +700,7 @@ public class GlLineServiceImpl implements GlLineService {
 
         capitalAccountingLines = new ArrayList<CapitalAccountingLines>();
         createCapitalAccountingLine(capitalAccountingLines, entry, null);
-        createNewCapitalAsset(capitalAccountingLines,entry.getDocumentNumber(),null,nextCapitalAssetLineNumber);
+        createNewCapitalAsset(capitalAccountingLines, entry.getDocumentNumber(), null, nextCapitalAssetLineNumber);
     }
 
 
@@ -811,34 +812,42 @@ public class GlLineServiceImpl implements GlLineService {
 
         return ++nextAccountingLineNumber;
     }
+
     @NonTransactional
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
         this.businessObjectService = businessObjectService;
     }
+
     @NonTransactional
     public void setAssetGlobalService(AssetGlobalService assetGlobalService) {
         this.assetGlobalService = assetGlobalService;
     }
+
     @NonTransactional
     public void setObjectTypeService(ObjectTypeService objectTypeService) {
         this.objectTypeService = objectTypeService;
     }
+
     @NonTransactional
     public void setDocumentService(DocumentService documentService) {
         this.documentService = documentService;
     }
+
     @NonTransactional
     public void setParameterService(ParameterService parameterService) {
         this.parameterService = parameterService;
     }
+
     @NonTransactional
     public void setParameterEvaluatorService(ParameterEvaluatorService parameterEvaluatorService) {
         this.parameterEvaluatorService = parameterEvaluatorService;
     }
+
     @NonTransactional
     public void setDocumentHeaderService(DocumentHeaderService documentHeaderService) {
         this.documentHeaderService = documentHeaderService;
     }
+
     @NonTransactional
     public void setCapitalAssetInformationDao(CapitalAssetInformationDao dao) {
         this.capitalAssetInformationDao = dao;

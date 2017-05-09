@@ -268,4 +268,8 @@ public class UaEmployeeDerivedRoleTypeServiceImpl extends EmployeeDerivedRoleTyp
 		this.edsConstants = edsConstants;
 	}
 
+	public void setParameterService(ParameterService parameterService) {
+		this.parameterService = parameterService;
+	}
+
 }

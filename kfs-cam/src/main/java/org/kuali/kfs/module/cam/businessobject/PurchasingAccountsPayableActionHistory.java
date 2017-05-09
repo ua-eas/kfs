@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2017 Kuali, Inc.
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -39,9 +39,9 @@ public class PurchasingAccountsPayableActionHistory extends PersistableBusinessO
     private boolean active;
 
     public PurchasingAccountsPayableActionHistory() {
-        
+
     }
-    
+
     public PurchasingAccountsPayableActionHistory(PurchasingAccountsPayableItemAsset fromItem, PurchasingAccountsPayableItemAsset toItem, String actionType) {
         this.actionTypeCode = actionType;
         this.fromDocumentNumber = fromItem.getDocumentNumber();
@@ -55,10 +55,10 @@ public class PurchasingAccountsPayableActionHistory extends PersistableBusinessO
         this.active = true;
     }
 
-    
+
     /**
      * Gets the actionIdentifier attribute.
-     * 
+     *
      * @return Returns the actionIdentifier.
      */
     public Long getActionIdentifier() {
@@ -68,7 +68,7 @@ public class PurchasingAccountsPayableActionHistory extends PersistableBusinessO
 
     /**
      * Sets the actionIdentifier attribute value.
-     * 
+     *
      * @param actionIdentifier The actionIdentifier to set.
      */
     public void setActionIdentifier(Long actionIdentifier) {
@@ -78,7 +78,7 @@ public class PurchasingAccountsPayableActionHistory extends PersistableBusinessO
 
     /**
      * Gets the actionTypeCode attribute.
-     * 
+     *
      * @return Returns the actionTypeCode.
      */
     public String getActionTypeCode() {
@@ -88,7 +88,7 @@ public class PurchasingAccountsPayableActionHistory extends PersistableBusinessO
 
     /**
      * Sets the actionTypeCode attribute value.
-     * 
+     *
      * @param actionTypeCode The actionTypeCode to set.
      */
     public void setActionTypeCode(String actionTypeCode) {
@@ -98,7 +98,7 @@ public class PurchasingAccountsPayableActionHistory extends PersistableBusinessO
 
     /**
      * Gets the fromDocumentNumber attribute.
-     * 
+     *
      * @return Returns the fromDocumentNumber.
      */
     public String getFromDocumentNumber() {
@@ -108,7 +108,7 @@ public class PurchasingAccountsPayableActionHistory extends PersistableBusinessO
 
     /**
      * Sets the fromDocumentNumber attribute value.
-     * 
+     *
      * @param fromDocumentNumber The fromDocumentNumber to set.
      */
     public void setFromDocumentNumber(String fromDocumentNumber) {
@@ -118,7 +118,7 @@ public class PurchasingAccountsPayableActionHistory extends PersistableBusinessO
 
     /**
      * Gets the fromPurApLineItemIdentifier attribute.
-     * 
+     *
      * @return Returns the fromPurApLineItemIdentifier.
      */
     public Integer getFromPurApLineItemIdentifier() {
@@ -128,7 +128,7 @@ public class PurchasingAccountsPayableActionHistory extends PersistableBusinessO
 
     /**
      * Sets the fromPurApLineItemIdentifier attribute value.
-     * 
+     *
      * @param fromPurApLineItemIdentifier The fromPurApLineItemIdentifier to set.
      */
     public void setFromPurApLineItemIdentifier(Integer fromPurApLineItemIdentifier) {
@@ -138,7 +138,7 @@ public class PurchasingAccountsPayableActionHistory extends PersistableBusinessO
 
     /**
      * Gets the fromCabLineNumber attribute.
-     * 
+     *
      * @return Returns the fromCabLineNumber.
      */
     public Integer getFromCabLineNumber() {
@@ -148,7 +148,7 @@ public class PurchasingAccountsPayableActionHistory extends PersistableBusinessO
 
     /**
      * Sets the fromCabLineNumber attribute value.
-     * 
+     *
      * @param fromCabLineNumber The fromCabLineNumber to set.
      */
     public void setFromCabLineNumber(Integer fromCabLineNumber) {
@@ -158,7 +158,7 @@ public class PurchasingAccountsPayableActionHistory extends PersistableBusinessO
 
     /**
      * Gets the toDocumentNumber attribute.
-     * 
+     *
      * @return Returns the toDocumentNumber.
      */
     public String getToDocumentNumber() {
@@ -168,7 +168,7 @@ public class PurchasingAccountsPayableActionHistory extends PersistableBusinessO
 
     /**
      * Sets the toDocumentNumber attribute value.
-     * 
+     *
      * @param toDocumentNumber The toDocumentNumber to set.
      */
     public void setToDocumentNumber(String toDocumentNumber) {
@@ -178,7 +178,7 @@ public class PurchasingAccountsPayableActionHistory extends PersistableBusinessO
 
     /**
      * Gets the toPurApLineItemIdentifier attribute.
-     * 
+     *
      * @return Returns the toPurApLineItemIdentifier.
      */
     public Integer getToPurApLineItemIdentifier() {
@@ -188,7 +188,7 @@ public class PurchasingAccountsPayableActionHistory extends PersistableBusinessO
 
     /**
      * Sets the toPurApLineItemIdentifier attribute value.
-     * 
+     *
      * @param toPurApLineItemIdentifier The toPurApLineItemIdentifier to set.
      */
     public void setToPurApLineItemIdentifier(Integer toPurApLineItemIdentifier) {
@@ -198,7 +198,7 @@ public class PurchasingAccountsPayableActionHistory extends PersistableBusinessO
 
     /**
      * Gets the toCabLineNumber attribute.
-     * 
+     *
      * @return Returns the toCabLineNumber.
      */
     public Integer getToCabLineNumber() {
@@ -208,7 +208,7 @@ public class PurchasingAccountsPayableActionHistory extends PersistableBusinessO
 
     /**
      * Sets the toCabLineNumber attribute value.
-     * 
+     *
      * @param toCabLineNumber The toCabLineNumber to set.
      */
     public void setToCabLineNumber(Integer toCabLineNumber) {
@@ -218,7 +218,7 @@ public class PurchasingAccountsPayableActionHistory extends PersistableBusinessO
 
     /**
      * Gets the generalLedgerAccountIdentifier attribute.
-     * 
+     *
      * @return Returns the generalLedgerAccountIdentifier.
      */
     public Long getGeneralLedgerAccountIdentifier() {
@@ -228,7 +228,7 @@ public class PurchasingAccountsPayableActionHistory extends PersistableBusinessO
 
     /**
      * Sets the generalLedgerAccountIdentifier attribute value.
-     * 
+     *
      * @param generalLedgerAccountIdentifier The generalLedgerAccountIdentifier to set.
      */
     public void setGeneralLedgerAccountIdentifier(Long generalLedgerAccountIdentifier) {
@@ -238,7 +238,7 @@ public class PurchasingAccountsPayableActionHistory extends PersistableBusinessO
 
     /**
      * Gets the itemAccountTotalAmount attribute.
-     * 
+     *
      * @return Returns the itemAccountTotalAmount.
      */
     public KualiDecimal getItemAccountTotalAmount() {
@@ -248,7 +248,7 @@ public class PurchasingAccountsPayableActionHistory extends PersistableBusinessO
 
     /**
      * Sets the itemAccountTotalAmount attribute value.
-     * 
+     *
      * @param itemAccountTotalAmount The itemAccountTotalAmount to set.
      */
     public void setItemAccountTotalAmount(KualiDecimal itemAccountTotalAmount) {
@@ -258,7 +258,7 @@ public class PurchasingAccountsPayableActionHistory extends PersistableBusinessO
 
     /**
      * Gets the accountsPayableItemQuantity attribute.
-     * 
+     *
      * @return Returns the accountsPayableItemQuantity.
      */
     public KualiDecimal getAccountsPayableItemQuantity() {
@@ -268,7 +268,7 @@ public class PurchasingAccountsPayableActionHistory extends PersistableBusinessO
 
     /**
      * Sets the accountsPayableItemQuantity attribute value.
-     * 
+     *
      * @param accountsPayableItemQuantity The accountsPayableItemQuantity to set.
      */
     public void setAccountsPayableItemQuantity(KualiDecimal accountsPayableItemQuantity) {
@@ -278,7 +278,7 @@ public class PurchasingAccountsPayableActionHistory extends PersistableBusinessO
 
     /**
      * Gets the active attribute.
-     * 
+     *
      * @return Returns the active.
      */
     public boolean isActive() {
@@ -288,7 +288,7 @@ public class PurchasingAccountsPayableActionHistory extends PersistableBusinessO
 
     /**
      * Sets the active attribute value.
-     * 
+     *
      * @param active The active to set.
      */
     public void setActive(boolean active) {

@@ -74,7 +74,6 @@ public class InstitutionPreferencesServiceImplTest {
 
     abstract class PreferencesDaoInstitutionPreferences implements PreferencesDao {
         public Integer cacheLength = null;
-        public Boolean cacheCleared = null;
 
         @Override
         public Map<String, Object> findInstitutionPreferences() {
@@ -88,6 +87,16 @@ public class InstitutionPreferencesServiceImplTest {
         @Override
         public Map<String, Object> findInstitutionPreferencesCache(String principalName) {
             return null;
+        }
+
+        @Override
+        public void setInstitutionPreferencesCacheLength(int seconds) {
+            cacheLength = seconds;
+        }
+
+        @Override
+        public int getInstitutionPreferencesCacheLength() {
+            return cacheLength;
         }
 
         @Override
@@ -106,10 +115,6 @@ public class InstitutionPreferencesServiceImplTest {
         @Override
         public void saveUserPreferences(String principalName, Map<String, Object> preferences) {
 
-        }
-
-        @Override
-        public void clearInstitutionPreferencesCache() {
         }
     }
 
@@ -718,19 +723,26 @@ public class InstitutionPreferencesServiceImplTest {
     }
 
     @Test
-    public void testInstitutionPreferencesCacheClear() {
+    public void testInstitutionPreferencesCacheSet() {
         InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new NoPermissionsInstitutionPreferencesServiceImpl();
 
         PreferencesDaoInstitutionPreferences dao = new PreferencesDaoInstitutionPreferences() {
-            @Override
-            public void clearInstitutionPreferencesCache() {
-                this.cacheCleared = Boolean.TRUE;
-            }
         };
         institutionPreferencesServiceImpl.setPreferencesDao(dao);
 
-        institutionPreferencesServiceImpl.clearInstitutionPreferencesCache();
-        Assert.assertEquals("Cache should be cleared", Boolean.TRUE, dao.cacheCleared);
+        institutionPreferencesServiceImpl.setInstitutionPreferencesCacheLength(1000);
+        Assert.assertEquals("Cache Length should be set", 1000, (int) dao.cacheLength);
+            }
+
+    @Test
+    public void testInstitutionPreferencesCacheGet() {
+        InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new NoPermissionsInstitutionPreferencesServiceImpl();
+        PreferencesDaoInstitutionPreferences dao = new PreferencesDaoInstitutionPreferences() {
+        };
+        institutionPreferencesServiceImpl.setPreferencesDao(dao);
+        dao.cacheLength = 100;
+
+        Assert.assertEquals("Cache Length should be retrieved", 100, (int) institutionPreferencesServiceImpl.getInstitutionPreferencesCacheLength());
     }
 
     @Test

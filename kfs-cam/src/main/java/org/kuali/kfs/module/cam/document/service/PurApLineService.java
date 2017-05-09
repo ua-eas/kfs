@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -34,7 +34,7 @@ public interface PurApLineService {
 
     /**
      * Check the payments in given asset lines have different object sub types.
-     * 
+     *
      * @param selectedLines
      * @return
      */
@@ -42,7 +42,7 @@ public interface PurApLineService {
 
     /**
      * Check the payments in given asset lines have different object sub types.
-     * 
+     *
      * @param selectedLines
      * @return
      */
@@ -50,16 +50,16 @@ public interface PurApLineService {
 
     /**
      * Changes percent quantities to a quantity of 1 for selected line item.
-     * 
-     * @param itemAsset Selected line item.
+     *
+     * @param itemAsset   Selected line item.
      * @param actionsTake Action taken history.
      */
     void processPercentPayment(PurchasingAccountsPayableItemAsset itemAsset, List<PurchasingAccountsPayableActionHistory> actionsTaken);
 
     /**
      * Split the selected line item quantity and create a new line item.
-     * 
-     * @param itemAsset Selected line item.
+     *
+     * @param itemAsset    Selected line item.
      * @param actionsTaken Action taken history.
      * @return
      */
@@ -67,7 +67,7 @@ public interface PurApLineService {
 
     /**
      * Save purApDoc, item assets and account lines for persistence
-     * 
+     *
      * @param purApDocs
      * @param purApLineSession
      */
@@ -75,14 +75,14 @@ public interface PurApLineService {
 
     /**
      * Build PurAp document collection and line item collection.
-     * 
+     *
      * @param purApDocs
      */
     void buildPurApItemAssetList(List<PurchasingAccountsPayableDocument> purApDocs);
 
     /**
      * Handle additional charge allocate in the same document.
-     * 
+     *
      * @param selectedLineItem
      * @param allocateTargetLines
      * @param purApLineSession
@@ -93,7 +93,7 @@ public interface PurApLineService {
 
     /**
      * Get the target lines based on allocation line type
-     * 
+     *
      * @param selectedLineItem
      * @param purApDocs
      * @return
@@ -102,7 +102,7 @@ public interface PurApLineService {
 
     /**
      * Get the selected merge lines.
-     * 
+     *
      * @param isMergeAll
      * @param purApDocs
      * @return
@@ -111,14 +111,14 @@ public interface PurApLineService {
 
     /**
      * Reset selectedValue for all line items
-     * 
+     *
      * @param purApDocs
      */
     void resetSelectedValue(List<PurchasingAccountsPayableDocument> purApDocs);
 
     /**
      * Merge line items.
-     * 
+     *
      * @param mergeLines
      * @param purApLineSession
      * @param isMergeAll
@@ -127,7 +127,7 @@ public interface PurApLineService {
 
     /**
      * Check if the merge action is merge all.
-     * 
+     *
      * @param purApDocs
      * @return
      */
@@ -136,7 +136,7 @@ public interface PurApLineService {
     /**
      * For line items in itemAssets if they are not in the same PurAp document, check if there is pending additional charges
      * allocation.
-     * 
+     *
      * @param itemAssets
      * @return
      */
@@ -144,7 +144,7 @@ public interface PurApLineService {
 
     /**
      * Check if there is TI indicator exists in the given itemAssets List.
-     * 
+     *
      * @param itemAssets
      * @return
      */
@@ -152,7 +152,7 @@ public interface PurApLineService {
 
     /**
      * Check if there is trade-in allowance not allocated yet.
-     * 
+     *
      * @param purApDocs
      * @return
      */
@@ -160,7 +160,7 @@ public interface PurApLineService {
 
     /**
      * Check if there is additional charge line exist in all lines.
-     * 
+     *
      * @param purApDocs
      * @return
      */
@@ -168,7 +168,7 @@ public interface PurApLineService {
 
     /**
      * Get preTag if exists for give line item.
-     * 
+     *
      * @param purchaseOrderIdentifier
      * @param lineItemNumber
      * @return
@@ -177,14 +177,14 @@ public interface PurApLineService {
 
     /**
      * In-activate document when all the associated items are inactive.
-     * 
+     *
      * @param selectedDoc
      */
     void conditionallyUpdateDocumentStatusAsProcessed(PurchasingAccountsPayableDocument selectedDoc);
 
     /**
      * Check if more than one pre-tagging exists for given itemLineNumber and PO_ID.
-     * 
+     *
      * @param purchaseOrderIdentifier
      * @param itemLineNumbers
      * @return
@@ -193,7 +193,7 @@ public interface PurApLineService {
 
     /**
      * Check pretag existing
-     * 
+     *
      * @param newTag
      * @return
      */

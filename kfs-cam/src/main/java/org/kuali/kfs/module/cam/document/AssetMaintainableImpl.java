@@ -124,7 +124,7 @@ public class AssetMaintainableImpl extends FinancialSystemMaintainable {
      * java.util.Map)
      */
     @Override
-    public void processAfterEdit(MaintenanceDocument document, Map<String, String[]> parameters) { //Changed Map to Map<String, String[]> to fix error in edu.arizona.kfs.module.cam.document.AssetMaintainableImpl "The method processAfterEdit(MaintenanceDocument, Map) is ambiguous for the type AssetMaintainableImpl"
+    public void processAfterEdit(MaintenanceDocument document, Map<String, String[]>  parameters) {
         initializeAttributes(document);
         // Identifies the latest location information
         getAssetLocationService().setOffCampusLocation(copyAsset);

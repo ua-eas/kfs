@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2017 Kuali, Inc.
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -62,7 +62,7 @@ public interface BatchExtractService {
     /**
      * Saves financial transaction lines which dont have Purchase Order number associated with it
      *
-     * @param fpLines Financial transaction lines
+     * @param fpLines    Financial transaction lines
      * @param processLog Process Log
      */
     void saveFPLines(List<Entry> fpLines, ExtractProcessLog processLog);
@@ -71,7 +71,7 @@ public interface BatchExtractService {
      * Saved purchasing line transactions, this method implementation internally uses
      * {@link org.kuali.kfs.gl.batch.service.ReconciliationService} to QA the data before saving
      *
-     * @param poLines Eligible GL Lines
+     * @param poLines    Eligible GL Lines
      * @param processLog Process Log
      */
     HashSet<PurchasingAccountsPayableDocument> savePOLines(List<Entry> poLines, ExtractProcessLog processLog);
@@ -79,8 +79,8 @@ public interface BatchExtractService {
     /**
      * Separates out transaction lines associated with purchase order from the rest
      *
-     * @param fpLines Non-purchasing lines
-     * @param purapLines Purchasing lines
+     * @param fpLines          Non-purchasing lines
+     * @param purapLines       Purchasing lines
      * @param elgibleGLEntries Full list of eligible GL entries
      */
     void separatePOLines(List<Entry> fpLines, List<Entry> purapLines, Collection<Entry> elgibleGLEntries);

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2017 Kuali, Inc.
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -41,7 +41,7 @@ public class ExtractProcessLog {
 
     /**
      * Gets the ignoredGLEntries attribute.
-     * 
+     *
      * @return Returns the ignoredGLEntries.
      */
     public List<Entry> getIgnoredGLEntries() {
@@ -50,7 +50,7 @@ public class ExtractProcessLog {
 
     /**
      * Sets the ignoredGLEntries attribute value.
-     * 
+     *
      * @param ignoredGLEntries The ignoredGLEntries to set.
      */
     public void setIgnoredGLEntries(List<Entry> ignoredGLEntries) {
@@ -59,7 +59,7 @@ public class ExtractProcessLog {
 
     /**
      * Gets the duplicateGLEntries attribute.
-     * 
+     *
      * @return Returns the duplicateGLEntries.
      */
     public List<Entry> getDuplicateGLEntries() {
@@ -68,7 +68,7 @@ public class ExtractProcessLog {
 
     /**
      * Sets the duplicateGLEntries attribute value.
-     * 
+     *
      * @param duplicateGLEntries The duplicateGLEntries to set.
      */
     public void setDuplicateGLEntries(List<Entry> duplicateGLEntries) {
@@ -77,7 +77,7 @@ public class ExtractProcessLog {
 
     /**
      * Gets the mismatchedGLEntries attribute.
-     * 
+     *
      * @return Returns the mismatchedGLEntries.
      */
     public List<Entry> getMismatchedGLEntries() {
@@ -86,7 +86,7 @@ public class ExtractProcessLog {
 
     /**
      * Sets the mismatchedGLEntries attribute value.
-     * 
+     *
      * @param mismatchedGLEntries The mismatchedGLEntries to set.
      */
     public void setMismatchedGLEntries(List<Entry> mismatchedGLEntries) {
@@ -95,7 +95,7 @@ public class ExtractProcessLog {
 
     /**
      * Adds a collection of entries to ignoredGLEntries
-     * 
+     *
      * @param add ignoredGLEntries
      */
     public void addIgnoredGLEntries(Collection<Entry> add) {
@@ -107,7 +107,7 @@ public class ExtractProcessLog {
 
     /**
      * Adds a collection of entries to duplicateGLEntries
-     * 
+     *
      * @param add duplicateGLEntries
      */
     public void addDuplicateGLEntries(Collection<Entry> add) {
@@ -119,7 +119,7 @@ public class ExtractProcessLog {
 
     /**
      * Adds a collection of entries to mismatchedGLEntries
-     * 
+     *
      * @param add mismatchedGLEntries
      */
     public void addMismatchedGLEntries(Collection<Entry> add) {
@@ -131,7 +131,7 @@ public class ExtractProcessLog {
 
     /**
      * Add a GL entry to ignoredGLEntries
-     * 
+     *
      * @param add Entry
      */
     public void addIgnoredGLEntry(Entry add) {
@@ -143,7 +143,7 @@ public class ExtractProcessLog {
 
     /**
      * Add a GL entry to duplicateGLEntries
-     * 
+     *
      * @param add Entry
      */
     public void addDuplicateGLEntry(Entry add) {
@@ -155,7 +155,7 @@ public class ExtractProcessLog {
 
     /**
      * Add a GL entry to mismatchedGLEntries
-     * 
+     *
      * @param add Entry
      */
     public void addMismatchedGLEntry(Entry add) {
@@ -167,7 +167,7 @@ public class ExtractProcessLog {
 
     /**
      * Gets the startTime attribute.
-     * 
+     *
      * @return Returns the startTime.
      */
     public Timestamp getStartTime() {
@@ -176,7 +176,7 @@ public class ExtractProcessLog {
 
     /**
      * Sets the startTime attribute value.
-     * 
+     *
      * @param startTime The startTime to set.
      */
     public void setStartTime(Timestamp startTime) {
@@ -185,7 +185,7 @@ public class ExtractProcessLog {
 
     /**
      * Gets the lastExtractTime attribute.
-     * 
+     *
      * @return Returns the lastExtractTime.
      */
     public Timestamp getLastExtractTime() {
@@ -194,7 +194,7 @@ public class ExtractProcessLog {
 
     /**
      * Sets the lastExtractTime attribute value.
-     * 
+     *
      * @param lastExtractTime The lastExtractTime to set.
      */
     public void setLastExtractTime(Timestamp lastExtractTime) {
@@ -203,7 +203,7 @@ public class ExtractProcessLog {
 
     /**
      * Gets the success attribute.
-     * 
+     *
      * @return Returns the success.
      */
     public boolean isSuccess() {
@@ -212,7 +212,7 @@ public class ExtractProcessLog {
 
     /**
      * Sets the success attribute value.
-     * 
+     *
      * @param success The success to set.
      */
     public void setSuccess(boolean success) {
@@ -221,7 +221,7 @@ public class ExtractProcessLog {
 
     /**
      * Gets the finishTime attribute.
-     * 
+     *
      * @return Returns the finishTime.
      */
     public Timestamp getFinishTime() {
@@ -230,7 +230,7 @@ public class ExtractProcessLog {
 
     /**
      * Sets the finishTime attribute value.
-     * 
+     *
      * @param finishTime The finishTime to set.
      */
     public void setFinishTime(Timestamp finishTime) {
@@ -239,7 +239,7 @@ public class ExtractProcessLog {
 
     /**
      * Gets the errorMessage attribute.
-     * 
+     *
      * @return Returns the errorMessage.
      */
     public String getErrorMessage() {
@@ -248,7 +248,7 @@ public class ExtractProcessLog {
 
     /**
      * Sets the errorMessage attribute value.
-     * 
+     *
      * @param errorMessage The errorMessage to set.
      */
     public void setErrorMessage(String errorMessage) {
@@ -257,7 +257,7 @@ public class ExtractProcessLog {
 
     /**
      * Gets the totalGlCount attribute.
-     * 
+     *
      * @return Returns the totalGlCount.
      */
     public Integer getTotalGlCount() {
@@ -266,7 +266,7 @@ public class ExtractProcessLog {
 
     /**
      * Sets the totalGlCount attribute value.
-     * 
+     *
      * @param totalGlCount The totalGlCount to set.
      */
     public void setTotalGlCount(Integer totalGlCount) {
@@ -275,7 +275,7 @@ public class ExtractProcessLog {
 
     /**
      * Gets the nonPurApGlCount attribute.
-     * 
+     *
      * @return Returns the nonPurApGlCount.
      */
     public Integer getNonPurApGlCount() {
@@ -284,7 +284,7 @@ public class ExtractProcessLog {
 
     /**
      * Sets the nonPurApGlCount attribute value.
-     * 
+     *
      * @param nonPurApGlCount The nonPurApGlCount to set.
      */
     public void setNonPurApGlCount(Integer nonPurApGlCount) {
@@ -293,7 +293,7 @@ public class ExtractProcessLog {
 
     /**
      * Gets the purApGlCount attribute.
-     * 
+     *
      * @return Returns the purApGlCount.
      */
     public Integer getPurApGlCount() {
@@ -302,7 +302,7 @@ public class ExtractProcessLog {
 
     /**
      * Sets the purApGlCount attribute value.
-     * 
+     *
      * @param purApGlCount The purApGlCount to set.
      */
     public void setPurApGlCount(Integer purApGlCount) {
@@ -311,7 +311,7 @@ public class ExtractProcessLog {
 
     /**
      * Gets the statusMessage attribute.
-     * 
+     *
      * @return Returns the statusMessage.
      */
     public String getStatusMessage() {
@@ -323,7 +323,7 @@ public class ExtractProcessLog {
 
     /**
      * Sets the statusMessage attribute value.
-     * 
+     *
      * @param statusMessage The statusMessage to set.
      */
     public void setStatusMessage(String statusMessage) {

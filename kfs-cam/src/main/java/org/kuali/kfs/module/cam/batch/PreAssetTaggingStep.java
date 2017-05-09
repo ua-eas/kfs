@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2017 Kuali, Inc.
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -58,7 +58,7 @@ public class PreAssetTaggingStep extends AbstractStep {
 
     /**
      * Gets the batchExtractService attribute.
-     * 
+     *
      * @return Returns the batchExtractService.
      */
     public BatchExtractService getBatchExtractService() {
@@ -67,7 +67,7 @@ public class PreAssetTaggingStep extends AbstractStep {
 
     /**
      * Sets the batchExtractService attribute value.
-     * 
+     *
      * @param batchExtractService The batchExtractService to set.
      */
     public void setBatchExtractService(BatchExtractService batchExtractService) {
@@ -76,7 +76,7 @@ public class PreAssetTaggingStep extends AbstractStep {
 
     /**
      * Gets the dateTimeService attribute.
-     * 
+     *
      * @return Returns the dateTimeService.
      */
     public DateTimeService getDateTimeService() {
@@ -85,7 +85,7 @@ public class PreAssetTaggingStep extends AbstractStep {
 
     /**
      * Sets the dateTimeService attribute value.
-     * 
+     *
      * @param dateTimeService The dateTimeService to set.
      */
     public void setDateTimeService(DateTimeService dateTimeService) {
