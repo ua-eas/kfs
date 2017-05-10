@@ -23,6 +23,9 @@ public class CapitalAssetBuilderModuleServiceImpl extends org.kuali.kfs.module.c
 
     @Override
     protected boolean validateUpdateCapitalAssetField(CapitalAssetInformation capitalAssetInformation, AccountingDocument accountingDocument, int index) {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Beginning method validateUpdateCapitalAssetField");
+        }
         boolean valid = true;
 
         Map<String, String> params = new HashMap<String, String>();
@@ -38,14 +41,17 @@ public class CapitalAssetBuilderModuleServiceImpl extends org.kuali.kfs.module.c
         errors.removeFromErrorPath(KFSPropertyConstants.DOCUMENT);
 
         String errorPathPrefix = KFSPropertyConstants.DOCUMENT + "." + KFSPropertyConstants.CAPITAL_ASSET_INFORMATION + "[" + index + "]." + KFSPropertyConstants.CAPITAL_ASSET_NUMBER;
+        String errorPathModifyTab = KFSPropertyConstants.DOCUMENT + "." + KFSPropertyConstants.CAPITAL_ASSET_MODIFY_INFORMATION;
         if (ObjectUtils.isNull(asset)) {
             valid = false;
             String label = this.getDataDictionaryService().getAttributeLabel(CapitalAssetInformation.class, KFSPropertyConstants.CAPITAL_ASSET_NUMBER);
             GlobalVariables.getMessageMap().putErrorWithoutFullErrorPath(errorPathPrefix, KFSKeyConstants.ERROR_EXISTENCE, label);
+            GlobalVariables.getMessageMap().putErrorWithoutFullErrorPath(errorPathModifyTab, KFSKeyConstants.ERROR_EXISTENCE, label);
         } else if (!(this.getAssetService().isCapitalAsset(asset) && !this.getAssetService().isAssetRetired(asset))) {
             // check asset status must be capital asset active.
             valid = false;
             GlobalVariables.getMessageMap().putErrorWithoutFullErrorPath(errorPathPrefix, CabKeyConstants.CapitalAssetInformation.ERROR_ASSET_ACTIVE_CAPITAL_ASSET_REQUIRED);
+            GlobalVariables.getMessageMap().putErrorWithoutFullErrorPath(errorPathModifyTab, CabKeyConstants.CapitalAssetInformation.ERROR_ASSET_ACTIVE_CAPITAL_ASSET_REQUIRED);
         } else {
             String documentNumber = accountingDocument.getDocumentNumber();
             String documentType = getDocumentTypeName(accountingDocument);
