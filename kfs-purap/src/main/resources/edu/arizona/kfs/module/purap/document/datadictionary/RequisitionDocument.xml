@@ -28,6 +28,14 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans         http://w
 		</property> 
 	</bean>  
 	
+	<bean id="RequisitionDocument-sourceAccountingLineGroup" parent="RequisitionDocument-sourceAccountingLineGroup-parentBean">
+	    <property name="accountingLineAuthorizerClass" value="edu.arizona.kfs.module.purap.document.authorization.RequisitionAccountingLineAuthorizer"/>
+	</bean>
+	
+	<bean id="RequisitionDocument-distributeSourceAccountingLineGroup" parent="RequisitionDocument-distributeSourceAccountingLineGroup-parentBean">
+	    <property name="accountingLineAuthorizerClass" value="edu.arizona.kfs.module.purap.document.authorization.RequisitionAccountingLineAuthorizer"/>
+	</bean>
+	
 	<!-- workflow attributes for routing -->
 	<bean id="RequisitionDocument-workflowAttributes" parent="RequisitionDocument-workflowAttributes-parentBean">
 	   	<property name="routingTypeDefinitions">

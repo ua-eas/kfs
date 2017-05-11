@@ -29,7 +29,7 @@ public class PdpConstants {
     public static final String PAYMENT_LOAD_CREATE_DATE_SEPARATOR = "T";
     public static final String PAYMENT_LOAD_CREATE_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
     public static final String PDP_FDOC_TYPE_CODE = "PDP";
-    public static final String PDP_FDOC_ORIGIN_CODE = "01";
+    public static final String PDP_FDOC_ORIGIN_CODE = "02";
     public static final String ACH_ACCOUNT_IDENTIFIER_SEQUENCE_NAME = "PDP_ACH_ACCT_GNRTD_ID_SEQ";
     public static final String PDP_EXTRACT_JOB_NAME = "pdpExtractChecksJob";
     public static final String ACH_TRANSACTION_TYPE_DEFAULT = "22";
