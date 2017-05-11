@@ -82,7 +82,9 @@ public class UaEmployeeDerivedRoleTypeServiceImpl extends EmployeeDerivedRoleTyp
 				retval = false;
 			} else if (hasRestrictedEmployeeType(entity)) {
 				retval = false;
-			} else if (roleName.equals(ROLE_32_TITLE)) {
+			}
+			// TODO KFS7 upgrade comment out below lines for class casting exception and should investigate further
+			/*} else if (roleName.equals(ROLE_32_TITLE)) {
 				// Note: this will return true if the person has role 11173
 				retval = hasRole32(entity, principalId);
 			} else if (roleName.equals(ROLE_33_TITLE)) {
@@ -91,7 +93,7 @@ public class UaEmployeeDerivedRoleTypeServiceImpl extends EmployeeDerivedRoleTyp
 				retval = hasRole93(entity, principalId);
 			} else if (roleName.equals(ROLE_94_TITLE)) {
 				retval = hasRole94(entity, principalId);
-			}
+			}*/
 		}
 		return retval;
 	}
@@ -260,16 +262,9 @@ public class UaEmployeeDerivedRoleTypeServiceImpl extends EmployeeDerivedRoleTyp
 
 	private UaEdsConstants getEdsConstants() {
 		if (this.edsConstants == null) {
-			setEdsConstants(GlobalResourceLoader.<UaEdsConstants> getService(EDS_CONSTANTS_BEAN_NAME));
+			this.edsConstants = GlobalResourceLoader.<UaEdsConstants> getService(EDS_CONSTANTS_BEAN_NAME);
 		}
 		return edsConstants;
-	}
-	public void setEdsConstants( UaEdsConstants edsConstants ) {
-		this.edsConstants = edsConstants;
-	}
-
-	public void setParameterService(ParameterService parameterService) {
-		this.parameterService = parameterService;
 	}
 
 }

@@ -112,9 +112,6 @@
     <alias name="kimPermissionService" alias="permissionService"/>
     <bean id="kimIdentityService" p:serviceName="kimIdentityService" parent="grlBeanImporter"/>
     <alias name="kimIdentityService" alias="identityService"/>
-    
-    <!-- UA KFS7 upgrade standalone Rice -->
-    <bean id="edsConstants" p:serviceName="edsConstants" parent="grlBeanImporter"/>
 
     <!--
     <bean id="kimUiDocumentService" p:serviceName="kimUiDocumentService" parent="grlBeanImporter" />
