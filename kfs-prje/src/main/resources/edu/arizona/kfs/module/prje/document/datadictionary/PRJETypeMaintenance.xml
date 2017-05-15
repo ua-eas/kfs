@@ -3,10 +3,6 @@
   <bean id="PRJETypeMaintenanceDocument" parent="PRJETypeMaintenanceDocument-parentBean" />
   <bean id="PRJETypeMaintenanceDocument-parentBean" abstract="true" parent="MaintenanceDocumentEntry">
     <property name="businessObjectClass" value="edu.arizona.kfs.module.prje.businessobject.PRJEType" />
-    <!-- The business rules don't make sense here when each level is edited directly. -->
-    <!-- 
-    <property name="businessRulesClass" value="edu.arizona.kfs.module.prje.document.PRJETypeMaintenanceRule" />
-    -->              
     <property name="maintainableClass" value="edu.arizona.kfs.module.prje.document.PRJETypeMaintainableImpl" />
     <property name="maintainableSections" >
       <list>

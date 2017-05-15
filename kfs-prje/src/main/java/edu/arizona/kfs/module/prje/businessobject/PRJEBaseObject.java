@@ -1,18 +1,3 @@
-/*
- * Copyright 2009 The Kuali Foundation.
- * 
- * Licensed under the Educational Community License, Version 1.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- * http://www.opensource.org/licenses/ecl1.php
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 package edu.arizona.kfs.module.prje.businessobject;
 
@@ -23,6 +8,8 @@ import java.util.LinkedHashMap;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.ObjectCodeCurrent;
 import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+
+import edu.arizona.kfs.module.prje.PRJEPropertyConstants;
 
 /**
  * Prorate Journal Entry Base Object BO
@@ -250,19 +237,20 @@ public class PRJEBaseObject
      */
     @SuppressWarnings("unchecked")
     protected LinkedHashMap toStringMapper() {
-        LinkedHashMap m = new LinkedHashMap();
+        LinkedHashMap<String, String> retVal = new LinkedHashMap<String, String>();
 
-        m.put("rateObjectCodeId", getRateObjectCodeId());
-        m.put("typeId", getTypeId());
-        m.put("objectCodeRangeName", getObjectCodeRangeName());
-        m.put("include", getInclude());
-        m.put("baseChartCode", getBaseChartCode());
-        m.put("baseObjectCodeLow", getBaseObjectCodeLow());
-        m.put("baseObjectCodeHigh", getBaseObjectCodeHigh());
-        m.put("subObjectCodeLow", getSubObjectCodeLow());
-        m.put("subObjectCodeHigh", getSubObjectCodeHigh());
-        m.put("active", getActive());
+        retVal.put(PRJEPropertyConstants.PRJE_RATE_OBJECT_CD_ID, getRateObjectCodeId() == null ? null : getRateObjectCodeId().toString());
+        retVal.put(PRJEPropertyConstants.PRJE_TYPE_ID, getTypeId() == null ? null : getTypeId().toString());
+        retVal.put(PRJEPropertyConstants.OBJ_CD_RG_NM, getObjectCodeRangeName());
+        retVal.put(PRJEPropertyConstants.INCLUDE_EXCLUDE_FLAG, getInclude());
+        retVal.put(PRJEPropertyConstants.BASE_FIN_COA_CD, getBaseChartCode());
+        retVal.put(PRJEPropertyConstants.BASE_FIN_COA_CD_LOW, getBaseObjectCodeLow());
+        retVal.put(PRJEPropertyConstants.BASE_FIN_COA_CD_HIGH, getBaseObjectCodeHigh());
+        retVal.put(PRJEPropertyConstants.SUB_OBJECT_CD_LOW, getSubObjectCodeLow());
+        retVal.put(PRJEPropertyConstants.SUB_OBJECT_CD_HIGH, getSubObjectCodeHigh());
+        retVal.put(PRJEPropertyConstants.ACTV_CD, getActive() == null ? null : getActive().toString());
 
-        return m;
+
+        return retVal;
     }
 }

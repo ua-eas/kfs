@@ -1,18 +1,3 @@
-/*
- * Copyright 2009 The Kuali Foundation.
- * 
- * Licensed under the Educational Community License, Version 1.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- * http://www.opensource.org/licenses/ecl1.php
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package edu.arizona.kfs.module.prje.document;
 
 import java.util.List;
@@ -29,6 +14,7 @@ import edu.arizona.kfs.module.prje.PRJEConstants.ProrateCreditType;
 import edu.arizona.kfs.module.prje.PRJEConstants.ProrateDebitType;
 import edu.arizona.kfs.module.prje.PRJEConstants.ProrateOptions;
 import edu.arizona.kfs.module.prje.PRJEKeyConstants;
+import edu.arizona.kfs.module.prje.PRJEPropertyConstants;
 import edu.arizona.kfs.module.prje.businessobject.PRJEAccountLine;
 import edu.arizona.kfs.module.prje.businessobject.PRJEBaseAccount;
 import edu.arizona.kfs.module.prje.businessobject.PRJEBaseObject;
@@ -53,26 +39,26 @@ public class PRJETypeMaintenanceRule extends MaintenanceDocumentRuleBase {
         boolean valid = true;
         
         if ( baseAccounts.size() == 0 ) {
-            putFieldError("baseAccounts", "error.prje.noBaseAccounts");            
+            putFieldError(PRJEPropertyConstants.BASE_ACCOUNTS, PRJEKeyConstants.ERROR_NO_BASE_ACCOUNTS);            
             valid = false;
         }
         
         if ( accountLines.size() == 0 ) {
-            putFieldError("accountLines", "error.prje.noAccountLines");            
+            putFieldError(PRJEPropertyConstants.ACCOUNT_LINESS, PRJEKeyConstants.ERROR_NO_ACCOUNT_LINES);            
             valid = false;
         }
         
         if ( baseAccounts.size() > 1  
                 && ( ProrateOptions.SINGLE_TO_MULTIPLE.getKey().equals(prorateOptions) 
                 || ProrateOptions.SINGLE_TO_SINGLE.equals(prorateOptions)) ) {
-            putFieldError("baseAccounts", "error.prje.manyBaseAccounts");              
+            putFieldError(PRJEPropertyConstants.BASE_ACCOUNTS, PRJEKeyConstants.ERROR_TOO_MANY_BASE_ACCOUNTS);              
             valid = false;
         }
         
         if ( accountLines.size() > 1  
                 && ( ProrateOptions.MULTIPLE_TO_SINGLE.equals(prorateOptions) 
                 || ProrateOptions.SINGLE_TO_SINGLE.getKey().equals(prorateOptions)) ) {
-            putFieldError("accountLines", "error.prje.manyAccountLines");              
+            putFieldError(PRJEPropertyConstants.ACCOUNT_LINESS, PRJEKeyConstants.ERROR_TOO_MANY_ACCOUNT_LINES);              
             valid = false;
         }
         

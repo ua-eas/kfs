@@ -1,19 +1,4 @@
-/*
- * Copyright 2009 The Kuali Foundation.
- * 
- * Licensed under the Educational Community License, Version 1.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- * http://www.opensource.org/licenses/ecl1.php
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
+ 
 package edu.arizona.kfs.module.prje.businessobject;
 
 import java.io.Serializable;
@@ -53,30 +38,18 @@ public class PRJEType
         super();
     }
 
-    /**
-     * @return typeId
-     */
     public Integer getTypeId() {
         return typeId;
     }
 
-    /**
-     * @param typeId the typeId to set
-     */    
     public void setTypeId(Integer typeId) {
         this.typeId = typeId;
     }
 
-    /**
-     * @return setId
-     */    
     public Integer getSetId() {
         return setId;
     }
 
-    /**
-     * @param setId the setId to set
-     */    
     public void setSetId(Integer setId) {
         this.setId = setId;
     }
@@ -88,37 +61,22 @@ public class PRJEType
         return entryName;
     }
 
-    /**
-     * @param entryName the entryName to set
-     */    
     public void setEntryName(String entryName) {
         this.entryName = entryName;
     }
 
-    /**
-     * @return prorateOptions
-     */
     public String getProrateOptions() {
         return prorateOptions;
     }
 
-    /**
-     * @param prorateOptions the prorateOptions to set
-     */    
     public void setProrateOptions(String prorateOptions) {
         this.prorateOptions = prorateOptions;
     }
     
-    /**
-     * @return the active
-     */
     public Boolean getActive() {
         return active;
     }
 
-    /**
-     * @param active the active to set
-     */
     public void setActive(Boolean active) {
         this.active = active;
     }
@@ -163,16 +121,10 @@ public class PRJEType
         getSet().setSetName(setName);
     }
     
-    /**
-     * @return the lastUpdate
-     */  
     public Timestamp getLastUpdate() {
         return lastUpdate;
     }
 
-    /**
-     * @param lastUpdate the lastUpdate to set
-     */    
     public void setLastUpdate(Timestamp lastUpdate) {
         this.lastUpdate = lastUpdate;
     }

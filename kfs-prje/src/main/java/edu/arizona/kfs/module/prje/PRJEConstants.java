@@ -1,18 +1,3 @@
-/*
- * Copyright 2009 The Kuali Foundation.
- * 
- * Licensed under the Educational Community License, Version 1.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- * http://www.opensource.org/licenses/ecl1.php
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 package edu.arizona.kfs.module.prje;
 
@@ -28,7 +13,7 @@ import edu.arizona.kfs.module.prje.lookup.KeyLabelFactory;
  */
 public interface PRJEConstants {
     public static final String SOURCE_CODE = "PRJE";
-    public static final String NAMESPACE = "KUALI-PRJE";
+    public static final String NAMESPACE = "KFS-PRJE";
     public static final String COMPONENT = "ProrateJournalEntry";
     public static final String CONFIGURATION = "PRJE_CONFIGURATION";
     public static final String PROPERTIES = "properties";

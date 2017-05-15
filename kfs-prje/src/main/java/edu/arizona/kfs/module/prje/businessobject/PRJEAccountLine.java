@@ -1,18 +1,3 @@
-/*
- * Copyright 2009 The Kuali Foundation.
- * 
- * Licensed under the Educational Community License, Version 1.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- * http://www.opensource.org/licenses/ecl1.php
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 package edu.arizona.kfs.module.prje.businessobject;
 
@@ -29,6 +14,7 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 
 import edu.arizona.kfs.module.prje.PRJEConstants;
+import edu.arizona.kfs.module.prje.PRJEPropertyConstants;
 
 /**
  * Prorate Journal Entry Account Line BO
@@ -70,37 +56,22 @@ public class PRJEAccountLine
         super();
     }
 
-    /**
-     * @return the rateAccountId
-     */
     public Integer getRateAccountId() {
         return rateAccountId;
     }
 
-    /**
-     * @param rateAccountId the rateAccountId to set
-     */
     public void setRateAccountId(Integer rateAccountId) {
         this.rateAccountId = rateAccountId;
     }
 
-    /**
-     * @return the typeId
-     */
     public Integer getTypeId() {
         return typeId;
     }
 
-    /**
-     * @param typeId the typeId to set
-     */
     public void setTypeId(Integer typeId) {
         this.typeId = typeId;
     }
 
-    /**
-     * @return the overrideProrateType
-     */
     public String getOverrideProrateType() {
         if ( overrideAmount != null )
             return overrideProrateType;
@@ -108,163 +79,94 @@ public class PRJEAccountLine
             return PRJEConstants.ProrateCreditType.NO_OVERRIDE.getKey();
     }
 
-    /**
-     * @param overrideProrateType the overrideProrateType to set
-     */
     public void setOverrideProrateType(String overrideProrateType) {
         this.overrideProrateType = overrideProrateType;
     }
 
-    /**
-     * @return the overrideAmount
-     */
     public KualiDecimal getOverrideAmount() {
         return overrideAmount;
     }
 
-    /**
-     * @param overrideAmount the overrideAmount to set
-     */
     public void setOverrideAmount(KualiDecimal overrideAmount) {
         this.overrideAmount = overrideAmount;
     }
 
-    /**
-     * @return the overridePercent
-     */
     public KualiDecimal getOverridePercent() {
         return overridePercent;
     }
 
-    /**
-     * @param overridePercent the overridePercent to set
-     */
     public void setOverridePercent(KualiDecimal overridePercent) {
         this.overridePercent = overridePercent;
     }
 
-    /**
-     * @return the effectiveDateFrom
-     */
     public Timestamp getEffectiveDateFrom() {
         return effectiveDateFrom;
     }
 
-    /**
-     * @param effectiveDateFrom the effectiveDateFrom to set
-     */
     public void setEffectiveDateFrom(Timestamp effectiveDateFrom) {
         this.effectiveDateFrom = effectiveDateFrom;
     }
 
-    /**
-     * @return the effectiveDateTo
-     */
     public Timestamp getEffectiveDateTo() {
         return effectiveDateTo;
     }
 
-    /**
-     * @param effectiveDateTo the effectiveDateTo to set
-     */
     public void setEffectiveDateTo(Timestamp effectiveDateTo) {
         this.effectiveDateTo = effectiveDateTo;
     }
 
-    /**
-     * @return the chartCode
-     */
     public String getChartCode() {
         return chartCode;
     }
 
-    /**
-     * @param chartCode the chartCode to set
-     */
     public void setChartCode(String chartCode) {
         this.chartCode = chartCode;
     }
 
-    /**
-     * @return the accountNumber
-     */
     public String getAccountNumber() {
         return accountNumber;
     }
 
-    /**
-     * @param accountNumber the accountNumber to set
-     */
     public void setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
     }
 
-    /**
-     * @return the subAccountNumber
-     */
     public String getSubAccountNumber() {
         return subAccountNumber;
     }
 
-    /**
-     * @param subAccountNumber the subAccountNumber to set
-     */
     public void setSubAccountNumber(String subAccountNumber) {
         this.subAccountNumber = subAccountNumber;
     }
 
-    /**
-     * @return the objectCode
-     */
     public String getObjectCode() {
         return objectCode;
     }
 
-    /**
-     * @param objectCode the objectCode to set
-     */
     public void setObjectCode(String objectCode) {
         this.objectCode = objectCode;
     }
 
-    /**
-     * @return the projectCode
-     */
     public String getProjectCode() {
         return projectCode;
     }
 
-    /**
-     * @param projectCode the projectCode to set
-     */
     public void setProjectCode(String projectCode) {
         this.projectCode = projectCode;
     }
 
-    /**
-     * @return the active
-     */
     public Boolean getActive() {
         return active;
     }
 
-    /**
-     * @param active the active to set
-     */
     public void setActive(Boolean active) {
         this.active = active;
     }
 
-    /**
-     * @return the lastUpdate
-     */  
     public Timestamp getLastUpdate() {
         return lastUpdate;
     }
 
-    /**
-     * @param lastUpdate the lastUpdate to set
-     */    
     public void setLastUpdate(Timestamp lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
@@ -322,22 +224,21 @@ public class PRJEAccountLine
      */
     @SuppressWarnings("unchecked")
     protected LinkedHashMap toStringMapper() {
-        LinkedHashMap m = new LinkedHashMap();
+        LinkedHashMap<String, String> retVal = new LinkedHashMap<String, String>(); 
 
-        m.put("rateAccountId", getRateAccountId());
-        m.put("typeId", getTypeId());
-        m.put("overrideProrateType", getOverrideProrateType());
-        m.put("overrideAmount", getOverrideAmount());
-        m.put("overridePercent", getOverridePercent());
-        m.put("effectiveDateFrom", getEffectiveDateFrom());
-        m.put("effectiveDateTo", getEffectiveDateTo());
-        m.put("chartCode", getChartCode());
-        m.put("accountNumber", getAccountNumber());
-        m.put("subAccountNumber", getSubAccountNumber());
-        m.put("objectCode", getObjectCode());
-        m.put("projectCode", getProjectCode());
-        m.put("active", getActive());
-
-        return m;
+        retVal.put(PRJEPropertyConstants.JE_RATE_ACCT_ID, getRateAccountId() == null ? null : getRateAccountId().toString());
+        retVal.put(PRJEPropertyConstants.PRJE_TYPE_ID, getTypeId() == null ? null : getTypeId().toString());
+        retVal.put(PRJEPropertyConstants.AMT_OR_PCT, getOverrideProrateType());
+        retVal.put(PRJEPropertyConstants.PRORATE_AMOUNT, getOverrideAmount() == null ? null : getOverrideAmount().toString());
+        retVal.put(PRJEPropertyConstants.PRORATE_PCT, getOverridePercent() == null ? null : getOverridePercent().toString());
+        retVal.put(PRJEPropertyConstants.EFFECTIVE_DT_FROM, getEffectiveDateFrom() == null ? null : getEffectiveDateFrom().toString());
+        retVal.put(PRJEPropertyConstants.EFFECTIVE_DT_TO, getEffectiveDateTo() == null ? null :getEffectiveDateTo().toString());
+        retVal.put(PRJEPropertyConstants.FIN_COA_CD, getChartCode());
+        retVal.put(PRJEPropertyConstants.ACCOUNT_NBR, getAccountNumber());
+        retVal.put(PRJEPropertyConstants.SUB_ACCOUNT_NBR, getSubAccountNumber());
+        retVal.put(PRJEPropertyConstants.OBJECT_CD, getObjectCode());
+        retVal.put(PRJEPropertyConstants.PROJECT_CD, getProjectCode());
+        retVal.put(PRJEPropertyConstants.ACTV_CD, getActive() == null ? null : getActive().toString());
+        return retVal;
     }
 }

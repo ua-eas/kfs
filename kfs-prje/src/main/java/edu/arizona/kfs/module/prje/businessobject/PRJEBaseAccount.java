@@ -1,18 +1,3 @@
-/*
- * Copyright 2009 The Kuali Foundation.
- * 
- * Licensed under the Educational Community License, Version 1.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- * http://www.opensource.org/licenses/ecl1.php
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 package edu.arizona.kfs.module.prje.businessobject;
 
@@ -26,6 +11,8 @@ import org.kuali.kfs.coa.businessobject.ObjectCodeCurrent;
 import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+
+import edu.arizona.kfs.module.prje.PRJEPropertyConstants;
 
 /**
  * Prorate Journal Entry From BO
@@ -75,170 +62,101 @@ public class PRJEBaseAccount
         super();
     }
 
-    /**
-     * @return baseAccountId
-     */
     public Integer getBaseAccountId() {
         return baseAccountId;
     }
 
-    /**
-     * @param baseAccountId the baseAccountId to set
-     */    
     public void setBaseAccountId(Integer baseAccountId) {
         this.baseAccountId = baseAccountId;
     }
 
-    /**
-     * @return typeId
-     */    
+
     public Integer getTypeId() {
         return typeId;
     }
 
-    /**
-     * @param typeId the typeId to set
-     */    
     public void setTypeId(Integer typeId) {
         this.typeId = typeId;
     }
 
-    /**
-     * @return the baseChart
-     */
     public String getBaseChart() {
         return baseChart;
     }
 
-    /**
-     * @param baseChart the baseChart to set
-     */
     public void setBaseChart(String baseChart) {
         this.baseChart = baseChart;
     }
 
-    /**
-     * @return the baseAccount
-     */
     public String getBaseAccount() {
         return baseAccount;
     }
 
-    /**
-     * @param baseAccount the baseAccount to set
-     */
     public void setBaseAccount(String baseAccount) {
         this.baseAccount = baseAccount;
     }
 
-    /**
-     * @return the baseSubAccount
-     */
     public String getBaseSubAccount() {
         return baseSubAccount;
     }
 
-    /**
-     * @param baseSubAccount the baseSubAccount to set
-     */
     public void setBaseSubAccount(String baseSubAccount) {
         this.baseSubAccount = baseSubAccount;
     }
 
-    /**
-     * @return the fromChart
-     */    
     public String getFromChart() {
         return fromChart;
     }
 
-    /**
-     * @param fromChart the fromChart to set
-     */    
     public void setFromChart(String fromChart) {
         this.fromChart = fromChart;
     }
 
-    /**
-     * @return the fromAccount
-     */    
     public String getFromAccount() {
         return fromAccount;
     }
 
-    /**
-     * @param fromAccount the fromAccount to set
-     */    
     public void setFromAccount(String fromAccount) {
         this.fromAccount = fromAccount;
     }
 
-    /**
-     * @return the fromSubAccount
-     */    
     public String getFromSubAccount() {
         return fromSubAccount;
     }
 
-    /**
-     * @param fromSubAccount the fromSubAccount to set
-     */    
     public void setFromSubAccount(String fromSubAccount) {
         this.fromSubAccount = fromSubAccount;
     }
 
-    /**
-     * @return the fromObjectCode
-     */    
+
     public String getFromObjectCode() {
         return fromObjectCode;
     }
     
-    /**
-     * @param fromObjectCode the fromObjectCode to set
-     */    
     public void setFromObjectCode(String fromObjectCode) {
         this.fromObjectCode = fromObjectCode;
     }
     
-    /**
-     * @return the frequency
-     */
     public String getFrequency() {
         return frequency;
     }
 
-    /**
-     * @param frequency the frequency to set
-     */
     public void setFrequency(String frequency) {
         this.frequency = frequency;
     }
 
-    /**
-     * @return the prorateType
-     */
     public String getProrateType() {
         return prorateType;
     }
 
-    /**
-     * @param prorateType the prorateType to set
-     */
     public void setProrateType(String prorateType) {
         this.prorateType = prorateType;
     }
 
-    /**
-     * @param prorateAmount the prorateAmount to set
-     */    
+
     public KualiDecimal getProrateAmount() {
         return prorateAmount;
     }
 
-    /**
-     * @param prorateAmount the prorateAmount to set
-     */    
     public void setProrateAmount(KualiDecimal prorateAmount) {
         this.prorateAmount = prorateAmount;
     }
@@ -250,23 +168,14 @@ public class PRJEBaseAccount
         return proratePercent;
     }
 
-    /**
-     * @param proratePercent the proratePercent to set
-     */
     public void setProratePercent(KualiDecimal proratePercent) {
         this.proratePercent = proratePercent;
     }
 
-    /**
-     * @return the active
-     */
     public Boolean getActive() {
         return active;
     }
 
-    /**
-     * @param active the active to set
-     */
     public void setActive(Boolean active) {
         this.active = active;
     }
@@ -279,16 +188,10 @@ public class PRJEBaseAccount
         this.type = type;
     }
 
-    /**
-     * @return the lastUpdate
-     */  
     public Timestamp getLastUpdate() {
         return lastUpdate;
     }
 
-    /**
-     * @param lastUpdate the lastUpdate to set
-     */    
     public void setLastUpdate(Timestamp lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
@@ -358,27 +261,27 @@ public class PRJEBaseAccount
      */
     @SuppressWarnings("unchecked")
     protected LinkedHashMap toStringMapper() {
-        LinkedHashMap m = new LinkedHashMap();
+        LinkedHashMap<String, String> retVal = new LinkedHashMap<String, String>();
+        retVal.put(PRJEPropertyConstants.PRJE_BASE_ACCOUNT_ID, getBaseAccountId() == null ? null : getBaseAccountId().toString());
+        retVal.put(PRJEPropertyConstants.PRJE_TYPE_ID, getTypeId() == null ? null : getTypeId().toString());
         
-        m.put("baseAccountId", getBaseAccountId());
-        m.put("typeId", getTypeId());
-        
-        m.put("baseChart", getBaseChart());
-        m.put("baseAccount", getBaseAccount());
-        m.put("baseSubAccount", getBaseSubAccount());
+        retVal.put(PRJEPropertyConstants.BASE_COA_CD, getBaseChart());
+        retVal.put(PRJEPropertyConstants.BASE_ACCOUNT_NBR, getBaseAccount());
+        retVal.put(PRJEPropertyConstants.BASE_SUB_ACCOUNT_NBR, getBaseSubAccount());
 
-        m.put("fromChart", getFromChart());
-        m.put("fromAccount", getFromAccount());
-        m.put("fromSubAccount", getFromSubAccount());
+        retVal.put(PRJEPropertyConstants.FRM_COA_CD, getFromChart());
+        retVal.put(PRJEPropertyConstants.FRM_ACCOUNT_NBR, getFromAccount());
+        retVal.put(PRJEPropertyConstants.FRM_SUB_ACCT, getFromSubAccount());
         
-        m.put("fromObjectCode", getFromObjectCode());
+        retVal.put(PRJEPropertyConstants.FRM_OBJECT_CD, getFromObjectCode());
         
-        m.put("frequency", getFrequency());
-        m.put("prorateType", getProrateType());
-        m.put("proratePercent", getProratePercent());
+        retVal.put(PRJEPropertyConstants.MON_OR_YRLY, getFrequency());
+        retVal.put(PRJEPropertyConstants.PRORATE_TYPE, getProrateType());
+        retVal.put(PRJEPropertyConstants.PRORATE_PCT, getProratePercent() == null ? null : getProratePercent().toString());
 
-        m.put("active", getActive());
+        retVal.put(PRJEPropertyConstants.ACTV_CD, getActive() == null ? null : getActive().toString());
+
         
-        return m;
+        return retVal;
     }
 }
