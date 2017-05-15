@@ -1159,3 +1159,4 @@
 
 	<plug-in className="org.kuali.rice.kns.web.struts.form.pojo.PojoPlugin" />
 </struts-config>
+
