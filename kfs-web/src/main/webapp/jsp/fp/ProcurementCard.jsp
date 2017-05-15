@@ -41,8 +41,6 @@
 	
 	<sys:docuware />
 
-    <gl:generalLedgerPendingEntries/>
-
     <kul:notes/>
 
     <kul:adHocRecipients/>

@@ -75,9 +75,9 @@
 		
 		<property name="searchingTypeDefinitions">
 			<list>
-				<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+				<bean class="org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition">
 					<property name="searchingAttribute">
-						<bean class="org.kuali.rice.krad.datadictionary.SearchingAttribute">
+						<bean class="org.kuali.kfs.krad.datadictionary.SearchingAttribute">
 							<property name="businessObjectClassName" value="edu.arizona.kfs.pdp.businessobject.ShippingAccount"/>
 							<property name="attributeName" value="shippingAccountNumber"/>
 							<property name="showAttributeInSearchCriteria" value="false"/>
@@ -94,15 +94,15 @@
 		</property>
 	</bean>
 	
-	<bean id="ShippingAccountMaintenanceDocument-RoutingAttribute-Account" class="org.kuali.rice.krad.datadictionary.RoutingAttribute">
+	<bean id="ShippingAccountMaintenanceDocument-RoutingAttribute-Account" class="org.kuali.kfs.krad.datadictionary.RoutingAttribute">
 		<property name="qualificationAttributeName" value="accountNumber"/>
 	</bean>
 	
-	<bean id="ShippingAccountMaintenanceDocument-RoutingAttribute-Chart" class="org.kuali.rice.krad.datadictionary.RoutingAttribute">
+	<bean id="ShippingAccountMaintenanceDocument-RoutingAttribute-Chart" class="org.kuali.kfs.krad.datadictionary.RoutingAttribute">
 		<property name="qualificationAttributeName" value="chartOfAccountsCode"/>
 	</bean>
 	
-	<bean id="ShippingAccountMaintenanceDocument-RoutingAttribute-Organization" class="org.kuali.rice.krad.datadictionary.RoutingAttribute">
+	<bean id="ShippingAccountMaintenanceDocument-RoutingAttribute-Organization" class="org.kuali.kfs.krad.datadictionary.RoutingAttribute">
 		<property name="qualificationAttributeName" value="organizationCode"/>
 	</bean>
 	

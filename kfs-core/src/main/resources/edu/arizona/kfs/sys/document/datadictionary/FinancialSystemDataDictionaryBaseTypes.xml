@@ -7,11 +7,11 @@
         http://rice.kuali.org/dd
         http://rice.kuali.org/dd/dd.xsd">
         
-    <bean id="RoutingAttribute-objectSubTypeCode" class="org.kuali.rice.krad.datadictionary.RoutingAttribute" >
+    <bean id="RoutingAttribute-objectSubTypeCode" class="org.kuali.kfs.krad.datadictionary.RoutingAttribute" >
        	<property name="qualificationAttributeName" value="financialObjectSubTypeCode" />
     </bean>
     
-    <bean id="RoutingAttribute-fundGroupCode" class="org.kuali.rice.krad.datadictionary.RoutingAttribute">
+    <bean id="RoutingAttribute-fundGroupCode" class="org.kuali.kfs.krad.datadictionary.RoutingAttribute">
 		<property name="qualificationAttributeName" value="fundGroupCode" />
 	</bean>    
     
