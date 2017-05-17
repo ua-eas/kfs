@@ -4,7 +4,7 @@ import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.service.SequenceAccessorService;
 import org.kuali.rice.krad.valuefinder.ValueFinder;
 
-import edu.arizona.kfs.module.prje.PRJEKeyConstants;
+import edu.arizona.kfs.module.prje.PRJEPropertyConstants;
 import edu.arizona.kfs.module.prje.businessobject.PRJEType;
 
 /**
@@ -26,7 +26,7 @@ public abstract class NextSequenceIdFinder implements ValueFinder {
     public Long getLongValue() {
         // no constant because this is the only place the sequence name is used
         SequenceAccessorService sas = KRADServiceLocator.getSequenceAccessorService();
-        return sas.getNextAvailableSequenceNumber(PRJEKeyConstants.PRJE_TYPE_ID_SEQ, PRJEType.class);
+        return sas.getNextAvailableSequenceNumber(PRJEPropertyConstants.PRJE_TYPE_ID_SEQ, PRJEType.class);
     }
     
     /**

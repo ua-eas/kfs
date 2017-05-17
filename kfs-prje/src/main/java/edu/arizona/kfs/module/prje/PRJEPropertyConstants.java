@@ -42,4 +42,12 @@ public class PRJEPropertyConstants {
 
     public static final String BASE_ACCOUNTS  = "baseAccounts" ;  
     public static final String ACCOUNT_LINESS  = "accountLines" ;
+    public static final String ADD_BASEOBJECTS_INCLUDE  = "add.baseObjects.include";
+    
+    public static final String PRJE_ACCT_LINE_ID_SEQ = "PRJE_ACCT_LINE_ID_SEQ";
+    public static final String PRJE_BASE_ACCOUNT_ID_SEQ = "PRJE_BASE_ACCOUNT_ID_SEQ";
+    public static final String PRJE_BASE_OBJECT_ID_SEQ = "PRJE_BASE_OBJECT_ID_SEQ";
+    public static final String PRJE_TYPE_ID_SEQ = "PRJE_TYPE_ID_SEQ";
+    public static final String PRJE_SET_ID_SEQ = "PRJE_SET_ID_SEQ";
+    
 }

@@ -1,6 +1,6 @@
 package edu.arizona.kfs.module.prje.businessobject.defaultvalue;
 
-import edu.arizona.kfs.module.prje.PRJEKeyConstants;
+import edu.arizona.kfs.module.prje.PRJEPropertyConstants;
 
 
 
@@ -15,7 +15,7 @@ public class NextPRJESetIdFinder extends NextSequenceIdFinder {
      */
     @Override
     public String getSequenceName() {
-        return PRJEKeyConstants.PRJE_SET_ID_SEQ;
+        return PRJEPropertyConstants.PRJE_SET_ID_SEQ;
     }
 
 

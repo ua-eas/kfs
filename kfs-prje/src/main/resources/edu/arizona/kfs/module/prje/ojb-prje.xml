@@ -1,11 +1,3 @@
-<!-- Copyright 2005-2007 The Kuali Foundation. Licensed under the Educational 
-	Community License, Version 1.0 (the "License"); you may not use this file 
-	except in compliance with the License. You may obtain a copy of the License 
-	at http://www.opensource.org/licenses/ecl1.php Unless required by applicable 
-	law or agreed to in writing, software distributed under the License is distributed 
-	on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either 
-	express or implied. See the License for the specific language governing permissions 
-	and limitations under the License. -->
 <descriptor-repository version="1.0">
 
 	<class-descriptor class="edu.arizona.kfs.module.prje.businessobject.PRJEAccountLine"
@@ -138,24 +130,6 @@
 			<foreignkey field-ref="baseChartCode" />
 		</reference-descriptor>
 
-		<!-- TODO: As the spec says these don't require validation, and there is 
-			no lookup button associated with any object code, I'm going to ignore trying 
-			to create relations for now, especially since you can't retrieve a subObjectCode 
-			without an accountNumber, and we don't have one of those in this context. -->
-		<!-- <reference-descriptor name="baseObjectObjectCodeLow" class-ref="org.kuali.kfs.coa.businessobject.ObjectCodeCurrent" 
-			auto-retrieve="true" auto-update="none" auto-delete="none"> <foreignkey field-ref="baseChartCode" 
-			/> <foreignkey field-ref="baseObjectCodeLow" /> </reference-descriptor> <reference-descriptor 
-			name="baseObjectObjectCodeHigh" class-ref="org.kuali.kfs.coa.businessobject.ObjectCodeCurrent" 
-			auto-retrieve="true" auto-update="none" auto-delete="none"> <foreignkey field-ref="baseChartCode" 
-			/> <foreignkey field-ref="baseObjectCodeHigh" /> </reference-descriptor> 
-			<reference-descriptor name="baseObjectSubObjectCodeLow" class-ref="org.kuali.kfs.coa.businessobject.SubObjectCodeCurrent" 
-			auto-retrieve="true" auto-update="none" auto-delete="none"> <foreignkey field-ref="baseChartCode" 
-			/> <foreignkey field-ref="???accountNumber" /> <foreignkey field-ref="baseObjectCodeLow" 
-			/> <foreignkey field-ref="subObjectCodeLow" /> </reference-descriptor> <reference-descriptor 
-			name="baseObjectSubObjectCodeHigh" class-ref="org.kuali.kfs.coa.businessobject.SubObjectCodeCurrent" 
-			auto-retrieve="true" auto-update="none" auto-delete="none"> <foreignkey field-ref="baseChartCode" 
-			/> <foreignkey field-ref="???accountNumber" /> <foreignkey field-ref="baseObjectCodeHigh" 
-			/> <foreignkey field-ref="subObjectCodeHigh" /> </reference-descriptor> -->
 	</class-descriptor>
 
 	<class-descriptor class="edu.arizona.kfs.module.prje.businessobject.PRJESet"

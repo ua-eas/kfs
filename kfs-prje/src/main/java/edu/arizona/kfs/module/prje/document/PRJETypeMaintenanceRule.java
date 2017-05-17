@@ -79,7 +79,7 @@ public class PRJETypeMaintenanceRule extends MaintenanceDocumentRuleBase {
        
        if (!hasAtLeastOneInclude(type)) {
            result = false;
-           putFieldError("add.baseObjects.include", PRJEKeyConstants.PRJE_TYPE_NO_INCLUDE_BASE_OBJECTS);
+           putFieldError(PRJEPropertyConstants.ADD_BASEOBJECTS_INCLUDE, PRJEKeyConstants.PRJE_TYPE_NO_INCLUDE_BASE_OBJECTS);
        }
        
        return result;
