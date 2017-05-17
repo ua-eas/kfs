@@ -51,4 +51,7 @@
     <property name="parameterService" ref="parameterService" />
     <property name="businessObjectService" ref="businessObjectService" />
   </bean>
+  
+  <bean id="DisbursementVoucher-nonResidentAlienInformationValidation" class="edu.arizona.kfs.fp.document.validation.impl.DisbursementVoucherNonResidentAlienInformationValidation" abstract="true" />
+
 </beans>
