@@ -13,7 +13,7 @@
 		<property name="initializeDataDictionary" value="true" />
         <property name="packagePrefixes">
             <list>
-                <value>edu.arizona.kuali.kfs.module.prje</value>
+                <value>edu.arizona.kfs.module.prje</value>
             </list>
         </property>
 		<property name="dataDictionaryPackages">
