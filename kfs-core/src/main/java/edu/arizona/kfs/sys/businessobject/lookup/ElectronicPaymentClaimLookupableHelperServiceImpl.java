@@ -15,6 +15,7 @@
  */
 package edu.arizona.kfs.sys.businessobject.lookup;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -22,9 +23,17 @@ import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.ElectronicPaymentClaim;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.search.SearchOperator;
+import org.kuali.rice.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.rice.kns.web.struts.form.LookupForm;
+import org.kuali.rice.kns.web.ui.Column;
+import org.kuali.rice.kns.web.ui.ResultRow;
 import org.kuali.rice.krad.bo.PersistableBusinessObject;
 import org.kuali.rice.krad.dao.LookupDao;
+import org.kuali.rice.krad.util.KRADPropertyConstants;
+import org.kuali.rice.krad.util.KRADConstants;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
@@ -58,6 +67,22 @@ public class ElectronicPaymentClaimLookupableHelperServiceImpl extends org.kuali
         List<PersistableBusinessObject> resultsList = (List)lookupDao.findCollectionBySearchHelper(ElectronicPaymentClaim.class, fieldValues, false, false);
 
         return resultsList;
+    }
+    
+    @Override
+    public Collection performLookup(LookupForm lookupForm, Collection resultTable, boolean bounded) {
+        Collection<ElectronicPaymentClaim> displayList = super.performLookup(lookupForm, resultTable, bounded);
+        for (ResultRow row : (Collection<ResultRow>) resultTable) {
+            for (Column col : row.getColumns()) {
+                if (StringUtils.equals(KRADPropertyConstants.DOCUMENT_NUMBER, col.getPropertyName()) && StringUtils.isNotBlank(col.getPropertyValue())) {
+                    String propertyURL = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KFSConstants.WORKFLOW_URL_KEY) + KRADConstants.DOCHANDLER_DO_URL + col.getPropertyValue() + KRADConstants.DOCHANDLER_URL_CHUNK;
+                    AnchorHtmlData htmlData = new AnchorHtmlData(propertyURL, KFSConstants.EMPTY_STRING, col.getPropertyValue());
+                    htmlData.setTitle(col.getPropertyValue());
+                    col.setColumnAnchor(htmlData);
+                }
+            }
+        }
+        return displayList;
     }
 
 

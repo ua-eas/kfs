@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:dd="http://rice.kuali.org/dd"
+	
+	xsi:schemaLocation="http://www.springframework.org/schema/beans     
+	    http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+  <bean id="PRJEAccountLine" parent="PRJEAccountLine-parentBean" />
+
+  <bean id="PRJEAccountLine-parentBean" abstract="true" parent="BusinessObjectEntry">
+    <property name="businessObjectClass" value="edu.arizona.kfs.module.prje.businessobject.PRJEAccountLine" />
+    <property name="titleAttribute" value="rateAccountId" />
+    <property name="lookupDefinition" ref="PRJEAccountLine-lookupDefinition" />
+    <property name="inquiryDefinition" ref="PRJEAccountLine-inquiryDefinition" />
+    <property name="objectLabel" value="Prorate Journal Entry Account Line" />
+    <property name="attributes" >
+      <list>
+        <ref bean="PRJEAccountLine-rateAccountId" />
+        <ref bean="PRJEAccountLine-typeId" />
+        <ref bean="PRJEAccountLine-overrideProrateType" />
+        <ref bean="PRJEAccountLine-overrideAmount" />
+        <ref bean="PRJEAccountLine-overridePercent" />
+        <ref bean="PRJEAccountLine-effectiveDateFrom" />
+        <ref bean="PRJEAccountLine-effectiveDateTo" />
+        <ref bean="PRJEAccountLine-chartCode" />
+        <ref bean="PRJEAccountLine-accountNumber" />
+        <ref bean="PRJEAccountLine-subAccountNumber" />
+        <ref bean="PRJEAccountLine-objectCode" />
+        <ref bean="PRJEAccountLine-projectCode" />
+        <ref bean="PRJEAccountLine-active" />
+      </list>
+    </property>
+  </bean>
+
+  <!-- Attribute Definitions -->
+
+  <bean id="PRJEAccountLine-rateAccountId" parent="PRJEAccountLine-rateAccountId-parentBean" />
+  <bean id="PRJEAccountLine-rateAccountId-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="name" value="rateAccountId" />
+    <property name="label" value="Rate Account ID" />
+    <property name="shortLabel" value="Rate ID" />
+    <property name="maxLength" value="10" />
+    <property name="control" >
+      <bean parent="TextControlDefinition" p:size="10" />
+    </property>    
+  </bean>
+
+  <bean id="PRJEAccountLine-typeId" parent="PRJEAccountLine-typeId-parentBean" />
+  <bean id="PRJEAccountLine-typeId-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="name" value="typeId" />
+    <property name="label" value="Type ID" />
+    <property name="shortLabel" value="Type ID" />
+    <property name="maxLength" value="10" />
+    <property name="control" >
+      <bean parent="TextControlDefinition" p:size="10" />
+    </property>    
+  </bean>
+  
+  <bean id="PRJEAccountLine-effectiveDateFrom" parent="PRJEAccountLine-effectiveDateFrom-parentBean" />
+  <bean id="PRJEAccountLine-effectiveDateFrom-parentBean" abstract="true" parent="GenericAttributes-genericDate">
+    <property name="name" value="effectiveDateFrom" />
+    <property name="label" value="Effective Date From" />
+    <property name="shortLabel" value="Effective From" />
+    <property name="maxLength" value="10" />
+  </bean>
+  
+  <bean id="PRJEAccountLine-effectiveDateTo" parent="PRJEAccountLine-effectiveDateTo-parentBean" />
+  <bean id="PRJEAccountLine-effectiveDateTo-parentBean" abstract="true" parent="GenericAttributes-genericDate">
+    <property name="name" value="effectiveDateTo" />
+    <property name="label" value="Effective Date To" />
+    <property name="shortLabel" value="Effective To" />
+    <property name="maxLength" value="10" />
+  </bean>
+  
+  <bean id="PRJEAccountLine-chartCode" parent="PRJEAccountLine-chartCode-parentBean" />
+  <bean id="PRJEAccountLine-chartCode-parentBean" abstract="true" parent="Chart-chartOfAccountsCode">
+    <property name="name" value="chartCode" />
+    <property name="label" value="Chart Code" />
+    <property name="shortLabel" value="Chart Code" />
+  </bean>
+
+  <bean id="PRJEAccountLine-accountNumber" parent="PRJEAccountLine-accountNumber-parentBean" />
+  <bean id="PRJEAccountLine-accountNumber-parentBean" abstract="true" parent="Account-accountNumber">
+    <property name="name" value="accountNumber" />
+    <property name="label" value="Account Number" />
+    <property name="shortLabel" value="Account" />
+  </bean>
+  
+  <bean id="PRJEAccountLine-subAccountNumber" parent="PRJEAccountLine-subAccountNumber-parentBean" />
+  <bean id="PRJEAccountLine-subAccountNumber-parentBean" abstract="true" parent="SubAccount-subAccountNumber">
+    <property name="name" value="subAccountNumber" />
+    <property name="label" value="Sub Account Number" />
+    <property name="shortLabel" value="Sub Account" />
+  </bean>
+  
+  <bean id="PRJEAccountLine-specifyObjectCode" parent="PRJEAccountLine-specifyObjectCode-parentBean" />
+  <bean id="PRJEAccountLine-specifyObjectCode-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="name" value="specifyObjectCode" />
+    <property name="label" value="Specify Object Code" />
+    <property name="shortLabel" value="Specify Object Code" />
+    <property name="maxLength" value="1" />
+    <property name="control" >
+      <bean parent="CheckboxControlDefinition" />
+    </property>    
+  </bean>
+    
+  <bean id="PRJEAccountLine-objectCode" parent="PRJEAccountLine-objectCode-parentBean" />
+  <bean id="PRJEAccountLine-objectCode-parentBean" abstract="true" parent="ObjectCode-financialObjectCode">
+    <property name="name" value="objectCode" />
+    <property name="label" value="Object Code" />
+    <property name="shortLabel" value="Object Code" />
+  </bean>
+  
+  <bean id="PRJEAccountLine-projectCode" parent="PRJEAccountLine-projectCode-parentBean" />
+  <bean id="PRJEAccountLine-projectCode-parentBean" abstract="true" parent="Entry-projectCode">
+    <property name="name" value="projectCode" />
+    <property name="label" value="Project Code" />
+    <property name="shortLabel" value="Project Code" /> 
+  </bean>
+
+  <bean id="PRJEAccountLine-overrideProrateType" parent="PRJEAccountLine-overrideProrateType-parentBean" />
+  <bean id="PRJEAccountLine-overrideProrateType-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="name" value="overrideProrateType" />
+    <property name="label" value="Override Amount / Percent" />
+    <property name="shortLabel" value="Override Type" />
+    <property name="maxLength" value="1" />
+    <property name="control" >
+       <bean parent="RadioControlDefinition" p:includeKeyInLabel="true" p:valuesFinderClass="edu.arizona.kfs.module.prje.lookup.ProrateCreditType" />
+    </property>       
+  </bean>
+  
+  <bean id="PRJEAccountLine-overrideAmount" parent="PRJEAccountLine-overrideAmount-parentBean" />
+  <bean id="PRJEAccountLine-overrideAmount-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="name" value="overrideAmount" />
+    <property name="label" value="Override Amount" />
+    <property name="shortLabel" value="Override Amount" />
+    <property name="maxLength" value="21" />
+    <property name="control" >
+      <bean parent="TextControlDefinition" p:size="21" />
+    </property>       
+  </bean>
+  
+  <bean id="PRJEAccountLine-overridePercent" parent="PRJEAccountLine-overridePercent-parentBean" />
+  <bean id="PRJEAccountLine-overridePercent-parentBean" abstract="true" parent="GenericAttributes-percent">
+    <property name="name" value="overridePercent" />
+    <property name="label" value="Override Percent" />
+    <property name="shortLabel" value="Override Percent" />
+    <property name="maxLength" value="9" />
+  </bean>
+  
+  <bean id="PRJEAccountLine-active" parent="PRJEAccountLine-active-parentBean" />
+  <bean id="PRJEAccountLine-active-parentBean" abstract="true" parent="GenericAttributes-activeIndicator">
+    <property name="name" value="active" />
+  </bean>
+  
+  <!-- Business Object Lookup Definition -->
+
+  <bean id="PRJEAccountLine-lookupDefinition" parent="PRJEAccountLine-lookupDefinition-parentBean" />
+  <bean id="PRJEAccountLine-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
+    <property name="title" value="Prorate Journal Entry Account Line Lookup" />
+    <property name="defaultSort" >
+      <bean parent="SortDefinition">
+      </bean>
+    </property>
+    <property name="lookupFields" >
+      <list>
+        <bean parent="FieldDefinition" p:attributeName="typeId" />
+        <bean parent="FieldDefinition" p:attributeName="rateAccountId" />
+        <bean parent="FieldDefinition" p:attributeName="overrideProrateType" />
+        <bean parent="FieldDefinition" p:attributeName="overrideAmount" />
+        <bean parent="FieldDefinition" p:attributeName="overridePercent" />
+        <bean parent="FieldDefinition" p:attributeName="effectiveDateFrom" />
+        <bean parent="FieldDefinition" p:attributeName="effectiveDateTo" />
+        <bean parent="FieldDefinition" p:attributeName="chartCode" />
+        <bean parent="FieldDefinition" p:attributeName="accountNumber" />
+        <bean parent="FieldDefinition" p:attributeName="subAccountNumber" />
+        <bean parent="FieldDefinition" p:attributeName="objectCode" />
+        <bean parent="FieldDefinition" p:attributeName="projectCode" />
+        <bean parent="FieldDefinition" p:attributeName="active" />
+      </list>
+    </property>
+    <property name="resultFields" >
+      <list>
+        <bean parent="FieldDefinition" p:attributeName="typeId" />    
+        <bean parent="FieldDefinition" p:attributeName="rateAccountId" />
+        <bean parent="FieldDefinition" p:attributeName="overrideProrateType" />
+        <bean parent="FieldDefinition" p:attributeName="overrideAmount" />
+        <bean parent="FieldDefinition" p:attributeName="overridePercent" />
+        <bean parent="FieldDefinition" p:attributeName="effectiveDateFrom" />
+        <bean parent="FieldDefinition" p:attributeName="effectiveDateTo" />
+        <bean parent="FieldDefinition" p:attributeName="chartCode" />
+        <bean parent="FieldDefinition" p:attributeName="accountNumber" />
+        <bean parent="FieldDefinition" p:attributeName="subAccountNumber" />
+        <bean parent="FieldDefinition" p:attributeName="objectCode" />
+        <bean parent="FieldDefinition" p:attributeName="projectCode" />
+        <bean parent="FieldDefinition" p:attributeName="active" />
+      </list>
+    </property>
+  </bean>
+
+  <!-- Business Object Inquiry Definition -->
+
+  <bean id="PRJEAccountLine-inquiryDefinition" parent="PRJEAccountLine-inquiryDefinition-parentBean"/>
+  <bean id="PRJEAccountLine-inquiryDefinition-parentBean" abstract="true" parent="InquiryDefinition">
+    <property name="title" value="Pro-rate Journal Account Line"/>
+    <property name="inquirySections">
+      <list>
+        <bean parent="InquirySectionDefinition">
+          <property name="title" value="Pro-rate Journal Account Line"/>
+          <property name="numberOfColumns" value="1"/>
+          <property name="inquiryFields">
+            <list>
+		        <bean parent="FieldDefinition" p:attributeName="typeId" />    
+		        <bean parent="FieldDefinition" p:attributeName="rateAccountId" />
+		        <bean parent="FieldDefinition" p:attributeName="overrideProrateType" />
+		        <bean parent="FieldDefinition" p:attributeName="overrideAmount" />
+		        <bean parent="FieldDefinition" p:attributeName="overridePercent" />
+		        <bean parent="FieldDefinition" p:attributeName="effectiveDateFrom" />
+		        <bean parent="FieldDefinition" p:attributeName="effectiveDateTo" />
+		        <bean parent="FieldDefinition" p:attributeName="chartCode" />
+		        <bean parent="FieldDefinition" p:attributeName="accountNumber" />
+		        <bean parent="FieldDefinition" p:attributeName="subAccountNumber" />
+		        <bean parent="FieldDefinition" p:attributeName="objectCode" />
+		        <bean parent="FieldDefinition" p:attributeName="projectCode" />
+		        <bean parent="FieldDefinition" p:attributeName="active" />
+            </list>
+          </property>
+        </bean>
+      </list>
+    </property>
+    <property name="inquirableClass" value="org.kuali.kfs.sys.businessobject.inquiry.KfsInquirableImpl"/>
+  </bean>
+
+</beans>

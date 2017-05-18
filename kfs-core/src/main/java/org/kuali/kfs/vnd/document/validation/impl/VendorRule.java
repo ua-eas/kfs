@@ -410,7 +410,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
      * @param vendorDetail the VendorDetail object to be validated
      * @return boolean true if the vendorDetail passes the unique tax # and tax type validation.
      */
-   boolean validateParentVendorTaxNumber(VendorDetail vendorDetail) {
+   protected boolean validateParentVendorTaxNumber(VendorDetail vendorDetail) {
         boolean valid = true;
         boolean isParent = vendorDetail.isVendorParentIndicator();
 
@@ -458,7 +458,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
      * @param vendorDetail the VendorDetail object to be validated
      * @return boolean true if the vendor Detail passes the validation and false otherwise.
      */
-    boolean validateTaxTypeAndTaxNumberBlankness(VendorDetail vendorDetail) {
+    protected boolean validateTaxTypeAndTaxNumberBlankness(VendorDetail vendorDetail) {
         boolean valid = true;
         boolean isParent = vendorDetail.isVendorParentIndicator();
         if (!StringUtils.isBlank(vendorDetail.getVendorHeader().getVendorTaxNumber()) && (StringUtils.isBlank(vendorDetail.getVendorHeader().getVendorTaxTypeCode()))) {
