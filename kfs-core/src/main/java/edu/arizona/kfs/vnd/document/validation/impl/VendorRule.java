@@ -1,14 +1,18 @@
 package edu.arizona.kfs.vnd.document.validation.impl;
 
 import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sys.context.SpringContext;
-import edu.arizona.kfs.vnd.VendorPropertyConstants;
+import org.kuali.kfs.vnd.VendorConstants;
+import org.kuali.kfs.vnd.VendorKeyConstants;
 import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.kfs.vnd.businessobject.VendorSupplierDiversity;
 import org.kuali.rice.core.api.util.RiceKeyConstants;
 import org.kuali.rice.kns.document.MaintenanceDocument;
 import org.kuali.rice.kns.service.DataDictionaryService;
 
+import edu.arizona.kfs.vnd.VendorPropertyConstants;
 
 public class VendorRule extends org.kuali.kfs.vnd.document.validation.impl.VendorRule {
 
@@ -64,4 +68,43 @@ public class VendorRule extends org.kuali.kfs.vnd.document.validation.impl.Vendo
     	
 		return valid;
 	}
+      
+    @Override
+    protected boolean validateParentVendorTaxNumber(VendorDetail vendorDetail) {
+    	String taxNumber = vendorDetail.getVendorHeader().getVendorTaxNumber();
+
+        // no parent vendor tax number validation needed if the tax number is blank
+        if (StringUtils.isBlank(taxNumber)) {
+            return true;
+        }
+
+        return super.validateParentVendorTaxNumber(vendorDetail);
+    }
+    
+    @Override
+    protected boolean validateTaxTypeAndTaxNumberBlankness(VendorDetail vendorDetail) {
+        boolean valid = true;
+        boolean isParent = vendorDetail.isVendorParentIndicator();
+        String vendorTaxTypeCode = vendorDetail.getVendorHeader().getVendorTaxTypeCode();
+        if (!StringUtils.isBlank(vendorDetail.getVendorHeader().getVendorTaxNumber()) && VendorConstants.NONE.equals(vendorTaxTypeCode)) {
+        	if (isParent) {
+                putFieldError(VendorPropertyConstants.VENDOR_TAX_TYPE_CODE, VendorKeyConstants.ERROR_VENDOR_TAX_TYPE_CANNOT_BE_BLANK);
+            }
+            valid &= false;
+        }
+        else if (StringUtils.isBlank(vendorDetail.getVendorHeader().getVendorTaxNumber()) && !VendorConstants.NONE.equals(vendorTaxTypeCode)) {
+        	if (isParent) {
+                putFieldError(VendorPropertyConstants.VENDOR_TAX_TYPE_CODE, VendorKeyConstants.ERROR_VENDOR_TAX_TYPE_CANNOT_BE_SET);
+            }
+            valid &= false;
+        }
+
+        if (!valid && !isParent) {
+            putFieldError(VendorPropertyConstants.VENDOR_TAX_TYPE_CODE, VendorKeyConstants.ERROR_VENDOR_PARENT_NEEDS_CHANGED);
+        }
+
+        return valid;
+    }
+
+   
 }

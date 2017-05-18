@@ -30,21 +30,19 @@ public class GeneralLedgerEntryLookupableHelperServiceImpl extends org.kuali.kfs
         List<GeneralLedgerEntry> newList = new ArrayList<GeneralLedgerEntry>();
         for (BusinessObject businessObject : searchResults) {
             GeneralLedgerEntry entry = (GeneralLedgerEntry) businessObject;
-            if (!CabConstants.PREQ.equals(entry.getFinancialDocumentTypeCode())) {
-            	if (!CabConstants.PRNC.equals(entry.getFinancialDocumentTypeCode())) {
-	                if (!CabConstants.CM.equals(entry.getFinancialDocumentTypeCode())) {
-	                    newList.add(entry);
-	                }
-	                else if (CabConstants.CM.equals(entry.getFinancialDocumentTypeCode())) {
-	                    Map<String, String> cmKeys = new HashMap<String, String>();
-	                    cmKeys.put(CabPropertyConstants.PurchasingAccountsPayableDocument.DOCUMENT_NUMBER, entry.getDocumentNumber());
-	                    // check if CAB PO document exists, if not included
-	                    Collection<PurchasingAccountsPayableDocument> matchingCreditMemos = getBusinessObjectService().findMatching(PurchasingAccountsPayableDocument.class, cmKeys);
-	                    if (matchingCreditMemos == null || matchingCreditMemos.isEmpty()) {
-	                        newList.add(entry);
-	                    }
-	                }
-	            }
+            if (CabConstants.CM.equals(entry.getFinancialDocumentTypeCode()) || CabConstants.CMNC.equals(entry.getFinancialDocumentTypeCode())) {
+                Map<String, String> cmKeys = new HashMap<String, String>();
+                cmKeys.put(CabPropertyConstants.PurchasingAccountsPayableDocument.DOCUMENT_NUMBER, entry.getDocumentNumber());
+                // check if CAB PO document exists, if not included
+                Collection<PurchasingAccountsPayableDocument> matchingCreditMemos = getBusinessObjectService().findMatching(PurchasingAccountsPayableDocument.class, cmKeys);
+                if (matchingCreditMemos == null || matchingCreditMemos.isEmpty()) {
+                    newList.add(entry);
+                }
+            }
+            else if (!CabConstants.PREQ.equals(entry.getFinancialDocumentTypeCode())) {
+                if (!CabConstants.PRNC.equals(entry.getFinancialDocumentTypeCode())) {
+                    newList.add(entry);
+                }
             }
         }
         matchingResultsCount = Long.valueOf(newList.size());

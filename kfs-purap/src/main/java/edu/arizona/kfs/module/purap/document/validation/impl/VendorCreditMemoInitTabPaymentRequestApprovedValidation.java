@@ -15,6 +15,10 @@ public class VendorCreditMemoInitTabPaymentRequestApprovedValidation extends Gen
         if (event.getDocument() instanceof VendorCreditMemoDocument) {
             VendorCreditMemoDocument cmDocument = (VendorCreditMemoDocument) event.getDocument();
             PaymentRequestDocument preq = (PaymentRequestDocument) cmDocument.getPaymentRequestDocument();
+            if (preq == null) {
+                // the Payment Request # option on the Credit Memo initiation screen wasn't used.
+                return true;
+            }
             boolean isApproved = preq.getDocumentHeader().getWorkflowDocument().isApproved();
             if (!isApproved) {
                 GlobalVariables.getMessageMap().putErrorWithoutFullErrorPath(PurapPropertyConstants.PAYMENT_REQUEST_ID, PurapKeyConstants.ERROR_CREDIT_MEMO_PAYMENT_REQEUEST_INVALID_DOCUMENT_STATUS, cmDocument.getPaymentRequestIdentifier().toString());
