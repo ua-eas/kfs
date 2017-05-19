@@ -180,5 +180,8 @@
 			<ref bean="lookupDao" />
 		</property>
 	</bean>
+	
+	<bean id="jobListener" parent="jobListener-parentBean" class="edu.arizona.kfs.sys.batch.JobListener">
+    </bean>
     
 </beans>

@@ -44,4 +44,15 @@
 			</list>
 		</property>
 	</bean>
+
+	<bean id="VendorCreditMemo-continuePurapValidation" parent="VendorCreditMemo-continuePurapValidation-parentBean" scope="prototype">
+		<property name="validations">
+			<list merge="true">
+				<bean parent="VendorCreditMemo-initTabPaymentRequestApprovedValidation" scope="prototype">
+					<property name="quitOnFail" value="true" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
 </beans>

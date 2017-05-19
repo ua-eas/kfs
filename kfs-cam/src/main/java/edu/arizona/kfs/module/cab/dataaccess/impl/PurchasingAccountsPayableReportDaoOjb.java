@@ -19,7 +19,8 @@ public class PurchasingAccountsPayableReportDaoOjb extends org.kuali.kfs.module.
             if (StringUtils.isEmpty(fieldValue)) {
                 docTypeCodes.add(CabConstants.PREQ);
                 docTypeCodes.add(CabConstants.CM);
-                docTypeCodes.add(CabConstants.PRNC); 
+                docTypeCodes.add(CabConstants.PRNC);
+                docTypeCodes.add(CabConstants.CMNC);
             }
             else {
                 docTypeCodes.add(fieldValue);

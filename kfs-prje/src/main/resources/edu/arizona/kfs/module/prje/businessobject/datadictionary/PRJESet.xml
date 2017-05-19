@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:dd="http://rice.kuali.org/dd"
+	
+	xsi:schemaLocation="http://www.springframework.org/schema/beans     
+	    http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+
+  <bean id="PRJESet" parent="PRJESet-parentBean" />
+
+  <bean id="PRJESet-parentBean" abstract="true" parent="BusinessObjectEntry">
+    <property name="businessObjectClass" 
+              value="edu.arizona.kfs.module.prje.businessobject.PRJESet" />
+              
+    <property name="inquiryDefinition" ref="PRJESet-inquiryDefinition" />              
+    <property name="lookupDefinition" ref="PRJESet-lookupDefinition" />
+    <property name="titleAttribute" value="setId" />
+    <property name="objectLabel" value="Prorate Journal Entry Set" />
+    <property name="attributes" >
+      <list>
+        <ref bean="PRJESet-setId" />
+        <ref bean="PRJESet-fiscalYear" />
+        <ref bean="PRJESet-setName" />
+        <ref bean="PRJESet-setDescription" />        
+        <ref bean="PRJESet-active" />
+      </list>
+    </property>
+  </bean>
+
+  <!-- Attribute Definitions -->
+
+  <bean id="PRJESet-fiscalYear" parent="PRJESet-fiscalYear-parentBean" />
+  <bean id="PRJESet-fiscalYear-parentBean" abstract="true" parent="GenericAttributes-genericFiscalYear">
+    <property name="name" value="fiscalYear" />
+    <property name="label" value="Fiscal Year" />
+    <property name="shortLabel" value="Year" />
+  </bean>
+
+  <bean id="PRJESet-setId" parent="PRJESet-setId-parentBean" />
+  <bean id="PRJESet-setId-parentBean" abstract="true" parent="GenericAttributes-itemSequenceNumber">
+    <property name="name" value="setId" />
+    <property name="label" value="Prorate Journal Entry Set ID" />
+    <property name="shortLabel" value="PRJE Set ID" />
+    <property name="summary" value="" />
+    <property name="description" value="" />
+  </bean>
+
+  <bean id="PRJESet-setName" parent="PRJESet-setName-parentBean" />
+  <bean id="PRJESet-setName-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="name" value="setName" />
+    <property name="forceUppercase" value="false" />
+    <property name="label" value="Prorate Journal Entry Set Name" />
+    <property name="shortLabel" value="PRJE Set Name" />
+    <property name="maxLength" value="40" />
+    <property name="control" >
+      <bean parent="TextControlDefinition" p:size="40" />
+    </property>       
+  </bean>
+
+  <bean id="PRJESet-active" parent="PRJESet-active-parentBean" />
+  <bean id="PRJESet-active-parentBean" abstract="true" parent="GenericAttributes-activeIndicator">        
+    <property name="name" value="active" />
+  </bean>
+    
+  <bean id="PRJESet-setDescription" parent="PRJESet-setDescription-parentBean" />
+  <bean id="PRJESet-setDescription-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="name" value="setDescription" />
+    <property name="label" value="Description" />
+    <property name="shortLabel" value="Description" />
+    <property name="maxLength" value="2000" />    
+    <property name="control" >
+      <bean parent="TextareaControlDefinition" p:cols="40" p:rows="3" />
+    </property>      
+  </bean>
+
+  <!-- Business Object Lookup Definition -->
+
+  <bean id="PRJESet-lookupDefinition" parent="PRJESet-lookupDefinition-parentBean" />
+  <bean id="PRJESet-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
+    <property name="title" value="Prorate Journal Entry Set Lookup" />
+    <property name="defaultSort" >
+      <bean parent="SortDefinition">
+      </bean>
+    </property>
+    <property name="lookupFields" >
+      <list>
+ 		<bean parent="FieldDefinition" p:attributeName="fiscalYear"/>
+ 		<bean parent="FieldDefinition" p:attributeName="setName"/>
+      </list>
+    </property>
+    <property name="resultFields" >
+      <list>
+        <bean parent="FieldDefinition" p:attributeName="setId" />      
+        <bean parent="FieldDefinition" p:attributeName="fiscalYear" />
+        <bean parent="FieldDefinition" p:attributeName="setName" />
+        <bean parent="FieldDefinition" p:attributeName="setDescription" />        
+        <bean parent="FieldDefinition" p:attributeName="active" />
+      </list>
+    </property>
+  </bean>
+
+  <!-- Business Object Inquiry Definition -->
+
+  <bean id="PRJESet-inquiryDefinition" parent="PRJESet-inquiryDefinition-parentBean"/>
+  <bean id="PRJESet-inquiryDefinition-parentBean" abstract="true" parent="InquiryDefinition">
+    <property name="title" value="Pro-rate Journal Set"/>
+    <property name="inquirySections">
+      <list>
+        <bean parent="InquirySectionDefinition">
+          <property name="title" value=""/>
+          <property name="numberOfColumns" value="1"/>
+          <property name="inquiryFields">
+            <list>
+              <bean parent="FieldDefinition" p:attributeName="setId"/>
+              <bean parent="FieldDefinition" p:attributeName="fiscalYear"/>
+              <bean parent="FieldDefinition" p:attributeName="setName"/>
+              <bean parent="FieldDefinition" p:attributeName="setDescription"/>
+              <bean parent="FieldDefinition" p:attributeName="active"/>
+            </list>
+          </property>
+        </bean>
+      </list>
+    </property>
+    <property name="inquirableClass" value="org.kuali.kfs.sys.businessobject.inquiry.KfsInquirableImpl"/>
+  </bean>
+
+</beans>
