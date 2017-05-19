@@ -31,5 +31,5 @@ public interface LaborEncumbranceAdjustmentService {
      * 
      * @author jonathan
      */
-    boolean buildEncumbranceDifferenceFile( File inputFile, File balanceFile, File outputFile, File errorFile );
+    boolean buildEncumbranceDifferenceFile( File inputFile, File balanceFile, File outputFile, File errorFile, File reconFile);
 }

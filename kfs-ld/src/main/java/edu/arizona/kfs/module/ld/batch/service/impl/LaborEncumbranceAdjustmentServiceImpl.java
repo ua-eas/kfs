@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintStream;
 import java.sql.Date;
 import java.util.List;
@@ -37,6 +38,7 @@ import edu.arizona.kfs.module.ld.batch.service.LaborEncumbranceAdjustmentService
 
 /**
  * KITT-933 / FP-INT0008-01 - Main service which calculates the needed adjustments.  Used by the related batch steps. 
+ * UAF-4010 MOD-FP0008-01 Accounting for Personnel Encumbrances - Code Feature
  * 
  * @author Jonathan Keller
  */
@@ -48,7 +50,6 @@ public class LaborEncumbranceAdjustmentServiceImpl implements LaborEncumbranceAd
     protected LaborEncumbranceDao laborEncumbranceDao;
     protected DateTimeService dateTimeService;
     protected LaborEncumbranceReportWriterService reportWriterService;
-    //protected PersonService<Person> personService;
     protected PersonService personService;
     protected AccountingCycleCachingService accountingCycleCachingService;
     protected ParameterService paramSrv;
@@ -66,12 +67,13 @@ public class LaborEncumbranceAdjustmentServiceImpl implements LaborEncumbranceAd
     /**
      * @see edu.arizona.kfs.module.ld.batch.service.LaborEncumbranceAdjustmentService#buildEncumbranceDifferenceFile(java.io.File, java.io.File, java.io.File, java.io.File)
      */
-    public boolean buildEncumbranceDifferenceFile(File inputFile, File balanceFile, File outputFile, File errorFile) {
+    public boolean buildEncumbranceDifferenceFile(File inputFile, File balanceFile, File outputFile, File errorFile, File reconFile) {
         accountingCycleCachingService.initialize();
         BufferedReader inputReader = null;
         BufferedReader balanceReader = null;
         PrintStream outputStream = null;
         PrintStream errorStream = null;
+        PrintStream reconStream = null;
         Date currentDate = dateTimeService.getCurrentSqlDate();
         LaborOriginEntry lastOriginEntry = null;
         LaborOriginEntryToBalanceRecordComparator lineComparator = new LaborOriginEntryToBalanceRecordComparator();
@@ -87,22 +89,25 @@ public class LaborEncumbranceAdjustmentServiceImpl implements LaborEncumbranceAd
 
         try {
             // open all the files
+        	
+        	
             inputReader = new BufferedReader(new FileReader(inputFile));
             balanceReader = new BufferedReader(new FileReader(balanceFile));
             outputStream = new PrintStream(outputFile);
             errorStream = new PrintStream(errorFile);
+            //reconStream = new PrintStream(reconFile);
 
             LOG.info("All Files Opened - starting comparisons");
             // ok, now start up the iterators
             String encumbranceLine = null;
             String balanceLine = null;
             LaborOriginEntry encumbranceEntryLine = new LaborOriginEntry();
+            KualiDecimal reconAmount = KualiDecimal.ZERO;
 
             // get the first line of each
             encumbranceLine = inputReader.readLine();
             balanceLine = balanceReader.readLine();
             
-            //finOriginCode = paramSrv.getParameterValue("KFS-GL", "Batch", "MANUAL_FEED_ORIGINATION");
             finOriginCode = paramSrv.getParameterValueAsString("KFS-GL", "Batch", "MANUAL_FEED_ORIGINATION"); 
                         
             // keep processing until *both* have been exhausted
@@ -123,7 +128,7 @@ public class LaborEncumbranceAdjustmentServiceImpl implements LaborEncumbranceAd
                 boolean advanceEncumbranceFile = false;
                 boolean advanceBalanceFile = false;
                 if ( encumbranceLine != null ) {
-                    try {
+                    try {                    	
                         List<Message> parsingMessages = encumbranceEntryLine.setFromTextFileForBatch(encumbranceLine, lineNumber);
                         // if the record does not parse, skip, log to the error file and continue
                         if (!parsingMessages.isEmpty()) {
@@ -144,7 +149,7 @@ public class LaborEncumbranceAdjustmentServiceImpl implements LaborEncumbranceAd
                         encumbranceLineReadError = true;
                         advanceEncumbranceFile = true;
                     }
-                } else { // encumbrance file is exhausted, clear out the origin entry so that it is not accidentally used
+                } else { // encumbrance file is exhausted, clear out the origin entry so that it is not accidentally used                	
                     if ( encumbranceEntryLine != null ) {
                         encumbranceEntryLine = null;
                         LOG.debug("Encumbrance file exhausted, blanking out entry line variable for rest of process");
@@ -165,7 +170,6 @@ public class LaborEncumbranceAdjustmentServiceImpl implements LaborEncumbranceAd
                     } else { // records present in both files, run the normal compare
                         compareResult = lineComparator.compare(encumbranceEntryLine, balanceLine);
                     }
-                    
                     //1st record is in the encumbrance file and also in ld_ldgr_bal_t  
                     if (compareResult == 0) { // if the strings are equal, compare the amounts
                         LOG.debug("Key Match: Proceeding with amount comparison");
@@ -203,6 +207,9 @@ public class LaborEncumbranceAdjustmentServiceImpl implements LaborEncumbranceAd
                                 debitCreditCode = KFSConstants.GL_DEBIT_CODE;
                                 jobData.increasedBalanceCount++;
                             }
+                            // Add Amount for Recon file
+                            reconAmount = reconAmount.add(difference);
+                            
                             // copy fields per requirements
                             adjustEncumbranceOriginEntryLine(encumbranceEntryLine, difference, debitCreditCode, currentDate);
 
@@ -220,7 +227,7 @@ public class LaborEncumbranceAdjustmentServiceImpl implements LaborEncumbranceAd
                             if ( LOG.isDebugEnabled() ) {
                                 LOG.debug( "Writing line to output stream:\n" + encumbranceEntryLine.getLine() );
                             }
-                            jobData.outputCount++;                            
+                            jobData.outputCount++;
                         }
                         // advance both iterators
                         advanceBalanceFile = true;
@@ -239,15 +246,17 @@ public class LaborEncumbranceAdjustmentServiceImpl implements LaborEncumbranceAd
                         encumbranceEntryLine.setFinancialSystemOriginationCode(encumbranceEntryLine.getFinancialSystemOriginationCode());
                         //**END AZ**
                         
+                        //Add amount for Recon file
+                        reconAmount = reconAmount.add(encumbranceEntryLine.getTransactionLedgerEntryAmount());
+                        
                         outputStream.println( encumbranceEntryLine.getLine() );
-                        jobData.outputCount++;        
+                        jobData.outputCount++;
                         jobData.newBalanceCount++;
                         // and advance the encumbrance line iterator
                         advanceEncumbranceFile = true;
                         //3rd Record is in balance but not encumbrance file
                     } else { // if the encumbrance line is greater than the balance line,
                         LOG.debug("Encr > Bal Keys: Reverse balance line");
- /*UAF-4010 - Commenting out for now
                         // then the balance line does not have a match
                         // add a line to reverse the entire balance
                         // create a new origin entry instance, based on the balance line
@@ -281,13 +290,16 @@ public class LaborEncumbranceAdjustmentServiceImpl implements LaborEncumbranceAd
                         reversingOriginEntry.setFinancialSystemOriginationCode(finOriginCode);
                         //**END AZ**
                         
+                        //Add amount for Recon file
+                        reconAmount = reconAmount.add(reversingOriginEntry.getTransactionLedgerEntryAmount());
                         outputStream.println( reversingOriginEntry.getLine() );
- //UAF-4010 - Commenting out for now  - End */
-                        jobData.outputCount++;        
+                        jobData.outputCount++;
                         jobData.removedBalanceCount++;
                         // and advance the balance line iterator
                         advanceBalanceFile = true;
                     }
+                    
+                    
                 }
                 // depending on comparison, increment the appropriate counters
                 if (advanceEncumbranceFile) {
@@ -302,6 +314,18 @@ public class LaborEncumbranceAdjustmentServiceImpl implements LaborEncumbranceAd
                 }
             }
             outputStream.flush();
+            
+            try{
+            	//Create recon file.
+            	reconStream = new PrintStream(reconFile);
+            	reconStream.println("c ld_ldgr_entr_t " + jobData.outputCount +";");
+            	reconStream.println("s trn_ldgr_entr_amt " + reconAmount +";");
+            	reconStream.print("e 02;");            	
+            } catch ( IOException ex ) {
+                LOG.error( "Unable to create recon file for labor encumbrance adjustment output file.", ex );
+                throw new RuntimeException("Unable to create recon file for labor encumbrance adjustment output file.", ex);
+            }
+            
             try {
                 String doneFileName = StringUtils.removeEnd(outputFile.getAbsolutePath(), ".data") + GeneralLedgerConstants.BatchFileSystem.DONE_FILE_EXTENSION;
                 File doneFile = new File( doneFileName );
@@ -324,6 +348,7 @@ public class LaborEncumbranceAdjustmentServiceImpl implements LaborEncumbranceAd
             IOUtils.closeQuietly(balanceReader);
             IOUtils.closeQuietly(outputStream);
             IOUtils.closeQuietly(errorStream);
+            IOUtils.closeQuietly(reconStream);
             if ( reportWriterService != null ) {
                 ((WrappingBatchService)reportWriterService).initialize();
                 reportWriterService.writeStatisticLine("HCM File Input Lines      %,20d", jobData.inputLinesProcessed);

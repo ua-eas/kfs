@@ -14,7 +14,8 @@ import org.springframework.util.StopWatch;
 import edu.arizona.kfs.module.ld.batch.service.LaborEncumbranceAdjustmentService;
 
 /**
- * KITT-933 / FP-INT0008-01 - Builds a balance file from the current encumbrance balances in the labor ledger.  
+ * KITT-933 / FP-INT0008-01 - Builds a balance file from the current encumbrance balances in the labor ledger.
+ * UAF-4010 MOD-FP0008-01 Accounting for Personnel Encumbrances - Code Feature
  * 
  * @author Jonathan Keller
  */
