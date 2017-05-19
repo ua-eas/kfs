@@ -44,7 +44,7 @@ public class AdvanceDepositDocument extends org.kuali.kfs.fp.document.AdvanceDep
                 GeneralLedgerPendingEntry bankOffsetEntry = new GeneralLedgerPendingEntry();
                 if (!glpeService.populateBankOffsetGeneralLedgerPendingEntry(detail.getBank(), detail.getFinancialDocumentAdvanceDepositAmount(), this, getPostingYear(), sequenceHelper, bankOffsetEntry, KFSConstants.ADVANCE_DEPOSITS_LINE_ERRORS)) {
                     success = false;
-                    LOG.info("Error in populating bankOffsetGeneralLedgerPendingEntry in AdvanceDepositDocument... Skipping "+detail.toString());
+                    LOG.warn("Error in populating bankOffsetGeneralLedgerPendingEntry in AdvanceDepositDocument... Skipping "+detail.toString());
                     continue; // An unsuccessfully populated bank offset entry may contain invalid relations, so don't add it
                 }
 

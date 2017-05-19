@@ -10,7 +10,6 @@ import org.apache.log4j.Logger;
 import org.kuali.kfs.coa.service.AccountingPeriodService;
 import org.kuali.kfs.sys.businessobject.Bank;
 import org.kuali.kfs.sys.service.OptionsService;
-import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.krad.bo.DocumentHeader;
 import org.kuali.rice.krad.rules.rule.event.SaveOnlyDocumentEvent;
 import org.kuali.rice.krad.workflow.service.WorkflowDocumentService;
@@ -21,7 +20,6 @@ import org.kuali.rice.krad.service.DocumentService;
 import org.kuali.rice.krad.util.ObjectUtils;
 
 
-import java.util.Calendar;
 
 /**
  * Created by nataliac on 5/3/17.
@@ -64,33 +62,7 @@ public abstract class AbstractBankDocumentService implements BankDocumentService
         LOG.debug("buildHeader finished. Header = "+documentHeader.toString());
     }
 
-    /*//TODO Seems deprecated since all this stuff should be set when the doc is saved and blanketApproved.
-     *  Method implementing a hack to set the CreatedDate, ApprovedDate, FinalizedDate andLastModifiedDate to the given date...
-     */
-    protected void setRoutingDate(Document document, java.sql.Date date) {
-        WorkflowDocument wfd = document.getDocumentHeader().getWorkflowDocument();
-        wfd.getDocument();
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-//TODO: Not sure what exactly the old code was trying to accomplish here and how to translate this to the new implementation...
-//        try {
-//            wfd.getActionsTaken()
-//                    /*
-//                     * if(!wfd.stateIsSaved()){ }
-//                     */
-//            // post processor caught exception while handling route status change: unable to load document 324562
-//            // wfd.saveDocument("Saved");
-//            wfd.getRouteHeader().setDateCreated(cal);
-//            wfd.getRouteHeader().setDateApproved(cal);
-//            wfd.getRouteHeader().setDateFinalized(cal);
-//            wfd.getRouteHeader().setDateLastModified(cal);
-//            wfd.saveRoutingData();
-//        }
-//        catch (WorkflowException ex) {
-//            ex.printStackTrace();
-//            throw new RuntimeException(ex);
-//        }
-    }
+
 
     protected void createDocumentNote(Document bankDocument, BankTransaction bankTransaction) {
         LOG.debug(" createDocumentNote() for " + bankTransaction.toString());
