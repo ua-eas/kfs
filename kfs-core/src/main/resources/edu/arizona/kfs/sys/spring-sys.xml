@@ -172,5 +172,16 @@
     
     <bean id="electronicFundTransferClaimAction" parent="electronicFundTransferClaimAction-parentBean" 
         class="edu.arizona.kfs.sys.service.impl.ElectronicFundTransferClaimActionHelper" />
+
+	<bean id="electronicPaymentClaimLookupableHelperService"
+		class="edu.arizona.kfs.sys.businessobject.lookup.ElectronicPaymentClaimLookupableHelperServiceImpl"
+		scope="prototype" parent="lookupableHelperService">
+		<property name="lookupDao">
+			<ref bean="lookupDao" />
+		</property>
+	</bean>
+	
+	<bean id="jobListener" parent="jobListener-parentBean" class="edu.arizona.kfs.sys.batch.JobListener">
+    </bean>
     
 </beans>

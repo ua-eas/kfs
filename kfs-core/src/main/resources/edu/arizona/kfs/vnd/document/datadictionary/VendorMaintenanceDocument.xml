@@ -19,6 +19,7 @@
  -->
 
   <bean id="VendorMaintenanceDocument" parent="VendorMaintenanceDocument-parentBean">
+    <property name="maintainableClass" value="edu.arizona.kfs.vnd.document.VendorMaintainableImpl"/>
     <property name="businessRulesClass" value="edu.arizona.kfs.vnd.document.validation.impl.VendorRule"/>
     <property name="maintainableSections">
         <list merge="true">

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:dd="http://rice.kuali.org/dd" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd         http://rice.kuali.org/dd         http://rice.kuali.org/dd/dd.xsd">
+
+  <bean id="PRJEBaseAccountMaintenanceDocument" parent="PRJEBaseAccountMaintenanceDocument-parentBean" />
+  <bean id="PRJEBaseAccountMaintenanceDocument-parentBean" abstract="true" parent="MaintenanceDocumentEntry">
+    <property name="businessObjectClass" value="edu.arizona.kfs.module.prje.businessobject.PRJEBaseAccount" />
+    <property name="businessRulesClass" value="edu.arizona.kfs.module.prje.document.validation.impl.PRJETypeValidationRule"/>
+    <property name="maintainableClass" value="edu.arizona.kfs.module.prje.document.PRJEBaseAccountMaintainableImpl" />
+    <property name="maintainableSections" >
+      <list>
+        <ref bean="PRJEBaseAccountMaintenanceDocument-EditSetPRJEBaseAccountMaintenanceDocument-EditSet" />
+      </list>
+    </property>
+    <property name="allowsNewOrCopy" value="true" />
+    <property name="lockingKeys" >
+      <list>
+        <value>baseAccountId</value>
+      </list>
+    </property>
+    <property name="documentTypeName" value="PRJA" />
+    <property name="workflowAttributes">
+        <ref bean="PRJEBaseAccountMaintenanceDocument-workflowAttributes"/>
+    </property>
+  </bean>
+
+  <!-- Maintenance Section Definition -->
+
+  <bean id="PRJEBaseAccountMaintenanceDocument-EditSetPRJEBaseAccountMaintenanceDocument-EditSet" parent="PRJEBaseAccountMaintenanceDocument-EditSetPRJEBaseAccountMaintenanceDocument-EditSet-parentBean" />
+  <bean id="PRJEBaseAccountMaintenanceDocument-EditSetPRJEBaseAccountMaintenanceDocument-EditSet-parentBean" abstract="true" parent="MaintainableSectionDefinition">
+    <property name="id" value="Edit Prorate Journal Entry Account Line" />
+    <property name="title" value="Edit Prorate Journal Entry Account Line" />
+    <property name="maintainableItems" >
+      <list>
+        <bean parent="MaintainableFieldDefinition" p:name="baseAccountId" p:required="false" p:unconditionallyReadOnly="true" p:defaultValueFinderClass="edu.arizona.kfs.module.prje.businessobject.defaultvalue.NextPRJEBaseAccountIdFinder" />
+        <bean parent="MaintainableFieldDefinition" p:required="true"  p:name="typeId" />
+        <bean parent="MaintainableFieldDefinition" p:required="true"  p:name="baseChart" />
+        <bean parent="MaintainableFieldDefinition" p:required="true"  p:name="baseAccount" />
+        <bean parent="MaintainableFieldDefinition" p:required="false"  p:name="baseSubAccount" />
+        <bean parent="MaintainableFieldDefinition" p:required="false"  p:name="fromChart" />
+        <bean parent="MaintainableFieldDefinition" p:required="false"  p:name="fromAccount" />
+        <bean parent="MaintainableFieldDefinition" p:required="false" p:name="fromSubAccount" />
+        <bean parent="MaintainableFieldDefinition" p:required="true"  p:name="fromObjectCode" />
+        <bean parent="MaintainableFieldDefinition" p:required="true"  p:name="frequency" />
+        <bean parent="MaintainableFieldDefinition" p:required="true"  p:name="prorateType" />
+        <bean parent="MaintainableFieldDefinition" p:required="false" p:name="proratePercent" />
+        <bean parent="MaintainableFieldDefinition" p:required="false" p:name="prorateAmount" />
+        <bean parent="MaintainableFieldDefinition" p:required="false" p:name="active" />
+      </list>
+    </property>
+  </bean>
+
+	<bean id="PRJEBaseAccountMaintenanceDocument-workflowAttributes" parent="PRJEBaseAccountMaintenanceDocument-workflowAttributes-parentBean" />
+	<bean id="PRJEBaseAccountMaintenanceDocument-workflowAttributes-parentBean" abstract="true" parent="WorkflowAttributes" />
+	
+</beans>
