@@ -8,7 +8,28 @@
 		http://rice.kuali.org/dd         
 		http://rice.kuali.org/dd/dd.xsd">
 
-  <!-- workflow attributes -->
+	<bean id="AdvanceDepositDocument" parent="AdvanceDepositDocument-parentBean">
+
+		<property name="documentClass" value="edu.arizona.kfs.fp.document.AdvanceDepositDocument"/>
+
+		<property name="attributes">
+			<list merge = "true">
+				<ref bean="AdvanceDepositDocument-postingDate"/>
+			</list>
+		</property>
+	</bean>
+
+	<!-- Attribute Definitions -->
+
+	<bean id="AdvanceDepositDocument-postingDate" parent="AdvanceDepositDocument-postingDate-parentBean"/>
+	<bean id="AdvanceDepositDocument-postingDate-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
+		<property name="name" value="postingDate"/>
+		<property name="label" value="Posting Date"/>
+		<property name="shortLabel" value="postingDate"/>
+	</bean>
+
+
+	<!-- workflow attributes -->
 	<bean id="AdvanceDepositDocument-workflowAttributes" parent="AdvanceDepositDocument-workflowAttributes-parentBean">
 		<property name="routingTypeDefinitions">
 			<map>

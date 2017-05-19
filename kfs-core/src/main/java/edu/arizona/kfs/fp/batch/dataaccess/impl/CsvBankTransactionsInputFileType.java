@@ -1,7 +1,6 @@
 package edu.arizona.kfs.fp.batch.dataaccess.impl;
 
 import au.com.bytecode.opencsv.CSVReader;
-import edu.arizona.kfs.fp.batch.dataaccess.TransactionPostingDao;
 import edu.arizona.kfs.fp.batch.service.BankParametersAccessService;
 import edu.arizona.kfs.fp.batch.service.BankTransactionsLoadService;
 import edu.arizona.kfs.fp.businessobject.BankTransaction;
@@ -12,6 +11,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import edu.arizona.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.FileUtil;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.batch.BatchInputFileTypeBase;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -40,8 +40,6 @@ public class CsvBankTransactionsInputFileType extends BatchInputFileTypeBase {
     protected String errorFilePath;
 
     protected BankTransactionsFileInfo bankFileInfo;
-
-    protected char QUOTE_CHAR = '"';
 
 
     protected DateTimeService dateTimeService;
@@ -125,8 +123,11 @@ public class CsvBankTransactionsInputFileType extends BatchInputFileTypeBase {
         BufferedReader br = null;
         boolean result = true;
         try {
-
-            File inputFile = openFile();
+            if (getFileName().isEmpty()) {
+                LOG.error("Bank transaction file name is empty!!! Cannot open a file with no name... ABORTING.");
+                throw new RuntimeException("Bank transaction file name is empty!!! Cannot open a file with no name... ABORTING.");
+            }
+            File inputFile = openFile(getAbsoulutePath());
             br = new BufferedReader(new FileReader(inputFile));
             KualiDecimal batchTotal = parseBatchTotal(br.readLine());
             getBankFileInfo().setBatchTotal(batchTotal);
@@ -136,7 +137,7 @@ public class CsvBankTransactionsInputFileType extends BatchInputFileTypeBase {
             int currentLine = 0;
             String[] currentRowData;
             BankTransactionDigesterAdapter btAdapter = new BankTransactionDigesterAdapter();
-            CSVReader csvReader = new CSVReader(br, getBankParametersAccessService().getBankFileDelimiter(), QUOTE_CHAR, currentLine);
+            CSVReader csvReader = new CSVReader(br, getBankParametersAccessService().getBankFileDelimiter(), KFSConstants.QUOTE_CHAR, currentLine);
             //validate each line from the file, that it can be parsed and Bank Transactions obey each rule
             while ((currentRowData = csvReader.readNext()) != null) {
                 ++currentLine;
@@ -200,7 +201,7 @@ public class CsvBankTransactionsInputFileType extends BatchInputFileTypeBase {
     /**
      * Logs all the errors in the list to the error report file and then empties the list.
      */
-    protected void logErrorsToFile(List<String> errorList) {
+    public void logErrorsToFile(List<String> errorList) {
 
         if (errorList != null && !errorList.isEmpty()) {
             LOG.debug("Logging errorList to error file:" + getErrorFilePath());
@@ -236,39 +237,36 @@ public class CsvBankTransactionsInputFileType extends BatchInputFileTypeBase {
     public void process(String fileName, Object parsedFileContents) {
     }
 
-    protected File openFile() {
-        if (getFileName().isEmpty()) {
-            LOG.error("Bank transaction file name is empty!!! Cannot open a file with no name... ABORTING.");
-            throw new RuntimeException("Bank transaction file name is empty!!! Cannot open a file with no name... ABORTING.");
-        }
-
-        File inputFile = new File(getAbsoulutePath());
+    protected File openFile(String filePath) {
+        File inputFile = new File(filePath);
         if (!inputFile.exists()) {
-            LOG.error("Bank transaction file " + getAbsoulutePath() + " could not be found. ABORTING.");
-            throw new RuntimeException("Bank transaction file " + getAbsoulutePath() + " could not be found. ABORTING.");
+            LOG.error("Bank transaction file " + filePath + " could not be found. ABORTING.");
+            throw new RuntimeException("Bank transaction file " + filePath + " could not be found. ABORTING.");
         }
 
         if (!inputFile.canRead()) {
-            LOG.error("Bank transaction file " + getAbsoulutePath() + " cannot be opened for reading. ABORTING.");
-            throw new RuntimeException("Bank transaction file " + getAbsoulutePath() + " cannot be opened for reading. ABORTING.");
+            LOG.error("Bank transaction file " + filePath + " cannot be opened for reading. ABORTING.");
+            throw new RuntimeException("Bank transaction file " + filePath + " cannot be opened for reading. ABORTING.");
         }
 
         return inputFile;
     }
 
     /**
-     * Deletes the .done corresponding to the given file, if one exists.
+     * Deletes the .done corresponding to the given absolute file path, if one exists.
      */
-    public void deleteDoneFile() {
-        String doneFilePath =  getDirectoryPath() + File.separator + fileName + KFSConstants.DONE_FILE_EXTENSION;
+    public void deleteDoneFile(String filePath) {
+
+        String doneFilePath = FilenameUtils.removeExtension(filePath) + KFSConstants.DONE_FILE_EXTENSION;
+
         try {
             File doneFile = new File(doneFilePath);
-            if (doneFile.exists() && !doneFile.delete()) {
-                LOG.error("Error in BankTransactionsLoadService - " + doneFilePath + " could not be deleted! ");
-                throw new RuntimeException("Error in BankTransactionsLoadService - " + doneFilePath + " could not be deleted! ");
+            if ( doneFile.exists() && !doneFile.delete()) {
+                LOG.error("ERROR - " + doneFilePath + " could not be deleted! ");
+                throw new RuntimeException("ERROR - " + doneFilePath + " could not be deleted! ");
             }
         } catch (Exception e) {
-            LOG.error("Error in BankTransactionsLoadService.deleteDoneFile for file=" + doneFilePath, e);
+            LOG.error("ERROR - at deleteDoneFile " + doneFilePath, e);
             throw new RuntimeException(e);
         }
     }
@@ -278,7 +276,7 @@ public class CsvBankTransactionsInputFileType extends BatchInputFileTypeBase {
         if ( errorFilePath == null || StringUtils.isEmpty(errorFilePath)) {
             errorFilePath = getReportPath() + File.separator +
                     getReportPrefix() + "_" +
-                    dateTimeService.toDateTimeStringForFilename(dateTimeService.getCurrentDate()) + "." +
+                    dateTimeService.toDateTimeStringForFilename(dateTimeService.getCurrentDate()) + KFSConstants.DOT_CHAR +
                     getReportExtension();
         }
         return errorFilePath;
@@ -327,7 +325,7 @@ public class CsvBankTransactionsInputFileType extends BatchInputFileTypeBase {
     public void createValidatedFiles() {
         LOG.debug("Start createValidatedFiles for file=" + getFileName());
 
-        String destFileName = getValidatedPath() + File.separator + getFileName() + "." + getFileExtension();
+        String destFileName = getValidatedPath() + File.separator + getFileName() + KFSConstants.DOT_CHAR + getFileExtension();
         String destDoneFile = getValidatedPath() + File.separator + getFileName() + KFSConstants.DONE_FILE_EXTENSION;
         try {
             File sourceFile = new File(getAbsoulutePath());
@@ -346,7 +344,7 @@ public class CsvBankTransactionsInputFileType extends BatchInputFileTypeBase {
      */
     @Override
     public String getFileTypeIdentifer() {
-        return KFSConstants.BANK_TRANSACTIONS_FILE_TYPE_IDENTIFIER;
+        return KFSConstants.BankTransactionConstants.BANK_TRANSACTIONS_FILE_TYPE_IDENTIFIER;
     }
 
     /**
@@ -407,6 +405,8 @@ public class CsvBankTransactionsInputFileType extends BatchInputFileTypeBase {
 
     public void setReportPath(String reportPath) {
         this.reportPath = reportPath;
+        //check directory when setting the path
+        FileUtil.createDirectory(reportPath);
     }
 
     public void setReportExtension(String reportExtension) {
@@ -419,6 +419,8 @@ public class CsvBankTransactionsInputFileType extends BatchInputFileTypeBase {
 
     public void setValidatedPath(String validatedPath) {
         this.validatedPath = validatedPath;
+        //check directory when setting the path
+        FileUtil.createDirectory(validatedPath);
     }
 
     public String getReportPath() {
@@ -438,7 +440,7 @@ public class CsvBankTransactionsInputFileType extends BatchInputFileTypeBase {
     }
 
     public String getAbsoulutePath() {
-        return getDirectoryPath() + File.separator + fileName + "." + getFileExtension();
+        return getDirectoryPath() + File.separator + getFileName() + KFSConstants.DOT_CHAR + getFileExtension();
     }
 
 

@@ -12,6 +12,8 @@ public class KFSConstants extends org.kuali.kfs.sys.KFSConstants {
     public static final String MULTI_VALUE_SEPERATION_CHARACTER = ";";
     public static final String PIPE = "|";
     public static final String EQUALS = "=";
+    public static final char QUOTE_CHAR = '"';
+    public static final char DOT_CHAR = '.';
 
     public static final String INVOICE_NUMBER = "Invoice Number";
     public static final String DUPLICATE_INVOICE_QUESTION_ID = "DVDuplicateInvoice";
@@ -280,6 +282,9 @@ public class KFSConstants extends org.kuali.kfs.sys.KFSConstants {
         public static final String VA_NOTES_SEVEN_REGEX = "VA_NOTES_SEVEN_REGEX";
         public static final String VA_NOTES_SEVEN_MASKING_REGEX = "VA_NOTES_SEVEN_MASKING_REGEX";
         public static final String VA_PARAM_DELIMITER = "VA_PARAM_DELIM";
+        public static final String CR_STATUS_CLEARED_CODES = "CR_STATUS_CLRD_CODES";
+        public static final String CR_STATUS_NAMESPACE = "KFS-CR";
+        public static final String CR_STATUS_COMPONENT_CODE = "CheckReconciliationImportStep";
     }
 
     public static class BankTransactionFields {
@@ -293,10 +298,36 @@ public class KFSConstants extends org.kuali.kfs.sys.KFSConstants {
         public static final String DESC_TEXT7 = "descriptiveTxt7";
     }
 
-    public static class BankTransactionsFileConstants {
+    public static class BankTransactionConstants {
+        public static final String BANK_TRANSACTIONS_FILE_TYPE_IDENTIFIER = "csvBankInputFileType";
+        public static final String BANK_TRANSACTIONS_VALIDATED_FILE_TYPE_IDENTIFIER = "csvBankValidatedFileType";
+        public static final String CHECK_RECON_FILE_TYPE_IDENTIFIER = "checkReconciliationFileType";
         public static final String TFILE_DATE_FORMAT = "yyMMdd";
         public static final String TFILE_NAME = "tfile_load";
         public static final String BANK_TRANSACTIONS_LOAD_BATCH_JOB_NAME = "documentCreationJob";
+        public static final String DOCUMENT_TYPE_AD = "AD";
+        public static final String DOCUMENT_TYPE_CCR = "CCR";
+        public static final String DOCUMENT_TYPE_DI = "DI";
+        public static final String BANK_TRANSACTION_ORIGIN_CODE = "BT";
+        public static final String ACCT_LINE_DATE_FORMAT = "MMddyyyy";
+        public static final int MAX_DESCRIPTION_LEN = 40;
+        public static final int MAX_NUMBER_LEN = 8;
+        public static final int MAX_BANK_REF_NBR = 10;
+    }
+
+    public enum BankTransactionDocumentType {
+        AD("Advance Deposit"), CCR("Credit Card Receipt"), DI("Distribution of Income and Expense");
+
+        private String description;
+
+        BankTransactionDocumentType(String description) {
+            this.description = description;
+        }
+
+        public String getDescription() {
+            return this.description;
+        }
+
     }
 
 }

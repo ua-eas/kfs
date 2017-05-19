@@ -20,6 +20,10 @@ import java.util.regex.Pattern;
 public class BankParametersAccessServiceImpl implements BankParametersAccessService {
     protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(BankParametersAccessServiceImpl.class);
 
+    private static String COLON=":";
+    private static String COMMA=",";
+    private static String EQUAL="=";
+
     private ParameterService parameterService = null;
 
     private char bankTFileDelimiter;
@@ -39,6 +43,7 @@ public class BankParametersAccessServiceImpl implements BankParametersAccessServ
     private Map<String, ChartBankObjectCode> descriptionSearchChartBankObjectCodeMap;
     private String objectCodeForDefaultAD;
     private Map<String, ChartBankObjectCode> baiChartBankObjectCodeMap;
+    private String checkReconStatus;
 
     private String bofaDelimiter;
     private Pattern bofaCustRefNumPattern;
@@ -137,8 +142,8 @@ public class BankParametersAccessServiceImpl implements BankParametersAccessServ
             String fieldPositions = parameterService.getParameterValueAsString(DocumentCreationStep.class, KFSConstants.BankTransactionsParameters.BANK_TFILE_FIELD_POSITION);
             String[] keyPairs = fieldPositions.split(KFSConstants.BankTransactionsParameters.BANK_PARAMETER_DELIM);
             for (String keyValues : keyPairs) {
-                String fieldName = keyValues.split("=")[0];
-                Integer fieldPosition = Integer.parseInt(keyValues.split("=")[1]);
+                String fieldName = keyValues.split(EQUAL)[0];
+                Integer fieldPosition = Integer.parseInt(keyValues.split(EQUAL)[1]);
                 bankTFileFieldMap.put(fieldName, fieldPosition);
             }
         }
@@ -188,10 +193,16 @@ public class BankParametersAccessServiceImpl implements BankParametersAccessServ
 
     protected void setElectronicFundsAccounts() {
         String electronicFundsAccounts = parameterService.getParameterValueAsString(AdvanceDepositDocument.class, KFSConstants.BankTransactionsParameters.ELECTRONIC_FUNDS_ACCOUNTS);
-        keyChartOfElectronicFunds = electronicFundsAccounts.split("=")[0];
-        keyAccountOfElectronicFunds = electronicFundsAccounts.split("=")[1];
+        keyChartOfElectronicFunds = electronicFundsAccounts.split(EQUAL)[0];
+        keyAccountOfElectronicFunds = electronicFundsAccounts.split(EQUAL)[1];
     }
 
+    /**
+     * @see edu.arizona.kfs.fp.batch.service.BankParametersAccessService#getDefaultBankByDocType(KFSConstants.BankTransactionDocumentType)
+     */
+    public String getDefaultBankByDocType(KFSConstants.BankTransactionDocumentType docType ){
+        return getDefaultBanks().get(docType.name());
+    }
 
     /**
      * @see edu.arizona.kfs.fp.batch.service.BankParametersAccessService#getDefaultBankByDocType(String)
@@ -207,7 +218,7 @@ public class BankParametersAccessServiceImpl implements BankParametersAccessServ
             String defaultBanksByDocTypeParam = parameterService.getParameterValueAsString(DocumentCreationStep.class, KFSConstants.BankTransactionsParameters.DEFAULT_BANK_BY_DOCUMENT_TYPE);
             String[] keyPairs = defaultBanksByDocTypeParam.split(KFSConstants.BankTransactionsParameters.BANK_PARAMETER_DELIM);
             for (String keyValues : keyPairs) {
-                String[] token = keyValues.split("=");
+                String[] token = keyValues.split(EQUAL);
                 String docType = token[0];
                 String defaultBank = token[1];
                 defaultBanksByDocTypeMap.put(docType, defaultBank);
@@ -306,14 +317,14 @@ public class BankParametersAccessServiceImpl implements BankParametersAccessServ
         String[] accountObjCdByBaiTypeList = accountObjCdByBaiTypeParm.split(KFSConstants.BankTransactionsParameters.BANK_PARAMETER_DELIM);
 
         for (String currentAccountObjCd : accountObjCdByBaiTypeList) {
-            String[] tokens = currentAccountObjCd.split("=");
-            String[] keyCombo = tokens[0].split(":");
+            String[] tokens = currentAccountObjCd.split(EQUAL);
+            String[] keyCombo = tokens[0].split(COLON);
             Integer specialBaiType = Integer.parseInt(keyCombo[0]);
             specialBaiTypes.add(specialBaiType);
 
             String key = tokens[0];
             String value = tokens[1];
-            String[] valueTokens = value.split(":");
+            String[] valueTokens = value.split(COLON);
             ChartBankObjectCode cbo = new ChartBankObjectCode();
             cbo.setChartCode(valueTokens[0]);
             cbo.setAccountNumber(valueTokens[1]);
@@ -325,10 +336,10 @@ public class BankParametersAccessServiceImpl implements BankParametersAccessServ
 
 
     /**
-     * @see edu.arizona.kfs.fp.batch.service.BankParametersAccessService#getChartBankObjectCodeForSpecialBai(int, String)
+     * @see edu.arizona.kfs.fp.batch.service.BankParametersAccessService#getChartBankObjectCodeForSpecialBai
      */
-    public ChartBankObjectCode getChartBankObjectCodeForSpecialBai(int bai, String bankAccountNumber) {
-        String key = bai + ":" + bankAccountNumber;
+    public ChartBankObjectCode getChartBankObjectCodeForSpecialBai(Long bai, Long bankAccountNumber) {
+        String key = bai.toString() + COLON + bankAccountNumber.toString();
         if (getBaiChartBankObjectCodeMap().containsKey(key)) {
             return getBaiChartBankObjectCodeMap().get(key);
         }
@@ -342,10 +353,10 @@ public class BankParametersAccessServiceImpl implements BankParametersAccessServ
             String documentTypeBaiParm = parameterService.getParameterValueAsString(DocumentCreationStep.class, KFSConstants.BankTransactionsParameters.DOCUMENT_TYPE_BY_BAI_TYPE_CODE);
             String[] documentTypeBaiList = documentTypeBaiParm.split(KFSConstants.BankTransactionsParameters.BANK_PARAMETER_DELIM);
             for (String documentTypeBaiStr : documentTypeBaiList) {
-                String[] tokens = documentTypeBaiStr.split("=");
+                String[] tokens = documentTypeBaiStr.split(EQUAL);
                 String docTypeValue = tokens[0];
                 String values = tokens[1];
-                String[] valueTokens = values.split(",");
+                String[] valueTokens = values.split(COMMA);
                 for (String str : valueTokens) {
                     Integer baiTypeKey = Integer.parseInt(str);
                     documentTypeBaiMap.put(baiTypeKey, docTypeValue);
@@ -369,10 +380,10 @@ public class BankParametersAccessServiceImpl implements BankParametersAccessServ
             String debitCredityByBaiParm = parameterService.getParameterValueAsString(DocumentCreationStep.class, KFSConstants.BankTransactionsParameters.DEBIT_CREDIT_BY_BAI_TYPE_CODE);
             String[] debitCredityByBaiList = debitCredityByBaiParm.split(KFSConstants.BankTransactionsParameters.BANK_PARAMETER_DELIM);
             for (String debitCreditStr : debitCredityByBaiList) {
-                String[] tokens = debitCreditStr.split("=");
+                String[] tokens = debitCreditStr.split(EQUAL);
                 String debitOrCredit = tokens[0];
                 String values = tokens[1];
-                String[] valueTokens = values.split(",");
+                String[] valueTokens = values.split(COMMA);
                 for (String str : valueTokens) {
                     Integer baiTypeKey = Integer.parseInt(str);
                     debitCreditMap.put(baiTypeKey, debitOrCredit);
@@ -441,7 +452,7 @@ public class BankParametersAccessServiceImpl implements BankParametersAccessServ
      * @see edu.arizona.kfs.fp.batch.service.BankParametersAccessService#isExcludedByBaiAndAccount(int, String)
      */
     public boolean isExcludedByBaiAndAccount(int bai, String account) {
-        return getExcludedByBaiAndAccount().contains(bai + ":" + account);
+        return getExcludedByBaiAndAccount().contains(bai + COLON + account);
     }
 
 
@@ -494,7 +505,7 @@ public class BankParametersAccessServiceImpl implements BankParametersAccessServ
 
             int index = 0;
             for (String chartBankObjectCodeMapStr : accountObjByDescrList) {
-                String[] tokens = chartBankObjectCodeMapStr.split("=");
+                String[] tokens = chartBankObjectCodeMapStr.split(EQUAL);
                 if ( tokens.length != 2) {
                     LOG.error("Parameter [ACCOUNT_AND_OBJECT_CODE_BY_DESCRIPTION] value [" + index + "] has a misconfigured value.  Expecting a string delimeted by equals-sign, got none.");
                     throw new RuntimeException("Parameter [ACCOUNT_AND_OBJECT_CODE_BY_DESCRIPTION] value [" + index + "] has a misconfigured value.  Expecting a string delimeted by equals-sign, got none.");
@@ -502,7 +513,7 @@ public class BankParametersAccessServiceImpl implements BankParametersAccessServ
                 String descrKey = tokens[0];
                 String value = tokens[1];
                 ChartBankObjectCode cbo = new ChartBankObjectCode();
-                String[] valueTokens = value.split(KFSConstants.BankTransactionsParameters.BANK_PARAMETER_DELIM);
+                String[] valueTokens = value.split(COLON);
                 if ( valueTokens.length != 3) {
                     LOG.error("Parameter [ACCOUNT_AND_OBJECT_CODE_BY_DESCRIPTION] value [" + index + "] has a misconfigured value.  Expecting a 3-part string delimited by a colon [:], got none.");
                     throw new RuntimeException("Parameter [ACCOUNT_AND_OBJECT_CODE_BY_DESCRIPTION] value [" + index + "] has a misconfigured value.  Expecting a 3-part string delimited by a colon [:], got none.");
@@ -526,6 +537,18 @@ public class BankParametersAccessServiceImpl implements BankParametersAccessServ
         }
         return objectCodeForDefaultAD;
     }
+
+
+    /**
+     * @see edu.arizona.kfs.fp.batch.service.BankParametersAccessService#getCheckReconClearedStatusCode()
+     */
+    public String getCheckReconClearedStatusCode() {
+        if ( checkReconStatus == null) {
+            checkReconStatus = parameterService.getParameterValueAsString(KFSConstants.BankTransactionsParameters.CR_STATUS_NAMESPACE, KFSConstants.BankTransactionsParameters.CR_STATUS_COMPONENT_CODE, KFSConstants.BankTransactionsParameters.CR_STATUS_CLEARED_CODES);
+        }
+        return checkReconStatus;
+    }
+
 
     /*--------------------------------- Bank of America specific parameters -----------------------------*/
 

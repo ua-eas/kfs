@@ -182,7 +182,7 @@ public class BankTransactionDigesterAdapter {
     private Date convertValueDate(BankTransactionDigesterVO bankTransactionVO, List<String> errorList) {
         java.sql.Date date = null;
         if (StringUtils.isNotEmpty(bankTransactionVO.getAccountNumber())) {
-            SimpleDateFormat df = new SimpleDateFormat(KFSConstants.BankTransactionsFileConstants.TFILE_DATE_FORMAT);
+            SimpleDateFormat df = new SimpleDateFormat(KFSConstants.BankTransactionConstants.TFILE_DATE_FORMAT);
             try {
                 java.util.Date dt = df.parse(bankTransactionVO.getValueDate());
                 date = new java.sql.Date(dt.getTime());
