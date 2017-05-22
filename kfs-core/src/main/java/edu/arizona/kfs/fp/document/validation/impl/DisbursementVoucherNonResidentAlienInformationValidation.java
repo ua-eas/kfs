@@ -1,26 +1,6 @@
-/*
- * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- * 
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-package org.kuali.kfs.fp.document.validation.impl;
+package edu.arizona.kfs.fp.document.validation.impl;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.fp.businessobject.DisbursementVoucherNonResidentAlienTax;
@@ -31,22 +11,17 @@ import org.kuali.kfs.fp.document.DisbursementVoucherDocument;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.KfsAuthorizationConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocument;
-import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kns.document.authorization.TransactionalDocumentAuthorizer;
-import org.kuali.rice.kns.document.authorization.TransactionalDocumentPresentationController;
-import org.kuali.rice.kns.service.DocumentHelperService;
 import org.kuali.rice.krad.bo.PersistableBusinessObject;
 import org.kuali.rice.krad.service.BusinessObjectService;
 import org.kuali.rice.krad.util.GlobalVariables;
 import org.kuali.rice.krad.util.MessageMap;
 
-public class DisbursementVoucherNonResidentAlienInformationValidation extends GenericValidation implements DisbursementVoucherConstants {
+public class DisbursementVoucherNonResidentAlienInformationValidation extends org.kuali.kfs.fp.document.validation.impl.DisbursementVoucherNonResidentAlienInformationValidation implements DisbursementVoucherConstants {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DisbursementVoucherNonResidentAlienInformationValidation.class);
 
     private AccountingDocument accountingDocumentForValidation;
@@ -66,8 +41,8 @@ public class DisbursementVoucherNonResidentAlienInformationValidation extends Ge
 
         Person financialSystemUser = GlobalVariables.getUserSession().getPerson();
 
-        List<String> taxEditMode = this.getTaxEditMode();
-        if (!payeeDetail.isDisbVchrAlienPaymentCode() || !this.hasRequiredEditMode(document, financialSystemUser, taxEditMode)) {
+        List<String> taxEditMode = super.getTaxEditMode();
+        if (!payeeDetail.isDisbVchrAlienPaymentCode() || !super.hasRequiredEditMode(document, financialSystemUser, taxEditMode)) {
             return true;
         }
 
@@ -197,11 +172,6 @@ public class DisbursementVoucherNonResidentAlienInformationValidation extends Ge
                 }
                 else {
                     if ((!document.getDvNonResidentAlienTax().getIncomeClassCode().equals(NRA_TAX_INCOME_CLASS_ROYALTIES)) && (!document.getDvNonResidentAlienTax().getIncomeClassCode().equals(NRA_TAX_INCOME_CLASS_INDEPENDENT_CONTRACTOR))) {
-                        // If fed tax rate is greater than zero, the state tax rate should be greater than zero.
-                        if ((document.getDvNonResidentAlienTax().getFederalIncomeTaxPercent().isGreaterThan(KualiDecimal.ZERO)) && (document.getDvNonResidentAlienTax().getStateIncomeTaxPercent().isZero())) {
-                                    errors.putErrorWithoutFullErrorPath("DVNRATaxErrors", KFSKeyConstants.ERROR_DV_STATE_INCOME_TAX_PERCENT_SHOULD_BE_GREATER_THAN_ZERO );
-                                    return false;
-                        }
                         // If fed tax rate is zero, the state tax rate should be zero.
                         if ((document.getDvNonResidentAlienTax().getFederalIncomeTaxPercent().equals(KualiDecimal.ZERO)) && (!document.getDvNonResidentAlienTax().getStateIncomeTaxPercent().isZero())) {
                                     errors.putErrorWithoutFullErrorPath("DVNRATaxErrors", KFSKeyConstants.ERROR_DV_STATE_TAX_SHOULD_BE_ZERO );
@@ -217,7 +187,7 @@ public class DisbursementVoucherNonResidentAlienInformationValidation extends Ge
     /*examine check boxes*/
        
     // the 4 check boxes (Foreign Source, Treaty Exempt, Gross Up Payment, Exempt Under Other Code) shall be mutual exclusive
-    if( OneOrLessBoxesChecked(document) ) {
+    if (super.OneOrLessBoxesChecked(document)) {
 
         // if Foreign Source is checked
         if( nonResidentAlienTax.isForeignSourceIncomeCode() ) {
@@ -353,105 +323,19 @@ public class DisbursementVoucherNonResidentAlienInformationValidation extends Ge
 
         return isValid;
     }
-
-    private boolean stateAndFederalTaxesNotNull(DisbursementVoucherDocument document) {
-        if( (document.getDvNonResidentAlienTax().getFederalIncomeTaxPercent() != null) && (document.getDvNonResidentAlienTax().getStateIncomeTaxPercent() != null) ) {
-            return true;
-        }
-        return false;
-    }
-
-
-
-
-    /**
-     * determine whether the give user has permission to any edit mode defined in the given candidate edit modes
-     *
-     * @param accountingDocument the given accounting document
-     * @param financialSystemUser the given user
-     * @param candidateEditEditModes the given candidate edit modes
-     * @return true if the give user has permission to any edit mode defined in the given candidate edit modes; otherwise, false
-     */
-    protected boolean hasRequiredEditMode(AccountingDocument accountingDocument, Person financialSystemUser, List<String> candidateEditModes) {
-        DocumentHelperService documentHelperService = SpringContext.getBean(DocumentHelperService.class);
-        TransactionalDocumentAuthorizer documentAuthorizer = (TransactionalDocumentAuthorizer) documentHelperService.getDocumentAuthorizer(accountingDocument);
-        TransactionalDocumentPresentationController presentationController = (TransactionalDocumentPresentationController) documentHelperService.getDocumentPresentationController(accountingDocument);
-
-        Set<String> presentationControllerEditModes = presentationController.getEditModes(accountingDocument);
-        Set<String> editModes = documentAuthorizer.getEditModes(accountingDocument, financialSystemUser, presentationControllerEditModes);
-
-        for (String editMode : candidateEditModes) {
-            if (editModes.contains(editMode)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * define the tax edit mode name
-     *
-     * @return the tax edit mode name
-     */
-    protected List<String> getTaxEditMode() {
-        List<String> candidateEdiModes = new ArrayList<String>();
-        candidateEdiModes.add(KfsAuthorizationConstants.DisbursementVoucherEditMode.TAX_ENTRY);
-
-        return candidateEdiModes;
-    }
-
-    /**
-     * Sets the validationType attribute value.
-     *
-     * @param validationType The validationType to set.
-     */
+      
     public void setValidationType(String validationType) {
         this.validationType = validationType;
+        super.setValidationType(validationType);
     }
-
-    /**
-     * Sets the accountingDocumentForValidation attribute value.
-     *
-     * @param accountingDocumentForValidation The accountingDocumentForValidation to set.
-     */
+    
     public void setAccountingDocumentForValidation(AccountingDocument accountingDocumentForValidation) {
         this.accountingDocumentForValidation = accountingDocumentForValidation;
+        super.setAccountingDocumentForValidation(accountingDocumentForValidation);
     }
-
-    /**
-     * Gets the accountingDocumentForValidation attribute.
-     *
-     * @return Returns the accountingDocumentForValidation.
-     */
+   
     public AccountingDocument getAccountingDocumentForValidation() {
         return accountingDocumentForValidation;
     }
-
-    protected boolean OneOrLessBoxesChecked(DisbursementVoucherDocument document) {
-        MessageMap errors = GlobalVariables.getMessageMap();
-        /* If more then one of the four boxes (FS, TE, EUOC, GUP) is checked throw an error. */
-        int boxCnt = 0 ;
-        if(document.getDvNonResidentAlienTax().isForeignSourceIncomeCode()) {
-            boxCnt++;
-        }
-        if(document.getDvNonResidentAlienTax().isIncomeTaxTreatyExemptCode()) {
-            boxCnt++;
-        }
-        if(document.getDvNonResidentAlienTax().isTaxOtherExemptIndicator()) {
-            boxCnt++;
-        }
-        if(document.getDvNonResidentAlienTax().isIncomeTaxGrossUpCode()) {
-            boxCnt++;
-        }
-        if(boxCnt > 1) {
-//            errors.putError(KFSPropertyConstants.INCOME_TAX_TREATY_EXEMPT_CODE, KFSKeyConstants.ERROR_DV_ONLY_ONE_SELECTION_ALLOWED );
-            errors.putErrorWithoutFullErrorPath("DVNRATaxErrors", KFSKeyConstants.ERROR_DV_NRA_TAX_ONLY_ONE_SELECTION_ALLOWED);
-            return false;
-        }
-        else {
-            errors.removeFromErrorPath(KFSPropertyConstants.DV_NON_RESIDENT_ALIEN_TAX);
-            return true;
-        }
-    }
+   
 }
