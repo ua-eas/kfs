@@ -633,7 +633,7 @@ public class BankParametersAccessServiceImpl implements BankParametersAccessServ
      */
     public String getBofaNotesIndicator() {
         if (bofaNotesIndicator == null) {
-            bofaNotesRegexFormat = parameterService.getParameterValueAsString(DocumentCreationStep.class, KFSConstants.BankTransactionsParameters.BOFA_NOTES_INDICATOR);
+            bofaNotesIndicator = parameterService.getParameterValueAsString(DocumentCreationStep.class, KFSConstants.BankTransactionsParameters.BOFA_NOTES_INDICATOR);
         }
         return bofaNotesIndicator;
     }
