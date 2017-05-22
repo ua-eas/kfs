@@ -128,14 +128,14 @@ public class BankTransactionDigesterAdapter {
                 BofaCcRecordChecker bofaRecordChecker = new BofaCcRecordChecker(bankTransactionVO.getAccountNumber(), bankTransactionVO.getBaiType(), custRefNum, bankTransactionVO.getDescriptiveTxt6());
                 if (bofaRecordChecker.isBofaCreditCardRecord()) {
                     custRefNum = bofaRecordChecker.getCustRefNum();
-                    if (StringUtils.isNotEmpty(custRefNum)) {
+                    if (StringUtils.isEmpty(custRefNum)) {
                         //something went wrong with the identification of BofA customer reference number
                         errorList.add("ERROR: Could not parse Bank of America Customer Reference Number :" + bankTransactionVO.toString());
                         return null;
                     }
                 }
 
-                // All CustRefNumbers must be ten digits EXACTLY - if longer, truncate to first ten digits which is all that KFS needs
+                // All CustRefNumbers must be ten digits EXACTLY - if longer, truncate to last ten digits which is all that KFS needs
                 if (custRefNum.length() > 10) {
                     custRefNum = custRefNum.substring(custRefNum.length() - 10);
                 } else if (custRefNum.length() != 10) {
