@@ -58,7 +58,7 @@
        <div align="right"><kul:htmlAttributeLabel attributeEntry="${camsLocationAttributes.itemQuantity}" /></div>
     </th>
     <td class="datacell">
-        <kul:htmlControlAttribute attributeEntry="${camsLocationAttributes.itemQuantity}" property="${camsAssetLocationProperty}.itemQuantity" readOnly="${!(fullEntryMode or amendmentEntry) or poItemInactive}" tabindexOverride="${tabindexOverrideBase + 5}"/>
+        <kul:htmlControlAttribute attributeEntry="${camsLocationAttributes.itemQuantity}" property="${camsAssetLocationProperty}.itemQuantity" readOnly="${!(fullEntryMode or amendmentEntry) or !(ctr2 eq 'new') or poItemInactive}" tabindexOverride="${tabindexOverrideBase + 5}"/>        
     </td>
     <th>&nbsp;</th>
     <td class="datacell">&nbsp;</td>
@@ -70,7 +70,7 @@
     <td class="datacell">
         <kul:htmlControlAttribute attributeEntry="${camsLocationAttributes.campusCode}" 
             property="${camsAssetLocationProperty}.campusCode" readOnly="true"/>&nbsp;
-        <c:if test="${(fullEntryMode or amendmentEntry) && !poItemInactive}">
+        <c:if test="${(fullEntryMode or amendmentEntry) && !poItemInactive && (ctr2 eq 'new')}">        
             <kul:lookup boClassName="org.kuali.kfs.vnd.businessobject.CampusParameter" fieldConversions="campusCode:${camsAssetLocationProperty}.campusCode"/>
         </c:if>
     </td>
@@ -78,7 +78,7 @@
        <div align="right"><kul:htmlAttributeLabel attributeEntry="${camsLocationAttributes.capitalAssetCityName}" /></div>
     </th>
     <td class="datacell">
-        <kul:htmlControlAttribute attributeEntry="${camsLocationAttributes.capitalAssetCityName}" property="${camsAssetLocationProperty}.capitalAssetCityName" readOnly="${!offCampus or !(fullEntryMode or amendmentEntry) or poItemInactive}" tabindexOverride="${tabindexOverrideBase + 7}"/>
+        <kul:htmlControlAttribute attributeEntry="${camsLocationAttributes.capitalAssetCityName}" property="${camsAssetLocationProperty}.capitalAssetCityName" readOnly="${!offCampus or !(fullEntryMode or amendmentEntry) or !(ctr2 eq 'new') or poItemInactive}" tabindexOverride="${tabindexOverrideBase + 7}"/>        
     </td>
 </tr>
 <tr>
@@ -88,7 +88,7 @@
     <td class="datacell">
         <kul:htmlControlAttribute attributeEntry="${camsLocationAttributes.buildingCode}" 
             property="${camsAssetLocationProperty}.buildingCode" readOnly="true"/>&nbsp;
-        <c:if test="${(fullEntryMode or amendmentEntry) and !poItemInactive}">
+        <c:if test="${(fullEntryMode or amendmentEntry) and !poItemInactive and (ctr2 eq 'new')}">        
             <kul:lookup boClassName="org.kuali.kfs.sys.businessobject.Building"
                 lookupParameters="${camsAssetLocationProperty}.campusCode:campusCode" 
 	        	fieldConversions="buildingCode:${camsAssetLocationProperty}.buildingCode,campusCode:${camsAssetLocationProperty}.campusCode"
@@ -100,7 +100,7 @@
        <div align="right"><kul:htmlAttributeLabel attributeEntry="${camsLocationAttributes.capitalAssetStateCode}" /></div>
     </th>
     <td class="datacell">
-        <kul:htmlControlAttribute attributeEntry="${camsLocationAttributes.capitalAssetStateCode}" property="${camsAssetLocationProperty}.capitalAssetStateCode" readOnly="${!offCampus or !(fullEntryMode or amendmentEntry) or poItemInactive}" tabindexOverride="${tabindexOverrideBase + 7}"/>
+        <kul:htmlControlAttribute attributeEntry="${camsLocationAttributes.capitalAssetStateCode}" property="${camsAssetLocationProperty}.capitalAssetStateCode" readOnly="${!offCampus or !(fullEntryMode or amendmentEntry) or !(ctr2 eq 'new') or poItemInactive}" tabindexOverride="${tabindexOverrideBase + 7}"/>
     </td>
 </tr>
 <tr>
@@ -108,13 +108,13 @@
        <div align="right"><kul:htmlAttributeLabel attributeEntry="${camsLocationAttributes.capitalAssetLine1Address}" /></div>
     </th>
     <td class="datacell">
-        <kul:htmlControlAttribute attributeEntry="${camsLocationAttributes.capitalAssetLine1Address}" property="${camsAssetLocationProperty}.capitalAssetLine1Address" readOnly="${!offCampus or !(fullEntryMode or amendmentEntry) or poItemInactive}" tabindexOverride="${tabindexOverrideBase + 5}"/>
+        <kul:htmlControlAttribute attributeEntry="${camsLocationAttributes.capitalAssetLine1Address}" property="${camsAssetLocationProperty}.capitalAssetLine1Address" readOnly="${!offCampus or !(fullEntryMode or amendmentEntry) or !(ctr2 eq 'new') or poItemInactive}" tabindexOverride="${tabindexOverrideBase + 5}"/>
     </td>
     <th width="20%" align=right valign=middle class="bord-l-b">
        <div align="right"><kul:htmlAttributeLabel attributeEntry="${camsLocationAttributes.capitalAssetPostalCode}" /></div>
     </th>
     <td class="datacell">
-        <kul:htmlControlAttribute attributeEntry="${camsLocationAttributes.capitalAssetPostalCode}" property="${camsAssetLocationProperty}.capitalAssetPostalCode" readOnly="${!offCampus or !(fullEntryMode or amendmentEntry) or poItemInactive}" tabindexOverride="${tabindexOverrideBase + 7}"/>
+        <kul:htmlControlAttribute attributeEntry="${camsLocationAttributes.capitalAssetPostalCode}" property="${camsAssetLocationProperty}.capitalAssetPostalCode" readOnly="${!offCampus or !(fullEntryMode or amendmentEntry) or !(ctr2 eq 'new') or poItemInactive}" tabindexOverride="${tabindexOverrideBase + 7}"/>
     </td>
 </tr>
 <tr>
@@ -125,8 +125,8 @@
        <div align="right"><kul:htmlAttributeLabel attributeEntry="${camsLocationAttributes.buildingRoomNumber}" /></div>
     </th>
     <td class="datacell">
-        <kul:htmlControlAttribute attributeEntry="${camsLocationAttributes.buildingRoomNumber}" property="${camsAssetLocationProperty}.buildingRoomNumber" readOnly="${!(fullEntryMode or amendmentEntry) or poItemInactive}" tabindexOverride="${tabindexOverrideBase + 5}"/>&nbsp;
-        <c:if test="${(fullEntryMode or amendmentEntry) && !poItemInactive && !offCampus && buildingSelected}">
+        <kul:htmlControlAttribute attributeEntry="${camsLocationAttributes.buildingRoomNumber}" property="${camsAssetLocationProperty}.buildingRoomNumber" readOnly="${!(fullEntryMode or amendmentEntry) or !(ctr2 eq 'new') or poItemInactive}" tabindexOverride="${tabindexOverrideBase + 5}"/>&nbsp;
+        <c:if test="${(fullEntryMode or amendmentEntry) && !poItemInactive && !offCampus && buildingSelected && (ctr2 eq 'new')}">
             <kul:lookup boClassName="org.kuali.kfs.sys.businessobject.Room" 
                 readOnlyFields="buildingCode,campusCode"
                 lookupParameters="'Y':active,${camsAssetLocationProperty}.campusCode:campusCode,${camsAssetLocationProperty}.buildingCode:buildingCode" 
@@ -137,7 +137,7 @@
        <div align="right"><kul:htmlAttributeLabel attributeEntry="${camsLocationAttributes.capitalAssetCountryCode}" /></div>
     </th>
     <td class="datacell">
-        <kul:htmlControlAttribute attributeEntry="${camsLocationAttributes.capitalAssetCountryCode}" property="${camsAssetLocationProperty}.capitalAssetCountryCode" readOnly="${!offCampus or !(fullEntryMode or amendmentEntry) or poItemInactive}" tabindexOverride="${tabindexOverrideBase + 7}"/>
+        <kul:htmlControlAttribute attributeEntry="${camsLocationAttributes.capitalAssetCountryCode}" property="${camsAssetLocationProperty}.capitalAssetCountryCode" readOnly="${!offCampus or !(fullEntryMode or amendmentEntry) or !(ctr2 eq 'new') or poItemInactive}" tabindexOverride="${tabindexOverrideBase + 7}"/>
     </td>
 </tr>
 
@@ -145,3 +145,4 @@
 <tr>
 </tr>
 </table>
+

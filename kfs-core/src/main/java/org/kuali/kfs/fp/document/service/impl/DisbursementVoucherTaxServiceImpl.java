@@ -33,7 +33,6 @@ import org.kuali.kfs.fp.businessobject.NonResidentAlienTaxPercent;
 import org.kuali.kfs.fp.document.DisbursementVoucherConstants;
 import org.kuali.kfs.fp.document.DisbursementVoucherDocument;
 import org.kuali.kfs.fp.document.service.DisbursementVoucherTaxService;
-import org.kuali.kfs.fp.document.validation.impl.DisbursementVoucherNonResidentAlienInformationValidation;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -51,6 +50,8 @@ import org.kuali.rice.krad.service.BusinessObjectService;
 import org.kuali.rice.krad.service.MaintenanceDocumentService;
 import org.kuali.rice.krad.util.GlobalVariables;
 import org.kuali.rice.krad.util.MessageMap;
+
+import edu.arizona.kfs.fp.document.validation.impl.DisbursementVoucherNonResidentAlienInformationValidation;
 
 /**
  * This is the default implementation of the PaymentSourceExtractionService interface.

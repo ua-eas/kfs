@@ -576,7 +576,14 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
     <bean id="ProcurementCardTransactionDetail-transactionPostingDate" parent="ProcurementCardTransactionDetail-transactionPostingDate-parentBean">
         <property name="label" value="Post Date" />
     </bean>
-
+    
+    <bean id="ProcurementCardTransactionDetail-transactionDate" parent="ProcurementCardTransactionDetail-transactionDate-parentBean"/>   
+    <bean id="ProcurementCardTransactionDetail-transactionDate-parentBean" abstract="true" parent="GenericAttributes-genericDate">
+    	<property name="name" value="transactionDate"/>
+    	<property name="label" value="Transaction Date"/>
+   	 	<property name="shortLabel" value="Date"/>    
+    </bean> 
+  
     <bean id="ProcurementCardTransactionDetail-transactionReferenceNumber" parent="ProcurementCardTransactionDetail-transactionReferenceNumber-parentBean">
         <property name="label" value="Transaction ID Number" />
     </bean>
