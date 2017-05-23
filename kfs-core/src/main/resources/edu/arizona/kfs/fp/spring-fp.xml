@@ -305,6 +305,9 @@
     <property name="transactionPostingDao">
       <ref bean="transactionPostingDao"/>
     </property>
+    <property name="checkReconciliationFileType">
+      <ref bean="checkReconciliationFileType"/>
+    </property>
     <property name="bankDocServiceMap">
       <map>
         <entry key="CCR" value-ref="bankCreditCardReceiptDocumentService"/>
@@ -365,7 +368,7 @@
 
   <bean id="checkReconciliationFileType" class="edu.arizona.kfs.fp.batch.dataaccess.impl.CheckReconciliationFileType" scope="prototype">
     <property name="directoryPath">
-      <value>${staging.directory}/fp/bankTransactions/validated</value>
+      <value>${staging.directory}/recon/upload</value>
     </property>
     <property name="fileExtension">
       <value>data</value>

@@ -103,9 +103,14 @@ public class TransactionPostingServiceImpl implements TransactionPostingService 
         return errorList;
     }
 
-    public void initialize(){
-        //make sure a new instance of the CheckReconFileType is created before starting to post transactions to avoid file name colisions
-        setCheckReconciliationFileType(SpringContext.getBean(CheckReconciliationFileType.class));
+    /**
+     * If there is an output check recon file, it creates a .done for it and resets the timestamp for the filename.
+     */
+    public void finalizeCheckRecon(){
+        //create a .done file in CheckReconFileType
+        getCheckReconciliationFileType().createCheckReconDoneFile();
+        //make sure a new instance of the CheckReconFileType is created before starting to post transactions to avoid file name collisions
+        getCheckReconciliationFileType().resetFileNameTimestamp();
     }
 
 

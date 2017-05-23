@@ -129,13 +129,10 @@ public class BankTransactionsLoadServiceImpl implements BankTransactionsLoadServ
         CsvBankTransactionsValidatedFileType loadFile = getBankTransactionsValidatedFileType();
         List<String> errorList = new ArrayList<>();
         try {
-            //reset file names etc for the posting service to avoid collisions
-            getTransactionPostingService().initialize();
 
             // open the validated bankTransactionsFile for processing
             loadFile.openTransactionsFileForProcessing();
             BankTransaction bankTransaction = null;
-            BankTransactionsFileInfo bankFileInfo = loadFile.getBankFileInfo();
             while ((bankTransaction = loadFile.readNextBankTransaction(errorList)) != null && errorList.isEmpty()) {
                 //post the bank transaction...using TransactionPosting service.
                 errorList = getTransactionPostingService().postTransaction(bankTransaction);
@@ -149,15 +146,19 @@ public class BankTransactionsLoadServiceImpl implements BankTransactionsLoadServ
 
             //record processed file to avoid duplicate file uploads
             recordFileUpload(loadFile.getBankFileInfo());
+
+            //create .done file for check recon if needed and reset checkReconFilename Timestamp.
+            getTransactionPostingService().finalizeCheckRecon();
+
             // rename the transaction load file in load directory
             loadFile.renameProcessedFile();
-
         }catch (Exception e){
             LOG.error("ERROR in method postTransactionsFromBankFile. DocumentCreationJob will not continue!",e);
             throw e;
         } finally {
             loadFile.logErrorsToFile(errorList);
             loadFile.closeOpenedResources();
+
         }
 
         LOG.info("Completed postTransactionsFromBankFile in BankTransactionsLoadService");
