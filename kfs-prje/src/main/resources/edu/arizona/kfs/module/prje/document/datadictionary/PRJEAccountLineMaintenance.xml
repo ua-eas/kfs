@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:dd="http://rice.kuali.org/dd" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd         http://rice.kuali.org/dd         http://rice.kuali.org/dd/dd.xsd">
+
+  <bean id="PRJEAccountLineMaintenanceDocument" parent="PRJEAccountLineMaintenanceDocument-parentBean" />
+  <bean id="PRJEAccountLineMaintenanceDocument-parentBean" abstract="true" parent="MaintenanceDocumentEntry">
+    <property name="businessObjectClass" value="edu.arizona.kfs.module.prje.businessobject.PRJEAccountLine" />
+    <property name="maintainableClass" value="edu.arizona.kfs.module.prje.document.PRJEAccountLineMaintainableImpl" />
+    <property name="maintainableSections" >
+      <list>
+        <ref bean="PRJEAccountLineMaintenanceDocument-EditSetPRJEAccountLineMaintenanceDocument-EditSet" />
+      </list>
+    </property>
+    <property name="allowsNewOrCopy" value="true" />
+    <property name="lockingKeys" >
+      <list>
+        <value>rateAccountId</value>
+      </list>
+    </property>
+    <property name="documentTypeName" value="PRJL" />
+    <property name="workflowAttributes">
+        <ref bean="PRJEAccountLineMaintenanceDocument-workflowAttributes"/>
+    </property>
+  </bean>
+
+  <!-- Maintenance Section Definition -->
+
+  <bean id="PRJEAccountLineMaintenanceDocument-EditSetPRJEAccountLineMaintenanceDocument-EditSet" parent="PRJEAccountLineMaintenanceDocument-EditSetPRJEAccountLineMaintenanceDocument-EditSet-parentBean" />
+  <bean id="PRJEAccountLineMaintenanceDocument-EditSetPRJEAccountLineMaintenanceDocument-EditSet-parentBean" abstract="true" parent="MaintainableSectionDefinition">
+    <property name="id" value="Edit Prorate Journal Entry Account Line" />
+    <property name="title" value="Edit Prorate Journal Entry Account Line" />
+    <property name="maintainableItems" >
+      <list>
+        <bean parent="MaintainableFieldDefinition" p:name="rateAccountId" p:required="false" p:unconditionallyReadOnly="true" p:defaultValueFinderClass="edu.arizona.kfs.module.prje.businessobject.defaultvalue.NextPRJEAccountLineIdFinder" />
+        <bean parent="MaintainableFieldDefinition" p:required="true"  p:name="typeId" />
+        <bean parent="MaintainableFieldDefinition" p:required="true"  p:name="overrideProrateType" />
+        <bean parent="MaintainableFieldDefinition" p:required="false" p:name="overrideAmount" />
+        <bean parent="MaintainableFieldDefinition" p:required="false" p:name="overridePercent" />
+        <bean parent="MaintainableFieldDefinition" p:required="false" p:name="effectiveDateFrom" />
+        <bean parent="MaintainableFieldDefinition" p:required="false" p:name="effectiveDateTo" />
+        <bean parent="MaintainableFieldDefinition" p:required="true"  p:name="chartCode" />
+        <bean parent="MaintainableFieldDefinition" p:required="true"  p:name="accountNumber" />
+        <bean parent="MaintainableFieldDefinition" p:required="false" p:name="subAccountNumber" />
+        <bean parent="MaintainableFieldDefinition" p:required="true"  p:name="objectCode" />
+        <bean parent="MaintainableFieldDefinition" p:required="false" p:name="projectCode" />
+        <bean parent="MaintainableFieldDefinition" p:required="false" p:name="active" />
+      </list>
+    </property>
+  </bean>
+
+	<bean id="PRJEAccountLineMaintenanceDocument-workflowAttributes" parent="PRJEAccountLineMaintenanceDocument-workflowAttributes-parentBean" />
+	<bean id="PRJEAccountLineMaintenanceDocument-workflowAttributes-parentBean" abstract="true" parent="WorkflowAttributes" />
+	
+</beans>

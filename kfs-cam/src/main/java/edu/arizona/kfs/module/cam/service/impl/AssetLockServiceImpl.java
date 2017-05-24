@@ -6,6 +6,6 @@ public class AssetLockServiceImpl extends org.kuali.kfs.module.cam.service.impl.
 	
 	@Override
 	protected boolean isPurApDocument(String documentTypeName) {
-		return super.isPurApDocument(documentTypeName) || CabConstants.PRNC.equals(documentTypeName);
+		return super.isPurApDocument(documentTypeName) || CabConstants.PRNC.equals(documentTypeName) || CabConstants.CMNC.equals(documentTypeName);
     }
 }

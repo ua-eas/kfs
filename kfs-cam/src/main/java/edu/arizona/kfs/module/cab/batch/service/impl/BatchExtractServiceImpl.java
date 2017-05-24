@@ -12,7 +12,11 @@ import edu.arizona.kfs.module.cab.CabConstants;
 import edu.arizona.kfs.module.purap.document.VendorCreditMemoDocument;
 
 import org.kuali.kfs.module.cab.CabPropertyConstants;
+import org.kuali.kfs.module.cab.businessobject.GeneralLedgerEntry;
 import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableDocument;
+import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableItemAsset;
+import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableLineAssetAccount;
+import org.kuali.kfs.module.purap.businessobject.PurApAccountingLineBase;
 import org.kuali.kfs.module.purap.document.AccountsPayableDocumentBase;
 import edu.arizona.kfs.module.purap.document.PaymentRequestDocument;
 
@@ -35,7 +39,17 @@ public class BatchExtractServiceImpl extends org.kuali.kfs.module.cab.batch.serv
 		return PRNCDocument;
 	}
 	
-	
+    protected VendorCreditMemoDocument findCmncDocument(Entry entry) {
+        VendorCreditMemoDocument CMNCDocument = null;
+        Map<String, String> keys = new LinkedHashMap<String, String>();
+        keys.put(CabPropertyConstants.DOCUMENT_NUMBER, entry.getDocumentNumber());
+        Collection<VendorCreditMemoDocument> matchingCms = businessObjectService.findMatching(VendorCreditMemoDocument.class, keys);
+        if (matchingCms != null && matchingCms.size() == 1) {
+            CMNCDocument = matchingCms.iterator().next();
+        }
+        return CMNCDocument;
+    }
+
     @Override
     protected PurchasingAccountsPayableDocument createPurchasingAccountsPayableDocument(Entry entry) {
         AccountsPayableDocumentBase apDoc = null;
@@ -52,6 +66,10 @@ public class BatchExtractServiceImpl extends org.kuali.kfs.module.cab.batch.serv
     	else if (CabConstants.PRNC.equals(entry.getFinancialDocumentTypeCode())) {
 	    	// find PRNC
 	    	apDoc = findPrncDocument(entry);
+    	}
+    	else if (CabConstants.CMNC.equals(entry.getFinancialDocumentTypeCode())) {
+    		//find CMNC doc
+    		apDoc = findCmncDocument(entry);
     	}
     	
         if (apDoc == null) {
@@ -75,10 +93,10 @@ public class BatchExtractServiceImpl extends org.kuali.kfs.module.cab.batch.serv
             if (CabConstants.PREQ.equals(entry.getFinancialDocumentTypeCode()) || CabConstants.PRNC.equals(entry.getFinancialDocumentTypeCode())) {
                 purapLines.add(entry);
             }
-            else if (!CabConstants.CM.equals(entry.getFinancialDocumentTypeCode())) {
+            else if (!CabConstants.CM.equals(entry.getFinancialDocumentTypeCode()) && !CabConstants.CMNC.equals(entry.getFinancialDocumentTypeCode())) {
                 fpLines.add(entry);
             }
-            else if (CabConstants.CM.equals(entry.getFinancialDocumentTypeCode())) {
+            else if (CabConstants.CM.equals(entry.getFinancialDocumentTypeCode()) || CabConstants.CMNC.equals(entry.getFinancialDocumentTypeCode())) {
                 Map<String, String> fieldValues = new HashMap<String, String>();
                 fieldValues.put(CabPropertyConstants.GeneralLedgerEntry.DOCUMENT_NUMBER, entry.getDocumentNumber());
                 // check if vendor credit memo, then include as FP line
@@ -93,5 +111,22 @@ public class BatchExtractServiceImpl extends org.kuali.kfs.module.cab.batch.serv
                 }
             }
         }
+    }
+    
+    protected PurchasingAccountsPayableLineAssetAccount createPurchasingAccountsPayableLineAssetAccount(GeneralLedgerEntry generalLedgerEntry, PurchasingAccountsPayableDocument cabPurapDoc, PurApAccountingLineBase purApAccountingLine, PurchasingAccountsPayableItemAsset itemAsset) {
+        PurchasingAccountsPayableLineAssetAccount assetAccount = new PurchasingAccountsPayableLineAssetAccount();
+        assetAccount.setDocumentNumber(cabPurapDoc.getDocumentNumber());
+        assetAccount.setAccountsPayableLineItemIdentifier(itemAsset.getAccountsPayableLineItemIdentifier());
+        assetAccount.setCapitalAssetBuilderLineNumber(itemAsset.getCapitalAssetBuilderLineNumber());
+        assetAccount.setGeneralLedgerAccountIdentifier(generalLedgerEntry.getGeneralLedgerAccountIdentifier());
+        if (CabConstants.CM.equals(generalLedgerEntry.getFinancialDocumentTypeCode()) || CabConstants.CMNC.equals(generalLedgerEntry.getFinancialDocumentTypeCode())) {
+            assetAccount.setItemAccountTotalAmount(purApAccountingLine.getAmount().negated());
+        }
+        else {
+            assetAccount.setItemAccountTotalAmount(purApAccountingLine.getAmount());
+        }
+        assetAccount.setActivityStatusCode(CabConstants.ActivityStatusCode.NEW);
+        assetAccount.setVersionNumber(0L);
+        return assetAccount;
     }
 }
