@@ -176,5 +176,7 @@
         <property name="personService" ref="personService" />
         <property name="workflowDocumentService" ref="workflowDocumentService"/>
     </bean>
+    
+    <bean id="b2BShoppingService" parent="b2BShoppingService-parentBean" class="edu.arizona.kfs.module.purap.document.service.impl.B2BShoppingServiceImpl" />
 
 </beans>
