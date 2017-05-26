@@ -10,7 +10,8 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.businessobject.CreditMemoAccount;
-import org.kuali.kfs.module.purap.businessobject.CreditMemoItem;
+import edu.arizona.kfs.module.purap.businessobject.CreditMemoItem;
+import edu.arizona.kfs.module.purap.businessobject.PaymentRequestItem;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLine;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderItem;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
@@ -263,6 +264,24 @@ public class CreditMemoServiceImpl extends org.kuali.kfs.module.purap.document.s
         super.populateDocumentFromPO(cmDocument, expiredOrClosedAccountList);
         PurchaseOrderDocument purchaseOrderDocument = purchaseOrderService.getCurrentPurchaseOrder(cmDocument.getPurchaseOrderIdentifier());
         cmDocument.setUseTaxIndicator(purchaseOrderDocument.isUseTaxIndicator());
+    }
+
+    protected void populateItemLinesFromPreq(VendorCreditMemoDocument cmDocument, HashMap<String, ExpiredOrClosedAccountEntry> expiredOrClosedAccountList) {
+        PaymentRequestDocument preqDocument = (PaymentRequestDocument) cmDocument.getPaymentRequestDocument();
+
+        for (PaymentRequestItem preqItemToTemplate : (List<PaymentRequestItem>) preqDocument.getItems()) {
+            preqItemToTemplate.refreshReferenceObject(PurapPropertyConstants.ITEM_TYPE);
+
+            if (preqItemToTemplate.getItemType().isLineItemIndicator() && ((preqItemToTemplate.getItemType().isQuantityBasedGeneralLedgerIndicator() && preqItemToTemplate.getItemQuantity().isNonZero())
+                    || (preqItemToTemplate.getItemType().isAmountBasedGeneralLedgerIndicator() && preqItemToTemplate.getTotalAmount().isNonZero()))) {
+                cmDocument.getItems().add(new CreditMemoItem(cmDocument, preqItemToTemplate, preqItemToTemplate.getPurchaseOrderItem(), expiredOrClosedAccountList));
+            }
+        }
+
+        // add below the line items
+        purapService.addBelowLineItems(cmDocument);
+
+        cmDocument.fixItemReferences();
     }
 
 }
