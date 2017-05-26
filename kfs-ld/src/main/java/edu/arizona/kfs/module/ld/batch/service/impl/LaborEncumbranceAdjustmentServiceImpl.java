@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintStream;
 import java.sql.Date;
 import java.util.List;
@@ -89,13 +88,10 @@ public class LaborEncumbranceAdjustmentServiceImpl implements LaborEncumbranceAd
 
         try {
             // open all the files
-        	
-        	
             inputReader = new BufferedReader(new FileReader(inputFile));
             balanceReader = new BufferedReader(new FileReader(balanceFile));
             outputStream = new PrintStream(outputFile);
             errorStream = new PrintStream(errorFile);
-            //reconStream = new PrintStream(reconFile);
 
             LOG.info("All Files Opened - starting comparisons");
             // ok, now start up the iterators
@@ -118,17 +114,13 @@ public class LaborEncumbranceAdjustmentServiceImpl implements LaborEncumbranceAd
                 if ( LOG.isDebugEnabled() ) {
                     LOG.debug("Processing Lines:\nHCM: "+encumbranceLine + "\nBAL: "+balanceLine);
                 }
-                
-/*                String stub = balanceLine.substring(0,10);
-                if(stub.equalsIgnoreCase("IE16807961")){
-                    System.out.println("processing employee ID 16807961");
-                }*/
-
                 boolean encumbranceLineReadError = false;
                 boolean advanceEncumbranceFile = false;
                 boolean advanceBalanceFile = false;
                 if ( encumbranceLine != null ) {
-                    try {                    	
+                    try {
+                    	// first remove the invalid characters that's being sent from HCM.
+                    	encumbranceLine = encumbranceLine.replaceAll("[^\\p{ASCII}]", " ");
                         List<Message> parsingMessages = encumbranceEntryLine.setFromTextFileForBatch(encumbranceLine, lineNumber);
                         // if the record does not parse, skip, log to the error file and continue
                         if (!parsingMessages.isEmpty()) {
@@ -574,7 +566,6 @@ public class LaborEncumbranceAdjustmentServiceImpl implements LaborEncumbranceAd
 
     protected PersonService getPersonService() {
         if ( personService == null ) {
-            //personService = KIMServiceLocator.getPersonService();
             personService = SpringContext.getBean(org.kuali.rice.kim.api.identity.PersonService.class);
         }
         return personService;
