@@ -580,6 +580,9 @@ public class PaymentRequestDocument extends org.kuali.kfs.module.purap.document.
 		boolean value = super.customizeOffsetGeneralLedgerPendingEntry(accountingLine, explicitEntry, offsetEntry);
 		ParameterService parameterService = SpringContext.getBean(ParameterService.class);
 		String taxAccount = parameterService.getParameterValueAsString(PaymentRequestDocument.class, NRATaxParameters.FEDERAL_TAX_PARM_PREFIX + NRATaxParameters.TAX_PARM_ACCOUNT_SUFFIX);
+		if(offsetEntry != null && this.offsetUseTax != null) {
+            offsetEntry.setFinancialObjectTypeCode(offsetEntry.getFinancialObject().getFinancialObjectTypeCode());
+        }
 		if (offsetEntry.getAccountNumber().equals(taxAccount)) {
 			String glpeOffsetObjectCode = parameterService.getParameterValueAsString(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapParameterConstants.GENERAL_LEDGER_PENDING_ENTRY_OFFSET_OBJECT_CODE);
 			SystemOptions options = SpringContext.getBean(OptionsService.class).getOptions(explicitEntry.getUniversityFiscalYear());
