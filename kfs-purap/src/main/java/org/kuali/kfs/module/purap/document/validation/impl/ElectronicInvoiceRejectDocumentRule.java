@@ -34,6 +34,7 @@ import org.kuali.rice.krad.util.GlobalVariables;
  * Business rule(s) applicable to Payment Request documents.
  */
 public class ElectronicInvoiceRejectDocumentRule extends DocumentRuleBase {
+    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ElectronicInvoiceRejectDocumentRule.class);
 
     protected static KualiDecimal zero = KualiDecimal.ZERO;
     protected static BigDecimal ONE_HUNDRED = BigDecimal.valueOf(100);
@@ -60,6 +61,7 @@ public class ElectronicInvoiceRejectDocumentRule extends DocumentRuleBase {
         if (!eirDocument.isDocumentCreationInProgress()){
             isValid = isValid && SpringContext.getBean(ElectronicInvoiceHelperService.class).doMatchingProcess(eirDocument);
             if (isValid){
+                LOG.info("CREATE EIRT - org.kuali.kfs.module.purap.document.validation.impl.ElectronicInvoiceRejectDocumentRule.processBusinessRules");
                 SpringContext.getBean(ElectronicInvoiceHelperService.class).createPaymentRequest(eirDocument);
             }
         }
