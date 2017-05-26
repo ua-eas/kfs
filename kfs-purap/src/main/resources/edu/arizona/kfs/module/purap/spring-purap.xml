@@ -179,4 +179,6 @@
     
     <bean id="b2BShoppingService" parent="b2BShoppingService-parentBean" class="edu.arizona.kfs.module.purap.document.service.impl.B2BShoppingServiceImpl" />
 
+    <bean id="electronicInvoiceMatchingService" parent="electronicInvoiceMatchingService-parentBean" class="edu.arizona.kfs.module.purap.service.impl.ElectronicInvoiceMatchingServiceImpl" />
+
 </beans>

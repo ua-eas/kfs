@@ -7,4 +7,8 @@ public class PurapConstants extends org.kuali.kfs.module.purap.PurapConstants {
     public static final String B2B_DIRECT_SHIP_ROUTE_CODES_PARM = "B2B_DIRECT_SHIP_ROUTE_CODE";
     public static final String GLPE_USE_TAX_GENERATED_OFFSET_DESCRIPTION = "USE TAX GENERATED OFFSET";
 
+    public static class ElectronicInvoice extends org.kuali.kfs.module.purap.PurapConstants.ElectronicInvoice {
+        public final static String INVOICE_AMT_EMPTY = "IAEM";
+    }
+
 }
