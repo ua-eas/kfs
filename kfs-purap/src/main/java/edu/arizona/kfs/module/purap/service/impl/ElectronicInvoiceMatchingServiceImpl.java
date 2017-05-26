@@ -10,6 +10,7 @@ import org.kuali.kfs.module.purap.PurapConstants.PurchaseOrderStatuses;
 import org.kuali.kfs.module.purap.PurapParameterConstants;
 import org.kuali.kfs.module.purap.batch.ElectronicInvoiceStep;
 import org.kuali.kfs.module.purap.businessobject.ElectronicInvoiceRejectReason;
+import org.kuali.kfs.module.purap.businessobject.ElectronicInvoiceRejectReasonType;
 import org.kuali.kfs.module.purap.businessobject.PurApItem;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderItem;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
@@ -463,4 +464,32 @@ public class ElectronicInvoiceMatchingServiceImpl extends org.kuali.kfs.module.p
 
         }
     }
+
+    @Override
+    public ElectronicInvoiceRejectReason createRejectReason(String rejectReasonTypeCode, String extraDescription, String fileName) {
+
+        ElectronicInvoiceRejectReasonType rejectReasonType = getElectronicInvoiceRejectReasonType(rejectReasonTypeCode);
+        ElectronicInvoiceRejectReason eInvoiceRejectReason = new ElectronicInvoiceRejectReason();
+
+        if (rejectReasonType == null) {
+            throw new NullPointerException("Reject reason type for " + rejectReasonTypeCode + " not available in DB");
+        }
+        eInvoiceRejectReason.setInvoiceFileName(fileName);
+        eInvoiceRejectReason.setInvoiceRejectReasonTypeCode(rejectReasonTypeCode);
+
+        if (StringUtils.isNotEmpty(extraDescription)) {
+            String rejectReasonDesc = rejectReasonType.getInvoiceRejectReasonTypeDescription() + " (" + extraDescription + ")";
+            if (rejectReasonDesc.length() > 400) {
+                eInvoiceRejectReason.setInvoiceRejectReasonDescription(rejectReasonDesc.substring(0, 400));
+            } else {
+                eInvoiceRejectReason.setInvoiceRejectReasonDescription(rejectReasonDesc);
+            }
+        } else {
+            eInvoiceRejectReason.setInvoiceRejectReasonDescription(rejectReasonType.getInvoiceRejectReasonTypeDescription());
+        }
+
+        return eInvoiceRejectReason;
+
+    }
+
 }

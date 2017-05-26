@@ -49,6 +49,12 @@ public class ElectronicInvoiceRejectDocument extends org.kuali.kfs.module.purap.
             if (!(event instanceof SaveDocumentEvent)) {
                 throw new ValidationException("business rule evaluation failed");
             }
+            else {
+                LOG.error("validation error on document " + getDocumentNumber() + " bypassing save.");
+                LOG.error("validation error in file " + this.invoiceFileName + " document not saved.");
+                GlobalVariables.getMessageMap().clearErrorMessages();
+                throw new RuntimeException("business rule evaluation failed");
+            }
         } else if (GlobalVariables.getMessageMap().hasErrors()) {
             logErrors();
             if (!(event instanceof SaveDocumentEvent)) {
