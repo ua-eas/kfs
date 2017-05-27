@@ -29,6 +29,10 @@
         		<value>edu/arizona/kfs/module/cam/ojb-cam.xml</value>
         	</list>
         </property>
+        <property name="triggerNames">
+            <list>
+            </list>
+        </property>
     </bean>
 
     <bean id="assetDepreciationBatchJob" parent="unscheduledJobDescriptor">

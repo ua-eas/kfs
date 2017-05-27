@@ -7,12 +7,12 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.coreservice.api.parameter.Parameter;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterConstants;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import edu.arizona.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.identity.EmployeeDerivedRoleTypeServiceImpl;
 import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
-import org.kuali.kfs.coreservice.api.parameter.Parameter;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kim.api.identity.affiliation.EntityAffiliation;
 import org.kuali.rice.kim.api.identity.entity.EntityDefault;
 
@@ -65,6 +65,12 @@ public class UaEmployeeDerivedRoleTypeServiceImpl extends EmployeeDerivedRoleTyp
 	private static final String ROLE_11173_TITLE = UaKFSConstants.BASE_FINANCIAL_SYSTEM_USER_KIM_ROLE_NAME;
 
 	private static final String EDS_CONSTANTS_BEAN_NAME = "edsConstants";
+	
+	// UA KFS7 upgrade
+	private static final String EDS_RESPECTED_AND_ORDERED_AFFS = "EDS_RESPECTED_AND_ORDERED_AFFS";
+	private static final String EDS_ORDERED_ACTIVE_STATUS_INDICATORS = "EDS_ORDERED_ACTIVE_STATUS_INDICATORS";
+	private static final String EDS_PROFESSIONAL_AFFS = "EDS_PROFESSIONAL_AFFS";
+	private static final String EDS_RESTRICTED_EMPLOYEE_TYPES = "EDS_RESTRICTED_EMPLOYEE_TYPES";
 
 	private ParameterService parameterService;
 	private UaEdsConstants edsConstants;
@@ -82,9 +88,7 @@ public class UaEmployeeDerivedRoleTypeServiceImpl extends EmployeeDerivedRoleTyp
 				retval = false;
 			} else if (hasRestrictedEmployeeType(entity)) {
 				retval = false;
-			}
-			// TODO KFS7 upgrade comment out below lines for class casting exception and should investigate further
-			/*} else if (roleName.equals(ROLE_32_TITLE)) {
+			} else if (roleName.equals(ROLE_32_TITLE)) {
 				// Note: this will return true if the person has role 11173
 				retval = hasRole32(entity, principalId);
 			} else if (roleName.equals(ROLE_33_TITLE)) {
@@ -93,7 +97,7 @@ public class UaEmployeeDerivedRoleTypeServiceImpl extends EmployeeDerivedRoleTyp
 				retval = hasRole93(entity, principalId);
 			} else if (roleName.equals(ROLE_94_TITLE)) {
 				retval = hasRole94(entity, principalId);
-			}*/
+			}
 		}
 		return retval;
 	}
@@ -149,7 +153,7 @@ public class UaEmployeeDerivedRoleTypeServiceImpl extends EmployeeDerivedRoleTyp
 	private boolean hasActiveStatus(EntityDefault entity) {
 
 		// Compare status code against KFS params
-		Set<String> activeIndicators = getValueSetForParameter(getEdsConstants().getEdsOrderedActiveStatusIndicatorsParamKey());
+		Set<String> activeIndicators = getValueSetForParameter(EDS_ORDERED_ACTIVE_STATUS_INDICATORS);
 		String statusCode = entity.getEmployment().getEmployeeStatus().getCode();
 		boolean statusCodeIsActive = activeIndicators.contains(statusCode);
 
@@ -177,7 +181,7 @@ public class UaEmployeeDerivedRoleTypeServiceImpl extends EmployeeDerivedRoleTyp
 		}
 
 		// Collect all of our affiliations from KFS params
-		Set<String> respectedAffStrings = getValueSetForParameter(getEdsConstants().getEdsRespectedAndOrderedAffsParamKey());
+		Set<String> respectedAffStrings = getValueSetForParameter(EDS_RESPECTED_AND_ORDERED_AFFS);
 
 		// Do actual comparison
 		for (EntityAffiliation affInfo : affInfoList) {
@@ -198,7 +202,7 @@ public class UaEmployeeDerivedRoleTypeServiceImpl extends EmployeeDerivedRoleTyp
 	 */
 	private boolean hasProfessionalDesignation(EntityDefault entity) {
 		// Collect all of our affiliations from KFS params
-		Set<String> allProfessionalAffiliations = getValueSetForParameter(getEdsConstants().getEdsProfessionalAffsParamKey());
+		Set<String> allProfessionalAffiliations = getValueSetForParameter(EDS_PROFESSIONAL_AFFS);
 
 		// Ensure they have at least one affiliation
 		List<EntityAffiliation> affInfoList = entity.getAffiliations();
@@ -225,7 +229,7 @@ public class UaEmployeeDerivedRoleTypeServiceImpl extends EmployeeDerivedRoleTyp
 	 */
 	private boolean hasRestrictedEmployeeType(EntityDefault entity) {
 		String employeeType = entity.getEmployment().getEmployeeType().getCode();
-		Set<String> restrictedEmployeeTypes = getValueSetForParameter(getEdsConstants().getEdsRestrictedEmployeeTypesParamKey());
+		Set<String> restrictedEmployeeTypes = getValueSetForParameter(EDS_RESTRICTED_EMPLOYEE_TYPES);
 		return restrictedEmployeeTypes.contains(employeeType);
 	}
 
@@ -234,7 +238,7 @@ public class UaEmployeeDerivedRoleTypeServiceImpl extends EmployeeDerivedRoleTyp
 	 */
 	private Set<String> getValueSetForParameter(String parameterKey) {
 		String listAsCommaString = getStringForParameter(parameterKey);
-		String[] listAsArray = listAsCommaString.split(getEdsConstants().getKfsParamDelimiter());
+		String[] listAsArray = listAsCommaString.split(KFSConstants.MULTI_VALUE_SEPERATION_CHARACTER);
 		Set<String> resultSet = new HashSet<String>();
 		for (String result : listAsArray) {
 			resultSet.add(result);
@@ -243,28 +247,23 @@ public class UaEmployeeDerivedRoleTypeServiceImpl extends EmployeeDerivedRoleTyp
 	}
 
 	private String getStringForParameter(String parameterKey) {
-		String namespaceCode = getEdsConstants().getParameterNamespaceCode();
-		String detailTypeCode = getEdsConstants().getParameterDetailTypeCode();
-		Parameter parameter = getParameterService().getParameter(namespaceCode, detailTypeCode, parameterKey);
-		if (parameter == null) {
+		String namespaceCode = KFSConstants.ParameterNamespaces.KFS;
+		String detailTypeCode = ParameterConstants.LOOKUP_COMPONENT;
+		String parameter = getParameterService().getParameterValueAsString(namespaceCode, detailTypeCode, parameterKey);
+		if (StringUtils.isBlank(parameter)) {
 			String message = String.format("ParameterService returned null for parameterKey: '%s', namespaceCode: '%s', detailTypeCode: '%s'", parameterKey, namespaceCode, detailTypeCode);
 			throw new RuntimeException(message);
 		}
-		return parameter.getValue();
+		return parameter;
 	}
 
-	private ParameterService getParameterService() {
-		if (parameterService == null) {
-			parameterService = SpringContext.getBean(ParameterService.class);
-		}
+
+	public ParameterService getParameterService() {
 		return parameterService;
 	}
 
-	private UaEdsConstants getEdsConstants() {
-		if (this.edsConstants == null) {
-			this.edsConstants = GlobalResourceLoader.<UaEdsConstants> getService(EDS_CONSTANTS_BEAN_NAME);
-		}
-		return edsConstants;
+	public void setParameterService(ParameterService parameterService) {
+		this.parameterService = parameterService;
 	}
 
 }

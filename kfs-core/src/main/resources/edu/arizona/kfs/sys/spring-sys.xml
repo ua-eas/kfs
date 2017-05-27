@@ -175,6 +175,7 @@
     
     <!-- UA KFS7 upgrade moved  kimRoleTypeService bean override to kfs spring context instead of KIM -->
      <bean id="employeeDerivedRoleTypeService" parent="employeeDerivedRoleTypeService-parentBean" class="edu.arizona.kfs.sys.identity.UaEmployeeDerivedRoleTypeServiceImpl">
+     	<property name="parameterService" ref="parameterService" />
     </bean>    
     
     <!-- bean id="kimRoleTypeService" class=" edu.arizona.kfs.sys.identity.UaEmployeeDerivedRoleTypeServiceImpl">

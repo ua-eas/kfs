@@ -69,9 +69,6 @@
             <foreignkey field-ref="fundGroupCode"/>
             <foreignkey field-ref="subFundGroupCode"/>
         </reference-descriptor>
-        <reference-descriptor name="documentType" class-ref="org.kuali.rice.kew.doctype.bo.DocumentType" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
-            <foreignkey field-ref="documentTypeCode"/>
-        </reference-descriptor>
         <reference-descriptor name="objectType" class-ref="org.kuali.kfs.coa.businessobject.ObjectType" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
             <foreignkey field-ref="objectTypeCode"/>
         </reference-descriptor>
