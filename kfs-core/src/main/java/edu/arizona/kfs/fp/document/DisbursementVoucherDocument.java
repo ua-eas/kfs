@@ -25,11 +25,14 @@ import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.kfs.vnd.businessobject.VendorAddress;
 import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.kfs.vnd.businessobject.VendorHeader;
+import org.kuali.kfs.vnd.service.PhoneNumberService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
 import org.kuali.rice.kim.api.KimConstants;
+import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kns.document.authorization.TransactionalDocumentPresentationController;
 import org.kuali.rice.krad.document.DocumentAuthorizer;
 import org.kuali.rice.krad.service.BusinessObjectService;
@@ -502,5 +505,28 @@ public class DisbursementVoucherDocument extends org.kuali.kfs.fp.document.Disbu
 
     private OptionsService getOptionsService() {
         return SpringContext.getBean(OptionsService.class);
+    }
+      
+    @Override
+    public void toCopy() throws WorkflowException {
+        super.toCopy();
+        
+        // clear wire transfer Payee Account Number
+        super.getWireTransfer().setPayeeAccountNumber(null);     
+    }
+
+    @Override
+    public void initiateDocument() {
+        super.initiateDocument();
+
+        PhoneNumberService phoneNumberService = SpringContext.getBean(PhoneNumberService.class);
+        Person currentUser = GlobalVariables.getUserSession().getPerson();
+
+        String phoneNumber = currentUser.getPhoneNumber();
+        if (!phoneNumberService.isDefaultFormatPhoneNumber(phoneNumber)) {
+            phoneNumber = phoneNumberService.formatNumberIfPossible(phoneNumber);
+        }
+        setDisbVchrContactPhoneNumber(phoneNumber);
+
     }
 }

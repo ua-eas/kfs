@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:dd="http://rice.kuali.org/dd"
+	
+	xsi:schemaLocation="http://www.springframework.org/schema/beans     
+	    http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+  <bean id="PRJEBaseAccount" parent="PRJEBaseAccount-parentBean" />
+  <bean id="PRJEBaseAccount-parentBean" abstract="true" parent="BusinessObjectEntry">
+    <property name="businessObjectClass" value="edu.arizona.kfs.module.prje.businessobject.PRJEBaseAccount" />
+    <property name="titleAttribute" value="baseAccountId" />
+    <property name="lookupDefinition" ref="PRJEBaseAccount-lookupDefinition" />
+    <property name="inquiryDefinition" ref="PRJEBaseAccount-inquiryDefinition" />
+    <property name="objectLabel" value="Prorate Journal Entry From Line" />
+    <property name="attributes" >
+      <list>
+        <ref bean="PRJEBaseAccount-baseAccountId" />    
+        <ref bean="PRJEBaseAccount-typeId" />    
+        <ref bean="PRJEBaseAccount-baseChart" />    
+        <ref bean="PRJEBaseAccount-baseAccount" />    
+        <ref bean="PRJEBaseAccount-baseSubAccount" />
+        <ref bean="PRJEBaseAccount-fromChart" />    
+        <ref bean="PRJEBaseAccount-fromAccount" />    
+        <ref bean="PRJEBaseAccount-fromSubAccount" />
+        <ref bean="PRJEBaseAccount-fromObjectCode" />    
+        <ref bean="PRJEBaseAccount-frequency" />    
+        <ref bean="PRJEBaseAccount-prorateType" />
+        <ref bean="PRJEBaseAccount-proratePercent" />        
+        <ref bean="PRJEBaseAccount-prorateAmount" />
+        <ref bean="PRJEBaseAccount-active" />
+      </list>
+    </property>
+  </bean>
+
+  <!-- Attribute Definitions -->
+
+  <bean id="PRJEBaseAccount-baseAccountId" parent="PRJEBaseAccount-baseAccountId-parentBean" />
+  <bean id="PRJEBaseAccount-baseAccountId-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="name" value="baseAccountId" />
+    <property name="label" value="Base Account ID" />
+    <property name="shortLabel" value="Base Acct ID" />
+    <property name="maxLength" value="10" />
+    <property name="control" >
+      <bean parent="TextControlDefinition" p:size="10" />
+    </property>      
+  </bean>
+ 
+  <bean id="PRJEBaseAccount-typeId" parent="PRJEBaseAccount-typeId-parentBean" />
+  <bean id="PRJEBaseAccount-typeId-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="name" value="typeId" />
+    <property name="label" value="Type ID" />
+    <property name="shortLabel" value="Type ID" />
+    <property name="maxLength" value="10" />
+    <property name="control" >
+      <bean parent="TextControlDefinition" p:size="10" />
+    </property>      
+  </bean>
+  
+  <bean id="PRJEBaseAccount-baseChart" parent="PRJEBaseAccount-baseChart-parentBean" />
+  <bean id="PRJEBaseAccount-baseChart-parentBean" abstract="true" parent="Chart-chartOfAccountsCode">
+    <property name="name" value="baseChart" />
+    <property name="label" value="Base Chart Code" />
+    <property name="shortLabel" value="Base Chart" />
+  </bean>
+  
+  <bean id="PRJEBaseAccount-baseAccount" parent="PRJEBaseAccount-baseAccount-parentBean" />
+  <bean id="PRJEBaseAccount-baseAccount-parentBean" abstract="true" parent="Account-accountNumber">
+    <property name="name" value="baseAccount" />
+    <property name="label" value="Base Account Number" />
+    <property name="shortLabel" value="Base Account" />
+  </bean>
+  
+  <bean id="PRJEBaseAccount-baseSubAccount" parent="PRJEBaseAccount-baseSubAccount-parentBean" />
+  <bean id="PRJEBaseAccount-baseSubAccount-parentBean" abstract="true" parent="SubAccount-subAccountNumber">
+    <property name="name" value="baseSubAccount" />
+    <property name="label" value="Base Sub Account Number" />
+    <property name="shortLabel" value="Base Sub Account" />
+  </bean>
+  
+  <bean id="PRJEBaseAccount-fromChart" parent="PRJEBaseAccount-fromChart-parentBean" />
+  <bean id="PRJEBaseAccount-fromChart-parentBean" abstract="true" parent="Chart-chartOfAccountsCode">
+    <property name="name" value="fromChart" />
+    <property name="label" value="From Chart Code" />
+    <property name="shortLabel" value="From Chart" />
+  </bean>
+     
+  <bean id="PRJEBaseAccount-fromAccount" parent="PRJEBaseAccount-fromAccount-parentBean" />
+  <bean id="PRJEBaseAccount-fromAccount-parentBean" abstract="true" parent="Account-accountNumber">
+    <property name="name" value="fromAccount" />
+    <property name="label" value="From Account Number" />
+    <property name="shortLabel" value="From Account" />
+  </bean>
+ 
+  <bean id="PRJEBaseAccount-fromSubAccount" parent="PRJEBaseAccount-fromSubAccount-parentBean" />
+  <bean id="PRJEBaseAccount-fromSubAccount-parentBean" abstract="true" parent="SubAccount-subAccountNumber">        
+    <property name="name" value="fromSubAccount" />
+    <property name="label" value="From Sub Account Number" />
+    <property name="shortLabel" value="From Sub Account" />
+  </bean>
+          
+  <bean id="PRJEBaseAccount-fromObjectCode" parent="PRJEBaseAccount-fromObjectCode-parentBean" />
+  <bean id="PRJEBaseAccount-fromObjectCode-parentBean" abstract="true" parent="ObjectCode-financialObjectCode">
+    <property name="name" value="fromObjectCode" />
+    <property name="label" value="From Object Code" />
+    <property name="shortLabel" value="From Object" />
+  </bean>
+  
+  <bean id="PRJEBaseAccount-frequency" parent="PRJEBaseAccount-frequency-parentBean" />
+  <bean id="PRJEBaseAccount-frequency-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="name" value="frequency" />
+    <property name="label" value="Monthly Amount / Annual Amount" />
+    <property name="shortLabel" value="Monthly/Annual" />
+    <property name="maxLength" value="1" />
+    <property name="control" >
+       <bean parent="RadioControlDefinition" p:includeKeyInLabel="true" p:valuesFinderClass="edu.arizona.kfs.module.prje.lookup.Frequency" />
+    </property>
+  </bean>
+  
+  <bean id="PRJEBaseAccount-prorateType" parent="PRJEBaseAccount-prorateType-parentBean" />
+  <bean id="PRJEBaseAccount-prorateType-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="name" value="prorateType" />
+    <property name="label" value="Percent / Amount" />
+    <property name="shortLabel" value="Percent/Amount" />
+    <property name="maxLength" value="1" />
+    <property name="control" >
+       <bean parent="RadioControlDefinition" p:includeKeyInLabel="true"
+             p:valuesFinderClass="edu.arizona.kfs.module.prje.lookup.ProrateDebitType" />
+    </property> 
+  </bean>
+  
+  <bean id="PRJEBaseAccount-prorateAmount" parent="PRJEBaseAccount-prorateAmount-parentBean" />
+  <bean id="PRJEBaseAccount-prorateAmount-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="name" value="prorateAmount" />
+    <property name="label" value="Prorate Amount" />
+    <property name="shortLabel" value="Amount" />
+    <property name="maxLength" value="21" />
+    <property name="control">
+      <bean parent="TextControlDefinition" p:size="21" />
+    </property>  
+  </bean>
+    
+  <bean id="PRJEBaseAccount-proratePercent" parent="PRJEBaseAccount-proratePercent-parentBean" />
+  <bean id="PRJEBaseAccount-proratePercent-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="name" value="proratePercent" />
+    <property name="label" value="Prorate Percent" />
+    <property name="shortLabel" value="Percent" />
+    <property name="maxLength" value="9" />
+    <property name="control" >
+      <bean parent="TextControlDefinition" p:size="9" />
+    </property>  
+  </bean>
+
+  <bean id="PRJEBaseAccount-active" parent="PRJEBaseAccount-active-parentBean" />
+  <bean id="PRJEBaseAccount-active-parentBean" abstract="true" parent="GenericAttributes-activeIndicator">        
+    <property name="name" value="active" />
+  </bean>
+  
+  <!-- Business Object Lookup Definition -->
+
+  <bean id="PRJEBaseAccount-lookupDefinition" parent="PRJEBaseAccount-lookupDefinition-parentBean" />
+  <bean id="PRJEBaseAccount-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
+    <property name="title" value="Prorate Journal Entry From Account Lookup" />
+    <property name="defaultSort" >
+      <bean parent="SortDefinition">
+      </bean>
+    </property>
+    <property name="lookupFields" >
+      <list>
+        <bean parent="FieldDefinition" p:attributeName="typeId" />
+        <bean parent="FieldDefinition" p:attributeName="baseAccountId" />
+        <bean parent="FieldDefinition" p:attributeName="baseChart" />
+        <bean parent="FieldDefinition" p:attributeName="baseAccount" />
+        <bean parent="FieldDefinition" p:attributeName="baseSubAccount" />
+        <bean parent="FieldDefinition" p:attributeName="fromChart" />
+        <bean parent="FieldDefinition" p:attributeName="fromAccount" />
+        <bean parent="FieldDefinition" p:attributeName="fromSubAccount" />
+        <bean parent="FieldDefinition" p:attributeName="fromObjectCode" />
+        <bean parent="FieldDefinition" p:attributeName="frequency" />
+        <bean parent="FieldDefinition" p:attributeName="prorateType" />
+        <bean parent="FieldDefinition" p:attributeName="proratePercent" />
+        <bean parent="FieldDefinition" p:attributeName="prorateAmount" />
+        <bean parent="FieldDefinition" p:attributeName="active" />
+      </list>
+    </property>
+    <property name="resultFields" >
+      <list>
+        <bean parent="FieldDefinition" p:attributeName="typeId" />    
+        <bean parent="FieldDefinition" p:attributeName="baseAccountId" />
+        <bean parent="FieldDefinition" p:attributeName="baseChart" />
+        <bean parent="FieldDefinition" p:attributeName="baseAccount" />
+        <bean parent="FieldDefinition" p:attributeName="baseSubAccount" />
+        <bean parent="FieldDefinition" p:attributeName="fromChart" />
+        <bean parent="FieldDefinition" p:attributeName="fromAccount" />
+        <bean parent="FieldDefinition" p:attributeName="fromSubAccount" />
+        <bean parent="FieldDefinition" p:attributeName="fromObjectCode" />
+        <bean parent="FieldDefinition" p:attributeName="frequency" />
+        <bean parent="FieldDefinition" p:attributeName="prorateType" />
+        <bean parent="FieldDefinition" p:attributeName="proratePercent" />
+        <bean parent="FieldDefinition" p:attributeName="prorateAmount" />
+        <bean parent="FieldDefinition" p:attributeName="active" />
+      </list>
+    </property>
+  </bean>
+
+  <!-- Business Object Inquiry Definition -->
+
+  <bean id="PRJEBaseAccount-inquiryDefinition" parent="PRJEBaseAccount-inquiryDefinition-parentBean"/>
+  <bean id="PRJEBaseAccount-inquiryDefinition-parentBean" abstract="true" parent="InquiryDefinition">
+    <property name="title" value="Pro-rate Journal From Account"/>
+    <property name="inquirySections">
+      <list>
+        <bean parent="InquirySectionDefinition">
+          <property name="title" value="Pro-rate Journal From Account"/>
+          <property name="numberOfColumns" value="1"/>
+          <property name="inquiryFields">
+            <list>
+		        <bean parent="FieldDefinition" p:attributeName="typeId" />    
+		        <bean parent="FieldDefinition" p:attributeName="baseAccountId" />
+		        <bean parent="FieldDefinition" p:attributeName="baseChart" />
+		        <bean parent="FieldDefinition" p:attributeName="baseAccount" />
+		        <bean parent="FieldDefinition" p:attributeName="baseSubAccount" />
+		        <bean parent="FieldDefinition" p:attributeName="fromChart" />
+		        <bean parent="FieldDefinition" p:attributeName="fromAccount" />
+		        <bean parent="FieldDefinition" p:attributeName="fromSubAccount" />
+		        <bean parent="FieldDefinition" p:attributeName="fromObjectCode" />
+		        <bean parent="FieldDefinition" p:attributeName="frequency" />
+		        <bean parent="FieldDefinition" p:attributeName="prorateType" />
+		        <bean parent="FieldDefinition" p:attributeName="proratePercent" />
+		        <bean parent="FieldDefinition" p:attributeName="prorateAmount" />
+		        <bean parent="FieldDefinition" p:attributeName="active" />
+            </list>
+          </property>
+        </bean>
+      </list>
+    </property>
+    <property name="inquirableClass" value="org.kuali.kfs.sys.businessobject.inquiry.KfsInquirableImpl"/>
+  </bean>
+</beans>

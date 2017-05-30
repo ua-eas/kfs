@@ -88,4 +88,6 @@
 	<bean id="purApReportLookupableHelperService" scope="prototype" parent="purApReportLookupableHelperService-parentBean" class="edu.arizona.kfs.module.cab.businessobject.lookup.PurApReportLookupableHelperServiceImpl">
 	</bean>
 	
+    <bean id="capitalAssetBuilderModuleService"  parent="capitalAssetBuilderModuleService-parentBean" class="edu.arizona.kfs.module.cab.service.impl.CapitalAssetBuilderModuleServiceImpl" />
+
 </beans>

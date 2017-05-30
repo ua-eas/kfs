@@ -34,9 +34,20 @@
 			</list>
 		</property>
     </bean>
+    
+    <bean id="paymentFileService" parent="paymentFileService-parentBean" class="edu.arizona.kfs.pdp.service.impl.PaymentFileServiceImpl">
+		<property name="parameterService" ref="parameterService" />
+		<property name="customerProfileService" ref="pdpCustomerProfileService"/>
+		<property name="batchInputFileService" ref="batchInputFileService"/>
+		<property name="paymentFileValidationService" ref="paymentFileValidationService" />
+		<property name="businessObjectService" ref="businessObjectService"/>
+		<property name="dateTimeService" ref="dateTimeService" />
+		<property name="paymentFileEmailService" ref="pdpEmailService"/>
+		<property name="configurationService" ref="kualiConfigurationService" />
+		<property name="outgoingDirectoryName" value="${staging.directory}/pdp/paymentLoadSummary"/>
+	</bean>
 
-    <bean id="paymentFileValidationService" parent="paymentFileValidationService-parentBean"/>
-    <bean id="paymentFileValidationService-parentBean" class="edu.arizona.kfs.pdp.service.impl.PaymentFileValidationServiceImpl" abstract="true">
+    <bean id="paymentFileValidationService" parent="paymentFileValidationService-parentBean" class="edu.arizona.kfs.pdp.service.impl.PaymentFileValidationServiceImpl">
         <property name="customerProfileService" ref="pdpCustomerProfileService"/>
         <property name="paymentFileLoadDao" ref="pdpPaymentFileLoadDao"/>
         <property name="parameterService" ref="parameterService"/>
@@ -52,6 +63,7 @@
         <property name="documentTypeService" ref="rice.kew.documentTypeService"/>
         <property name="dataDictionaryService" ref="dataDictionaryService"/>
         <property name="globalTransactionEditService" ref="globalTransactionEditService" />
+        <property name="vendorService" ref="vendorService" />
     </bean>
 
     <bean id="pdpLoadPaymentsJob" parent="unscheduledJobDescriptor">
@@ -165,6 +177,11 @@
             </list>
         </property>
     </bean>
+    
+    <bean id="pdpLoadPaymentsStep" class="edu.arizona.kfs.pdp.batch.LoadPaymentsStep" parent="step">
+		<property name="paymentFileService" ref="paymentFileService"/>
+		<property name="paymentInputFileType" ref="paymentInputFileType" />
+	</bean>
     
     <bean id="processShippingInvoiceJob" parent="unscheduledJobDescriptor">
 		<property name="steps">

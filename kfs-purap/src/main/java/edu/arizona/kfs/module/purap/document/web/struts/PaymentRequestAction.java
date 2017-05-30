@@ -3,6 +3,7 @@ package edu.arizona.kfs.module.purap.document.web.struts;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,10 +13,15 @@ import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.module.purap.PurapConstants.AccountsPayableDocumentStrings;
+import org.kuali.kfs.module.purap.PurapConstants.CMDocumentsStrings;
+import org.kuali.kfs.module.purap.businessobject.CreditMemoView;
 import org.kuali.kfs.module.purap.businessobject.PurApItem;
 import org.kuali.kfs.module.purap.businessobject.PurApItemUseTax;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
+import org.kuali.kfs.module.purap.document.VendorCreditMemoDocument;
 import org.kuali.kfs.module.purap.service.PurapAccountingService;
+import org.kuali.kfs.module.purap.util.PurQuestionCallback;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -23,6 +29,7 @@ import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kns.question.ConfirmationQuestion;
 import org.kuali.rice.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.rice.krad.service.DocumentService;
 
 import edu.arizona.kfs.fp.service.DisbursementVoucherInvoiceService;
 import edu.arizona.kfs.module.purap.PurapConstants;
@@ -39,6 +46,9 @@ public class PaymentRequestAction extends org.kuali.kfs.module.purap.document.we
     private static transient volatile DisbursementVoucherInvoiceService disbursementVoucherInvoiceService;
     private static transient volatile ConfigurationService configurationService;
 
+    private static final String CANCEL_AP = "cancelAP";
+    private static final String CANCEL_PREQ_WITH_CM_SUFFIX = "cancelPREQwithCM";
+
     private static DisbursementVoucherInvoiceService getDisbursementVoucherInvoiceService() {
         if (disbursementVoucherInvoiceService == null) {
             disbursementVoucherInvoiceService = SpringContext.getBean(DisbursementVoucherInvoiceService.class);
@@ -52,7 +62,6 @@ public class PaymentRequestAction extends org.kuali.kfs.module.purap.document.we
         }
         return configurationService;
     }
-
 
     protected ActionForward performDuplicatePaymentRequestAndEncumberFiscalYearCheck(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response, PaymentRequestDocument paymentRequestDocument) throws Exception {
         ActionForward forwardIfDuplicatePREQ = super.performDuplicatePaymentRequestAndEncumberFiscalYearCheck(mapping, form, request, response, paymentRequestDocument);
@@ -193,4 +202,39 @@ public class PaymentRequestAction extends org.kuali.kfs.module.purap.document.we
             loadIncomeTypesFromAccountLines(kualiDocumentFormBase);
         }
     }
+
+    @Override
+    protected ActionForward askCancelQuestion(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        PaymentRequestForm apForm = (PaymentRequestForm) form;
+
+        String operation = "Cancel ";
+        PurQuestionCallback callback = cancelCallbackMethod();
+        TreeMap<String, PurQuestionCallback> questionsAndCallbacks = new TreeMap<String, PurQuestionCallback>();
+
+        // Look up any CMs for this PREQ
+        List<CreditMemoView> cmvs = apForm.getPaymentRequestDocument().getRelatedViews().getRelatedCreditMemoViews();
+
+        // build a message string if any found
+        if (!cmvs.isEmpty() && cmvs.get(0) != null) {
+            questionsAndCallbacks.put(CANCEL_PREQ_WITH_CM_SUFFIX, callback);
+            StringBuilder cmMessageList = new StringBuilder();
+            for (CreditMemoView cmv : cmvs) {
+                VendorCreditMemoDocument cm = (VendorCreditMemoDocument) SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(cmv.getDocumentNumber());
+                String cmStatusCode = cm.getDocumentHeader().getWorkflowDocument().getStatus().getCode();
+                cmMessageList.append("Doc #: ");
+                cmMessageList.append(cmv.getDocumentNumber());
+                cmMessageList.append(" - Status: ");
+                cmMessageList.append(cmStatusCode);
+                cmMessageList.append(", ");
+            }
+            cmMessageList.setLength(cmMessageList.length() - 2);
+            operation = cmMessageList.toString();
+
+        } else {
+            questionsAndCallbacks.put(CANCEL_AP, callback);
+        }
+
+        return askQuestionWithInput(mapping, form, request, response, CMDocumentsStrings.CANCEL_CM_QUESTION, AccountsPayableDocumentStrings.CANCEL_NOTE_PREFIX, operation, PurapKeyConstants.CREDIT_MEMO_QUESTION_CANCEL_DOCUMENT, questionsAndCallbacks, PurapKeyConstants.AP_QUESTION_PREFIX, mapping.findForward(KFSConstants.MAPPING_PORTAL));
+    }
+
 }
