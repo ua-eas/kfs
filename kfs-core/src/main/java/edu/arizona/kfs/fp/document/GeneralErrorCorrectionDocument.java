@@ -3,8 +3,8 @@ package edu.arizona.kfs.fp.document;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -20,178 +20,187 @@ import org.kuali.kfs.sys.document.validation.event.AddAccountingLineEvent;
 import org.kuali.kfs.sys.document.validation.event.DeleteAccountingLineEvent;
 import org.kuali.kfs.sys.document.validation.event.ReviewAccountingLineEvent;
 import org.kuali.kfs.sys.document.validation.event.UpdateAccountingLineEvent;
-import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
 import org.kuali.rice.krad.bo.PersistableBusinessObject;
 import org.kuali.rice.krad.document.TransactionalDocument;
+import org.kuali.rice.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.rice.krad.util.ObjectUtils;
 
 import edu.arizona.kfs.fp.businessobject.ErrorCertification;
+import edu.arizona.kfs.fp.businessobject.GECSourceAccountingLine;
+import edu.arizona.kfs.fp.businessobject.GECTargetAccountingLine;
+import edu.arizona.kfs.fp.document.service.EntryGecDocNumUpdaterService;
 import edu.arizona.kfs.gl.businessobject.GecEntryRelationship;
 import edu.arizona.kfs.sys.KFSConstants;
 
-/**
- * This is the business object that represents the UA modifications for the GeneralErrorCorrectionDocument. This is a transactional document that
- * will eventually post transactions to the G/L. It integrates with workflow and also contains two groupings of accounting lines:
- * from and to. From lines are the source lines, to lines are the target lines.
- */
 
 public class GeneralErrorCorrectionDocument extends org.kuali.kfs.fp.document.GeneralErrorCorrectionDocument {
     private static final long serialVersionUID = 3559591546723165167L;
-    private static  final Set<String>  GEC_ACTIVE_ROUTE_STATUS_CODES = KFSConstants.GEC_ACTIVE_ROUTE_STATUS_CODES;
+    private static final Set<String> GEC_ACTIVE_ROUTE_STATUS_CODES = KFSConstants.GEC_ACTIVE_ROUTE_STATUS_CODES;
 
     private Set<GecEntryRelationship> gecEntryRelationships;
     private ErrorCertification errorCertification;
     private Integer errorCertID;
     private DebitDeterminerService debitService;
+    private EntryGecDocNumUpdaterService entryGecDocNumUpdaterService;
 
-
-    public GeneralErrorCorrectionDocument() {
-    	super();
-    }
-
-
-    public ErrorCertification getErrorCertification() {
-    	return errorCertification;
-    }
-
-
-    public void setErrorCertification(ErrorCertification errorCertification) {
-    	this.errorCertification = errorCertification;
-    }
-
-
-    public Integer getErrorCertID() {
-    	return errorCertID;
-    }
-
-
-    public void setErrorCertID(Integer errorCertID) {
-    	this.errorCertID = errorCertID;
-    	this.errorCertification.setErrorCertID(errorCertID);
-    }
 
 
     public void toCopy() throws WorkflowException {
-    	super.toCopy();
-    	
-    	errorCertID = null;
-    	ErrorCertification oldErrorCertification = errorCertification;
-    	errorCertification = new ErrorCertification();
-    	errorCertification.setExpenditureDescription(oldErrorCertification.getExpenditureDescription());
-    	errorCertification.setExpenditureProjectBenefit(oldErrorCertification.getExpenditureProjectBenefit());
-    	errorCertification.setErrorDescription(oldErrorCertification.getErrorDescription());
-    	errorCertification.setErrorCorrectionReason(oldErrorCertification.getErrorCorrectionReason());
-    }
+        super.toCopy();
 
-
-    /**
-     * The map key is a combination of the accounting line sequence number and type (e.g. 1F)
-     *
-     * @return
-     */
-    public Map<String, Entry> getEntries() {
-        // populate Entries on document load
-        Map<String, Entry> entries = new TreeMap<String, Entry>();
-        if (getGecEntryRelationships() != null && !getGecEntryRelationships().isEmpty()) {
-            for (GecEntryRelationship rel : getGecEntryRelationships()) {
-                entries.put(rel.getGecAcctLineSeqNumber() + rel.getGecFdocLineTypeCode(), rel.getEntry());
-            }
-        }
-
-        return entries;
+        errorCertID = null;
+        ErrorCertification oldErrorCertification = errorCertification;
+        errorCertification = new ErrorCertification();
+        errorCertification.setExpenditureDescription(oldErrorCertification.getExpenditureDescription());
+        errorCertification.setExpenditureProjectBenefit(oldErrorCertification.getExpenditureProjectBenefit());
+        errorCertification.setErrorDescription(oldErrorCertification.getErrorDescription());
+        errorCertification.setErrorCorrectionReason(oldErrorCertification.getErrorCorrectionReason());
     }
 
 
     public Entry getEntryByAccountingLine(AccountingLine line) {
         if (line != null) {
-            return getEntries().get(line.getSequenceNumber() + line.getFinancialDocumentLineTypeCode());
+            return getEntryMap().get(line.getObjectId());
         }
 
         return null;
     }
 
 
+    /*
+     * Overridden to deal w/ Entry and GecEntryRelatioship association handeling
+     */
     @Override
     public void doRouteStatusChange(DocumentRouteStatusChange statusChangeEvent) {
-        if (getGecEntryRelationships() != null) {
-            String docRouteStatusCode = this.getDocumentHeader().getWorkflowDocument().getStatus().getCode();
-            for (GecEntryRelationship rel : getGecEntryRelationships()) {
-                rel.setGecDocRouteStatus(docRouteStatusCode);
-            }
-            updateEntryGecDocNumber(docRouteStatusCode);
-        }
         super.doRouteStatusChange(statusChangeEvent);
+
+        updateEntriesForRelationshipChange();
+        resequenceLinesAndRelationships();
     }
 
 
-    /* If we go into a status with live relationships, then the entry should be associated
-     * to this document, so that subsequent GEC docs can't pick them up. Similarly, if this
-     * GEC is being cancelled or disapproved, then the enry needs to be disosciated with this
-     * doc. This is done by virtue of if any GecEntryRelationship records exist, and the actual
-     * status being entered.
+    /*
+     * Resquence the lines, but also keep GecEntryRelationship's up to date with seq changes
      */
-    private void updateEntryGecDocNumber(String docRouteStatusCode) {
+    @SuppressWarnings("unchecked")//AccountingLine
+    public void resequenceLinesAndRelationships() {
 
-        if (KewApiConstants.ROUTE_HEADER_FINAL_CD.equals(docRouteStatusCode)) {
-            /*
-             * Exceptional Case:
-             * When a GEC goes to FINAL, that GEC doc should forever be tied to
-             * its GLEs, since after going FINAL, those GLEs should not be able to
-             * have another GEC against it. This means we make sure when the FINAL
-             * transition occurs, we leave the gecDocNumber alone on the GLEs of this
-             * doc. This effectively blocks selection of the GLE in the
-             * GecEntryLookupAction, thus blocks re-association. Note, that the
-             * gecDocumentNumber will have been already been set on the GLEs from
-             * previous transitions, so we simply stop here.
-             */
-            return;
-        }
-
-        if (getGecEntryRelationships() == null) {
-            // If no relationships have been made, nothing to update
-            return;
-        }
-
-        // This is what we will persist
-        List<Entry> entries = new LinkedList<Entry>();
-
-        // Go through entries and either associate or dissassociate the doc from the entry
-        for (GecEntryRelationship relationship : getGecEntryRelationships()) {
-            Entry entry = relationship.getEntry();
-            if (GEC_ACTIVE_ROUTE_STATUS_CODES.contains(docRouteStatusCode)) {
-                // The status warrants locking the Entry to this doc
-                entry.setGecDocumentNumber(relationship.getGecDocumentNumber());
-            } else {
-                // Doc has been cancelled or disapproved, need to dissociate entry from doc
-                entry.setGecDocumentNumber(null);
+        // Temporarily preserve our sequence numbers
+        Map<AccountingLine, GecEntryRelationship> sourceLineToRelMap = new HashMap<>();
+        for (Object o : getSourceAccountingLines()) {
+            AccountingLine line = (AccountingLine) o;
+            GecEntryRelationship rel = getRelationshipByLine(line);
+            if (rel != null) {
+                // Only source lines have a relationships, as target lines don't have their GLE
+                // yet (has to be approved, then put through batch, where the GLPE will be processed).
+                sourceLineToRelMap.put(line, rel);
             }
-            entries.add(entry);
         }
 
-        // Persist any change
-        if (entries.size() > 0) {
-            getBusinessObjectService().save(entries);
+        // Now sequence the source lines
+        int newIndex = 1;
+        for (Object line : getSourceAccountingLines()) {
+            ((AccountingLine) line).setSequenceNumber(newIndex++);
+        }
+        super.setNextSourceLineNumber(newIndex);
+
+        // Next the target lines
+        newIndex = 1;
+        for (Object line : getTargetAccountingLines()) {
+            ((AccountingLine) line).setSequenceNumber(newIndex++);
+        }
+        super.setNextTargetLineNumber(newIndex);
+
+        // Now we can set the relationships w/ the new seqs
+        List<GecEntryRelationship> relsToUpdate = new ArrayList<>();
+        for (AccountingLine line : sourceLineToRelMap.keySet()) {
+            GecEntryRelationship rel = sourceLineToRelMap.get(line);
+            rel.setGecAcctLineSeqNumber(line.getSequenceNumber());
+            relsToUpdate.add(rel);
+        }
+
+        String docRouteStatusCode = this.getDocumentHeader().getWorkflowDocument().getStatus().getCode();
+        if (!GEC_ACTIVE_ROUTE_STATUS_CODES.contains(docRouteStatusCode)) {
+            // This went to a status that should release all GLEs, so we should remove the relationships too.
+            // Note: The logic here covers the "recall+cancel" scenario, where no lines are deleted, but
+            //       the relationships still need to be cleared. Likewise would be the case for "disapprove" action.
+            getBusinessObjectService().delete(new ArrayList<PersistableBusinessObject>(getGecEntryRelationships()));
+            getGecEntryRelationships().clear();
+            LOG.info(String.format("Deleted all GecEntryRelationships for docNum: '%s' going to status '%s'", getDocumentNumber(), docRouteStatusCode));
+        } else if (relsToUpdate.size() > 0) {
+            // Good doc status, update any of the line fields that may have changed
+            getBusinessObjectService().save(relsToUpdate);
+            LOG.info("Updated gecEntryRelationShips: " + relsToUpdate);
         }
 
     }
 
 
-    public Set<GecEntryRelationship> getGecEntryRelationships() {
-        return gecEntryRelationships;
+    /*
+     * Overridden to use objectId as map key instead of lineNum+lineType; this was
+     * necessary since the default behavior didn't handle resequencing line numbers between
+     * saves and submits correctly.
+     *
+     * Note also: This method is copied from super, only changing how the map
+     *            keys were generated (and a little cleanup).
+     */
+    @Override
+    protected List generateEvents(List persistedLines, List currentLines, String errorPathPrefix, TransactionalDocument document) {
+        @SuppressWarnings("unchecked")// persistedLines is not parameterized from super
+        Map<String, AccountingLine> persistedLineMap = buildLineMap(persistedLines);
+        List<AccountingLineEvent> lineEvents = new ArrayList<>();
+
+        // (iterate through current lines to detect additions and updates, removing affected lines from persistedLineMap as we go
+        // so deletions can be detected by looking at whatever remains in persistedLineMap)
+        int index = 0;
+        for (Iterator i = currentLines.iterator(); i.hasNext(); index++) {
+            String indexedErrorPathPrefix = errorPathPrefix + "[" + index + "]";
+            AccountingLine currentLine = (AccountingLine) i.next();
+            String key = currentLine.getObjectId();
+
+            AccountingLine persistedLine = persistedLineMap.get(key);
+            // if line is both current and persisted...
+            if (persistedLine != null) {
+                // ...check for updates
+                if (!currentLine.isLike(persistedLine)) {
+                    UpdateAccountingLineEvent updateEvent = new UpdateAccountingLineEvent(indexedErrorPathPrefix, document, persistedLine, currentLine);
+                    lineEvents.add(updateEvent);
+                } else {
+                    ReviewAccountingLineEvent reviewEvent = new ReviewAccountingLineEvent(indexedErrorPathPrefix, document, currentLine);
+                    lineEvents.add(reviewEvent);
+                }
+
+                persistedLineMap.remove(key);
+            } else {
+                // it must be a new addition
+                AddAccountingLineEvent addEvent = new AddAccountingLineEvent(indexedErrorPathPrefix, document, currentLine);
+                lineEvents.add(addEvent);
+            }
+        }
+
+        // detect deletions
+        for (Iterator i = persistedLineMap.entrySet().iterator(); i.hasNext(); ) {
+            // the deleted line is not displayed on the page, so associate the error with the whole group
+            String groupErrorPathPrefix = errorPathPrefix + org.kuali.kfs.sys.KFSConstants.ACCOUNTING_LINE_GROUP_SUFFIX;
+            Map.Entry e = (Map.Entry) i.next();
+            AccountingLine persistedLine = (AccountingLine) e.getValue();
+            DeleteAccountingLineEvent deleteEvent = new DeleteAccountingLineEvent(groupErrorPathPrefix, document, persistedLine, true);
+            lineEvents.add(deleteEvent);
+        }
+
+        return lineEvents;
     }
 
 
-    public void setGecEntryRelationships(Set<GecEntryRelationship> gecEntryRelationships) {
-        this.gecEntryRelationships = gecEntryRelationships;
-    }
-
-
+    // Overridden to let framework deal with changes to the relationships
     @SuppressWarnings("unchecked")//List<?> from super
     @Override
     public List<Collection<PersistableBusinessObject>> buildListOfDeletionAwareLists() {
         List managedCollections = super.buildListOfDeletionAwareLists();
         managedCollections.add(this.getGecEntryRelationships());
+
         return managedCollections;
     }
 
@@ -217,6 +226,134 @@ public class GeneralErrorCorrectionDocument extends org.kuali.kfs.fp.document.Ge
     }
 
 
+    // Overridden to resequence lines, and then sync those to the relationships
+    @Override
+    public void prepareForSave(KualiDocumentEvent event) {
+        updateEntriesForRelationshipChange();
+        resequenceLinesAndRelationships();
+        super.prepareForSave(event);
+    }
+
+
+    // This is how we associate from line->Entry, while also returning all associated entries
+    public Map<String, Entry> getEntryMap() {
+        Map<String, Entry> entries = new TreeMap<String, Entry>();
+        if (getGecEntryRelationships() != null && !getGecEntryRelationships().isEmpty()) {
+            for (GecEntryRelationship rel : getGecEntryRelationships()) {
+                entries.put(rel.getGecAcctLineObjectId(), rel.getEntry());
+            }
+        }
+
+        return entries;
+    }
+
+
+    // We can't override super.buildAccountingLineMap(), due to the differeing method signatures
+    private Map<String, AccountingLine> buildLineMap(List<AccountingLine> accountingLines) {
+        Map<String, AccountingLine> objIdToLineMap = new HashMap<>();
+        for (AccountingLine line : accountingLines) {
+            objIdToLineMap.put(line.getObjectId(), line);
+        }
+
+        return objIdToLineMap;
+    }
+
+
+    private GecEntryRelationship getRelationshipByLine(AccountingLine line) {
+        if (line != null && line.getObjectId() != null) {
+            for (GecEntryRelationship rel : getGecEntryRelationships()) {
+                if (line.getObjectId().equals(rel.getGecAcctLineObjectId())) {
+                    return rel;
+                }
+            }
+        }
+
+        return null;
+    }
+
+
+    // Not using BOS in order to avert risk of changing non-GEC fields
+    public void updateEntryGecDocNums(Collection<Entry> entryCollection) {
+        getEntryGecDocNumUpdaterService().updateEntryGecDocNums(entryCollection);
+    }
+
+
+    // This will "stamp/unstamp" GLEs for when a GecEntryRelationship potentially associates/dissociate
+    private void updateEntriesForRelationshipChange() {
+        String docRouteStatusCode = this.getDocumentHeader().getWorkflowDocument().getStatus().getCode();
+
+        // Go through entries and either associate or dissassociate the doc from the entry
+        List<Entry> entriesToUpdate = new ArrayList<>();
+        for (GecEntryRelationship rel : getGecEntryRelationships()) {
+
+            Entry entry = rel.getEntry();
+            if (GEC_ACTIVE_ROUTE_STATUS_CODES.contains(docRouteStatusCode)) {
+                // The status warrants locking the Entry to this doc
+                entry.setGecDocumentNumber(rel.getGecDocumentNumber());
+            } else {
+                // Doc has been cancelled or disapproved, need to dissociate entry from doc
+                entry.setGecDocumentNumber(null);
+            }
+
+            entriesToUpdate.add(entry);
+        }
+
+        if (entriesToUpdate.size() > 0) {
+            updateEntryGecDocNums(entriesToUpdate);
+        }
+
+    }
+
+
+    // Overridden to return AZ verison of the source lines
+    @Override
+    public Class getSourceAccountingLineClass() {
+        return GECSourceAccountingLine.class;
+    }
+
+
+    // Overridden to return AZ version of target lines
+    @Override
+    public Class getTargetAccountingLineClass() {
+        return GECTargetAccountingLine.class;
+    }
+
+
+    public Set<GecEntryRelationship> getGecEntryRelationships() {
+        if (ObjectUtils.isNull(gecEntryRelationships)) {
+            gecEntryRelationships = new HashSet<>();
+        }
+
+        return gecEntryRelationships;
+    }
+
+
+    public void setGecEntryRelationships(Set<GecEntryRelationship> gecEntryRelationships) {
+        this.gecEntryRelationships = gecEntryRelationships;
+    }
+
+
+    public ErrorCertification getErrorCertification() {
+        return errorCertification;
+    }
+
+
+    public void setErrorCertification(ErrorCertification errorCertification) {
+        this.errorCertification = errorCertification;
+    }
+
+
+    public Integer getErrorCertID() {
+        return errorCertID;
+    }
+
+
+    public void setErrorCertID(Integer errorCertID) {
+        this.errorCertID = errorCertID;
+        this.errorCertification.setErrorCertID(errorCertID);
+    }
+
+
     private DebitDeterminerService getDebitService() {
         if (debitService == null) {
             debitService = SpringContext.getBean(DebitDeterminerService.class);
@@ -224,137 +361,12 @@ public class GeneralErrorCorrectionDocument extends org.kuali.kfs.fp.document.Ge
         return debitService;
     }
 
-    /*
-     * This is overridden in order to process a GEC deletion of a source line, which is different than the rest of the
-     * system. Great care was taken to leave the original parent logic as is, detect the GEC edge case, and process the
-     * case separately.
-     */
-    @Override
-    protected List generateEvents(List persistedLines, List currentLines, String errorPathPrefix, TransactionalDocument document) {
-        List<AccountingLineEvent> addEvents = new ArrayList<AccountingLineEvent>();
-        List<AccountingLineEvent> updateEvents = new ArrayList<AccountingLineEvent>();
-        List<AccountingLineEvent> reviewEvents = new ArrayList<AccountingLineEvent>();
-        List<AccountingLineEvent> deleteEvents = new ArrayList<AccountingLineEvent>();
 
-        // generate events
-        Map persistedLineMap = buildAccountingLineMap(persistedLines);
-        Map<String, AccountingLine> gecLineMap = buildGecAccountingLineMap(persistedLines);
-
-        // (iterate through current lines to detect additions and updates, removing affected lines from persistedLineMap as we go
-        // so deletions can be detected by looking at whatever remains in persistedLineMap)
-        int index = 0;
-        for (Iterator i = currentLines.iterator(); i.hasNext(); index++) {
-            String indexedErrorPathPrefix = errorPathPrefix + "[" + index + "]";
-            AccountingLine currentLine = (AccountingLine) i.next();
-
-            //****** START GEC deviation from foundation (see UAF-3819) ******************/
-            // Special GEC case, deleting source lines breaks using sequence numbers as main identifier
-            if (currentLine != null && persistedLineMap != null && !persistedLineMap.isEmpty() && currentLine.isSourceAccountingLine()) {
-                String gecKey = buildGecLineCompositeKey(currentLine); // same key maker as used in building gecLineMap
-                AccountingLine persistedLine = gecLineMap.get(gecKey);
-                if (persistedLine != null) {
-                    // We got an exact match on a source line, which should just end up as a review after submit.
-                    // Note: This short circuit works due to this being a source line, and the fact that source
-                    //        lines are read-only in GEC. Thus, we can implicitly rule out an update event on any
-                    //        fields not considered in this.buildGecLineCompositeKey(...).
-                    ReviewAccountingLineEvent reviewEvent = new ReviewAccountingLineEvent(indexedErrorPathPrefix, document, currentLine);
-                    reviewEvents.add(reviewEvent);
-                    persistedLineMap.remove(currentLine.getSequenceNumber());
-                    gecLineMap.remove(gecKey);
-                    continue;
-                }
-            }
-            //****** END GEC deviation from foundation ******************/
-
-            Integer key = currentLine.getSequenceNumber();
-            AccountingLine persistedLine = (AccountingLine) persistedLineMap.get(key);
-            // if line is both current and persisted...
-            if (persistedLine != null) {
-                // ...check for updates
-                if (!currentLine.isLike(persistedLine)) {
-                    UpdateAccountingLineEvent updateEvent = new UpdateAccountingLineEvent(indexedErrorPathPrefix, document, persistedLine, currentLine);
-                    updateEvents.add(updateEvent);
-                } else {
-                    ReviewAccountingLineEvent reviewEvent = new ReviewAccountingLineEvent(indexedErrorPathPrefix, document, currentLine);
-                    reviewEvents.add(reviewEvent);
-                }
-
-                persistedLineMap.remove(key);
-            } else {
-                // it must be a new addition
-                AddAccountingLineEvent addEvent = new AddAccountingLineEvent(indexedErrorPathPrefix, document, currentLine);
-                addEvents.add(addEvent);
-            }
+    private EntryGecDocNumUpdaterService getEntryGecDocNumUpdaterService() {
+        if (entryGecDocNumUpdaterService == null) {
+            entryGecDocNumUpdaterService = SpringContext.getBean(EntryGecDocNumUpdaterService.class);
         }
-
-        // detect deletions
-        for (Iterator i = persistedLineMap.entrySet().iterator(); i.hasNext(); ) {
-            // the deleted line is not displayed on the page, so associate the error with the whole group
-            String groupErrorPathPrefix = errorPathPrefix + org.kuali.kfs.sys.KFSConstants.ACCOUNTING_LINE_GROUP_SUFFIX;
-            Map.Entry e = (Map.Entry) i.next();
-            AccountingLine persistedLine = (AccountingLine) e.getValue();
-            DeleteAccountingLineEvent deleteEvent = new DeleteAccountingLineEvent(groupErrorPathPrefix, document, persistedLine, true);
-            deleteEvents.add(deleteEvent);
-        }
-
-
-        //
-        // merge the lists
-        List<AccountingLineEvent> lineEvents = new ArrayList<AccountingLineEvent>();
-        lineEvents.addAll(reviewEvents);
-        lineEvents.addAll(updateEvents);
-        lineEvents.addAll(addEvents);
-        lineEvents.addAll(deleteEvents);
-
-        return lineEvents;
+        return entryGecDocNumUpdaterService;
     }
-
-
-    // Stolen from super, necessary in order to build a composite key, as opposed to just
-    // using the line's sequence number as a key.
-    private Map<String, AccountingLine> buildGecAccountingLineMap(List accountingLines) {
-        Map<String, AccountingLine> lineMap = new HashMap<String, AccountingLine>();
-
-        for (Object o : accountingLines) {
-            AccountingLine accountingLine = (AccountingLine) o;
-            String compositeKey = buildGecLineCompositeKey(accountingLine);
-
-            Object oldLine = lineMap.put(compositeKey, accountingLine);
-
-            // verify that sequence numbers are unique...
-            if (oldLine != null) {
-                throw new IllegalStateException("AccountingLine map collision detected for composite key: " + compositeKey);
-            }
-        }
-
-        return lineMap;
-    }
-
-
-    /*
-     * This will build a unique String based on three line values; this differs
-     * from the 3-field PK that the DD yields -- we want amount to be
-     * considered as well, but then to also exclude the sequence number. We don't
-     * want to key on sequence, since the sequence changes with a line deletion, a
-     * state introduced by the new GEC specification.
-     *
-     * Also, we want to consider amount, which is safe to do in GEC so long as we
-     * are only dealing with source lines. Said another way, source lines are immutable
-     * under GEC, so we can use amount to detect an add/delete in that collection.
-     */
-    private String buildGecLineCompositeKey(AccountingLine accountingLine) {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(accountingLine.isSourceAccountingLine() ? "sourceLine" : "targetLine");
-        sb.append("_docNum-");
-        sb.append(accountingLine.getDocumentNumber());
-        sb.append("_accountNum-");
-        sb.append(accountingLine.getAccount().getAccountNumber());
-        sb.append("_amount-");
-        sb.append(accountingLine.getAmount());
-
-        return sb.toString();
-    }
-
 
 }
