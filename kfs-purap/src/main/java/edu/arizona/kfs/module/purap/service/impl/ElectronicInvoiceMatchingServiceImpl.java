@@ -230,7 +230,7 @@ public class ElectronicInvoiceMatchingServiceImpl extends org.kuali.kfs.module.p
             }
         }
         boolean useTaxUsed = poDoc.isUseTaxIndicator();
-        enableSalesTaxInd &= (poItem.getItemType().isTaxableIndicator() && (salesTaxUsed || useTaxUsed));
+        enableSalesTaxInd &= (salesTaxUsed || useTaxUsed);
 
         if (LOG.isInfoEnabled()) {
             LOG.info("Sales Tax Enable Indicator - " + enableSalesTaxInd);
