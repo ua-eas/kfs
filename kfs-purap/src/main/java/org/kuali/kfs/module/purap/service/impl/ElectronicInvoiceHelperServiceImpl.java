@@ -132,7 +132,7 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
     protected final String UNKNOWN_DUNS_IDENTIFIER = "Unknown";
     protected final String INVOICE_FILE_MIME_TYPE = "text/xml";
 
-    private StringBuffer emailTextErrorList;
+    protected StringBuffer emailTextErrorList;
 
     protected ElectronicInvoiceInputFileType electronicInvoiceInputFileType;
     protected MailService mailService;
@@ -384,7 +384,7 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
      * @param element
      * @return String describing the given StackTraceElement
      */
-    private static String describeStackTraceElement(StackTraceElement element) {
+    protected static String describeStackTraceElement(StackTraceElement element) {
         StringBuffer description = new StringBuffer();
         if (element == null) {
             description.append("invalid (null) element");

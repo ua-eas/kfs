@@ -76,4 +76,9 @@ public class ElectronicInvoiceLoad {
         return !rejectDocumentList.isEmpty();
     }
 
+    // Note: This file would have to be edited regardless, due to rejectDocumentList is a private class field without a setter.
+    public void removeInvoiceReject(ElectronicInvoiceRejectDocument eir) {
+        rejectDocumentList.remove(eir);
+    }
+
 }
