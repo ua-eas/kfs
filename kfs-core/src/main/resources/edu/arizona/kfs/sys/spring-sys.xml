@@ -184,4 +184,10 @@
 	<bean id="jobListener" parent="jobListener-parentBean" class="edu.arizona.kfs.sys.batch.JobListener">
     </bean>
     
+    <bean id="taxService" parent="taxService-parentBean" class="edu.arizona.kfs.sys.service.impl.TaxServiceImpl" />
+
+    <bean id="taxHelperService" class="edu.arizona.kfs.sys.service.impl.TaxHelperServiceImpl">
+        <property name="taxService" ref="taxService" />
+    </bean>
+
 </beans>

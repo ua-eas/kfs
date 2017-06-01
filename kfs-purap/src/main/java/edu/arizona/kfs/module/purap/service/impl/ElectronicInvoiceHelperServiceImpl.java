@@ -3,6 +3,8 @@ package edu.arizona.kfs.module.purap.service.impl;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -11,6 +13,8 @@ import java.util.Map;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coa.businessobject.SubAccount;
+import org.kuali.kfs.coa.service.SubAccountService;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.batch.ElectronicInvoiceStep;
 import org.kuali.kfs.module.purap.businessobject.ElectronicInvoice;
@@ -31,6 +35,7 @@ import org.kuali.kfs.module.purap.exception.PurError;
 import org.kuali.kfs.module.purap.service.impl.ElectronicInvoiceOrderHolder;
 import org.kuali.kfs.module.purap.util.ExpiredOrClosedAccountEntry;
 import org.kuali.kfs.sys.businessobject.Bank;
+import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.BankService;
 import org.kuali.kfs.sys.service.NonTransactional;
@@ -51,8 +56,10 @@ import org.kuali.rice.krad.util.GlobalVariables;
 import org.kuali.rice.krad.workflow.service.WorkflowDocumentService;
 import org.springframework.util.AutoPopulatingList;
 
+import edu.arizona.kfs.module.purap.PurapKeyConstants;
 import edu.arizona.kfs.module.purap.PurapParameterConstants;
 import edu.arizona.kfs.module.purap.document.ElectronicInvoiceRejectDocument;
+import edu.arizona.kfs.module.purap.service.PurapAccountingService;
 
 /**
  * This is a helper service to parse electronic invoice file, match it with a PO and create PREQs based on the eInvoice. Also, it
@@ -65,6 +72,16 @@ public class ElectronicInvoiceHelperServiceImpl extends org.kuali.kfs.module.pur
     protected DocumentService documentService;
     protected WorkflowDocumentService workflowDocumentService;
     protected KualiRuleService kualiRuleService;
+    protected SubAccountService subAccountService;
+    protected PurapAccountingService purapAccountingService;
+
+    public void setSubAccountService(SubAccountService subAccountService) {
+        this.subAccountService = subAccountService;
+    }
+
+    public void setPurapAccountingService(PurapAccountingService purapAccountingService) {
+        this.purapAccountingService = purapAccountingService;
+    }
 
     protected PaymentRequestDocument createPaymentRequest(ElectronicInvoiceOrderHolder orderHolder) {
 
@@ -556,6 +573,115 @@ public class ElectronicInvoiceHelperServiceImpl extends org.kuali.kfs.module.pur
         moveFileList(eInvoiceLoad.getRejectFilesToMove());
 
         return summaryMessage;
+    }
+
+    @Override
+    @NonTransactional
+    public void validateInvoiceOrderValidForPREQCreation(ElectronicInvoiceOrderHolder orderHolder) {
+
+        if (LOG.isInfoEnabled()) {
+            LOG.info("Validiting ElectronicInvoice Order to make sure that it can be turned into a Payment Request document");
+        }
+
+        PurchaseOrderDocument poDoc = orderHolder.getPurchaseOrderDocument();
+
+        if (poDoc == null) {
+            throw new RuntimeException("PurchaseOrder not available");
+        }
+
+        if (!orderHolder.isInvoiceNumberAcceptIndicatorEnabled()) {
+            List preqs = paymentRequestService.getPaymentRequestsByVendorNumberInvoiceNumber(poDoc.getVendorHeaderGeneratedIdentifier(), poDoc.getVendorDetailAssignedIdentifier(), orderHolder.getInvoiceNumber());
+
+            if (preqs != null && preqs.size() > 0) {
+                ElectronicInvoiceRejectReason rejectReason = matchingService.createRejectReason(PurapConstants.ElectronicInvoice.INVOICE_ORDER_DUPLICATE, null, orderHolder.getFileName());
+                orderHolder.addInvoiceOrderRejectReason(rejectReason, PurapConstants.ElectronicInvoice.RejectDocumentFields.INVOICE_FILE_NUMBER, PurapKeyConstants.ERROR_REJECT_INVOICE_DUPLICATE);
+                return;
+            }
+        }
+
+        if (orderHolder.getInvoiceDate() == null) {
+            ElectronicInvoiceRejectReason rejectReason = matchingService.createRejectReason(PurapConstants.ElectronicInvoice.INVOICE_DATE_INVALID, null, orderHolder.getFileName());
+            orderHolder.addInvoiceOrderRejectReason(rejectReason, PurapConstants.ElectronicInvoice.RejectDocumentFields.INVOICE_FILE_DATE, PurapKeyConstants.ERROR_REJECT_INVOICE_DATE_INVALID);
+            return;
+        } else if (orderHolder.getInvoiceDate().after(dateTimeService.getCurrentDate())) {
+            ElectronicInvoiceRejectReason rejectReason = matchingService.createRejectReason(PurapConstants.ElectronicInvoice.INVOICE_DATE_GREATER, null, orderHolder.getFileName());
+            orderHolder.addInvoiceOrderRejectReason(rejectReason, PurapConstants.ElectronicInvoice.RejectDocumentFields.INVOICE_FILE_DATE, PurapKeyConstants.ERROR_REJECT_INVOICE_DATE_GREATER);
+            return;
+        }
+
+        addInvoiceOrderRejectionForInactiveSubAccountsIfRequired(orderHolder);
+    }
+
+    /**
+     * This method is responsible for adding an invoice reject reason for inactive sub accounts if required
+     * 
+     * @param orderHolder
+     *            - invoice order holder
+     */
+    private void addInvoiceOrderRejectionForInactiveSubAccountsIfRequired(ElectronicInvoiceOrderHolder orderHolder) {
+        PurchaseOrderDocument poDoc = orderHolder.getPurchaseOrderDocument();
+
+        if (poDoc != null) {
+            List<SubAccount> inactiveSubAccounts = getInactiveSubAccountsFromPurchaseOrder(poDoc);
+
+            if (!inactiveSubAccounts.isEmpty()) {
+                StringBuilder inactiveSubAccountNumbers = new StringBuilder(64);
+                String comma = "";
+
+                // if we have multiple inactive sub accounts concatenate info
+                for (SubAccount subAccount : inactiveSubAccounts) {
+
+                    LOG.debug(subAccount.toString());
+
+                    inactiveSubAccountNumbers.append(comma);
+                    inactiveSubAccountNumbers.append(subAccount.getChartOfAccountsCode());
+                    inactiveSubAccountNumbers.append("---");
+                    inactiveSubAccountNumbers.append(subAccount.getAccountNumber());
+                    inactiveSubAccountNumbers.append("---");
+                    inactiveSubAccountNumbers.append(subAccount.getSubAccountNumber());
+                    comma = ", ";
+                }
+
+                ElectronicInvoiceRejectReason rejectReason = matchingService.createRejectReason(PurapConstants.ElectronicInvoice.PREQ_ROUTING_VALIDATION_ERROR, null, orderHolder.getFileName());
+
+                // because the rejected invoice does not show sub accounts (these are found on the requisition),
+                // lets customize the reject description to indicate that fact
+
+                String rejectMessage = kualiConfigurationService.getPropertyValueAsString(PurapKeyConstants.ERROR_REJECT_INVOICE_INACTIVE_SUB_ACCOUNT);
+                String formattedMessage = MessageFormat.format(rejectMessage, new Object[] { poDoc.getDocumentNumber(), inactiveSubAccountNumbers.toString() });
+                rejectReason.setInvoiceRejectReasonDescription(formattedMessage);
+                orderHolder.addInvoiceOrderRejectReason(rejectReason);
+            }
+        }
+    }
+
+    /**
+     * This method is responsible for checking a purchase order for inactive sub accounts and returning a list of those sub accounts
+     * 
+     * @param po
+     *            - input purchase order to check for inactive sub accounts
+     * @return list of inactive SubAccount objects
+     */
+    private List<SubAccount> getInactiveSubAccountsFromPurchaseOrder(PurchaseOrderDocument po) {
+        List<SubAccount> retval = new ArrayList<SubAccount>();
+
+        if (po != null) {
+            // get list of active accounts
+            List<SourceAccountingLine> accountList = purapAccountingService.generateSummary(po.getItemsActiveOnly());
+
+            // loop through accounts
+            for (SourceAccountingLine poAccountingLine : accountList) {
+                if (poAccountingLine.getSubAccount() != null) {
+                    SubAccount subAccount = subAccountService.getByPrimaryId(poAccountingLine.getChartOfAccountsCode(), poAccountingLine.getAccountNumber(), poAccountingLine.getSubAccountNumber());
+
+                    if ((subAccount != null) && !subAccount.isActive()) {
+                        retval.add(subAccount);
+                    }
+                }
+            }
+        }
+
+        return retval;
     }
 
     protected class DoneFilenameFilter implements FilenameFilter {

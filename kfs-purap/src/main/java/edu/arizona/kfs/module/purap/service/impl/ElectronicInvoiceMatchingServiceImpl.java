@@ -27,8 +27,15 @@ import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 
 import edu.arizona.kfs.module.purap.PurapConstants;
 import edu.arizona.kfs.module.purap.PurapKeyConstants;
+import edu.arizona.kfs.sys.service.TaxHelperService;
 
 public class ElectronicInvoiceMatchingServiceImpl extends org.kuali.kfs.module.purap.service.impl.ElectronicInvoiceMatchingServiceImpl {
+
+    TaxHelperService taxHelperService;
+
+    public void setTaxHelperService(TaxHelperService taxHelperService) {
+        this.taxHelperService = taxHelperService;
+    }
 
     @Override
     public void doMatchingProcess(ElectronicInvoiceOrderHolder orderHolder) {
@@ -238,13 +245,13 @@ public class ElectronicInvoiceMatchingServiceImpl extends org.kuali.kfs.module.p
             LOG.info("Invoice item tax amount - " + invoiceSalesTaxAmount);
         }
         if (!enableSalesTaxInd) {
-            // if sales tax is disabled, item tax amount shall be zero
-            if (invoiceSalesTaxAmount.compareTo(KualiDecimal.ZERO) != 0) {
+            // if the line item is not taxable, or if it's use-tax, then the eInvoice should not send tax amounts
+            if (invoiceSalesTaxAmount.isNonZero()) {
                 String extraDescription = "Item Tax Amount:" + invoiceSalesTaxAmount;
                 ElectronicInvoiceRejectReason rejectReason = createRejectReason(PurapConstants.ElectronicInvoice.TAX_SUMMARY_AMT_EXISTS, extraDescription, orderHolder.getFileName());
                 orderHolder.addInvoiceHeaderRejectReason(rejectReason);
             }
-            return;
+            return; // stop processing taxes if taxes are not enabled
         }
 
         // For reject doc, trans date should be the einvoice processed date.
@@ -252,8 +259,13 @@ public class ElectronicInvoiceMatchingServiceImpl extends org.kuali.kfs.module.p
         String deliveryPostalCode = poItem.getPurchaseOrder().getDeliveryPostalCode();
         KualiDecimal extendedPrice = new KualiDecimal(getExtendedPrice(itemHolder).setScale(KualiDecimal.SCALE, KualiDecimal.ROUND_BEHAVIOR));
 
-        KualiDecimal salesTaxAmountCalculated = taxService.getTotalSalesTaxAmount(transTaxDate, deliveryPostalCode, extendedPrice);
-        KualiDecimal actualVariance = invoiceSalesTaxAmount.subtract(salesTaxAmountCalculated);
+        KualiDecimal taxAmountCalculated = KualiDecimal.ZERO;
+        if (useTaxUsed) {
+            taxAmountCalculated = taxHelperService.getTotalUseTaxAmount(transTaxDate, deliveryPostalCode, extendedPrice);
+        } else {
+            taxAmountCalculated = taxService.getTotalSalesTaxAmount(transTaxDate, deliveryPostalCode, extendedPrice);
+        }
+        KualiDecimal actualVariance = invoiceSalesTaxAmount.subtract(taxAmountCalculated);
 
         if (LOG.isInfoEnabled()) {
             LOG.info("Sales Tax Upper Variance param - " + upperVariancePercentString);
@@ -261,15 +273,20 @@ public class ElectronicInvoiceMatchingServiceImpl extends org.kuali.kfs.module.p
             LOG.info("Trans date (from invoice/rejectdoc) - " + transTaxDate);
             LOG.info("Delivery Postal Code - " + deliveryPostalCode);
             LOG.info("Extended price - " + extendedPrice);
-            LOG.info("Sales Tax amount (from sales tax service) - " + salesTaxAmountCalculated);
+            LOG.info("Invoice Item Tax Amount - " + itemHolder.getTaxAmount().toString());
+            if (useTaxUsed) {
+                LOG.info("Use Tax amount (from tax helper service) - " + taxAmountCalculated);
+            } else {
+                LOG.info("Sales Tax amount (from sales tax service) - " + taxAmountCalculated);
+            }
         }
 
-        final String extraDescription = "Invoice Item Line Number:" + itemHolder.getInvoiceItemLineNumber() + "; sales tax amt s/b $" + salesTaxAmountCalculated.toString();
+        final String extraDescription = "Invoice Item Line Number:" + itemHolder.getInvoiceItemLineNumber() + "; sales tax amt s/b $" + taxAmountCalculated.toString();
 
         if (StringUtils.isNotEmpty(upperVariancePercentString) && actualVariance.isPositive()) {
 
             double upperVariancePercent = Double.valueOf(upperVariancePercentString) * .01d;
-            double upperAcceptableVariance = salesTaxAmountCalculated.doubleValue() * upperVariancePercent;
+            double upperAcceptableVariance = taxAmountCalculated.doubleValue() * upperVariancePercent;
 
             if (actualVariance.isGreaterThan(new KualiDecimal(upperAcceptableVariance))) {
                 ElectronicInvoiceRejectReason rejectReason = createRejectReason(PurapConstants.ElectronicInvoice.SALES_TAX_AMT_GREATER_THAN_UPPER_VARIANCE, extraDescription, orderHolder.getFileName());
@@ -282,7 +299,7 @@ public class ElectronicInvoiceMatchingServiceImpl extends org.kuali.kfs.module.p
         if (StringUtils.isNotEmpty(lowerVariancePercentString) && actualVariance.isNegative()) {
 
             double lowerVariancePercent = Double.valueOf(lowerVariancePercentString) * .01d;
-            double lowerAcceptableVariance = salesTaxAmountCalculated.doubleValue() * lowerVariancePercent;
+            double lowerAcceptableVariance = taxAmountCalculated.doubleValue() * lowerVariancePercent;
 
             if (actualVariance.abs().isGreaterThan(new KualiDecimal(lowerAcceptableVariance))) {
                 ElectronicInvoiceRejectReason rejectReason = createRejectReason(PurapConstants.ElectronicInvoice.SALES_TAX_AMT_LESSER_THAN_LOWER_VARIANCE, extraDescription, orderHolder.getFileName());
