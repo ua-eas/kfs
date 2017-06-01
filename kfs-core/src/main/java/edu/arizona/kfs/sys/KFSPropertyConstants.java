@@ -32,4 +32,6 @@ public class KFSPropertyConstants extends org.kuali.kfs.sys.KFSPropertyConstants
     public static final String PAID_DATE = "paidDate";
 
     public static final String IMMEDIATE_PAYMENT_INDICATOR = "immediatePaymentIndicator";
+    
+    public static final String TAX_REGION_CODE = "taxRegionCode";
 }

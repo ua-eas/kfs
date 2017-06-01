@@ -1,28 +1,47 @@
 package edu.arizona.kfs.module.purap.document;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.fp.document.ProcurementCardDocument;
+import org.kuali.kfs.module.purap.PurapConstants.PaymentRequestStatuses;
+import org.kuali.kfs.module.purap.PurapParameterConstants.NRATaxParameters;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLine;
 import org.kuali.kfs.module.purap.businessobject.PurApItem;
+import org.kuali.kfs.module.purap.businessobject.PurchaseOrderItem;
+import org.kuali.kfs.module.purap.businessobject.PurchasingCapitalAssetItem;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
+import org.kuali.kfs.module.purap.document.service.AccountsPayableService;
+import org.kuali.kfs.module.purap.document.service.PaymentRequestService;
 import org.kuali.kfs.module.purap.document.service.PurapService;
 import org.kuali.kfs.module.purap.util.ExpiredOrClosedAccountEntry;
 import org.kuali.kfs.sys.businessobject.Bank;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
+import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail;
+import org.kuali.kfs.sys.businessobject.SystemOptions;
+import org.kuali.kfs.sys.businessobject.TaxRegion;
 import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.service.OptionsService;
+import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
+import org.kuali.kfs.vnd.VendorConstants;
+import org.kuali.kfs.vnd.businessobject.VendorAddress;
 import org.kuali.kfs.vnd.businessobject.VendorHeader;
+import org.kuali.kfs.vnd.document.service.VendorService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.WorkflowDocument;
+import org.kuali.rice.kew.framework.postprocessor.ActionTakenEvent;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
 import org.kuali.rice.kns.service.DocumentHelperService;
 import org.kuali.rice.krad.document.DocumentAuthorizer;
@@ -32,11 +51,15 @@ import org.kuali.rice.krad.util.ObjectUtils;
 
 import edu.arizona.kfs.fp.businessobject.PaymentMethod;
 import edu.arizona.kfs.fp.service.PaymentMethodGeneralLedgerPendingEntryService;
+import edu.arizona.kfs.module.purap.PurapConstants;
+import edu.arizona.kfs.module.purap.PurapParameterConstants;
 import edu.arizona.kfs.module.purap.businessobject.PaymentRequestIncomeType;
 import edu.arizona.kfs.module.purap.businessobject.PaymentRequestItem;
 import edu.arizona.kfs.module.purap.document.service.PurapIncomeTypeHandler;
+import edu.arizona.kfs.module.purap.service.PurapGeneralLedgerService;
 import edu.arizona.kfs.module.purap.service.PurapUseTaxEntryArchiveService;
 import edu.arizona.kfs.sys.KFSConstants;
+import edu.arizona.kfs.sys.KFSPropertyConstants;
 import edu.arizona.kfs.sys.document.IncomeTypeContainer;
 import edu.arizona.kfs.vnd.businessobject.VendorDetailExtension;
 
@@ -53,6 +76,8 @@ public class PaymentRequestDocument extends org.kuali.kfs.module.purap.document.
     private List<PaymentRequestIncomeType> incomeTypes;
     private String paymentPaidYear;
     private boolean payment1099Indicator;
+    private boolean taxWithholdingEntriesGenerated;
+
 
     // default this value to "A" to preserve baseline behavior
     protected String paymentMethodCode = "A"; // check
@@ -89,6 +114,14 @@ public class PaymentRequestDocument extends org.kuali.kfs.module.purap.document.
             paymentMethod = SpringContext.getBean(BusinessObjectService.class).findBySinglePrimaryKey(PaymentMethod.class, paymentMethodCode);
         }
         return paymentMethod;
+    }
+    
+    public boolean isTaxWithholdingEntriesGenerated() {
+        return taxWithholdingEntriesGenerated;
+    }
+
+    public void setTaxWithholdingEntriesGenerated(boolean taxWithholdingEntriesGenerated) {
+        this.taxWithholdingEntriesGenerated = taxWithholdingEntriesGenerated;
     }
 
     @Override
@@ -197,7 +230,105 @@ public class PaymentRequestDocument extends org.kuali.kfs.module.purap.document.
      */
     @Override
     public void populatePaymentRequestFromPurchaseOrder(PurchaseOrderDocument po, HashMap<String, ExpiredOrClosedAccountEntry> expiredOrClosedAccountList) {
-        super.populatePaymentRequestFromPurchaseOrder(po, expiredOrClosedAccountList);
+        this.setPurchaseOrderIdentifier(po.getPurapDocumentIdentifier());
+        this.getDocumentHeader().setOrganizationDocumentNumber(po.getDocumentHeader().getOrganizationDocumentNumber());
+        this.setPostingYear(po.getPostingYear());
+        this.setReceivingDocumentRequiredIndicator(po.isReceivingDocumentRequiredIndicator());
+        this.setUseTaxIndicator(po.isUseTaxIndicator());
+        this.setPaymentRequestPositiveApprovalIndicator(po.isPaymentRequestPositiveApprovalIndicator());
+        this.setVendorCustomerNumber(po.getVendorCustomerNumber());
+        this.setAccountDistributionMethod(po.getAccountDistributionMethod());
+
+        if (po.getPurchaseOrderCostSource() != null) {
+            this.setPaymentRequestCostSource(po.getPurchaseOrderCostSource());
+            this.setPaymentRequestCostSourceCode(po.getPurchaseOrderCostSourceCode());
+        }
+
+        if (po.getVendorShippingPaymentTerms() != null) {
+            this.setVendorShippingPaymentTerms(po.getVendorShippingPaymentTerms());
+            this.setVendorShippingPaymentTermsCode(po.getVendorShippingPaymentTermsCode());
+        }
+
+        if (po.getVendorPaymentTerms() != null) {
+            this.setVendorPaymentTermsCode(po.getVendorPaymentTermsCode());
+            this.setVendorPaymentTerms(po.getVendorPaymentTerms());
+        }
+
+        if (po.getRecurringPaymentType() != null) {
+            this.setRecurringPaymentType(po.getRecurringPaymentType());
+            this.setRecurringPaymentTypeCode(po.getRecurringPaymentTypeCode());
+        }
+
+        this.setVendorHeaderGeneratedIdentifier(po.getVendorHeaderGeneratedIdentifier());
+        this.setVendorDetailAssignedIdentifier(po.getVendorDetailAssignedIdentifier());
+        this.setVendorCustomerNumber(po.getVendorCustomerNumber());
+        this.setVendorName(po.getVendorName());
+
+        // set original vendor
+        this.setOriginalVendorHeaderGeneratedIdentifier(po.getVendorHeaderGeneratedIdentifier());
+        this.setOriginalVendorDetailAssignedIdentifier(po.getVendorDetailAssignedIdentifier());
+
+        // set alternate vendor info as well
+        this.setAlternateVendorHeaderGeneratedIdentifier(po.getAlternateVendorHeaderGeneratedIdentifier());
+        this.setAlternateVendorDetailAssignedIdentifier(po.getAlternateVendorDetailAssignedIdentifier());
+
+        // populate preq vendor address with the default remit address type for the vendor if found
+        String userCampus = GlobalVariables.getUserSession().getPerson().getCampusCode();
+        VendorAddress vendorAddress = SpringContext.getBean(VendorService.class).getVendorDefaultAddress(po.getVendorHeaderGeneratedIdentifier(), po.getVendorDetailAssignedIdentifier(), VendorConstants.AddressTypes.REMIT, userCampus);
+        if (vendorAddress != null) {
+            this.templateVendorAddress(vendorAddress);
+            this.setVendorAddressGeneratedIdentifier(vendorAddress.getVendorAddressGeneratedIdentifier());
+            setVendorAttentionName(StringUtils.defaultString(vendorAddress.getVendorAttentionName()));
+        }
+        else {
+            // set address from PO
+            this.setVendorAddressGeneratedIdentifier(po.getVendorAddressGeneratedIdentifier());
+            this.setVendorLine1Address(po.getVendorLine1Address());
+            this.setVendorLine2Address(po.getVendorLine2Address());
+            this.setVendorCityName(po.getVendorCityName());
+            this.setVendorAddressInternationalProvinceName(po.getVendorAddressInternationalProvinceName());
+            this.setVendorStateCode(po.getVendorStateCode());
+            this.setVendorPostalCode(po.getVendorPostalCode());
+            this.setVendorCountryCode(po.getVendorCountryCode());
+
+            boolean blankAttentionLine = StringUtils.equalsIgnoreCase(KFSConstants.ParameterValues.YES, SpringContext.getBean(ParameterService.class).getParameterValueAsString(PurapConstants.PURAP_NAMESPACE, KfsParameterConstants.DOCUMENT_COMPONENT, PurapParameterConstants.BLANK_ATTENTION_LINE_FOR_PO_TYPE_ADDRESS));
+
+            if (blankAttentionLine) {
+                setVendorAttentionName(StringUtils.EMPTY);
+            }
+            else {
+                setVendorAttentionName(StringUtils.defaultString(po.getVendorAttentionName()));
+            }
+        }
+
+        this.setPaymentRequestPayDate(SpringContext.getBean(PaymentRequestService.class).calculatePayDate(this.getInvoiceDate(), this.getVendorPaymentTerms()));
+
+        AccountsPayableService accountsPayableService = SpringContext.getBean(AccountsPayableService.class);
+
+        if(SpringContext.getBean(PaymentRequestService.class).encumberedItemExistsForInvoicing(po))
+        {
+            for (PurchaseOrderItem poi : (List<PurchaseOrderItem>) po.getItems()) {
+                // check to make sure it's eligible for payment (i.e. active and has encumbrance available
+                if (getDocumentSpecificService().poItemEligibleForAp(this, poi)) {
+                    PaymentRequestItem paymentRequestItem = new PaymentRequestItem(poi, this, expiredOrClosedAccountList);
+                    this.getItems().add(paymentRequestItem);
+                    PurchasingCapitalAssetItem purchasingCAMSItem = po.getPurchasingCapitalAssetItemByItemIdentifier(poi.getItemIdentifier());
+                    if (purchasingCAMSItem != null) {
+                        paymentRequestItem.setCapitalAssetTransactionTypeCode(purchasingCAMSItem.getCapitalAssetTransactionTypeCode());
+                    }
+                }
+            }
+        }
+
+        // add missing below the line
+        SpringContext.getBean(PurapService.class).addBelowLineItems(this);
+        this.setAccountsPayablePurchasingDocumentLinkIdentifier(po.getAccountsPayablePurchasingDocumentLinkIdentifier());
+
+        //fix up below the line items
+        SpringContext.getBean(PaymentRequestService.class).removeIneligibleAdditionalCharges(this);
+
+        this.fixItemReferences();
+        this.refreshNonUpdateableReferences();
         if (ObjectUtils.isNotNull(po.getVendorDetail()) && ObjectUtils.isNotNull(po.getVendorDetail().getExtension())) {
             if (po.getVendorDetail().getExtension() instanceof VendorDetailExtension && StringUtils.isNotBlank(((VendorDetailExtension) po.getVendorDetail().getExtension()).getDefaultB2BPaymentMethodCode())) {
                 setPaymentMethodCode(((VendorDetailExtension) po.getVendorDetail().getExtension()).getDefaultB2BPaymentMethodCode());
@@ -348,5 +479,193 @@ public class PaymentRequestDocument extends org.kuali.kfs.module.purap.document.
     public Class getItemClass() {
         return PaymentRequestItem.class;
     }
+    
+    @Override
+    public void doActionTaken(ActionTakenEvent event) {
+        super.doActionTaken(event);
+        WorkflowDocument workflowDocument = getDocumentHeader().getWorkflowDocument();
+        String currentNode = null;
+        Set<String> currentNodes = workflowDocument.getCurrentNodeNames();
+        if (CollectionUtils.isNotEmpty(currentNodes)) {
+            Object[] names = currentNodes.toArray();
+            if (names.length > 0) {
+                currentNode = (String)names[0];
+            }
+        }
+
+        // everything in the below list requires correcting entries to be written to the GL
+        if (PaymentRequestStatuses.getNodesRequiringCorrectingGeneralLedgerEntries().contains(currentNode)) {
+            SpringContext.getBean(PurapGeneralLedgerService.class).generateEntriesModifyPaymentRequest(this, currentNode);
+        }
+    }
+    
+    @Override
+    public boolean processNodeChange(String newNodeName, String oldNodeName) {
+        if (PaymentRequestStatuses.APPDOC_AUTO_APPROVED.equals(getApplicationDocumentStatus())) {
+            // do nothing for an auto approval
+            return false;
+        }
+        if (PaymentRequestStatuses.NODE_ADHOC_REVIEW.equals(oldNodeName)) {
+            SpringContext.getBean(AccountsPayableService.class).performLogicForFullEntryCompleted(this);
+        } else if (PurapConstants.PaymentRequestStatuses.NODE_VENDOR_TAX_REVIEW.equals(oldNodeName)) {
+            this.setTaxWithholdingEntriesGenerated(true);
+        }
+        return true;
+    }
+    
+	@Override
+	public boolean generateGeneralLedgerPendingEntries(GeneralLedgerPendingEntrySourceDetail glpeSourceDetail, GeneralLedgerPendingEntrySequenceHelper sequenceHelper) {
+		LOG.debug("processGenerateGeneralLedgerPendingEntries(AccountingDocument, AccountingLine, GeneralLedgerPendingEntrySequenceHelper) - start");
+
+		GeneralLedgerPendingEntry explicitEntry = new GeneralLedgerPendingEntry();
+		processExplicitGeneralLedgerPendingEntry(sequenceHelper, glpeSourceDetail, explicitEntry);
+
+		sequenceHelper.increment();
+
+		GeneralLedgerPendingEntry offsetEntry = new GeneralLedgerPendingEntry(explicitEntry);
+		boolean success = processOffsetGeneralLedgerPendingEntry(sequenceHelper, glpeSourceDetail, explicitEntry, offsetEntry);
+
+		processUseTaxOffsetGeneralLedgerPendingEntries(sequenceHelper, glpeSourceDetail, explicitEntry, offsetEntry);
+
+		processTaxWithholdingGeneralLedgerPendingEntriesPREQ(sequenceHelper, glpeSourceDetail, explicitEntry, offsetEntry);
+
+		LOG.debug("processGenerateGeneralLedgerPendingEntries(AccountingDocument, AccountingLine, GeneralLedgerPendingEntrySequenceHelper) - end");
+		return success;
+	}
+
+	public List<PurApItem> getItemsSetupAlternateAmount() {
+		List<PurApItem> returnList = new ArrayList<PurApItem>();
+		for (Iterator<PaymentRequestItem> iter = getItems().iterator(); iter.hasNext();) {
+			PaymentRequestItem item = iter.next();
+			KualiDecimal remitAmount = item.getTotalRemitAmount();
+			if (!PurapConstants.ItemTypeCodes.ITEM_TYPE_FEDERAL_TAX_CODE.equals(item.getItemTypeCode()) && !PurapConstants.ItemTypeCodes.ITEM_TYPE_STATE_TAX_CODE.equals(item.getItemTypeCode())) {
+				if ((StringUtils.isNotEmpty(getTaxClassificationCode()) && !StringUtils.equalsIgnoreCase(getTaxClassificationCode(), "N")) && ((getTaxFederalPercent().compareTo(new BigDecimal(0)) != 0) || (getTaxStatePercent().compareTo(new BigDecimal(0)) != 0))) {
+					KualiDecimal taxPercentWhole = getTaxFederalPercentShort().add(getTaxStatePercentShort());
+					KualiDecimal taxPercent = taxPercentWhole.divide(new KualiDecimal(100));
+					KualiDecimal currentItemWithholdingAmount = remitAmount.multiply(taxPercent);
+					remitAmount = remitAmount.subtract(currentItemWithholdingAmount);
+				}
+			}
+
+			if ((remitAmount != null) && KualiDecimal.ZERO.compareTo(remitAmount) != 0) {
+				KualiDecimal accountTotal = KualiDecimal.ZERO;
+				PurApAccountingLine lastAccount = null;
+				for (PurApAccountingLine account : item.getSourceAccountingLines()) {
+					if (ObjectUtils.isNotNull(account.getAccountLinePercent())) {
+						BigDecimal pct = new BigDecimal(account.getAccountLinePercent().toString()).divide(new BigDecimal(100));
+						account.setAlternateAmountForGLEntryCreation(new KualiDecimal(pct.multiply(new BigDecimal(remitAmount.toString())).setScale(KualiDecimal.SCALE, KualiDecimal.ROUND_BEHAVIOR)));
+					} else {
+						account.setAlternateAmountForGLEntryCreation(KualiDecimal.ZERO);
+					}
+					accountTotal = accountTotal.add(account.getAlternateAmountForGLEntryCreation());
+					lastAccount = account;
+				}
+
+				if (lastAccount != null) {
+					KualiDecimal difference = remitAmount.subtract(accountTotal);
+					lastAccount.setAlternateAmountForGLEntryCreation(lastAccount.getAlternateAmountForGLEntryCreation().add(difference));
+				}
+			} else {
+				for (PurApAccountingLine account : item.getSourceAccountingLines()) {
+					account.setAlternateAmountForGLEntryCreation(KualiDecimal.ZERO);
+				}
+			}
+			returnList.add(item);
+		}
+		return returnList;
+	}
+
+	@Override
+	public boolean customizeOffsetGeneralLedgerPendingEntry(GeneralLedgerPendingEntrySourceDetail accountingLine, GeneralLedgerPendingEntry explicitEntry, GeneralLedgerPendingEntry offsetEntry) {
+		boolean value = super.customizeOffsetGeneralLedgerPendingEntry(accountingLine, explicitEntry, offsetEntry);
+		ParameterService parameterService = SpringContext.getBean(ParameterService.class);
+		String taxAccount = parameterService.getParameterValueAsString(PaymentRequestDocument.class, NRATaxParameters.FEDERAL_TAX_PARM_PREFIX + NRATaxParameters.TAX_PARM_ACCOUNT_SUFFIX);
+		if (offsetEntry.getAccountNumber().equals(taxAccount)) {
+			String glpeOffsetObjectCode = parameterService.getParameterValueAsString(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapParameterConstants.GENERAL_LEDGER_PENDING_ENTRY_OFFSET_OBJECT_CODE);
+			SystemOptions options = SpringContext.getBean(OptionsService.class).getOptions(explicitEntry.getUniversityFiscalYear());
+			offsetEntry.setFinancialObjectCode(glpeOffsetObjectCode);
+			offsetEntry.refreshReferenceObject(KFSPropertyConstants.FINANCIAL_OBJECT);
+			offsetEntry.setFinancialObjectTypeCode(options.getFinancialObjectTypeAssetsCd());
+			offsetEntry.refreshReferenceObject(KFSPropertyConstants.OBJECT_TYPE);
+		} else {
+			value = false;
+		}
+		return value;
+	}
+
+	private void processTaxWithholdingGeneralLedgerPendingEntriesPREQ(GeneralLedgerPendingEntrySequenceHelper sequenceHelper, GeneralLedgerPendingEntrySourceDetail glpeSourceDetail, GeneralLedgerPendingEntry explicitEntry, GeneralLedgerPendingEntry offsetEntry) {
+		String incomeClassCode = ((PaymentRequestDocument) this).getTaxClassificationCode();
+		if ((StringUtils.isNotEmpty(incomeClassCode) && !StringUtils.equalsIgnoreCase(incomeClassCode, "N")) && ((((PaymentRequestDocument) this).getTaxFederalPercent().compareTo(new BigDecimal(0)) != 0) || (((PaymentRequestDocument) this).getTaxStatePercent().compareTo(new BigDecimal(0)) != 0))) {
+			ParameterService parameterService = SpringContext.getBean(ParameterService.class);
+			String taxAccount = parameterService.getParameterValueAsString(PaymentRequestDocument.class, NRATaxParameters.FEDERAL_TAX_PARM_PREFIX + NRATaxParameters.TAX_PARM_ACCOUNT_SUFFIX);
+			if (!offsetEntry.getAccountNumber().equals(taxAccount)) {
+				processTaxWithholdingGeneralLedgerPendingEntries(sequenceHelper, glpeSourceDetail, explicitEntry, offsetEntry, parameterService);
+			}
+		}
+	}
+
+	private void processTaxWithholdingGeneralLedgerPendingEntries(GeneralLedgerPendingEntrySequenceHelper sequenceHelper, GeneralLedgerPendingEntrySourceDetail glpeSourceDetail, GeneralLedgerPendingEntry explicitEntry, GeneralLedgerPendingEntry offsetEntry, ParameterService parameterService) {
+		sequenceHelper.increment();
+
+		GeneralLedgerPendingEntry taxWithholdingExplicit = new GeneralLedgerPendingEntry(explicitEntry);
+		taxWithholdingExplicit.setTransactionLedgerEntrySequenceNumber(sequenceHelper.getSequenceCounter());
+		taxWithholdingExplicit.setTransactionDebitCreditCode(offsetEntry.getTransactionDebitCreditCode());
+		addPendingEntry(taxWithholdingExplicit);
+
+		String glpOffsetObjectCode = parameterService.getParameterValueAsString(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapParameterConstants.GENERAL_LEDGER_PENDING_ENTRY_OFFSET_OBJECT_CODE);
+		SystemOptions options = SpringContext.getBean(OptionsService.class).getOptions(explicitEntry.getUniversityFiscalYear());
+
+		sequenceHelper.increment();
+
+		GeneralLedgerPendingEntry taxWithholdingOffset = new GeneralLedgerPendingEntry(offsetEntry);
+		taxWithholdingOffset.setTransactionLedgerEntrySequenceNumber(sequenceHelper.getSequenceCounter());
+		taxWithholdingOffset.setFinancialObjectCode(glpOffsetObjectCode);
+		taxWithholdingOffset.setFinancialObjectTypeCode(options.getFinancialObjectTypeAssetsCd());
+		taxWithholdingOffset.setTransactionDebitCreditCode(explicitEntry.getTransactionDebitCreditCode());
+
+		addPendingEntry(taxWithholdingOffset);
+	}
+
+	private void processUseTaxOffsetGeneralLedgerPendingEntries( GeneralLedgerPendingEntrySequenceHelper sequenceHelper, GeneralLedgerPendingEntrySourceDetail glpeSourceDetail, GeneralLedgerPendingEntry explicitEntry, GeneralLedgerPendingEntry offsetEntry) {
+		ParameterService parameterService = SpringContext.getBean(ParameterService.class);
+
+		String glpeOffsetObjectCode = parameterService.getParameterValueAsString(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapParameterConstants.GENERAL_LEDGER_PENDING_ENTRY_OFFSET_OBJECT_CODE);
+
+		Map<String, String> pkMap = new HashMap<String, String>();
+		pkMap.put(KFSPropertyConstants.TAX_REGION_CODE, parameterService.getParameterValueAsString(ProcurementCardDocument.class, PurapParameterConstants.GL_USETAX_TAX_REGION));
+		TaxRegion taxRegion = (TaxRegion) getBusinessObjectService().findByPrimaryKey(TaxRegion.class, pkMap);
+
+		if (offsetEntry.getAccountNumber().equals(taxRegion.getAccountNumber())) {
+			offsetEntry.setSubAccountNumber(null);
+			offsetEntry.setSubAccount(null);
+			offsetEntry.setFinancialSubObjectCode(null);
+			offsetEntry.setFinancialSubObject(null);
+			offsetEntry.setProjectCode(null);
+
+			SystemOptions options = SpringContext.getBean(OptionsService.class).getOptions(explicitEntry.getUniversityFiscalYear());
+
+			sequenceHelper.increment();
+
+			GeneralLedgerPendingEntry useTaxExplicit = new GeneralLedgerPendingEntry(explicitEntry);
+			useTaxExplicit.setTransactionLedgerEntrySequenceNumber(sequenceHelper.getSequenceCounter());
+			useTaxExplicit.setTransactionLedgerEntryDescription(PurapConstants.GLPE_USE_TAX_GENERATED_OFFSET_DESCRIPTION);
+			useTaxExplicit.setFinancialObjectCode(glpeOffsetObjectCode);
+			useTaxExplicit.setFinancialObjectTypeCode(options.getFinancialObjectTypeAssetsCd());
+			useTaxExplicit.setTransactionDebitCreditCode(offsetEntry.getTransactionDebitCreditCode());
+
+			addPendingEntry(useTaxExplicit);
+
+			sequenceHelper.increment();
+
+			GeneralLedgerPendingEntry useTaxOffset = new GeneralLedgerPendingEntry(offsetEntry);
+			useTaxOffset.setTransactionLedgerEntrySequenceNumber(sequenceHelper.getSequenceCounter());
+			useTaxOffset.setTransactionLedgerEntryDescription(PurapConstants.GLPE_USE_TAX_GENERATED_OFFSET_DESCRIPTION);
+			useTaxOffset.setFinancialObjectCode(glpeOffsetObjectCode);
+			useTaxOffset.setFinancialObjectTypeCode(options.getFinancialObjectTypeAssetsCd());
+			useTaxOffset.setTransactionDebitCreditCode(explicitEntry.getTransactionDebitCreditCode());
+
+			addPendingEntry(useTaxOffset);
+		}
+	}
 
 }
