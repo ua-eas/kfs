@@ -10,5 +10,5 @@ public class PdpKeyConstants extends org.kuali.kfs.pdp.PdpKeyConstants {
     public static final String ERROR_OBJECT_CODE_DOES_NOT_EXIST = "error.pdp.paymentLoad.objectCodeDoesNotExist";
     public static final String ERROR_NEGATIVE_PAYMENT_TOTAL = "error.pdp.paymentLoad.negativePaymentTotal";
     public static final String ERROR_FUTURE_DATED_INVOICE = "error.pdp.paymentLoad.futureDatedInvoice";
-   
+    public static final String ERROR_PAYEE_ACH_ACCOUNT_INVALID_PAYEE_ID = "error.pdp.payeeAchAccount.invalidPayeeId";
 }
