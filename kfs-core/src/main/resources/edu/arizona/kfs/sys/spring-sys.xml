@@ -183,5 +183,11 @@
 	
 	<bean id="jobListener" parent="jobListener-parentBean" class="edu.arizona.kfs.sys.batch.JobListener">
     </bean>
-    
+
+    <bean id="accountingLineRuleHelperService" parent="accountingLineRuleHelperService-parentBean" class="edu.arizona.kfs.sys.document.service.impl.AccountingLineRuleHelperServiceImpl">
+        <property name="dataDictionaryService" ref="dataDictionaryService"/>
+        <property name="financialSystemDocumentTypeService" ref="financialSystemDocumentTypeService" />
+        <property name="accountService" ref="accountService" />
+    </bean>
+
 </beans>
