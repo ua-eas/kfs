@@ -51,7 +51,7 @@ public class BankTransactionDigesterAdapter {
         bt.setDescriptiveTxt6(bankTransactionVO.getDescriptiveTxt6());
 
         //if this is a VA record, this will Mask the "VA Case File Number"
-        bt.setDescriptiveTxt7(convertDescriptiveText7(bankTransactionVO, errorList));
+        bt.setDescriptiveTxt7(convertDescriptiveText7(bankTransactionVO, bt.getCustRefNo(), errorList));
 
         //parse Value Date
         bt.setValueDate(convertValueDate(bankTransactionVO, errorList));
@@ -163,12 +163,12 @@ public class BankTransactionDigesterAdapter {
      * If the conditions indicate this is not a VA record, then the original
      * notesFieldSeven is returned, unmodified.
      */
-    private String convertDescriptiveText7(BankTransactionDigesterVO bankTransactionVO, List<String> errorList) {
+    private String convertDescriptiveText7(BankTransactionDigesterVO bankTransactionVO, String customerRefNumber, List<String> errorList) {
         String descText7 = null;
 
         try {
             // Mask the "VA Case File Number" if this is a VA record, otherwise no-op assign original value back in
-            VaRecordNotesMasker vaNotesMasker = new VaRecordNotesMasker(bankTransactionVO.getAccountNumber(), bankTransactionVO.getBaiType(), bankTransactionVO.getCustRefNo(), bankTransactionVO.getDescriptiveTxt6(), bankTransactionVO.getDescriptiveTxt7());
+            VaRecordNotesMasker vaNotesMasker = new VaRecordNotesMasker(bankTransactionVO.getAccountNumber(), bankTransactionVO.getBaiType(), customerRefNumber, bankTransactionVO.getDescriptiveTxt6(), bankTransactionVO.getDescriptiveTxt7());
 
             descText7 = vaNotesMasker.getAppropriateNotesFieldSeven();
         } catch (Exception e) {

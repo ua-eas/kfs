@@ -31,8 +31,8 @@ public class BankTransactionCSVBuilder {
         btv.setCustRefNo( currentRowData[ fieldPositions.get(KFSConstants.BankTransactionFields.CUST_REF_NO) ] );
         btv.setValueDate( currentRowData[ fieldPositions.get(KFSConstants.BankTransactionFields.VALUE_DATE) ] );
         btv.setBankReference( currentRowData[ fieldPositions.get(KFSConstants.BankTransactionFields.BANK_REFERENCE) ] );
-        btv.setDescriptiveTxt6( currentRowData[ fieldPositions.get(KFSConstants.BankTransactionFields.DESC_TEXT6) ] );
-        btv.setDescriptiveTxt7( currentRowData[ fieldPositions.get(KFSConstants.BankTransactionFields.DESC_TEXT7) ] );
+        btv.setDescriptiveTxt6( currentRowData[ fieldPositions.get(KFSConstants.BankTransactionFields.DESC_TEXT6) ].toUpperCase() );
+        btv.setDescriptiveTxt7( currentRowData[ fieldPositions.get(KFSConstants.BankTransactionFields.DESC_TEXT7) ].toUpperCase() );
 
         return btv;
     }

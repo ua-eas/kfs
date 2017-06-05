@@ -77,6 +77,8 @@ public class CheckReconciliationFileType extends BatchInputFileTypeBase {
             checkReconRow.append(delimiter);
         }
         checkReconRow.append( getBankParametersAccessService().getCheckReconClearedStatusCode());
+        //each row needs to end with a COMMA and EOL
+        checkReconRow.append( KFSConstants.COMMA_CHAR);
         checkReconRow.append("\n");
         LOG.debug("getCheckReconciliationRow for transaction="+bankTransaction.toString()+" is="+checkReconRow.toString());
         return checkReconRow.toString();
