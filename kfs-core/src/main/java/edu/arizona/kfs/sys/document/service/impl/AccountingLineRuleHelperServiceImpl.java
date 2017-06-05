@@ -8,7 +8,6 @@ import org.kuali.kfs.sys.businessobject.AccountingLineOverride;
 import org.kuali.rice.krad.util.GlobalVariables;
 
 import edu.arizona.kfs.fp.businessobject.GECSourceAccountingLine;
-import edu.arizona.kfs.fp.businessobject.GECTargetAccountingLine;
 
 public class AccountingLineRuleHelperServiceImpl extends org.kuali.kfs.sys.document.service.impl.AccountingLineRuleHelperServiceImpl {
 
@@ -22,7 +21,7 @@ public class AccountingLineRuleHelperServiceImpl extends org.kuali.kfs.sys.docum
         Account account = line.getAccount();
         if (AccountingLineOverride.needsExpiredAccountOverride(account) && !override.hasComponent(AccountingLineOverride.COMPONENT.EXPIRED_ACCOUNT)) {
             Account continuation = accountService.getUnexpiredContinuationAccountOrNull(account);
-            if (line instanceof GECSourceAccountingLine || line instanceof GECTargetAccountingLine) {
+            if (line instanceof GECSourceAccountingLine) {
                 String propertyName = KFSConstants.ACCOUNT_NUMBER_PROPERTY_NAME;
                 String messageKey = edu.arizona.kfs.sys.KFSKeyConstants.GEC_ERROR_DOCUMENT_ACCOUNT_EXPIRED;
                 String[] messageArgs = new String[]{account.getAccountNumber()};
