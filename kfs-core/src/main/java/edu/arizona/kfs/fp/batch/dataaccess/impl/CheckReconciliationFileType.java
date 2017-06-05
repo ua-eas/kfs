@@ -4,6 +4,8 @@ import edu.arizona.kfs.fp.batch.service.BankParametersAccessService;
 import edu.arizona.kfs.fp.batch.service.BankTransactionsLoadService;
 import edu.arizona.kfs.fp.businessobject.BankTransaction;
 import edu.arizona.kfs.sys.KFSConstants;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -75,6 +77,8 @@ public class CheckReconciliationFileType extends BatchInputFileTypeBase {
             checkReconRow.append(delimiter);
         }
         checkReconRow.append( getBankParametersAccessService().getCheckReconClearedStatusCode());
+        //each row needs to end with a COMMA and EOL
+        checkReconRow.append( KFSConstants.COMMA_CHAR);
         checkReconRow.append("\n");
         LOG.debug("getCheckReconciliationRow for transaction="+bankTransaction.toString()+" is="+checkReconRow.toString());
         return checkReconRow.toString();
@@ -86,6 +90,10 @@ public class CheckReconciliationFileType extends BatchInputFileTypeBase {
     @Override
     public String getFileName(String principalName, Object parsedFileContents, String fileUserIdentifer) {
         return getFileName();
+    }
+
+    public void resetFileNameTimestamp(){
+        fileName = null;
     }
 
 
@@ -114,8 +122,25 @@ public class CheckReconciliationFileType extends BatchInputFileTypeBase {
     public void process(String fileName, Object parsedFileContents) {
     }
 
+    /**
+     *  Creates a matching .done file for the check recon file, if one exists.
+     *  The .done file should only be created when the check recon file is complete.
+     */
+    public void createCheckReconDoneFile() {
+        File checkReconFile = new File(getAbsoulutePath());
+        if (checkReconFile.exists()) {
+            File doneFile = null;
+            try {
 
+                doneFile = new File(getDoneFilePath(checkReconFile));
+                doneFile.createNewFile();
 
+            } catch (IOException e) {
+                LOG.error("Check reconciliation .DONE file " + doneFile.getAbsolutePath() + " could not be created. ABORTING.");
+                throw new RuntimeException("Check reconciliation .DONE file " + doneFile.getAbsolutePath() + " could not be created. ABORTING.");
+            }
+        }
+    }
 
     /**
      * Creates and opens the file on the output path. the .done corresponding to the given file, if one exists.
@@ -125,6 +150,8 @@ public class CheckReconciliationFileType extends BatchInputFileTypeBase {
         if ( !checkReconFile.exists() ) {
             try {
                 checkReconFile.createNewFile();
+                File doneFile = new File(getDoneFilePath(checkReconFile));
+                doneFile.createNewFile();
                 if (!checkReconFile.canWrite()) {
                     LOG.error("Check reconciliation file " + getAbsoulutePath() + " cannot be opened for writing. ABORTING.");
                     throw new RuntimeException("Check reconciliation file " + getAbsoulutePath() + " cannot be opened for writing. ABORTING.");
@@ -165,6 +192,10 @@ public class CheckReconciliationFileType extends BatchInputFileTypeBase {
         return getDirectoryPath() + File.separator + getFileName() + KFSConstants.DOT_CHAR + getFileExtension();
     }
 
+    public String getDoneFilePath(File reconFile) {
+        String doneFileName = FilenameUtils.getBaseName(reconFile.getName());
+        return getDirectoryPath() + File.separator + doneFileName + KFSConstants.DONE_FILE_EXTENSION;
+    }
 
     /**
      * @see org.kuali.kfs.sys.batch.BatchInputType#getTitleKey()

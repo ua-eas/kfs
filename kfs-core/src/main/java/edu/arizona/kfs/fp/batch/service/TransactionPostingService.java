@@ -11,12 +11,6 @@ import java.util.List;
  */
 public interface TransactionPostingService {
 
-    /**
-     * Initializes all resources - files etc, before starting to post transactions in the documentCreateJob
-     *
-     * @return empty errorList if transaction was posted with no errors
-     */
-    public void initialize();
 
     /**
      * Posts the given bank transaction and create the appropriate document for it:
@@ -36,4 +30,11 @@ public interface TransactionPostingService {
      * Returns TRUE if any files were already processed for the posting date of this file
      */
     public boolean isDuplicateBatch(String bankTransactionsFileName, Timestamp timestampBatchDate, String bankTransactionBatchName);
+
+
+    /**
+     * If there is an output check recon file, it creates a .done for it and resets the timestamp for the filename.
+     *
+     */
+    public void finalizeCheckRecon();
 }

@@ -31,7 +31,8 @@ public class CheckReconciliationAdapter {
         String[] checkReconRowData = new String[8];
         checkReconRowData[ fieldPositions.get(KFSConstants.BankTransactionFields.ACCOUNT_NUMBER) ] = bankTransaction.getAccountNumber().toString();
         checkReconRowData[ fieldPositions.get(KFSConstants.BankTransactionFields.BAI_TYPE) ] = bankTransaction.getBaiType().toString();
-        checkReconRowData[ fieldPositions.get(KFSConstants.BankTransactionFields.AMOUNT) ] = bankTransaction.getAmount().abs().toString();
+        String amount = bankTransaction.getAmount().abs().toString().replace(".","");
+        checkReconRowData[ fieldPositions.get(KFSConstants.BankTransactionFields.AMOUNT) ] = amount;
         checkReconRowData[ fieldPositions.get(KFSConstants.BankTransactionFields.CUST_REF_NO) ] = bankTransaction.getCustRefNo();
         checkReconRowData[ fieldPositions.get(KFSConstants.BankTransactionFields.VALUE_DATE) ] = convertValueDate(bankTransaction.getValueDate());
         checkReconRowData[ fieldPositions.get(KFSConstants.BankTransactionFields.BANK_REFERENCE) ] = bankTransaction.getBankReference();

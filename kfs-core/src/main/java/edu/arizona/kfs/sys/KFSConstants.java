@@ -14,6 +14,7 @@ public class KFSConstants extends org.kuali.kfs.sys.KFSConstants {
     public static final String EQUALS = "=";
     public static final char QUOTE_CHAR = '"';
     public static final char DOT_CHAR = '.';
+    public static final char COMMA_CHAR = ',';
 
     public static final String INVOICE_NUMBER = "Invoice Number";
     public static final String DUPLICATE_INVOICE_QUESTION_ID = "DVDuplicateInvoice";
@@ -310,8 +311,8 @@ public class KFSConstants extends org.kuali.kfs.sys.KFSConstants {
         public static final String DOCUMENT_TYPE_DI = "DI";
         public static final String BANK_TRANSACTION_ORIGIN_CODE = "BT";
         public static final String ACCT_LINE_DATE_FORMAT = "MMddyyyy";
-        public static final int MAX_DESCRIPTION_LEN = 40;
-        public static final int MAX_NUMBER_LEN = 8;
+        public static final int MAX_DESCRIPTION_LEN = 39;
+        public static final int MAX_NUMBER_LEN = 7;
         public static final int MAX_BANK_REF_NBR = 10;
     }
 
