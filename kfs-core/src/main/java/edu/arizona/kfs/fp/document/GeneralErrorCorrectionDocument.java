@@ -2,6 +2,7 @@ package edu.arizona.kfs.fp.document;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -87,8 +88,15 @@ public class GeneralErrorCorrectionDocument extends org.kuali.kfs.fp.document.Ge
     @SuppressWarnings("unchecked")//AccountingLine
     public void resequenceLinesAndRelationships() {
 
-        // Temporarily preserve our sequence numbers
-        Map<AccountingLine, GecEntryRelationship> sourceLineToRelMap = new HashMap<>();
+        // Temporarily preserve line-to-relationship map, need to set a custom
+        // comparator, otherwise the default PKs cause collisions
+        Map<AccountingLine, GecEntryRelationship> sourceLineToRelMap = new TreeMap<>(new Comparator<AccountingLine>(){
+            @Override
+            public int compare(AccountingLine line, AccountingLine otherLine) {
+                return line.getObjectId() == null ? -1 : (line.getObjectId().compareTo(otherLine.getObjectId()));
+            }
+        });
+
         for (Object o : getSourceAccountingLines()) {
             AccountingLine line = (AccountingLine) o;
             GecEntryRelationship rel = getRelationshipByLine(line);
@@ -113,26 +121,25 @@ public class GeneralErrorCorrectionDocument extends org.kuali.kfs.fp.document.Ge
         }
         super.setNextTargetLineNumber(newIndex);
 
-        // Now we can set the relationships w/ the new seqs
-        List<GecEntryRelationship> relsToUpdate = new ArrayList<>();
-        for (AccountingLine line : sourceLineToRelMap.keySet()) {
-            GecEntryRelationship rel = sourceLineToRelMap.get(line);
-            rel.setGecAcctLineSeqNumber(line.getSequenceNumber());
-            relsToUpdate.add(rel);
-        }
-
+        // Now we can set the relationships w/ the lines' states. Note: the relationship collection
+        // is managed by the framework -- we operate on the collection, the framework will
+        // automatically do our updates/deletes. (In fact, using the BOS here will get us an
+        // OptimisticLockException and tank.)
         String docRouteStatusCode = this.getDocumentHeader().getWorkflowDocument().getStatus().getCode();
-        if (!GEC_ACTIVE_ROUTE_STATUS_CODES.contains(docRouteStatusCode)) {
+        if (GEC_ACTIVE_ROUTE_STATUS_CODES.contains(docRouteStatusCode)) {
+            for (AccountingLine line : sourceLineToRelMap.keySet()) {
+                GecEntryRelationship rel = sourceLineToRelMap.get(line);
+                rel.setGecAcctLineSeqNumber(line.getSequenceNumber());
+                rel.setGecDocRouteStatus(docRouteStatusCode);
+                rel.setGecAcctLineObjectId(line.getObjectId());
+                LOG.debug(String.format("Updated GecEntryRelationship (entryId, docNum, lineSeqNum, debitCreditCode, lineObjId): (%d, %s, %s, %s, %s)", rel.getEntryId(), rel.getGecDocumentNumber(), rel.getGecAcctLineSeqNumber(), rel.getGecFdocLineTypeCode(), rel.getGecAcctLineObjectId()));
+            }
+        } else {
             // This went to a status that should release all GLEs, so we should remove the relationships too.
-            // Note: The logic here covers the "recall+cancel" scenario, where no lines are deleted, but
-            //       the relationships still need to be cleared. Likewise would be the case for "disapprove" action.
-            getBusinessObjectService().delete(new ArrayList<PersistableBusinessObject>(getGecEntryRelationships()));
+            // Note: This includes the "recall+cancel" scenario, where no lines are deleted, and the relationships
+            //       still need to be cleared. Likewise would be the case for "disapprove" action.
             getGecEntryRelationships().clear();
-            LOG.info(String.format("Deleted all GecEntryRelationships for docNum: '%s' going to status '%s'", getDocumentNumber(), docRouteStatusCode));
-        } else if (relsToUpdate.size() > 0) {
-            // Good doc status, update any of the line fields that may have changed
-            getBusinessObjectService().save(relsToUpdate);
-            LOG.info("Updated gecEntryRelationShips: " + relsToUpdate);
+            LOG.debug(String.format("Deleted all GecEntryRelationships for docNum: '%s' going to status '%s'", getDocumentNumber(), docRouteStatusCode));
         }
 
     }
