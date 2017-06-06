@@ -9,6 +9,7 @@ import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLine;
 import org.kuali.kfs.module.purap.businessobject.PurApItem;
+import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.Bank;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper;
@@ -156,6 +157,23 @@ public class VendorCreditMemoDocument extends org.kuali.kfs.module.purap.documen
         getPaymentMethodGeneralLedgerPendingEntryService().generatePaymentMethodSpecificDocumentGeneralLedgerPendingEntries(this, getPaymentMethodCode(), getBankCode(), KRADConstants.DOCUMENT_PROPERTY_NAME + AccountingDocumentRuleBaseConstants.ERROR_PATH.DOCUMENT_ERROR_PREFIX + PurapPropertyConstants.BANK_CODE, getGeneralLedgerPendingEntry(0), true, true, sequenceHelper);
 
         return true;
+    }
+    
+    @Override
+    public boolean customizeOffsetGeneralLedgerPendingEntry(GeneralLedgerPendingEntrySourceDetail accountingLine, GeneralLedgerPendingEntry explicitEntry, GeneralLedgerPendingEntry offsetEntry) {
+        boolean value = super.customizeOffsetGeneralLedgerPendingEntry(accountingLine, explicitEntry, offsetEntry);
+        if(offsetEntry != null && this.offsetUseTax != null) {
+            offsetEntry.setChartOfAccountsCode(this.offsetUseTax.getChartOfAccountsCode());
+            offsetEntry.refreshReferenceObject(KFSPropertyConstants.CHART);
+            offsetEntry.setAccountNumber(this.offsetUseTax.getAccountNumber());
+            offsetEntry.refreshReferenceObject(KFSPropertyConstants.ACCOUNT);
+            offsetEntry.setFinancialObjectCode(this.offsetUseTax.getFinancialObjectCode());
+            offsetEntry.refreshReferenceObject(KFSPropertyConstants.FINANCIAL_OBJECT);
+            offsetEntry.setFinancialObjectTypeCode(offsetEntry.getFinancialObject().getFinancialObjectTypeCode());
+        } else {
+            value=false;
+        }
+        return value;
     }
 
     protected PaymentMethodGeneralLedgerPendingEntryService getPaymentMethodGeneralLedgerPendingEntryService() {

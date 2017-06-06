@@ -82,12 +82,13 @@
 
     <class-descriptor class="edu.arizona.kfs.gl.businessobject.GecEntryRelationship" table="FP_GEC_ENTRY_REL_T">
         <field-descriptor name="entryId" column="ENTRY_ID" jdbc-type="BIGINT" index="true" primarykey="true" />
-        <field-descriptor name="gecDocumentNumber" column="GEC_FDOC_NBR" jdbc-type="VARCHAR" index="true" primarykey="true" />
-        <field-descriptor name="gecFdocLineTypeCode" column="GEC_FDOC_LN_TYP_CD" jdbc-type="VARCHAR" primarykey="true"  />
-        <field-descriptor name="gecAcctLineSeqNumber" column="GEC_ACCT_LINE_NBR" jdbc-type="INTEGER" primarykey="true" />
+        <field-descriptor name="gecDocumentNumber" column="GEC_FDOC_NBR" jdbc-type="VARCHAR" index="true" />
+        <field-descriptor name="gecFdocLineTypeCode" column="GEC_FDOC_LN_TYP_CD" jdbc-type="VARCHAR" />
+        <field-descriptor name="gecAcctLineSeqNumber" column="GEC_ACCT_LINE_NBR" jdbc-type="INTEGER" />
         <field-descriptor name="gecDocRouteStatus" column="GEC_DOC_HDR_STAT_CD" jdbc-type="VARCHAR" />
         <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true" />
         <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true" />
+        <field-descriptor name="gecAcctLineObjectId" column="GEC_ACCT_LINE_UUID" jdbc-type="VARCHAR" index="true" />
     </class-descriptor>
 
 </descriptor-repository>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet id="UAF-4597_01" author="sskinner">
+        <comment>
+            UAF-4597 (1/1) - Create new GEC relationship column.
+        </comment>
+        <sql dbms="oracle" endDelimiter="/">
+            <!--
+                Gotcha:          Note the 'dbms' attribute of the sqls element here: the following code block is
+                                 oracle-specific PL/SQL. We also need to use liquibase's 'endLimiter', which the
+                                 PL/SQL syntax needs.
+                Actual function: Create a new column to associate AccountingLine UUID for association
+                                 tracking. This deviates from non-GEC lines, due to our need of
+                                 potentially resequencing line numbers - this is a primary key, and
+                                 so needed special handeling.
+                Timing Info:     This is wrapped in a check, since UAF-3849 is being moved out of KFS
+                                 and into the DB upgrade project, which might introduce this column
+                                 earlier. If DB Upgrade's 3849 hits first, then we won't blow up, but
+                                 if 3849 hasn't created the column due to not being merged-in yet, then
+                                 we take care of ourselves now.
+             -->
+            DECLARE
+                v_column_exists number := 0;
+            BEGIN
+                select count(*) into v_column_exists
+                    from user_tab_cols
+                    where column_name = 'GEC_ACCT_LINE_UUID'
+                    and table_name = 'FP_GEC_ENTRY_REL_T';
+                if (v_column_exists = 0) then
+                    execute immediate 'alter table FP_GEC_ENTRY_REL_T add (GEC_ACCT_LINE_UUID VARCHAR2(36 BYTE) unique)';
+                end if;
+            end;
+            /
+        </sql>
+        <rollback>
+            <sql dbms="oracle" endDelimiter="/">
+                <!--
+                    If we fail, check to see if column was created, if so, delete it
+                -->
+                DECLARE
+                    v_column_exists number := 0;
+                BEGIN
+                    select count(*) into v_column_exists
+                        from user_tab_cols
+                        where column_name = 'GEC_ACCT_LINE_UUID'
+                        and table_name = 'FP_GEC_ENTRY_REL_T';
+                    if (v_column_exists > 0) then
+                        execute immediate 'ALTER TABLE FP_GEC_ENTRY_REL_T DROP COLUMN GEC_ACCT_LINE_UUID';
+                    end if;
+                end;
+                /
+            </sql>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
+

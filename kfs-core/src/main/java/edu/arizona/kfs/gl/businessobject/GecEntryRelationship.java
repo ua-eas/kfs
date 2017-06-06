@@ -21,7 +21,8 @@ public class GecEntryRelationship extends PersistableBusinessObjectBase {
     private Integer gecAcctLineSeqNumber;
     private String gecDocRouteStatus;
     private String gecFdocLineTypeCode;
-    private Entry entry;
+    private String gecAcctLineObjectId;
+    private transient Entry entry;
 
 
     public GecEntryRelationship() {
@@ -29,17 +30,18 @@ public class GecEntryRelationship extends PersistableBusinessObjectBase {
     }
 
 
-    public GecEntryRelationship(Long entryId, String gecDocumentNumber, Integer gecAcctLineSeqNumber, String gecFdocLineTypeCode, String gecDocumentStatus) {
+    public GecEntryRelationship(Long entryId, String gecDocumentNumber, Integer gecAcctLineSeqNumber, String gecFdocLineTypeCode, String gecDocumentStatus, String gecAcctLineObjectId) {
         this.entryId = entryId;
         this.gecDocumentNumber = gecDocumentNumber;
         this.gecAcctLineSeqNumber = gecAcctLineSeqNumber;
         this.gecFdocLineTypeCode = gecFdocLineTypeCode;
         this.gecDocRouteStatus = gecDocumentStatus;
+        this.gecAcctLineObjectId = gecAcctLineObjectId;
     }
 
 
-    public GecEntryRelationship(Long entryId, String gecDocumentNumber, Integer gecAcctLineSeqNumber, String gecFdocLineTypeCode, String gecDocumentStatus, Entry entry) {
-        this(entryId, gecDocumentNumber, gecAcctLineSeqNumber, gecFdocLineTypeCode, gecDocumentStatus);
+    public GecEntryRelationship(Long entryId, String gecDocumentNumber, Integer gecAcctLineSeqNumber, String gecFdocLineTypeCode, String gecDocumentStatus, String gecAcctLineObjectId, Entry entry) {
+        this(entryId, gecDocumentNumber, gecAcctLineSeqNumber, gecFdocLineTypeCode, gecDocumentStatus, gecAcctLineObjectId);
         this.entry = entry;
     }
 
@@ -110,6 +112,16 @@ public class GecEntryRelationship extends PersistableBusinessObjectBase {
 
     public void setGecFdocLineTypeCode(String gecFdocLineTypeCode) {
         this.gecFdocLineTypeCode = gecFdocLineTypeCode;
+    }
+
+
+    public String getGecAcctLineObjectId() {
+        return gecAcctLineObjectId;
+    }
+
+
+    public void setGecAcctLineObjectId(String gecAcctLineObjectId) {
+        this.gecAcctLineObjectId = gecAcctLineObjectId;
     }
 
 

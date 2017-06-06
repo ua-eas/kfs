@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="UAF-2347" author="Lin-Long Shyu">
+        <preConditions onError="MARK_RAN" onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                select count(*) from KRCR_NMSPC_T where NMSPC_CD = 'KFS-PRJE'
+            </sqlCheck>
+        </preConditions>
+        <comment>
+            UAF-2347 - PRJE Modification
+        </comment>
+        <sql>
+            <!-- Update Namespace Code on all tables -->
+            UPDATE KRCR_NMSPC_T             SET NMSPC_CD='KFS-PRJE' WHERE NMSPC_CD='KUALI-PRJE'; <!-- org.kuali.rice.coreservice.impl.namespace.NamespaceBo                            -->
+            UPDATE KRCR_CMPNT_T             SET NMSPC_CD='KFS-PRJE' WHERE NMSPC_CD='KUALI-PRJE'; <!-- org.kuali.rice.coreservice.impl.component.ComponentBo                            -->
+            UPDATE KRCR_DRVD_CMPNT_T        SET NMSPC_CD='KFS-PRJE' WHERE NMSPC_CD='KUALI-PRJE'; <!-- org.kuali.rice.coreservice.impl.component.DerivedComponentBo                     -->
+            UPDATE KRCR_PARM_T              SET NMSPC_CD='KFS-PRJE' WHERE NMSPC_CD='KUALI-PRJE'; <!-- org.kuali.rice.coreservice.impl.parameter.ParameterBo                            -->
+            UPDATE KREN_CNTNT_TYP_T         SET NMSPC_CD='KFS-PRJE' WHERE NMSPC_CD='KUALI-PRJE'; <!-- org.kuali.rice.ken.bo.NotificationContentTypeBo                                  -->
+            UPDATE KREW_ATTR_DEFN_T         SET NMSPC_CD='KFS-PRJE' WHERE NMSPC_CD='KUALI-PRJE'; <!-- org.kuali.rice.kew.impl.type.KewAttributeDefinitionBo                            -->
+            UPDATE KREW_TYP_T               SET NMSPC_CD='KFS-PRJE' WHERE NMSPC_CD='KUALI-PRJE'; <!-- org.kuali.rice.kew.impl.type.KewTypeBo                                           -->
+            UPDATE KREW_PPL_FLW_T           SET NMSPC_CD='KFS-PRJE' WHERE NMSPC_CD='KUALI-PRJE'; <!-- org.kuali.rice.kew.impl.peopleflow.PeopleFlowBo                                  -->
+            UPDATE KRIM_TYP_T               SET NMSPC_CD='KFS-PRJE' WHERE NMSPC_CD='KUALI-PRJE'; <!-- org.kuali.rice.kim.impl.type.KimTypeBo                                           -->
+            UPDATE KRIM_ATTR_DEFN_T         SET NMSPC_CD='KFS-PRJE' WHERE NMSPC_CD='KUALI-PRJE'; <!-- org.kuali.rice.kim.impl.common.attribute.KimAttributeBo                          -->
+            UPDATE KRIM_GRP_T               SET NMSPC_CD='KFS-PRJE' WHERE NMSPC_CD='KUALI-PRJE'; <!-- org.kuali.rice.kim.impl.group.GroupBo                                            -->
+            UPDATE KRIM_ROLE_T              SET NMSPC_CD='KFS-PRJE' WHERE NMSPC_CD='KUALI-PRJE'; <!-- org.kuali.rice.kim.impl.role.RoleBo / org.kuali.rice.kim.impl.role.RoleBoLite    -->
+            UPDATE KRIM_PERM_T              SET NMSPC_CD='KFS-PRJE' WHERE NMSPC_CD='KUALI-PRJE'; <!-- org.kuali.rice.kim.impl.permission.PermissionBo                                  -->
+            UPDATE KRIM_PERM_TMPL_T         SET NMSPC_CD='KFS-PRJE' WHERE NMSPC_CD='KUALI-PRJE'; <!-- org.kuali.rice.kim.impl.permission.PermissionTemplateBo                          -->
+            UPDATE KRIM_RSP_T               SET NMSPC_CD='KFS-PRJE' WHERE NMSPC_CD='KUALI-PRJE'; <!-- org.kuali.rice.kim.impl.responsibility.ResponsibilityBo                          -->
+            UPDATE KRIM_RSP_TMPL_T          SET NMSPC_CD='KFS-PRJE' WHERE NMSPC_CD='KUALI-PRJE'; <!-- org.kuali.rice.kim.impl.responsibility.ResponsibilityTemplateBo                  -->
+            UPDATE KRIM_PND_ROLE_MT         SET NMSPC_CD='KFS-PRJE' WHERE NMSPC_CD='KUALI-PRJE'; <!-- org.kuali.rice.kim.bo.ui.PersonDocumentRole                                      -->
+            UPDATE KRIM_PND_GRP_PRNCPL_MT   SET NMSPC_CD='KFS-PRJE' WHERE NMSPC_CD='KUALI-PRJE'; <!-- org.kuali.rice.kim.bo.ui.PersonDocumentGroup                                     -->
+            UPDATE KRMS_ATTR_DEFN_T         SET NMSPC_CD='KFS-PRJE' WHERE NMSPC_CD='KUALI-PRJE'; <!-- org.kuali.rice.krms.impl.repository.KrmsAttributeDefinitionBo                    -->
+            UPDATE KRMS_TYP_T               SET NMSPC_CD='KFS-PRJE' WHERE NMSPC_CD='KUALI-PRJE'; <!-- org.kuali.rice.krms.impl.repository.KrmsTypeBo                                   -->
+            UPDATE KRMS_CNTXT_T             SET NMSPC_CD='KFS-PRJE' WHERE NMSPC_CD='KUALI-PRJE'; <!-- org.kuali.rice.krms.impl.repository.ContextBo                                    -->
+            UPDATE KRMS_ACTN_T              SET NMSPC_CD='KFS-PRJE' WHERE NMSPC_CD='KUALI-PRJE'; <!-- org.kuali.rice.krms.impl.repository.ActionBo                                     -->
+            UPDATE KRMS_RULE_T              SET NMSPC_CD='KFS-PRJE' WHERE NMSPC_CD='KUALI-PRJE'; <!-- org.kuali.rice.krms.impl.repository.RuleBo                                       -->
+            UPDATE KRMS_TERM_SPEC_T         SET NMSPC_CD='KFS-PRJE' WHERE NMSPC_CD='KUALI-PRJE'; <!-- org.kuali.rice.krms.impl.repository.TermSpecificationBo                          -->
+            UPDATE KRMS_TERM_RSLVR_T        SET NMSPC_CD='KFS-PRJE' WHERE NMSPC_CD='KUALI-PRJE'; <!-- org.kuali.rice.krms.impl.repository.TermResolverBo                               -->
+            UPDATE KRMS_FUNC_T              SET NMSPC_CD='KFS-PRJE' WHERE NMSPC_CD='KUALI-PRJE'; <!-- org.kuali.rice.krms.impl.repository.FunctionBo                                   -->
+            UPDATE KRMS_CTGRY_T             SET NMSPC_CD='KFS-PRJE' WHERE NMSPC_CD='KUALI-PRJE'; <!-- org.kuali.rice.krms.impl.repository.CategoryBo                                   -->
+            UPDATE SH_FNCTNL_FIELD_DESCR_T  SET NMSPC_CD='KFS-PRJE' WHERE NMSPC_CD='KUALI-PRJE'; <!-- org.kuali.kfs.sys.businessobject.FunctionalFieldDescription                      -->
+
+            <!-- Update Parameter fields -->
+            UPDATE KRCR_PARM_T              SET APPL_ID='KFS'                                       WHERE NMSPC_CD='KFS-PRJE';
+
+            <!--Update Permission Fields -->
+            UPDATE KRIM_PERM_T              SET NM = REPLACE(NM, 'KUALI-PRJE', 'KFS-PRJE')              WHERE NM       LIKE '%KUALI-PRJE%'; <!-- org.kuali.rice.kim.impl.permission.PermissionBo -->
+            UPDATE KRIM_PERM_T              SET DESC_TXT = REPLACE(DESC_TXT, 'KUALI-PRJE', 'KFS-PRJE')  WHERE DESC_TXT LIKE '%KUALI-PRJE%'; <!-- org.kuali.rice.kim.impl.permission.PermissionBo -->
+            UPDATE KRIM_PERM_ATTR_DATA_T    SET ATTR_VAL='KFS-PRJE'                                   WHERE ATTR_VAL='KUALI-PRJE';        <!-- org.kuali.rice.kim.impl.permission.PermissionAttributeBo -->
+
+        </sql>
+        <rollback>
+            <sql>
+
+                UPDATE KRIM_PERM_ATTR_DATA_T    SET ATTR_VAL='KUALI-PRJE'                                 WHERE ATTR_VAL='KFS-PRJE';
+                UPDATE KRIM_PERM_T              SET NM = REPLACE(NM, 'KFS-PRJE', 'KUALI-PRJE')              WHERE NM       LIKE '%KFS-PRJE%';
+                UPDATE KRIM_PERM_T              SET DESC_TXT = REPLACE(DESC_TXT, 'KFS-PRJE', 'KUALI-PRJE')  WHERE DESC_TXT LIKE '%KFS-PRJE%';
+
+                UPDATE KRCR_PARM_T              SET APPL_ID='KUALI' WHERE NMSPC_CD='KFS-PRJE';
+
+
+                UPDATE SH_FNCTNL_FIELD_DESCR_T  SET NMSPC_CD='KUALI-PRJE' WHERE NMSPC_CD='KFS-PRJE';
+                UPDATE KRMS_CTGRY_T             SET NMSPC_CD='KUALI-PRJE' WHERE NMSPC_CD='KFS-PRJE';
+                UPDATE KRMS_FUNC_T              SET NMSPC_CD='KUALI-PRJE' WHERE NMSPC_CD='KFS-PRJE';
+                UPDATE KRMS_TERM_RSLVR_T        SET NMSPC_CD='KUALI-PRJE' WHERE NMSPC_CD='KFS-PRJE';
+                UPDATE KRMS_TERM_SPEC_T         SET NMSPC_CD='KUALI-PRJE' WHERE NMSPC_CD='KFS-PRJE';
+                UPDATE KRMS_RULE_T              SET NMSPC_CD='KUALI-PRJE' WHERE NMSPC_CD='KFS-PRJE';
+                UPDATE KRMS_ACTN_T              SET NMSPC_CD='KUALI-PRJE' WHERE NMSPC_CD='KFS-PRJE';
+                UPDATE KRMS_CNTXT_T             SET NMSPC_CD='KUALI-PRJE' WHERE NMSPC_CD='KFS-PRJE';
+                UPDATE KRMS_TYP_T               SET NMSPC_CD='KUALI-PRJE' WHERE NMSPC_CD='KFS-PRJE';
+                UPDATE KRMS_ATTR_DEFN_T         SET NMSPC_CD='KUALI-PRJE' WHERE NMSPC_CD='KFS-PRJE';
+                UPDATE KRIM_PND_GRP_PRNCPL_MT   SET NMSPC_CD='KUALI-PRJE' WHERE NMSPC_CD='KFS-PRJE';
+                UPDATE KRIM_PND_ROLE_MT         SET NMSPC_CD='KUALI-PRJE' WHERE NMSPC_CD='KFS-PRJE';
+                UPDATE KRIM_RSP_TMPL_T          SET NMSPC_CD='KUALI-PRJE' WHERE NMSPC_CD='KFS-PRJE';
+                UPDATE KRIM_RSP_T               SET NMSPC_CD='KUALI-PRJE' WHERE NMSPC_CD='KFS-PRJE';
+                UPDATE KRIM_PERM_TMPL_T         SET NMSPC_CD='KUALI-PRJE' WHERE NMSPC_CD='KFS-PRJE';
+                UPDATE KRIM_PERM_T              SET NMSPC_CD='KUALI-PRJE' WHERE NMSPC_CD='KFS-PRJE';
+                UPDATE KRIM_ROLE_T              SET NMSPC_CD='KUALI-PRJE' WHERE NMSPC_CD='KFS-PRJE';
+                UPDATE KRIM_GRP_T               SET NMSPC_CD='KUALI-PRJE' WHERE NMSPC_CD='KFS-PRJE';
+                UPDATE KRIM_ATTR_DEFN_T         SET NMSPC_CD='KUALI-PRJE' WHERE NMSPC_CD='KFS-PRJE';
+                UPDATE KRIM_TYP_T               SET NMSPC_CD='KUALI-PRJE' WHERE NMSPC_CD='KFS-PRJE';
+                UPDATE KREW_PPL_FLW_T           SET NMSPC_CD='KUALI-PRJE' WHERE NMSPC_CD='KFS-PRJE';
+                UPDATE KREW_TYP_T               SET NMSPC_CD='KUALI-PRJE' WHERE NMSPC_CD='KFS-PRJE';
+                UPDATE KREW_ATTR_DEFN_T         SET NMSPC_CD='KUALI-PRJE' WHERE NMSPC_CD='KFS-PRJE';
+                UPDATE KREN_CNTNT_TYP_T         SET NMSPC_CD='KUALI-PRJE' WHERE NMSPC_CD='KFS-PRJE';
+                UPDATE KRCR_PARM_T              SET NMSPC_CD='KUALI-PRJE' WHERE NMSPC_CD='KFS-PRJE';
+                UPDATE KRCR_DRVD_CMPNT_T        SET NMSPC_CD='KUALI-PRJE' WHERE NMSPC_CD='KFS-PRJE';
+                UPDATE KRCR_CMPNT_T             SET NMSPC_CD='KUALI-PRJE' WHERE NMSPC_CD='KFS-PRJE';
+                UPDATE KRCR_NMSPC_T             SET NMSPC_CD='KUALI-PRJE' WHERE NMSPC_CD='KFS-PRJE';
+            </sql>
+        </rollback>
+
+    </changeSet>
+</databaseChangeLog>

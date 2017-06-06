@@ -17,6 +17,7 @@ public class KFSKeyConstants extends org.kuali.kfs.sys.KFSKeyConstants {
     public static final String ERROR_ERROR_CERT_FIELDS_REQ = "error.errorCert.fieldsreq";
     public static final String ERROR_ERROR_CERT_DATE_PARAM_TRIGGERED = "error.errorCert.dateParamTriggered";
     public static final String QUESTION_ERROR_CERTIFICATION_STMT = "question.gec.errorCertStmt";
+    public static final String GEC_ERROR_DOCUMENT_ACCOUNT_EXPIRED = "gec.error.document.accountExpired";
 
     //CM
     public static final String WARNING_BANK_NOT_REQUIRED = "warning.document.disbursementvoucher.bank.not.required";
@@ -27,6 +28,7 @@ public class KFSKeyConstants extends org.kuali.kfs.sys.KFSKeyConstants {
     
     //DV NonEmployee
     public static final String ERROR_DV_PER_DIEM_START_DT_AFTER_END_DT = "error.dv.perDiemStartDtBeforeAfterEndDt";
+    public static final String ERROR_DV_DISALLOWED_BY_PAYMENT_METHOD = "error.dv.disallowedByPaymentMethod";
 
     // Income Type Error messages
     public static final String ERROR_INVALID_INCOME_TYPES_TOTAL_AMOUNT = "errors.document.ap.incomeTypesTotalAmount.invalid";
@@ -41,4 +43,11 @@ public class KFSKeyConstants extends org.kuali.kfs.sys.KFSKeyConstants {
     // Procurement Cardholder
     public static final String MESSAGE_BATCH_UPLOAD_TITLE_PCDH = "message.batchUpload.title.procurementCardHolder";
 
+    // DV Payment Reason
+    public static final String ERROR_DISBURSEMENT_VOUCHER_PAYMENT_REASON_CODE_INACTIVE = "error.disbursement.voucher.payment.reason.code.inactive";
+
+  //PCDO
+    public static final String QUESTION_RETURN_DOCUMENT = "document.question.return.text";
+    public static final String MESSAGE_RETURN_NOTE_TEXT_INTRO = "message.return.noteTextIntro";
+    public static final String ERROR_DOCUMENT_RETURN_REASON_REQUIRED = "error.document.return.reasonRequired";
 }

@@ -20,25 +20,28 @@ import org.kuali.rice.kew.api.WorkflowDocument;
 public class PurchaseOrderAmendmentDocumentPresentationController extends org.kuali.kfs.module.purap.document.authorization.PurchaseOrderAmendmentDocumentPresentationController {
 
     @Override
+    public boolean canEdit(Document document) {
+        PurchaseOrderDocument poDocument = (PurchaseOrderDocument)document;
+
+        if (PurchaseOrderStatuses.APPDOC_AWAIT_FISCAL_REVIEW.equals(poDocument.getApplicationDocumentStatus())) {
+            return true;
+        }
+        return super.canEdit(document);
+    }
+    
+    @Override
     public Set<String> getEditModes(Document document) {
         Set<String> editModes = super.getEditModes(document);
         PurchaseOrderDocument poDocument = (PurchaseOrderDocument) document;
 
         if (PurchaseOrderStatuses.APPDOC_CHANGE_IN_PROCESS.equals(poDocument.getApplicationDocumentStatus())) {
-            WorkflowDocument workflowDoc = document.getDocumentHeader().getWorkflowDocument();
-            // amendment doc needs to lock its field for initiator while enroute
-            if (workflowDoc.isInitiated() || workflowDoc.isSaved()) {
-                editModes.add(PurchaseOrderEditMode.AMENDMENT_ENTRY);
+            WorkflowDocument workflowDocument = poDocument.getFinancialSystemDocumentHeader().getWorkflowDocument();
+            // PRE_ROUTE_CHANGEABLE mode is used for fields that are editable only before POA is routed, for ex, contract manager
+            if (workflowDocument.isInitiated() || workflowDocument.isSaved() || workflowDocument.isCompletionRequested()) {
+            	editModes.add(PurchaseOrderEditMode.PRE_ROUTE_CHANGEABLE);                 
             }
         }
-        if (PurchaseOrderStatuses.APPDOC_AWAIT_NEW_UNORDERED_ITEM_REVIEW.equals(poDocument.getApplicationDocumentStatus())) {
-            editModes.add(PurchaseOrderEditMode.AMENDMENT_ENTRY);
-        }
-
-        if (SpringContext.getBean(PurapService.class).isDocumentStoppedInRouteNode((PurchasingAccountsPayableDocument) document, "New Unordered Items")) {
-            editModes.add(PurchaseOrderEditMode.UNORDERED_ITEM_ACCOUNT_ENTRY);
-        }
-
+                       
         //make clear tax button always available like REQS
         boolean salesTaxInd = SpringContext.getBean(ParameterService.class).getParameterValueAsBoolean(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapParameterConstants.ENABLE_SALES_TAX_IND);
         if (salesTaxInd) {

@@ -146,4 +146,48 @@ public class AssetRule extends org.kuali.kfs.module.cam.document.validation.impl
 		
 		return valid;
 	}
+	
+	@Override
+    protected boolean processAssetValidation(MaintenanceDocument document) {
+        boolean valid = true;
+
+        // validate Inventory Status Code.
+        if (!StringUtils.equalsIgnoreCase(oldAsset.getInventoryStatusCode(), newAsset.getInventoryStatusCode())) {
+            valid &= validateInventoryStatusCode(oldAsset.getInventoryStatusCode(), newAsset.getInventoryStatusCode());
+        }
+
+        // validate Organization Owner Account Number
+        if (!StringUtils.equalsIgnoreCase(oldAsset.getOrganizationOwnerAccountNumber(), newAsset.getOrganizationOwnerAccountNumber())) {
+            valid &= validateAccount();
+        }
+
+        // validate asset representative name
+        if (ObjectUtils.isNotNull(oldAsset.getAssetRepresentative())
+                && ObjectUtils.isNotNull(newAsset.getAssetRepresentative())
+                && StringUtils.isNotBlank(oldAsset.getAssetRepresentative().getPrincipalName())
+                && StringUtils.isNotBlank(newAsset.getAssetRepresentative().getPrincipalName())
+                && !StringUtils.equalsIgnoreCase(oldAsset.getAssetRepresentative().getPrincipalName(), newAsset.getAssetRepresentative().getPrincipalName())) {
+            valid &= validateAssetRepresentative();
+        }
+
+
+        // validate Vendor Name.
+        if (!StringUtils.equalsIgnoreCase(oldAsset.getVendorName(), newAsset.getVendorName())) {
+            valid &= validateVendorName();
+        }
+
+        // validate Tag Number.
+        if (!StringUtils.equalsIgnoreCase(oldAsset.getCampusTagNumber(), newAsset.getCampusTagNumber())) {
+            valid &= validateTagNumber();
+        }
+
+        // validate location.
+        valid &= validateLocation();
+
+        // validate In-service Date
+        if (assetService.isInServiceDateChanged(oldAsset, newAsset)) {
+            valid &= validateInServiceDate();
+        }
+        return valid;
+    }
 }
