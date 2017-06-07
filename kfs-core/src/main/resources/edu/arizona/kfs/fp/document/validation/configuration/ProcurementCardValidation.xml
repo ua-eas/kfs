@@ -53,7 +53,7 @@
 
   <bean id="ProcurementCard-saveDocumentValidation" parent="ProcurementCard-saveDocumentValidation-parentBean" scope="prototype">
     <property name="validations">
-      <list>
+      <list merge="true">
         <bean parent="ProcurementCard-balanceValidation" scope="prototype">
           <property name="parameterProperties">
             <list>

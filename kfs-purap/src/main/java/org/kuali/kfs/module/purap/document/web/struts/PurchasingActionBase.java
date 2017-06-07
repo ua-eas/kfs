@@ -44,10 +44,12 @@ import org.kuali.kfs.module.purap.businessobject.BillingAddress;
 import org.kuali.kfs.module.purap.businessobject.CapitalAssetSystemType;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLine;
 import org.kuali.kfs.module.purap.businessobject.PurApItem;
+import org.kuali.kfs.module.purap.businessobject.PurchaseOrderCapitalAssetLocation;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderItem;
 import org.kuali.kfs.module.purap.businessobject.PurchasingCapitalAssetItem;
 import org.kuali.kfs.module.purap.businessobject.PurchasingCapitalAssetSystemBase;
 import org.kuali.kfs.module.purap.businessobject.PurchasingItemBase;
+import org.kuali.kfs.module.purap.businessobject.RequisitionCapitalAssetLocation;
 import org.kuali.kfs.module.purap.document.PurchaseOrderAmendmentDocument;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
 import org.kuali.kfs.module.purap.document.PurchasingAccountsPayableDocument;
@@ -1045,20 +1047,20 @@ public class PurchasingActionBase extends PurchasingAccountsPayableActionBase {
     public ActionForward deleteCapitalAssetLocationByDocument(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         PurchasingFormBase purchasingForm = (PurchasingFormBase) form;
         CapitalAssetLocation location = purchasingForm.getNewPurchasingCapitalAssetLocationLine();
-        PurchasingDocument purDocument = (PurchasingDocument) purchasingForm.getDocument();
+        @SuppressWarnings("deprecation")
+		PurchasingDocument purDocument = (PurchasingDocument) purchasingForm.getDocument();
 
-        boolean rulePassed = true; // SpringContext.getBean(KualiRuleService.class).applyRules(new
-        // AddPurchasingAccountsPayableItemEvent("", purDocument, item));
+		String fullParameter = (String) request.getAttribute(KFSConstants.METHOD_TO_CALL_ATTRIBUTE);
+		String systemIndex = StringUtils.substringBetween(fullParameter, KFSConstants.METHOD_TO_CALL_PARM1_LEFT_DEL, KFSConstants.METHOD_TO_CALL_PARM1_RIGHT_DEL);
+		String locationIndex = StringUtils.substringBetween(fullParameter, KFSConstants.METHOD_TO_CALL_PARM2_LEFT_DEL, KFSConstants.METHOD_TO_CALL_PARM2_RIGHT_DEL);
 
-        if (rulePassed) {
-            String fullParameter = (String) request.getAttribute(KFSConstants.METHOD_TO_CALL_ATTRIBUTE);
-            String systemIndex = StringUtils.substringBetween(fullParameter, KFSConstants.METHOD_TO_CALL_PARM1_LEFT_DEL, KFSConstants.METHOD_TO_CALL_PARM1_RIGHT_DEL);
-            String locationIndex = StringUtils.substringBetween(fullParameter, KFSConstants.METHOD_TO_CALL_PARM2_LEFT_DEL, KFSConstants.METHOD_TO_CALL_PARM2_RIGHT_DEL);
-
-            // get specific asset item and grab system as well and attach asset number
-            CapitalAssetSystem system = purDocument.getPurchasingCapitalAssetSystems().get(Integer.parseInt(systemIndex));
-            system.getCapitalAssetLocations().remove(Integer.parseInt(locationIndex));
-        }
+		// get system and remove location
+		CapitalAssetSystem system = purDocument.getPurchasingCapitalAssetSystems().get(Integer.parseInt(systemIndex));
+		location = system.getCapitalAssetLocations().get(Integer.parseInt(locationIndex));                      
+		@SuppressWarnings("rawtypes")
+		Map keys = SpringContext.getBean(PersistenceService.class).getPrimaryKeyFieldValues(location);
+		deleteCapitalAssetLocation(purDocument, keys);       
+		system.getCapitalAssetLocations().remove(Integer.parseInt(locationIndex));
 
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
     }
@@ -1066,24 +1068,54 @@ public class PurchasingActionBase extends PurchasingAccountsPayableActionBase {
     public ActionForward deleteCapitalAssetLocationByItem(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         PurchasingFormBase purchasingForm = (PurchasingFormBase) form;
         CapitalAssetLocation location = purchasingForm.getNewPurchasingCapitalAssetLocationLine();
-        PurchasingDocument purDocument = (PurchasingDocument) purchasingForm.getDocument();
+        @SuppressWarnings("deprecation")
+		PurchasingDocument purDocument = (PurchasingDocument) purchasingForm.getDocument();
 
-        boolean rulePassed = true; // SpringContext.getBean(KualiRuleService.class).applyRules(new
-        // AddPurchasingAccountsPayableItemEvent("", purDocument, item));
-
-        if (rulePassed) {
-            String fullParameter = (String) request.getAttribute(KFSConstants.METHOD_TO_CALL_ATTRIBUTE);
-            String assetItemIndex = StringUtils.substringBetween(fullParameter, KFSConstants.METHOD_TO_CALL_PARM1_LEFT_DEL, KFSConstants.METHOD_TO_CALL_PARM1_RIGHT_DEL);
-            String locationIndex = StringUtils.substringBetween(fullParameter, KFSConstants.METHOD_TO_CALL_PARM2_LEFT_DEL, KFSConstants.METHOD_TO_CALL_PARM2_RIGHT_DEL);
-
-            // get specific asset item and grab system as well and attach asset number
-            PurchasingCapitalAssetItem assetItem = purDocument.getPurchasingCapitalAssetItems().get(Integer.parseInt(assetItemIndex));
-            CapitalAssetSystem system = assetItem.getPurchasingCapitalAssetSystem();
-            system.getCapitalAssetLocations().remove(Integer.parseInt(locationIndex));
-        }
+		String fullParameter = (String) request.getAttribute(KFSConstants.METHOD_TO_CALL_ATTRIBUTE);
+		String assetItemIndex = StringUtils.substringBetween(fullParameter, KFSConstants.METHOD_TO_CALL_PARM1_LEFT_DEL, KFSConstants.METHOD_TO_CALL_PARM1_RIGHT_DEL);
+		String locationIndex = StringUtils.substringBetween(fullParameter, KFSConstants.METHOD_TO_CALL_PARM2_LEFT_DEL, KFSConstants.METHOD_TO_CALL_PARM2_RIGHT_DEL);
+		
+		// get specific asset item and grab system as well and remove location
+		PurchasingCapitalAssetItem assetItem = purDocument.getPurchasingCapitalAssetItems().get(Integer.parseInt(assetItemIndex));
+		CapitalAssetSystem system = assetItem.getPurchasingCapitalAssetSystem();
+		location = system.getCapitalAssetLocations().get(Integer.parseInt(locationIndex));            
+		@SuppressWarnings("rawtypes")
+		Map keys = SpringContext.getBean(PersistenceService.class).getPrimaryKeyFieldValues(location);
+		deleteCapitalAssetLocation(purDocument, keys);                    
+		system.getCapitalAssetLocations().remove(Integer.parseInt(locationIndex));
 
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
     }
+
+    /** Requisition & POA documents need to verify added/modified location to Capital Asset tab
+     * Hence, Deletes the Capital Asset Location when is is deleted from the document. This is necessary 
+     * as adding the Capital Asset Location collection to the deletion aware list causes a 
+     * bug with change of the Capital Asset System.
+     * @param document The purchase order document to have a location deleted from and saved.
+     * @param keys A Map of the keys to the locations to be deleted. 
+     */
+   protected void deleteCapitalAssetLocation(PurchasingDocument document, @SuppressWarnings("rawtypes") Map keys) {
+	   BusinessObjectService businessObjectService = SpringContext.getBean(BusinessObjectService.class);
+       try {
+           if (document instanceof RequisitionDocument) {
+               @SuppressWarnings("unchecked")
+			RequisitionCapitalAssetLocation delLocation = (RequisitionCapitalAssetLocation) businessObjectService.findByPrimaryKey(RequisitionCapitalAssetLocation.class, keys);
+               if (delLocation != null) {
+                   businessObjectService.delete(delLocation);                                
+               }
+           }
+           else {
+               @SuppressWarnings("unchecked")
+			PurchaseOrderCapitalAssetLocation delLocation = (PurchaseOrderCapitalAssetLocation) businessObjectService.findByPrimaryKey(PurchaseOrderCapitalAssetLocation.class, keys);
+               if (delLocation != null) {
+                   businessObjectService.delete(delLocation);                            
+               }
+           }         
+       }
+       catch (Exception e) {
+           throw new RuntimeException(e);
+       }
+   }    
 
     public ActionForward setupCAMSSystem(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         PurchasingAccountsPayableFormBase purchasingForm = (PurchasingAccountsPayableFormBase) form;
@@ -1441,4 +1473,5 @@ public class PurchasingActionBase extends PurchasingAccountsPayableActionBase {
 
         return requiresCalculate;
     }
+       
 }

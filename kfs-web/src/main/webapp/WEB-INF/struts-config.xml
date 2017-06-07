@@ -238,7 +238,7 @@
 		<form-bean name="RequisitionForm"
 			type="org.kuali.kfs.module.purap.document.web.struts.RequisitionForm" />
 		<form-bean name="PurchaseOrderForm"
-			type="org.kuali.kfs.module.purap.document.web.struts.PurchaseOrderForm" />
+			type="edu.arizona.kfs.module.purap.document.web.struts.PurchaseOrderForm" />
 		<form-bean name="PaymentRequestForm"
 			type="edu.arizona.kfs.module.purap.document.web.struts.PaymentRequestForm" />
 		<form-bean name="VendorCreditMemoForm"
@@ -1159,3 +1159,4 @@
 
 	<plug-in className="org.kuali.rice.kns.web.struts.form.pojo.PojoPlugin" />
 </struts-config>
+

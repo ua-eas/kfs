@@ -32,24 +32,32 @@ import org.kuali.rice.krad.util.ObjectUtils;
 
 import edu.arizona.kfs.fp.service.PaymentMethodGeneralLedgerPendingEntryService;
 import edu.arizona.kfs.module.purap.PurapConstants;
+import edu.arizona.kfs.module.purap.service.PurapAccountingHelperService;
+import edu.arizona.kfs.module.purap.service.PurapGeneralLedgerService;
 import edu.arizona.kfs.module.purap.service.PurapUseTaxEntryArchiveService;
 import edu.arizona.kfs.sys.KFSConstants;
 
 
-public class PurapGeneralLedgerServiceImpl extends org.kuali.kfs.module.purap.service.impl.PurapGeneralLedgerServiceImpl {
+
+public class PurapGeneralLedgerServiceImpl extends org.kuali.kfs.module.purap.service.impl.PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService {
 	private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PurapGeneralLedgerServiceImpl.class);
 	public static final String BANK_CODE = "bankCode";
 	
 	protected PurapUseTaxEntryArchiveService purapUseTaxEntryArchiveService;
 	protected PaymentMethodGeneralLedgerPendingEntryService paymentMethodGeneralLedgerPendingEntryService;
-	
-	
+	protected PurapAccountingHelperService purapAccountingHelperService;
+    
     @Override
-    public void generateEntriesModifyPaymentRequest(PaymentRequestDocument preq) {
+    public void generateEntriesModifyPaymentRequest(edu.arizona.kfs.module.purap.document.PaymentRequestDocument preq, String currentNode) {
         LOG.debug("generateEntriesModifyPaymentRequest() started");
 
         Map<SourceAccountingLine, KualiDecimal> actualsPositive = new HashMap<SourceAccountingLine, KualiDecimal>();
         List<SourceAccountingLine> newAccountingLines = purapAccountingService.generateSummaryWithNoZeroTotalsNoUseTax(preq.getItems());
+        
+        if (PurapConstants.PaymentRequestStatuses.NODE_VENDOR_TAX_REVIEW.equals(currentNode) && !preq.isTaxWithholdingEntriesGenerated()) {
+            newAccountingLines = purapAccountingHelperService.generateSummaryWithNoZeroTotalsNoUseTaxUsingAlternateAmount(preq.getItemsSetupAlternateAmount());
+        }
+        
         for (SourceAccountingLine newAccount : newAccountingLines) {
             actualsPositive.put(newAccount, newAccount.getAmount());
             if (LOG.isDebugEnabled()) {
@@ -379,6 +387,9 @@ public class PurapGeneralLedgerServiceImpl extends org.kuali.kfs.module.purap.se
         this.paymentMethodGeneralLedgerPendingEntryService  = paymentMethodGeneralLedgerPendingEntryService;
     }
 
+    public void setPurapAccountingHelperService(PurapAccountingHelperService purapAccountingHelperService) {
+        this.purapAccountingHelperService = purapAccountingHelperService;
+    }
 
 	@Override
 	public void generateEntriesApproveAmendPurchaseOrder(PurchaseOrderDocument po) {
@@ -699,5 +710,6 @@ public class PurapGeneralLedgerServiceImpl extends org.kuali.kfs.module.purap.se
         }
         return bigDecimal.setScale(4, BigDecimal.ROUND_HALF_UP);
     }
-
+    
+    
 }
