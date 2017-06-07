@@ -120,8 +120,9 @@ public abstract class AbstractBankDocumentService implements BankDocumentService
         Bank bank = getTransactionPostingDao().getBankObjectByAccountNumber(bankTransaction.getAccountNumber().toString());
         if (ObjectUtils.isNull(bank)) {
             String bankCode = getBankParametersAccessService().getDefaultBankByDocType(getDocumentType());
-            bank = new Bank();
-            bank.setBankCode(bankCode);
+            if ( StringUtils.isNotEmpty( bankCode )) {
+                bank = getTransactionPostingDao().getBankObjectByBankCode(bankCode);
+            }
         }
 
         if (bank == null) {
