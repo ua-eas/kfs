@@ -10,7 +10,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.businessobject.CreditMemoAccount;
-import edu.arizona.kfs.module.purap.businessobject.CreditMemoItem;
+import org.kuali.kfs.module.purap.businessobject.CreditMemoItem;
 import edu.arizona.kfs.module.purap.businessobject.PaymentRequestItem;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLine;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderItem;
@@ -182,10 +182,14 @@ public class CreditMemoServiceImpl extends org.kuali.kfs.module.purap.document.s
     @SuppressWarnings("unchecked")
     @Override
     public void calculateCreditMemo(VendorCreditMemoDocument cmDocument) {
+        edu.arizona.kfs.module.purap.document.VendorCreditMemoDocument azDocument = getArizonaVendorCreditMemoDocument(cmDocument);
+        if(azDocument == null)
+        {
+            throw new RuntimeException("Document was not found.");
+        }
+        azDocument.updateExtendedPriceOnItems();
 
-        cmDocument.updateExtendedPriceOnItems();
-
-        for (CreditMemoItem item : (List<CreditMemoItem>) cmDocument.getItems()) {
+        for (edu.arizona.kfs.module.purap.businessobject.CreditMemoItem item : (List<edu.arizona.kfs.module.purap.businessobject.CreditMemoItem>) azDocument.getItems()) {
             // make sure restocking fee is negative
             if (StringUtils.equals(PurapConstants.ItemTypeCodes.ITEM_TYPE_RESTCK_FEE_CODE, item.getItemTypeCode())) {
                 if (item.getItemUnitPrice() != null) {
@@ -255,6 +259,17 @@ public class CreditMemoServiceImpl extends org.kuali.kfs.module.purap.document.s
             }  
         }
         // end proration
+    }
+
+    private edu.arizona.kfs.module.purap.document.VendorCreditMemoDocument getArizonaVendorCreditMemoDocument(VendorCreditMemoDocument cmDocument) {
+        edu.arizona.kfs.module.purap.document.VendorCreditMemoDocument azDocument = null;
+        try {azDocument = (edu.arizona.kfs.module.purap.document.VendorCreditMemoDocument) documentService.getByDocumentHeaderId(cmDocument.getDocumentNumber());
+            
+        } catch (WorkflowException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return azDocument;
     }
 
     // This method fixes a bug that was discovered in 3, supposedly fixed in 4, and reintroduced sometime afterward
