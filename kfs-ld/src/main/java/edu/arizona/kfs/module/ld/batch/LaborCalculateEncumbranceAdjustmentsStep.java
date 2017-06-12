@@ -3,7 +3,6 @@ package edu.arizona.kfs.module.ld.batch;
 import java.io.File;
 import java.util.Date;
 
-import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.sys.batch.AbstractStep;
 import org.kuali.rice.core.api.datetime.DateTimeService;
@@ -40,7 +39,6 @@ public class LaborCalculateEncumbranceAdjustmentsStep extends AbstractStep {
             File outputFile = new File( outputFileName );
             String errorFileName = batchFileDirectoryName + File.separator + LaborEncumbranceAdjustmentService.ENCUMBRANCE_ERROR_FILE + "-" + dateTimeService.toDateTimeStringForFilename(jobRunDate) + GeneralLedgerConstants.BatchFileSystem.EXTENSION;
             File errorFile = new File( errorFileName );
-        	//String reconFileName = StringUtils.removeEnd(outputFile.getAbsolutePath(), ".data") + edu.arizona.kfs.gl.GeneralLedgerConstants.BatchFileSystem.RECON_FILE_EXTENSION;
             String reconFileName =  batchFileDirectoryName + File.separator + LaborEncumbranceAdjustmentService.ENCUMBRANCE_OUTPUT_FILE + "-" + dateTimeService.toDateTimeStringForFilename(jobRunDate) + edu.arizona.kfs.gl.GeneralLedgerConstants.BatchFileSystem.RECON_FILE_EXTENSION;
             File reconFile = new File( reconFileName );
             

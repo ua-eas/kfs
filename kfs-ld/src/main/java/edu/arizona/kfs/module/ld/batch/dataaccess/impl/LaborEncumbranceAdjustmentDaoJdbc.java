@@ -29,18 +29,18 @@ public class LaborEncumbranceAdjustmentDaoJdbc extends PlatformAwareDaoBaseJdbc 
 
     protected String additionalWhereClause = "";
     protected static final String ENCUMBRANCE_BALANCE_SQL = "select l.FIN_BALANCE_TYP_CD, l.EMPLID, l.position_nbr, l.fin_coa_cd, l.account_nbr, l.sub_acct_nbr, l.fin_obj_typ_cd, " + 
-                                                  "l.FIN_OBJECT_CD, l.FIN_SUB_OBJ_CD, SUM(l.ACLN_ANNL_BAL_AMT) AS encumbrance_balance\n" + 
-                                                  "    from LD_LDGR_BAL_T l, ld_labor_obj_t lo \n" + 
-                                                  "    WHERE l.UNIV_FISCAL_YR = ?\n" + 
-                                                  "      AND l.FIN_BALANCE_TYP_CD in (?,?) \n" + 
-                                                  "      AND lo.univ_fiscal_yr = l.UNIV_FISCAL_YR\n" + 
-                                                  "      AND lo.FIN_COA_CD = l.FIN_COA_CD\n" + 
-                                                  "      AND lo.FIN_OBJECT_CD = l.FIN_OBJECT_CD\n" + 
-                                                  "      AND lo.FINOBJ_FRNGSLRY_CD = '" + LaborConstants.LABOR_OBJECT_SALARY_CODE + "'";
-    protected static final String ENCUMBRANCE_BALANCE_SQL2 = "    GROUP BY l.FIN_BALANCE_TYP_CD, l.EMPLID, l.position_nbr, l.fin_coa_cd, l.account_nbr, l.sub_acct_nbr, l.fin_obj_typ_cd, l.FIN_OBJECT_CD, l.FIN_SUB_OBJ_CD\n" + 
-                                                    "    HAVING SUM(l.ACLN_ANNL_BAL_AMT) != 0\n" + 
-                                                    "    ORDER BY FIN_BALANCE_TYP_CD, EMPLID, position_nbr, fin_coa_cd, account_nbr, sub_acct_nbr," + 
-                                                    "             FIN_OBJECT_CD, FIN_SUB_OBJ_CD, fin_obj_typ_cd";
+            "l.FIN_OBJECT_CD, l.FIN_SUB_OBJ_CD, SUM(l.ACLN_ANNL_BAL_AMT) AS encumbrance_balance" + 
+            "    from LD_LDGR_BAL_T l, ld_labor_obj_t lo " + 
+            "    WHERE l.UNIV_FISCAL_YR = ?" + 
+            "      AND l.FIN_BALANCE_TYP_CD in (?,?) " + 
+            "      AND lo.univ_fiscal_yr = l.UNIV_FISCAL_YR" + 
+            "      AND lo.FIN_COA_CD = l.FIN_COA_CD" + 
+            "      AND lo.FIN_OBJECT_CD = l.FIN_OBJECT_CD" + 
+            "      AND lo.FINOBJ_FRNGSLRY_CD = '" + LaborConstants.LABOR_OBJECT_SALARY_CODE + "'";
+    protected static final String ENCUMBRANCE_BALANCE_SQL2 = "    GROUP BY l.FIN_BALANCE_TYP_CD, l.EMPLID, l.position_nbr, l.fin_coa_cd, l.account_nbr, l.sub_acct_nbr, l.fin_obj_typ_cd, l.FIN_OBJECT_CD, l.FIN_SUB_OBJ_CD" + 
+              "    HAVING SUM(l.ACLN_ANNL_BAL_AMT) != 0" + 
+              "    ORDER BY FIN_BALANCE_TYP_CD, EMPLID, position_nbr, fin_coa_cd, account_nbr, sub_acct_nbr," + 
+              "             FIN_OBJECT_CD, FIN_SUB_OBJ_CD, fin_obj_typ_cd";
     
     public int buildFileForEncumbranceBalances(Integer fiscalYear, File fileName) {
         // get the connection and use resultsets directly
@@ -48,7 +48,6 @@ public class LaborEncumbranceAdjustmentDaoJdbc extends PlatformAwareDaoBaseJdbc 
         ResultSet rs = null;
         PrintWriter writer = null;
         int outputLines = 0;
-        StringBuilder sb = new StringBuilder();
         Map<String, Integer> lMap = new LaborOriginEntryFieldUtil().getFieldLengthMap();
         // this is a generated tmp file, so if one exists, remove it
         if (fileName.exists()) {
@@ -86,23 +85,23 @@ public class LaborEncumbranceAdjustmentDaoJdbc extends PlatformAwareDaoBaseJdbc 
             }
             writer = new PrintWriter(new BufferedWriter(new FileWriter(fileName)));
             try {
-                StringBuffer lineBuffer = new StringBuffer(100);
+                StringBuilder sb = new StringBuilder(100);
                 while (rs.next()) {
-                    lineBuffer.setLength(0); // reset the existing string buffer
+                    sb.setLength(0); // reset the existing string builder
                     // write data to outputStream
-                    lineBuffer.append(StringUtils.rightPad(rs.getString(1), lMap.get(KFSPropertyConstants.FINANCIAL_BALANCE_TYPE_CODE), ' '));
-                    lineBuffer.append(StringUtils.rightPad(rs.getString(2), lMap.get(KFSPropertyConstants.EMPLID), ' '));
-                    lineBuffer.append(StringUtils.rightPad(rs.getString(3), lMap.get(KFSPropertyConstants.POSITION_NUMBER), ' '));
-                    lineBuffer.append(StringUtils.rightPad(rs.getString(4), lMap.get(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE), ' '));
-                    lineBuffer.append(StringUtils.rightPad(rs.getString(5), lMap.get(KFSPropertyConstants.ACCOUNT_NUMBER), ' '));
-                    lineBuffer.append(StringUtils.rightPad(rs.getString(6), lMap.get(KFSPropertyConstants.SUB_ACCOUNT_NUMBER), ' '));
-                    lineBuffer.append(StringUtils.rightPad(rs.getString(7), lMap.get(KFSPropertyConstants.FINANCIAL_OBJECT_TYPE_CODE), ' '));
-                    lineBuffer.append(StringUtils.rightPad(rs.getString(8), lMap.get(KFSPropertyConstants.FINANCIAL_OBJECT_CODE), ' '));
-                    lineBuffer.append(StringUtils.rightPad(rs.getString(9), lMap.get(KFSPropertyConstants.FINANCIAL_SUB_OBJECT_CODE), ' '));
+                    sb.append(StringUtils.rightPad(rs.getString(1), lMap.get(KFSPropertyConstants.FINANCIAL_BALANCE_TYPE_CODE), ' '));
+                    sb.append(StringUtils.rightPad(rs.getString(2), lMap.get(KFSPropertyConstants.EMPLID), ' '));
+                    sb.append(StringUtils.rightPad(rs.getString(3), lMap.get(KFSPropertyConstants.POSITION_NUMBER), ' '));
+                    sb.append(StringUtils.rightPad(rs.getString(4), lMap.get(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE), ' '));
+                    sb.append(StringUtils.rightPad(rs.getString(5), lMap.get(KFSPropertyConstants.ACCOUNT_NUMBER), ' '));
+                    sb.append(StringUtils.rightPad(rs.getString(6), lMap.get(KFSPropertyConstants.SUB_ACCOUNT_NUMBER), ' '));
+                    sb.append(StringUtils.rightPad(rs.getString(7), lMap.get(KFSPropertyConstants.FINANCIAL_OBJECT_TYPE_CODE), ' '));
+                    sb.append(StringUtils.rightPad(rs.getString(8), lMap.get(KFSPropertyConstants.FINANCIAL_OBJECT_CODE), ' '));
+                    sb.append(StringUtils.rightPad(rs.getString(9), lMap.get(KFSPropertyConstants.FINANCIAL_SUB_OBJECT_CODE), ' '));
                     BigDecimal bal = rs.getBigDecimal(10);
-                    lineBuffer.append((bal.signum() == -1) ? '-' : '+');
-                    lineBuffer.append(StringUtils.rightPad(bal.abs().toString(), lMap.get(KFSPropertyConstants.TRANSACTION_LEDGER_ENTRY_AMOUNT), ' '));
-                    writer.println(lineBuffer.toString());
+                    sb.append((bal.signum() == -1) ? '-' : '+');
+                    sb.append(StringUtils.rightPad(bal.abs().toString(), lMap.get(KFSPropertyConstants.TRANSACTION_LEDGER_ENTRY_AMOUNT), ' '));
+                    writer.println(sb.toString());
                     outputLines++;
                 }
                 if (LOG.isInfoEnabled()) {

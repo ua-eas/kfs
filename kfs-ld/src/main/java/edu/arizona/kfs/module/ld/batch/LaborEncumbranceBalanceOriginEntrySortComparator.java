@@ -44,10 +44,7 @@ public class LaborEncumbranceBalanceOriginEntrySortComparator implements Compara
                     +FINANCIAL_OBJECT_CODE_LEN+FINANCIAL_SUB_OBJECT_CODE_LEN);
     
     public int compare(String originEntryLine1, String originEntryLine2) {
-        sb.setLength(0); // clear out the string buffer for the next use
-            
-//        System.out.println( "Entry Line: " + originEntryLine1);
-            
+        sb.setLength(0); // clear out the string buffer for the next use            
         try {
             sb.append(originEntryLine1.substring(FIN_BALANCE_TYP_CD_POS,FIN_BALANCE_TYP_CD_POS+FIN_BALANCE_TYP_CD_LEN).trim());
             sb.append(originEntryLine1.substring(EMPLID_POS,EMPLID_POS+EMPLID_LEN).trim());

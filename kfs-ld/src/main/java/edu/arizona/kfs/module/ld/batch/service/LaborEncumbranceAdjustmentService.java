@@ -12,7 +12,6 @@ public interface LaborEncumbranceAdjustmentService {
     static final String SORTED_ENCUMBRANCE_INPUT_FILE = "ld_encumb_sort_out";
     static final String ENCUMBRANCE_OUTPUT_FILE = "ld_encumb_out";
     static final String ENCUMBRANCE_ERROR_FILE = "ld_encumb_err";
-    static final String NIGHTLY_OUT_BACKUP = "ld_encumb_labentry_kfs_backup";
     
     /**
      * Builds a sorted text version of the balance table (IE encumbrances only) for use by

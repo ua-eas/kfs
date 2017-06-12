@@ -1,7 +1,6 @@
 package edu.arizona.kfs.module.ld.batch;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.kuali.kfs.gl.GeneralLedgerConstants;
@@ -48,7 +47,6 @@ public class LaborSortEncumbranceFileStep extends AbstractStep {
         String doneFileName = batchFileDirectoryName + File.separator + LaborEncumbranceAdjustmentService.ENCUMBRANCE_INPUT_FILE + GeneralLedgerConstants.BatchFileSystem.DONE_FILE_EXTENSION;
         File doneFile = new File( doneFileName );
         String outputFileName = batchFileDirectoryName + File.separator + LaborEncumbranceAdjustmentService.SORTED_ENCUMBRANCE_INPUT_FILE + GeneralLedgerConstants.BatchFileSystem.EXTENSION;
-        File outputFile = new File( outputFileName );
         if ( inputFile.exists() && doneFile.exists() ) {
             if ( LOG.isDebugEnabled() ) {
                 LOG.debug( "Sorting: \n   " + inputFileName + "\nto\n   " + outputFileName);
