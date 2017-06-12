@@ -29,6 +29,7 @@ import org.kuali.kfs.fp.document.CashReceiptDocument;
 import org.kuali.kfs.kns.util.WebUtils;
 import org.kuali.kfs.kns.web.struts.form.KualiForm;
 import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSParameterKeyConstants;
 import org.kuali.kfs.sys.KFSConstants.DocumentStatusCodes.CashReceipt;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.businessobject.Bank;
@@ -40,6 +41,9 @@ import org.kuali.rice.core.web.format.CurrencyFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+
 
 /**
  * This class is the action form for the deposit document wizard.
@@ -72,6 +76,7 @@ public class DepositWizardForm extends KualiForm {
     protected Map documentActions;
 
     protected String noVerifiedCashErrorMessage = "";
+    
 
     /**
      * Constructs a DepositWizardForm class instance.
@@ -561,5 +566,7 @@ public class DepositWizardForm extends KualiForm {
         this.noVerifiedCashErrorMessage = noVerifiedCashErrorMessage;
     }
 
-
+    public Boolean getDisplayCashReceiptDenominationDetail() {
+        return SpringContext.getBean(ParameterService.class).getParameterValueAsBoolean(CashReceiptDocument.class, KFSParameterKeyConstants.FpParameterConstants.DISPLAY_CASH_RECEIPT_DENOMINATION_DETAIL_IND, true);
+    }
 }

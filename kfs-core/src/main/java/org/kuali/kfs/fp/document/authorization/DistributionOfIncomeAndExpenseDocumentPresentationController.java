@@ -25,7 +25,6 @@ import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.sys.KFSConstants.RouteLevelNames;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.KfsAuthorizationConstants;
-import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.ElectronicPaymentClaim;
 import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -76,6 +75,7 @@ public class DistributionOfIncomeAndExpenseDocumentPresentationController extend
 
         if (StringUtils.isNotBlank(docInError)) {
             documentActions.add(KRADConstants.KUALI_ACTION_CAN_EDIT);
+            documentActions.add(KRADConstants.KUALI_ACTION_CAN_SAVE);
         }
         return documentActions;
     }
@@ -121,23 +121,7 @@ public class DistributionOfIncomeAndExpenseDocumentPresentationController extend
         return false;
     }
 
-    /**
-     * This method determines if any of the accounting lines on the document
-     * represent an electronic payment
-     *
-     * @param document
-     * @return
-     */
-    protected boolean isNotElectronicFundsAccount(Document document) {
-        DistributionOfIncomeAndExpenseDocument distributionOfIncomeAndExpenseDocument = (DistributionOfIncomeAndExpenseDocument) document;
-        List<AccountingLine> accountingLines = distributionOfIncomeAndExpenseDocument.getSourceAccountingLines();
-        for (AccountingLine accountingLine : accountingLines) {
-            if (getElectronicPaymentClaimingService().representsElectronicFundAccount(accountingLine)) {
-                return false;
-            }
-        }
-        return true;
-    }
+
 
     /**
      * retrieves the ElectronicPaymentClaimingService. If
@@ -152,3 +136,4 @@ public class DistributionOfIncomeAndExpenseDocumentPresentationController extend
     }
 
 }
+

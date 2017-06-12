@@ -120,14 +120,16 @@ public interface PurchaseOrderService extends PurchasingDocumentSpecificService 
     public boolean printPurchaseOrderQuotePDF(PurchaseOrderDocument po, PurchaseOrderVendorQuote povq, ByteArrayOutputStream baosPDF);
 
     /**
-     * Prepares the purchase order for initial print: Sets the transmit dates, calls the
+     * Creates and displays the pdf document for the purchase order, sets the transmit dates, calls the
      * takeAllActionsForGivenCriteria method in PurApWorkflowIntegrationService to perform all the workflow related steps that are
      * necessary as part of the document initial print transmission and then performs the setup of initial of open document of the
      * purchase order.
      *
-     * @param po The purchase order document that is being transmitted.
+     * @param documentNumber The document number of the purchase order document that we want to perform the first transmit.
+     * @param baosPDF The ByteArrayOutputStream object that was passed in from the struts action so that we could display the pdf on
+     *        the browser.
      */
-    public void performPurchaseOrderFirstTransmitViaPrinting(PurchaseOrderDocument po);
+    public void performPurchaseOrderFirstTransmitViaPrinting(String documentNumber, ByteArrayOutputStream baosPDF);
 
     /**
      * Creates and displays the pdf document for the purchase order with a draft watermark
@@ -374,7 +376,6 @@ public interface PurchaseOrderService extends PurchasingDocumentSpecificService 
      * with no recurring payment type, status of 'OPEN', and total encumbrance
      * of 0 that do not have any of the excluded vendor choice codes.
      *
-     * @param excludedVendorChoiceCodes - list of strings of excluded vendor choice codes
      * @return List of PurchaseOrderAutoClose objects
      */
     public List<AutoClosePurchaseOrderView> getAllOpenPurchaseOrdersForAutoClose();
@@ -456,3 +457,4 @@ public interface PurchaseOrderService extends PurchasingDocumentSpecificService 
 
     public void sendAdhocFyi(PurchaseOrderDocument po);
 }
+

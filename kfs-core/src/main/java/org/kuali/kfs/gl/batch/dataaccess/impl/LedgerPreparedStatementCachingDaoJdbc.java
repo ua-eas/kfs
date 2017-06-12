@@ -524,7 +524,8 @@ public class LedgerPreparedStatementCachingDaoJdbc extends AbstractPreparedState
                 preparedStatement.setDate(24, entry.getFinancialDocumentReversalDate());
                 preparedStatement.setString(25, entry.getTransactionEncumbranceUpdateCode());
                 preparedStatement.setDate(26, entry.getTransactionPostingDate());
-                preparedStatement.setTimestamp(27, currentTimestamp);
+                preparedStatement.setLong(27, entry.getEntryId());
+                preparedStatement.setTimestamp(28, currentTimestamp);
             }
         }.execute(Entry.class);
     }
@@ -563,3 +564,6 @@ public class LedgerPreparedStatementCachingDaoJdbc extends AbstractPreparedState
         }.execute(Reversal.class);
     }
 }
+
+
+

@@ -24,6 +24,7 @@
     <c:set var="travelExpenseAttributes" value="${DataDictionary.DisbursementVoucherNonEmployeeExpense.attributes}"/>
 
     <div class="tab-container">
+        <h3>Travel</h3>
         <table class="datatable standard" summary="Non-Employee Travel Section">
             <tr>
                 <td colspan="2" class="tab-subhead"><h3>Traveler Information</h3></td>
@@ -116,7 +117,7 @@
                     <c:if test="${fullEntryMode||travelEntryMode}">
                         <img src="${ConfigProperties.kr.externalizable.images.url}cal.png" width="24"
                              id="document.dvNonEmployeeTravel.perDiemStartDateTime_datepicker" style="cursor: pointer;"
-                             title="Date selector" alt="Date selector"/>
+                             title="Date selector" alt="Date selector" onmouseover="this.style.backgroundColor='red';" onmouseout="this.style.backgroundColor='transparent';"/>
                         <script type="text/javascript">
                             Calendar.setup(
                                     {
@@ -156,7 +157,7 @@
                     <c:if test="${fullEntryMode||travelEntryMode}">
                         <img src="${ConfigProperties.kr.externalizable.images.url}cal.png" width="24"
                              id="document.dvNonEmployeeTravel.perDiemEndDateTime_datepicker" style="cursor: pointer;"
-                             title="Date selector" alt="Date selector"/>
+                             title="Date selector" alt="Date selector"  onmouseover="this.style.backgroundColor='red';" onmouseout="this.style.backgroundColor='transparent';" />
                         <script type="text/javascript">
                             Calendar.setup(
                                     {
@@ -353,7 +354,7 @@
                             attributeEntry="${travelExpenseAttributes.disbVchrExpenseAmount}"/></div>
                 </th>
                 <c:if test="${fullEntryMode||travelEntryMode}">
-                    <th>Actions</th>
+                    <th> <div align=center>Actions</div></th>
                 </c:if>
             </tr>
 
@@ -490,7 +491,7 @@
                             attributeEntry="${travelExpenseAttributes.disbVchrExpenseAmount}"/></div>
                 </th>
                 <c:if test="${fullEntryMode||travelEntryMode}">
-                    <th>Actions</th>
+                    <th> <div align=center>Actions</div></th>
                 </c:if>
             </tr>
 

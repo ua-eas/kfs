@@ -886,7 +886,7 @@
 
     <bean id="employeeDerivedRoleTypeService" parent="employeeDerivedRoleTypeService-parentBean"/>
 
-    <bean id="employeeDerivedRoleTypeService-parentBean" class="org.kuali.kfs.sys.identity.EmployeeDerivedRoleTypeServiceImpl" abstract="true"/>
+    <bean id="employeeDerivedRoleTypeService-parentBean" class="edu.arizona.kfs.sys.identity.UaEmployeeDerivedRoleTypeServiceImpl" abstract="true"/>
 
     <bean id="paymentMethodRoleTypeService" parent="paymentMethodRoleTypeService-parentBean"/>
     <bean id="paymentMethodRoleTypeService-parentBean" class="org.kuali.kfs.sys.identity.PaymentMethodRoleTypeServiceImpl" abstract="true"/>
@@ -909,7 +909,6 @@
 
     <bean id="financialSystemUserRoleTypeService" parent="financialSystemUserRoleTypeService-parentBean"/>
     <bean id="financialSystemUserRoleTypeService-parentBean" class="org.kuali.kfs.coa.identity.FinancialSystemUserRoleTypeServiceImpl" abstract="true"/>
-
 
     <bean id="universityDateFiscalYearMaker" class="org.kuali.kfs.sys.batch.dataaccess.impl.UniversityDateFiscalYearMakerImpl" parent="FiscalYearMaker">
         <property name="businessObjectClass" value="org.kuali.kfs.sys.businessobject.UniversityDate"/>

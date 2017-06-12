@@ -31,6 +31,7 @@ import org.kuali.kfs.fp.document.service.CashReceiptCoverSheetService;
 import org.kuali.kfs.fp.service.CashDrawerService;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSParameterKeyConstants;
 import org.kuali.kfs.sys.KFSConstants.DocumentStatusCodes.CashReceipt;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -42,6 +43,9 @@ import org.kuali.rice.core.web.format.SimpleBooleanFormatter;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+
 
 /**
  * This class is the action form for Cash Receipts.
@@ -267,10 +271,15 @@ public class CashReceiptForm extends CapitalAccountingLinesFormBase implements C
                 CashDrawer cd = SpringContext.getBean(CashDrawerService.class).getByCampusCode(crd.getCampusLocationCode());
                 if (cd != null) {
                     if (crd.getDocumentHeader().getWorkflowDocument().isApprovalRequested()
-                        && cd.isClosed()
-                        && !SpringContext.getBean(FinancialSystemWorkflowHelperService.class).isAdhocApprovalRequestedForPrincipal(crd.getDocumentHeader().getWorkflowDocument(), GlobalVariables.getUserSession().getPrincipalId())) {
-                        cashDrawerStatusMessage = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KFSKeyConstants.CashReceipt.MSG_CASH_DRAWER_CLOSED_VERIFICATION_NOT_ALLOWED);
-                        cashDrawerStatusMessage = StringUtils.replace(cashDrawerStatusMessage, "{0}", crd.getCampusLocationCode());
+                            && !SpringContext.getBean(FinancialSystemWorkflowHelperService.class).isAdhocApprovalRequestedForPrincipal(crd.getDocumentHeader().getWorkflowDocument(), GlobalVariables.getUserSession().getPrincipalId())) {
+                    	if(cd.isClosed()) {
+	                        cashDrawerStatusMessage = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KFSKeyConstants.CashReceipt.MSG_CASH_DRAWER_CLOSED_VERIFICATION_NOT_ALLOWED);
+	                        cashDrawerStatusMessage = StringUtils.replace(cashDrawerStatusMessage, "{0}", crd.getCampusLocationCode());
+                    	}
+                    	else if(cd.isLocked()) {
+                    		cashDrawerStatusMessage = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KFSKeyConstants.CashReceipt.MSG_CASH_DRAWER_LOCKED_VERIFICATION_NOT_ALLOWED);
+	                        cashDrawerStatusMessage = StringUtils.replace(cashDrawerStatusMessage, "{0}", crd.getCampusLocationCode());
+                    	}
                     }
                 }
             }
@@ -313,5 +322,9 @@ public class CashReceiptForm extends CapitalAccountingLinesFormBase implements C
         execludedMethodToCall.add("printCoverSheet");
 
         return execludedMethodToCall;
+    }
+    
+    public Boolean getDisplayCashReceiptDenominationDetail() {
+        return SpringContext.getBean(ParameterService.class).getParameterValueAsBoolean(CashReceiptDocument.class, KFSParameterKeyConstants.FpParameterConstants.DISPLAY_CASH_RECEIPT_DENOMINATION_DETAIL_IND, true);
     }
 }

@@ -27,7 +27,7 @@ import org.kuali.kfs.coa.identity.OrgReviewRole;
 import org.kuali.kfs.coa.service.OrgReviewRoleService;
 import org.kuali.kfs.krad.exception.ValidationException;
 import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.sys.KFSConstants;
+import edu.arizona.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
 import org.kuali.rice.core.api.criteria.PredicateUtils;
 import org.kuali.rice.core.api.criteria.QueryByCriteria;
@@ -166,9 +166,18 @@ public class OrgReviewRoleServiceImpl implements OrgReviewRoleService {
     }
 
     @Override
-    @Cacheable(value = OrgReviewRole.CACHE_NAME, key = "'{ClosestOrgReviewRoleParentDocumentTypeName}'+#p0")
-    public String getClosestOrgReviewRoleParentDocumentTypeName(final String documentTypeName) {
-        if (StringUtils.isBlank(documentTypeName)) {
+    @Cacheable(value=OrgReviewRole.CACHE_NAME,key="'{hasOrganizationFundReview}'+#p0")
+    public boolean hasOrganizationFundReview(final String documentTypeName) {
+    	  if(StringUtils.isBlank(documentTypeName)) {
+              return false;
+          }
+          return getDocumentTypeService().hasRouteNodeForDocumentTypeName(KFSConstants.RouteLevelNames.ORGANIZATION_FUND_REVIEW, documentTypeName);
+    }
+    
+    @Override
+    @Cacheable(value=OrgReviewRole.CACHE_NAME,key="'{ClosestOrgReviewRoleParentDocumentTypeName}'+#p0")
+    public String getClosestOrgReviewRoleParentDocumentTypeName(final String documentTypeName){
+        if(StringUtils.isBlank(documentTypeName)) {
             return null;
         }
         return KimCommonUtils.getClosestParentDocumentTypeName(getDocumentTypeService().getDocumentTypeByName(documentTypeName), potentialParentDocumentTypeNames);
@@ -187,9 +196,7 @@ public class OrgReviewRoleServiceImpl implements OrgReviewRoleService {
      * this makes no sense and should generate an error.
      *
      * @param documentTypeName
-     * @param hasOrganizationHierarchy
-     * @param hasAccountingOrganizationHierarchy
-     * @param closestParentDocumentTypeName
+
      * @return
      */
     @Override

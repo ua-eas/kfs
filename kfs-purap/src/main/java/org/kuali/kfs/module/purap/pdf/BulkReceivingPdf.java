@@ -359,7 +359,11 @@ public class BulkReceivingPdf extends PurapPdf {
             if (StringUtils.isBlank(deliveryBuildingName)) {
                 shipToInfo.append("     Room #" + blkRecDoc.getDeliveryBuildingRoomNumber() + "\n");
             } else {
-                shipToInfo.append("     " + deliveryBuildingName + " Room #" + blkRecDoc.getDeliveryBuildingRoomNumber() + "\n");
+                String routeCode = null;
+                if(blkRecDoc instanceof edu.arizona.kfs.module.purap.document.BulkReceivingDocument) {
+                    routeCode = ((edu.arizona.kfs.module.purap.document.BulkReceivingDocument)blkRecDoc).getRouteCode() + " ";
+                }
+                shipToInfo.append("     " + deliveryBuildingName + ",Route Code :"+ routeCode +",Room #" + blkRecDoc.getDeliveryBuildingRoomNumber() + "\n");
             }
         } else {
             if (StringUtils.isNotBlank(deliveryBuildingName)) {
@@ -575,3 +579,4 @@ public class BulkReceivingPdf extends PurapPdf {
         additionalInfoTable.addCell(cell);
     }
 }
+

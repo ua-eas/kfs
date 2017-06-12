@@ -1304,9 +1304,7 @@ public class KFSPropertyConstants {
     public static final String UPDATE_DATABASE_ON_STARTUP = "updateDatabaseOnStartup";
     public static final String UPDATE_WORKFLOW_ON_STARTUP = "updateWorkflowOnStartup";
 
-    public static final String HAS_DOCUMENTATION = "hasDocumentation";
-    public static final String CHOSEN_ELECTRONIC_PAYMENT_CLAIMING_DOCUMENT_CODE = "chosenElectronicPaymentClaimingDocumentCode";
-    public static final String CLAIMS = "claims";
+    //Added by Electronic Payment Claim mod
     public static final String PAYMENT_CLAIM_STATUS_CODE = "paymentClaimStatusCode";
     public static final String RANGE_LOWER_BOUND_KEY_PREFIX = "rangeLowerBoundKeyPrefix_";
     public static final String GENERATING_ACCOUNTING_LINE = "generatingAccountingLine";
@@ -1336,6 +1334,9 @@ public class KFSPropertyConstants {
     public static final String SIDEBAR_OUT = "sidebarOut";
     public static final String CHECKED_LINK_FILTERS = "checkedLinkFilters";
     public static final String NAMESPACE_CODES_TO_URLS_MAPPING = "namespaceCodesToUrlsMapping";
+    public static final String HAS_DOCUMENTATION = "hasDocumentation";
+    public static final String CHOSEN_ELECTRONIC_PAYMENT_CLAIMING_DOCUMENT_CODE = "chosenElectronicPaymentClaimingDocumentCode";
+    public static final String CLAIMS = "claims";
 
     public static class SubAccountImport {
         public static final String CHART_OF_ACCOUNTS_CODE = "chartOfAccountsCode";
@@ -1375,4 +1376,5 @@ public class KFSPropertyConstants {
         public static final String PROJECT_MANAGER_PRINCIPAL_NAME = "projectManagerPrincipalName";
         public static final String PROJECT_CODE_IMPORT_DETAILS = "projectCodeImportDetails";
     }
+
 }

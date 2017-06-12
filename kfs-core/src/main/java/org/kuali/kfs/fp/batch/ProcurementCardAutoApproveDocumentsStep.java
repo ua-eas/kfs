@@ -20,12 +20,15 @@ package org.kuali.kfs.fp.batch;
 
 import org.kuali.kfs.fp.batch.service.ProcurementCardCreateDocumentService;
 import org.kuali.kfs.sys.batch.AbstractStep;
+import org.kuali.rice.coreservice.framework.parameter.ParameterConstants.NAMESPACE;
 
 import java.util.Date;
 
 /**
  * This step will call a service method to autoapprove any documents that have been in route passed a certain number of days.
  */
+//This annotation is needed to lookup parameters correctly
+@NAMESPACE( namespace = "KFS-PCARD" )
 public class ProcurementCardAutoApproveDocumentsStep extends AbstractStep {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ProcurementCardAutoApproveDocumentsStep.class);
     private ProcurementCardCreateDocumentService procurementCardDocumentService;

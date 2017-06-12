@@ -24,28 +24,27 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-    <bean id="SourceOfFundsMaintenanceDocument" parent="SourceOfFundsMaintenanceDocument-parentBean"/>
-
-    <bean id="SourceOfFundsMaintenanceDocument-parentBean" abstract="true" parent="MaintenanceDocumentEntry">
-        <property name="businessObjectClass" value="org.kuali.kfs.coa.businessobject.SourceOfFunds"/>
-        <property name="maintainableClass" value="org.kuali.kfs.sys.document.FinancialSystemMaintainable"/>
-        <property name="maintainableSections">
-            <list>
-                <ref bean="SourceOfFundsMaintenanceDocument-EditSourceOfFunds"/>
-            </list>
-        </property>
-        <property name="allowsNewOrCopy" value="true"/>
-        <property name="documentTypeName" value="SOF"/>
-        <property name="documentAuthorizerClass" value="org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentAuthorizerBase"/>
-        <property name="workflowAttributes">
-            <ref bean="SourceOfFundsMaintenanceDocument-workflowAttributes"/>
-        </property>
-        <property name="lockingKeys">
-            <list>
-                <value>typeCode</value>
-            </list>
-        </property>
-    </bean>
+  <bean id="SourceOfFundsMaintenanceDocument" parent="SourceOfFundsMaintenanceDocument-parentBean"/>
+	<bean id="SourceOfFundsMaintenanceDocument-parentBean" abstract="true" parent="MaintenanceDocumentEntry">
+    	<property name="businessObjectClass" value="org.kuali.kfs.coa.businessobject.SourceOfFunds" />
+    	<property name="maintainableClass" value="org.kuali.kfs.sys.document.FinancialSystemMaintainable" />
+    	<property name="maintainableSections" >
+      		<list>
+        		<ref bean="SourceOfFundsMaintenanceDocument-EditSourceOfFunds" />
+      		</list>
+    	</property>
+    	<property name="allowsNewOrCopy" value="true" />
+    	<property name="documentTypeName" value="SOFTYP" />
+    	<property name="documentAuthorizerClass" value="org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentAuthorizerBase" />
+    	<property name="workflowAttributes">
+    		<ref bean="SourceOfFundsMaintenanceDocument-workflowAttributes" />
+    	</property>
+    	<property name="lockingKeys" >
+      	<list>
+        	<value>typeCode</value>
+      	</list>
+    	</property>
+  </bean>
 
     <!-- Maintenance Section Definitions -->
 

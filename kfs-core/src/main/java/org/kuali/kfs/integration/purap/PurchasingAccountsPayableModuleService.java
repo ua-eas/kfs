@@ -92,4 +92,12 @@ public interface PurchasingAccountsPayableModuleService {
      */
     public KualiDecimal getTotalPaidAmountToRequisitions(List<String> documentNumbers);
 
+    public boolean hasUseTax(String documentNumber);
+
+    public KualiDecimal getTotalPreTaxDollarAmount(String documentNumber);
+
+    public List<String> findPaymentRequestsByVendorNumberInvoiceNumber(Integer vendorHeaderGeneratedId, Integer vendorDetailAssignedId, java.lang.String invoiceNumber);
+
 }
+
+

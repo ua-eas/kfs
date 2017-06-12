@@ -19,6 +19,8 @@
 
 package org.kuali.kfs.gl.document.web.struts;
 
+
+import edu.arizona.kfs.gl.service.GlobalTransactionEditService;
 import org.apache.commons.beanutils.BeanComparator;
 import org.apache.commons.collections.comparators.ReverseComparator;
 import org.apache.commons.lang.StringUtils;
@@ -26,12 +28,9 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.upload.FormFile;
+import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
-import org.kuali.kfs.gl.businessobject.CorrectionChange;
-import org.kuali.kfs.gl.businessobject.CorrectionChangeGroup;
-import org.kuali.kfs.gl.businessobject.CorrectionCriteria;
-import org.kuali.kfs.gl.businessobject.OriginEntryFull;
-import org.kuali.kfs.gl.businessobject.OriginEntryStatistics;
+import org.kuali.kfs.gl.businessobject.*;
 import org.kuali.kfs.gl.businessobject.options.CorrectionGroupEntriesFinder;
 import org.kuali.kfs.gl.businessobject.options.OriginEntryFieldFinder;
 import org.kuali.kfs.gl.document.CorrectionDocumentUtils;
@@ -297,6 +296,11 @@ public class GeneralLedgerCorrectionProcessAction extends KualiDocumentActionBas
         if (!checkInputGroupPersistedForDocumentSave(generalLedgerCorrectionProcessForm)) {
             return false;
         }
+
+        if (!checkGlobalTransactionValidation(correctionForm)) {
+            return false;
+        }
+
         // Get the output group if necessary
         if (CorrectionDocumentService.CORRECTION_TYPE_CRITERIA.equals(generalLedgerCorrectionProcessForm.getEditMethod())) {
             if (!generalLedgerCorrectionProcessForm.isRestrictedFunctionalityMode() && generalLedgerCorrectionProcessForm.getDataLoadedFlag() && !generalLedgerCorrectionProcessForm.getShowOutputFlag()) {
@@ -324,6 +328,44 @@ public class GeneralLedgerCorrectionProcessAction extends KualiDocumentActionBas
 
         return true;
     }
+
+    protected boolean checkGlobalTransactionValidation(CorrectionForm correctionForm) {
+        boolean result = true;
+        Message message = null;
+        int lineNum = 1;
+        List<OriginEntryFull> allEntries = correctionForm.getAllEntries();
+        GlobalTransactionEditService globalTransactionEditService = SpringContext.getBean(GlobalTransactionEditService.class);
+
+        for (OriginEntryFull oe : allEntries) {
+            oe.refreshReferenceObject("account");
+            oe.refreshReferenceObject("financialObject");
+            Account account = oe.getAccount();
+            account.refreshReferenceObject("subFundGroup");
+
+            if(ObjectUtils.isNull(account)){
+                throw new IllegalArgumentException("This account specified "+oe.getChartOfAccountsCode()+"-"+oe.getAccountNumber()+" does not exist. For sequence "+oe.getTransactionLedgerEntrySequenceNumber());
+            }
+            if(ObjectUtils.isNull(oe.getFinancialObject())){
+                throw new IllegalArgumentException("This account specified "+oe.getFinancialObjectCode()+"-"+oe.getAccountNumber()+" does not exist. For sequence "+oe.getTransactionLedgerEntrySequenceNumber());
+            }
+            if(ObjectUtils.isNull(account.getSubFundGroup())){
+                throw new IllegalArgumentException("This account specified "+oe.getChartOfAccountsCode()+"-"+oe.getAccountNumber()+" does not exist. For sequence "+oe.getTransactionLedgerEntrySequenceNumber());
+            }
+            message = globalTransactionEditService.isAccountingLineAllowable(oe.getFinancialSystemOriginationCode(),
+                    account.getSubFundGroup().getFundGroupCode(),
+                    account.getSubFundGroupCode(),
+                    oe.getFinancialDocumentTypeCode(),
+                    oe.getFinancialObject().getFinancialObjectTypeCode(),
+                    oe.getFinancialObject().getFinancialObjectSubTypeCode());
+            if (message != null) {
+                GlobalVariables.getMessageMap().putError("searchResults", KFSKeyConstants.ERROR_GL_ERROR_CORRECTION_INVALID_VALUE, new String[] { message.getMessage(), "on line "+lineNum});
+                result = false;
+            }
+            lineNum++;
+        }
+        return result;
+    }
+
 
     @Override
     public ActionForward blanketApprove(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {

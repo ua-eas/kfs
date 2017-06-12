@@ -19,9 +19,12 @@
 package org.kuali.kfs.sys.batch;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Appender;
+import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.Logger;
 import org.apache.log4j.NDC;
+import org.apache.log4j.PatternLayout;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.batch.service.SchedulerService;
@@ -86,6 +89,11 @@ public class JobListener implements org.quartz.JobListener {
 
     protected void initializeLogging(JobExecutionContext jobExecutionContext) {
         try {
+        	if(Logger.getRootLogger().getAppender("StdOut") == null) {
+        		Appender appender = new ConsoleAppender(new PatternLayout(PatternLayout.TTCC_CONVERSION_PATTERN));
+            	appender.setName("StdOut");
+            	Logger.getRootLogger().addAppender(appender);
+        	}
             Calendar startTimeCalendar = dateTimeService.getCurrentCalendar();
             StringBuilder nestedDiagnosticContext = new StringBuilder(StringUtils.substringAfter(BatchSpringContext.getJobDescriptor(jobExecutionContext.getJobDetail().getName()).getNamespaceCode(), "-").toLowerCase()).append(File.separator).append(jobExecutionContext.getJobDetail().getName()).append("-").append(dateTimeService.toDateTimeStringForFilename(dateTimeService.getCurrentDate()));
             ((Job) jobExecutionContext.getJobInstance()).setNdcAppender(new FileAppender(Logger.getRootLogger().getAppender("StdOut").getLayout(), getLogFileName(nestedDiagnosticContext.toString())));

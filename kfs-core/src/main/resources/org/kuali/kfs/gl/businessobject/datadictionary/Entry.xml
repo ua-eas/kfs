@@ -32,6 +32,7 @@
         <property name="objectLabel" value="Entry"/>
         <property name="attributes">
             <list>
+                <ref bean="Entry-gecDocumentNumber" />
                 <ref bean="Entry-universityFiscalYear"/>
                 <ref bean="Entry-chartOfAccountsCode"/>
                 <ref bean="Entry-accountNumber"/>
@@ -124,6 +125,11 @@
 
     <!-- Attribute Definitions -->
 
+    <bean id="Entry-gecDocumentNumber" parent="DocumentHeader-documentNumber">
+      <property name="name" value="gecDocumentNumber" />
+      <property name="label" value="GEC Document Number" />
+      <property name="shortLabel" value="GEC Doc Num" />
+    </bean>
 
     <bean id="Entry-universityFiscalYear" parent="Entry-universityFiscalYear-parentBean"/>
 
@@ -388,7 +394,6 @@
 
     <!-- Business Object Inquiry Definition -->
 
-
     <bean id="Entry-inquiryDefinition" parent="Entry-inquiryDefinition-parentBean"/>
 
     <bean id="Entry-inquiryDefinition-parentBean" abstract="true"
@@ -487,6 +492,7 @@
         </property>
         <property name="resultFields">
             <list>
+                <bean parent="FieldDefinition" p:attributeName="gecDocumentNumber" />
                 <bean parent="FieldDefinition" p:attributeName="universityFiscalYear"/>
                 <bean parent="FieldDefinition" p:attributeName="chartOfAccountsCode"/>
                 <bean parent="FieldDefinition" p:attributeName="accountNumber"/>

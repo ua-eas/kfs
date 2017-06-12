@@ -25,7 +25,7 @@
 <c:set var="fullDocumentEntryCompleted" value="${not empty KualiForm.editingMode['fullDocumentEntryCompleted']}" />
 <c:set var="purchaseOrderAttributes" value="${DataDictionary.PurchaseOrderDocument.attributes}" />
 
-<kul:tab tabTitle="Credit Memo Info" defaultOpen="true">
+<kul:tab tabTitle="Credit Memo Info" defaultOpen="true" tabErrorKey="document.bankCode,document.paymentMethodCode">
 
     <div class="tab-container" align=center>
         <table class="standard" summary="Credit Memo Info Section">
@@ -123,16 +123,45 @@
 			<tr>
 	            <sys:bankLabel align="right"/>
                 <sys:bankControl property="document.bankCode" objectProperty="document.bank" readOnly="${not fullEntryMode}"/>
-                <th class="right">
-                    &nbsp;
+                <th class="right" >
+                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.paymentMethodCode}" /></div>
                 </th>
-                <td class="datacell">
-                    &nbsp;
+                <td  class="datacell">
+                    <kul:htmlControlAttribute
+                            attributeEntry="${documentAttributes.paymentMethodCode}" property="document.paymentMethodCode"
+                            readOnly="${not fullEntryMode}"
+                            onchange="paymentMethodChanged( this.value );" />
                 </td>
 
             </tr>
 
 		</table>
     </div>
+
+    <c:if test="${fullEntryMode}">
+        <script type="text/javascript" src="dwr/interface/PaymentMethodGeneralLedgerPendingEntryService.js"></script>
+        <script type="text/javascript">
+            function paymentMethodChanged(selectedMethod) {
+
+                if ( selectedMethod != "" ) {
+                    var dwrReply = {
+                        callback:function(data) {
+                            if ( data != null && typeof data == 'object' ) {
+                                setRecipientValue( "document.bankCode", data.bankCode );
+                                setRecipientValue( "document.bank", data.bankName );
+                            } else {
+                                setRecipientValue( "document.bankCode", "" );
+                                setRecipientValue( "document.bank", "" );
+                            }
+                        },
+                        errorHandler:function( errorMessage ) {
+                            window.status = errorMessage;
+                        }
+                    };
+                    PaymentMethodGeneralLedgerPendingEntryService.getBankForPaymentMethod( selectedMethod, dwrReply );
+                }
+            }
+        </script>
+    </c:if>
 
 </kul:tab>

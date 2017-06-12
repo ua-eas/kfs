@@ -618,3 +618,4 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
     }
 
 }
+

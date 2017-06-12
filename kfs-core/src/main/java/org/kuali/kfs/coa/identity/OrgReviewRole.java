@@ -20,8 +20,7 @@ package org.kuali.kfs.coa.identity;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
-import org.kuali.kfs.coa.businessobject.Chart;
-import org.kuali.kfs.coa.businessobject.Organization;
+import org.kuali.kfs.coa.businessobject.*;
 import org.kuali.kfs.coa.service.ChartService;
 import org.kuali.kfs.coa.service.OrgReviewRoleService;
 import org.kuali.kfs.coa.service.OrganizationService;
@@ -95,6 +94,9 @@ public class OrgReviewRole extends PersistableBusinessObjectBase implements Muta
     public static final String DELEGATION_TYPE_CODE = "delegationTypeCode";
     public static final String FROM_AMOUNT_FIELD_NAME = "fromAmount";
     public static final String TO_AMOUNT_FIELD_NAME = "toAmount";
+    public static final String FUND_GROUP_FIELD_NAME = KfsKimAttributes.FUND_GROUP_CODE;
+    public static final String SUB_FUND_GROUP_FIELD_NAME = KfsKimAttributes.SUB_FUND_GROUP_CODE;
+    public static final String OBJECT_SUB_TYPE_FIELD_NAME = KfsKimAttributes.OBJECT_SUB_TYPE_CODE;
     public static final String OVERRIDE_CODE_FIELD_NAME = KFSPropertyConstants.OVERRIDE_CODE;
     public static final String ACTION_TYPE_CODE_FIELD_NAME = "actionTypeCode";
     public static final String PRIORITY_CODE_FIELD_NAME = "priorityNumber";
@@ -114,6 +116,9 @@ public class OrgReviewRole extends PersistableBusinessObjectBase implements Muta
     protected String orgReviewRoleMemberId;
     protected Chart chart;
     protected Organization organization;
+    protected FundGroup fundGroup;
+    protected SubFundGroup subFundGroup;
+    protected ObjectSubType objectSubType;
     protected boolean edit;
     protected boolean copy;
 
@@ -165,6 +170,9 @@ public class OrgReviewRole extends PersistableBusinessObjectBase implements Muta
     protected boolean forceAction;
     protected String chartOfAccountsCode;
     protected String organizationCode;
+    protected String fundGroupCode;
+    protected String subFundGroupCode;
+    protected String financialObjectSubTypeCode;
     protected KualiDecimal fromAmount;
     protected KualiDecimal toAmount;
     protected String overrideCode;
@@ -598,12 +606,14 @@ public class OrgReviewRole extends PersistableBusinessObjectBase implements Muta
             } else {
                 setRoleNamesToConsider();
             }
-            if (isBothReviewRolesIndicator()) {
+            if(isBothReviewRolesIndicator()) {
                 setReviewRolesIndicatorOnDocTypeChange(KFSConstants.COAConstants.ORG_REVIEW_ROLE_ORG_ACC_BOTH_CODE);
-            } else if (isAccountingOrgReviewRoleIndicator()) {
+            } else if(isAccountingOrgReviewRoleIndicator()) {
                 setReviewRolesIndicatorOnDocTypeChange(KFSConstants.COAConstants.ORG_REVIEW_ROLE_ORG_ACC_ONLY_CODE);
-            } else if (isOrgReviewRoleIndicator()) {
+            } else if(isOrgReviewRoleIndicator()) {
                 setReviewRolesIndicatorOnDocTypeChange(KFSConstants.COAConstants.ORG_REVIEW_ROLE_ORG_ONLY_CODE);
+            } else if(isOrgFundReviewRoleIndicator()) {
+                setReviewRolesIndicatorOnDocTypeChange(KFSConstants.COAConstants.ORG_REVIEW_ROLE_ORG_FUND_ONLY_CODE);
             }
         }
     }
@@ -784,6 +794,15 @@ public class OrgReviewRole extends PersistableBusinessObjectBase implements Muta
     public boolean isOrgReviewRoleIndicator() {
         return getRoleNamesToConsider() != null &&
             getRoleNamesToConsider().contains(KFSConstants.SysKimApiConstants.ORGANIZATION_REVIEWER_ROLE_NAME);
+    }
+
+    /**
+     * Gets the orgFundReviewRoleIndicator attribute.
+     * @return Returns the orgFundReviewRoleIndicator
+     */
+    public boolean isOrgFundReviewRoleIndicator() {
+        return getRoleNamesToConsider() != null &&
+                getRoleNamesToConsider().contains(KFSConstants.SysKimApiConstants.ORGANIZATION_FUND_REVIEWER_ROLE_NAME);
     }
 
     /**
@@ -1489,6 +1508,43 @@ public class OrgReviewRole extends PersistableBusinessObjectBase implements Muta
         this.kimTypeId = kimTypeId;
     }
 
+    public SubFundGroup getSubFundGroup() {
+        return subFundGroup;
+    }
+    public void setSubFundGroup(SubFundGroup subFundGroup) {
+        this.subFundGroup = subFundGroup;
+    }
+    public ObjectSubType getObjectSubType() {
+        return objectSubType;
+    }
+    public void setObjectSubType(ObjectSubType objectSubType) {
+        this.objectSubType = objectSubType;
+    }
+    public String getSubFundGroupCode() {
+        return subFundGroupCode;
+    }
+    public void setSubFundGroupCode(String subFundGroupCode) {
+        this.subFundGroupCode = subFundGroupCode;
+    }
+    public String getFinancialObjectSubTypeCode() {
+        return financialObjectSubTypeCode;
+    }
+    public void setFinancialObjectSubTypeCode(String financialObjectSubTypeCode) {
+        this.financialObjectSubTypeCode = financialObjectSubTypeCode;
+    }
+    public FundGroup getFundGroup() {
+        return fundGroup;
+    }
+    public void setFundGroup(FundGroup fundGroup) {
+        this.fundGroup = fundGroup;
+    }
+    public String getFundGroupCode() {
+        return fundGroupCode;
+    }
+    public void setFundGroupCode(String fundGroupCode) {
+        this.fundGroupCode = fundGroupCode;
+    }
+
     public Map<String, String> getQualifierAsAttributeSet(List<KfsKimDocumentAttributeData> qualifiers) {
         Map<String, String> m = new HashMap<String, String>();
         for (KfsKimDocumentAttributeData data : qualifiers) {
@@ -1579,3 +1635,4 @@ public class OrgReviewRole extends PersistableBusinessObjectBase implements Muta
         return organizationService;
     }
 }
+

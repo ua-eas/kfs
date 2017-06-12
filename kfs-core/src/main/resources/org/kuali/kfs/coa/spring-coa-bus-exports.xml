@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
@@ -58,4 +59,13 @@
     <bean parent="roleTypeServiceCallback"
           p:callbackService-ref="contractsAndGrantsResponsibilityRoleTypeService" p:localServiceName="contractsAndGrantsResponsibilityRoleTypeService"/>
 
+		<bean parent="roleTypeServiceCallback"
+					p:callbackService-ref="organizationFundReviewRoleTypeService" p:localServiceName="organizationFundReviewRoleTypeService" />
+
+		<bean parent="roleTypeServiceCallback"
+					p:callbackService-ref="objectSubTypeCodeRoleTypeService" p:localServiceName="objectSubTypeCodeRoleTypeService" />
+
 </beans>
+
+
+

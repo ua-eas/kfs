@@ -20,6 +20,7 @@ package org.kuali.kfs.module.purap.service.impl;
 
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.service.ObjectCodeService;
+import org.kuali.kfs.coa.service.SubObjectCodeService;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
@@ -260,7 +261,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
     }
 
     /**
-     * @see org.kuali.kfs.module.purap.service.PurapGeneralLedgerService#generateEntriesCreateCreditMemo(org.kuali.kfs.module.purap.document.CreditMemoDocument)
+     * @see org.kuali.kfs.module.purap.service.PurapGeneralLedgerService#generateEntriesCreateCreditMemo(VendorCreditMemoDocument)
      */
     @Override
     public void generateEntriesCreateCreditMemo(VendorCreditMemoDocument cm) {
@@ -271,7 +272,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
     /**
      * Called from generateEntriesCancelAccountsPayableDocument() for Payment Request Document
      *
-     * @param preq Payment Request document to cancel
+     * @param cm VendorCreditMemoDocument to cancel
      * @see org.kuali.kfs.module.purap.service.PurapGeneralLedgerService#generateEntriesCancelAccountsPayableDocument(org.kuali.kfs.module.purap.document.AccountsPayableDocument)
      */
     protected void generateEntriesCancelCreditMemo(VendorCreditMemoDocument cm) {
@@ -299,7 +300,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
      *
      * @param preq            Payment Request document to create entries
      * @param encumbrances    List of encumbrance accounts if applies
-     * @param accountingLines List of preq accounts to create entries
+     * @param summaryAccounts List of preq accounts to create entries
      * @param processType     Type of process (create, modify, cancel)
      * @return Boolean returned indicating whether entry creation succeeded
      */
@@ -1399,7 +1400,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
     /**
      * Save the given accounts for the given document.
      *
-     * @param sourceLines             Accounts to be saved
+     * @param summaryAccounts             Accounts to be saved
      * @param purapDocumentIdentifier Purap document id for accounts
      */
     protected void saveAccountsPayableSummaryAccounts(List<SummaryAccount> summaryAccounts, Integer purapDocumentIdentifier, String docType) {

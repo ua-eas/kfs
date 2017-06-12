@@ -20,7 +20,6 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
     <bean id="CoinDetail" parent="CoinDetail-parentBean"/>
-
     <bean id="CoinDetail-parentBean" abstract="true" parent="BusinessObjectEntry">
         <property name="businessObjectClass" value="org.kuali.kfs.fp.businessobject.CoinDetail"/>
         <property name="objectLabel" value="Coin Detail"/>
@@ -42,13 +41,13 @@
                 <ref bean="CoinDetail-financialDocumentOneCentAmount"/>
                 <ref bean="CoinDetail-oneCentCount"/>
                 <ref bean="CoinDetail-financialDocumentOtherCentAmount"/>
+                <ref bean="CoinDetail-financialDocumentCentAmount"/>
                 <ref bean="CoinDetail-totalAmount"/>
             </list>
         </property>
     </bean>
 
     <!-- Attribute Definitions -->
-
 
     <bean id="CoinDetail-documentNumber" parent="CoinDetail-documentNumber-parentBean"/>
 
@@ -263,5 +262,37 @@
         <property name="label" value="Coin Detail Amount"/>
         <property name="shortLabel" value="Coin Detail"/>
     </bean>
+
+  <bean id="CoinDetail-financialDocumentOtherCentAmount-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="name" value="financialDocumentOtherCentAmount"/>
+    <property name="label" value="Other Cent Amount"/>
+    <property name="shortLabel" value="OthrCntAmt"/>
+    <property name="maxLength" value="6"/>
+    <property name="required" value="false"/>
+    <property name="validationPattern" ref="GenericAmountValiationPattern" />
+    <property name="control">
+      <bean parent="CurrencyControlDefinition" p:formattedMaxLength="8" p:size="6"/>
+    </property>
+  </bean>
+
+  <bean id="CoinDetail-financialDocumentCentAmount" parent="CoinDetail-financialDocumentCentAmount-parentBean"/>
+  <bean id="CoinDetail-financialDocumentCentAmount-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="name" value="financialDocumentCentAmount"/>
+    <property name="label" value="Cent Amount"/>
+    <property name="shortLabel" value="CntAmt"/>
+    <property name="maxLength" value="6"/>
+    <property name="required" value="false"/>
+    <property name="validationPattern" ref="GenericAmountValiationPattern" />
+    <property name="control">
+      <bean parent="CurrencyControlDefinition" p:formattedMaxLength="8" p:size="6"/>
+    </property>
+  </bean>
+  
+  <bean id="CoinDetail-totalAmount" parent="CoinDetail-totalAmount-parentBean"/>
+  <bean id="CoinDetail-totalAmount-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
+    <property name="name" value="totalAmount"/>
+    <property name="label" value="Coin Detail Amount"/>
+    <property name="shortLabel" value="Coin Detail"/>    
+  </bean>
 
 </beans>

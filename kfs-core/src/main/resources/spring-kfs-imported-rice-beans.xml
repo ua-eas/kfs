@@ -23,10 +23,8 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd" default-lazy-init="false">
 
-
     <!-- parent bean to make the definitions below easier to read -->
     <bean id="grlBeanImporter" abstract="true" class="org.kuali.kfs.krad.config.GlobalResourceLoaderServiceFactoryBean" p:singleton="true" p:mustExist="true"/>
-
     <bean id="dataSource" p:serviceName="kradApplicationDataSource" parent="grlBeanImporter"/>
     <!-- These are beans we need to export from Rice -->
 
@@ -58,6 +56,7 @@
     <bean id="sessionDocumentService" p:serviceName="cf.sessionDocumentService" parent="grlBeanImporter"/>
     <bean id="noteService" p:serviceName="cf.noteService" parent="grlBeanImporter"/>
     <bean id="businessObjectService" p:serviceName="cf.businessObjectService" parent="grlBeanImporter"/>
+		<bean id="criteriaLookupService" p:serviceName="criteriaLookupService" parent="grlBeanImporter" />
     <bean id="kualiRuleService" p:serviceName="cf.kualiRuleService" parent="grlBeanImporter"/>
     <bean id="keyValuesService" p:serviceName="cf.keyValuesService" parent="grlBeanImporter"/>
     <bean id="businessObjectMetaDataService" p:serviceName="cf.businessObjectMetaDataService" parent="grlBeanImporter"/>

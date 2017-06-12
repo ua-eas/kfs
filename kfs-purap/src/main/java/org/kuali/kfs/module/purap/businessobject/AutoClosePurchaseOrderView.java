@@ -54,3 +54,4 @@ public class AutoClosePurchaseOrderView extends PurchaseOrderView {
         this.documentHeader = documentHeader;
     }
 }
+

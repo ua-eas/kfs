@@ -33,6 +33,7 @@
   <c:set var="transactionAttributes" value="${DataDictionary.ProcurementCardTransactionDetail.attributes}" />
   <c:set var="vendorAttributes" value="${DataDictionary.ProcurementCardVendor.attributes}" />
   <c:set var="cardAttributes" value="${DataDictionary.ProcurementCardHolder.attributes}" />
+  <c:set var="canEdit" value="${KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}" scope="request" />
 
   <div class="tab-container" align="center">
   <logic:iterate indexId="ctr" name="KualiForm" property="document.transactionEntries" id="currentTransaction">
@@ -42,7 +43,7 @@
 	      <tr>
 	        <th scope="row"><div align="right"><kul:htmlAttributeLabel attributeEntry="${cardAttributes.transactionCreditCardNumber}" readOnly="true"/></div></th>
 	        <td>
-	          <kul:inquiry boClassName="org.kuali.kfs.fp.businessobject.ProcurementCardHolder"
+	          <kul:inquiry boClassName="edu.arizona.kfs.fp.businessobject.ProcurementCardHolder"
                keyValues="documentNumber=${currentTransaction.documentNumber}" render="true">
 				<c:choose>
 					<c:when test="${KualiForm.transactionCreditCardNumbersViewStatus[ctr]}">
@@ -55,36 +56,67 @@
 				</c:choose>
 	          </kul:inquiry>
 	        </td>
-			<th>&nbsp;</th>
-			<td>&nbsp;</td>
+                    <th><div align="right"><kul:htmlAttributeLabel attributeEntry="${vendorAttributes.vendorName}" /></div></th>
+                    <td valign="top">
+                        <kul:inquiry boClassName="org.kuali.kfs.fp.businessobject.ProcurementCardVendor" keyValues="documentNumber=${currentTransaction.documentNumber}&financialDocumentTransactionLineNumber=${currentTransaction.financialDocumentTransactionLineNumber}" render="true">
+                            <bean:write name="KualiForm" property="document.transactionEntries[${ctr}].procurementCardVendor.vendorName" />
+                        </kul:inquiry>
+                    </td>
 	      </tr>
 	      <tr>
 	        <th scope="row"><div align="right"><kul:htmlAttributeLabel attributeEntry="${cardAttributes.cardHolderName}" readOnly="true"/></div></th>
 	        <td><kul:htmlControlAttribute attributeEntry="${cardAttributes.cardHolderName}" property="document.procurementCardHolder.cardHolderName" readOnly="true"/></td>
+                    <th scope="row"><div align="right"><kul:htmlAttributeLabel attributeEntry="${cardAttributes.cardNoteText}" readOnly="true"/></div></th>
+                    <td><kul:htmlControlAttribute attributeEntry="${cardAttributes.cardNoteText}" property="document.procurementCardHolder.cardNoteText" readOnly="true" /></td>
+                </tr>
+                <tr>
+                    <th scope="row"><div align="right"><kul:htmlAttributeLabel attributeEntry="${cardAttributes.cardHolderAlternateName}" readOnly="true" /></div></th>
+                    <td><kul:htmlControlAttribute attributeEntry="${cardAttributes.cardHolderAlternateName}" property="document.procurementCardHolder.cardHolderAlternateName" readOnly="true" /></td>
             <th> <div align="right"><kul:htmlAttributeLabel attributeEntry="${transactionAttributes.transactionTotalAmount}"/></div></th>
-            <td valign=top><kul:htmlControlAttribute attributeEntry="${transactionAttributes.transactionTotalAmount}" property="document.transactionEntries[${ctr}].transactionTotalAmount" readOnly="true"/></td>
+                    <td valign="top"><kul:htmlControlAttribute attributeEntry="${transactionAttributes.transactionTotalAmount}" property="document.transactionEntries[${ctr}].transactionTotalAmount" readOnly="true" /></td>
 	     </tr>
        <tr>
           <th><div align="right"><kul:htmlAttributeLabel attributeEntry="${transactionAttributes.transactionDate}"/></div></th>
-          <td valign=top><bean:write name="KualiForm" property="document.transactionEntries[${ctr}].transactionDate" /></td>
+                    <td valign="top"><bean:write name="KualiForm" property="document.transactionEntries[${ctr}].transactionDate" /></td>
+                    <c:if test="${KualiForm.enableSalesTaxIndicator}">
+                        <th><div align="right"><kul:htmlAttributeLabel attributeEntry="${transactionAttributes.transactionSalesTaxAmount}" /></div></th>
+                        <td valign="top"><kul:htmlControlAttribute attributeEntry="${transactionAttributes.transactionSalesTaxAmount}" property="document.transactionEntries[${ctr}].transactionSalesTaxAmount" readOnly="true"/></td>
+                    </c:if>
+                    <c:if test="${!KualiForm.enableSalesTaxIndicator}">
+                        <html:hidden write="false" property="document.transactionEntries[${ctr}].transactionSalesTaxAmount"/>
+                    </c:if>
+                </tr>
+                <tr>
+                    <th><div align="right"><kul:htmlAttributeLabel attributeEntry="${transactionAttributes.transactionPostingDate}" /></div></th>
+                    <td valign="top"><bean:write name="KualiForm" property="document.transactionEntries[${ctr}].transactionPostingDate" /></td>
+                    <c:if test="${KualiForm.enableSalesTaxIndicator}">
+                        <th><div align="right"><kul:htmlAttributeLabel attributeEntry="${transactionAttributes.transactionEditableSalesTaxAmount}"/></div></th>
+                        <td valign="top"><kul:htmlControlAttribute attributeEntry="${transactionAttributes.transactionEditableSalesTaxAmount}" property="document.transactionEntries[${ctr}].transactionEditableSalesTaxAmount" readOnly="${!canEdit}"/></td>
+                    </c:if>
+                    <c:if test="${!KualiForm.enableSalesTaxIndicator}">
+                        <html:hidden write="false" property="document.transactionEntries[${ctr}].transactionSalesTaxAmount"/>
+                    </c:if>
+                </tr>
+                <tr>
           <th> <div align="right"><kul:htmlAttributeLabel attributeEntry="${transactionAttributes.transactionReferenceNumber}"/></div></th>
-          <td valign=top>
-            <kul:inquiry boClassName="org.kuali.kfs.fp.businessobject.ProcurementCardTransactionDetail"
+                    <td valign="top">
+            <kul:inquiry boClassName="edu.arizona.kfs.fp.businessobject.ProcurementCardTransactionDetail"
                keyValues="documentNumber=${currentTransaction.documentNumber}&financialDocumentTransactionLineNumber=${currentTransaction.financialDocumentTransactionLineNumber}"
                render="true">
 				<bean:write name="KualiForm" property="document.transactionEntries[${ctr}].transactionReferenceNumber" />
             </kul:inquiry>
           </td>
+                    <c:if test="${KualiForm.enableSalesTaxIndicator}">
+                        <th><div align="right"><kul:htmlAttributeLabel attributeEntry="${transactionAttributes.transactionTaxExemptIndicator}"/></div></th>
+                        <td valign=top><kul:htmlControlAttribute attributeEntry="${transactionAttributes.transactionTaxExemptIndicator}" property="document.transactionEntries[${ctr}].transactionTaxExemptIndicator" readOnly="${!canEdit}"/></td>
+                    </c:if>
+                    <c:if test="${!KualiForm.enableSalesTaxIndicator}">
+                        <html:hidden write="false" property="document.transactionEntries[${ctr}].transactionTaxExemptIndicator"/>
+                    </c:if>
        </tr>
        <tr>
-          <th> <div align="right"><kul:htmlAttributeLabel attributeEntry="${vendorAttributes.vendorName}"/></div></th>
-          <td valign=top>
-            <kul:inquiry boClassName="org.kuali.kfs.fp.businessobject.ProcurementCardVendor"
-               keyValues="documentNumber=${currentTransaction.documentNumber}&financialDocumentTransactionLineNumber=${currentTransaction.financialDocumentTransactionLineNumber}"
-               render="true">
-				<bean:write name="KualiForm" property="document.transactionEntries[${ctr}].procurementCardVendor.vendorName" />
-            </kul:inquiry>
-          </td>
+                    <th><div align="right"><kul:htmlAttributeLabel attributeEntry="${transactionAttributes.transactionNoReceiptIndicator}"/></div></th>
+                    <td valign="top"><kul:htmlControlAttribute attributeEntry="${transactionAttributes.transactionNoReceiptIndicator}" property="document.transactionEntries[${ctr}].transactionNoReceiptIndicator" readOnly="${!canEdit}" /></td>
           <th colspan="2"> <div align="left">
 		  <c:choose>
 			<c:when test="${KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}">
@@ -114,3 +146,4 @@
     var kualiElements = kualiForm.elements;
   </SCRIPT>
 </kul:tab>
+

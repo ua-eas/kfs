@@ -36,6 +36,7 @@ import org.kuali.rice.core.api.delegation.DelegationType;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.common.delegate.DelegateMember;
 import org.kuali.rice.kim.api.common.delegate.DelegateType;
+import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.principal.Principal;
 import org.kuali.rice.kim.api.identity.principal.PrincipalQueryResults;
 import org.kuali.rice.kim.api.role.DelegateMemberQueryResults;
@@ -176,15 +177,32 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
     }
 
     protected List<String> getPrincipalIdsForWildcardedPrincipalName(String principalName) {
-        if (StringUtils.isNotBlank(principalName)) {
-            PrincipalQueryResults results = KimApiServiceLocator.getIdentityService().findPrincipals(QueryByCriteria.Builder.fromPredicates(PredicateUtils.convertMapToPredicate(Collections.singletonMap(KimConstants.UniqueKeyConstants.PRINCIPAL_NAME, getQueryString(principalName)))));
-            List<String> principalIds = new ArrayList<String>(results.getResults().size());
-            for (Principal principals : results.getResults()) {
-                principalIds.add(principals.getPrincipalId());
+//KFS7 impl        if (StringUtils.isNotBlank(principalName)) {
+//            PrincipalQueryResults results = KimApiServiceLocator.getIdentityService().findPrincipals(QueryByCriteria.Builder.fromPredicates(PredicateUtils.convertMapToPredicate(Collections.singletonMap(KimConstants.UniqueKeyConstants.PRINCIPAL_NAME, getQueryString(principalName)))));
+//            List<String> principalIds = new ArrayList<String>(results.getResults().size());
+//            for (Principal principals : results.getResults()) {
+//                principalIds.add(principals.getPrincipalId());
+//            }
+//            return principalIds;
+//        }
+//        return Collections.emptyList();
+
+        //KFS6 impl
+        List<String> principalIds = new ArrayList<String>();
+
+        if(StringUtils.isNotBlank(principalName)){
+
+            String wildcardPrincipalName = getQueryString(principalName);
+            Map<String, String> criteriaMap = Collections.singletonMap(KimConstants.UniqueKeyConstants.PRINCIPAL_NAME, wildcardPrincipalName);
+            List<Person> persons= KimApiServiceLocator.getPersonService().findPeople(criteriaMap);
+
+            for (Person person : persons) {
+                principalIds.add(person.getPrincipalId());
             }
-            return principalIds;
+
         }
-        return Collections.emptyList();
+
+        return principalIds;
     }
 
     protected List<String> getGroupIdsForWildcardedGroupName(String namespaceCode, String groupName) {
@@ -252,6 +270,9 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
         String financialSystemDocumentTypeCode = fieldValues.get(KfsKimAttributes.FINANCIAL_SYSTEM_DOCUMENT_TYPE_CODE);
         String chartOfAccountsCode = fieldValues.get(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE);
         String organizationCode = fieldValues.get(KFSPropertyConstants.ORGANIZATION_CODE);
+        String subFundGroupCode = fieldValues.get(KfsKimAttributes.SUB_FUND_GROUP_CODE);
+        String objectSubType = fieldValues.get(KfsKimAttributes.OBJECT_SUB_TYPE_CODE);
+        String fundGroupCode = fieldValues.get(KfsKimAttributes.FUND_GROUP_CODE);
 
         //Loop through org review roles and remove rows where necessary
         Iterator<OrgReviewRole> it = searchResults.iterator();
@@ -276,6 +297,11 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
                         remove = true;
                     }
                 }
+
+                if(!organizationCode.equals(orgReviewRole.getOrganizationCode())) {
+                    remove = true;
+                }
+
             } else if (StringUtils.isNotBlank(chartOfAccountsCode)) {
                 //filter by document type if it exists
                 if (StringUtils.isNotBlank(financialSystemDocumentTypeCode)) {
@@ -284,7 +310,34 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
                         remove = true;
                     }
                 }
+
+                if(!chartOfAccountsCode.equals(orgReviewRole.getChartOfAccountsCode())) {
+                    remove = true;
+                }
+
             }
+
+            if(StringUtils.isNotBlank(financialSystemDocumentTypeCode)) {
+                if(!financialSystemDocumentTypeCode.equals(orgReviewRole.getFinancialSystemDocumentTypeCode())) {
+                    remove = true;
+                }
+            }
+            if(StringUtils.isNotBlank(fundGroupCode)){
+                if(!fundGroupCode.equals(orgReviewRole.getFundGroupCode())) {
+                    remove = true;
+                }
+            }
+            if(StringUtils.isNotBlank(subFundGroupCode)){
+                if(!subFundGroupCode.equals(orgReviewRole.getSubFundGroupCode())) {
+                    remove = true;
+                }
+            }
+            if(StringUtils.isNotBlank(objectSubType)){
+                if(!objectSubType.equals(orgReviewRole.getObjectSubType())) {
+                    remove = true;
+                }
+            }
+
 
             List<String> items = new ArrayList<String>();
 
@@ -460,6 +513,9 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
             if (StringUtils.isBlank(active) || activeInd == member.isActive()) {
                 OrgReviewRole orgReviewRole = new OrgReviewRole();
                 orgReviewRole.setRoleMember(member);
+                orgReviewRole.setFundGroupCode(orgReviewRole.getAttributeValue(KfsKimAttributes.FUND_GROUP_CODE));
+                orgReviewRole.setSubFundGroupCode(orgReviewRole.getAttributeValue(KfsKimAttributes.SUB_FUND_GROUP_CODE));
+                orgReviewRole.setFinancialObjectSubTypeCode(orgReviewRole.getAttributeValue(KfsKimAttributes.OBJECT_SUB_TYPE_CODE));
 
                 if (LOG.isDebugEnabled()) {
                     LOG.debug("Converted To OrgReviewRole: " + orgReviewRole);
@@ -486,6 +542,9 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
             if (StringUtils.isBlank(active) || activeInd == member.isActive()) {
                 OrgReviewRole orr = new OrgReviewRole();
                 orgReviewRoleService.populateOrgReviewRoleFromDelegationMember(orr, member.getRoleMemberId(), member.getDelegationMemberId());
+                orr.setFundGroupCode(orr.getAttributeValue(KfsKimAttributes.FUND_GROUP_CODE));
+                orr.setSubFundGroupCode(orr.getAttributeValue(KfsKimAttributes.SUB_FUND_GROUP_CODE));
+                orr.setFinancialObjectSubTypeCode(orr.getAttributeValue(KfsKimAttributes.OBJECT_SUB_TYPE_CODE));
                 if (LOG.isDebugEnabled()) {
                     LOG.debug("Converted To OrgReviewRole: " + orr);
                 }
@@ -494,6 +553,7 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
         }
         return orgReviewRoles;
     }
+
 
     protected String getQueryString(String parameter) {
         if (StringUtils.isBlank(parameter)) {
@@ -538,6 +598,9 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
         String financialSystemDocumentTypeCode = fieldValues.get(KfsKimAttributes.FINANCIAL_SYSTEM_DOCUMENT_TYPE_CODE);
         String chartOfAccountsCode = fieldValues.get(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE);
         String organizationCode = fieldValues.get(KFSPropertyConstants.ORGANIZATION_CODE);
+        String subFundGroupCode = fieldValues.get(KfsKimAttributes.SUB_FUND_GROUP_CODE);
+        String objectSubType = fieldValues.get(KfsKimAttributes.OBJECT_SUB_TYPE_CODE);
+        String fundGroupCode = fieldValues.get(KfsKimAttributes.FUND_GROUP_CODE);
 
         Map<String, String> searchCriteriaMain = new HashMap<String, String>();
 
@@ -554,6 +617,18 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
         if (StringUtils.isNotBlank(organizationCode)) {
             searchCriteriaMain.put(MEMBER_ATTRIBUTE_NAME_KEY, KfsKimAttributes.ORGANIZATION_CODE);
             searchCriteriaMain.put(MEMBER_ATTRIBUTE_VALUE_KEY, organizationCode);
+        }
+        if(StringUtils.isNotBlank(fundGroupCode)){
+            searchCriteriaMain.put(MEMBER_ATTRIBUTE_NAME_KEY, KfsKimAttributes.FUND_GROUP_CODE);
+            searchCriteriaMain.put(MEMBER_ATTRIBUTE_VALUE_KEY, fundGroupCode);
+        }
+        if(StringUtils.isNotBlank(subFundGroupCode)){
+            searchCriteriaMain.put(MEMBER_ATTRIBUTE_NAME_KEY, KfsKimAttributes.SUB_FUND_GROUP_CODE);
+            searchCriteriaMain.put(MEMBER_ATTRIBUTE_VALUE_KEY, subFundGroupCode);
+        }
+        if(StringUtils.isNotBlank(objectSubType)) {
+            searchCriteriaMain.put(MEMBER_ATTRIBUTE_NAME_KEY, KfsKimAttributes.OBJECT_SUB_TYPE_CODE);
+            searchCriteriaMain.put(MEMBER_ATTRIBUTE_VALUE_KEY, objectSubType);
         }
 
         String memberIdString = buildMemberIdLookupString(principalIds, groupIds, roleIds);
@@ -615,6 +690,9 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
         String financialSystemDocumentTypeCode = fieldValues.get(KfsKimAttributes.FINANCIAL_SYSTEM_DOCUMENT_TYPE_CODE);
         String chartOfAccountsCode = fieldValues.get(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE);
         String organizationCode = fieldValues.get(KFSPropertyConstants.ORGANIZATION_CODE);
+        String subFundGroupCode = fieldValues.get(KfsKimAttributes.SUB_FUND_GROUP_CODE);
+        String objectSubType = fieldValues.get(KfsKimAttributes.OBJECT_SUB_TYPE_CODE);
+        String fundGroupCode = fieldValues.get(KfsKimAttributes.FUND_GROUP_CODE);
 
         // Yes, the lines below overwrite each other.  We are essentially attempting to use the most-selective one present.
         // Complete filtering will be performed later, after the results are retrieved
@@ -630,6 +708,18 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
         if (StringUtils.isNotBlank(organizationCode)) {
             searchCriteriaMain.put(MEMBER_ATTRIBUTE_NAME_KEY, KfsKimAttributes.ORGANIZATION_CODE);
             searchCriteriaMain.put(MEMBER_ATTRIBUTE_VALUE_KEY, organizationCode);
+        }
+        if(StringUtils.isNotBlank(fundGroupCode)){
+            searchCriteriaMain.put(MEMBER_ATTRIBUTE_NAME_KEY, KfsKimAttributes.FUND_GROUP_CODE);
+            searchCriteriaMain.put(MEMBER_ATTRIBUTE_VALUE_KEY, fundGroupCode);
+        }
+        if(StringUtils.isNotBlank(subFundGroupCode)){
+            searchCriteriaMain.put(MEMBER_ATTRIBUTE_NAME_KEY, KfsKimAttributes.SUB_FUND_GROUP_CODE);
+            searchCriteriaMain.put(MEMBER_ATTRIBUTE_VALUE_KEY, subFundGroupCode);
+        }
+        if(StringUtils.isNotBlank(objectSubType)) {
+            searchCriteriaMain.put(MEMBER_ATTRIBUTE_NAME_KEY, KfsKimAttributes.OBJECT_SUB_TYPE_CODE);
+            searchCriteriaMain.put(MEMBER_ATTRIBUTE_VALUE_KEY, objectSubType);
         }
 
         String memberIdString = buildMemberIdLookupString(principalIds, groupIds, roleIds);
@@ -654,3 +744,4 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
 
 
 }
+

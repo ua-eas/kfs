@@ -49,6 +49,7 @@ public class TransferOfFundsAccountingLinesCountValidation extends GenericValida
         return isAccountingLinesCountValid(accountingDocumentForValidation, KfsParameterConstants.FINANCIAL_PROCESSING_DOCUMENT.class, AccountingDocumentRuleBaseConstants.APPLICATION_PARAMETER.ALLOW_MANY_TO_MANY_TRANSFERS);
     }
 
+
     /**
      * This method checks the number of document "From" accounting lines against the number of document "To" accounting lines.
      * Transfer transactions with multiple "From" accounting lines and multiple "To" accounting lines are not allowed.
@@ -93,9 +94,10 @@ public class TransferOfFundsAccountingLinesCountValidation extends GenericValida
         return isValid;
     }
 
+
+    
     /**
      * Returns the name of the accounting line group
-     *
      * @return the name of the accounting line group
      */
     protected String getGroupName() {
@@ -155,5 +157,5 @@ public class TransferOfFundsAccountingLinesCountValidation extends GenericValida
     public void setParameterService(ParameterService parameterService) {
         this.parameterService = parameterService;
     }
-
+    
 }

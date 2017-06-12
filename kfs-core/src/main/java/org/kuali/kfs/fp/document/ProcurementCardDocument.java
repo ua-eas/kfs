@@ -23,7 +23,6 @@ import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.fp.businessobject.ProcurementCardHolder;
 import org.kuali.kfs.fp.businessobject.ProcurementCardSourceAccountingLine;
 import org.kuali.kfs.fp.businessobject.ProcurementCardTargetAccountingLine;
-import org.kuali.kfs.fp.businessobject.ProcurementCardTransactionDetail;
 import org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService;
 import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
@@ -42,6 +41,8 @@ import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import edu.arizona.kfs.fp.businessobject.ProcurementCardTransactionDetail;
 
 /**
  * This is the Procurement Card Document Class. The procurement cards distributes expenses from clearing accounts. It is a two-sided

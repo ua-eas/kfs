@@ -81,3 +81,4 @@ public class AccountsPayableBankCodeValidation extends GenericValidation {
         return accountingDocumentForValidation;
     }
 }
+

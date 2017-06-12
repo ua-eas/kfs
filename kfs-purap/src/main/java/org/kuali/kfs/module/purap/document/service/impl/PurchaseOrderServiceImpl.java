@@ -121,6 +121,8 @@ import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
+
+
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.ByteArrayOutputStream;
@@ -255,6 +257,9 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         return resultSystem;
     }
 
+    /**
+     * @see org.kuali.kfs.module.purap.document.service.PurchaseOrderService#createAutomaticPurchaseOrderDocument(org.kuali.kfs.module.purap.document.RequisitionDocument)
+     */
     @Override
     public void createAutomaticPurchaseOrderDocument(RequisitionDocument reqDocument) {
         String newSessionUserId = KFSConstants.SYSTEM_USER;
@@ -302,6 +307,10 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         }
     }
 
+    /**
+     * @see org.kuali.kfs.module.purap.document.service.PurchaseOrderService#createPurchaseOrderDocument(org.kuali.kfs.module.purap.document.RequisitionDocument,
+     *      java.lang.String, java.lang.Integer)
+     */
     @Override
     public PurchaseOrderDocument createPurchaseOrderDocument(RequisitionDocument reqDocument, String newSessionUserId, Integer contractManagerCode) {
         try {
@@ -370,6 +379,9 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         return poDocument;
     }
 
+    /**
+     * @see org.kuali.kfs.module.purap.document.service.PurchaseOrderService#getInternalPurchasingDollarLimit(org.kuali.kfs.module.purap.document.PurchaseOrderDocument)
+     */
     @Override
     public KualiDecimal getInternalPurchasingDollarLimit(PurchaseOrderDocument document) {
         if ((document.getVendorContract() != null) && (document.getContractManager() != null)) {
@@ -451,11 +463,22 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         }
     }
 
+    /**
+     * @see org.kuali.kfs.module.purap.document.service.PurchaseOrderService#performPurchaseOrderFirstTransmitViaPrinting(java.lang.String,
+     *      java.io.ByteArrayOutputStream)
+     */
     @Override
-    public void performPurchaseOrderFirstTransmitViaPrinting(PurchaseOrderDocument po) {
+    public void performPurchaseOrderFirstTransmitViaPrinting(String documentNumber, ByteArrayOutputStream baosPDF) {
+        PurchaseOrderDocument po = getPurchaseOrderByDocumentNumber(documentNumber);
+        String environment = kualiConfigurationService.getPropertyValueAsString(KFSConstants.ENVIRONMENT_KEY);
+        Collection<String> generatePDFErrors = printService.generatePurchaseOrderPdf(po, baosPDF, environment, null);
+        if (!generatePDFErrors.isEmpty()) {
+            addStringErrorMessagesToMessageMap(PurapKeyConstants.ERROR_PURCHASE_ORDER_PDF, generatePDFErrors);
+            throw new ValidationException("printing purchase order for first transmission failed");
+        }
         if (ObjectUtils.isNotNull(po.getPurchaseOrderFirstTransmissionTimestamp())) {
             // should not call this method for first transmission if document has already been transmitted
-            String errorMsg = "Method to perform first transmit was called on document (doc id " + po.getDocumentNumber() + ") with already filled in 'first transmit date'";
+            String errorMsg = "Method to perform first transmit was called on document (doc id " + documentNumber + ") with already filled in 'first transmit date'";
             LOG.error(errorMsg);
             throw new RuntimeException(errorMsg);
         }
@@ -766,7 +789,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
      * @return A Set<Class>
      */
     protected Set<Class> getClassesToExcludeFromCopy() {
-        Set<Class> classesToExclude = new HashSet<>();
+        Set<Class> classesToExclude = new HashSet<Class>();
         Class sourceObjectClass = DocumentBase.class;
         classesToExclude.add(sourceObjectClass);
         while (sourceObjectClass.getSuperclass() != null) {
@@ -1002,7 +1025,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
     @Override
     public VendorDetail updateVendorWithMissingCommodityCodesIfNecessary(PurchaseOrderDocument po) {
-        List<CommodityCode> result = new ArrayList<>();
+        List<CommodityCode> result = new ArrayList<CommodityCode>();
         boolean foundDefault = false;
         VendorDetail vendor = (VendorDetail) ObjectUtils.deepCopy(po.getVendorDetail());
         for (PurchaseOrderItem item : (List<PurchaseOrderItem>) po.getItems()) {
@@ -1193,7 +1216,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
     @Override
     public List<Note> getPurchaseOrderNotes(Integer id) {
-        List<Note> notes = new ArrayList<>();
+        List<Note> notes = new ArrayList<Note>();
         PurchaseOrderDocument po = getPurchaseOrderByDocumentNumber(purchaseOrderDao.getOldestPurchaseOrderDocumentNumber(id));
 
         if (ObjectUtils.isNotNull(po)) {
@@ -1286,7 +1309,9 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
     @Override
     public List<PurchaseOrderQuoteStatus> getPurchaseOrderQuoteStatusCodes() {
-        return (List<PurchaseOrderQuoteStatus>) businessObjectService.findAll(PurchaseOrderQuoteStatus.class);
+        List<PurchaseOrderQuoteStatus> poQuoteStatuses = new ArrayList<PurchaseOrderQuoteStatus>();
+        poQuoteStatuses = (List<PurchaseOrderQuoteStatus>) businessObjectService.findAll(PurchaseOrderQuoteStatus.class);
+        return poQuoteStatuses;
     }
 
     @Override
@@ -1493,7 +1518,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         Set<String> fiscalOfficerIds = new HashSet<String>();
         Set<Account> accounts = new HashSet<Account>();
         try {
-            if (reqInitiator != null) {
+            if(principalIsActive(reqInitiator)) {
                 po.appSpecificRouteDocumentToUser(po.getDocumentHeader().getWorkflowDocument(), reqInitiator, getAdhocFyiAnnotation(po) + KFSConstants.BLANK_SPACE + req.getPurapDocumentIdentifier() + KFSConstants.BLANK_SPACE + "(document Id " + req.getDocumentNumber() + ")", "Requisition Routed By User");
             }
 
@@ -1510,13 +1535,21 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
                     if (!fiscalOfficerIds.contains(principalId)) {
                         fiscalOfficerIds.add(principalId);
+
                         AccountDelegate accountDelegate = getAccountPrimaryDelegate(account);
-                        if (ObjectUtils.isNotNull(accountDelegate)) {
-                            String delegateName = KimApiServiceLocator.getPersonService().getPerson(accountDelegate.getAccountDelegateSystemId()).getPrincipalName();
-                            String annotationText = "Delegation of: " + KFSConstants.CoreModuleNamespaces.KFS + KFSConstants.BLANK_SPACE + KFSConstants.SysKimApiConstants.FISCAL_OFFICER_KIM_ROLE_NAME + KFSConstants.BLANK_SPACE + account.getChartOfAccountsCode() + KFSConstants.BLANK_SPACE + account.getAccountNumber() + KFSConstants.BLANK_SPACE + "to principal" + KFSConstants.BLANK_SPACE + delegateName;
-                            po.appSpecificRouteDocumentToUser(po.getDocumentHeader().getWorkflowDocument(), accountDelegate.getAccountDelegateSystemId(), annotationText, "Fiscal Officer Notification");
-                        } else {
-                            String annotationText = KFSConstants.CoreModuleNamespaces.KFS + KFSConstants.BLANK_SPACE + KFSConstants.SysKimApiConstants.FISCAL_OFFICER_KIM_ROLE_NAME + KFSConstants.BLANK_SPACE + account.getChartOfAccountsCode() + KFSConstants.BLANK_SPACE + account.getAccountNumber();
+                        String accountDelegatePrincipalId = null;
+                        if(ObjectUtils.isNotNull(accountDelegate)) {
+                            // Accounts aren't guaranteed to have a delegate
+                            accountDelegatePrincipalId = accountDelegate.getAccountDelegateSystemId();
+                        }
+
+                        if (principalIsActive(accountDelegatePrincipalId)) {
+                                String delegateName = getPersonService().getPerson(accountDelegate.getAccountDelegateSystemId()).getPrincipalName();
+                                String annotationText = "Delegation of: " + KFSConstants.CoreModuleNamespaces.KFS  + KFSConstants.BLANK_SPACE + KFSConstants.SysKimApiConstants.FISCAL_OFFICER_KIM_ROLE_NAME + KFSConstants.BLANK_SPACE + account.getChartOfAccountsCode() + KFSConstants.BLANK_SPACE + account.getAccountNumber() + KFSConstants.BLANK_SPACE + "to principal" + KFSConstants.BLANK_SPACE + delegateName;
+                                po.appSpecificRouteDocumentToUser(po.getDocumentHeader().getWorkflowDocument(), accountDelegatePrincipalId, annotationText, "Fiscal Officer Notification");
+                        }
+                        else if(principalIsActive(principalId)) {
+                            String annotationText = KFSConstants.CoreModuleNamespaces.KFS + KFSConstants.BLANK_SPACE + KFSConstants.SysKimApiConstants.FISCAL_OFFICER_KIM_ROLE_NAME +  KFSConstants.BLANK_SPACE + account.getChartOfAccountsCode() + KFSConstants.BLANK_SPACE + account.getAccountNumber();
                             po.appSpecificRouteDocumentToUser(po.getDocumentHeader().getWorkflowDocument(), principalId, annotationText, "Fiscal Officer Notification");
                         }
 
@@ -1528,6 +1561,21 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
             throw new RuntimeException("Error routing fyi for document with id " + po.getDocumentNumber(), ex);
         }
     }
+
+
+    private boolean principalIsActive(String principalId) {
+        if(principalId == null) {
+            return false;
+        }
+
+        Person person = getPersonService().getPerson(principalId);
+        if(ObjectUtils.isNull(person)){
+            return false;
+        }
+
+        return person.isActive();
+    }
+
 
     private AccountDelegate getAccountPrimaryDelegate(Account account) {
         AccountDelegate delegateExample = new AccountDelegate();
@@ -1712,9 +1760,13 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
                     createPurchaseOrderDocument(req, KFSConstants.SYSTEM_USER, detail.getContractManagerCode());
                 }
             }
-        }
+
+        }// endfor
     }
 
+    /**
+     * @see org.kuali.kfs.module.purap.document.service.PurchaseOrderService#autoCloseRecurringOrders()
+     */
     @Override
     public boolean autoCloseRecurringOrders() {
         LOG.debug("autoCloseRecurringOrders() started");
@@ -1840,6 +1892,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
      * Filter out the auto close purchase order view documents for the appDocStatus with status open For each document in the list,
      * check if there is workflowdocument whose appdocstatus is open add add to the return list.
      *
+     * @param List<AutoClosePurchaseOrderView>
      * @return filteredAutoClosePOView filtered auto close po view documents where appdocstatus is open
      */
     protected List<AutoClosePurchaseOrderView> filterDocumentsForAppDocStatusOpen(List<AutoClosePurchaseOrderView> autoClosePurchaseOrderViews) {
@@ -1975,9 +2028,11 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     public void createNoteForAutoCloseOrders(PurchaseOrderDocument purchaseOrderDocument, String annotation) {
         try {
             Note noteObj = documentService.createNoteFromDocument(purchaseOrderDocument, annotation);
-            // documentService.addNoteToDocument(purchaseOrderDocument, noteObj);
             noteService.save(noteObj);
-        } catch (Exception e) {
+            purchaseOrderDocument.addNote(noteObj);
+            documentService.saveDocumentNotes(purchaseOrderDocument);
+        }
+        catch (Exception e) {
             String errorMessage = "Error creating and saving close note for purchase order with document service";
             LOG.error("createNoteForAutoCloseRecurringOrders " + errorMessage, e);
             throw new RuntimeException(errorMessage, e);
@@ -1989,6 +2044,10 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         return purchaseOrderDao.getAllOpenPurchaseOrders(getExcludedVendorChoiceCodes());
     }
 
+
+    /**
+     * @see org.kuali.kfs.module.purap.document.service.PurchaseOrderService#retrieveCapitalAssetItemsForIndividual(java.lang.Integer)
+     */
     @Override
     public List<PurchasingCapitalAssetItem> retrieveCapitalAssetItemsForIndividual(Integer poId) {
         PurchaseOrderDocument po = getCurrentPurchaseOrder(poId);

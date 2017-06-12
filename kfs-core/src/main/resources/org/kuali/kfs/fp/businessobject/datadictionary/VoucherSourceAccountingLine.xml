@@ -276,7 +276,9 @@
         </property>
         <property name="required" value="false"/>
         <property name="control">
-            <ref bean="TwoCharacterTextControl"/>
+          <bean parent="SelectControlDefinition"
+                p:valuesFinderClass="org.kuali.kfs.fp.businessobject.options.EncumbranceUpdateCodeValuesFinder"
+                p:includeKeyInLabel="false" />
         </property>
 
 
@@ -404,3 +406,4 @@
 
     </bean>
 </beans>
+

@@ -369,12 +369,17 @@ public class PaymentFileValidationServiceImpl implements PaymentFileValidationSe
     /**
      * Set default fields on account line and perform account field existence checks
      *
+     * KATTS Note: Making this private to exmplify the fact that UA extension needs a different
+     *             method signature than the default found here -- this is the compramise to
+     *             avoid changing actual logic of foundation code.
+     *
+     *
      * @param paymentFile          payment file object
      * @param customer             payment customer
      * @param paymentAccountDetail <code>PaymentAccountDetail</code> object to process
      * @param warnings             <code>List</code> list of accumulated warning messages
      */
-    protected void processAccountSoftEdits(PaymentFileLoad paymentFile, CustomerProfile customer, PaymentAccountDetail paymentAccountDetail, List<String> warnings) {
+    private void processAccountSoftEdits(PaymentFileLoad paymentFile, CustomerProfile customer, PaymentAccountDetail paymentAccountDetail, List<String> warnings) {
         List<PaymentAccountHistory> changeRecords = paymentAccountDetail.getAccountHistory();
 
         // uppercase chart
@@ -505,44 +510,7 @@ public class PaymentFileValidationServiceImpl implements PaymentFileValidationSe
         return paymentAccountHistory;
     }
 
-    /**
-     * Sets null amount fields to 0
-     *
-     * @param paymentDetail <code>PaymentDetail</code> to update
-     */
-    protected void updateDetailAmounts(PaymentDetail paymentDetail) {
-        KualiDecimal zero = KualiDecimal.ZERO;
 
-        if (paymentDetail.getInvTotDiscountAmount() == null) {
-            paymentDetail.setInvTotDiscountAmount(zero);
-        }
-
-        if (paymentDetail.getInvTotShipAmount() == null) {
-            paymentDetail.setInvTotShipAmount(zero);
-        }
-
-        if (paymentDetail.getInvTotOtherDebitAmount() == null) {
-            paymentDetail.setInvTotOtherDebitAmount(zero);
-        }
-
-        if (paymentDetail.getInvTotOtherCreditAmount() == null) {
-            paymentDetail.setInvTotOtherCreditAmount(zero);
-        }
-
-        // update the total payment amount with the amount from the accounts if null
-        if (paymentDetail.getNetPaymentAmount() == null) {
-            paymentDetail.setNetPaymentAmount(paymentDetail.getAccountTotal());
-        }
-
-        if (paymentDetail.getOrigInvoiceAmount() == null) {
-            KualiDecimal amt = paymentDetail.getNetPaymentAmount();
-            amt = amt.add(paymentDetail.getInvTotDiscountAmount());
-            amt = amt.subtract(paymentDetail.getInvTotShipAmount());
-            amt = amt.subtract(paymentDetail.getInvTotOtherDebitAmount());
-            amt = amt.add(paymentDetail.getInvTotOtherCreditAmount());
-            paymentDetail.setOrigInvoiceAmount(amt);
-        }
-    }
 
     /**
      * Sets null indicators to false
@@ -803,3 +771,4 @@ public class PaymentFileValidationServiceImpl implements PaymentFileValidationSe
     }
 
 }
+   

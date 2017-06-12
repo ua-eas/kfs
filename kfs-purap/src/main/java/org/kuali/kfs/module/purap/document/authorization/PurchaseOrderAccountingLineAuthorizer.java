@@ -115,19 +115,18 @@ public class PurchaseOrderAccountingLineAuthorizer extends PurapAccountingLineAu
         // check the initiation permission on the document if it is in the state of preroute, but only if
         // the PO status is not In Process.
         WorkflowDocument workflowDocument = ((PurchasingAccountsPayableDocument) accountingDocument).getFinancialSystemDocumentHeader().getWorkflowDocument();
-
-        PurchaseOrderDocument poDocument = (PurchaseOrderDocument) accountingDocument;
-        if (!poDocument.getApplicationDocumentStatus().equals(PurapConstants.PurchaseOrderStatuses.APPDOC_IN_PROCESS) && (workflowDocument.isInitiated() || workflowDocument.isSaved() || workflowDocument.isCompletionRequested())) {
+        if (!workflowDocument.getApplicationDocumentStatus().equals(PurapConstants.PurchaseOrderStatuses.APPDOC_IN_PROCESS) && (workflowDocument.isInitiated() || workflowDocument.isSaved() || workflowDocument.isCompletionRequested())) {
             if (PurapConstants.PurchaseOrderDocTypes.PURCHASE_ORDER_AMENDMENT_DOCUMENT.equals(workflowDocument.getDocumentTypeName())) {
-                PurApAccountingLine purapAccount = (PurApAccountingLine) accountingLine;
+                PurApAccountingLine purapAccount = (PurApAccountingLine)accountingLine;
                 purapAccount.refreshReferenceObject("purapItem");
-
-                PurchaseOrderItem item = (PurchaseOrderItem) purapAccount.getPurapItem();
+                PurchaseOrderItem item = purapAccount.getPurapItem();
                 return item.isNewItemForAmendment() || item.getSourceAccountingLines().size() == 0;
-            } else {
+            }
+            else {
                 return currentUserIsDocumentInitiator;
             }
-        } else {
+        }
+        else {
             return true;
         }
     }
@@ -144,3 +143,4 @@ public class PurchaseOrderAccountingLineAuthorizer extends PurapAccountingLineAu
         return unviewableBlocks;
     }
 }
+

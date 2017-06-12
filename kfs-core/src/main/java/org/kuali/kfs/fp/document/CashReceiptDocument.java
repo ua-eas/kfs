@@ -18,21 +18,16 @@
  */
 package org.kuali.kfs.fp.document;
 
-import org.kuali.kfs.fp.businessobject.Check;
-import org.kuali.kfs.fp.businessobject.CheckBase;
-import org.kuali.kfs.fp.businessobject.CoinDetail;
-import org.kuali.kfs.fp.businessobject.CurrencyDetail;
-import org.kuali.kfs.fp.businessobject.DepositCashReceiptControl;
+import org.kuali.kfs.fp.businessobject.*;
 import org.kuali.kfs.fp.document.service.CashReceiptService;
 import org.kuali.kfs.fp.document.validation.event.AddCheckEvent;
 import org.kuali.kfs.fp.document.validation.event.DeleteCheckEvent;
 import org.kuali.kfs.fp.document.validation.event.UpdateCheckEvent;
 import org.kuali.kfs.fp.service.CheckService;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.document.Copyable;
 import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
 import org.kuali.kfs.krad.rules.rule.event.SaveDocumentEvent;
 import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DataDictionaryService;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
@@ -54,12 +49,8 @@ import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
 import org.kuali.rice.kim.api.identity.Person;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 
 /**
  * This is the business object that represents the CashReceiptDocument in Kuali. This is a transactional document that will
@@ -116,6 +107,7 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
     protected boolean recategorized;
 
     protected String createDate;
+    
 
     /**
      * Initializes the array lists and line incrementers.
@@ -1122,6 +1114,7 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
     public String getCreateDate() {
         return SpringContext.getBean(DateTimeService.class).toDateString(getDocumentHeader().getWorkflowDocument().getDateCreated().toDate());
     }
+    
 
     /**
      * Generate the primary key for a currency or coin detail related to this document

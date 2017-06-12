@@ -18,6 +18,8 @@
  */
 package org.kuali.kfs.coa.document.authorization;
 
+import java.util.Set;
+
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.service.AccountService;
@@ -48,7 +50,6 @@ public class AccountDocumentPresentationController extends FinancialSystemMainte
     @Override
     public Set<String> getConditionallyHiddenPropertyNames(BusinessObject businessObject) {
         Set<String> hiddenPropertyNames = super.getConditionallyHiddenPropertyNames(businessObject);
-
         String sourceOfFundsParmValue = getParameterService().getParameterValueAsString(Account.class, KFSParameterKeyConstants.CoaParameterConstants.DISPLAY_SOURCE_OF_FUNDS_IND);
 
         if (StringUtils.equalsIgnoreCase(sourceOfFundsParmValue, KFSConstants.ParameterValues.YES)) {

@@ -50,10 +50,10 @@ import java.util.Map;
  */
 @Transactional
 public class SalaryTransferPeriodValidationServiceImpl implements SalaryTransferPeriodValidationService {
-    private EffortCertificationModuleService effortCertificationService;
-    private DocumentService documentService;
-    private NoteService noteService;
-    private ConfigurationService kualiConfigurationService;
+    protected EffortCertificationModuleService effortCertificationService;
+    protected DocumentService documentService;
+    protected NoteService noteService;
+    protected ConfigurationService kualiConfigurationService;
 
     /**
      * @see org.kuali.kfs.module.ld.document.service.SalaryTransferPeriodValidationService#validateTransfers(org.kuali.kfs.module.ld.document.SalaryExpenseTransferDocument)

@@ -72,18 +72,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+
+
+
+/**
+ * The base implementation of CollectorHelperService
+ * @see org.kuali.kfs.gl.batch.service.CollectorService
+ */
 public class CollectorHelperServiceImpl implements CollectorHelperService {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CollectorHelperServiceImpl.class);
 
-    private ParameterService parameterService;
-    private BatchInputFileService batchInputFileService;
-    private CollectorScrubberService collectorScrubberService;
-    private AccountService accountService;
-    private PreScrubberService preScrubberService;
-    private String batchFileDirectoryName;
-    private BusinessObjectService businessObjectService;
-    private CollectorReportService collectorReportService;
-    private ReportWriterService collectorReportWriterService;
+
+
 
     @Override
     public List<ErrorMessage> loadCollectorApiData(InputStream inputStream, BatchInputFileType collectorInputFileType) {
@@ -143,6 +143,18 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
         return errorMessages;
     }
 
+
+    /**
+     * Parses the given file, validates the batch, stores the entries, and sends email.
+     * @param fileName - name of file to load (including path)
+     * @param group the group into which to persist the origin entries for the collector batch/file
+     * @param collectorReportData the object used to store all of the collector status information for reporting
+     * @param collectorScrubberStatuses if the collector scrubber is able to be invoked upon this collector batch, then the status
+     *        info of the collector status run is added to the end of this list
+     * @param the output stream to which to store origin entries that properly pass validation
+     * @return boolean - true if load was successful, false if errors were encountered
+     * @see org.kuali.kfs.gl.batch.service.CollectorService#loadCollectorFile(java.lang.String)
+     */
     @Override
     public boolean loadCollectorFile(String fileName, CollectorReportData collectorReportData, List<CollectorScrubberStatus> collectorScrubberStatuses, BatchInputFileType collectorInputFileType, PrintStream originEntryOutputPs) {
         LOG.debug("loadCollectorFile() started");

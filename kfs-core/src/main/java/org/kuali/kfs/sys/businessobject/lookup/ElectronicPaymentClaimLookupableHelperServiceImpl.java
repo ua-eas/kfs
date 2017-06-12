@@ -90,7 +90,7 @@ public class ElectronicPaymentClaimLookupableHelperServiceImpl extends AbstractL
     }
 
     private List<AdvanceDepositDocument> getAdvanceDepositsWithMatchingFields(Map<String, String> advanceDepositFieldValues) {
-        List<AdvanceDepositDocument> advanceDepositList = (List<AdvanceDepositDocument>) getLookupService().findCollectionBySearch(AdvanceDepositDocument.class, advanceDepositFieldValues);
+        List<AdvanceDepositDocument> advanceDepositList = (List<AdvanceDepositDocument>) getLookupService().findCollectionBySearchUnbounded(AdvanceDepositDocument.class, advanceDepositFieldValues);
         return advanceDepositList;
     }
 

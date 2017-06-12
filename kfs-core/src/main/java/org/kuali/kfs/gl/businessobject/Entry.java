@@ -49,6 +49,7 @@ import java.sql.Timestamp;
 public class Entry extends PersistableBusinessObjectBase implements Transaction {
     static final long serialVersionUID = -24983129882357448L;
 
+    private Long entryId;
     private Integer universityFiscalYear;
     private String chartOfAccountsCode;
     private String accountNumber;
@@ -76,6 +77,7 @@ public class Entry extends PersistableBusinessObjectBase implements Transaction 
     private String transactionEncumbranceUpdateCode;
     private Date transactionPostingDate;
     private Timestamp transactionDateTimeStamp;
+    private String gecDocumentNumber;
 
     // bo references
     private Account account;
@@ -875,3 +877,4 @@ public class Entry extends PersistableBusinessObjectBase implements Transaction 
     }
 
 }
+

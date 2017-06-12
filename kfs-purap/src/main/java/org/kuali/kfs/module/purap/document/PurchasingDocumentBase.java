@@ -18,6 +18,8 @@
  */
 package org.kuali.kfs.module.purap.document;
 
+
+import edu.arizona.kfs.sys.businessobject.BuildingExtension;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Chart;
@@ -52,6 +54,7 @@ import org.kuali.kfs.module.purap.document.service.PurchasingService;
 import org.kuali.kfs.module.purap.document.service.ReceivingAddressService;
 import org.kuali.kfs.module.purap.util.ItemParser;
 import org.kuali.kfs.module.purap.util.ItemParserBase;
+import org.kuali.kfs.sys.businessobject.Building;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.kfs.vnd.VendorPropertyConstants;
@@ -77,6 +80,8 @@ import java.util.List;
  */
 public abstract class PurchasingDocumentBase extends PurchasingAccountsPayableDocumentBase implements PurchasingDocument {
     protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PurchasingDocumentBase.class);
+
+    private static final String BUILDING_OBJ_REF_KEY = "buildingObj";
 
     // SHARED FIELDS BETWEEN REQUISITION AND PURCHASE ORDER
     protected String documentFundingSourceCode;
@@ -146,6 +151,8 @@ public abstract class PurchasingDocumentBase extends PurchasingAccountsPayableDo
     protected String capitalAssetSystemTypeCode;
     protected String capitalAssetSystemStateCode;
     protected String justification;
+    protected String routeCode;
+    protected Building buildingObj;
 
     // NOT PERSISTED IN DB
     protected String supplierDiversityLabel;
@@ -1570,5 +1577,35 @@ public abstract class PurchasingDocumentBase extends PurchasingAccountsPayableDo
             return SpringContext.getBean(VendorService.class).getVendorB2BContract(vendorDetail, campusCode) != null;
         }
         return false;
+    }
+
+    public Building getBuildingObj() {
+        if(ObjectUtils.isNull(buildingObj)) {
+            this.refreshReferenceObject(BUILDING_OBJ_REF_KEY);
+        }
+        return buildingObj;
+    }
+
+    public void setBuildingObj(Building buildingObj) {
+        this.buildingObj = buildingObj;
+    }
+
+    public String getRouteCode() {
+        if (StringUtils.isBlank(routeCode) && StringUtils.isNotBlank(deliveryBuildingCode)) {
+            BuildingExtension be = null;
+            try {
+                be = (BuildingExtension)(getBuildingObj().getExtension());
+            } catch(Exception e) {
+                LOG.debug("Routing Code was not Retrieved");
+            }
+            if (be != null) {
+                routeCode = be.getRouteCode();
+            }
+        }
+        return routeCode;
+    }
+
+    public void setRouteCode(String routeCode) {
+        this.routeCode = routeCode;
     }
 }

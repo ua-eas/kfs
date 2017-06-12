@@ -51,6 +51,7 @@ import org.kuali.kfs.sys.businessobject.AccountingLineBase;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.NonTransactional;
+import org.kuali.kfs.sys.service.OptionsService;
 import org.kuali.kfs.sys.util.ObjectPopulationUtils;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
@@ -160,6 +161,7 @@ public class PurapAccountingServiceImpl implements PurapAccountingService {
             BigDecimal lowestPossible = this.getLowestPossibleRoundUpNumber();
             if (lowestPossible.compareTo(pct) <= 0) {
                 PurApAccountingLine newAccountingLine;
+                newAccountingLine = null;
 
                 try {
                     newAccountingLine = (PurApAccountingLine) clazz.newInstance();
@@ -241,11 +243,14 @@ public class PurapAccountingServiceImpl implements PurapAccountingService {
 
             slushAccount.setAccountLinePercent(slushLinePercent.add(difference).movePointLeft(2).stripTrailingZeros().movePointRight(2));
         }
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("End generateAccountDistributionForProration");
+        }
         return newAccounts;
     }
 
     /**
-     * @see org.kuali.kfs.module.purap.service.PurapAccountingService#generateAccountDistributionForProrationWithZeroTotal(java.util.List, java.lang.Integer)
+     * @see org.kuali.kfs.module.purap.service.PurapAccountingService#generateAccountDistributionForProrationWithZeroTotal(PurchasingAccountsPayableDocument purapDoc)
      */
     @Override
     public List<PurApAccountingLine> generateAccountDistributionForProrationWithZeroTotal(PurchasingAccountsPayableDocument purapDoc) {
@@ -311,6 +316,7 @@ public class PurapAccountingServiceImpl implements PurapAccountingService {
 
             LOG.debug("generateAccountDistributionForProrationWithZeroTotal() total = " + logDisplayOnlyTotal);
         }
+        LOG.debug("Ended generateAccountDistributionForProrationWithZeroTotal()");
         return newAccounts;
     }
 
@@ -547,6 +553,8 @@ public class PurapAccountingServiceImpl implements PurapAccountingService {
             }
         }
 
+        Integer currentFiscalYear = SpringContext.getBean(OptionsService.class).getCurrentYearOptions().getUniversityFiscalYear();
+
         // convert list of PurApAccountingLine objects to SourceAccountingLineObjects
         Iterator<PurApAccountingLine> iterator = accountMap.keySet().iterator();
         List<SourceAccountingLine> sourceAccounts = new ArrayList<SourceAccountingLine>();
@@ -560,6 +568,7 @@ public class PurapAccountingServiceImpl implements PurapAccountingService {
             KualiDecimal sourceLineTotal = accountMap.get(accountToConvert);
             SourceAccountingLine sourceLine = accountToConvert.generateSourceAccountingLine();
             sourceLine.setAmount(sourceLineTotal);
+            sourceLine.setPostingYear(currentFiscalYear);
             sourceAccounts.add(sourceLine);
         }
 
@@ -612,8 +621,7 @@ public class PurapAccountingServiceImpl implements PurapAccountingService {
      */
     protected List<PurApItem> getProcessablePurapItems(List<PurApItem> items, Set itemTypeCodes, Boolean itemTypeCodesAreIncluded, Boolean useZeroTotals) {
         String methodName = "getProcessablePurapItems()";
-
-        List<PurApItem> newItemList = new ArrayList<>();
+        List<PurApItem> newItemList = new ArrayList<PurApItem>();
         // error out if we have an invalid 'itemTypeCodesAreIncluded' value
         if ((!(ITEM_TYPES_INCLUDED_VALUE.equals(itemTypeCodesAreIncluded))) && (!(ITEM_TYPES_EXCLUDED_VALUE.equals(itemTypeCodesAreIncluded)))) {
             throwRuntimeException(methodName, "Invalid parameter found while trying to find processable items for dealing with purchasing/accounts payable accounts");
@@ -1362,3 +1370,4 @@ public class PurapAccountingServiceImpl implements PurapAccountingService {
         this.businessObjectService = businessObjectService;
     }
 }
+

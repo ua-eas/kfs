@@ -36,6 +36,7 @@ import org.kuali.kfs.fp.document.service.CashReceiptService;
 import org.kuali.kfs.fp.service.CashDrawerService;
 import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.sys.KFSParameterKeyConstants;
 import org.kuali.kfs.sys.KFSConstants.DepositConstants;
 import org.kuali.kfs.sys.KFSConstants.DocumentStatusCodes.CashReceipt;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -52,6 +53,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+
+
 
 /**
  * This class is the action form for CashManagement
@@ -1171,5 +1176,8 @@ public class CashManagementForm extends KualiDocumentFormBase {
         }
     }
 
+    public Boolean getDisplayCashReceiptDenominationDetail() {
+        return SpringContext.getBean(ParameterService.class).getParameterValueAsBoolean(CashReceiptDocument.class, KFSParameterKeyConstants.FpParameterConstants.DISPLAY_CASH_RECEIPT_DENOMINATION_DETAIL_IND, true);
+    }
 
 }

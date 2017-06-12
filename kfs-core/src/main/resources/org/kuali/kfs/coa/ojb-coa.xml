@@ -1935,16 +1935,724 @@
     </class-descriptor>
     -->
 
-    <class-descriptor class="org.kuali.kfs.coa.businessobject.SourceOfFunds" table="CA_SOURCE_OF_FUNDS_T">
-        <field-descriptor name="typeCode" column="FUNDS_TYPE_CD" jdbc-type="VARCHAR" primarykey="true" index="true"/>
-        <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true"/>
-        <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true"/>
-        <field-descriptor name="sourceOfFundsName" column="SOURCE_NAME" jdbc-type="VARCHAR"/>
-        <field-descriptor name="sourceOfFundsDescription" column="SOURCE_DESC" jdbc-type="VARCHAR"/>
-        <field-descriptor name="active" column="ACTIVE_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
-        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
+<class-descriptor class="org.kuali.kfs.coa.businessobject.IndirectCostRecoveryType" table="CA_ICR_TYPE_T">
+    <field-descriptor name="code" column="ACCT_ICR_TYP_CD" jdbc-type="VARCHAR" primarykey="true" />
+    <field-descriptor name="name" column="ACCT_ICR_TYP_DESC" jdbc-type="VARCHAR" />
+    <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true" />
+    <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true" />
+    <field-descriptor name="active" column="ACCT_ICR_TYP_ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
+	<collection-descriptor name="indirectCostRecoveryExclusionTypeDetails" element-class-ref="org.kuali.kfs.coa.businessobject.IndirectCostRecoveryExclusionType" collection-class="org.apache.ojb.broker.util.collections.ManageableArrayList" auto-retrieve="true" auto-update="object" auto-delete="none" proxy="true">
+		<inverse-foreignkey field-ref="accountIndirectCostRecoveryTypeCode" />
+	</collection-descriptor>
+</class-descriptor>
 
-    </class-descriptor>
+<class-descriptor class="org.kuali.kfs.coa.businessobject.IndirectCostRecoveryExclusionType" table="CA_ICR_EXCL_TYPE_T">
+    <field-descriptor name="accountIndirectCostRecoveryTypeCode" column="ACCT_ICR_TYP_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
+    <field-descriptor name="chartOfAccountsCode" column="FIN_COA_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
+    <field-descriptor name="financialObjectCode" column="FIN_OBJECT_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
+    <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true" />
+    <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true" />
+    <field-descriptor name="active" column="ACCT_ICR_EXCL_TYP_ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
+    <reference-descriptor name="chart" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
+        <foreignkey field-ref="chartOfAccountsCode" />
+    </reference-descriptor>
+    <reference-descriptor name="indirectCostRecoveryType" class-ref="org.kuali.kfs.coa.businessobject.IndirectCostRecoveryType" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
+        <foreignkey field-ref="accountIndirectCostRecoveryTypeCode" />
+    </reference-descriptor>
+    <reference-descriptor name="objectCodeCurrent" class-ref="org.kuali.kfs.coa.businessobject.ObjectCodeCurrent" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
+        <foreignkey field-ref="chartOfAccountsCode" />
+        <foreignkey field-ref="financialObjectCode" />
+    </reference-descriptor>
+    
+</class-descriptor>
+
+<class-descriptor class="org.kuali.kfs.coa.businessobject.IndirectCostRecoveryExclusionAccount" table="CA_ICR_EXCL_ACCT_T">
+    <field-descriptor name="chartOfAccountsCode" column="FIN_COA_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
+    <field-descriptor name="accountNumber" column="ACCOUNT_NBR" jdbc-type="VARCHAR" primarykey="true" index="true" />
+    <field-descriptor name="financialObjectChartOfAccountCode" column="FIN_OBJ_COA_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
+    <field-descriptor name="financialObjectCode" column="FIN_OBJECT_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
+    <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true" />
+    <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true" />
+    <field-descriptor name="active" column="ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
+    <reference-descriptor name="chart" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+        <foreignkey field-ref="chartOfAccountsCode" />
+    </reference-descriptor>
+    <reference-descriptor name="account" class-ref="org.kuali.kfs.coa.businessobject.Account" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+        <foreignkey field-ref="chartOfAccountsCode" />
+        <foreignkey field-ref="accountNumber" />
+    </reference-descriptor>
+    <reference-descriptor name="financialObjectChartOfAccount" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+        <foreignkey field-ref="financialObjectChartOfAccountCode" />
+    </reference-descriptor>
+    <reference-descriptor name="objectCodeCurrent" class-ref="org.kuali.kfs.coa.businessobject.ObjectCodeCurrent" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
+        <foreignkey field-ref="financialObjectChartOfAccountCode" />
+        <foreignkey field-ref="financialObjectCode" />
+    </reference-descriptor>
+</class-descriptor>
+
+<class-descriptor class="org.kuali.kfs.coa.businessobject.OrganizationReversion" table="CA_ORG_REVERSION_T">
+    <field-descriptor name="universityFiscalYear" column="UNIV_FISCAL_YR" jdbc-type="INTEGER" primarykey="true" index="true" />
+    <field-descriptor name="chartOfAccountsCode" column="FIN_COA_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
+    <field-descriptor name="organizationCode" column="ORG_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
+    <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true" />
+    <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true" />
+    <field-descriptor name="budgetReversionChartOfAccountsCode" column="BDGT_RVRSN_COA_CD" jdbc-type="VARCHAR" />
+    <field-descriptor name="budgetReversionAccountNumber" column="BDGT_RVRSNACCT_NBR" jdbc-type="VARCHAR" />
+    <field-descriptor name="carryForwardByObjectCodeIndicator" column="CF_BY_OBJ_CD_IND" jdbc-type="VARCHAR" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
+    <field-descriptor name="cashReversionFinancialChartOfAccountsCode" column="CSH_RVRSNFINCOA_CD" jdbc-type="VARCHAR" />
+    <field-descriptor name="cashReversionAccountNumber" column="CSH_RVRSN_ACCT_NBR" jdbc-type="VARCHAR" />
+  	<field-descriptor name="active" column="ROW_ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
+    <reference-descriptor name="chartOfAccounts" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+        <foreignkey field-ref="chartOfAccountsCode" />
+    </reference-descriptor>
+    <reference-descriptor name="organization" class-ref="org.kuali.kfs.coa.businessobject.Organization" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+        <foreignkey field-ref="chartOfAccountsCode" />
+        <foreignkey field-ref="organizationCode" />
+    </reference-descriptor>
+    <reference-descriptor name="cashReversionAccount" class-ref="org.kuali.kfs.coa.businessobject.Account" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+        <foreignkey field-ref="cashReversionFinancialChartOfAccountsCode" />
+        <foreignkey field-ref="cashReversionAccountNumber" />
+    </reference-descriptor>
+    <reference-descriptor name="budgetReversionAccount" class-ref="org.kuali.kfs.coa.businessobject.Account" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+        <foreignkey field-ref="budgetReversionChartOfAccountsCode" />
+        <foreignkey field-ref="budgetReversionAccountNumber" />
+    </reference-descriptor>
+    <reference-descriptor name="budgetReversionChartOfAccounts" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+        <foreignkey field-ref="budgetReversionChartOfAccountsCode" />
+    </reference-descriptor>
+    <reference-descriptor name="cashReversionFinancialChartOfAccounts" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+        <foreignkey field-ref="cashReversionFinancialChartOfAccountsCode" />
+    </reference-descriptor>
+
+    <reference-descriptor name="universityFiscal" class-ref="org.kuali.kfs.sys.businessobject.SystemOptions" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
+        <foreignkey field-ref="universityFiscalYear" />
+    </reference-descriptor>
+
+    <collection-descriptor name="organizationReversionDetail" element-class-ref="org.kuali.kfs.coa.businessobject.OrganizationReversionDetail" collection-class="org.apache.ojb.broker.util.collections.ManageableArrayList" auto-retrieve="true" auto-update="object" auto-delete="none" proxy="true">
+        <orderby name="organizationReversionCategoryCode" sort="ASC" />
+        <inverse-foreignkey field-ref="universityFiscalYear" />
+        <inverse-foreignkey field-ref="chartOfAccountsCode" />
+        <inverse-foreignkey field-ref="organizationCode" />
+    </collection-descriptor>
+</class-descriptor>
+
+<class-descriptor class="org.kuali.kfs.coa.businessobject.OrganizationReversionDetail" table="CA_ORG_RVRSN_DTL_T">
+    <field-descriptor name="universityFiscalYear" column="UNIV_FISCAL_YR" jdbc-type="INTEGER" primarykey="true" index="true" />
+    <field-descriptor name="chartOfAccountsCode" column="FIN_COA_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
+    <field-descriptor name="organizationCode" column="ORG_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
+    <field-descriptor name="organizationReversionCategoryCode" column="ORG_RVRSN_CTGRY_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
+    <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true" />
+    <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true" />
+    <field-descriptor name="organizationReversionCode" column="ORG_RVRSN_CD" jdbc-type="VARCHAR" />
+    <field-descriptor name="organizationReversionObjectCode" column="ORG_RVRSN_OBJ_CD" jdbc-type="VARCHAR" />
+    <field-descriptor name="active" column="ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
+
+    <reference-descriptor name="organizationReversionObject" class-ref="org.kuali.kfs.coa.businessobject.ObjectCode" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+        <foreignkey field-ref="universityFiscalYear" />
+        <foreignkey field-ref="chartOfAccountsCode" />
+        <foreignkey field-ref="organizationReversionObjectCode" />
+    </reference-descriptor>
+
+    <reference-descriptor name="universityFiscal" class-ref="org.kuali.kfs.sys.businessobject.SystemOptions" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
+        <foreignkey field-ref="universityFiscalYear" />
+    </reference-descriptor>
+
+    <reference-descriptor name="organization" class-ref="org.kuali.kfs.coa.businessobject.Organization" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+        <foreignkey field-ref="chartOfAccountsCode" />
+        <foreignkey field-ref="organizationCode" />
+    </reference-descriptor>
+
+    <reference-descriptor name="chartOfAccounts" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+        <foreignkey field-ref="chartOfAccountsCode" />
+    </reference-descriptor>
+
+    <reference-descriptor name="organizationReversionCategory" class-ref="org.kuali.kfs.coa.businessobject.OrganizationReversionCategory" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+        <foreignkey field-ref="organizationReversionCategoryCode" />
+    </reference-descriptor>
+    
+    <reference-descriptor name="organizationReversion" class-ref="org.kuali.kfs.coa.businessobject.OrganizationReversion" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+        <foreignkey field-ref="universityFiscalYear" />
+        <foreignkey field-ref="chartOfAccountsCode" />
+        <foreignkey field-ref="organizationCode" />
+    </reference-descriptor>
+</class-descriptor>
+
+<class-descriptor class="org.kuali.kfs.coa.businessobject.OrganizationReversionCategory" table="CA_ORG_RVRSN_CTGRY_T">
+    <field-descriptor name="organizationReversionCategoryCode" column="ORG_RVRSN_CTGRY_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
+    <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true" />
+    <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true" />
+    <field-descriptor name="organizationReversionCategoryName" column="ORG_RVRSN_CTGRY_NM" jdbc-type="VARCHAR" />
+    <field-descriptor name="organizationReversionSortCode" column="ORG_RVRSN_SORT_CD" jdbc-type="VARCHAR" />
+    <field-descriptor name="active" column="ORG_RVRSN_CTGRY_ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
+</class-descriptor>
+
+<class-descriptor class="org.kuali.kfs.coa.businessobject.OrganizationReversionGlobal" table="CA_ORG_RVRSN_CHG_DOC_T">
+  <field-descriptor name="documentNumber" column="FDOC_NBR" jdbc-type="VARCHAR" primarykey="true" index="true" />
+  <field-descriptor name="universityFiscalYear" column="UNIV_FISCAL_YR" jdbc-type="INTEGER" index="true" />
+  <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true" />
+  <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true" />
+  <field-descriptor name="budgetReversionChartOfAccountsCode" column="BDGT_RVRSN_COA_CD" jdbc-type="VARCHAR" />
+  <field-descriptor name="budgetReversionAccountNumber" column="BDGT_RVRSNACCT_NBR" jdbc-type="VARCHAR" />
+  <field-descriptor name="carryForwardByObjectCodeIndicator" column="CF_BY_OBJ_CD_IND" jdbc-type="VARCHAR" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
+  <field-descriptor name="cashReversionFinancialChartOfAccountsCode" column="CSH_RVRSNFINCOA_CD" jdbc-type="VARCHAR" />
+  <field-descriptor name="cashReversionAccountNumber" column="CSH_RVRSN_ACCT_NBR" jdbc-type="VARCHAR" />
+  
+  <reference-descriptor name="cashReversionAccount" class-ref="org.kuali.kfs.coa.businessobject.Account" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+    <foreignkey field-ref="cashReversionFinancialChartOfAccountsCode" />
+    <foreignkey field-ref="cashReversionAccountNumber" />
+  </reference-descriptor>
+  <reference-descriptor name="budgetReversionAccount" class-ref="org.kuali.kfs.coa.businessobject.Account" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+    <foreignkey field-ref="budgetReversionChartOfAccountsCode" />
+    <foreignkey field-ref="budgetReversionAccountNumber" />
+  </reference-descriptor>
+  <reference-descriptor name="budgetReversionChartOfAccounts" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+    <foreignkey field-ref="budgetReversionChartOfAccountsCode" />
+  </reference-descriptor>
+  <reference-descriptor name="cashReversionFinancialChartOfAccounts" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+    <foreignkey field-ref="cashReversionFinancialChartOfAccountsCode" />
+  </reference-descriptor>
+  <reference-descriptor name="universityFiscal" class-ref="org.kuali.kfs.sys.businessobject.SystemOptions" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+		<foreignkey field-ref="universityFiscalYear" />
+	</reference-descriptor>
+  
+  <collection-descriptor name="organizationReversionGlobalDetails" element-class-ref="org.kuali.kfs.coa.businessobject.OrganizationReversionGlobalDetail" collection-class="org.apache.ojb.broker.util.collections.ManageableArrayList" auto-retrieve="true" auto-update="object" auto-delete="none" proxy="true">
+    <orderby name="organizationReversionCategoryCode" sort="ASC" />
+    <inverse-foreignkey field-ref="documentNumber" />
+  </collection-descriptor>
+  <collection-descriptor name="organizationReversionGlobalOrganizations" element-class-ref="org.kuali.kfs.coa.businessobject.OrganizationReversionGlobalOrganization" collection-class="org.apache.ojb.broker.util.collections.ManageableArrayList" auto-retrieve="true" auto-update="object" auto-delete="none" proxy="true">
+    <orderby name="organizationCode" sort="ASC"/>
+    <inverse-foreignkey field-ref="documentNumber" />
+  </collection-descriptor>
+</class-descriptor>
+
+<class-descriptor class="org.kuali.kfs.coa.businessobject.OrganizationReversionGlobalDetail" table="CA_ORG_RVRSN_CHG_DTL_T">
+  <field-descriptor name="documentNumber" column="FDOC_NBR" jdbc-type="VARCHAR" primarykey="true" index="true" />
+  <field-descriptor name="organizationReversionCategoryCode" column="ORG_RVRSN_CTGRY_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
+  <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true" />
+  <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true" />
+  <field-descriptor name="organizationReversionCode" column="ORG_RVRSN_CD" jdbc-type="VARCHAR" />
+  <field-descriptor name="organizationReversionObjectCode" column="ORG_RVRSN_OBJ_CD" jdbc-type="VARCHAR" />
+  
+  <reference-descriptor name="organizationReversionCategory" class-ref="org.kuali.kfs.coa.businessobject.OrganizationReversionCategory" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+    <foreignkey field-ref="organizationReversionCategoryCode" />
+  </reference-descriptor>
+  
+</class-descriptor>
+
+<class-descriptor class="org.kuali.kfs.coa.businessobject.OrganizationReversionGlobalOrganization" table="CA_ORG_RVRSN_CHG_ORG_T">
+  <field-descriptor name="documentNumber" column="FDOC_NBR" jdbc-type="VARCHAR" primarykey="true" index="true" />
+  <field-descriptor name="chartOfAccountsCode" column="FIN_COA_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
+  <field-descriptor name="organizationCode" column="ORG_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
+  <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true" />
+  <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true" />
+  
+  <reference-descriptor name="chartOfAccounts" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+    <foreignkey field-ref="chartOfAccountsCode" />
+  </reference-descriptor>
+  <reference-descriptor name="organization" class-ref="org.kuali.kfs.coa.businessobject.Organization" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+    <foreignkey field-ref="chartOfAccountsCode" />
+    <foreignkey field-ref="organizationCode" />
+  </reference-descriptor>
+</class-descriptor>
+
+<class-descriptor class="org.kuali.kfs.coa.businessobject.AccountingPeriod" table="SH_ACCT_PERIOD_T">
+    <field-descriptor name="universityFiscalYear" column="UNIV_FISCAL_YR" jdbc-type="INTEGER" primarykey="true" index="true" />
+    <field-descriptor name="universityFiscalPeriodCode" column="UNIV_FISCAL_PRD_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
+    <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true" />
+    <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true" />
+    <field-descriptor name="universityFiscalPeriodName" column="UNIV_FISCAL_PRD_NM" jdbc-type="VARCHAR" />
+    <field-descriptor name="active" column="ROW_ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
+    <field-descriptor name="budgetRolloverIndicator" column="BDGT_ROLLOVER_CD" jdbc-type="VARCHAR" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
+    <field-descriptor name="universityFiscalPeriodEndDate" column="UNIV_FSCPD_END_DT" jdbc-type="DATE" />
+
+    <reference-descriptor name="options" class-ref="org.kuali.kfs.sys.businessobject.SystemOptions" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
+        <foreignkey field-ref="universityFiscalYear" />
+    </reference-descriptor>
+</class-descriptor>
+
+<class-descriptor class="org.kuali.kfs.coa.businessobject.UniversityBudgetOfficeFunction" table="CA_UBO_FUNC_T">
+    <field-descriptor name="financialUniversityBudgetOfficeFunctionCode" column="FIN_UBO_FUNC_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
+    <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true" />
+    <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true" />
+    <field-descriptor name="financialUniversityBudgetOfficeFunctionName" column="FIN_UBO_FUNC_NM" jdbc-type="VARCHAR" />
+    <field-descriptor name="active" column="ROW_ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
+</class-descriptor>
+
+<class-descriptor class="org.kuali.kfs.coa.businessobject.FederalFunction" table="CA_FEDERAL_FUNC_T">
+    <field-descriptor name="financialFederalFunctionCode" column="FIN_FED_FUNC_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
+    <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true" />
+    <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true" />
+    <field-descriptor name="financialFederalFunctionName" column="FIN_FED_FUNC_NM" jdbc-type="VARCHAR" />
+    <field-descriptor name="active" column="ROW_ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
+</class-descriptor>
+
+<class-descriptor class="org.kuali.kfs.coa.businessobject.AICPAFunction" table="CA_AICPA_FUNC_T">
+    <field-descriptor name="financialAicpaFunctionCode" column="FIN_AICPA_FUNC_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
+    <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true" />
+    <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true" />
+    <field-descriptor name="financialAicpaFunctionName" column="FIN_AICPA_FUNC_NM" jdbc-type="VARCHAR" />
+    <field-descriptor name="active" column="ROW_ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
+</class-descriptor>
+
+<class-descriptor class="org.kuali.kfs.coa.businessobject.AccountGlobal" table="CA_ACCT_CHG_DOC_T">
+    <field-descriptor name="documentNumber" column="FDOC_NBR" jdbc-type="VARCHAR" primarykey="true" index="true" />
+    <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true" />
+    <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true" />
+    <field-descriptor name="accountFiscalOfficerSystemIdentifier" column="ACCT_FSC_OFC_UID" jdbc-type="VARCHAR" index="true" />
+    <field-descriptor name="accountsSupervisorySystemsIdentifier" column="ACCT_SPVSR_UNVL_ID" jdbc-type="VARCHAR" index="true" />
+    <field-descriptor name="accountManagerSystemIdentifier" column="ACCT_MGR_UNVL_ID" jdbc-type="VARCHAR" index="true" />
+    <field-descriptor name="chartOfAccountsCode" column="FIN_COA_CD" jdbc-type="VARCHAR" index="true" />
+    <field-descriptor name="organizationCode" column="ORG_CD" jdbc-type="VARCHAR" />
+    <field-descriptor name="subFundGroupCode" column="SUB_FUND_GRP_CD" jdbc-type="VARCHAR" />
+    <field-descriptor name="accountCityName" column="ACCT_CITY_NM" jdbc-type="VARCHAR" />
+    <field-descriptor name="accountStateCode" column="ACCT_STATE_CD" jdbc-type="VARCHAR" />
+    <field-descriptor name="accountStreetAddress" column="ACCT_STREET_ADDR" jdbc-type="VARCHAR" />
+    <field-descriptor name="accountZipCode" column="ACCT_ZIP_CD" jdbc-type="VARCHAR" />
+    <field-descriptor name="accountExpirationDate" column="ACCT_EXPIRATION_DT" jdbc-type="DATE" />
+    <field-descriptor name="continuationFinChrtOfAcctCd" column="CONT_FIN_COA_CD" jdbc-type="VARCHAR" />
+    <field-descriptor name="continuationAccountNumber" column="CONT_ACCOUNT_NBR" jdbc-type="VARCHAR" />
+    <field-descriptor name="incomeStreamFinancialCoaCode" column="INCOME_FIN_COA_CD" jdbc-type="VARCHAR" />
+    <field-descriptor name="incomeStreamAccountNumber" column="INCOME_ACCOUNT_NBR" jdbc-type="VARCHAR" />
+    <field-descriptor name="accountCfdaNumber" column="CG_CFDA_NBR" jdbc-type="VARCHAR" />
+    <field-descriptor name="financialHigherEdFunctionCd" column="FIN_HGH_ED_FUNC_CD" jdbc-type="VARCHAR" />
+    <field-descriptor name="accountSufficientFundsCode" column="ACCT_SF_CD" jdbc-type="VARCHAR" />
+    <field-descriptor name="pendingAcctSufficientFundsIndicator" column="ACCT_PND_SF_CD" jdbc-type="VARCHAR" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
+    <field-descriptor name="accountSearchCriteriaTxt" column="ACCT_SRCH_CRTA_TXT" jdbc-type="VARCHAR" />
+    <field-descriptor name="laborBenefitRateCategoryCode" column="LBR_BEN_RT_CAT_CD" jdbc-type="VARCHAR"/>
+    <reference-descriptor name="financialDocument" class-ref="org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+        <foreignkey field-ref="documentNumber" />
+    </reference-descriptor>
+    <reference-descriptor name="chartOfAccounts" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+        <foreignkey field-ref="chartOfAccountsCode" />
+    </reference-descriptor>
+    <reference-descriptor name="organization" class-ref="org.kuali.kfs.coa.businessobject.Organization" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
+        <foreignkey field-ref="chartOfAccountsCode" />
+        <foreignkey field-ref="organizationCode" />
+    </reference-descriptor>
+
+    <reference-descriptor name="subFundGroup" class-ref="org.kuali.kfs.coa.businessobject.SubFundGroup" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
+        <foreignkey field-ref="subFundGroupCode" />
+    </reference-descriptor>
+
+    <reference-descriptor name="financialHigherEdFunction" class-ref="org.kuali.kfs.coa.businessobject.HigherEducationFunction" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
+        <foreignkey field-ref="financialHigherEdFunctionCd" />
+    </reference-descriptor>
+
+    <reference-descriptor name="continuationFinChrtOfAcct" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+        <foreignkey field-ref="continuationFinChrtOfAcctCd" />
+    </reference-descriptor>
+    <reference-descriptor name="continuationAccount" class-ref="org.kuali.kfs.coa.businessobject.Account" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+        <foreignkey field-ref="continuationFinChrtOfAcctCd" />
+        <foreignkey field-ref="continuationAccountNumber" />
+    </reference-descriptor>
+    <reference-descriptor name="incomeStreamAccount" class-ref="org.kuali.kfs.coa.businessobject.Account" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+        <foreignkey field-ref="incomeStreamFinancialCoaCode" />
+        <foreignkey field-ref="incomeStreamAccountNumber" />
+    </reference-descriptor>
+    <reference-descriptor name="incomeStreamFinancialCoa" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+        <foreignkey field-ref="incomeStreamFinancialCoaCode" />
+    </reference-descriptor>
+    <reference-descriptor name="organization" class-ref="org.kuali.kfs.coa.businessobject.Organization" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+        <foreignkey field-ref="chartOfAccountsCode" />
+        <foreignkey field-ref="organizationCode" />
+    </reference-descriptor>
+    <reference-descriptor name="sufficientFundsCode" class-ref="org.kuali.kfs.coa.businessobject.SufficientFundsCode" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
+        <foreignkey field-ref="accountSufficientFundsCode" />
+    </reference-descriptor>	
+    <collection-descriptor name="accountGlobalDetails" element-class-ref="org.kuali.kfs.coa.businessobject.AccountGlobalDetail" collection-class="org.apache.ojb.broker.util.collections.ManageableArrayList" auto-retrieve="true" auto-update="object" auto-delete="object" proxy="true">
+        <orderby name="chartOfAccountsCode" sort="ASC" />
+        <orderby name="accountNumber" sort="ASC" />
+        <inverse-foreignkey field-ref="documentNumber" />
+    </collection-descriptor>
+</class-descriptor>
+
+<class-descriptor class="org.kuali.kfs.coa.businessobject.AccountGlobalDetail" table="CA_ACCT_CHG_DTL_T">
+    <field-descriptor name="documentNumber" column="FDOC_NBR" jdbc-type="VARCHAR" primarykey="true" index="true" />
+    <field-descriptor name="chartOfAccountsCode" column="FIN_COA_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
+    <field-descriptor name="accountNumber" column="ACCOUNT_NBR" jdbc-type="VARCHAR" primarykey="true" index="true" />
+    <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true" />
+    <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true" />
+    <reference-descriptor name="chartOfAccounts" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+        <foreignkey field-ref="chartOfAccountsCode" />
+    </reference-descriptor>
+    <reference-descriptor name="account" class-ref="org.kuali.kfs.coa.businessobject.Account" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+        <foreignkey field-ref="chartOfAccountsCode" />
+        <foreignkey field-ref="accountNumber" />
+    </reference-descriptor>
+</class-descriptor>
+
+<class-descriptor class="org.kuali.kfs.coa.businessobject.AccountDelegateGlobalDetail" table="CA_DLGT_CHG_DOC_T">
+    <field-descriptor name="documentNumber" column="FDOC_NBR" jdbc-type="VARCHAR" primarykey="true" index="true" />
+    <field-descriptor name="accountDelegateUniversalId" column="ACCT_DLGT_UNVL_ID" jdbc-type="VARCHAR" index="true" primarykey="true" />
+    <field-descriptor name="financialDocumentTypeCode" column="FDOC_TYP_CD" jdbc-type="VARCHAR" index="true" primarykey="true" />
+    <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true" />
+    <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true" />
+    <field-descriptor name="approvalFromThisAmount" column="FDOC_APRV_FROM_AMT" jdbc-type="DECIMAL" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbKualiDecimalFieldConversion" />
+    <field-descriptor name="approvalToThisAmount" column="FDOC_APRV_TO_AMT" jdbc-type="DECIMAL" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbKualiDecimalFieldConversion" />
+    <field-descriptor name="accountDelegatePrimaryRoutingIndicator" column="ACCT_DLGT_PRMRT_CD" jdbc-type="VARCHAR" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
+    <field-descriptor name="accountDelegateStartDate" column="ACCT_DLGT_START_DT" jdbc-type="DATE" />
+</class-descriptor>
+
+<class-descriptor class="org.kuali.kfs.coa.businessobject.ObjectCodeGlobal" table="CA_OBJ_CD_CHG_DOC_T">
+	<field-descriptor name="documentNumber" column="FDOC_NBR" jdbc-type="VARCHAR" primarykey="true" index="true"/>
+	<field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true"/>
+	<field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true"/>
+	<field-descriptor name="universityFiscalYear" column="UNIV_FISCAL_YR" jdbc-type="INTEGER"/>
+	<field-descriptor name="chartOfAccountsCode" column="FIN_COA_CD" jdbc-type="VARCHAR"/>
+	<field-descriptor name="financialObjectCode" column="FIN_OBJECT_CD" jdbc-type="VARCHAR"/>
+	<field-descriptor name="financialObjectCodeName" column="FIN_OBJ_CD_NM" jdbc-type="VARCHAR"/>
+	<field-descriptor name="financialObjectCodeShortName" column="FIN_OBJ_CD_SHRT_NM" jdbc-type="VARCHAR"/>
+	<field-descriptor name="financialObjectLevelCode" column="FIN_OBJ_LEVEL_CD" jdbc-type="VARCHAR"/>
+	<field-descriptor name="reportsToChartOfAccountsCode" column="RPTS_TO_FIN_COA_CD" jdbc-type="VARCHAR"/>
+	<field-descriptor name="reportsToFinancialObjectCode" column="RPTS_TO_FIN_OBJ_CD" jdbc-type="VARCHAR"/>
+	<field-descriptor name="financialObjectTypeCode" column="FIN_OBJ_TYP_CD" jdbc-type="VARCHAR"/>
+	<field-descriptor name="financialObjectSubTypeCode" column="FIN_OBJ_SUB_TYP_CD" jdbc-type="VARCHAR"/>
+	<field-descriptor name="historicalFinancialObjectCode" column="HIST_FIN_OBJECT_CD" jdbc-type="VARCHAR"/>
+	<field-descriptor name="financialObjectActiveIndicator" column="FIN_OBJ_ACTIVE_CD" jdbc-type="VARCHAR" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
+	<field-descriptor name="financialBudgetAggregationCd" column="FOBJ_BDGT_AGGR_CD" jdbc-type="VARCHAR"/>
+	<field-descriptor name="finObjMandatoryTrnfrOrElimCd" column="FOBJ_MNXFR_ELIM_CD" jdbc-type="VARCHAR"/>
+	<field-descriptor name="financialFederalFundedCode" column="FIN_FED_FUNDED_CD" jdbc-type="VARCHAR"/>
+	<field-descriptor name="nextYearFinancialObjectCode" column="NXT_YR_FIN_OBJ_CD" jdbc-type="VARCHAR"/>
+
+	<reference-descriptor name="financialDocument" class-ref="org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+		<foreignkey field-ref="documentNumber" />
+	</reference-descriptor>
+	<reference-descriptor name="financialObject" class-ref="org.kuali.kfs.coa.businessobject.ObjectCode" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+		<foreignkey field-ref="universityFiscalYear" />
+		<foreignkey field-ref="chartOfAccountsCode" />
+		<foreignkey field-ref="financialObjectCode" />
+	</reference-descriptor>
+	<reference-descriptor name="reportsToFinancialObject" class-ref="org.kuali.kfs.coa.businessobject.ObjectCode" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+		<foreignkey field-ref="universityFiscalYear" />
+		<foreignkey field-ref="reportsToChartOfAccountsCode" />
+		<foreignkey field-ref="reportsToFinancialObjectCode" />
+	</reference-descriptor>
+	<reference-descriptor name="universityFiscal" class-ref="org.kuali.kfs.sys.businessobject.SystemOptions" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+		<foreignkey field-ref="universityFiscalYear" />
+	</reference-descriptor>
+	<reference-descriptor name="chartOfAccounts" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+		<foreignkey field-ref="chartOfAccountsCode" />
+	</reference-descriptor>
+	<reference-descriptor name="reportsToChartOfAccounts" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+		<foreignkey field-ref="reportsToChartOfAccountsCode" />
+	</reference-descriptor>
+	<reference-descriptor name="financialObjectType" class-ref="org.kuali.kfs.coa.businessobject.ObjectType" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+        <foreignkey field-ref="financialObjectTypeCode" />
+    </reference-descriptor>
+    <reference-descriptor name="financialObjectSubType" class-ref="org.kuali.kfs.coa.businessobject.ObjectSubType" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+        <foreignkey field-ref="financialObjectSubTypeCode" />
+    </reference-descriptor>
+    <reference-descriptor name="financialObjectLevel" class-ref="org.kuali.kfs.coa.businessobject.ObjectLevel" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
+        <foreignkey field-ref="chartOfAccountsCode" />
+        <foreignkey field-ref="financialObjectLevelCode" />
+    </reference-descriptor>
+    <reference-descriptor name="financialBudgetAggregation" class-ref="org.kuali.kfs.coa.businessobject.BudgetAggregationCode" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
+        <foreignkey field-ref="financialBudgetAggregationCd" />
+    </reference-descriptor>
+    <reference-descriptor name="finObjMandatoryTrnfrelim" class-ref="org.kuali.kfs.coa.businessobject.MandatoryTransferEliminationCode" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
+        <foreignkey field-ref="finObjMandatoryTrnfrOrElimCd" />
+    </reference-descriptor>
+    <reference-descriptor name="financialFederalFunded" class-ref="org.kuali.kfs.coa.businessobject.FederalFundedCode" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
+        <foreignkey field-ref="financialFederalFundedCode" />
+    </reference-descriptor>
+	<collection-descriptor name="objectCodeGlobalDetails" element-class-ref="org.kuali.kfs.coa.businessobject.ObjectCodeGlobalDetail" collection-class="org.apache.ojb.broker.util.collections.ManageableArrayList" auto-retrieve="true" auto-update="object" auto-delete="object" proxy="true">
+        <orderby name="chartOfAccountsCode" sort="ASC" />
+        <orderby name="universityFiscalYear" sort="ASC" />
+        <inverse-foreignkey field-ref="documentNumber" />
+    </collection-descriptor>
+</class-descriptor>
+
+<class-descriptor class="org.kuali.kfs.coa.businessobject.ObjectCodeGlobalDetail" table="CA_OBJ_CD_CHG_DTL_T">
+    <field-descriptor name="documentNumber" column="FDOC_NBR" jdbc-type="VARCHAR" primarykey="true" index="true" />
+    <field-descriptor name="universityFiscalYear" column="UNIV_FISCAL_YR" jdbc-type="INTEGER" primarykey="true" index="true" />
+    <field-descriptor name="chartOfAccountsCode" column="FIN_COA_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
+    <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true" />
+    <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true" />
+    <reference-descriptor name="chartOfAccounts" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+        <foreignkey field-ref="chartOfAccountsCode" />
+    </reference-descriptor>
+</class-descriptor>
+
+<class-descriptor class="org.kuali.kfs.coa.businessobject.SubObjectCodeGlobal" table="CA_SUB_OBJ_CD_CHG_DOC_T">
+	<field-descriptor name="documentNumber" column="FDOC_NBR" jdbc-type="VARCHAR" primarykey="true" index="true"/>
+	<field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true"/>
+	<field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true"/>
+	<field-descriptor name="universityFiscalYear" column="UNIV_FISCAL_YR" jdbc-type="INTEGER"/>
+  	<field-descriptor name="chartOfAccountsCode" column="FIN_COA_CD" jdbc-type="VARCHAR" index="true" />
+  	<field-descriptor name="financialSubObjectCode" column="FIN_SUB_OBJ_CD" jdbc-type="VARCHAR" index="true" />
+  	<field-descriptor name="financialSubObjectCodeName" column="FIN_SUB_OBJ_CD_NM" jdbc-type="VARCHAR" />
+  	<field-descriptor name="financialSubObjectCodeShortName" column="FIN_SUBOBJ_SHRT_NM" jdbc-type="VARCHAR" />
+  	<field-descriptor name="active" column="FIN_SUBOBJ_ACTV_CD" jdbc-type="VARCHAR" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
+	
+	<reference-descriptor name="financialDocument" class-ref="org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+		<foreignkey field-ref="documentNumber" />
+	</reference-descriptor>
+	<reference-descriptor name="universityFiscal" class-ref="org.kuali.kfs.sys.businessobject.SystemOptions" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+		<foreignkey field-ref="universityFiscalYear" />
+	</reference-descriptor>
+	<reference-descriptor name="chartOfAccounts" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+		<foreignkey field-ref="chartOfAccountsCode" />
+	</reference-descriptor>
+	
+	<collection-descriptor name="accountGlobalDetails" element-class-ref="org.kuali.kfs.coa.businessobject.AccountGlobalDetail" collection-class="org.apache.ojb.broker.util.collections.ManageableArrayList" auto-retrieve="true" auto-update="object" auto-delete="object" proxy="true">
+    <!-- no real need to sort by chart b/c they're all the same, but is it best to list the full foreign key to account? -->
+    	<orderby name="chartOfAccountsCode" sort="ASC" />
+    	<orderby name="accountNumber" sort="ASC" />
+    	<inverse-foreignkey field-ref="documentNumber" />
+  	</collection-descriptor>
+	<collection-descriptor name="subObjCdGlobalDetails" element-class-ref="org.kuali.kfs.coa.businessobject.SubObjectCodeGlobalDetail" collection-class="org.apache.ojb.broker.util.collections.ManageableArrayList" auto-retrieve="true" auto-update="object" auto-delete="object" proxy="true">
+    <!-- no real need to sort by fiscal year or chart b/c they're all the same, but is it best to list the full foreign key to object code? -->
+    	<orderby name="universityFiscalYear" sort="ASC" />
+    	<orderby name="chartOfAccountsCode" sort="ASC" />
+    	<orderby name="financialObjectCode" sort="ASC" />
+    <inverse-foreignkey field-ref="documentNumber" />
+  </collection-descriptor>
+</class-descriptor>
+
+<class-descriptor class="org.kuali.kfs.coa.businessobject.SubObjectCodeGlobalDetail" table="CA_SUB_OBJ_CD_CHG_DTL_T">
+    <field-descriptor name="documentNumber" column="FDOC_NBR" jdbc-type="VARCHAR" primarykey="true" index="true" />
+    <field-descriptor name="universityFiscalYear" column="UNIV_FISCAL_YR" jdbc-type="INTEGER" primarykey="true" index="true" />
+    <field-descriptor name="chartOfAccountsCode" column="FIN_COA_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
+    <field-descriptor name="financialObjectCode" column="FIN_OBJECT_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
+    <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true" />
+    <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true" />
+    <reference-descriptor name="financialObject" class-ref="org.kuali.kfs.coa.businessobject.ObjectCode" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+        <foreignkey field-ref="universityFiscalYear" />
+        <foreignkey field-ref="chartOfAccountsCode" />
+        <foreignkey field-ref="financialObjectCode" />
+    </reference-descriptor>
+    <reference-descriptor name="universityFiscal" class-ref="org.kuali.kfs.sys.businessobject.SystemOptions" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+		<foreignkey field-ref="universityFiscalYear" />
+	</reference-descriptor>
+	<reference-descriptor name="chartOfAccounts" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+		<foreignkey field-ref="chartOfAccountsCode" />
+	</reference-descriptor>
+</class-descriptor>
+
+<class-descriptor class="org.kuali.kfs.coa.businessobject.AccountDelegateModelDetail" table="CA_ORG_RTNG_MDL_T">
+    <field-descriptor name="chartOfAccountsCode" column="FIN_COA_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
+    <field-descriptor name="organizationCode" column="ORG_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
+    <field-descriptor name="accountDelegateModelName" column="ORG_RTNG_MDL_NM" jdbc-type="VARCHAR" primarykey="true" index="true" />
+    <field-descriptor name="accountDelegateUniversalId" column="ACCT_DLGT_UNVL_ID" jdbc-type="VARCHAR" primarykey="true" index="true" />
+    <field-descriptor name="financialDocumentTypeCode" column="FDOC_TYP_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
+    <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true" />
+    <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true" />
+    <field-descriptor name="approvalFromThisAmount" column="FDOC_APRV_FROM_AMT" jdbc-type="DECIMAL" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbKualiDecimalFieldConversion" />
+    <field-descriptor name="approvalToThisAmount" column="FDOC_APRV_TO_AMT" jdbc-type="DECIMAL" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbKualiDecimalFieldConversion" />
+    <field-descriptor name="accountDelegatePrimaryRoutingIndicator" column="ACCT_DLGT_PRMRT_CD" jdbc-type="VARCHAR" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
+    <field-descriptor name="accountDelegateStartDate" column="ACCT_DLGT_START_DT" jdbc-type="DATE" />
+  	<field-descriptor name="active" column="ROW_ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
+    <reference-descriptor name="chartOfAccounts" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+        <foreignkey field-ref="chartOfAccountsCode" />
+    </reference-descriptor>
+</class-descriptor>
+
+<class-descriptor class="org.kuali.kfs.coa.businessobject.AccountDelegateModel" table="CA_ORG_RTNG_MDL_NM_T">
+	<field-descriptor name="chartOfAccountsCode" column="FIN_COA_CD" jdbc-type="VARCHAR" primarykey="true" index="true"/>
+	<field-descriptor name="organizationCode" column="ORG_CD" jdbc-type="VARCHAR" primarykey="true" index="true"/>
+	<field-descriptor name="accountDelegateModelName" column="ORG_RTNG_MDL_NM" jdbc-type="VARCHAR" primarykey="true" index="true"/>
+	<field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true"/>
+	<field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true"/>
+	<field-descriptor name="active" column="ROW_ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
+	<reference-descriptor name="organization" class-ref="org.kuali.kfs.coa.businessobject.Organization" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+		<foreignkey field-ref="chartOfAccountsCode" />
+		<foreignkey field-ref="organizationCode" />
+	</reference-descriptor>
+	<reference-descriptor name="chartOfAccounts" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+		<foreignkey field-ref="chartOfAccountsCode" />
+	</reference-descriptor>
+    <collection-descriptor name="accountDelegateModelDetails" element-class-ref="org.kuali.kfs.coa.businessobject.AccountDelegateModelDetail" collection-class="org.apache.ojb.broker.util.collections.ManageableArrayList" auto-retrieve="true" auto-update="object" auto-delete="object" proxy="true">
+        <orderby name="accountDelegateUniversalId" sort="ASC" />
+        <orderby name="financialDocumentTypeCode" sort="ASC" />
+        <inverse-foreignkey field-ref="chartOfAccountsCode" />
+        <inverse-foreignkey field-ref="organizationCode" />
+        <inverse-foreignkey field-ref="accountDelegateModelName" />
+    </collection-descriptor>
+</class-descriptor>
+
+<class-descriptor class="org.kuali.kfs.coa.businessobject.PriorYearOrganization" table="CA_PRIOR_YR_ORG_T">
+    <field-descriptor name="chartOfAccountsCode" column="FIN_COA_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
+    <field-descriptor name="organizationCode" column="ORG_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
+    <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true" />
+    <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true" />
+    <field-descriptor name="organizationManagerUniversalId" column="ORG_MGR_UNVL_ID" jdbc-type="VARCHAR" index="true" />
+    <field-descriptor name="organizationName" column="ORG_NM" jdbc-type="VARCHAR" />
+    <field-descriptor name="responsibilityCenterCode" column="RC_CD" jdbc-type="VARCHAR" index="true" />
+    <field-descriptor name="organizationPhysicalCampusCode" column="ORG_PHYS_CMP_CD" jdbc-type="VARCHAR" />
+    <field-descriptor name="organizationTypeCode" column="ORG_TYP_CD" jdbc-type="VARCHAR" index="true" />
+    <field-descriptor name="organizationDefaultAccountNumber" column="ORG_DFLT_ACCT_NBR" jdbc-type="VARCHAR" />
+    <field-descriptor name="organizationCityName" column="ORG_CITY_NM" jdbc-type="VARCHAR" />
+    <field-descriptor name="organizationStateCode" column="ORG_STATE_CD" jdbc-type="VARCHAR" />
+    <field-descriptor name="organizationZipCode" column="ORG_ZIP_CD" jdbc-type="VARCHAR" />
+    <field-descriptor name="organizationBeginDate" column="ORG_BEGIN_DT" jdbc-type="DATE" />
+    <field-descriptor name="organizationEndDate" column="ORG_END_DT" jdbc-type="DATE" />
+    <field-descriptor name="reportsToChartOfAccountsCode" column="RPTS_TO_FIN_COA_CD" jdbc-type="VARCHAR" index="true" />
+    <field-descriptor name="reportsToOrganizationCode" column="RPTS_TO_ORG_CD" jdbc-type="VARCHAR" index="true" />
+    <field-descriptor name="organizationActiveIndicator" column="ORG_ACTIVE_CD" jdbc-type="VARCHAR" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
+    <field-descriptor name="organizationInFinancialProcessingIndicator" column="ORG_IN_FP_CD" jdbc-type="VARCHAR" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
+    <field-descriptor name="organizationPlantAccountNumber" column="ORG_PLNT_ACCT_NBR" jdbc-type="VARCHAR" />
+    <field-descriptor name="campusPlantAccountNumber" column="CMP_PLNT_ACCT_NBR" jdbc-type="VARCHAR" />
+    <field-descriptor name="organizationPlantChartCode" column="ORG_PLNT_COA_CD" jdbc-type="VARCHAR" />
+    <field-descriptor name="campusPlantChartCode" column="CMP_PLNT_COA_CD" jdbc-type="VARCHAR" />
+    <field-descriptor name="organizationCountryCode" column="ORG_CNTRY_CD" jdbc-type="VARCHAR" />
+    <field-descriptor name="organizationLine1Address" column="ORG_LN1_ADDR" jdbc-type="VARCHAR" />
+    <field-descriptor name="organizationLine2Address" column="ORG_LN2_ADDR" jdbc-type="VARCHAR" />
+    <reference-descriptor name="chartOfAccounts" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+        <foreignkey field-ref="chartOfAccountsCode" />
+    </reference-descriptor>
+    <reference-descriptor name="organizationDefaultAccount" class-ref="org.kuali.kfs.coa.businessobject.Account" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+        <foreignkey field-ref="chartOfAccountsCode" />
+        <foreignkey field-ref="organizationDefaultAccountNumber" />
+    </reference-descriptor>
+    <reference-descriptor name="organization" class-ref="org.kuali.kfs.coa.businessobject.Organization" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+        <foreignkey field-ref="chartOfAccountsCode" />
+        <foreignkey field-ref="organizationCode" />
+    </reference-descriptor>
+    <reference-descriptor name="reportsToOrganization" class-ref="org.kuali.kfs.coa.businessobject.Organization" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+        <foreignkey field-ref="reportsToChartOfAccountsCode" />
+        <foreignkey field-ref="reportsToOrganizationCode" />
+    </reference-descriptor>
+    <reference-descriptor name="reportsToChartOfAccounts" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+        <foreignkey field-ref="reportsToChartOfAccountsCode" />
+    </reference-descriptor>
+    <reference-descriptor name="organizationPlantAccount" class-ref="org.kuali.kfs.coa.businessobject.Account" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+        <foreignkey field-ref="organizationPlantChartCode" />
+        <foreignkey field-ref="organizationPlantAccountNumber" />
+    </reference-descriptor>
+    <reference-descriptor name="campusPlantAccount" class-ref="org.kuali.kfs.coa.businessobject.Account" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+        <foreignkey field-ref="campusPlantChartCode" />
+        <foreignkey field-ref="campusPlantAccountNumber" />
+    </reference-descriptor>
+    <reference-descriptor name="organizationPlantChart" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+        <foreignkey field-ref="organizationPlantChartCode" />
+    </reference-descriptor>
+    <reference-descriptor name="campusPlantChart" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
+        <foreignkey field-ref="campusPlantChartCode" />
+    </reference-descriptor>
+</class-descriptor>
+
+<class-descriptor class="org.kuali.kfs.coa.businessobject.OrganizationExtension" table="CA_ORG_EXTNS_T">
+    <field-descriptor name="chartOfAccountsCode" column="FIN_COA_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
+    <field-descriptor name="organizationCode" column="ORG_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
+    <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true" />
+    <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true" />
+    <field-descriptor name="hrmsShortDescription" column="DESCRSHORT" jdbc-type="VARCHAR" />
+    <field-descriptor name="hrmsCompany" column="COMPANY" jdbc-type="VARCHAR" />
+    <field-descriptor name="hrmsSetIdLocation" column="SETID_LOCATION" jdbc-type="VARCHAR" />
+    <field-descriptor name="hrmsLocation" column="LOCATION" jdbc-type="VARCHAR" />
+    <field-descriptor name="hrmsTaxLocationCode" column="TAX_LOCATION_CD" jdbc-type="VARCHAR" />
+    <field-descriptor name="hrmsPersonnelApproverUniversalId" column="MANAGER_UNVL_ID" jdbc-type="VARCHAR" />
+    <field-descriptor name="hrmsManagerPositionNumber" column="MANAGER_POSN" jdbc-type="VARCHAR" />
+    <field-descriptor name="hrmsBudgetYearEndDate" column="BUDGET_YR_END_DT" jdbc-type="INTEGER" />
+    <field-descriptor name="hrmsBudgetLevel" column="BUDGET_LVL" jdbc-type="VARCHAR" />
+    <field-descriptor name="hrmsGeneralLedgerExpense" column="GL_EXPENSE" jdbc-type="VARCHAR" />
+    <field-descriptor name="hrmsEqualEmploymentOpportunity4Function" column="EEO4_FUNCTION" jdbc-type="VARCHAR" />
+    <field-descriptor name="hrmsAccidentInsurance" column="ACCIDENT_INS" jdbc-type="VARCHAR" />
+    <field-descriptor name="hrmsSocialInsuranceAccidentNumber" column="SI_ACCIDENT_NUM" jdbc-type="VARCHAR" />
+    <field-descriptor name="hrmsHazard" column="HAZARD" jdbc-type="VARCHAR" />
+    <field-descriptor name="hrmsEstablishmentId" column="ESTABID" jdbc-type="VARCHAR" />
+    <field-descriptor name="hrmsRiskCode" column="RISKCD" jdbc-type="VARCHAR" />
+    <field-descriptor name="hrmsFullTimeEmploymentEditIndicator" column="FTE_EDIT_INDC" jdbc-type="VARCHAR" />
+    <field-descriptor name="hrmsDepartmentTenureFlag" column="DEPT_TENURE_FLG" jdbc-type="VARCHAR" />
+    <field-descriptor name="hrmsTimeAndLaborDistributionInformation" column="TL_DISTRIB_INFO" jdbc-type="VARCHAR" />
+    <field-descriptor name="hrmsUseBudgetsIndicator" column="USE_BUDGETS" jdbc-type="VARCHAR" />
+    <field-descriptor name="hrmsUseEncumbrancesIndicator" column="USE_ENCUMBRANCES" jdbc-type="VARCHAR" />
+    <field-descriptor name="hrmsUseDistributionIndicator" column="USE_DISTRIBUTION" jdbc-type="VARCHAR" />
+    <field-descriptor name="hrmsBudgetDepartmentId" column="BUDGET_DEPTID" jdbc-type="VARCHAR" />
+    <field-descriptor name="hrmsDistributionProrateOption" column="DIST_PRORATE_OPTN" jdbc-type="VARCHAR" />
+    <field-descriptor name="hrmsHealthProgramStatisticsDepartmentCode" column="HP_STATS_DEPT_CD" jdbc-type="VARCHAR" />
+    <field-descriptor name="hrmsHealthProgramStatisticsFaculty" column="HP_STATS_FACULTY" jdbc-type="VARCHAR" />
+    <field-descriptor name="hrmsAccountingOwner" column="ACCOUNTING_OWNER" jdbc-type="VARCHAR" />
+    <field-descriptor name="hrmsCountryGroup" column="COUNTRY_GRP" jdbc-type="VARCHAR" />
+    <field-descriptor name="hrmsIuOrganizationMailDropCode" column="IU_ORG_MAIL_DRP_CD" jdbc-type="VARCHAR" />
+    <field-descriptor name="hrmsIuOrganizationAddress2" column="IU_ORG_ADDRESS_2" jdbc-type="VARCHAR" />
+    <field-descriptor name="hrmsIuOrganizationAddress3" column="IU_ORG_ADDRESS_3" jdbc-type="VARCHAR" />
+    <field-descriptor name="hrmsIuCampusCode" column="IU_CAMPUS_CD" jdbc-type="VARCHAR" />
+    <field-descriptor name="hrmsIuCampusBuilding" column="IU_CAMPUS_BLDG" jdbc-type="VARCHAR" />
+    <field-descriptor name="hrmsIuCampusRoom" column="IU_CAMPUS_ROOM" jdbc-type="VARCHAR" />
+	<field-descriptor name="hrmsIuPositionAllowedFlag" column="IU_POSN_ALLOW_FL" jdbc-type="VARCHAR" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
+	<field-descriptor name="hrmsIuTenureAllowedFlag" column="IU_TENURE_ALLOW_FL" jdbc-type="VARCHAR" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
+	<field-descriptor name="hrmsIuTitleAllowedFlag" column="IU_TITLE_ALLOW_FL" jdbc-type="VARCHAR" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
+	<field-descriptor name="hrmsIuOccupationalUnitAllowedFlag" column="IU_OCC_UN_ALLOW_FL" jdbc-type="VARCHAR" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
+    <field-descriptor name="fiscalApproverUniversalId" column="ORG_FSCL_APRVR_UID" jdbc-type="VARCHAR" />
+    <field-descriptor name="hrmsLastUpdateDate" column="LAST_UPDATE_DATE" jdbc-type="TIMESTAMP" />
+    <reference-descriptor name="chartOfAccounts" class-ref="org.kuali.kfs.coa.businessobject.Chart" proxy="true" auto-retrieve="true" auto-update="none" auto-delete="none">
+        <foreignkey field-ref="chartOfAccountsCode" />
+    </reference-descriptor>
+    <reference-descriptor name="organization" class-ref="org.kuali.kfs.coa.businessobject.Organization" proxy="true" auto-retrieve="true" auto-update="none" auto-delete="none">
+        <foreignkey field-ref="chartOfAccountsCode" />
+        <foreignkey field-ref="organizationCode" />
+    </reference-descriptor>
+</class-descriptor>
+
+<class-descriptor class="org.kuali.kfs.coa.businessobject.AccountDelegateGlobal" table="CA_ACCT_DELEGATE_GBL_T">
+    <field-descriptor name="documentNumber" column="FDOC_NBR" jdbc-type="VARCHAR" primarykey="true" />
+    <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true" />
+    <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true" />
+    
+    <collection-descriptor name="accountGlobalDetails" element-class-ref="org.kuali.kfs.coa.businessobject.AccountGlobalDetail" collection-class="org.apache.ojb.broker.util.collections.ManageableArrayList" auto-retrieve="true" auto-update="object" auto-delete="object" proxy="true">
+        <orderby name="chartOfAccountsCode" sort="ASC" />
+        <orderby name="accountNumber" sort="ASC" />
+        <inverse-foreignkey field-ref="documentNumber" />
+    </collection-descriptor>
+    <collection-descriptor name="delegateGlobals" element-class-ref="org.kuali.kfs.coa.businessobject.AccountDelegateGlobalDetail" collection-class="org.apache.ojb.broker.util.collections.ManageableArrayList" auto-retrieve="true" auto-update="object" auto-delete="object" proxy="true">
+        <orderby name="accountDelegateUniversalId" sort="ASC" />
+        <orderby name="financialDocumentTypeCode" sort="ASC" />
+        <inverse-foreignkey field-ref="documentNumber" />
+    </collection-descriptor>
+</class-descriptor>
+
+<class-descriptor class="org.kuali.kfs.coa.businessobject.SubFundGroupType" table="CA_SUB_FND_GRP_TYP_T">
+	<field-descriptor name="subFundGroupTypeCode" column="SUB_FUNDGRP_TYP_CD" jdbc-type="VARCHAR" primarykey="true" index="true"/>
+	<field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true"/>
+	<field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true"/>
+	<field-descriptor name="subFundGroupTypeDescription" column="SUB_FND_GRP_TYP_DESC" jdbc-type="VARCHAR"/>
+	<field-descriptor name="active" column="SUB_FND_GRP_TYP_ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
+</class-descriptor>
+
+<class-descriptor class="org.kuali.kfs.coa.businessobject.BasicAccountingCategory" table="CA_ACCTG_CTGRY_T">
+	<field-descriptor name="code" column="ACCTG_CTGRY_CD" jdbc-type="VARCHAR" primarykey="true" index="true"/>
+	<field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true"/>
+	<field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true"/>
+	<field-descriptor name="description" column="ACCTG_CTGRY_DESC" jdbc-type="VARCHAR"/>
+	<field-descriptor name="shortName" column="ACCTG_CTGRY_SHRT_NM" jdbc-type="VARCHAR"/>
+	<field-descriptor name="sortCode" column="FIN_REPORT_SORT_CD" jdbc-type="VARCHAR"/>
+	<field-descriptor name="active" column="ROW_ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
+</class-descriptor>
+
+<class-descriptor class="org.kuali.kfs.coa.businessobject.BudgetRecordingLevel" table="CA_BDGT_REC_LVL_T">
+	<field-descriptor name="code" column="BDGT_REC_LVL_CD" jdbc-type="VARCHAR" primarykey="true" index="true"/>
+	<field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true"/>
+	<field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true"/>
+	<field-descriptor name="name" column="BDGT_REC_LVL_NM" jdbc-type="VARCHAR"/>
+	<field-descriptor name="active" column="ROW_ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
+</class-descriptor>
+
+<class-descriptor class="org.kuali.kfs.coa.businessobject.SufficientFundsCode" table="CA_ACCT_SF_T">
+	<field-descriptor name="code" column="ACCT_SF_CD" jdbc-type="VARCHAR" primarykey="true" index="true"/>
+	<field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true"/>
+	<field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true"/>
+	<field-descriptor name="name" column="ACCT_SF_NM" jdbc-type="VARCHAR"/>
+	<field-descriptor name="active" column="ROW_ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
+</class-descriptor>
+
+  <!-- A hack entry to make Org Review Role work with Maintenance Framework -->
+  <!--  NOTE: the table and column name *NEED* to be real or this will also blow up! 
+  		AND : you probably need to have all the PK fields defined (matching the DD) to make inquiries work properly -->
+  <class-descriptor class="org.kuali.kfs.coa.identity.OrgReviewRole" table="CA_ORG_TYPE_T">
+    <field-descriptor name="orgReviewRoleMemberId" column="ORG_TYP_CD" jdbc-type="VARCHAR" primarykey="true" />
+    <field-descriptor name="delegate" column="OBJ_ID" jdbc-type="VARCHAR" primarykey="true"  conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
+  </class-descriptor>
+
+
+<class-descriptor class="org.kuali.kfs.coa.businessobject.SourceOfFunds" table="CA_SOURCE_OF_FUNDS_T">
+	<field-descriptor name="typeCode" column="FUNDS_TYPE_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
+	<field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true" />
+    <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true" />
+	<field-descriptor name="sourceOfFundsName" column="SOF_NAME" jdbc-type="VARCHAR" />
+	<field-descriptor name="sourceOfFundsDescription" column="SOURCE_DESC" jdbc-type="VARCHAR" />
+	<field-descriptor name="active" column="ACTIVE_IND" jdbc-type="VARCHAR" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
+</class-descriptor>
 
 </descriptor-repository>
 

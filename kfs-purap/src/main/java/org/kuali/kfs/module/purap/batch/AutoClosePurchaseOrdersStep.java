@@ -18,12 +18,13 @@
  */
 package org.kuali.kfs.module.purap.batch;
 
+import java.util.Date;
+
 import org.kuali.kfs.module.purap.batch.service.AutoClosePurchaseOrderService;
 import org.kuali.kfs.sys.batch.AbstractStep;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 
-import java.util.Date;
 
 /**
  * Step used to auto approve purchase orders that meet a certain criteria
@@ -65,6 +66,10 @@ public class AutoClosePurchaseOrdersStep extends AbstractStep {
 
     public AutoClosePurchaseOrderService getAutoClosePurchaseOrderService() {
         return autoClosePurchaseOrderService;
+    }
+
+    public void setAutoClosePurchaseOrderService(AutoClosePurchaseOrderService autoClosePurchaseOrderService) {
+        this.autoClosePurchaseOrderService = autoClosePurchaseOrderService;
     }
 
     public void setAutoClosePurchaseOrderService(AutoClosePurchaseOrderService autoClosePurchaseOrderService) {
