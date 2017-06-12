@@ -1,5 +1,7 @@
 package edu.arizona.kfs.gl;
 
+import org.apache.commons.lang.StringUtils;
+
 public class GeneralLedgerConstants extends org.kuali.kfs.gl.GeneralLedgerConstants {
 
     public class GeneralErrorCorrectionGroupParameters {
@@ -23,6 +25,7 @@ public class GeneralLedgerConstants extends org.kuali.kfs.gl.GeneralLedgerConsta
     public static class BatchFileSystem {
         static final public String EXTENSION = ".data";
         static final public String DONE_FILE_EXTENSION = ".done";
+        static final public String RECON_FILE_EXTENSION = ".recon";
 
         //static final public String GL_ENTRY = "";
         static final public String ENTERPRISE_FEED = "gl_glentry_entp";
