@@ -43,10 +43,7 @@ public class PaymentRequestItem extends org.kuali.kfs.module.purap.businessobjec
 				if (ObjectUtils.isNotNull(items)) {
 					for (Object object : items) {
 						PurchaseOrderItem item = (PurchaseOrderItem) object;
-						if (ObjectUtils.isNotNull(item) && item.getItemLineNumber().equals(this.getItemLineNumber())) {
-							poi = item;
-							break;
-						} else if (ObjectUtils.isNotNull(item) && getItemLineNumber().intValue() <= items.size()) { //This else if section was added to make sure the PREQ does not error when a tax withholding is added
+						if (ObjectUtils.isNotNull(item) && ObjectUtils.isNotNull(item.getItemLineNumber()) && item.getItemLineNumber().equals(this.getItemLineNumber())) {
 							poi = item;
 							break;
 						}
