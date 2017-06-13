@@ -430,5 +430,7 @@
 			</set>
 		</property>
 	</bean>
+	
+	<bean id="pdpFormatService" parent="pdpFormatService-parentBean" class="edu.arizona.kfs.pdp.service.impl.FormatServiceImpl" />	
 		
 </beans>

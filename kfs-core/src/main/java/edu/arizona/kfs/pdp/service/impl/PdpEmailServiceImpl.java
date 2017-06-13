@@ -295,22 +295,19 @@ public class PdpEmailServiceImpl extends org.kuali.kfs.pdp.service.impl.PdpEmail
 
         // KFSMI-6475 - if not a production instance, replace the recipients with the testers list
         super.alterMessageWhenNonProductionInstance(message, null);
-        LOG.info("sending email to " + toAddresses + " for disb # " + paymentGroup.getDisbursementNbr());
-      
+              
         try {
         	checkEmailAddressDomain(paymentGroup.getAdviceEmailAddress());
             mailService.sendMessage(message);
         }
         catch (Exception e) {
-            //LOG.error("sendAchAdviceEmail() Invalid email address. Sending message to " + customer.getAdviceReturnEmailAddr(), e);
-
             toAddresses = customer.getAdviceReturnEmailAddr();
             if(StringUtils.isEmpty(toAddresses)) {
             	toAddresses = mailService.getBatchMailingList();
             }
             message.setToAddresses(new HashSet());
             message.addToAddress(toAddresses);
-            LOG.error("sendAchAdviceEmail() Invalid email address. Sending message to " + customer.getAdviceReturnEmailAddr() + " " + customer.getId().toString(), e);
+            LOG.error("sendAchAdviceEmail() Invalid email address. Sending message to " + toAddresses, e);
 
             String returnAddress = parameterService.getParameterValueAsString(KfsParameterConstants.PRE_DISBURSEMENT_BATCH.class, KFSConstants.FROM_EMAIL_ADDRESS_PARM_NM);
             if(StringUtils.isEmpty(returnAddress)) {
