@@ -292,6 +292,7 @@
 		class="edu.arizona.kfs.module.ld.batch.LaborCalculateEncumbranceAdjustmentsStep">
 		<property name="laborEncumbranceAdjustmentService" ref="laborEncumbranceAdjustmentService" />
 		<property name="batchFileDirectoryName" value="${staging.directory}/ld/holding" />
+		<property name="batchOutputFileDirectoryName" value="${staging.directory}/ld/enterpriseFeed"/>
 		<property name="dateTimeService" ref="dateTimeService" />
 	</bean>
 

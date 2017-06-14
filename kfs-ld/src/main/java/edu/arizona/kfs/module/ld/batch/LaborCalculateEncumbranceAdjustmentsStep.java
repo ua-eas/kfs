@@ -20,6 +20,7 @@ public class LaborCalculateEncumbranceAdjustmentsStep extends AbstractStep {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(LaborCalculateEncumbranceAdjustmentsStep.class);
 
     protected String batchFileDirectoryName;
+    protected String batchOutputFileDirectoryName;
     protected LaborEncumbranceAdjustmentService laborEncumbranceAdjustmentService;
     protected DateTimeService dateTimeService;
 
@@ -35,11 +36,11 @@ public class LaborCalculateEncumbranceAdjustmentsStep extends AbstractStep {
         String balanceFileName = batchFileDirectoryName + File.separator + LaborEncumbranceAdjustmentService.ENCUMBRANCE_BALANCE_FILE + GeneralLedgerConstants.BatchFileSystem.EXTENSION;
         File balanceFile = new File( balanceFileName );
         if ( inputFile.exists() && balanceFile.exists() ) {
-            String outputFileName = batchFileDirectoryName + File.separator + LaborEncumbranceAdjustmentService.ENCUMBRANCE_OUTPUT_FILE + "-" + dateTimeService.toDateTimeStringForFilename(jobRunDate) + GeneralLedgerConstants.BatchFileSystem.EXTENSION;
+            String outputFileName = batchOutputFileDirectoryName + File.separator + LaborEncumbranceAdjustmentService.ENCUMBRANCE_OUTPUT_FILE + "-" + dateTimeService.toDateTimeStringForFilename(jobRunDate) + GeneralLedgerConstants.BatchFileSystem.EXTENSION;
             File outputFile = new File( outputFileName );
             String errorFileName = batchFileDirectoryName + File.separator + LaborEncumbranceAdjustmentService.ENCUMBRANCE_ERROR_FILE + "-" + dateTimeService.toDateTimeStringForFilename(jobRunDate) + GeneralLedgerConstants.BatchFileSystem.EXTENSION;
             File errorFile = new File( errorFileName );
-            String reconFileName =  batchFileDirectoryName + File.separator + LaborEncumbranceAdjustmentService.ENCUMBRANCE_OUTPUT_FILE + "-" + dateTimeService.toDateTimeStringForFilename(jobRunDate) + edu.arizona.kfs.gl.GeneralLedgerConstants.BatchFileSystem.RECON_FILE_EXTENSION;
+            String reconFileName =  batchOutputFileDirectoryName + File.separator + LaborEncumbranceAdjustmentService.ENCUMBRANCE_OUTPUT_FILE + "-" + dateTimeService.toDateTimeStringForFilename(jobRunDate) + edu.arizona.kfs.gl.GeneralLedgerConstants.BatchFileSystem.RECON_FILE_EXTENSION;
             File reconFile = new File( reconFileName );
             
             getLaborEncumbranceAdjustmentService().buildEncumbranceDifferenceFile(inputFile,balanceFile,outputFile,errorFile,reconFile);
@@ -73,5 +74,9 @@ public class LaborCalculateEncumbranceAdjustmentsStep extends AbstractStep {
     public void setDateTimeService(DateTimeService dateTimeService) {
         this.dateTimeService = dateTimeService;
     }
+
+	public void setBatchOutputFileDirectoryName(String batchOutputFileDirectoryName) {
+		this.batchOutputFileDirectoryName = batchOutputFileDirectoryName;
+	}
 
 }
