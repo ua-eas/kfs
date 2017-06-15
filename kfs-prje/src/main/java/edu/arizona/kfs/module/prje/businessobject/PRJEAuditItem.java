@@ -4,16 +4,16 @@ import java.util.LinkedHashMap;
 
 import org.kuali.kfs.gl.businessobject.OriginEntryFull;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.krad.bo.TransientBusinessObjectBase;
 
 import edu.arizona.kfs.module.prje.PRJEPropertyConstants;
-import edu.arizona.kfs.module.prje.dataaccess.PRJETransferRecord;
+import edu.arizona.kfs.module.prje.businessobject.PRJETransferRecord;
 import edu.arizona.kfs.module.prje.PRJEConstants.ProrateCreditType;
 
 /**
  * This class is only used in PRJE Reporting
  */
-public class PRJEAuditItem extends PersistableBusinessObjectBase {
+public class PRJEAuditItem extends TransientBusinessObjectBase {
     private String docType;
     private String docNumber;
     private String description;

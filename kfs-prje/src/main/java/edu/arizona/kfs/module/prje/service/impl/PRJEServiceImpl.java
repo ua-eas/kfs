@@ -21,11 +21,14 @@ import org.kuali.kfs.coa.businessobject.ObjectType;
 import org.kuali.kfs.coa.service.ObjectCodeService;
 import org.kuali.kfs.gl.businessobject.Balance;
 import org.kuali.kfs.gl.businessobject.OriginEntryFull;
+import org.kuali.kfs.sys.businessobject.SystemOptions;
+import org.kuali.kfs.sys.service.OptionsService;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.rice.krad.util.ObjectUtils;
 
 import edu.arizona.kfs.module.prje.PRJEConstants;
 import edu.arizona.kfs.module.prje.ProrateJournalEntry;
@@ -35,17 +38,19 @@ import edu.arizona.kfs.module.prje.businessobject.PRJEBaseObject;
 import edu.arizona.kfs.module.prje.businessobject.PRJESet;
 import edu.arizona.kfs.module.prje.businessobject.PRJEType;
 import edu.arizona.kfs.module.prje.dataaccess.PRJEDao;
-import edu.arizona.kfs.module.prje.dataaccess.PRJETransferRecord;
+import edu.arizona.kfs.module.prje.businessobject.PRJETransferRecord;
 import edu.arizona.kfs.module.prje.service.PRJEReportsService;
 import edu.arizona.kfs.module.prje.service.PRJEService;
-import edu.arizona.kfs.module.prje.service.PRJEServiceBase;
+import edu.arizona.kfs.module.prje.service.PRJEServiceBaseImpl;
 import edu.arizona.kfs.sys.KFSConstants;
+import edu.arizona.kfs.sys.KFSPropertyConstants;
 
-public class PRJEServiceImpl extends PRJEServiceBase implements PRJEService {
+public class PRJEServiceImpl extends PRJEServiceBaseImpl implements PRJEService {
     private static Logger LOG = Logger.getLogger(PRJEServiceImpl.class);
     private static final KualiDecimal ZERO = new KualiDecimal(0.0);
     
     private PRJEReportsServiceImpl prjeReports;
+    protected OptionsService optionsService;
     
     public boolean process() {
         LOG.info("Beginning PRJE Service Processing");
@@ -67,6 +72,19 @@ public class PRJEServiceImpl extends PRJEServiceBase implements PRJEService {
 
     public void setPrjeReports(PRJEReportsServiceImpl prjeReports) {
         this.prjeReports = prjeReports;
+    }
+    
+    public void setOptionsService(OptionsService optionsService) {
+        this.optionsService = optionsService;
+    }
+    
+    public SystemOptions getSystemOptions(Integer universityFiscalYear) {
+        SystemOptions options = null;
+        options = optionsService.getOptions(universityFiscalYear);
+        if (ObjectUtils.isNull(options)) {
+            options = optionsService.getCurrentYearOptions();
+        } 
+        return options;
     }
 
     //---------------------------------------------------------------------------
@@ -358,7 +376,8 @@ public class PRJEServiceImpl extends PRJEServiceBase implements PRJEService {
             
             // Create the origin entry
             OriginEntryFull debitEntry = new OriginEntryFull(PRJEConstants.ENTRY_DOCTYPE, PRJEConstants.ENTRY_ORIGIN);
-            debitEntry.setFinancialBalanceTypeCode(KFSConstants.BALANCE_TYPE_ACTUAL);
+            SystemOptions options = getSystemOptions(getUniversityDateService().getCurrentFiscalYear());
+            debitEntry.setFinancialBalanceTypeCode(options.getActualFinancialBalanceTypeCd());
             
             debitEntry.setOrganizationDocumentNumber(getOrganizationDocumentNumber(type));
             debitEntry.setDocumentNumber(getDocumentNumber(type));
@@ -437,7 +456,8 @@ public class PRJEServiceImpl extends PRJEServiceBase implements PRJEService {
 
             // Create the origin entry
             OriginEntryFull creditEntry = new OriginEntryFull(PRJEConstants.ENTRY_DOCTYPE, PRJEConstants.ENTRY_ORIGIN);
-            creditEntry.setFinancialBalanceTypeCode(KFSConstants.BALANCE_TYPE_ACTUAL);
+            SystemOptions options = getSystemOptions(getUniversityDateService().getCurrentFiscalYear());
+            creditEntry.setFinancialBalanceTypeCode(options.getActualFinancialBalanceTypeCd());
             
             creditEntry.setOrganizationDocumentNumber(getOrganizationDocumentNumber(type));
             creditEntry.setDocumentNumber(getDocumentNumber(type));
@@ -525,12 +545,12 @@ public class PRJEServiceImpl extends PRJEServiceBase implements PRJEService {
             // Retrieve the balances for this baseAccount
             BusinessObjectService bos = getBusinessObjectService();
             Map<String, String> args = new HashMap<String, String>();
-            args.put("universityFiscalYear", Integer.toString(fiscalYear));
-            args.put("chartOfAccountsCode", baseAccount.getBaseChart());
-            args.put("accountNumber", baseAccount.getBaseAccount());
+            args.put(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, Integer.toString(fiscalYear));
+            args.put(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, baseAccount.getBaseChart());
+            args.put(KFSPropertyConstants.ACCOUNT_NUMBER, baseAccount.getBaseAccount());
             
             if ( baseAccount.getBaseSubAccount() != null ) {
-                args.put("subAccountNumber", baseAccount.getBaseSubAccount());
+                args.put(KFSPropertyConstants.SUB_ACCOUNT_NUMBER, baseAccount.getBaseSubAccount());
             }
             
             List<Balance> balances = (List<Balance>)bos.findMatching(Balance.class, args);
@@ -755,7 +775,8 @@ public class PRJEServiceImpl extends PRJEServiceBase implements PRJEService {
         }
         
         private boolean balanceMatchesBaseObjects(PRJEType type, Balance balance) {
-            if ( !KFSConstants.BALANCE_TYPE_ACTUAL.equals(balance.getBalanceTypeCode()) ) {
+            SystemOptions options = getSystemOptions(getUniversityDateService().getCurrentFiscalYear());
+            if ( !options.getActualFinancialBalanceTypeCd().equals(balance.getBalanceTypeCode()) ) {
                 LOG.debug("--- Balance Type is not Actual");
                 return false;
             }

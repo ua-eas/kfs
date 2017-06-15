@@ -14,12 +14,12 @@ import edu.arizona.kfs.module.prje.businessobject.PRJEAuditItem;
 import edu.arizona.kfs.module.prje.businessobject.PRJEBaseAccount;
 import edu.arizona.kfs.module.prje.businessobject.PRJEBaseObject;
 import edu.arizona.kfs.module.prje.businessobject.PRJEType;
-import edu.arizona.kfs.module.prje.dataaccess.PRJETransferRecord;
+import edu.arizona.kfs.module.prje.businessobject.PRJETransferRecord;
 import edu.arizona.kfs.module.prje.service.PRJEReportsService;
-import edu.arizona.kfs.module.prje.service.PRJEServiceBase;
+import edu.arizona.kfs.module.prje.service.PRJEServiceBaseImpl;
 import edu.arizona.kfs.sys.KFSConstants;
 
-public class PRJEReportsServiceImpl extends PRJEServiceBase implements PRJEReportsService {
+public class PRJEReportsServiceImpl extends PRJEServiceBaseImpl implements PRJEReportsService {
     private static Logger LOG = Logger.getLogger(PRJEReportsServiceImpl.class);
         
     private ReportWriterService ledgerReportWriterService;

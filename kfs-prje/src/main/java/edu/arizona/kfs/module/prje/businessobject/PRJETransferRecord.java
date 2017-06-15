@@ -1,4 +1,4 @@
-package edu.arizona.kfs.module.prje.dataaccess;
+package edu.arizona.kfs.module.prje.businessobject;
 
 import org.kuali.kfs.gl.businessobject.OriginEntryFull;
 import org.kuali.rice.core.api.util.type.KualiDecimal;

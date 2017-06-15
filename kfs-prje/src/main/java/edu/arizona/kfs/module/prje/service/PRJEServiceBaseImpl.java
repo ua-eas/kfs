@@ -15,12 +15,11 @@ import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.krad.service.BusinessObjectService;
 import org.kuali.rice.krad.service.KRADServiceLocator;
 
-import edu.arizona.kfs.module.prje.PRJEConstants;
 import edu.arizona.kfs.module.prje.dataaccess.PRJEDao;
 import edu.arizona.kfs.module.prje.dataaccess.impl.PRJEDaoOjb;
 
-public class PRJEServiceBase {
-    private static Logger LOG = Logger.getLogger(PRJEServiceBase.class);
+public class PRJEServiceBaseImpl {
+    private static Logger LOG = Logger.getLogger(PRJEServiceBaseImpl.class);
     
     static final String FILENAME = "gl_entry_prje";
     static final String DATA_EXT = GeneralLedgerConstants.BatchFileSystem.EXTENSION;

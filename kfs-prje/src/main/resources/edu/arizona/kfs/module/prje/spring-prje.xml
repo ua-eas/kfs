@@ -6,8 +6,7 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
     <bean id="prjeModule" parent="prjeModule-parent" />
 
-    <bean id="prjeModule-parent" abstract="true"
-          class="org.kuali.kfs.sys.FinancialSystemModuleConfiguration">
+    <bean id="prjeModule-parent" abstract="true" class="org.kuali.kfs.sys.FinancialSystemModuleConfiguration">
 
 		<property name="namespaceCode" value="KFS-PRJE"/>
 		<property name="initializeDataDictionary" value="true" />
@@ -51,8 +50,7 @@
 
 	<bean id="prjeDataAccess" parent="platformAwareDao" class="edu.arizona.kfs.module.prje.dataaccess.impl.PRJEDaoOjb" />
 
-    <bean id="prjePostingLedgerReportWriterService" 
-          class="org.kuali.kfs.sys.service.impl.ReportWriterTextServiceImpl">
+    <bean id="prjePostingLedgerReportWriterService" class="org.kuali.kfs.sys.service.impl.ReportWriterTextServiceImpl">
 
         <property name="filePath" value="${reports.directory}/prje"/>
         <property name="fileNamePrefix" value="prje_main_ledger_"/>
@@ -78,10 +76,8 @@
         </property>
     </bean>
 
-    <bean id="prjeSetReportHelper" 
-          parent="businessObjectReportHelper">
-        <property name="dataDictionaryBusinessObjectClass" 
-                  value="edu.arizona.kfs.module.prje.businessobject.PRJESet" />
+    <bean id="prjeSetReportHelper" parent="businessObjectReportHelper">
+        <property name="dataDictionaryBusinessObjectClass" value="edu.arizona.kfs.module.prje.businessobject.PRJESet" />
         <property name="orderedPropertyNameToHeaderLabelMap">
             <map>
                 <entry key="setId" value="SET ID" />
@@ -93,10 +89,8 @@
         <property name="columnCount" value="4" />
     </bean>
 
-    <bean id="prjeTypeReportHelper" 
-          parent="businessObjectReportHelper">
-        <property name="dataDictionaryBusinessObjectClass" 
-                  value="edu.arizona.kfs.module.prje.businessobject.PRJEType" />
+    <bean id="prjeTypeReportHelper" parent="businessObjectReportHelper">
+        <property name="dataDictionaryBusinessObjectClass" value="edu.arizona.kfs.module.prje.businessobject.PRJEType" />
         <property name="orderedPropertyNameToHeaderLabelMap">
             <map>
                 <entry key="typeId" value="TYPE ID" />
@@ -108,10 +102,8 @@
         <property name="columnCount" value="4" />
     </bean>
 
-    <bean id="prjeAuditItemReportHelper"
-          parent="businessObjectReportHelper">
-        <property name="dataDictionaryBusinessObjectClass" 
-                  value="edu.arizona.kfs.module.prje.businessobject.PRJEAuditItem" />
+    <bean id="prjeAuditItemReportHelper" parent="businessObjectReportHelper">
+        <property name="dataDictionaryBusinessObjectClass" value="edu.arizona.kfs.module.prje.businessobject.PRJEAuditItem" />
         <property name="orderedPropertyNameToHeaderLabelMap">
             <map>
                 <entry key="docType" value="Doc Type" />
@@ -136,8 +128,7 @@
         <property name="columnCount" value="17" />
     </bean>
 
-    <bean id="prjeAuditReportWriterService" 
-          class="org.kuali.kfs.sys.service.impl.ReportWriterTextServiceImpl">
+    <bean id="prjeAuditReportWriterService" class="org.kuali.kfs.sys.service.impl.ReportWriterTextServiceImpl">
 
         <property name="filePath" value="${reports.directory}/prje"/>
         <property name="fileNamePrefix" value="prje_audit_"/>
@@ -153,19 +144,15 @@
 
         <property name="classToBusinessObjectReportHelperBeanNames">
             <map>
-                <entry key="edu.arizona.kfs.module.prje.businessobject.PRJESet"
-                       value="prjeSetReportHelper" />
-                <entry key="edu.arizona.kfs.module.prje.businessobject.PRJEType"
-                       value="prjeTypeReportHelper" />
-                <entry key="edu.arizona.kfs.module.prje.businessobject.PRJEAuditItem"
-                       value="prjeAuditItemReportHelper" />
+                <entry key="edu.arizona.kfs.module.prje.businessobject.PRJESet" value="prjeSetReportHelper" />
+                <entry key="edu.arizona.kfs.module.prje.businessobject.PRJEType" value="prjeTypeReportHelper" />
+                <entry key="edu.arizona.kfs.module.prje.businessobject.PRJEAuditItem" value="prjeAuditItemReportHelper" />
             </map>
         </property>
     </bean>
 
     <bean id="prjeReports" parent="prjeReports-parent"/>
-    <bean id="prjeReports-parent" abstract="true" 
-          class="edu.arizona.kfs.module.prje.service.impl.PRJEReportsServiceImpl">
+    <bean id="prjeReports-parent" abstract="true"  class="edu.arizona.kfs.module.prje.service.impl.PRJEReportsServiceImpl">
        <property name="prjeDataAccess" ref="prjeDataAccess" />
        <property name="businessObjectService" ref="businessObjectService" />
        <property name="parameterService" ref="parameterService" />
@@ -178,8 +165,7 @@
     </bean>
 
 	<bean id="prjeService" parent="prjeService-parent"/>
-	<bean id="prjeService-parent" abstract="true"
-	      class="edu.arizona.kfs.module.prje.service.impl.PRJEServiceImpl">
+	<bean id="prjeService-parent" abstract="true" class="edu.arizona.kfs.module.prje.service.impl.PRJEServiceImpl">
 	   <property name="prjeDataAccess" ref="prjeDataAccess" />
        <property name="businessObjectService" ref="businessObjectService" />
        <property name="parameterService" ref="parameterService" />
@@ -189,6 +175,7 @@
        <property name="batchFileDirectoryName" value="${staging.directory}/gl/originEntry"/>
        <property name="propertyFileDirectoryName" value="${staging.directory}/prje"/>
        <property name="prjeReports" ref="prjeReports" />
+       <property name="optionsService" ref="optionsService"/>
 	</bean>
 
 	<bean id="prjeJob" parent="unscheduledJobDescriptor">
@@ -202,11 +189,6 @@
 	<bean id="prjeTransactionStep" parent="step"
 	      class="edu.arizona.kfs.module.prje.batch.PRJETransactionStep">
 		<property name="prjeService" ref="prjeService" />
-	</bean>
-
-	<bean id="prjeJobTrigger" parent="cronTrigger">
-		<property name="jobName" value="prjeJob" />
-		<property name="cronExpression" value="0 0 23 L * ?" ></property>
 	</bean>
 
 </beans>
