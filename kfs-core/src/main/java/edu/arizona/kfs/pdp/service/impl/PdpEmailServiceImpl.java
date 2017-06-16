@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
@@ -24,6 +25,7 @@ import org.kuali.kfs.pdp.businessobject.PaymentNoteText;
 import org.kuali.kfs.pdp.service.AchBankService;
 import org.kuali.kfs.pdp.service.CustomerProfileService;
 import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.report.BusinessObjectReportHelper;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.mail.MailMessage;
@@ -35,6 +37,7 @@ import org.kuali.rice.krad.exception.InvalidAddressException;
 import org.kuali.rice.krad.service.MailService;
 import org.kuali.rice.krad.util.ErrorMessage;
 import org.kuali.rice.krad.util.MessageMap;
+import org.kuali.rice.krad.util.ObjectUtils;
 
 import edu.arizona.kfs.pdp.service.PdpEmailService;
 
@@ -47,6 +50,7 @@ public class PdpEmailServiceImpl extends org.kuali.kfs.pdp.service.impl.PdpEmail
     protected ParameterService parameterService;
     protected DataDictionaryService dataDictionaryService;
     protected AchBankService achBankService;
+    protected BusinessObjectReportHelper paymentDetailReportHelper;
     protected Set<String> knownEmailDomains;
     
     public void sendPrepaidChecksLoadEmail(PaymentFileLoad prepaidChecksFile, List<String> warnings, String fileName) {    	
@@ -186,7 +190,12 @@ public class PdpEmailServiceImpl extends org.kuali.kfs.pdp.service.impl.PdpEmail
     @Override
     public void sendAchAdviceEmail(PaymentGroup paymentGroup, PaymentDetail paymentDetail, CustomerProfile customer) {
         LOG.debug("sendAchAdviceEmail() starting");
-
+        
+        if(ObjectUtils.isNotNull(paymentDetail)){
+            super.sendAchAdviceEmail(paymentGroup, paymentDetail, customer);
+            return;
+        }
+        
         MailMessage message = new MailMessage();
         String fromAddresses = customer.getAdviceReturnEmailAddr();
         String toAddresses = paymentGroup.getAdviceEmailAddress();
@@ -208,91 +217,9 @@ public class PdpEmailServiceImpl extends org.kuali.kfs.pdp.service.impl.PdpEmail
             LOG.debug("sending email to " + toAddresses + " for disb # " + paymentGroup.getDisbursementNbr());
         }
 
-        StringBuilder body = new StringBuilder();
-        body.append(getMessage(PdpKeyConstants.MESSAGE_PDP_ACH_ADVICE_EMAIL_TOFROM, paymentGroup.getPayeeName(), customer.getAchPaymentDescription()));
-
-        // formatter for payment amounts
-        Formatter formatter = new CurrencyFormatter();
-
-        // get bank name to which the payment is being transferred
-        String bankName = "";
-
-        ACHBank achBank = achBankService.getByPrimaryId(paymentGroup.getAchBankRoutingNbr());
-        if (achBank == null) {
-            LOG.error("Bank cound not be found for routing number " + paymentGroup.getAchBankRoutingNbr());
-        }
-        else {
-            bankName = achBank.getBankName();
-        }
-
-        body.append(getMessage(PdpKeyConstants.MESSAGE_PDP_ACH_ADVICE_EMAIL_BANKAMOUNT, bankName, formatter.formatForPresentation(paymentDetail.getNetPaymentAmount())));
-
-        // print detail amounts
-        int labelPad = 25;
-
-        String newPaymentAmountLabel = dataDictionaryService.getAttributeLabel(PaymentDetail.class, PdpPropertyConstants.PaymentDetail.PAYMENT_NET_AMOUNT);
-        body.append(StringUtils.rightPad(newPaymentAmountLabel, labelPad) + formatter.formatForPresentation(paymentDetail.getNetPaymentAmount()) + "\n");
-
-        if (paymentDetail.getOrigInvoiceAmount().isNonZero()) {
-            String origInvoiceAmountLabel = dataDictionaryService.getAttributeLabel(PaymentDetail.class, PdpPropertyConstants.PaymentDetail.PAYMENT_ORIGINAL_INVOICE_AMOUNT);
-            body.append(StringUtils.rightPad(origInvoiceAmountLabel, labelPad) + formatter.formatForPresentation(paymentDetail.getOrigInvoiceAmount()) + "\n");
-        }
-
-        if (paymentDetail.getInvTotDiscountAmount().isNonZero()) {
-            String invTotDiscountAmountLabel = dataDictionaryService.getAttributeLabel(PaymentDetail.class, PdpPropertyConstants.PaymentDetail.PAYMENT_INVOICE_TOTAL_DISCOUNT_AMOUNT);
-            body.append(StringUtils.rightPad(invTotDiscountAmountLabel, labelPad) + formatter.formatForPresentation(paymentDetail.getInvTotDiscountAmount()) + "\n");
-        }
-
-        if (paymentDetail.getInvTotShipAmount().isNonZero()) {
-            String invTotShippingAmountLabel = dataDictionaryService.getAttributeLabel(PaymentDetail.class, PdpPropertyConstants.PaymentDetail.PAYMENT_INVOICE_TOTAL_SHIPPING_AMOUNT);
-            body.append(StringUtils.rightPad(invTotShippingAmountLabel, labelPad) + formatter.formatForPresentation(paymentDetail.getInvTotShipAmount()) + "\n");
-        }
-
-        if (paymentDetail.getInvTotOtherDebitAmount().isNonZero()) {
-            String invTotOtherDebitAmountLabel = dataDictionaryService.getAttributeLabel(PaymentDetail.class, PdpPropertyConstants.PaymentDetail.PAYMENT_INVOICE_TOTAL_OTHER_DEBIT_AMOUNT);
-            body.append(StringUtils.rightPad(invTotOtherDebitAmountLabel, labelPad) + formatter.formatForPresentation(paymentDetail.getInvTotOtherDebitAmount()) + "\n");
-        }
-
-        if (paymentDetail.getInvTotOtherCreditAmount().isNonZero()) {
-            String invTotOtherCreditAmountLabel = dataDictionaryService.getAttributeLabel(PaymentDetail.class, PdpPropertyConstants.PaymentDetail.PAYMENT_INVOICE_TOTAL_OTHER_CREDIT_AMOUNT);
-            body.append(StringUtils.rightPad(invTotOtherCreditAmountLabel, labelPad) + formatter.formatForPresentation(paymentDetail.getInvTotOtherCreditAmount()) + "\n");
-        }
-
-        body.append("\n" + customer.getAdviceHeaderText() + "\n");
-
-        if (StringUtils.isNotBlank(paymentDetail.getPurchaseOrderNbr())) {
-            String purchaseOrderNbrLabel = dataDictionaryService.getAttributeLabel(PaymentDetail.class, PdpPropertyConstants.PaymentDetail.PAYMENT_PURCHASE_ORDER_NUMBER);
-            body.append(StringUtils.rightPad(purchaseOrderNbrLabel, labelPad) + paymentDetail.getPurchaseOrderNbr() + "\n");
-        }
-
-        if (StringUtils.isNotBlank(paymentDetail.getInvoiceNbr())) {
-            String invoiceNbrLabel = dataDictionaryService.getAttributeLabel(PaymentDetail.class, PdpPropertyConstants.PaymentDetail.PAYMENT_INVOICE_NUMBER);
-            body.append(StringUtils.rightPad(invoiceNbrLabel, labelPad) + paymentDetail.getInvoiceNbr() + "\n");
-        }
-
-        if (StringUtils.isNotBlank(paymentDetail.getCustPaymentDocNbr())) {
-            String custPaymentDocNbrLabel = dataDictionaryService.getAttributeLabel(PaymentDetail.class, PdpPropertyConstants.PaymentDetail.PAYMENT_CUSTOMER_DOC_NUMBER);
-            body.append(StringUtils.rightPad(custPaymentDocNbrLabel, labelPad) + paymentDetail.getCustPaymentDocNbr() + "\n");
-        }
-
-        if (StringUtils.isNotBlank(paymentDetail.getCustomerInstitutionNumber())) {
-            String customerInstituitionNbrLabel = dataDictionaryService.getAttributeLabel(PaymentGroup.class, PdpPropertyConstants.CUSTOMER_INSTITUTION_NUMBER);
-            body.append(StringUtils.rightPad(customerInstituitionNbrLabel, labelPad) + paymentDetail.getCustomerInstitutionNumber() + "\n");
-        }
-
-        body.append("\n");
-
-        // print payment notes
-        for (PaymentNoteText paymentNoteText : paymentDetail.getNotes()) {
-            body.append(paymentNoteText.getCustomerNoteText() + "\n");
-        }
-
-        if (paymentDetail.getNotes().isEmpty()) {
-            body.append(getMessage(PdpKeyConstants.MESSAGE_PDP_ACH_ADVICE_EMAIL_NONOTES));
-        }
-
+        StringBuilder body = buildMessageBody(paymentGroup, customer);
         message.setMessage(body.toString());
-
+                
         // KFSMI-6475 - if not a production instance, replace the recipients with the testers list
         super.alterMessageWhenNonProductionInstance(message, null);
               
@@ -328,6 +255,48 @@ public class PdpEmailServiceImpl extends org.kuali.kfs.pdp.service.impl.PdpEmail
                 throw new RuntimeException("Could not send email to advice return email address on customer profile: " + customer.getAdviceReturnEmailAddr());
             }
         }
+    }
+    
+    /**
+     * build message body with the given payment group and customer profile
+     * @param paymentGroup the given payment group
+     * @param customer the given customer profile
+     * @return message body built from the given payment group and customer profile
+     */
+    protected StringBuilder buildMessageBody(PaymentGroup paymentGroup, CustomerProfile customer) {
+        Map<String, String> tableDefinition = paymentDetailReportHelper.getTableDefinition();
+        Formatter formatter = new CurrencyFormatter();
+                
+        StringBuilder body = new StringBuilder();
+        body.append(getMessage(PdpKeyConstants.MESSAGE_PDP_ACH_ADVICE_EMAIL_TOFROM, paymentGroup.getPayeeName(), customer.getAchPaymentDescription()));
+
+        ACHBank achBank = achBankService.getByPrimaryId(paymentGroup.getAchBankRoutingNbr());
+        if (ObjectUtils.isNull(achBank)) {
+            LOG.error("Bank cound not be found for routing number " + paymentGroup.getAchBankRoutingNbr());
+        }
+
+        String bankName = ObjectUtils.isNull(achBank) ? StringUtils.EMPTY : achBank.getBankName();
+        Object netPayment = formatter.formatForPresentation(paymentGroup.getNetPaymentAmount());
+        String bankNetPaymentMessage = getMessage(PdpKeyConstants.MESSAGE_PDP_ACH_ADVICE_EMAIL_BANKAMOUNT, bankName, netPayment);
+        body.append(bankNetPaymentMessage).append(BusinessObjectReportHelper.LINE_BREAK);
+        
+        String AdviceHeaderText = customer.getAdviceHeaderText();
+        AdviceHeaderText = StringUtils.isBlank(AdviceHeaderText) ? StringUtils.EMPTY : AdviceHeaderText;
+        body.append(AdviceHeaderText).append(BusinessObjectReportHelper.LINE_BREAK);
+        
+        String tableHeaderFormat = tableDefinition.get(KFSConstants.ReportConstants.TABLE_HEADER_LINE_KEY);
+        String separatorLine = tableDefinition.get(KFSConstants.ReportConstants.SEPARATOR_LINE_KEY);
+        String tableCellFormat = tableDefinition.get(KFSConstants.ReportConstants.TABLE_CELL_FORMAT_KEY);
+        body.append(tableHeaderFormat);
+        
+        for (PaymentDetail payment : paymentGroup.getPaymentDetails()) {
+            List<String> paymentPropertyList = paymentDetailReportHelper.getTableCellValues(payment, false);
+            String paymentDetailLine = String.format(tableCellFormat, paymentPropertyList.toArray());
+            body.append(paymentDetailLine);
+        }
+        
+        body.append(separatorLine);
+        return body;       
     }
     
     private void checkEmailAddressDomain(String emailAddress) throws InvalidAddressException {
@@ -383,6 +352,10 @@ public class PdpEmailServiceImpl extends org.kuali.kfs.pdp.service.impl.PdpEmail
     public void setAchBankService(AchBankService achBankService) {
         this.achBankService = achBankService;
         super.setAchBankService(achBankService);
+    }
+    
+    public void setPaymentDetailReportHelper(BusinessObjectReportHelper paymentDetailReportHelper) {
+        this.paymentDetailReportHelper = paymentDetailReportHelper;
     }
     
     public void setKnownEmailDomains(Set<String> knownEmailDomains) {

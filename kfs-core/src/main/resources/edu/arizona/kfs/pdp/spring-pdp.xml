@@ -405,6 +405,7 @@
 		<property name="parameterService" ref="parameterService" />
 		<property name="dataDictionaryService" ref="dataDictionaryService" />
 		<property name="achBankService" ref="pdpAchBankService" />
+		<property name="paymentDetailReportHelper" ref="paymentDetailReportHelper" />
 		<property name="knownEmailDomains">
 			<set>
 				<value>arizona.edu</value>
@@ -431,6 +432,23 @@
 		</property>
 	</bean>
 	
-	<bean id="pdpFormatService" parent="pdpFormatService-parentBean" class="edu.arizona.kfs.pdp.service.impl.FormatServiceImpl" />	
-		
+	<bean id="pdpFormatService" parent="pdpFormatService-parentBean" class="edu.arizona.kfs.pdp.service.impl.FormatServiceImpl" />
+	
+	<bean id="pdpAchAdviceNotificationService" parent="pdpAchAdviceNotificationService-parentBean" class="edu.arizona.kfs.pdp.batch.service.impl.AchAdviceNotificationServiceImpl" />
+	
+	<bean id="paymentDetailReportHelper" parent="businessObjectReportHelper">
+		<property name="dataDictionaryBusinessObjectClass" value="org.kuali.kfs.pdp.businessobject.PaymentDetail" />
+		<property name="orderedPropertyNameToHeaderLabelMap">
+			<map>				
+				<entry key="custPaymentDocNbr" value="SOURCE DOC NUMBER"/>
+				<entry key="netPaymentAmount" value="NET PAYMENT AMT"/>
+				<entry key="origInvoiceAmount" value="ORIG INVOICE AMT"/>
+				<entry key="invTotDiscountAmount" value="DISCOUNT AMT"/>
+				<entry key="invTotShipAmount" value="SHIPPING AMT"/>
+				<entry key="invoiceNbr" value="INVOICE NUMBER"/>
+			</map>
+		</property>
+		<property name="columnCount" value="6" />
+	</bean>			
+			
 </beans>
