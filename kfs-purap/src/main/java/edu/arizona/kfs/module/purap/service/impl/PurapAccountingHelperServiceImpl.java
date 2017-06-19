@@ -22,13 +22,9 @@ public class PurapAccountingHelperServiceImpl implements PurapAccountingHelperSe
 	}
 
 	// local constants
-	protected static final Boolean ITEM_TYPES_INCLUDED_VALUE = Boolean.TRUE;;
 	protected static final Boolean ITEM_TYPES_EXCLUDED_VALUE = Boolean.FALSE;
-	protected static final Boolean ZERO_TOTALS_RETURNED_VALUE = Boolean.TRUE;
 	protected static final Boolean ZERO_TOTALS_NOT_RETURNED_VALUE = Boolean.FALSE;
 	protected static final Boolean ALTERNATE_AMOUNT_USED = Boolean.TRUE;
-	protected static final Boolean ALTERNATE_AMOUNT_NOT_USED = Boolean.FALSE;
-	protected static final Boolean USE_TAX_INCLUDED = Boolean.TRUE;
 	protected static final Boolean USE_TAX_EXCLUDED = Boolean.FALSE;
 
 	@Override
@@ -40,7 +36,7 @@ public class PurapAccountingHelperServiceImpl implements PurapAccountingHelperSe
 			PurapConstants.ItemTypeCodes.ITEM_TYPE_FEDERAL_TAX_CODE, 
 			PurapConstants.ItemTypeCodes.ITEM_TYPE_STATE_TAX_CODE };
 		
-		Set itemsToExclude = new HashSet(Arrays.asList(taxItemTypeCodes));
+		Set<String> itemsToExclude = new HashSet<String>(Arrays.asList(taxItemTypeCodes));
 
 		List<SourceAccountingLine> returnList = purapAccountingService.generateAccountSummary(items, itemsToExclude, ITEM_TYPES_EXCLUDED_VALUE, ZERO_TOTALS_NOT_RETURNED_VALUE, ALTERNATE_AMOUNT_USED, USE_TAX_EXCLUDED, false);
 		if (LOG.isDebugEnabled()) {

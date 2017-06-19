@@ -303,8 +303,6 @@ public class PaymentRequestDocument extends org.kuali.kfs.module.purap.document.
 
         this.setPaymentRequestPayDate(SpringContext.getBean(PaymentRequestService.class).calculatePayDate(this.getInvoiceDate(), this.getVendorPaymentTerms()));
 
-        AccountsPayableService accountsPayableService = SpringContext.getBean(AccountsPayableService.class);
-
         if(SpringContext.getBean(PaymentRequestService.class).encumberedItemExistsForInvoicing(po))
         {
             for (PurchaseOrderItem poi : (List<PurchaseOrderItem>) po.getItems()) {
@@ -525,7 +523,7 @@ public class PaymentRequestDocument extends org.kuali.kfs.module.purap.document.
 		GeneralLedgerPendingEntry offsetEntry = new GeneralLedgerPendingEntry(explicitEntry);
 		boolean success = processOffsetGeneralLedgerPendingEntry(sequenceHelper, glpeSourceDetail, explicitEntry, offsetEntry);
 
-		processUseTaxOffsetGeneralLedgerPendingEntries(sequenceHelper, glpeSourceDetail, explicitEntry, offsetEntry);
+		processUseTaxOffsetGeneralLedgerPendingEntries(sequenceHelper, explicitEntry, offsetEntry);
 
 		processTaxWithholdingGeneralLedgerPendingEntriesPREQ(sequenceHelper, glpeSourceDetail, explicitEntry, offsetEntry);
 
@@ -597,8 +595,8 @@ public class PaymentRequestDocument extends org.kuali.kfs.module.purap.document.
 	}
 
 	private void processTaxWithholdingGeneralLedgerPendingEntriesPREQ(GeneralLedgerPendingEntrySequenceHelper sequenceHelper, GeneralLedgerPendingEntrySourceDetail glpeSourceDetail, GeneralLedgerPendingEntry explicitEntry, GeneralLedgerPendingEntry offsetEntry) {
-		String incomeClassCode = ((PaymentRequestDocument) this).getTaxClassificationCode();
-		if ((StringUtils.isNotEmpty(incomeClassCode) && !StringUtils.equalsIgnoreCase(incomeClassCode, "N")) && ((((PaymentRequestDocument) this).getTaxFederalPercent().compareTo(new BigDecimal(0)) != 0) || (((PaymentRequestDocument) this).getTaxStatePercent().compareTo(new BigDecimal(0)) != 0))) {
+		String incomeClassCode = this.getTaxClassificationCode();
+		if ((StringUtils.isNotEmpty(incomeClassCode) && !StringUtils.equalsIgnoreCase(incomeClassCode, "N")) && ((this.getTaxFederalPercent().compareTo(new BigDecimal(0)) != 0) || (this.getTaxStatePercent().compareTo(new BigDecimal(0)) != 0))) {
 			ParameterService parameterService = SpringContext.getBean(ParameterService.class);
 			String taxAccount = parameterService.getParameterValueAsString(PaymentRequestDocument.class, NRATaxParameters.FEDERAL_TAX_PARM_PREFIX + NRATaxParameters.TAX_PARM_ACCOUNT_SUFFIX);
 			if (!offsetEntry.getAccountNumber().equals(taxAccount)) {
@@ -629,14 +627,14 @@ public class PaymentRequestDocument extends org.kuali.kfs.module.purap.document.
 		addPendingEntry(taxWithholdingOffset);
 	}
 
-	private void processUseTaxOffsetGeneralLedgerPendingEntries( GeneralLedgerPendingEntrySequenceHelper sequenceHelper, GeneralLedgerPendingEntrySourceDetail glpeSourceDetail, GeneralLedgerPendingEntry explicitEntry, GeneralLedgerPendingEntry offsetEntry) {
+	private void processUseTaxOffsetGeneralLedgerPendingEntries( GeneralLedgerPendingEntrySequenceHelper sequenceHelper, GeneralLedgerPendingEntry explicitEntry, GeneralLedgerPendingEntry offsetEntry) {
 		ParameterService parameterService = SpringContext.getBean(ParameterService.class);
 
 		String glpeOffsetObjectCode = parameterService.getParameterValueAsString(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapParameterConstants.GENERAL_LEDGER_PENDING_ENTRY_OFFSET_OBJECT_CODE);
 
 		Map<String, String> pkMap = new HashMap<String, String>();
 		pkMap.put(KFSPropertyConstants.TAX_REGION_CODE, parameterService.getParameterValueAsString(ProcurementCardDocument.class, PurapParameterConstants.GL_USETAX_TAX_REGION));
-		TaxRegion taxRegion = (TaxRegion) getBusinessObjectService().findByPrimaryKey(TaxRegion.class, pkMap);
+		TaxRegion taxRegion = getBusinessObjectService().findByPrimaryKey(TaxRegion.class, pkMap);
 
 		if (offsetEntry.getAccountNumber().equals(taxRegion.getAccountNumber())) {
 			offsetEntry.setSubAccountNumber(null);

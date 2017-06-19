@@ -1,9 +1,8 @@
 package edu.arizona.kfs.module.purap.service.impl;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -12,7 +11,6 @@ import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLine;
 import org.kuali.kfs.module.purap.businessobject.PurApItem;
 import org.kuali.kfs.module.purap.businessobject.PurApItemUseTax;
-//import org.kuali.kfs.module.purap.document.PaymentRequestDocument;
 import org.kuali.kfs.module.purap.document.PurchasingAccountsPayableDocument;
 import org.kuali.kfs.module.purap.util.UseTaxContainer;
 import org.kuali.kfs.sys.businessobject.AccountingLineBase;
@@ -21,10 +19,9 @@ import org.kuali.kfs.sys.util.ObjectPopulationUtils;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.krad.util.ObjectUtils;
 
+import edu.arizona.kfs.module.purap.document.PaymentRequestDocument;
 import edu.arizona.kfs.module.purap.service.PurapAccountingHelperService;
 import edu.arizona.kfs.module.purap.service.PurapAccountingService;
-import edu.arizona.kfs.module.purap.document.PaymentRequestDocument;
-
 
 public class PurapAccountingServiceImpl extends org.kuali.kfs.module.purap.service.impl.PurapAccountingServiceImpl implements PurapAccountingService {
 
@@ -172,6 +169,69 @@ public class PurapAccountingServiceImpl extends org.kuali.kfs.module.purap.servi
         }
         
         return vendorSummaryAccounts;
+    }
+    
+    /**
+     * calculates values for a list of accounting lines based on an amount taking discount into account
+     *
+     * @param sourceAccountingLines
+     * @param totalAmount
+     * @param discountAmount
+     */
+    @Override
+    public <T extends PurApAccountingLine> void updateAccountAmountsWithTotal(List<T> sourceAccountingLines, KualiDecimal totalAmount, KualiDecimal discountAmount) {
+        // if we have a discount, then we need to base the amounts on the discount, but the percent on the total
+        boolean noDiscount = true;
+        if ((discountAmount != null) && KualiDecimal.ZERO.compareTo(discountAmount) != 0) {
+            noDiscount = false;
+        }
+
+        if ((totalAmount != null) && KualiDecimal.ZERO.compareTo(totalAmount) != 0) {
+            KualiDecimal accountTotal = KualiDecimal.ZERO;
+            T lastAccount = null;
+
+            for (T account : sourceAccountingLines) {
+                if (ObjectUtils.isNotNull(account.getAccountLinePercent()) || ObjectUtils.isNotNull(account.getAmount())) {
+                    BigDecimal pct = new BigDecimal(account.getAccountLinePercent().toString()).divide(new BigDecimal(100));
+                    if (noDiscount) {
+                        if (ObjectUtils.isNull(account.getAmount()) || account.getAmount().isZero()) {
+                            account.setAmount(new KualiDecimal(pct.multiply(new BigDecimal(totalAmount.toString())).setScale(KualiDecimal.SCALE, KualiDecimal.ROUND_BEHAVIOR)));
+                        }
+                    }
+                    else {
+                        account.setAmount(new KualiDecimal(pct.multiply(new BigDecimal(discountAmount.toString())).setScale(KualiDecimal.SCALE, KualiDecimal.ROUND_BEHAVIOR)));
+                    }
+                }
+                
+                accountTotal = accountTotal.add(account.getAmount());
+
+                lastAccount = account;
+            }
+
+            // put excess on last account
+            if (lastAccount != null) {
+                KualiDecimal difference = new KualiDecimal(0);
+                if (noDiscount) {
+                    difference = totalAmount.subtract(accountTotal);
+                }
+                else {
+                    difference = discountAmount.subtract(accountTotal);
+                }
+
+                for (T account : sourceAccountingLines) {
+                    if (ObjectUtils.isNotNull(account.getAccountLinePercent()) || ObjectUtils.isNotNull(account.getAmount())) {
+                        BigDecimal percentPerAccountLine = new BigDecimal(account.getAccountLinePercent().toString()).divide(new BigDecimal(100));
+                        account.setAmount(account.getAmount().add(new KualiDecimal(percentPerAccountLine.multiply(new BigDecimal(difference.toString())).setScale(KualiDecimal.SCALE, KualiDecimal.ROUND_BEHAVIOR))));
+                    }
+                }
+            }
+        }
+        else {
+            // zero out if extended price is zero
+            for (T account : sourceAccountingLines) {
+                account.setAmount(KualiDecimal.ZERO);
+            }
+        }
     }
 
 }
