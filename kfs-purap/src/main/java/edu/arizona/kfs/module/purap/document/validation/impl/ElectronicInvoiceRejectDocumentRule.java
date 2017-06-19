@@ -7,8 +7,24 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.krad.document.Document;
 import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.rice.krad.util.MessageMap;
+
+import edu.arizona.kfs.sys.KFSKeyConstants;
 
 public class ElectronicInvoiceRejectDocumentRule extends org.kuali.kfs.module.purap.document.validation.impl.ElectronicInvoiceRejectDocumentRule {
+    protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ElectronicInvoiceRejectDocumentRule.class);
+
+    @Override
+    protected boolean processCustomSaveDocumentBusinessRules(Document document) {
+        if (GlobalVariables.getMessageMap().hasErrors()) {
+            MessageMap errorMap = GlobalVariables.getMessageMap();
+            if (errorMap.containsMessageKey(KFSKeyConstants.ERROR_MAX_LENGTH)) {
+                return false;
+            }
+        }
+        boolean isValid = processBusinessRules(document);
+        return true; // we always want to return true to allow a save unless there is something that would prevent the save.
+    }
 
     @Override
     protected boolean processBusinessRules(Document document) {
@@ -24,11 +40,9 @@ public class ElectronicInvoiceRejectDocumentRule extends org.kuali.kfs.module.pu
 
         if (!eirDocument.isDocumentCreationInProgress()) {
             isValid = isValid && SpringContext.getBean(ElectronicInvoiceHelperService.class).doMatchingProcess(eirDocument);
-            if (isValid) {
-                SpringContext.getBean(ElectronicInvoiceHelperService.class).createPaymentRequest(eirDocument);
-            }
         }
 
         return isValid;
     }
+
 }

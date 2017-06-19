@@ -18,7 +18,10 @@ public class TaxServiceImpl extends org.kuali.kfs.sys.service.impl.TaxServiceImp
     public List<TaxDetail> getSalesTaxDetails(Date dateOfTransaction, String postalCode, KualiDecimal amount) {
         List<TaxDetail> salesTaxDetails = new ArrayList<TaxDetail>();
 
-        if (StringUtils.isNotEmpty(postalCode)) {
+        if (StringUtils.isNotBlank(postalCode)) {
+            // strip digits from the postal code before passing it to the sales tax regions
+            // if the parameters indicate to do so.
+            postalCode = truncatePostalCodeForSalesTaxRegionService(postalCode);
             List<TaxRegion> salesTaxRegions = taxRegionService.getSalesTaxRegions(postalCode);
             TaxDetail newTaxDetail = null;
             for (TaxRegion taxRegion : salesTaxRegions) {
@@ -36,7 +39,7 @@ public class TaxServiceImpl extends org.kuali.kfs.sys.service.impl.TaxServiceImp
     public List<TaxDetail> getUseTaxDetails(Date dateOfTransaction, String postalCode, KualiDecimal amount) {
         List<TaxDetail> useTaxDetails = new ArrayList<TaxDetail>();
 
-        if (StringUtils.isNotEmpty(postalCode)) {
+        if (StringUtils.isNotBlank(postalCode)) {
             // strip digits from the postal code before passing it to the sales tax regions
             // if the parameters indicate to do so.
             postalCode = truncatePostalCodeForSalesTaxRegionService(postalCode);
@@ -45,7 +48,6 @@ public class TaxServiceImpl extends org.kuali.kfs.sys.service.impl.TaxServiceImp
                 useTaxDetails.add(populateTaxDetail(taxRegion, dateOfTransaction, amount));
             }
         }
-
         return useTaxDetails;
     }
 
@@ -53,8 +55,7 @@ public class TaxServiceImpl extends org.kuali.kfs.sys.service.impl.TaxServiceImp
     public KualiDecimal getTotalSalesTaxAmount(Date dateOfTransaction, String postalCode, KualiDecimal amount) {
         KualiDecimal totalSalesTaxAmount = KualiDecimal.ZERO;
 
-        if (StringUtils.isNotEmpty(postalCode)) {
-
+        if (StringUtils.isNotBlank(postalCode)) {
             // strip digits from the postal code before passing it to the sales tax regions
             // if the parameters indicate to do so.
             postalCode = truncatePostalCodeForSalesTaxRegionService(postalCode);
@@ -66,7 +67,6 @@ public class TaxServiceImpl extends org.kuali.kfs.sys.service.impl.TaxServiceImp
                 totalSalesTaxAmount = totalSalesTaxAmount.add(newTaxAmount);
             }
         }
-
         return totalSalesTaxAmount;
     }
 

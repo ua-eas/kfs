@@ -1,8 +1,11 @@
 package edu.arizona.kfs.module.purap.service.impl;
 
 import java.io.File;
-import java.io.FileFilter;
+import java.io.FilenameFilter;
 import java.io.IOException;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -11,8 +14,9 @@ import java.util.Map;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coa.businessobject.SubAccount;
+import org.kuali.kfs.coa.service.SubAccountService;
 import org.kuali.kfs.module.purap.PurapConstants;
-import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.PurapParameterConstants;
 import org.kuali.kfs.module.purap.batch.ElectronicInvoiceStep;
 import org.kuali.kfs.module.purap.businessobject.ElectronicInvoice;
@@ -34,9 +38,11 @@ import org.kuali.kfs.module.purap.exception.PurError;
 import org.kuali.kfs.module.purap.service.impl.ElectronicInvoiceOrderHolder;
 import org.kuali.kfs.module.purap.util.ExpiredOrClosedAccountEntry;
 import org.kuali.kfs.sys.businessobject.Bank;
+import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.BankService;
 import org.kuali.kfs.sys.service.NonTransactional;
+import org.kuali.kfs.vnd.VendorConstants;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.coreservice.framework.parameter.ParameterService;
@@ -46,6 +52,7 @@ import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.rice.kns.util.KNSGlobalVariables;
 import org.kuali.rice.krad.document.DocumentBase;
 import org.kuali.rice.krad.exception.ValidationException;
+import org.kuali.rice.krad.rules.rule.event.SaveDocumentEvent;
 import org.kuali.rice.krad.service.DocumentService;
 import org.kuali.rice.krad.service.KualiRuleService;
 import org.kuali.rice.krad.util.ErrorMessage;
@@ -53,17 +60,35 @@ import org.kuali.rice.krad.util.GlobalVariables;
 import org.kuali.rice.krad.workflow.service.WorkflowDocumentService;
 import org.springframework.util.AutoPopulatingList;
 
+import edu.arizona.kfs.gl.GeneralLedgerConstants;
+import edu.arizona.kfs.module.purap.PurapKeyConstants;
+import edu.arizona.kfs.module.purap.service.PurapAccountingService;
+import edu.arizona.kfs.sys.KFSConstants;
+
 /**
  * This is a helper service to parse electronic invoice file, match it with a PO and create PREQs based on the eInvoice. Also, it
  * provides helper methods to the reject document to match it with a PO and create PREQ.
+ * Deprecation: KNSGlobalVariables marked as deprecated.
  */
 
+@SuppressWarnings("deprecation")
 public class ElectronicInvoiceHelperServiceImpl extends org.kuali.kfs.module.purap.service.impl.ElectronicInvoiceHelperServiceImpl {
+
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ElectronicInvoiceHelperServiceImpl.class);
 
     protected DocumentService documentService;
     protected WorkflowDocumentService workflowDocumentService;
     protected KualiRuleService kualiRuleService;
+    protected SubAccountService subAccountService;
+    protected PurapAccountingService purapAccountingService;
+
+    public void setSubAccountService(SubAccountService subAccountService) {
+        this.subAccountService = subAccountService;
+    }
+
+    public void setPurapAccountingService(PurapAccountingService purapAccountingService) {
+        this.purapAccountingService = purapAccountingService;
+    }
 
     @Override
     @NonTransactional
@@ -126,9 +151,9 @@ public class ElectronicInvoiceHelperServiceImpl extends org.kuali.kfs.module.pur
 
         StringBuilder emailMsg = new StringBuilder();
 
-        for (int i = 0; i < filesToBeProcessed.length; i++) {
+        for (File xmlFile : filesToBeProcessed) {
+            deleteDoneFile(xmlFile);
 
-            File xmlFile = filesToBeProcessed[i];
             LOG.info("Processing " + xmlFile.getName() + "....");
 
             byte[] modifiedXML = null;
@@ -220,8 +245,6 @@ public class ElectronicInvoiceHelperServiceImpl extends org.kuali.kfs.module.pur
                 }
             }
 
-            // delete the .done file
-            deleteDoneFile(xmlFile);
         }
 
         emailTextErrorList.append("\nFAILED FILES\n");
@@ -248,29 +271,46 @@ public class ElectronicInvoiceHelperServiceImpl extends org.kuali.kfs.module.pur
 
     @Override
     protected File[] getFilesToBeProcessed() {
-        File[] filesToBeProcessed;
+        List<File> fileList = new ArrayList<File>();
+        List<File> doneFileList = new ArrayList<File>();
         String baseDirName = getBaseDirName();
         File baseDir = new File(baseDirName);
         if (!baseDir.exists()) {
             throw new RuntimeException("Base dir [" + baseDirName + "] doesn't exists in the system");
         }
-        filesToBeProcessed = baseDir.listFiles(new FileFilter() {
-            @Override
-            public boolean accept(File file) {
-                String fullPath = FilenameUtils.getFullPath(file.getAbsolutePath());
-                String fileName = FilenameUtils.getBaseName(file.getAbsolutePath());
-                File processedFile = new File(fullPath + File.separator + fileName + ".processed");
-                return (!file.isDirectory() && file.getName().endsWith(electronicInvoiceInputFileType.getFileExtension()) && !processedFile.exists());
-            }
-        });
+        doneFileList = Arrays.asList(baseDir.listFiles(new DoneFilenameFilter()));
+        for (File donefile : doneFileList) {
+            String fileName = donefile.getAbsolutePath();
+            fileName = FilenameUtils.removeExtension(fileName) + KFSConstants.XML_EXTENSION;
+            fileList.add(new File(fileName));
+        }
+        File[] filesToBeProcessed = fileList.toArray(new File[0]);
 
         return filesToBeProcessed;
     }
 
+    @Override
+    protected void deleteDoneFile(File invoiceFile) {
+        String strippedOfName = FilenameUtils.removeExtension(invoiceFile.getAbsolutePath());
+        String doneFile = strippedOfName + GeneralLedgerConstants.BatchFileSystem.DONE_FILE_EXTENSION;
+
+        try {
+            FileUtils.deleteQuietly(new File(doneFile));
+        } catch (Exception e) {
+            LOG.error("Error in ElectronicInvoiceHelperService in method deleteDoneFile");
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     protected StringBuffer saveLoadSummary(ElectronicInvoiceLoad eInvoiceLoad) {
 
         Map savedLoadSummariesMap = new HashMap();
         StringBuffer summaryMessage = new StringBuffer();
+        int totalPREQCount = 0;
+        int totalEIRTCount = 0;
+        summaryMessage.append("PREQ/EIRT DOCUMENT SUMMARY by VENDOR\n");
+        summaryMessage.append("-----------------------------------------------------------\n");
 
         for (Iterator iter = eInvoiceLoad.getInvoiceLoadSummaries().keySet().iterator(); iter.hasNext();) {
 
@@ -283,8 +323,10 @@ public class ElectronicInvoiceHelperServiceImpl extends org.kuali.kfs.module.pur
                 ElectronicInvoiceLoadSummary currentLoadSummary = saveElectronicInvoiceLoadSummary(eInvoiceLoadSummary);
 
                 summaryMessage.append("DUNS Number - " + eInvoiceLoadSummary.getVendorDescriptor() + ":\n");
-                summaryMessage.append("     " + eInvoiceLoadSummary.getInvoiceLoadSuccessCount() + " successfully processed invoices for a total of $ " + eInvoiceLoadSummary.getInvoiceLoadSuccessAmount().doubleValue() + "\n");
-                summaryMessage.append("     " + eInvoiceLoadSummary.getInvoiceLoadFailCount() + " rejected invoices for an approximate total of $ " + eInvoiceLoadSummary.getInvoiceLoadFailAmount().doubleValue() + "\n");
+                summaryMessage.append("     " + eInvoiceLoadSummary.getInvoiceLoadSuccessCount() + " PREQ successfully processed invoices for a total of $ " + eInvoiceLoadSummary.getInvoiceLoadSuccessAmount().doubleValue() + "\n");
+                summaryMessage.append("     " + eInvoiceLoadSummary.getInvoiceLoadFailCount() + " EIRT rejected invoices for an approximate total of $ " + eInvoiceLoadSummary.getInvoiceLoadFailAmount().doubleValue() + "\n");
+                totalPREQCount += eInvoiceLoadSummary.getInvoiceLoadSuccessCount();
+                totalEIRTCount += eInvoiceLoadSummary.getInvoiceLoadFailCount();
                 summaryMessage.append("\n\n");
 
                 savedLoadSummariesMap.put(currentLoadSummary.getVendorDunsNumber(), eInvoiceLoadSummary);
@@ -294,7 +336,13 @@ public class ElectronicInvoiceHelperServiceImpl extends org.kuali.kfs.module.pur
             }
         }
 
-        summaryMessage.append("\n\n");
+        summaryMessage.append("\nREJECTED INVOICE DETAILS (EIRT)\n");
+        summaryMessage.append("-----------------------------------------------------------\n");
+        summaryMessage.append("TOTAL COUNTS\n");
+        summaryMessage.append("===========================\n");
+        summaryMessage.append("      " + totalPREQCount + " PREQ\n");
+        summaryMessage.append("      " + totalEIRTCount + " EIRT\n");
+        summaryMessage.append("===========================\n");
 
         for (Iterator rejectIter = eInvoiceLoad.getRejectDocuments().iterator(); rejectIter.hasNext();) {
             ElectronicInvoiceRejectDocument rejectDoc = (ElectronicInvoiceRejectDocument) rejectIter.next();
@@ -310,6 +358,7 @@ public class ElectronicInvoiceHelperServiceImpl extends org.kuali.kfs.module.pur
         return summaryMessage;
     }
 
+    @Override
     protected PaymentRequestDocument createPaymentRequest(ElectronicInvoiceOrderHolder orderHolder) {
 
         if (LOG.isInfoEnabled()) {
@@ -382,7 +431,7 @@ public class ElectronicInvoiceHelperServiceImpl extends org.kuali.kfs.module.pur
             setProcessingCampus(preqDoc, user.getCampusCode());
 
         } catch (Exception e) {
-            String extraDescription = "Error setting processing campus code - " + e.getMessage();
+            String extraDescription = "Error setting processing campus code - " + e.getMessage() + "(" + generateMessageFromMessageMap() + ")";
             ElectronicInvoiceRejectReason rejectReason = matchingService.createRejectReason(PurapConstants.ElectronicInvoice.PREQ_ROUTING_VALIDATION_ERROR, extraDescription, orderHolder.getFileName());
             orderHolder.addInvoiceOrderRejectReason(rejectReason);
             return null;
@@ -390,7 +439,7 @@ public class ElectronicInvoiceHelperServiceImpl extends org.kuali.kfs.module.pur
 
         HashMap<String, ExpiredOrClosedAccountEntry> expiredOrClosedAccountList = SpringContext.getBean(AccountsPayableService.class).expiredOrClosedAccountsList(poDoc);
         if (expiredOrClosedAccountList == null) {
-            expiredOrClosedAccountList = new HashMap();
+            expiredOrClosedAccountList = new HashMap<String, ExpiredOrClosedAccountEntry>();
         }
 
         if (LOG.isInfoEnabled()) {
@@ -424,9 +473,8 @@ public class ElectronicInvoiceHelperServiceImpl extends org.kuali.kfs.module.pur
             if (LOG.isInfoEnabled()) {
                 LOG.info("***************Error in rules processing - " + GlobalVariables.getMessageMap());
             }
-            Map<String, AutoPopulatingList<ErrorMessage>> errorMessages = GlobalVariables.getMessageMap().getErrorMessages();
 
-            String errors = errorMessages.toString();
+            String errors = generateMessageFromMessageMap();
             ElectronicInvoiceRejectReason rejectReason = matchingService.createRejectReason(PurapConstants.ElectronicInvoice.PREQ_ROUTING_VALIDATION_ERROR, errors, orderHolder.getFileName());
             orderHolder.addInvoiceOrderRejectReason(rejectReason);
             return null;
@@ -449,6 +497,7 @@ public class ElectronicInvoiceHelperServiceImpl extends org.kuali.kfs.module.pur
         }
 
         try {
+            LOG.info("Save and Route Document #" + preqDoc.getDocumentNumber());
             documentService.saveDocument(preqDoc);
             documentService.prepareWorkflowDocument(preqDoc);
             DocumentBase docBase = (DocumentBase) preqDoc;
@@ -459,7 +508,7 @@ public class ElectronicInvoiceHelperServiceImpl extends org.kuali.kfs.module.pur
             orderHolder.addInvoiceOrderRejectReason(rejectReason);
             return null;
         } catch (ValidationException e) {
-            String extraDescription = GlobalVariables.getMessageMap().toString();
+            String extraDescription = generateMessageFromMessageMap();
             ElectronicInvoiceRejectReason rejectReason = matchingService.createRejectReason(PurapConstants.ElectronicInvoice.PREQ_ROUTING_VALIDATION_ERROR, extraDescription, orderHolder.getFileName());
             orderHolder.addInvoiceOrderRejectReason(rejectReason);
             return null;
@@ -468,6 +517,33 @@ public class ElectronicInvoiceHelperServiceImpl extends org.kuali.kfs.module.pur
         return preqDoc;
     }
 
+    private String generateMessageFromMessageMap() {
+
+        Map<String, AutoPopulatingList<ErrorMessage>> errorMessageMap = GlobalVariables.getMessageMap().getErrorMessages();
+
+        List<ErrorMessage> errorMessageList = new ArrayList<ErrorMessage>();
+        for (String index : errorMessageMap.keySet()) {
+            for (ErrorMessage errorMessage : errorMessageMap.get(index)) {
+                errorMessageList.add(errorMessage);
+            }
+        }
+
+        StringBuilder extraDescription = new StringBuilder();
+        for (ErrorMessage errorMessage : errorMessageList) {
+            String errorMessageKey = errorMessage.getErrorKey();
+            String[] errorMessageParameters = errorMessage.getMessageParameters();
+
+            String message = kualiConfigurationService.getPropertyValueAsString(errorMessageKey);
+            String formattedMessage = MessageFormat.format(message, (Object[]) errorMessageParameters);
+            extraDescription.append(formattedMessage);
+            extraDescription.append(", ");
+        }
+
+        extraDescription.setLength(extraDescription.length() - 2);
+        return extraDescription.toString();
+    }
+
+    @Override
     @NonTransactional
     public void validateInvoiceOrderValidForPREQCreation(ElectronicInvoiceOrderHolder orderHolder) {
 
@@ -482,7 +558,7 @@ public class ElectronicInvoiceHelperServiceImpl extends org.kuali.kfs.module.pur
         }
 
         if (!orderHolder.isInvoiceNumberAcceptIndicatorEnabled()) {
-            List preqs = paymentRequestService.getPaymentRequestsByVendorNumberInvoiceNumber(poDoc.getVendorHeaderGeneratedIdentifier(), poDoc.getVendorDetailAssignedIdentifier(), orderHolder.getInvoiceNumber());
+            List<?> preqs = paymentRequestService.getPaymentRequestsByVendorNumberInvoiceNumber(poDoc.getVendorHeaderGeneratedIdentifier(), poDoc.getVendorDetailAssignedIdentifier(), orderHolder.getInvoiceNumber());
 
             if (preqs != null && preqs.size() > 0) {
                 ElectronicInvoiceRejectReason rejectReason = matchingService.createRejectReason(PurapConstants.ElectronicInvoice.INVOICE_ORDER_DUPLICATE, null, orderHolder.getFileName());
@@ -501,6 +577,7 @@ public class ElectronicInvoiceHelperServiceImpl extends org.kuali.kfs.module.pur
             return;
         }
 
+        addInvoiceOrderRejectionForInactiveSubAccountsIfRequired(orderHolder);
     }
 
     protected void populateItemDetails(PaymentRequestDocument preqDocument, ElectronicInvoiceOrderHolder orderHolder) {
@@ -508,6 +585,7 @@ public class ElectronicInvoiceHelperServiceImpl extends org.kuali.kfs.module.pur
             LOG.info("Populating invoice order items into the payment request document");
         }
 
+        @SuppressWarnings("unchecked")
         List<PurApItem> preqItems = preqDocument.getItems();
 
         // process all preq items and apply amounts from order holder
@@ -522,6 +600,13 @@ public class ElectronicInvoiceHelperServiceImpl extends org.kuali.kfs.module.pur
         if (LOG.isInfoEnabled()) {
             LOG.info("Successfully populated the invoice order items");
         }
+    }
+
+    @Override
+    protected boolean isItemValidForUpdation(String itemTypeCode, String invoiceItemTypeCode, ElectronicInvoiceOrderHolder orderHolder) {
+        boolean isItemTypeAvailableInItemMapping = orderHolder.isItemTypeAvailableInItemMapping(invoiceItemTypeCode);
+        String itemTypeCodeFromMappings = orderHolder.getKualiItemTypeCodeFromMappings(itemTypeCode);
+        return isItemTypeAvailableInItemMapping && StringUtils.equals(itemTypeCodeFromMappings, invoiceItemTypeCode);
     }
 
     public void setDocumentService(DocumentService documentService) {
@@ -570,6 +655,13 @@ public class ElectronicInvoiceHelperServiceImpl extends org.kuali.kfs.module.pur
             throw new RuntimeException(e);
         }
 
+        try {
+            eInvoiceRejectDocument.validateBusinessRules(new SaveDocumentEvent(eInvoiceRejectDocument));
+        } catch (RuntimeException e) {
+            eInvoiceLoad.removeInvoiceReject(eInvoiceRejectDocument);
+            throw e;
+        }
+
         if (LOG.isInfoEnabled()) {
             LOG.info("Reject document has been created (DocNo=" + eInvoiceRejectDocument.getDocumentNumber() + ")");
         }
@@ -589,4 +681,81 @@ public class ElectronicInvoiceHelperServiceImpl extends org.kuali.kfs.module.pur
         return eInvoiceRejectDocument;
     }
 
+    /**
+     * This method is responsible for adding an invoice reject reason for inactive sub accounts if required
+     *
+     * @param orderHolder
+     *            - invoice order holder
+     */
+    private void addInvoiceOrderRejectionForInactiveSubAccountsIfRequired(ElectronicInvoiceOrderHolder orderHolder) {
+        PurchaseOrderDocument poDoc = orderHolder.getPurchaseOrderDocument();
+
+        if (poDoc != null) {
+            List<SubAccount> inactiveSubAccounts = getInactiveSubAccountsFromPurchaseOrder(poDoc);
+
+            if (!inactiveSubAccounts.isEmpty()) {
+                StringBuilder inactiveSubAccountNumbers = new StringBuilder();
+
+                // if we have multiple inactive sub accounts concatenate info
+                for (SubAccount subAccount : inactiveSubAccounts) {
+                    LOG.debug(subAccount.toString());
+
+                    inactiveSubAccountNumbers.append(subAccount.getChartOfAccountsCode());
+                    inactiveSubAccountNumbers.append("---");
+                    inactiveSubAccountNumbers.append(subAccount.getAccountNumber());
+                    inactiveSubAccountNumbers.append("---");
+                    inactiveSubAccountNumbers.append(subAccount.getSubAccountNumber());
+                    inactiveSubAccountNumbers.append(VendorConstants.NAME_DELIM);
+                }
+                inactiveSubAccountNumbers.setLength(inactiveSubAccountNumbers.length() - 2);
+
+                String errors = generateMessageFromMessageMap();
+                ElectronicInvoiceRejectReason rejectReason = matchingService.createRejectReason(PurapConstants.ElectronicInvoice.PREQ_ROUTING_VALIDATION_ERROR, errors, orderHolder.getFileName());
+
+                // because the rejected invoice does not show sub accounts (these are found on the requisition),
+                // lets customize the reject description to indicate that fact
+
+                String rejectMessage = kualiConfigurationService.getPropertyValueAsString(PurapKeyConstants.ERROR_REJECT_INVOICE_INACTIVE_SUB_ACCOUNT);
+                String formattedMessage = MessageFormat.format(rejectMessage, new Object[] { poDoc.getDocumentNumber(), inactiveSubAccountNumbers.toString() });
+                rejectReason.setInvoiceRejectReasonDescription(formattedMessage);
+                orderHolder.addInvoiceOrderRejectReason(rejectReason);
+            }
+        }
+    }
+
+    /**
+     * This method is responsible for checking a purchase order for inactive sub accounts and returning a list of those sub accounts
+     *
+     * @param po
+     *            - input purchase order to check for inactive sub accounts
+     * @return list of inactive SubAccount objects
+     */
+    private List<SubAccount> getInactiveSubAccountsFromPurchaseOrder(PurchaseOrderDocument po) {
+        List<SubAccount> retval = new ArrayList<SubAccount>();
+
+        if (po != null) {
+            // get list of active accounts
+            List<SourceAccountingLine> accountList = purapAccountingService.generateSummary(po.getItemsActiveOnly());
+
+            // loop through accounts
+            for (SourceAccountingLine poAccountingLine : accountList) {
+                if (poAccountingLine.getSubAccount() != null) {
+                    SubAccount subAccount = subAccountService.getByPrimaryId(poAccountingLine.getChartOfAccountsCode(), poAccountingLine.getAccountNumber(), poAccountingLine.getSubAccountNumber());
+
+                    if ((subAccount != null) && !subAccount.isActive()) {
+                        retval.add(subAccount);
+                    }
+                }
+            }
+        }
+
+        return retval;
+    }
+
+    protected class DoneFilenameFilter implements FilenameFilter {
+        @Override
+        public boolean accept(File dir, String name) {
+            return name.endsWith(".done");
+        }
+    }
 }

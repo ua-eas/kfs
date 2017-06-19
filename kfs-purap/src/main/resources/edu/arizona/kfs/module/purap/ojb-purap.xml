@@ -1322,7 +1322,7 @@
     </reference-descriptor>    
 </class-descriptor>
 
-    <class-descriptor class="org.kuali.kfs.module.purap.document.ElectronicInvoiceRejectDocument" table="AP_ELCTRNC_INV_RJT_DOC_T">
+    <class-descriptor class="edu.arizona.kfs.module.purap.document.ElectronicInvoiceRejectDocument" table="AP_ELCTRNC_INV_RJT_DOC_T">
 
         <field-descriptor name="purapDocumentIdentifier" column="INV_RJT_ID" jdbc-type="INTEGER" primarykey="true" index="true" autoincrement="true" sequence-name="AP_INV_RJT_ID_SEQ"/>
         <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true"/>
@@ -1493,6 +1493,7 @@
         <field-descriptor name="invoiceReferenceItemCountryName" column="INV_REF_ITM_CNTRY_NM" jdbc-type="VARCHAR"/>
         <field-descriptor name="unitOfMeasureAcceptIndicator" column="INV_UOM_ACPT_IND" jdbc-type="VARCHAR" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
         <field-descriptor name="catalogNumberAcceptIndicator" column="INV_CATLG_NBR_ACPT_IND" jdbc-type="VARCHAR" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
+        <field-descriptor name="unitPriceAcceptIndicator" column="INV_UNIT_PRC_ACPT_IND" jdbc-type="VARCHAR" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
 
         <reference-descriptor name="electronicInvoiceRejectDocument" class-ref="org.kuali.kfs.module.purap.document.ElectronicInvoiceRejectDocument" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
             <foreignkey field-ref="purapDocumentIdentifier" />

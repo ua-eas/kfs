@@ -15,6 +15,10 @@ public class PaymentRequestVendorValidation extends GenericValidation {
     public boolean validate(AttributedDocumentEvent event) {
         boolean valid = true;
         PaymentRequestDocument document = (PaymentRequestDocument) event.getDocument();
+        if (document.getPaymentRequestElectronicInvoiceIndicator()) {
+            // if it is posted by electronic invoice skip vendor address validation
+            return true;
+        }
         GlobalVariables.getMessageMap().clearErrorPath();
         GlobalVariables.getMessageMap().addToErrorPath(PurapConstants.VENDOR_ERRORS);
         valid = postalCodeValidationService.validateAddress(document.getVendorCountryCode(), document.getVendorStateCode(), document.getVendorPostalCode(), PurapPropertyConstants.VENDOR_STATE_CODE, PurapPropertyConstants.VENDOR_POSTAL_CODE);
