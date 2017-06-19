@@ -41,7 +41,7 @@ import edu.arizona.kfs.module.prje.dataaccess.PRJEDao;
 import edu.arizona.kfs.module.prje.businessobject.PRJETransferRecord;
 import edu.arizona.kfs.module.prje.service.PRJEReportsService;
 import edu.arizona.kfs.module.prje.service.PRJEService;
-import edu.arizona.kfs.module.prje.service.PRJEServiceBaseImpl;
+import edu.arizona.kfs.module.prje.service.impl.PRJEServiceBaseImpl;
 import edu.arizona.kfs.sys.KFSConstants;
 import edu.arizona.kfs.sys.KFSPropertyConstants;
 
