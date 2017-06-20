@@ -5,7 +5,63 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd         http://rice.kuali.org/dd         http://rice.kuali.org/dd/dd.xsd">
 	
 	<bean id="DistributionOfIncomeAndExpenseDocument" parent="DistributionOfIncomeAndExpenseDocument-parentBean">
-	  <property name="documentPresentationControllerClass" value="edu.arizona.kfs.fp.document.authorization.DistributionOfIncomeAndExpenseDocumentPresentationController"/>
+		<property name="documentClass" value="edu.arizona.kfs.fp.document.DistributionOfIncomeAndExpenseDocument"/>
+		<property name="importedLineParserClass" value="org.kuali.kfs.fp.businessobject.BasicFormatWithLineDescriptionAccountingLineParser"/>
+		<property name="documentPresentationControllerClass" value="edu.arizona.kfs.fp.document.authorization.DistributionOfIncomeAndExpenseDocumentPresentationController"/>
+		<property name="attributes">
+			<list merge = "true">
+				<ref bean="DistributionOfIncomeAndExpenseDocument-postingDate"/>
+			</list>
+		</property>
+	</bean>
+
+	<!-- Attribute Definitions -->
+	<bean id="DistributionOfIncomeAndExpenseDocument-postingDate" parent="DistributionOfIncomeAndExpenseDocument-postingDate-parentBean"/>
+	<bean id="DistributionOfIncomeAndExpenseDocument-postingDate-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
+		<property name="name" value="postingDate"/>
+		<property name="label" value="Posting Date"/>
+		<property name="shortLabel" value="postingDate"/>
+	</bean>
+
+	<!-- accounting line groups -->
+
+	<bean id="DistributionOfIncomeAndExpense-sourceAccountingLineGroup" parent="DistributionOfIncomeAndExpense-sourceAccountingLineGroup-parentBean">
+		<property name="accountingLineView" ref="DistributionOfIncomeAndExpense-accountingLineAddition" />
+		<property name="accountingLineAuthorizerClass" value="edu.arizona.kfs.fp.document.authorization.DistributionOfIncomeAndExpenseAccountingLineAuthorizer"/>
+	</bean>
+
+	<bean id="DistributionOfIncomeAndExpense-targetAccountingLineGroup" parent="DistributionOfIncomeAndExpense-targetAccountingLineGroup-parentBean">
+		<property name="accountingLineView" ref="DistributionOfIncomeAndExpense-accountingLineAddition" />
+	</bean>
+
+	<!-- new beans -->
+	<bean id="DistributionOfIncomeAndExpense-accountingLineAddition" parent="DistributionOfIncomeAndExpense-accountingLineAddition-parent" />
+
+	<bean id="DistributionOfIncomeAndExpense-accountingLineAddition-parent" parent="AccountingLineView" abstract="true">
+		<property name="elements">
+			<list>
+				<bean parent="AccountingLineView-sequenceNumber" />
+				<bean parent="AccountingLineView-lines">
+					<property name="lines">
+						<list>
+							<ref bean="accountingInformation" />
+							<bean parent="AccountingLineView-line">
+								<property name="elementName" value="lineDescription"/>
+								<property name="fields">
+									<list>
+										<bean parent="AccountingLineView-field" p:name="financialDocumentLineDescription" p:overrideColSpan="2"/>
+									</list>
+								</property>
+							</bean>
+							<ref bean="salesTaxInformation" />
+						</list>
+					</property>
+				</bean>
+				<bean parent="AccountingLineView-field" p:name="amount"
+							p:required="true" />
+				<bean parent="AccountingLineView-actions" />
+			</list>
+		</property>
 	</bean>
 
 	<!-- workflow attributes for routing -->

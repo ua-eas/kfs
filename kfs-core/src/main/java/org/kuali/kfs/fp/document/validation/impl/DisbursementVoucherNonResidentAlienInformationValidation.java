@@ -372,7 +372,7 @@ public class DisbursementVoucherNonResidentAlienInformationValidation extends Ge
      * @param candidateEditEditModes the given candidate edit modes
      * @return true if the give user has permission to any edit mode defined in the given candidate edit modes; otherwise, false
      */
-    private boolean hasRequiredEditMode(AccountingDocument accountingDocument, Person financialSystemUser, List<String> candidateEditModes) {
+    protected boolean hasRequiredEditMode(AccountingDocument accountingDocument, Person financialSystemUser, List<String> candidateEditModes) {
         DocumentHelperService documentHelperService = SpringContext.getBean(DocumentHelperService.class);
         TransactionalDocumentAuthorizer documentAuthorizer = (TransactionalDocumentAuthorizer) documentHelperService.getDocumentAuthorizer(accountingDocument);
         TransactionalDocumentPresentationController presentationController = (TransactionalDocumentPresentationController) documentHelperService.getDocumentPresentationController(accountingDocument);
@@ -428,7 +428,7 @@ public class DisbursementVoucherNonResidentAlienInformationValidation extends Ge
         return accountingDocumentForValidation;
     }
 
-    private boolean OneOrLessBoxesChecked(DisbursementVoucherDocument document) {
+    protected boolean OneOrLessBoxesChecked(DisbursementVoucherDocument document) {
         MessageMap errors = GlobalVariables.getMessageMap();
         /* If more then one of the four boxes (FS, TE, EUOC, GUP) is checked throw an error. */
         int boxCnt = 0 ;

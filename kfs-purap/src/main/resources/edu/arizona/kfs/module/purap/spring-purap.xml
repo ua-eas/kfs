@@ -121,6 +121,7 @@
     <bean id="purapGeneralLedgerService" parent="purapGeneralLedgerService-parentBean" class="edu.arizona.kfs.module.purap.service.impl.PurapGeneralLedgerServiceImpl">
         <property name="purapUseTaxEntryArchiveService" ref="purapUseTaxEntryArchiveService"/>
         <property name="paymentMethodGeneralLedgerPendingEntryService" ref="paymentMethodGeneralLedgerPendingEntryService"/>
+        <property name="purapAccountingHelperService" ref="purapAccountingHelperService" />
     </bean>
     
     <bean id="paymentRequestService" parent="paymentRequestService-parentBean" class="edu.arizona.kfs.module.purap.document.service.impl.PaymentRequestServiceImpl">
@@ -159,8 +160,9 @@
     	<property name="kualiRuleService" ref="kualiRuleService" />        
 	</bean>
 
-    <bean id="purapAccountingService" parent="purapAccountingService-parentBean"
-	      class="edu.arizona.kfs.module.purap.service.impl.PurapAccountingServiceImpl" />
+    <bean id="purapAccountingService" parent="purapAccountingService-parentBean" class="edu.arizona.kfs.module.purap.service.impl.PurapAccountingServiceImpl">
+    	<property name="purapAccountingHelperService" ref="purapAccountingHelperService" />
+    </bean>
 
   	
     <bean id="purapService" class="edu.arizona.kfs.module.purap.document.service.impl.PurapServiceImpl" parent="purapService-parentBean">
@@ -176,5 +178,13 @@
         <property name="personService" ref="personService" />
         <property name="workflowDocumentService" ref="workflowDocumentService"/>
     </bean>
+    
+    <bean id="b2BShoppingService" parent="b2BShoppingService-parentBean" class="edu.arizona.kfs.module.purap.document.service.impl.B2BShoppingServiceImpl" />
 
+	<bean id="purapAccountingHelperService" parent="purapAccountingHelperService-parentBean"/>
+    
+	<bean id="purapAccountingHelperService-parentBean" class="edu.arizona.kfs.module.purap.service.impl.PurapAccountingHelperServiceImpl" abstract="true">
+		<property name="purapAccountingService" ref="purapAccountingService"/>
+	</bean>
+	
 </beans>

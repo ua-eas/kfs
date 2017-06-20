@@ -5,4 +5,21 @@
   <bean id="PaymentDetail-inquiryDefinition" parent="PaymentDetail-inquiryDefinition-parentBean">
     <property name="inquirableClass" value="edu.arizona.kfs.pdp.businessobject.inquiry.PaymentDetailInquirable"/>
   </bean>
+  
+  <bean id="PaymentDetail-netPaymentAmount" parent="PaymentDetail-netPaymentAmount-parentBean">
+  	<property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter"/>
+  </bean>
+  
+  <bean id="PaymentDetail-origInvoiceAmount" parent="PaymentDetail-origInvoiceAmount-parentBean">
+  	<property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter"/>  
+  </bean>
+  
+  <bean id="PaymentDetail-invTotDiscountAmount" parent="PaymentDetail-invTotDiscountAmount-parentBean">
+  	<property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter"/>   
+  </bean>
+  
+  <bean id="PaymentDetail-invTotShipAmount" parent="PaymentDetail-invTotShipAmount-parentBean">
+	<property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter"/>  
+  </bean>
+  
 </beans>

@@ -1,5 +1,6 @@
 package edu.arizona.kfs.module.purap.businessobject;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
@@ -7,13 +8,24 @@ import org.kuali.kfs.module.purap.businessobject.PurchaseOrderItem;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
 import org.kuali.kfs.module.purap.document.service.PurapService;
 import org.kuali.kfs.module.purap.exception.PurError;
+import org.kuali.kfs.module.purap.util.ExpiredOrClosedAccountEntry;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.krad.util.ObjectUtils;
+
+import edu.arizona.kfs.module.purap.document.PaymentRequestDocument;
 
 public class PaymentRequestItem extends org.kuali.kfs.module.purap.businessobject.PaymentRequestItem {
 	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PaymentRequestItem.class);
 
 	private static final long serialVersionUID = 1L;
+	
+	public PaymentRequestItem() {
+		super();
+	}
+
+	public PaymentRequestItem(PurchaseOrderItem poi, PaymentRequestDocument preq, HashMap<String, ExpiredOrClosedAccountEntry> expiredOrClosedAccountList) {
+		super(poi, preq, expiredOrClosedAccountList);
+	}
 
 	@Override
 	public PurchaseOrderItem getPurchaseOrderItem() {
@@ -31,10 +43,7 @@ public class PaymentRequestItem extends org.kuali.kfs.module.purap.businessobjec
 				if (ObjectUtils.isNotNull(items)) {
 					for (Object object : items) {
 						PurchaseOrderItem item = (PurchaseOrderItem) object;
-						if (ObjectUtils.isNotNull(item) && item.getItemLineNumber().equals(this.getItemLineNumber())) {
-							poi = item;
-							break;
-						} else if (ObjectUtils.isNotNull(item) && getItemLineNumber().intValue() <= items.size()) { //This else if section was added to make sure the PREQ does not error when a tax withholding is added
+						if (ObjectUtils.isNotNull(item) && ObjectUtils.isNotNull(item.getItemLineNumber()) && item.getItemLineNumber().equals(this.getItemLineNumber())) {
 							poi = item;
 							break;
 						}
