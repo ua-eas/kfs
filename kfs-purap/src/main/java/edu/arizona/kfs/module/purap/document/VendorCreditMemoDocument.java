@@ -27,6 +27,7 @@ import org.kuali.rice.krad.util.KRADConstants;
 import edu.arizona.kfs.fp.service.PaymentMethodGeneralLedgerPendingEntryService;
 import edu.arizona.kfs.module.purap.PurapConstants;
 import edu.arizona.kfs.module.purap.businessobject.CreditMemoIncomeType;
+import edu.arizona.kfs.module.purap.businessobject.CreditMemoItem;
 import edu.arizona.kfs.module.purap.document.service.PurapIncomeTypeHandler;
 import edu.arizona.kfs.sys.KFSConstants;
 import edu.arizona.kfs.sys.document.IncomeTypeContainer;
@@ -80,6 +81,12 @@ public class VendorCreditMemoDocument extends org.kuali.kfs.module.purap.documen
      */
     public boolean getPayment1099IndicatorForSearching() {
         return payment1099Indicator;
+    }
+    
+    @SuppressWarnings("rawtypes")
+    @Override
+    public Class getItemClass() {
+        return CreditMemoItem.class;
     }
 
     @Override

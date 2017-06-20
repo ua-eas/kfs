@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 import org.kuali.kfs.module.purap.businessobject.CreditMemoAccount;
 import org.kuali.kfs.module.purap.businessobject.PaymentRequestAccount;
+import org.kuali.kfs.module.purap.businessobject.PaymentRequestItem;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderAccount;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderItem;
 import org.kuali.kfs.module.purap.document.VendorCreditMemoDocument;
@@ -130,5 +131,22 @@ public class CreditMemoItem extends org.kuali.kfs.module.purap.businessobject.Cr
 
             getSourceAccountingLines().add(new CreditMemoAccount(account));
         }
+    }
+    
+    @Override
+    public KualiDecimal calculateExtendedPrice() {
+        KualiDecimal extendedPrice = null;
+        if (ObjectUtils.isNotNull(getItemUnitPrice())) {
+            if (this.getItemType().isAmountBasedGeneralLedgerIndicator()) {
+                // SERVICE ITEM: return unit price as extended price
+                extendedPrice = new KualiDecimal(this.getItemUnitPrice().toString());
+            }
+            else if (ObjectUtils.isNotNull(this.getItemQuantity())) {
+                BigDecimal calcExtendedPrice = this.getItemUnitPrice().multiply(this.getItemQuantity().bigDecimalValue());
+                // ITEM TYPE (qty driven): return (unitPrice x qty)
+                extendedPrice = new KualiDecimal(calcExtendedPrice.setScale(KualiDecimal.SCALE, KualiDecimal.ROUND_BEHAVIOR));
+            }
+        }
+        return extendedPrice;
     }
 }
