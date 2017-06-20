@@ -404,7 +404,51 @@
 		<property name="mailService" ref="mailService" />
 		<property name="parameterService" ref="parameterService" />
 		<property name="dataDictionaryService" ref="dataDictionaryService" />
-		<property name="achBankService" ref="pdpAchBankService" />	
+		<property name="achBankService" ref="pdpAchBankService" />
+		<property name="paymentDetailReportHelper" ref="paymentDetailReportHelper" />
+		<property name="knownEmailDomains">
+			<set>
+				<value>arizona.edu</value>
+				<value>aemrc.arizona.edu</value>
+				<value>ag.arizona.edu</value>
+				<value>as.arizona.edu</value>
+				<value>azcc.arizona.edu</value>
+				<value>cals.arizona.edu</value>
+				<value>deptofmed.arizona.edu</value>
+				<value>eller.arizona.edu</value>
+				<value>email.arizona.edu</value>
+				<value>fso.arizona.edu</value>				
+				<value>gmail.com</value>
+				<value>hotmail.com</value>
+				<value>law.arizona.edu</value>
+				<value>lpl.arizona.edu</value>
+				<value>math.arizona.edu</value>
+				<value>optics.arizona.edu</value>
+				<value>pharmacy.arizona.edu</value>
+				<value>surgery.arizona.edu</value>
+				<value>u.arizona.edu</value>
+				<value>yahoo.com</value>								
+			</set>
+		</property>
 	</bean>
-		
+	
+	<bean id="pdpFormatService" parent="pdpFormatService-parentBean" class="edu.arizona.kfs.pdp.service.impl.FormatServiceImpl" />
+	
+	<bean id="pdpAchAdviceNotificationService" parent="pdpAchAdviceNotificationService-parentBean" class="edu.arizona.kfs.pdp.batch.service.impl.AchAdviceNotificationServiceImpl" />
+	
+	<bean id="paymentDetailReportHelper" parent="businessObjectReportHelper">
+		<property name="dataDictionaryBusinessObjectClass" value="org.kuali.kfs.pdp.businessobject.PaymentDetail" />
+		<property name="orderedPropertyNameToHeaderLabelMap">
+			<map>				
+				<entry key="custPaymentDocNbr" value="SOURCE DOC NUMBER"/>
+				<entry key="netPaymentAmount" value="NET PAYMENT AMT"/>
+				<entry key="origInvoiceAmount" value="ORIG INVOICE AMT"/>
+				<entry key="invTotDiscountAmount" value="DISCOUNT AMT"/>
+				<entry key="invTotShipAmount" value="SHIPPING AMT"/>
+				<entry key="invoiceNbr" value="INVOICE NUMBER"/>
+			</map>
+		</property>
+		<property name="columnCount" value="6" />
+	</bean>			
+			
 </beans>
