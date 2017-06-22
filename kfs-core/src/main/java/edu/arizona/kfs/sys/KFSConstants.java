@@ -9,6 +9,7 @@ import org.kuali.rice.kew.api.KewApiConstants;
 
 public class KFSConstants extends org.kuali.kfs.sys.KFSConstants {
 
+    public static final String XML_EXTENSION = ".xml";
     public static final String MULTI_VALUE_SEPERATION_CHARACTER = ";";
     public static final String PIPE = "|";
     public static final String EQUALS = "=";

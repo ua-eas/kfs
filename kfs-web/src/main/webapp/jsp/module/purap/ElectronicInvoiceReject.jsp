@@ -171,6 +171,12 @@
 										    attributeEntry="${itemAttributes.invoiceItemUnitPrice}"
 										    property="document.invoiceRejectItems[${ctr}].invoiceItemUnitPrice"
 										    readOnly="${not fullEntryMode}" />
+										<br />
+										<kul:htmlControlAttribute
+										    attributeEntry="${itemAttributes.unitPriceAcceptIndicator}"
+										    property="document.invoiceRejectItems[${ctr}].unitPriceAcceptIndicator"
+										    readOnly="${not fullEntryMode}" />
+										<kul:htmlAttributeLabel attributeEntry="${itemAttributes.unitPriceAcceptIndicator}" noColon="true" />
 									</td>
 									<td class="datacell">
 									    <kul:htmlControlAttribute

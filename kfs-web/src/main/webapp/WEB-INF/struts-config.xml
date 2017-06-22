@@ -252,7 +252,7 @@
 		<form-bean name="BulkReceivingForm"
 			type="org.kuali.kfs.module.purap.document.web.struts.BulkReceivingForm" />
 		<form-bean name="ElectronicInvoiceRejectForm"
-			type="org.kuali.kfs.module.purap.document.web.struts.ElectronicInvoiceRejectForm" />
+			type="edu.arizona.kfs.module.purap.document.web.struts.ElectronicInvoiceRejectForm" />
 		<form-bean name="B2BForm"
 			type="org.kuali.kfs.module.purap.web.struts.B2BForm" />
 
@@ -380,6 +380,14 @@
 	</global-forwards>
 
 	<action-mappings>
+        <action path="/purapElectronicInvoiceReject" name="ElectronicInvoiceRejectForm"
+             input="/jsp/module/purap/ElectronicInvoiceReject.jsp"
+             type="edu.arizona.kfs.module.purap.document.web.struts.ElectronicInvoiceRejectAction"
+             scope="request" attribute="KualiForm">
+             <set-property property="cancellable" value="true" />
+             <forward name="basic" path="/jsp/module/purap/ElectronicInvoiceReject.jsp" />
+        </action>
+
         <action path="/cr*" name="{1}Form"
             input="/jsp/modules/cr/{1}.jsp"
             type="edu.arizona.kfs.module.cr.document.web.struts.{1}Action"

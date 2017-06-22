@@ -59,15 +59,14 @@ import org.kuali.rice.krad.util.ObjectUtils;
 
 public class ElectronicInvoiceMatchingServiceImpl implements ElectronicInvoiceMatchingService {
 
-    private Logger LOG = Logger.getLogger(ElectronicInvoiceMatchingServiceImpl.class);
-
-    private Map<String,ElectronicInvoiceRejectReasonType> rejectReasonTypes;
-    private VendorService vendorService;
-    private TaxService taxService;
-    private DateTimeService dateTimeService;
-
-    String upperVariancePercentString;
-    String lowerVariancePercentString;
+    // Note: Making these available to child class.
+    protected Logger LOG = Logger.getLogger(ElectronicInvoiceMatchingServiceImpl.class);
+    protected Map<String, ElectronicInvoiceRejectReasonType> rejectReasonTypes;
+    protected VendorService vendorService;
+    protected TaxService taxService;
+    protected DateTimeService dateTimeService;
+    protected String upperVariancePercentString;
+    protected String lowerVariancePercentString;
 
     @Override
     public void doMatchingProcess(ElectronicInvoiceOrderHolder orderHolder) {

@@ -154,12 +154,6 @@
         <property name="b2bPurchaseOrderDtd" value="${b2b.purchase.order.dtd}"/>
     </bean>
     
-	<bean id="electronicInvoiceHelperService" parent="electronicInvoiceHelperService-parentBean" class="edu.arizona.kfs.module.purap.service.impl.ElectronicInvoiceHelperServiceImpl">
-        <property name="documentService" ref="documentService" />
-        <property name="workflowDocumentService" ref="workflowDocumentService" />     
-    	<property name="kualiRuleService" ref="kualiRuleService" />        
-	</bean>
-
     <bean id="purapAccountingService" parent="purapAccountingService-parentBean" class="edu.arizona.kfs.module.purap.service.impl.PurapAccountingServiceImpl">
     	<property name="purapAccountingHelperService" ref="purapAccountingHelperService" />
     </bean>
@@ -186,5 +180,17 @@
 	<bean id="purapAccountingHelperService-parentBean" class="edu.arizona.kfs.module.purap.service.impl.PurapAccountingHelperServiceImpl" abstract="true">
 		<property name="purapAccountingService" ref="purapAccountingService"/>
 	</bean>
-	
+
+    <bean id="electronicInvoiceHelperService" parent="electronicInvoiceHelperService-parentBean" class="edu.arizona.kfs.module.purap.service.impl.ElectronicInvoiceHelperServiceImpl">
+        <property name="documentService" ref="documentService" />
+        <property name="workflowDocumentService" ref="workflowDocumentService" />
+        <property name="kualiRuleService" ref="kualiRuleService" />
+        <property name="purapAccountingService" ref="purapAccountingService" />
+        <property name="subAccountService" ref="subAccountService" />
+    </bean>
+
+    <bean id="electronicInvoiceMatchingService" parent="electronicInvoiceMatchingService-parentBean" class="edu.arizona.kfs.module.purap.service.impl.ElectronicInvoiceMatchingServiceImpl">
+        <property name="taxHelperService" ref="taxHelperService" />
+    </bean>
+
 </beans>

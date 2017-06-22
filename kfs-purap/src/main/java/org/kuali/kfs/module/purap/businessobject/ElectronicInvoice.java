@@ -46,7 +46,8 @@ public class ElectronicInvoice {
     public static String INVOICE_AMOUNT_TYPE_CODE_DISCOUNT = "DISC";
     public static String INVOICE_AMOUNT_TYPE_CODE_DEPOSIT = "DPST";
     public static String INVOICE_AMOUNT_TYPE_CODE_DUE = "DUE";
-    public static String INVOICE_AMOUNT_TYPE_CODE_EXMT = "EXMT";
+    // Note: EXMT was added in 6.0. Ted Nasser made the decision to replace EXMT with TXEX, the code used by UA in 3.
+    public static String INVOICE_AMOUNT_TYPE_CODE_EXMT = "TXEX";
 
     public static boolean FILE_REJECTED = true;
     public static boolean FILE_NOT_REJECTED = false;
