@@ -64,6 +64,7 @@ public class KFSConstants extends org.kuali.kfs.sys.KFSConstants {
         GEC_ACTIVE_ROUTE_STATUS_CODES.add(KewApiConstants.ROUTE_HEADER_INITIATED_CD);
         GEC_ACTIVE_ROUTE_STATUS_CODES.add(KewApiConstants.ROUTE_HEADER_PROCESSED_CD);
         GEC_ACTIVE_ROUTE_STATUS_CODES.add(KewApiConstants.ROUTE_HEADER_SAVED_CD);
+        GEC_ACTIVE_ROUTE_STATUS_CODES.add(KewApiConstants.ROUTE_HEADER_FINAL_CD);
     }
 
     public static class SysKimApiConstants {
@@ -113,6 +114,7 @@ public class KFSConstants extends org.kuali.kfs.sys.KFSConstants {
         public final static String DEFAULT_CHART_METHOD = "1";
         public final static String DEFAULT_PRIMARY_DEPT_METHOD = "2";
         public final static String DEFAULT_PRIMARY_DEPT_CHART_METHOD = "3";
+        public final static String DEFAULT_COA_CODE = "UA";
 
     }
 

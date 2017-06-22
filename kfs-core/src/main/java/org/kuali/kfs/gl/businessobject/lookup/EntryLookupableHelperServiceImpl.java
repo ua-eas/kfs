@@ -54,7 +54,7 @@ public class EntryLookupableHelperServiceImpl extends AbstractGeneralLedgerLooku
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(EntryLookupableHelperServiceImpl.class);
 
     private ScrubberValidator scrubberValidator;
-    private EntryService entryService;
+    protected EntryService entryService;
     private volatile static LaborModuleService laborModuleService;
 
     /**

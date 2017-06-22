@@ -230,6 +230,8 @@
 			type="org.kuali.kfs.gl.web.struts.BalanceInquiryLookupForm" />
 		<form-bean name="TrialBalanceReportForm"
 			type="org.kuali.kfs.gl.web.struts.TrialBalanceReportForm" />
+        <form-bean name="GecMultipleValueLookupForm"
+            type="edu.arizona.kfs.gl.web.struts.GecMultipleValueLookupForm" />
 
 		<!-- PURAP Module Bean Definitions -->
  
@@ -434,7 +436,7 @@
 		</action>
 
         <action path="/gecEntryLookup" 
-            name="MultipleValueLookupForm"
+            name="GecMultipleValueLookupForm"
             type="edu.arizona.kfs.gl.web.struts.GecEntryLookupAction"
             scope="request"
             input="/jsp/gl/gecEntryMultipleValueLookup.jsp"
@@ -445,14 +447,14 @@
         </action>
 
         <action path="/yegecEntryLookup"
-            name="MultipleValueLookupForm"
+            name="GecMultipleValueLookupForm"
             type="edu.arizona.kfs.gl.web.struts.YegecEntryLookupAction"
             scope="request"
-            input="/jsp/gl/gecEntryMultipleValueLookup.jsp"
+            input="/jsp/gl/yegecEntryMultipleValueLookup.jsp"
             parameter="methodToCall"
             attribute="KualiForm">
             <set-property property="cancellable" value="true" />
-            <forward name="basic" path="/jsp/gl/gecEntryMultipleValueLookup.jsp" />
+            <forward name="basic" path="/jsp/gl/yegecEntryMultipleValueLookup.jsp" />
         </action>
 		<!-- Core Action Mappings -->
 		<action path="/portal" name="KualiForm"

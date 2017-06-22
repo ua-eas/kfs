@@ -6,6 +6,12 @@
         <property name="documentPresentationControllerClass" value="edu.arizona.kfs.fp.document.authorization.YearEndGeneralErrorCorrectionDocumentPresentationController"/>
         <property name="allowsErrorCorrection" value="false" />
         <property name="allowsCopy" value="false" />
+        <property name="accountingLineGroups">
+            <map>
+                <entry key="source" value-ref="AzGeneralErrorCorrectionDocument-sourceAccountingLineGroup" />
+                <entry key="target" value-ref="AzGeneralErrorCorrectionDocument-targetAccountingLineGroup"/>
+            </map>
+        </property>
     </bean>
 
   <!-- workflow attributes for routing -->
