@@ -14,7 +14,7 @@ import edu.arizona.kfs.sys.KFSPropertyConstants;
 
 public class GecEntryRelationship extends PersistableBusinessObjectBase {
     private static final long serialVersionUID = 1107325740786032980L;
-    private static final String TO_STRING_FORMAT = "GecEntryRelationship(enrtryId: %d, gecFdocNumber: %s, gecDocRouteStatusCode: %s, fdocLineTypeCode: %s, acctLineSeqNum: %d)";
+    private static final String TO_STRING_FORMAT = "GecEntryRelationship(enrtryId: %d, gecFdocNumber: %s, acctLineObjId: %s)";
 
     private Long entryId;
     private String gecDocumentNumber;
@@ -180,9 +180,7 @@ public class GecEntryRelationship extends PersistableBusinessObjectBase {
 
     @Override
     public String toString () {
-        return String.format(TO_STRING_FORMAT,
-                getEntryId(), getGecDocumentNumber(), getGecDocRouteStatus(),
-                getGecFdocLineTypeCode(), getGecAcctLineSeqNumber());
+        return String.format(TO_STRING_FORMAT, getEntryId(), getGecDocumentNumber(), getGecAcctLineObjectId());
     }
 
 }

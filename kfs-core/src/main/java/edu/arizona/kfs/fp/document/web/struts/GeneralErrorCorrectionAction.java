@@ -1,5 +1,7 @@
 package edu.arizona.kfs.fp.document.web.struts;
 
+import static org.kuali.kfs.sys.KFSConstants.Booleans.TRUE;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -33,11 +35,14 @@ import org.kuali.rice.krad.util.UrlFactory;
 
 import edu.arizona.kfs.fp.businessobject.GECSourceAccountingLine;
 import edu.arizona.kfs.fp.document.GeneralErrorCorrectionDocument;
+import edu.arizona.kfs.gl.businessobject.GecEntry;
 import edu.arizona.kfs.gl.businessobject.GecEntryRelationship;
+import edu.arizona.kfs.gl.businessobject.YeGecEntry;
 import edu.arizona.kfs.sys.KFSConstants;
 
 
 public class GeneralErrorCorrectionAction extends org.kuali.kfs.fp.document.web.struts.GeneralErrorCorrectionAction {
+    public static final String INITIATED_BY_GEC_SENTINAL = "initiatedByGecSentinel";
 
     private SegmentedLookupResultsService segmentedLookupResultsService;
 
@@ -91,21 +96,18 @@ public class GeneralErrorCorrectionAction extends org.kuali.kfs.fp.document.web.
 
     @Override
     public ActionForward performLookup(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        // parse out the important strings from our methodToCall parameter
+        GeneralErrorCorrectionForm gecForm = (GeneralErrorCorrectionForm) form;
+        String basePath = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY);
         String fullParameter = (String) request.getAttribute(KFSConstants.METHOD_TO_CALL_ATTRIBUTE);
-
-        // determine what the action path is
         String actionPath = StringUtils.substringBetween(fullParameter, KFSConstants.METHOD_TO_CALL_PARM4_LEFT_DEL, KFSConstants.METHOD_TO_CALL_PARM4_RIGHT_DEL);
+        Properties parameters = new Properties();
+
+        // Lookup is for a non-GEC field, like the Modify Capital Asset's tab w/ the
+        // Asset Number lookup (aka magnifying glass); let super handle it
         if (StringUtils.isBlank(actionPath)) {
             return super.performLookup(mapping, form, request, response);
         }
 
-        GeneralErrorCorrectionForm financialDocumentForm = (GeneralErrorCorrectionForm) form;
-
-        // when we return from the lookup, our next request's method to call is going to be refresh
-        financialDocumentForm.registerEditableProperty(KRADConstants.DISPATCH_REQUEST_PARAMETER);
-
-        String basePath = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY);
 
         // parse out business object class name for lookup
         String boClassName = StringUtils.substringBetween(fullParameter, KFSConstants.METHOD_TO_CALL_BOPARM_LEFT_DEL, KFSConstants.METHOD_TO_CALL_BOPARM_RIGHT_DEL);
@@ -113,8 +115,21 @@ public class GeneralErrorCorrectionAction extends org.kuali.kfs.fp.document.web.
             throw new RuntimeException("Illegal call to perform lookup, no business object class name specified.");
         }
 
+        parameters.put(KFSConstants.DISPATCH_REQUEST_PARAMETER, KFSConstants.SEARCH_METHOD);
+        parameters.put(KFSConstants.DOC_FORM_KEY, GlobalVariables.getUserSession().addObjectWithGeneratedKey(form));
+        parameters.put(KFSConstants.BUSINESS_OBJECT_CLASS_ATTRIBUTE, boClassName);
+        parameters.put(KFSConstants.RETURN_LOCATION_PARAMETER, basePath + mapping.getPath() + KFSConstants.ACTION_EXTENSION_DOT_DO);
+
+        if (boClassName != null && (boClassName.equals(GecEntry.class.getName()) || boClassName.equals(YeGecEntry.class.getName()) || boClassName.equals(Entry.class.getName()))) {
+            // Only want to handle empty field searches for Entry types; this is used in GecEntryLookupAction
+            // to skip auto-firing searches from the doc when no fields are provided
+            parameters.put(INITIATED_BY_GEC_SENTINAL, TRUE);
+        }
+
+        // when we return from the lookup, our next request's method to call is going to be refresh
+        gecForm.registerEditableProperty(KRADConstants.DISPATCH_REQUEST_PARAMETER);
+
         // build the parameters for the lookup url
-        Properties parameters = new Properties();
         String conversionFields = StringUtils.substringBetween(fullParameter, KFSConstants.METHOD_TO_CALL_PARM1_LEFT_DEL, KFSConstants.METHOD_TO_CALL_PARM1_RIGHT_DEL);
         if (StringUtils.isNotBlank(conversionFields)) {
             parameters.put(KFSConstants.CONVERSION_FIELDS_PARAMETER, conversionFields);
@@ -149,12 +164,6 @@ public class GeneralErrorCorrectionAction extends org.kuali.kfs.fp.document.web.
         if (StringUtils.isNotEmpty(((KualiForm) form).getAnchor())) {
             parameters.put(KFSConstants.LOOKUP_ANCHOR, ((KualiForm) form).getAnchor());
         }
-
-        // now add required parameters
-        parameters.put(KFSConstants.DISPATCH_REQUEST_PARAMETER, KFSConstants.SEARCH_METHOD);
-        parameters.put(KFSConstants.DOC_FORM_KEY, GlobalVariables.getUserSession().addObjectWithGeneratedKey(form));
-        parameters.put(KFSConstants.BUSINESS_OBJECT_CLASS_ATTRIBUTE, boClassName);
-        parameters.put(KFSConstants.RETURN_LOCATION_PARAMETER, basePath + mapping.getPath() + KFSConstants.ACTION_EXTENSION_DOT_DO);
 
         String lookupUrl = UrlFactory.parameterizeUrl(basePath + KFSConstants.PATH_SEPERATOR + actionPath, parameters);
 
@@ -352,7 +361,6 @@ public class GeneralErrorCorrectionAction extends org.kuali.kfs.fp.document.web.
         // Effect the changes
         if (relsToDelete.size() > 0) {
             doc.getGecEntryRelationships().removeAll(relsToDelete);
-            getBusinessObjectService().delete(relsToDelete);
             doc.updateEntryGecDocNums(Collections.singletonList(entry));
         }
 
@@ -401,19 +409,15 @@ public class GeneralErrorCorrectionAction extends org.kuali.kfs.fp.document.web.
     }
 
 
-    /*
-     * This is the "import" button in the "reversing" section, so we know this will always be
-     * a target line -- the "reversing" section does not have import, since the GLE always
-     * comes off of a GLE search. Still popped it into an if/else just in case someone else down
-     * the line uses this.
-     *
-     * Note: this also does the reversing of the flags
-     */
     @Override
     protected void insertAccountingLine(boolean isSource, KualiAccountingDocumentFormBase financialDocumentForm, AccountingLine line) {
 
-        // Only set d/c flag for target import, just in case this gets called in future code w/ a source line
-        if (!isSource) {
+        // 1. !isSource: Source lines will have their d/c code set from its flipped GLE, leave it
+        // 2. line.getDebitCreditCode() == null: This line is imported from file, so needs a d/c code since the import template
+        //                                       doesn't have one; we'll attempt to infer from the source lines
+        // 3. If the source lines do not all have the same d/c code, then we can not infer what the target line
+        //    should be set to, so we throw a RuntimeException stating this
+        if (!isSource && StringUtils.isBlank(line.getDebitCreditCode())) {
             // Collect all the source lines' d/c codes
             @SuppressWarnings("unchecked")// super is not parameterized
             List<GECSourceAccountingLine> sourceLines = financialDocumentForm.getFinancialDocument().getSourceAccountingLines();
@@ -430,7 +434,8 @@ public class GeneralErrorCorrectionAction extends org.kuali.kfs.fp.document.web.
                 debitCreditCode = debitCreditSet.iterator().next();
                 debitCreditCode = reverseDebitCreditCode(debitCreditCode);
             } else if (debitCreditSet.size() > 1) {
-                throw new RuntimeException("Source lines had multiple debit/credit codes!: " + debitCreditSet);
+                // We have no way of knowing what to set the code to
+                throw new RuntimeException("Line to insert has no d/c code, and cannot be inferred from the hetergenous source line d/c set!: " + debitCreditSet);
             }
 
             // Now set it on this target line

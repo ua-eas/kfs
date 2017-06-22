@@ -131,10 +131,10 @@
 		</property>
 		<property name="objectCodeService">
 			<ref bean="objectCodeService" />
-		</property>	
+		</property>
 		<property name="optionsService">
 			<ref bean="optionsService" />
-		</property>		
+		</property>
 		<property name="parameterService">
 			<ref bean="parameterService" />
 		</property>
@@ -218,9 +218,43 @@
        	<property name="aggregationModeOn" value="true"/>       	
     </bean>
 
+    <bean id="gecGlEntryLookupable" class="edu.arizona.kfs.gl.businessobject.lookup.GecLookupableImpl" parent="glEntryLookupable">
+        <property name="lookupableHelperService" ref="gecGlEntryLookupableHelperService"/>
+    </bean>
+
+    <bean id="gecGlEntryLookupableHelperService" parent="glEntryLookupableHelperService" class="edu.arizona.kfs.gl.businessobject.lookup.GecEntryLookupableHelperServiceImpl">
+        <property name="persistenceStructureService" ref="persistenceStructureService"/>
+        <property name="lookupService" ref="gecLookupService"/>
+        <property name="businessObjectDictionaryService" ref="businessObjectDictionaryService"/>
+        <property name="businessObjectMetaDataService" ref="businessObjectMetaDataService"/>
+        <property name="dataDictionaryService" ref="dataDictionaryService"/>
+        <property name="scrubberValidator" ref="scrubberValidator"/>
+        <property name="entryService" ref="glEntryService"/>
+    </bean>
+
+    <bean id="gecLookupService" class="edu.arizona.rice.krad.service.impl.GecLookupServiceImpl">
+        <property name="lookupDao" ref="gecLookupDao"/>
+        <property name="kualiConfigurationService" ref="kualiConfigurationService"/>
+    </bean>
+
+    <bean id="gecLookupDao" parent="lookupDaoOjb" class="edu.arizona.rice.krad.dao.impl.GecLookupDaoOjb">
+        <property name="persistenceStructureService" ref="persistenceStructureService"/>
+        <property name="dateTimeService" ref="dateTimeService"/>
+        <property name="dataDictionaryService" ref="dataDictionaryService"/>
+        <property name="parameterService" ref="parameterService"/>
+        <property name="optionsService" ref="optionsService"/>
+        <property name="businessObjectService" ref="businessObjectService"/>
+    </bean>
+
+    <bean id="lookupDaoOjb" parent="platformAwareDao" class="org.kuali.rice.krad.dao.impl.LookupDaoOjb">
+        <property name="persistenceStructureService" ref="persistenceStructureService"/>
+        <property name="dateTimeService" ref="dateTimeService"/>
+        <property name="dataDictionaryService" ref="dataDictionaryService"/>
+    </bean>
+
     <bean id="glBudgetAdjustmentExtractStep" class="edu.arizona.kfs.gl.batch.BudgetAdjustmentExtractStep" parent="wrappedStep">
 		<property name="wrappingBatchServices">
-			<list>				
+			<list>
 				<ref bean="glBudgetAdjustmentExtractReportWriterService" />
 			</list>
 		</property>
@@ -317,5 +351,7 @@
             </list>
         </property>
     </bean>
+
+
 
 </beans>
