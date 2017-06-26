@@ -17,7 +17,7 @@ import org.kuali.rice.kim.api.identity.affiliation.EntityAffiliation;
 import org.kuali.rice.kim.api.identity.entity.EntityDefault;
 
 import edu.arizona.kfs.sys.UaKFSConstants;
-import edu.arizona.kim.eds.UaEdsConstants;
+
 
 public class UaEmployeeDerivedRoleTypeServiceImpl extends EmployeeDerivedRoleTypeServiceImpl {
 
@@ -64,7 +64,6 @@ public class UaEmployeeDerivedRoleTypeServiceImpl extends EmployeeDerivedRoleTyp
 	 */
 	private static final String ROLE_11173_TITLE = UaKFSConstants.BASE_FINANCIAL_SYSTEM_USER_KIM_ROLE_NAME;
 
-	private static final String EDS_CONSTANTS_BEAN_NAME = "edsConstants";
 	
 	// UA KFS7 upgrade
 	private static final String EDS_RESPECTED_AND_ORDERED_AFFS = "EDS_RESPECTED_AND_ORDERED_AFFS";
@@ -73,7 +72,7 @@ public class UaEmployeeDerivedRoleTypeServiceImpl extends EmployeeDerivedRoleTyp
 	private static final String EDS_RESTRICTED_EMPLOYEE_TYPES = "EDS_RESTRICTED_EMPLOYEE_TYPES";
 
 	private ParameterService parameterService;
-	private UaEdsConstants edsConstants;
+
 
 	@Override
 	public boolean hasDerivedRole(String principalId, List<String> groupIds, String namespaceCode, String roleName, Map<String, String> qualification) {
