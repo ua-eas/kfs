@@ -10,8 +10,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.businessobject.CreditMemoAccount;
-import edu.arizona.kfs.module.purap.businessobject.CreditMemoItem;
-import edu.arizona.kfs.module.purap.businessobject.PaymentRequestItem;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLine;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderItem;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
@@ -31,6 +29,8 @@ import org.kuali.rice.krad.util.ObjectUtils;
 
 import edu.arizona.kfs.fp.service.PaymentMethodGeneralLedgerPendingEntryService;
 import edu.arizona.kfs.module.purap.PurapConstants;
+import edu.arizona.kfs.module.purap.businessobject.CreditMemoItem;
+import edu.arizona.kfs.module.purap.businessobject.PaymentRequestItem;
 import edu.arizona.kfs.module.purap.document.PaymentRequestDocument;
 import edu.arizona.kfs.vnd.businessobject.VendorDetailExtension;
 
@@ -180,8 +180,7 @@ public class CreditMemoServiceImpl extends org.kuali.kfs.module.purap.document.s
      * @see org.kuali.kfs.module.purap.document.service.CreditMemoService#calculateCreditMemo(org.kuali.kfs.module.purap.document.CreditMemoDocument)
      */
     @SuppressWarnings("unchecked")
-    @Override
-    public void calculateCreditMemo(VendorCreditMemoDocument cmDocument) {
+    public void calculateCreditMemo(edu.arizona.kfs.module.purap.document.VendorCreditMemoDocument cmDocument) {
 
         cmDocument.updateExtendedPriceOnItems();
 
@@ -274,7 +273,7 @@ public class CreditMemoServiceImpl extends org.kuali.kfs.module.purap.document.s
 
             if (preqItemToTemplate.getItemType().isLineItemIndicator() && ((preqItemToTemplate.getItemType().isQuantityBasedGeneralLedgerIndicator() && preqItemToTemplate.getItemQuantity().isNonZero())
                     || (preqItemToTemplate.getItemType().isAmountBasedGeneralLedgerIndicator() && preqItemToTemplate.getTotalAmount().isNonZero()))) {
-                cmDocument.getItems().add(new CreditMemoItem(cmDocument, preqItemToTemplate, preqItemToTemplate.getPurchaseOrderItem(), expiredOrClosedAccountList));
+                cmDocument.getItems().add(new CreditMemoItem((edu.arizona.kfs.module.purap.document.VendorCreditMemoDocument) cmDocument, preqItemToTemplate, preqItemToTemplate.getPurchaseOrderItem(), expiredOrClosedAccountList));
             }
         }
 
