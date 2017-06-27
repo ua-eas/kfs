@@ -1,7 +1,12 @@
 package edu.arizona.kfs.fp.document.authorization;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.kuali.kfs.fp.document.DistributionOfIncomeAndExpenseDocument;
-import org.kuali.kfs.fp.document.authorization.FinancialProcessingAccountingLineAuthorizer;
+import org.kuali.kfs.fp.document.authorization.CapitalAccountingLinesAuthorizerBase;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.ObjectUtil;
@@ -13,18 +18,11 @@ import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.rice.krad.service.BusinessObjectService;
 import org.kuali.rice.krad.util.ObjectUtils;
 
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 /**
  * Authorizer which deals with financial processing document issues, specifically sales tax lines on documents This class utilizes
  * the new accountingLine model.
  */
-public class DistributionOfIncomeAndExpenseAccountingLineAuthorizer extends FinancialProcessingAccountingLineAuthorizer {
-    private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DistributionOfIncomeAndExpenseAccountingLineAuthorizer.class);
+public class DistributionOfIncomeAndExpenseAccountingLineAuthorizer extends CapitalAccountingLinesAuthorizerBase {
 
     /**
      * @see org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizerBase#determineEditPermissionOnField(org.kuali.kfs.sys.document.AccountingDocument,
@@ -144,7 +142,7 @@ public class DistributionOfIncomeAndExpenseAccountingLineAuthorizer extends Fina
         fieldValues.put(KFSPropertyConstants.SEQUENCE_NUMBER, electronicPaymentClaim.getFinancialDocumentLineNumber());
         fieldValues.put("financialDocumentLineTypeCode", KFSConstants.SOURCE_ACCT_LINE_TYPE_CODE);
 
-        return (AccountingLine) businessObjectService.findByPrimaryKey(SourceAccountingLine.class, fieldValues);
+        return businessObjectService.findByPrimaryKey(SourceAccountingLine.class, fieldValues);
     }
 
     /**
