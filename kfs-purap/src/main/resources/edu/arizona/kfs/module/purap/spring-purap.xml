@@ -193,4 +193,5 @@
         <property name="taxHelperService" ref="taxHelperService" />
     </bean>
 
+    <bean id="accountsPayableService" parent="accountsPayableService-parentBean" class="edu.arizona.kfs.module.purap.document.service.impl.AccountsPayableServiceImpl" />
 </beans>
