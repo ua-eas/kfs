@@ -29,7 +29,6 @@ import org.kuali.kfs.sys.document.service.DebitDeterminerService;
 import org.kuali.kfs.sys.service.OptionsService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kns.web.struts.action.KualiMultipleValueLookupAction;
 import org.kuali.rice.kns.web.struts.form.MultipleValueLookupForm;
 import org.kuali.rice.kns.web.ui.ResultRow;
@@ -389,22 +388,11 @@ public class GecEntryLookupAction extends KualiMultipleValueLookupAction {
     }
 
 
-    // Valid if the transaction is positive (negative indicator is not stored in the DB)
+    // Valid if the transaction amount is present and non-zero
     private boolean isTransactionAmountValid(Entry entry) {
-        KualiDecimal amount = entry.getTransactionLedgerEntryAmount();
-        String objectTypeCode = entry.getFinancialObjectTypeCode();
-        String debitCreditCode = entry.getTransactionDebitCreditCode();
-
-        if (StringUtils.isBlank(objectTypeCode) || StringUtils.isBlank(debitCreditCode) || amount == null) {
-            // Defaulting false will filter these out; we don't have enough info to do otherwise
-            LOG.warn(String.format("Could not determine if amount is valid (entryId, objectTypeCode, amount): (%s, %s, %s)", entry.getEntryId(), objectTypeCode, amount));
-            return false;
-        }
-
-        String testValue = getDebitDeterminerService().getConvertedAmount(objectTypeCode, debitCreditCode, amount.toString());
-        KualiDecimal negPosAmount = new KualiDecimal(testValue);
-
-        return negPosAmount.isPositive();
+        return entry != null
+                &&  entry.getTransactionLedgerEntryAmount() != null
+                && !entry.getTransactionLedgerEntryAmount().isZero();
     }
 
 
