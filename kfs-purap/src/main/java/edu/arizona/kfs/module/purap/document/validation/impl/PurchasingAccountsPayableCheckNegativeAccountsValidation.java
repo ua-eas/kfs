@@ -6,12 +6,22 @@ import java.util.Set;
 
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
+import org.kuali.kfs.module.purap.document.PaymentRequestDocument;
 import org.kuali.kfs.module.purap.document.PurchasingAccountsPayableDocument;
+import org.kuali.kfs.module.purap.document.VendorCreditMemoDocument;
+import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
+import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.krad.util.GlobalVariables;
 
 public class PurchasingAccountsPayableCheckNegativeAccountsValidation extends org.kuali.kfs.module.purap.document.validation.impl.PurchasingAccountsPayableCheckNegativeAccountsValidation {
+
+    private ParameterService parameterService;
+
+    public void setParameterService(ParameterService parameterService) {
+        this.parameterService = parameterService;
+    }
 
     public boolean validate(AttributedDocumentEvent event) {
         boolean valid = true;
@@ -23,9 +33,7 @@ public class PurchasingAccountsPayableCheckNegativeAccountsValidation extends or
         // if this was set somewhere on the doc(for later use) in prepare for save we could avoid this call
         getPurapAccountingService().updateAccountAmounts(document);
 
-        // be sure to exclude trade in values from the negative check as they're allowed to be negative
-        Set excludedItemTypeCodes = new HashSet();
-        excludedItemTypeCodes.add(PurapConstants.ItemTypeCodes.ITEM_TYPE_TRADE_IN_CODE);
+        Set<String> excludedItemTypeCodes = getExcludeItemTypeCodesByParameter(document);
         List<SourceAccountingLine> sourceLines = getPurapAccountingService().generateSummaryExcludeItemTypes(document.getItems(), excludedItemTypeCodes);
 
         for (SourceAccountingLine sourceAccountingLine : sourceLines) {
@@ -48,6 +56,19 @@ public class PurchasingAccountsPayableCheckNegativeAccountsValidation extends or
 
         GlobalVariables.getMessageMap().clearErrorPath();
         return valid;
+    }
+
+    private Set<String> getExcludeItemTypeCodesByParameter(PurchasingAccountsPayableDocument document) {
+
+        HashSet<String> excludeSet = new HashSet<String>();
+        if (document instanceof PaymentRequestDocument) {
+            excludeSet.addAll(parameterService.getParameterValuesAsString(KFSConstants.OptionalModuleNamespaces.PURCHASING_ACCOUNTS_PAYABLE, "Payment Request", PurapConstants.ITEM_ALLOWS_NEGATIVE));
+        }
+        if (document instanceof VendorCreditMemoDocument) {
+            excludeSet.addAll(parameterService.getParameterValuesAsString(KFSConstants.OptionalModuleNamespaces.PURCHASING_ACCOUNTS_PAYABLE, "Vendor Credit Memo", PurapConstants.ITEM_ALLOWS_NEGATIVE));
+        }
+
+        return excludeSet;
     }
 
 }
