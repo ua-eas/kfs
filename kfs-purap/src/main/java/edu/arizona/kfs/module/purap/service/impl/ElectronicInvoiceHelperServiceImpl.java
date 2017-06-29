@@ -539,7 +539,9 @@ public class ElectronicInvoiceHelperServiceImpl extends org.kuali.kfs.module.pur
             extraDescription.append(", ");
         }
 
-        extraDescription.setLength(extraDescription.length() - 2);
+        if (extraDescription.length() >= 2) {
+            extraDescription.setLength(extraDescription.length() - 2);
+        }
         return extraDescription.toString();
     }
 
