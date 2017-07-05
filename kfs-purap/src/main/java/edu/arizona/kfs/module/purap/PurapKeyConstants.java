@@ -9,4 +9,6 @@ public class PurapKeyConstants extends org.kuali.kfs.module.purap.PurapKeyConsta
     public static final String ERROR_EIR_APPROVAL_REQUIRES_SAVE = "errors.electronicInvoiceReject.approval.requires.save";
     public static final String ERROR_REJECT_UNITPRICE_EMPTY = "errors.reject.unitprice.empty";
     public static final String ERROR_REJECT_INVOICE_INACTIVE_SUB_ACCOUNT = "errors.reject.invoice.inactive.sub.account";
+
+    public static final String WARNING_ADDITIONAL_CHARGES_ACCOUNT_DEFAULTED = "warning.additional.charges.account.defaulted";
 }

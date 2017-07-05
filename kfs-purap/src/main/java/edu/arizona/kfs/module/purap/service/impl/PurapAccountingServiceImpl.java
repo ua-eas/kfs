@@ -17,8 +17,13 @@ import org.kuali.kfs.sys.businessobject.AccountingLineBase;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.kfs.sys.util.ObjectPopulationUtils;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.rice.krad.util.MessageMap;
 import org.kuali.rice.krad.util.ObjectUtils;
 
+import edu.arizona.kfs.module.purap.PurapKeyConstants;
+import edu.arizona.kfs.module.purap.PurapParameterConstants;
 import edu.arizona.kfs.module.purap.document.PaymentRequestDocument;
 import edu.arizona.kfs.module.purap.service.PurapAccountingHelperService;
 import edu.arizona.kfs.module.purap.service.PurapAccountingService;
@@ -53,126 +58,54 @@ public class PurapAccountingServiceImpl extends org.kuali.kfs.module.purap.servi
         if (LOG.isDebugEnabled()) {
             LOG.debug(methodName + " started");
         }
+
         List<PurApAccountingLine> newAccounts = new ArrayList();
 
         if (totalAmount.isZero()) {
-            throwRuntimeException(methodName, "Purchasing/Accounts Payable account distribution for proration does not allow zero dollar total.");
-        }
-
-        BigDecimal percentTotal = BigDecimal.ZERO;
-        BigDecimal totalAmountBigDecimal = totalAmount.bigDecimalValue();
-        for (SourceAccountingLine accountingLine : accounts) {
-            KualiDecimal amt = KualiDecimal.ZERO;
-            if (ObjectUtils.isNotNull(accountingLine.getAmount())) {
-                amt = accountingLine.getAmount();
+            PurApAccountingLine newAccountingLine = null;
+            try {
+                newAccountingLine = (PurApAccountingLine) clazz.newInstance();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
             }
 
+            newAccountingLine.setChartOfAccountsCode(getDefaultAdditionalChargesChartOfAccountsCode());
+            newAccountingLine.setAccountNumber(getDefaultAdditionalChargesAccount());
+            newAccountingLine.setFinancialObjectCode(getDefaultAdditionalChargesFinancialObjectCode());
+
+            newAccountingLine.setAccountLinePercent(ONE_HUNDRED);
             if (LOG.isDebugEnabled()) {
-                LOG.debug(methodName + " " + accountingLine.getAccountNumber() + " " + amt + "/" + totalAmountBigDecimal);
+                LOG.debug(methodName + " adding " + newAccountingLine.getAccountLinePercent());
             }
-            BigDecimal pct = amt.bigDecimalValue().divide(totalAmountBigDecimal, percentScale, BIG_DECIMAL_ROUNDING_MODE);
-            pct = pct.stripTrailingZeros().multiply(ONE_HUNDRED);
-
+            newAccounts.add(newAccountingLine);
             if (LOG.isDebugEnabled()) {
-                LOG.debug(methodName + " pct = " + pct + "  (trailing zeros removed)");
+                LOG.debug(methodName + " total = " + newAccountingLine.getAccountLinePercent());
             }
 
-            BigDecimal lowestPossible = this.getLowestPossibleRoundUpNumber();
-            if (lowestPossible.compareTo(pct) <= 0) {
-                PurApAccountingLine newAccountingLine;
-                newAccountingLine = null;
+            generateWarningsOnDocument();
 
-                try {
-                    newAccountingLine = (PurApAccountingLine) clazz.newInstance();
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-
-                ObjectPopulationUtils.populateFromBaseClass(AccountingLineBase.class, accountingLine, newAccountingLine, PurapConstants.KNOWN_UNCOPYABLE_FIELDS);
-                newAccountingLine.setAccountLinePercent(pct);
-                if (LOG.isDebugEnabled()) {
-                    LOG.debug(methodName + " adding " + newAccountingLine.getAccountLinePercent());
-                }
-                newAccounts.add(newAccountingLine);
-                percentTotal = percentTotal.add(newAccountingLine.getAccountLinePercent());
-                if (LOG.isDebugEnabled()) {
-                    LOG.debug(methodName + " total = " + percentTotal);
-                }
-            }
+            return newAccounts;
+        } else {
+            return super.generateAccountDistributionForProration(accounts, totalAmount, percentScale, clazz);
         }
-
-        if ((percentTotal.compareTo(BigDecimal.ZERO)) == 0) {
-            /*
-             * This means there are so many accounts or so strange a distribution that we can't round properly... not sure of viable
-             * solution
-             */
-            throwRuntimeException(methodName, "Can't round properly due to number of accounts");
-        }
-
-        // Now deal with rounding
-        if ((ONE_HUNDRED.compareTo(percentTotal)) < 0) {
-            /*
-             * The total percent is greater than one hundred Here we find the account that occurs latest in our list with a percent
-             * that is higher than the difference and we subtract off the difference
-             */
-            BigDecimal difference = percentTotal.subtract(ONE_HUNDRED);
-            if (LOG.isDebugEnabled()) {
-                LOG.debug(methodName + " Rounding up by " + difference);
-            }
-
-            boolean foundAccountToUse = false;
-            int currentNbr = newAccounts.size() - 1;
-            while (currentNbr >= 0) {
-                PurApAccountingLine potentialSlushAccount = newAccounts.get(currentNbr);
-
-                BigDecimal linePercent = BigDecimal.ZERO;
-                if (ObjectUtils.isNotNull(potentialSlushAccount.getAccountLinePercent())) {
-                    linePercent = potentialSlushAccount.getAccountLinePercent();
-                }
-
-                if ((difference.compareTo(linePercent)) < 0) {
-                    // the difference amount is less than the current accounts percent... use this account
-                    // the 'potentialSlushAccount' technically is now the true 'Slush Account'
-                    potentialSlushAccount.setAccountLinePercent(linePercent.subtract(difference).movePointLeft(2).stripTrailingZeros().movePointRight(2));
-                    foundAccountToUse = true;
-                    break;
-                }
-                currentNbr--;
-            }
-
-            if (!foundAccountToUse) {
-                /*
-                 * We could not find any account in our list where the percent of that account was greater than that of the
-                 * difference... doing so on just any account could result in a negative percent value
-                 */
-                throwRuntimeException(methodName, "Can't round properly due to math calculation error");
-            }
-
-        } else if ((ONE_HUNDRED.compareTo(percentTotal)) > 0) {
-            /*
-             * The total percent is less than one hundred Here we find the last account in our list and add the remaining required
-             * percent to its already calculated percent
-             */
-            BigDecimal difference = ONE_HUNDRED.subtract(percentTotal);
-            if (LOG.isDebugEnabled()) {
-                LOG.debug(methodName + " Rounding down by " + difference);
-            }
-            PurApAccountingLine slushAccount = newAccounts.get(newAccounts.size() - 1);
-
-            BigDecimal slushLinePercent = BigDecimal.ZERO;
-            if (ObjectUtils.isNotNull(slushAccount.getAccountLinePercent())) {
-                slushLinePercent = slushAccount.getAccountLinePercent();
-            }
-
-            slushAccount.setAccountLinePercent(slushLinePercent.add(difference).movePointLeft(2).stripTrailingZeros().movePointRight(2));
-        }
-        if (LOG.isDebugEnabled()) {
-            LOG.debug(methodName + " ended");
-        }
-        return newAccounts;
     }
+
+     private void generateWarningsOnDocument() {
+         MessageMap messages = GlobalVariables.getMessageMap();
+         messages.putWarning(PurapConstants.ITEM_TAB_ERROR_PROPERTY, PurapKeyConstants.WARNING_ADDITIONAL_CHARGES_ACCOUNT_DEFAULTED);
+         messages.putWarning(KRADConstants.GLOBAL_ERRORS, PurapKeyConstants.WARNING_ADDITIONAL_CHARGES_ACCOUNT_DEFAULTED);
+     }
+     private String getDefaultAdditionalChargesAccount() {
+         return parameterService.getParameterValueAsString(PaymentRequestDocument.class, PurapParameterConstants.ADDITIONAL_CHARGES_CLEARING_ACCOUNT);
+     }
+     private String getDefaultAdditionalChargesChartOfAccountsCode() {
+         return parameterService.getParameterValueAsString(PaymentRequestDocument.class, PurapParameterConstants.ADDITIONAL_CHARGES_CLEARING_CHART_OF_ACCOUNTS);
+     }
+     private String getDefaultAdditionalChargesFinancialObjectCode() {
+         return parameterService.getParameterValueAsString(PaymentRequestDocument.class, PurapParameterConstants.ADDITIONAL_CHARGES_CLEARING_OBJECT_CODE);
+     }
 
     /*
      * Check if all the summary accounts amount are zero. If all are zero, it will cause exception when creating
