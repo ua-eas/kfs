@@ -48,14 +48,9 @@
         </property>
     </bean>
 
-    <bean id="stuckDocumentsDAO" parent="stuckDocumentsDAO-parentBean" />
-    <bean id="stuckDocumentsDAO-parentBean" class="edu.arizona.kfs.rq.batch.dataaccess.impl.StuckDocumentsDAOJdbc" parent="platformAwareDaoJdbc">
-        <property name="workflowDocumentService" ref="rice.kew.workflowDocumentService" />
-    </bean>
-
     <bean id="requeueStuckDocumentsService" parent="requeueStuckDocumentsService-parentBean" />
     <bean id="requeueStuckDocumentsService-parentBean" class="edu.arizona.kfs.rq.batch.service.impl.RequeueStuckDocumentsServiceImpl">
-        <property name="stuckDocumentsDAO" ref="stuckDocumentsDAO" />
+        <property name="stuckDocumentService" ref="rice.kew.stuckDocumentService"/>
         <property name="documentTypeService" ref="rice.kew.documentTypeService" />
     </bean>
 
