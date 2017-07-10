@@ -135,17 +135,9 @@ public class CreditMemoItem extends org.kuali.kfs.module.purap.businessobject.Cr
     
     @Override
     public KualiDecimal calculateExtendedPrice() {
-        KualiDecimal extendedPrice = null;
-        if (ObjectUtils.isNotNull(getItemUnitPrice())) {
-            if (this.getItemType().isAmountBasedGeneralLedgerIndicator()) {
-                // SERVICE ITEM: return unit price as extended price
-                extendedPrice = new KualiDecimal(this.getItemUnitPrice().toString());
-            }
-            else if (ObjectUtils.isNotNull(this.getItemQuantity())) {
-                BigDecimal calcExtendedPrice = this.getItemUnitPrice().multiply(this.getItemQuantity().bigDecimalValue());
-                // ITEM TYPE (qty driven): return (unitPrice x qty)
-                extendedPrice = new KualiDecimal(calcExtendedPrice.setScale(KualiDecimal.SCALE, KualiDecimal.ROUND_BEHAVIOR));
-            }
+        KualiDecimal extendedPrice = super.calculateExtendedPrice();
+        if (extendedPrice.equals(KualiDecimal.ZERO)) {
+            extendedPrice = null;
         }
         return extendedPrice;
     }
