@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 import org.kuali.kfs.module.purap.businessobject.CreditMemoAccount;
 import org.kuali.kfs.module.purap.businessobject.PaymentRequestAccount;
+import org.kuali.kfs.module.purap.businessobject.PaymentRequestItem;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderAccount;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderItem;
 import org.kuali.kfs.module.purap.document.VendorCreditMemoDocument;
@@ -130,5 +131,14 @@ public class CreditMemoItem extends org.kuali.kfs.module.purap.businessobject.Cr
 
             getSourceAccountingLines().add(new CreditMemoAccount(account));
         }
+    }
+    
+    @Override
+    public KualiDecimal calculateExtendedPrice() {
+        KualiDecimal extendedPrice = super.calculateExtendedPrice();
+        if (extendedPrice.equals(KualiDecimal.ZERO)) {
+            extendedPrice = null;
+        }
+        return extendedPrice;
     }
 }
