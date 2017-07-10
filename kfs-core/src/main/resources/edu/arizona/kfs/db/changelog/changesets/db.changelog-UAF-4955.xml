@@ -5,14 +5,6 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
     <changeSet id="UAF-4955" author="Mark Moen">
-        <preConditions onError="MARK_RAN" onFail="MARK_RAN">
-            <sqlCheck expectedResult="0">
-                SELECT COUNT(*) FROM KREW_DOC_HDR_EXT_T WHERE KEY_CD = 'creditCardLastFour'
-            </sqlCheck>
-            <sqlCheck expectedResult="4">
-                SELECT COUNT(*) FROM KREW_DOC_HDR_EXT_T WHERE KEY_CD = 'name'
-            </sqlCheck>
-        </preConditions>
         <comment>
             UAF-4955 - 3.0 Enroute/Final PCDO Documents Cannot Be Searched by Credit Card Last 4 and Group Name In 6.0
         </comment>
@@ -24,7 +16,7 @@
         <rollback>
             <sql>
                 UPDATE KREW_DOC_HDR_EXT_T SET KEY_CD = 'cardApprovalOfficial' WHERE KEY_CD = 'creditCardLastFour';
-                UPDATE KREW_DOC_HDR_EXT_T SET KEY_CD = 'groupName' WHERE KEY_CD = 'name' AND VAL NOT LIKE 'SALES_TAX_%_VARIANCE_PERCENT';
+                UPDATE KREW_DOC_HDR_EXT_T SET KEY_CD = 'groupName' WHERE KEY_CD = 'name' AND VAL like 'UA PCRD%';
             </sql>
         </rollback>
     </changeSet>
