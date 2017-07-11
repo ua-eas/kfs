@@ -316,6 +316,7 @@
         <form-bean name="KualiExceptionIncidentForm"
                    type="org.kuali.kfs.kns.web.struts.form.KualiExceptionIncidentForm"/>
 
+
         <!-- VND Module Bean Definitions -->
         <form-bean name="VendorExclusionForm"
                    type="org.kuali.kfs.vnd.web.struts.VendorExclusionForm"/>
@@ -1158,3 +1159,4 @@
     <plug-in className="org.kuali.kfs.kns.web.struts.form.pojo.PojoPlugin"/>
 
 </struts-config>
+

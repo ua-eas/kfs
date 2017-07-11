@@ -167,10 +167,14 @@
         <property name="parameterEvaluatorService" ref="parameterEvaluatorService"/>
     </bean>
 
-    <bean id="purchaseOrderService" parent="purchaseOrderService-parentBean" class="edu.arizona.kfs.module.purap.document.service.impl.PurchaseOrderServiceImpl" />
+    <bean id="purchaseOrderService" parent="purchaseOrderService-parentBean" class="edu.arizona.kfs.module.purap.document.service.impl.PurchaseOrderServiceImpl">
+        <property name="purApWorkflowIntegrationHelperService" ref="purapWorkflowIntegrationHelperService" />
+    </bean>
 
-    <bean id="purapWorkflowIntegrationService" parent="purapWorkflowIntegrationService-parentBean" class="edu.arizona.kfs.module.purap.document.service.impl.PurApWorkflowIntegrationServiceImpl">
+    <bean id="purapWorkflowIntegrationHelperService" class="edu.arizona.kfs.module.purap.document.service.impl.PurApWorkflowIntegrationHelperServiceImpl">
         <property name="documentService" ref="documentService" />
+        <property name="personService" ref="personService" />
+        <property name="workflowDocumentService" ref="workflowDocumentService"/>
     </bean>
 
 </beans>

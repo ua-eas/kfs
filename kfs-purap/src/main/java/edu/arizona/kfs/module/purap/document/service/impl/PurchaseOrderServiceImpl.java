@@ -18,23 +18,19 @@ import org.kuali.rice.krad.util.GlobalVariables;
 import org.kuali.rice.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
 
-import edu.arizona.kfs.module.purap.document.service.PurApWorkflowIntegrationService;
+import edu.arizona.kfs.module.purap.document.service.PurApWorkflowIntegrationHelperService;
 
 @Transactional
 public class PurchaseOrderServiceImpl extends org.kuali.kfs.module.purap.document.service.impl.PurchaseOrderServiceImpl {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PurchaseOrderServiceImpl.class);
-
     private static final String PRINT = "PRINT";
 
-    protected PurApWorkflowIntegrationService purapWorkflowIntegrationService;
+    private PurApWorkflowIntegrationHelperService purapWorkflowIntegrationHelperService;
 
-    public void setPurapWorkflowIntegrationService(PurApWorkflowIntegrationService purapWorkflowIntegrationService) {
-        this.purapWorkflowIntegrationService = purapWorkflowIntegrationService;
+    public void setPurApWorkflowIntegrationHelperService(PurApWorkflowIntegrationHelperService purapWorkflowIntegrationHelperService) {
+        this.purapWorkflowIntegrationHelperService = purapWorkflowIntegrationHelperService;
     }
 
-    /**
-     * @see org.kuali.kfs.module.purap.document.service.PurchaseOrderService#performPurchaseOrderFirstTransmitViaPrinting(java.lang.String, java.io.ByteArrayOutputStream)
-     */
     @Override
     public void performPurchaseOrderFirstTransmitViaPrinting(String documentNumber, ByteArrayOutputStream baosPDF) {
         PurchaseOrderDocument po = getPurchaseOrderByDocumentNumber(documentNumber);
@@ -55,19 +51,7 @@ public class PurchaseOrderServiceImpl extends org.kuali.kfs.module.purap.documen
         po.setPurchaseOrderFirstTransmissionTimestamp(currentDate);
         po.setPurchaseOrderLastTransmitTimestamp(currentDate);
         po.setOverrideWorkflowButtons(Boolean.FALSE);
-        ActionRequest printingRequest = getActionRequestForPurchaseOrderDocumentPrint(po);
-        if (printingRequest != null) {
-            // after we retrieve that person that's supposed to print the doc, we determine whether we should do a plain FYI or need to use the superuser to proxy the FYI to clear out the PRINT FYI
-            // request
-            Person currentUser = GlobalVariables.getUserSession().getPerson();
-            if (currentUser.getPrincipalId().equals(printingRequest.getPrincipalId())) {
-                Person systemUserPerson = getPersonService().getPersonByPrincipalName(KFSConstants.SYSTEM_USER);
-                purapWorkflowIntegrationService.takeAllActionsForGivenCriteria(po, "Action taken automatically as part of document initial print transmission by user " + GlobalVariables.getUserSession().getPerson().getName(), PurapConstants.PurchaseOrderStatuses.NODE_DOCUMENT_TRANSMISSION, systemUserPerson, KFSConstants.SYSTEM_USER);
-            } else {
-                // there is a print request to another user, so we need to clear that user's action requests regardless of whether this user has action requests
-                purapWorkflowIntegrationService.clearFYIRequestAsSuperUser(printingRequest, "Action taken automatically as part of document initial print transmission by user " + currentUser.getName());
-            }
-        }
+        handleActionRequest(po);
         po.setOverrideWorkflowButtons(Boolean.TRUE);
         if (!po.getApplicationDocumentStatus().equals(PurapConstants.PurchaseOrderStatuses.APPDOC_OPEN)) {
             attemptSetupOfInitialOpenOfDocument(po);
@@ -86,8 +70,27 @@ public class PurchaseOrderServiceImpl extends org.kuali.kfs.module.purap.documen
         return !excludeList.contains(reqSourceCode);
     }
 
+    private void handleActionRequest(PurchaseOrderDocument purchaseOrderDocument) {
+        ActionRequest printingRequest = getActionRequestForPurchaseOrderDocumentPrint(purchaseOrderDocument);
+        if (printingRequest != null) {
+            // after we retrieve that person that's supposed to print the doc, we determine whether we should do a plain FYI or need to use the superuser to proxy the FYI to clear out the PRINT FYI
+            // request
+            Person currentUser = GlobalVariables.getUserSession().getPerson();
+            if (currentUser.getPrincipalId().equals(printingRequest.getPrincipalId())) {
+                boolean performedAction = purapWorkflowIntegrationService.takeAllActionsForGivenCriteria(purchaseOrderDocument, "Action taken automatically as part of document initial print transmission", PurapConstants.PurchaseOrderStatuses.NODE_DOCUMENT_TRANSMISSION, currentUser, null);
+                if (!performedAction) {
+                    Person systemUserPerson = personService.getPersonByPrincipalName(KFSConstants.SYSTEM_USER);
+                    purapWorkflowIntegrationService.takeAllActionsForGivenCriteria(purchaseOrderDocument, "Action taken automatically as part of document initial print transmission by user " + currentUser.getName(), PurapConstants.PurchaseOrderStatuses.NODE_DOCUMENT_TRANSMISSION, systemUserPerson, KFSConstants.SYSTEM_USER);
+                }
+            } else {
+                // there is a print request to another user, so we need to clear that user's action requests regardless of whether this user has action requests
+                purapWorkflowIntegrationHelperService.clearFYIRequestAsSuperUser(printingRequest, "Action taken automatically as part of document initial print transmission by user " + currentUser.getName());
+            }
+        }
+    }
+
     /**
-     * Returns the Person object representing the person that was supposed to print this document
+     * Returns the ActionRequest object representing the ActionRequest that was supposed to print this document
      *
      * @param purchaseOrderDocument
      * @return

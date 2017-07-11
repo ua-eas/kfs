@@ -19,4 +19,10 @@
         <property name="purapService" ref="purapService"/>
     </bean>
     
+    <bean id="VendorCreditMemo-initTabPaymentRequestApprovedValidation" class="edu.arizona.kfs.module.purap.document.validation.impl.VendorCreditMemoInitTabPaymentRequestApprovedValidation" abstract="true" />
+
+	<bean id="PaymentRequest-taxAreaValidation" class="edu.arizona.kfs.module.purap.document.validation.impl.PaymentRequestTaxAreaValidation" abstract="true">
+		<property name="businessObjectService" ref="businessObjectService" />
+	</bean>	
+	
 </beans>

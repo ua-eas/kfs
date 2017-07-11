@@ -196,7 +196,7 @@
         <jsonpath.version>2.2.0</jsonpath.version>
         <jstl-api.version>1.2</jstl-api.version>
         <jta.version>1.1</jta.version>
-        <kfs.help.version>current-SNAPSHOT</kfs.help.version>
+        <kfs.help.version>ua-release2</kfs.help.version>
         <maven.compiler.version>3.3</maven.compiler.version>
         <mysql.groupId>mysql</mysql.groupId>
         <mysql.artifactId>mysql-connector-java</mysql.artifactId>

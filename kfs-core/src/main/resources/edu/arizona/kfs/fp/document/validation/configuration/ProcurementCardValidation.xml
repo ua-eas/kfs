@@ -51,4 +51,21 @@
     </property>
   </bean>
 
+  <bean id="ProcurementCard-saveDocumentValidation" parent="ProcurementCard-saveDocumentValidation-parentBean" scope="prototype">
+    <property name="validations">
+      <list>
+        <bean parent="ProcurementCard-balanceValidation" scope="prototype">
+          <property name="parameterProperties">
+            <list>
+              <bean parent="validationFieldConversion">
+                <property name="sourceEventProperty" value="document" />
+                <property name="targetValidationProperty" value="accountingDocumentForValidation" />
+              </bean>
+            </list>
+          </property>
+        </bean>
+      </list>
+    </property>
+  </bean>
+  
 </beans>

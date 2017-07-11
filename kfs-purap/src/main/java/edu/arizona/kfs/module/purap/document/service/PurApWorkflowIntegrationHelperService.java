@@ -2,7 +2,7 @@ package edu.arizona.kfs.module.purap.document.service;
 
 import org.kuali.rice.kew.api.action.ActionRequest;
 
-public interface PurApWorkflowIntegrationService extends org.kuali.kfs.module.purap.document.service.PurApWorkflowIntegrationService {
+public interface PurApWorkflowIntegrationHelperService {
 
     /**
      * Clears an FYI request as the specified super user
