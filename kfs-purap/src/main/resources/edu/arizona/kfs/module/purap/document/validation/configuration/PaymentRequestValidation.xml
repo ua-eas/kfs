@@ -22,7 +22,8 @@
 
     <bean id="PaymentRequest-saveDocumentValidation" parent="PaymentRequest-saveDocumentValidation-parentBean" scope="prototype">
         <property name="validations">
-            <list merge="true">
+            <list> <!-- excluding bean parent="PurchasingAccountsPayable-checkNegativeAccountsValidation" from "PaymentRequest-saveDocumentValidation-parentBean" on purpose -->
+                <bean parent="PaymentRequest-payDateNotPastValidation" scope="prototype" />
                 <bean parent="PurchasingAccountsPayable-incomeTypeTotalsValidation" scope="prototype" />
             </list>
         </property>

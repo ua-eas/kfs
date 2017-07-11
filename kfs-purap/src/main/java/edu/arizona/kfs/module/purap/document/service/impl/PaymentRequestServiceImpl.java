@@ -7,9 +7,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
+import org.kuali.kfs.module.purap.businessobject.ItemType;
 import org.kuali.kfs.module.purap.businessobject.PaymentRequestAccount;
 import org.kuali.kfs.module.purap.businessobject.PaymentRequestItem;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLine;
@@ -120,103 +120,111 @@ public class PaymentRequestServiceImpl extends org.kuali.kfs.module.purap.docume
         this.paymentMethodGeneralLedgerPendingEntryService = paymentMethodGeneralLedgerPendingEntryService;
     }
 
-    /**
-     * Distributes accounts for a payment request document.
-     *
-     * @param paymentRequestDocument
-     */
-    @Override     
+    @Override
     protected void distributeAccounting(PaymentRequestDocument paymentRequestDocument) {
         // update the account amounts before doing any distribution
         purapAccountingService.updateAccountAmounts(paymentRequestDocument);
-
         String accountDistributionMethod = paymentRequestDocument.getAccountDistributionMethod();
 
-        for (PaymentRequestItem item : (List<PaymentRequestItem>) paymentRequestDocument.getItems()) {
-            KualiDecimal totalAmount = KualiDecimal.ZERO;
-            List<PurApAccountingLine> distributedAccounts = null;
-            List<SourceAccountingLine> summaryAccounts = null;
-            Set excludedItemTypeCodes = new HashSet();
-            excludedItemTypeCodes.add(PurapConstants.ItemTypeCodes.ITEM_TYPE_PMT_TERMS_DISCOUNT_CODE);
+        @SuppressWarnings("unchecked")
+        List<PaymentRequestItem> paymentRequestItems = paymentRequestDocument.getItems();
+
+        for (PaymentRequestItem item : paymentRequestItems) {
 
             // skip above the line
             if (item.getItemType().isLineItemIndicator()) {
                 continue;
             }
 
-            if ((item.getSourceAccountingLines().isEmpty()) && (ObjectUtils.isNotNull(item.getExtendedPrice())) && (KualiDecimal.ZERO.compareTo(item.getExtendedPrice()) != 0)) {
-                if ((StringUtils.equals(PurapConstants.ItemTypeCodes.ITEM_TYPE_PMT_TERMS_DISCOUNT_CODE, item.getItemType().getItemTypeCode())) && (paymentRequestDocument.getGrandTotal() != null) && ((KualiDecimal.ZERO.compareTo(paymentRequestDocument.getGrandTotal()) != 0))) {
+            List<PurApAccountingLine> distributedAccounts = new ArrayList<PurApAccountingLine>();
+            boolean isItemAccountingLinesEmpty = item.getSourceAccountingLines() == null || item.getSourceAccountingLines().isEmpty();
+            boolean isItemExtendedPriceNotZero = ObjectUtils.isNotNull(item.getExtendedPrice()) && KualiDecimal.ZERO.compareTo(item.getExtendedPrice()) != 0;
+            boolean isItemPaymentTermsDiscountCode = StringUtils.equals(PurapConstants.ItemTypeCodes.ITEM_TYPE_PMT_TERMS_DISCOUNT_CODE, item.getItemType().getItemTypeCode());
 
-                    // No discount is applied to other item types other than item line
-                    // See KFSMI-5210 for details
+            if ((isItemAccountingLinesEmpty && isItemExtendedPriceNotZero) || isItemPaymentTermsDiscountCode) {
+                distributedAccounts = generateAccountDistributionForItem(paymentRequestDocument, item);
+                item.setSourceAccountingLines(distributedAccounts);
+            }
 
-                    // total amount should be the line item total, not the grand total
-                    totalAmount = paymentRequestDocument.getLineItemTotal();
-
-                    // prorate item line accounts only
-                    Set includedItemTypeCodes = new HashSet();
-                    includedItemTypeCodes.add(PurapConstants.ItemTypeCodes.ITEM_TYPE_ITEM_CODE);
-                    includedItemTypeCodes.add(PurapConstants.ItemTypeCodes.ITEM_TYPE_SERVICE_CODE);
-
-                    summaryAccounts = purapAccountingService.generateSummaryIncludeItemTypesAndNoZeroTotals(paymentRequestDocument.getItems(), includedItemTypeCodes);
-                    //if summaryAccount is empty then do not call generateAccountDistributionForProration as
-                    //there is a check in that method to throw NPE if accounts percents == 0..
-                    //KFSMI-8487
-                    if (summaryAccounts != null) {
-                  	    distributedAccounts = ((edu.arizona.kfs.module.purap.service.PurapAccountingService)purapAccountingService).generateAccountDistributionForProration(summaryAccounts, totalAmount, PurapConstants.PRORATION_SCALE, PaymentRequestAccount.class, paymentRequestDocument.getItems());
-                    }
-                    if (PurapConstants.AccountDistributionMethodCodes.SEQUENTIAL_CODE.equalsIgnoreCase(accountDistributionMethod)) {
-                        purapAccountingService.updatePreqAccountAmountsWithTotal(distributedAccounts, item.getTotalAmount());
-
-                    } else {
-                        boolean rulePassed = true;
-                        // check any business rules
-                        rulePassed &= kualiRuleService.applyRules(new PurchasingAccountsPayableItemPreCalculateEvent(paymentRequestDocument, item));
-
-                        if (rulePassed) {
-                            purapAccountingService.updatePreqProporationalAccountAmountsWithTotal(distributedAccounts, item.getTotalAmount());
-                        }
-                    }
-                }
-                else {
-                    PurchaseOrderItem poi = item.getPurchaseOrderItem();
-                    if ((poi != null) && (poi.getSourceAccountingLines() != null) && (!(poi.getSourceAccountingLines().isEmpty())) && (poi.getExtendedPrice() != null) && ((KualiDecimal.ZERO.compareTo(poi.getExtendedPrice())) != 0)) {
-                        // use accounts from purchase order item matching this item
-                        // account list of current item is already empty
-                        item.generateAccountListFromPoItemAccounts(poi.getSourceAccountingLines());
-                    }
-                    else {
-                        if ((poi != null) && (poi.getExtendedPrice() != null) && ((KualiDecimal.ZERO.compareTo(poi.getExtendedPrice())) == 0)) {
-                            // if Purchase Order is Zero Dollar i.e Unencumbered then use the contents of the Payment Requisition instead 
-                            totalAmount = paymentRequestDocument.getTotalDollarAmountAboveLineItems();
-                            purapAccountingService.updateAccountAmounts(paymentRequestDocument);
-                            summaryAccounts = purapAccountingService.generateSummary(PurApItemUtils.getAboveTheLineOnly(paymentRequestDocument.getItems()));                    		
-                    	}
-                    	else {
-                            totalAmount = paymentRequestDocument.getPurchaseOrderDocument().getTotalDollarAmountAboveLineItems();
-                            purapAccountingService.updateAccountAmounts(paymentRequestDocument.getPurchaseOrderDocument());
-                            summaryAccounts = purapAccountingService.generateSummary(PurApItemUtils.getAboveTheLineOnly(paymentRequestDocument.getPurchaseOrderDocument().getItems()));
-                    	}
-                    	
-                        //if summaryAccount is empty then do not call generateAccountDistributionForProration as
-                        //there is a check in that method to throw NPE if accounts percents == 0..
-                        //KFSMI-8487
-                        if (summaryAccounts != null) {
-                      	    distributedAccounts = ((edu.arizona.kfs.module.purap.service.PurapAccountingService)purapAccountingService).generateAccountDistributionForProration(summaryAccounts, totalAmount, new Integer("6"), PaymentRequestAccount.class, paymentRequestDocument.getItems());
-                        }
-                    }
-                }
-                if (CollectionUtils.isNotEmpty(distributedAccounts) && CollectionUtils.isEmpty(item.getSourceAccountingLines())) {
-                    item.setSourceAccountingLines(distributedAccounts);
+            // check any business rules then update account amounts
+            boolean rulePassed = kualiRuleService.applyRules(new PurchasingAccountsPayableItemPreCalculateEvent(paymentRequestDocument, item));
+            if (rulePassed) {
+                if (PurapConstants.AccountDistributionMethodCodes.SEQUENTIAL_CODE.equalsIgnoreCase(accountDistributionMethod)) {
+                    purapAccountingService.updatePreqAccountAmountsWithTotal(distributedAccounts, item.getTotalAmount());
+                } else {
+                    purapAccountingService.updatePreqProporationalAccountAmountsWithTotal(distributedAccounts, item.getTotalAmount());
                 }
             }
+
         }
 
         // update again now that distribute is finished. (Note: we may not need this anymore now that I added updateItem line above
-        //leave the call below since we need to this when sequential method is used on the document.
+        // leave the call below since we need to this when sequential method is used on the document.
         purapAccountingService.updateAccountAmounts(paymentRequestDocument);
     }
-    
+
+    /**
+     * @param paymentRequestDocument
+     * @param item
+     * @return distribution of accounts for the item.
+     */
+    @SuppressWarnings("unchecked")
+    private List<PurApAccountingLine> generateAccountDistributionForItem(PaymentRequestDocument paymentRequestDocument, PaymentRequestItem item) {
+        List<PurApAccountingLine> distributedAccounts = new ArrayList<PurApAccountingLine>();
+        List<SourceAccountingLine> summaryAccounts = null;
+        KualiDecimal totalAmount = KualiDecimal.ZERO;
+        PurchaseOrderItem poi = item.getPurchaseOrderItem();
+
+        boolean isItemPaymentTermsDiscountCode = StringUtils.equals(PurapConstants.ItemTypeCodes.ITEM_TYPE_PMT_TERMS_DISCOUNT_CODE, item.getItemType().getItemTypeCode());
+        boolean isPreqAboveTheLineTotalNotZero = paymentRequestDocument.getTotalDollarAmountAboveLineItems() != null && KualiDecimal.ZERO.compareTo(paymentRequestDocument.getTotalDollarAmountAboveLineItems()) != 0;
+        boolean isMatchingPoiAccountLinesNotEmpty = poi != null && poi.getSourceAccountingLines() != null && !poi.getSourceAccountingLines().isEmpty();
+        boolean isMatchingPoiAccountLinesAreEmpty = poi != null && poi.getSourceAccountingLines() != null && poi.getSourceAccountingLines().isEmpty();
+
+        if (isItemPaymentTermsDiscountCode && isPreqAboveTheLineTotalNotZero) {
+            // Special Case 1: PREQ item is Payment Terms Discount, and the PREQ has a items above the line that are currently being paid.
+            // Action: Copy Accounting Lines from the Above the Line items that are being paid.
+            totalAmount = paymentRequestDocument.getTotalDollarAmountAboveLineItems();
+            Set<String> includedItemTypeCodes = getAboveTheLineItemTypeCodes();
+            summaryAccounts = purapAccountingService.generateSummaryIncludeItemTypesAndNoZeroTotals(paymentRequestDocument.getItems(), includedItemTypeCodes);
+        } else if (isItemPaymentTermsDiscountCode) {
+            // Special Case 2: PREQ item is Payment Terms Discount, and there are no items above the line that are currently being paid.
+            // Action: Do nothing.
+        } else if (isMatchingPoiAccountLinesNotEmpty) {
+            // Special Case 3: PREQ item has a matching PO item that has Accounting Lines
+            // Action: Copy the Accounting Lines from the PO item
+            distributedAccounts = poi.getSourceAccountingLines();
+            return distributedAccounts;
+        } else if (isMatchingPoiAccountLinesAreEmpty && isPreqAboveTheLineTotalNotZero) {
+            // Special Case 4: PREQ item has a matching PO item that does not have Accounting Lines, and the PREQ has a items above the line that are currently being paid.
+            // Action: Copy Accounting Lines from the Above the Line items that are being paid.
+            totalAmount = paymentRequestDocument.getTotalDollarAmountAboveLineItems();
+            summaryAccounts = purapAccountingService.generateSummary(PurApItemUtils.getAboveTheLineOnly(paymentRequestDocument.getItems()));
+        } else {
+            // Default Case: Copy from the First Above the Line item's Accounting Line.
+            summaryAccounts = purapAccountingService.generateSummary(PurApItemUtils.getAboveTheLineOnly(paymentRequestDocument.getItems()));
+            distributedAccounts = ((edu.arizona.kfs.module.purap.service.PurapAccountingService) purapAccountingService).generateAccountDistributionForProration(summaryAccounts, totalAmount, PurapConstants.PRORATION_SCALE, PaymentRequestAccount.class, paymentRequestDocument.getItems());
+            return distributedAccounts;
+        }
+
+        // if summaryAccount is null then do not call generateAccountDistributionForProration as there is a check in that method to throw exceptions. see KFSMI-8487
+        if (summaryAccounts != null) {
+            distributedAccounts = purapAccountingService.generateAccountDistributionForProration(summaryAccounts, totalAmount, PurapConstants.PRORATION_SCALE, PaymentRequestAccount.class);
+        }
+
+        return distributedAccounts;
+    }
+
+    private Set<String> getAboveTheLineItemTypeCodes() {
+        Set<String> itemTypeCodes = new HashSet<String>();
+        Collection<ItemType> itemTypes = businessObjectService.findAll(ItemType.class);
+        for (ItemType itemType : itemTypes) {
+            if (itemType.isLineItemIndicator()) {
+                itemTypeCodes.add(itemType.getItemTypeCode());
+            }
+        }
+        return itemTypeCodes;
+    }
+
     /**
      * Update to baseline method to additionally set the payment method when the vendor is changed.
      */
