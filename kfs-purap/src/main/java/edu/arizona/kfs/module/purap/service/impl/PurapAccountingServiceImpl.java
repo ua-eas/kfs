@@ -229,12 +229,9 @@ public class PurapAccountingServiceImpl extends org.kuali.kfs.module.purap.servi
                         BigDecimal bigDecimalAccountingLineAmount = accountLinePercent.multiply(bigDecimalDifference);
 
                         KualiDecimal kdAccountingLineAmount = new KualiDecimal(bigDecimalAccountingLineAmount);
-                        // KualiDecimal amount = account.getAmount().add(kdAccountingLineAmount);
-                        account.setAmount(kdAccountingLineAmount);
+                        KualiDecimal amount = account.getAmount().add(kdAccountingLineAmount);
+                        account.setAmount(amount);
 
-                    } else if (ObjectUtils.isNotNull(account.getAccountLinePercent()) || ObjectUtils.isNotNull(account.getAmount())) {
-                        BigDecimal percentPerAccountLine = new BigDecimal(account.getAccountLinePercent().toString()).divide(new BigDecimal(100));
-                        account.setAmount(account.getAmount().add(new KualiDecimal(percentPerAccountLine.multiply(new BigDecimal(difference.toString())).setScale(KualiDecimal.SCALE, KualiDecimal.ROUND_BEHAVIOR))));
                     }
                 }
             }
