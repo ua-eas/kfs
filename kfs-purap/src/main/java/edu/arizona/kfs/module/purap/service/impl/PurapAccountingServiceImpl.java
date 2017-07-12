@@ -219,7 +219,20 @@ public class PurapAccountingServiceImpl extends org.kuali.kfs.module.purap.servi
                 }
 
                 for (T account : sourceAccountingLines) {
-                    if (ObjectUtils.isNotNull(account.getAccountLinePercent()) || ObjectUtils.isNotNull(account.getAmount())) {
+                    if (ObjectUtils.isNotNull(account.getAccountLinePercent()) && ObjectUtils.isNotNull(account.getAmount())) {
+                        String accountLinePercentString = account.getAccountLinePercent().toString();
+                        BigDecimal accountLinePercentage = new BigDecimal(accountLinePercentString);
+                        BigDecimal accountLinePercent = accountLinePercentage.divide(ONE_HUNDRED);
+
+                        BigDecimal bigDecimalDifference = new BigDecimal(difference.toString());
+
+                        BigDecimal bigDecimalAccountingLineAmount = accountLinePercent.multiply(bigDecimalDifference);
+
+                        KualiDecimal kdAccountingLineAmount = new KualiDecimal(bigDecimalAccountingLineAmount);
+                        // KualiDecimal amount = account.getAmount().add(kdAccountingLineAmount);
+                        account.setAmount(kdAccountingLineAmount);
+
+                    } else if (ObjectUtils.isNotNull(account.getAccountLinePercent()) || ObjectUtils.isNotNull(account.getAmount())) {
                         BigDecimal percentPerAccountLine = new BigDecimal(account.getAccountLinePercent().toString()).divide(new BigDecimal(100));
                         account.setAmount(account.getAmount().add(new KualiDecimal(percentPerAccountLine.multiply(new BigDecimal(difference.toString())).setScale(KualiDecimal.SCALE, KualiDecimal.ROUND_BEHAVIOR))));
                     }
