@@ -232,6 +232,8 @@ public class PurapAccountingServiceImpl extends org.kuali.kfs.module.purap.servi
                         KualiDecimal amount = account.getAmount().add(kdAccountingLineAmount);
                         account.setAmount(amount);
 
+                    } else {
+                        LOG.info("Either the AccountLinePercent or Amount is empty");
                     }
                 }
             }
