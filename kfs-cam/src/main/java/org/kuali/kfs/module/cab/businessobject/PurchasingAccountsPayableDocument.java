@@ -25,12 +25,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.module.cab.CabConstants;
 import org.kuali.kfs.module.cab.CabPropertyConstants;
-import org.kuali.kfs.module.purap.document.PaymentRequestDocument;
-import org.kuali.kfs.module.purap.document.VendorCreditMemoDocument;
 import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
 import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
+import org.kuali.rice.coreservice.framework.parameter.ParameterConstants.NAMESPACE;
 import org.kuali.rice.kew.api.KewApiServiceLocator;
 import org.kuali.rice.kew.api.doctype.DocumentType;
 import org.kuali.rice.kew.doctype.bo.DocumentTypeEBO;
@@ -38,12 +37,17 @@ import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.rice.krad.service.BusinessObjectService;
 import org.kuali.rice.krad.util.ObjectUtils;
 
+import edu.arizona.kfs.module.cab.CabConstants;
+import edu.arizona.kfs.module.purap.document.PaymentRequestDocument;
+import edu.arizona.kfs.module.purap.document.VendorCreditMemoDocument;
+
 /**
  * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
  */
+@NAMESPACE(namespace = KfsParameterConstants.PURCHASING_NAMESPACE)
 public class PurchasingAccountsPayableDocument extends PersistableBusinessObjectBase {
-
-    private String documentNumber;
+	private static final long serialVersionUID = 5114191946536689765L;
+	private String documentNumber;
     private Integer purapDocumentIdentifier;
     private Integer purchaseOrderIdentifier;
     private String documentTypeCode;
@@ -55,7 +59,6 @@ public class PurchasingAccountsPayableDocument extends PersistableBusinessObject
     private List<PurchasingAccountsPayableItemAsset> purchasingAccountsPayableItemAssets;
 
     // non-persistent
-    private boolean active;
     private String purApContactEmailAddress;
     private String purApContactPhoneNumber;
     protected String statusDescription;
@@ -298,16 +301,14 @@ public class PurchasingAccountsPayableDocument extends PersistableBusinessObject
      * @return Returns the statusDescription.
      */
     public String getStatusDescription() {
-        String statusCode;
-
         if (StringUtils.isNotBlank(this.statusDescription)) {
             return this.statusDescription;
         }
         else {
-            Map objectKeys = new HashMap();
+            Map<String, Integer> objectKeys = new HashMap<String, Integer>();
             objectKeys.put(CabPropertyConstants.PurchasingAccountsPayableDocument.PURAP_DOCUMENT_IDENTIFIER, this.getPurapDocumentIdentifier());
 
-            if (CabConstants.PREQ.equals(this.documentTypeCode)) {
+            if (CabConstants.PREQ.equals(getDocumentTypeCode()) || CabConstants.PRNC.equals(getDocumentTypeCode())) {
 
                 PaymentRequestDocument paymentRequestDocument = (PaymentRequestDocument) SpringContext.getBean(BusinessObjectService.class).findByPrimaryKey(PaymentRequestDocument.class, objectKeys);
                 if (ObjectUtils.isNotNull(paymentRequestDocument)) {
@@ -321,7 +322,6 @@ public class PurchasingAccountsPayableDocument extends PersistableBusinessObject
                 }
             }
         }
-
         return statusDescription;
     }
 
@@ -343,6 +343,7 @@ public class PurchasingAccountsPayableDocument extends PersistableBusinessObject
      */
 
     @Override
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public List buildListOfDeletionAwareLists() {
         List<List> managedLists = new ArrayList<List>();
 
@@ -353,6 +354,7 @@ public class PurchasingAccountsPayableDocument extends PersistableBusinessObject
     /**
      * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
      */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
         LinkedHashMap m = new LinkedHashMap();
         m.put("documentNumber", this.documentNumber);

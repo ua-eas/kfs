@@ -16,6 +16,7 @@
     <bean id="GeneralErrorCorrection-addAccountingLineValidation" parent="GeneralErrorCorrection-addAccountingLineValidation-parentBean" scope="prototype">
         <property name="validations">
             <list>
+                <bean parent="AccountingDocument-AddAccountingLine-AccountingLineGroupedValidation" scope="prototype" />
                 <bean parent="GeneralErrorCorrection-objectTypeValidation" scope="prototype">
                     <property name="parameterProperties">
                         <list>

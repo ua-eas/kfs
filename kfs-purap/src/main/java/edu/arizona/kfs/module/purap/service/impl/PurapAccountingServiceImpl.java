@@ -1,8 +1,10 @@
 package edu.arizona.kfs.module.purap.service.impl;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
@@ -17,12 +19,19 @@ import org.kuali.kfs.sys.util.ObjectPopulationUtils;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.krad.util.ObjectUtils;
 
+import edu.arizona.kfs.module.purap.document.PaymentRequestDocument;
+import edu.arizona.kfs.module.purap.service.PurapAccountingHelperService;
 import edu.arizona.kfs.module.purap.service.PurapAccountingService;
 
+public class PurapAccountingServiceImpl extends org.kuali.kfs.module.purap.service.impl.PurapAccountingServiceImpl implements PurapAccountingService {
 
-public class PurapAccountingServiceImpl extends org.kuali.kfs.module.purap.service.impl.PurapAccountingServiceImpl 
-   implements PurapAccountingService {
-    private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PurapAccountingServiceImpl.class);
+	private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PurapAccountingServiceImpl.class);
+	
+	protected PurapAccountingHelperService purapAccountingHelperService;
+	
+	public void setPurapAccountingHelperService(PurapAccountingHelperService purapAccountingHelperService) {
+		this.purapAccountingHelperService = purapAccountingHelperService;
+	}
     
     @Override
     public List<PurApAccountingLine> generateAccountDistributionForProration(List<SourceAccountingLine> accounts, KualiDecimal totalAmount, Integer percentScale, Class clazz, List<PurApItem> purApItems) {
@@ -99,13 +108,11 @@ public class PurapAccountingServiceImpl extends org.kuali.kfs.module.purap.servi
                 }
                 UseTaxContainer useTaxContainer = new UseTaxContainer();
                 for (PurApItemUseTax itemUseTax : purApItem.getUseTaxItems()) {
-                	// UAF-4250 : this 'usetax accounts' is for GLPE generation; however, the usetaxamount
-                	// should not be changed unless they are in the same item/account/objcd etc.
-                	PurApItemUseTax itemUseTaxCopy = (PurApItemUseTax)ObjectUtils.deepCopy(itemUseTax);
+                    PurApItemUseTax itemUseTaxCopy = (PurApItemUseTax)ObjectUtils.deepCopy(itemUseTax);
                     if (useTaxItemMap.containsKey(itemUseTaxCopy)) {
                         useTaxContainer = useTaxItemMap.get(itemUseTaxCopy);
                         PurApItemUseTax exisitingItemUseTax = useTaxContainer.getUseTax();
-                        // if already in set we need to add on the old amount
+                        
                         KualiDecimal tax = exisitingItemUseTax.getTaxAmount();
                         tax = tax.add(itemUseTaxCopy.getTaxAmount());
                         exisitingItemUseTax.setTaxAmount(tax);
@@ -143,6 +150,88 @@ public class PurapAccountingServiceImpl extends org.kuali.kfs.module.purap.servi
 
         useTaxAccounts = new ArrayList<UseTaxContainer>(useTaxItemMap.values());
         return useTaxAccounts;
+    }
+
+    @Override
+    public List<SourceAccountingLine> generateAccountSummary(List<PurApItem> items, Set<String> itemTypeCodes, Boolean itemTypeCodesAreIncluded, Boolean useZeroTotals, Boolean useAlternateAmount, Boolean useTaxIncluded, Boolean taxableOnly) {
+        return super.generateAccountSummary(items, itemTypeCodes, itemTypeCodesAreIncluded, useZeroTotals, useAlternateAmount, useTaxIncluded, taxableOnly);
+    }
+	
+    @Override
+    public List<SourceAccountingLine> generateSourceAccountsForVendorRemit(PurchasingAccountsPayableDocument document) {
+        updateAccountAmounts(document);
+        List<SourceAccountingLine> vendorSummaryAccounts = new ArrayList<SourceAccountingLine>();
+
+        if (document instanceof PaymentRequestDocument) {
+            vendorSummaryAccounts = purapAccountingHelperService.generateSummaryWithNoZeroTotalsNoUseTaxNoWithholding(((PaymentRequestDocument) document).getItemsSetupAlternateAmount());
+        } else {
+            vendorSummaryAccounts = generateSummaryWithNoZeroTotalsNoUseTax(document.getItems());
+        }
+        
+        return vendorSummaryAccounts;
+    }
+    
+    /**
+     * calculates values for a list of accounting lines based on an amount taking discount into account
+     *
+     * @param sourceAccountingLines
+     * @param totalAmount
+     * @param discountAmount
+     */
+    @Override
+    public <T extends PurApAccountingLine> void updateAccountAmountsWithTotal(List<T> sourceAccountingLines, KualiDecimal totalAmount, KualiDecimal discountAmount) {
+        // if we have a discount, then we need to base the amounts on the discount, but the percent on the total
+        boolean noDiscount = true;
+        if ((discountAmount != null) && KualiDecimal.ZERO.compareTo(discountAmount) != 0) {
+            noDiscount = false;
+        }
+
+        if ((totalAmount != null) && KualiDecimal.ZERO.compareTo(totalAmount) != 0) {
+            KualiDecimal accountTotal = KualiDecimal.ZERO;
+            T lastAccount = null;
+
+            for (T account : sourceAccountingLines) {
+                if (ObjectUtils.isNotNull(account.getAccountLinePercent()) || ObjectUtils.isNotNull(account.getAmount())) {
+                    BigDecimal pct = new BigDecimal(account.getAccountLinePercent().toString()).divide(new BigDecimal(100));
+                    if (noDiscount) {
+                        if (ObjectUtils.isNull(account.getAmount()) || account.getAmount().isZero()) {
+                            account.setAmount(new KualiDecimal(pct.multiply(new BigDecimal(totalAmount.toString())).setScale(KualiDecimal.SCALE, KualiDecimal.ROUND_BEHAVIOR)));
+                        }
+                    }
+                    else {
+                        account.setAmount(new KualiDecimal(pct.multiply(new BigDecimal(discountAmount.toString())).setScale(KualiDecimal.SCALE, KualiDecimal.ROUND_BEHAVIOR)));
+                    }
+                }
+                
+                accountTotal = accountTotal.add(account.getAmount());
+
+                lastAccount = account;
+            }
+
+            // put excess on last account
+            if (lastAccount != null) {
+                KualiDecimal difference = new KualiDecimal(0);
+                if (noDiscount) {
+                    difference = totalAmount.subtract(accountTotal);
+                }
+                else {
+                    difference = discountAmount.subtract(accountTotal);
+                }
+
+                for (T account : sourceAccountingLines) {
+                    if (ObjectUtils.isNotNull(account.getAccountLinePercent()) || ObjectUtils.isNotNull(account.getAmount())) {
+                        BigDecimal percentPerAccountLine = new BigDecimal(account.getAccountLinePercent().toString()).divide(new BigDecimal(100));
+                        account.setAmount(account.getAmount().add(new KualiDecimal(percentPerAccountLine.multiply(new BigDecimal(difference.toString())).setScale(KualiDecimal.SCALE, KualiDecimal.ROUND_BEHAVIOR))));
+                    }
+                }
+            }
+        }
+        else {
+            // zero out if extended price is zero
+            for (T account : sourceAccountingLines) {
+                account.setAmount(KualiDecimal.ZERO);
+            }
+        }
     }
 
 }

@@ -36,7 +36,7 @@
         <table cellpadding="0" cellspacing="0" class="datatable" summary="GL Entry Importing">
             <tr>
                 <kul:htmlAttributeHeaderCell attributeEntry="${EntryAttributes.universityFiscalYear}" horizontal="true" width="35%"  labelFor="universityFiscalYear" forceRequired="true" useShortLabel="false" />
-                <td class="datacell-nowrap"><kul:htmlControlAttribute attributeEntry="${EntryAttributes.universityFiscalYear}" property="universityFiscalYear" forceRequired="true" readOnly="${readOnly}" /></td>
+                <td class="datacell-nowrap"><kul:htmlControlAttribute attributeEntry="${EntryAttributes.universityFiscalYear}" property="universityFiscalYear" forceRequired="true" readOnly="${readOnly}" />${yearEndFiscalYearFinder.value}</td>
             </tr>
             <tr>
                 <kul:htmlAttributeHeaderCell attributeEntry="${EntryAttributes.documentNumber}" horizontal="true" width="35%"  labelFor="glDocId" forceRequired="true" useShortLabel="false" />
@@ -49,7 +49,7 @@
                     <c:if test="${!readOnly}">
                         <input type="hidden" name="universityFiscalPeriodCodeLookupOverride" value="${KualiForm.universityFiscalPeriodCodeLookupOverride}" />
                         <gl:gecEntryLookup
-                            boClassName="org.kuali.kfs.gl.businessobject.Entry"
+                            boClassName="edu.arizona.kfs.gl.businessobject.YeGecEntry"
                             actionPath="yegecEntryLookup.do"
                             lookupParameters="universityFiscalYear:universityFiscalYear,glDocId:documentNumber,universityFiscalPeriodCodeLookupOverride:universityFiscalPeriodCode"
                             tabindexOverride="KualiForm.currentTabIndex"
@@ -65,8 +65,8 @@
 
 	<kul:tab tabTitle="Accounting Lines" defaultOpen="true" tabErrorKey="${KFSConstants.ACCOUNTING_LINE_ERRORS}">
 		<sys-java:accountingLines>
-			<sys-java:accountingLineGroup newLinePropertyName="newSourceLine" collectionPropertyName="document.sourceAccountingLines" collectionItemPropertyName="document.sourceAccountingLine" attributeGroupName="source" />
-			<sys-java:accountingLineGroup newLinePropertyName="newTargetLine" collectionPropertyName="document.targetAccountingLines" collectionItemPropertyName="document.targetAccountingLine" attributeGroupName="target"/>
+            <sys-java:accountingLineGroup newLinePropertyName="" collectionPropertyName="document.sourceAccountingLines" collectionItemPropertyName="document.sourceAccountingLine" attributeGroupName="source" />
+            <sys-java:accountingLineGroup newLinePropertyName="" collectionPropertyName="document.targetAccountingLines" collectionItemPropertyName="document.targetAccountingLine" attributeGroupName="target"/>
 		</sys-java:accountingLines>
 	</kul:tab>
 
@@ -79,7 +79,7 @@
   	
 	<fp:capitalAssetModifyTab readOnly="${readOnly}"/>  
 	
-	<fp:errorCertification documentAttributes="${DataDictionary.ErrorCertification.attributes}" />
+	<fp:gecErrorCertification documentAttributes="${DataDictionary.ErrorCertification.attributes}" />
 	
 	<gl:generalLedgerPendingEntries />
 

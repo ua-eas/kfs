@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+    <bean id="YeGecEntry" parent="YeGecEntry-parentBean"/>
+    <bean id="YeGecEntry-parentBean" abstract="true" parent="Entry-parentBean">
+        <property name="businessObjectClass" value="edu.arizona.kfs.gl.businessobject.YeGecEntry"/>
+        <property name="lookupDefinition" ref="YeGecEntry-lookupDefinition"/>
+        <property name="objectLabel" value="Entry"/>
+        <!-- The next prop activates setting the related BO on its ResultRow during lookup (not search, not inquiry, but lookup) -->
+        <property name="exporterClass" value="org.kuali.rice.kew.export.DataExporter"/>
+    </bean>
+
+    <bean id="YeGecEntry-lookupDefinition" parent="YeGecEntry-lookupDefinition-parentBean"/>
+    <bean id="YeGecEntry-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
+        <property name="title" value="YEGEC General Ledger Entry Lookup"/>
+        <property name="lookupableID" value="gecGlEntryLookupable"/>
+        <property name="numOfColumns" value="2"/>
+        <property name="resultSetLimit" value="3000"/>
+        <property name="defaultSort">
+            <bean parent="SortDefinition">
+                <property name="attributeNames">
+                    <list>
+                        <value>financialObjectCode</value>
+                        <value>financialSubObjectCode</value>
+                        <value>financialBalanceTypeCode</value>
+                        <value>financialObjectTypeCode</value>
+                    </list>
+                </property>
+            </bean>
+        </property>
+        <property name="lookupFields">
+            <list>
+                <bean parent="FieldDefinition" p:attributeName="universityFiscalYear" p:treatWildcardsAndOperatorsAsLiteral="true" p:defaultValueFinderClass="edu.arizona.kfs.sys.businessobject.defaultvalue.YearEndFiscalYearFinder"/>
+                <bean parent="FieldDefinition" p:attributeName="financialDocumentTypeCode" p:treatWildcardsAndOperatorsAsLiteral="true" />
+                <bean parent="FieldDefinition" p:attributeName="chartOfAccountsCode" p:treatWildcardsAndOperatorsAsLiteral="true" p:defaultValueFinderClass="edu.arizona.kfs.sys.businessobject.defaultvalue.DefaultCoaCodeFinder"/>
+                <bean parent="FieldDefinition" p:attributeName="financialSystemOriginationCode" p:treatWildcardsAndOperatorsAsLiteral="true" />
+                <bean parent="FieldDefinition" p:attributeName="accountNumber" p:treatWildcardsAndOperatorsAsLiteral="false" />
+                <bean parent="FieldDefinition" p:attributeName="documentNumber" p:treatWildcardsAndOperatorsAsLiteral="true" />
+                <bean parent="FieldDefinition" p:attributeName="subAccountNumber" p:forceLookup="true"/>
+                <bean parent="FieldDefinition" p:attributeName="organizationDocumentNumber" p:treatWildcardsAndOperatorsAsLiteral="true" />
+                <bean parent="FieldDefinition" p:attributeName="financialObjectCode" p:treatWildcardsAndOperatorsAsLiteral="false" />
+                <bean parent="FieldDefinition" p:attributeName="projectCode" p:treatWildcardsAndOperatorsAsLiteral="true" />
+                <bean parent="FieldDefinition" p:attributeName="financialSubObjectCode" p:treatWildcardsAndOperatorsAsLiteral="false" />
+                <bean parent="FieldDefinition" p:attributeName="organizationReferenceId" p:treatWildcardsAndOperatorsAsLiteral="true" />
+                <bean parent="FieldDefinition" p:attributeName="financialBalanceTypeCode" p:treatWildcardsAndOperatorsAsLiteral="true" p:defaultValueFinderClass="org.kuali.kfs.gl.businessobject.options.ActualBalanceTypeOptionFinder"/>
+                <bean parent="FieldDefinition" p:attributeName="referenceFinancialDocumentTypeCode" p:treatWildcardsAndOperatorsAsLiteral="true" />
+                <bean parent="FieldDefinition" p:attributeName="financialObjectTypeCode" p:treatWildcardsAndOperatorsAsLiteral="true" />
+                <bean parent="FieldDefinition" p:attributeName="referenceFinancialSystemOriginationCode" p:treatWildcardsAndOperatorsAsLiteral="true" />
+                <bean parent="FieldDefinition" p:attributeName="universityFiscalPeriodCode"  p:treatWildcardsAndOperatorsAsLiteral="false" p:defaultValueFinderClass="org.kuali.kfs.gl.businessobject.options.PeriodCodeOptionFinder"/>
+                <bean parent="FieldDefinition" p:attributeName="referenceFinancialDocumentNumber" p:treatWildcardsAndOperatorsAsLiteral="true" />
+                <bean parent="FieldDefinition" p:attributeName="dummyBusinessObject.pendingEntryOption" p:defaultValueFinderClass="org.kuali.kfs.gl.businessobject.options.PendingEntryOptionFinder"/>
+                <bean parent="FieldDefinition" p:attributeName="dummyBusinessObject.debitCreditOption" p:defaultValueFinderClass="org.kuali.kfs.gl.businessobject.options.DebitCreditOptionFinder"/>
+            </list>
+        </property>
+        <property name="resultFields">
+            <list>
+                <bean parent="FieldDefinition" p:attributeName="gecDocumentNumber" />
+                <bean parent="FieldDefinition" p:attributeName="universityFiscalYear"/>
+                <bean parent="FieldDefinition" p:attributeName="chartOfAccountsCode"/>
+                <bean parent="FieldDefinition" p:attributeName="accountNumber"/>
+                <bean parent="FieldDefinition" p:attributeName="subAccountNumber"/>
+                <bean parent="FieldDefinition" p:attributeName="financialObjectCode"/>
+                <bean parent="FieldDefinition" p:attributeName="financialSubObjectCode"/>
+                <bean parent="FieldDefinition" p:attributeName="financialBalanceTypeCode"/>
+                <bean parent="FieldDefinition" p:attributeName="financialObjectTypeCode"/>
+                <bean parent="FieldDefinition" p:attributeName="universityFiscalPeriodCode"/>
+                <bean parent="FieldDefinition" p:attributeName="financialDocumentTypeCode"/>
+                <bean parent="FieldDefinition" p:attributeName="financialSystemOriginationCode"/>
+                <bean parent="FieldDefinition" p:attributeName="documentNumber"/>
+                <bean parent="FieldDefinition" p:attributeName="transactionLedgerEntryDescription"/>
+                <bean parent="FieldDefinition" p:attributeName="transactionLedgerEntryAmount"/>
+                <bean parent="FieldDefinition" p:attributeName="transactionDebitCreditCode"/>
+                <bean parent="FieldDefinition" p:attributeName="transactionDate"/>
+                <bean parent="FieldDefinition" p:attributeName="organizationDocumentNumber"/>
+                <bean parent="FieldDefinition" p:attributeName="projectCode"/>
+                <bean parent="FieldDefinition" p:attributeName="organizationReferenceId"/>
+                <bean parent="FieldDefinition" p:attributeName="referenceFinancialDocumentTypeCode"/>
+                <bean parent="FieldDefinition" p:attributeName="referenceFinancialSystemOriginationCode"/>
+                <bean parent="FieldDefinition" p:attributeName="referenceFinancialDocumentNumber"/>
+                <bean parent="FieldDefinition" p:attributeName="dummyBusinessObject.pendingEntryOption"/>
+            </list>
+        </property>
+    </bean>
+
+</beans>
+

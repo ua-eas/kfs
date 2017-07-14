@@ -14,14 +14,15 @@ import edu.arizona.kfs.sys.KFSPropertyConstants;
 
 public class GecEntryRelationship extends PersistableBusinessObjectBase {
     private static final long serialVersionUID = 1107325740786032980L;
-    private static final String TO_STRING_FORMAT = "GecEntryRelationship(enrtryId: %d, gecFdocNumber: %s, gecDocRouteStatusCode: %s, fdocLineTypeCode: %s, acctLineSeqNum: %d)";
+    private static final String TO_STRING_FORMAT = "GecEntryRelationship(enrtryId: %d, gecFdocNumber: %s, acctLineObjId: %s)";
 
     private Long entryId;
     private String gecDocumentNumber;
     private Integer gecAcctLineSeqNumber;
     private String gecDocRouteStatus;
     private String gecFdocLineTypeCode;
-    private Entry entry;
+    private String gecAcctLineObjectId;
+    private transient Entry entry;
 
 
     public GecEntryRelationship() {
@@ -29,17 +30,18 @@ public class GecEntryRelationship extends PersistableBusinessObjectBase {
     }
 
 
-    public GecEntryRelationship(Long entryId, String gecDocumentNumber, Integer gecAcctLineSeqNumber, String gecFdocLineTypeCode, String gecDocumentStatus) {
+    public GecEntryRelationship(Long entryId, String gecDocumentNumber, Integer gecAcctLineSeqNumber, String gecFdocLineTypeCode, String gecDocumentStatus, String gecAcctLineObjectId) {
         this.entryId = entryId;
         this.gecDocumentNumber = gecDocumentNumber;
         this.gecAcctLineSeqNumber = gecAcctLineSeqNumber;
         this.gecFdocLineTypeCode = gecFdocLineTypeCode;
         this.gecDocRouteStatus = gecDocumentStatus;
+        this.gecAcctLineObjectId = gecAcctLineObjectId;
     }
 
 
-    public GecEntryRelationship(Long entryId, String gecDocumentNumber, Integer gecAcctLineSeqNumber, String gecFdocLineTypeCode, String gecDocumentStatus, Entry entry) {
-        this(entryId, gecDocumentNumber, gecAcctLineSeqNumber, gecFdocLineTypeCode, gecDocumentStatus);
+    public GecEntryRelationship(Long entryId, String gecDocumentNumber, Integer gecAcctLineSeqNumber, String gecFdocLineTypeCode, String gecDocumentStatus, String gecAcctLineObjectId, Entry entry) {
+        this(entryId, gecDocumentNumber, gecAcctLineSeqNumber, gecFdocLineTypeCode, gecDocumentStatus, gecAcctLineObjectId);
         this.entry = entry;
     }
 
@@ -113,6 +115,16 @@ public class GecEntryRelationship extends PersistableBusinessObjectBase {
     }
 
 
+    public String getGecAcctLineObjectId() {
+        return gecAcctLineObjectId;
+    }
+
+
+    public void setGecAcctLineObjectId(String gecAcctLineObjectId) {
+        this.gecAcctLineObjectId = gecAcctLineObjectId;
+    }
+
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -168,9 +180,7 @@ public class GecEntryRelationship extends PersistableBusinessObjectBase {
 
     @Override
     public String toString () {
-        return String.format(TO_STRING_FORMAT,
-                getEntryId(), getGecDocumentNumber(), getGecDocRouteStatus(),
-                getGecFdocLineTypeCode(), getGecAcctLineSeqNumber());
+        return String.format(TO_STRING_FORMAT, getEntryId(), getGecDocumentNumber(), getGecAcctLineObjectId());
     }
 
 }

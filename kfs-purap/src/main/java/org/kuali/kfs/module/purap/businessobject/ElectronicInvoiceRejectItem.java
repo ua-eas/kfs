@@ -29,6 +29,7 @@ import org.kuali.kfs.module.purap.document.ElectronicInvoiceRejectDocument;
 import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 
 
+// Note: this class edited because rejectItem in ElectronicInvoiceItemHolder does not have a getter/setter
 public class ElectronicInvoiceRejectItem extends PersistableBusinessObjectBase {
 
     // NOT NULL FIELDS
@@ -72,6 +73,7 @@ public class ElectronicInvoiceRejectItem extends PersistableBusinessObjectBase {
 
     private boolean unitOfMeasureAcceptIndicator = false;
     private boolean catalogNumberAcceptIndicator = false;
+    private boolean unitPriceAcceptIndicator = false;
 
     private ElectronicInvoiceRejectDocument electronicInvoiceRejectDocument;
 
@@ -693,5 +695,13 @@ public class ElectronicInvoiceRejectItem extends PersistableBusinessObjectBase {
         LinkedHashMap m = new LinkedHashMap();
         m.put("invoiceRejectItemIdentifier", this.invoiceRejectItemIdentifier);
         return m;
+    }
+
+    public boolean isUnitPriceAcceptIndicator() {
+        return unitPriceAcceptIndicator;
+    }
+
+    public void setUnitPriceAcceptIndicator(boolean unitPriceAcceptIndicator) {
+        this.unitPriceAcceptIndicator = unitPriceAcceptIndicator;
     }
 }

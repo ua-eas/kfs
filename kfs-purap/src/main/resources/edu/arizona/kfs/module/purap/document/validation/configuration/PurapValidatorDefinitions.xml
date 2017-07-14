@@ -25,4 +25,13 @@
 		<property name="businessObjectService" ref="businessObjectService" />
 	</bean>	
 	
+    <bean id="PaymentRequest-vendorValidation" class="edu.arizona.kfs.module.purap.document.validation.impl.PaymentRequestVendorValidation">
+        <property name="postalCodeValidationService" ref="postalCodeValidationService" />
+    </bean>
+
+    <bean id="PurchasingAccountsPayable-checkNegativeAccountsValidation" class="edu.arizona.kfs.module.purap.document.validation.impl.PurchasingAccountsPayableCheckNegativeAccountsValidation" abstract="true">
+        <property name="purapAccountingService" ref="purapAccountingService" />
+        <property name="parameterService" ref="parameterService" />
+    </bean>
+
 </beans>

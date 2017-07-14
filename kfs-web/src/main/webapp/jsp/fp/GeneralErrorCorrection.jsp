@@ -49,7 +49,7 @@
                     <c:if test="${!readOnly}">
                         <input type="hidden" name="universityFiscalPeriodCodeLookupOverride" value="${KualiForm.universityFiscalPeriodCodeLookupOverride}" />
                         <gl:gecEntryLookup
-                            boClassName="org.kuali.kfs.gl.businessobject.Entry"
+                            boClassName="edu.arizona.kfs.gl.businessobject.GecEntry"
                             actionPath="gecEntryLookup.do"
                             lookupParameters="universityFiscalYear:universityFiscalYear,glDocId:documentNumber,universityFiscalPeriodCodeLookupOverride:universityFiscalPeriodCode"
                             tabindexOverride="KualiForm.currentTabIndex"
@@ -78,7 +78,7 @@
   	
 	<fp:capitalAssetModifyTab readOnly="${readOnly}"/>  
 
-	<fp:errorCertification documentAttributes="${DataDictionary.ErrorCertification.attributes}" />
+	<fp:gecErrorCertification documentAttributes="${DataDictionary.ErrorCertification.attributes}" />
 	
 	<gl:generalLedgerPendingEntries />
 

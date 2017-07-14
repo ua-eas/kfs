@@ -1,13 +1,18 @@
 package edu.arizona.kfs.fp.document.web.struts;
 
+import static org.kuali.kfs.sys.KFSConstants.Booleans.TRUE;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,12 +21,9 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.kuali.kfs.fp.businessobject.GECSourceAccountingLine;
 import org.kuali.kfs.gl.businessobject.Entry;
-import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.service.SegmentedLookupResultsService;
 import org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
@@ -31,17 +33,16 @@ import org.kuali.rice.krad.util.GlobalVariables;
 import org.kuali.rice.krad.util.KRADConstants;
 import org.kuali.rice.krad.util.UrlFactory;
 
+import edu.arizona.kfs.fp.businessobject.GECSourceAccountingLine;
 import edu.arizona.kfs.fp.document.GeneralErrorCorrectionDocument;
+import edu.arizona.kfs.gl.businessobject.GecEntry;
 import edu.arizona.kfs.gl.businessobject.GecEntryRelationship;
+import edu.arizona.kfs.gl.businessobject.YeGecEntry;
 import edu.arizona.kfs.sys.KFSConstants;
 
-/**
- * This class is the UA modification of the GeneralErrorCorrectionAction.
- *
- * @author Adam Kost <kosta@email.arizona.edu> with some code adapted from UCI
- */
-@SuppressWarnings("deprecation")
+
 public class GeneralErrorCorrectionAction extends org.kuali.kfs.fp.document.web.struts.GeneralErrorCorrectionAction {
+    public static final String INITIATED_BY_GEC_SENTINAL = "initiatedByGecSentinel";
 
     private SegmentedLookupResultsService segmentedLookupResultsService;
 
@@ -68,17 +69,16 @@ public class GeneralErrorCorrectionAction extends org.kuali.kfs.fp.document.web.
                     return mapping.findForward(KFSConstants.MAPPING_BASIC);
                 }
 
-                if (gecDoc.getGecEntryRelationships() == null) {
-                    gecDoc.setGecEntryRelationships(new HashSet<GecEntryRelationship>());
-                }
-
                 for (Entry entry : rawValues) {
-                    GECSourceAccountingLine line = copyEntryToAccountingLine(entry);
+                    GECSourceAccountingLine line = convertEntryToSourceAcctLine(entry);
                     line.setDocumentNumber(gecDoc.getDocumentNumber());
+                    line.setObjectId(UUID.randomUUID().toString());
+
                     super.insertAccountingLine(true, (KualiAccountingDocumentFormBase) form, line);
-                    GecEntryRelationship gecEntryRelationship = new GecEntryRelationship(entry.getEntryId(), gecDoc.getDocumentNumber(), line.getSequenceNumber(), line.getFinancialDocumentLineTypeCode(), gecDoc.getDocumentHeader().getWorkflowDocument().getStatus().getCode(), entry);
-                    entry.setGecDocumentNumber(gecDoc.getDocumentNumber());
+
+                    GecEntryRelationship gecEntryRelationship = new GecEntryRelationship(entry.getEntryId(), gecDoc.getDocumentNumber(), line.getSequenceNumber(), line.getFinancialDocumentLineTypeCode(), gecDoc.getDocumentHeader().getWorkflowDocument().getStatus().getCode(), line.getObjectId(), entry);
                     gecDoc.getGecEntryRelationships().add(gecEntryRelationship);
+                    entry.setGecDocumentNumber(gecDoc.getDocumentNumber());
                 }
 
                 processAccountingLineOverrides(gecDoc, gecDoc.getSourceAccountingLines());
@@ -90,28 +90,24 @@ public class GeneralErrorCorrectionAction extends org.kuali.kfs.fp.document.web.
             }
         }
 
-        resequenceAccountingLines(gecForm);
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
     }
 
 
     @Override
     public ActionForward performLookup(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        // parse out the important strings from our methodToCall parameter
+        GeneralErrorCorrectionForm gecForm = (GeneralErrorCorrectionForm) form;
+        String basePath = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY);
         String fullParameter = (String) request.getAttribute(KFSConstants.METHOD_TO_CALL_ATTRIBUTE);
-
-        // determine what the action path is
         String actionPath = StringUtils.substringBetween(fullParameter, KFSConstants.METHOD_TO_CALL_PARM4_LEFT_DEL, KFSConstants.METHOD_TO_CALL_PARM4_RIGHT_DEL);
+        Properties parameters = new Properties();
+
+        // Lookup is for a non-GEC field, like the Modify Capital Asset's tab w/ the
+        // Asset Number lookup (aka magnifying glass); let super handle it
         if (StringUtils.isBlank(actionPath)) {
             return super.performLookup(mapping, form, request, response);
         }
 
-        GeneralErrorCorrectionForm financialDocumentForm = (GeneralErrorCorrectionForm) form;
-
-        // when we return from the lookup, our next request's method to call is going to be refresh
-        financialDocumentForm.registerEditableProperty(KRADConstants.DISPATCH_REQUEST_PARAMETER);
-
-        String basePath = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY);
 
         // parse out business object class name for lookup
         String boClassName = StringUtils.substringBetween(fullParameter, KFSConstants.METHOD_TO_CALL_BOPARM_LEFT_DEL, KFSConstants.METHOD_TO_CALL_BOPARM_RIGHT_DEL);
@@ -119,8 +115,21 @@ public class GeneralErrorCorrectionAction extends org.kuali.kfs.fp.document.web.
             throw new RuntimeException("Illegal call to perform lookup, no business object class name specified.");
         }
 
+        parameters.put(KFSConstants.DISPATCH_REQUEST_PARAMETER, KFSConstants.SEARCH_METHOD);
+        parameters.put(KFSConstants.DOC_FORM_KEY, GlobalVariables.getUserSession().addObjectWithGeneratedKey(form));
+        parameters.put(KFSConstants.BUSINESS_OBJECT_CLASS_ATTRIBUTE, boClassName);
+        parameters.put(KFSConstants.RETURN_LOCATION_PARAMETER, basePath + mapping.getPath() + KFSConstants.ACTION_EXTENSION_DOT_DO);
+
+        if (boClassName != null && (boClassName.equals(GecEntry.class.getName()) || boClassName.equals(YeGecEntry.class.getName()) || boClassName.equals(Entry.class.getName()))) {
+            // Only want to handle empty field searches for Entry types; this is used in GecEntryLookupAction
+            // to skip auto-firing searches from the doc when no fields are provided
+            parameters.put(INITIATED_BY_GEC_SENTINAL, TRUE);
+        }
+
+        // when we return from the lookup, our next request's method to call is going to be refresh
+        gecForm.registerEditableProperty(KRADConstants.DISPATCH_REQUEST_PARAMETER);
+
         // build the parameters for the lookup url
-        Properties parameters = new Properties();
         String conversionFields = StringUtils.substringBetween(fullParameter, KFSConstants.METHOD_TO_CALL_PARM1_LEFT_DEL, KFSConstants.METHOD_TO_CALL_PARM1_RIGHT_DEL);
         if (StringUtils.isNotBlank(conversionFields)) {
             parameters.put(KFSConstants.CONVERSION_FIELDS_PARAMETER, conversionFields);
@@ -152,15 +161,9 @@ public class GeneralErrorCorrectionAction extends org.kuali.kfs.fp.document.web.
         }
 
         // anchor, if it exists
-        if (form instanceof KualiForm && StringUtils.isNotEmpty(((KualiForm) form).getAnchor())) {
+        if (StringUtils.isNotEmpty(((KualiForm) form).getAnchor())) {
             parameters.put(KFSConstants.LOOKUP_ANCHOR, ((KualiForm) form).getAnchor());
         }
-
-        // now add required parameters
-        parameters.put(KFSConstants.DISPATCH_REQUEST_PARAMETER, KFSConstants.SEARCH_METHOD);
-        parameters.put(KFSConstants.DOC_FORM_KEY, GlobalVariables.getUserSession().addObjectWithGeneratedKey(form));
-        parameters.put(KFSConstants.BUSINESS_OBJECT_CLASS_ATTRIBUTE, boClassName);
-        parameters.put(KFSConstants.RETURN_LOCATION_PARAMETER, basePath + mapping.getPath() + KFSConstants.ACTION_EXTENSION_DOT_DO);
 
         String lookupUrl = UrlFactory.parameterizeUrl(basePath + KFSConstants.PATH_SEPERATOR + actionPath, parameters);
 
@@ -168,71 +171,53 @@ public class GeneralErrorCorrectionAction extends org.kuali.kfs.fp.document.web.
     }
 
 
-    /**
-     * This method is used to transform a retrieved Entry to a Source Accounting Line, reversing the debit/credit code in the process.
-     * 
-     * @param entry
-     * @return
-     */
-    private GECSourceAccountingLine copyEntryToAccountingLine(Entry entry) {
-        GECSourceAccountingLine retval = new GECSourceAccountingLine();
-        retval.setFinancialDocumentLineTypeCode(KFSConstants.SOURCE_ACCT_LINE_TYPE_CODE);
-        retval.setChartOfAccountsCode(entry.getChartOfAccountsCode());
-        retval.setAccountNumber(entry.getAccountNumber());
+    @SuppressWarnings("deprecation")// SourceAccountingLine#set{Chart|Account|ObjectCode|RefOrigin|BalType}()
+    private GECSourceAccountingLine convertEntryToSourceAcctLine(Entry entry) {
+        GECSourceAccountingLine newSourceLine = new GECSourceAccountingLine();
+        newSourceLine.setFinancialDocumentLineTypeCode(KFSConstants.SOURCE_ACCT_LINE_TYPE_CODE);
+        newSourceLine.setChartOfAccountsCode(entry.getChartOfAccountsCode());
+        newSourceLine.setAccountNumber(entry.getAccountNumber());
         if (!entry.getSubAccountNumber().equals(KFSConstants.BLANK_SUBACCOUNT)) {
-            retval.setSubAccountNumber(entry.getSubAccountNumber());
+            newSourceLine.setSubAccountNumber(entry.getSubAccountNumber());
         }
-        retval.setFinancialObjectCode(entry.getFinancialObjectCode());
+        newSourceLine.setFinancialObjectCode(entry.getFinancialObjectCode());
         if (!entry.getFinancialSubObjectCode().equals(KFSConstants.BLANK_SUBOBJECT)) {
-            retval.setFinancialSubObjectCode(entry.getFinancialSubObjectCode());
+            newSourceLine.setFinancialSubObjectCode(entry.getFinancialSubObjectCode());
         }
         if (!entry.getProjectCode().equals(KFSConstants.BLANK_PROJECT_CODE)) {
-            retval.setProjectCode(entry.getProjectCode());
+            newSourceLine.setProjectCode(entry.getProjectCode());
         }
-        retval.setOrganizationReferenceId(entry.getOrganizationReferenceId());
-        retval.setAmount(entry.getTransactionLedgerEntryAmount());
-        retval.setReferenceOriginCode(entry.getFinancialSystemOriginationCode());
-        retval.setReferenceNumber(entry.getDocumentNumber());
-        retval.setFinancialDocumentLineDescription(entry.getTransactionLedgerEntryDescription());
+        newSourceLine.setOrganizationReferenceId(entry.getOrganizationReferenceId());
+        newSourceLine.setAmount(entry.getTransactionLedgerEntryAmount());
+        newSourceLine.setReferenceOriginCode(entry.getFinancialSystemOriginationCode());
+        newSourceLine.setReferenceNumber(entry.getDocumentNumber());
+        newSourceLine.setFinancialDocumentLineDescription(entry.getTransactionLedgerEntryDescription());
         String debitCreditCode = reverseDebitCreditCode(entry.getTransactionDebitCreditCode());
-        retval.setDebitCreditCode(debitCreditCode);
-        retval.setBalanceTypeCode(entry.getFinancialBalanceTypeCode());
-        // copy helper objects
-        retval.setChart(entry.getChart());
-        retval.setAccount(entry.getAccount());
-        retval.setObjectCode(entry.getFinancialObject());
-        retval.setReferenceOrigin(entry.getReferenceOriginationCode());
-        retval.setBalanceTyp(entry.getBalanceType());
+        newSourceLine.setDebitCreditCode(debitCreditCode);
+        newSourceLine.setBalanceTypeCode(entry.getFinancialBalanceTypeCode());
 
-        retval.refreshReferenceObject(KFSPropertyConstants.SUB_ACCOUNT_NUMBER);
-        retval.refreshReferenceObject(KFSPropertyConstants.SUB_OBJECT_CODE);
-        retval.refreshReferenceObject(KFSPropertyConstants.PROJECT_CODE);
-        return retval;
+        // copy helper objects
+        newSourceLine.setChart(entry.getChart());
+        newSourceLine.setAccount(entry.getAccount());
+        newSourceLine.setObjectCode(entry.getFinancialObject());
+        newSourceLine.setReferenceOrigin(entry.getReferenceOriginationCode());
+        newSourceLine.setBalanceTyp(entry.getBalanceType());
+
+        return newSourceLine;
     }
+
 
     private String reverseDebitCreditCode(String transactionDebitCreditCode) {
-        if (transactionDebitCreditCode.equals(KFSConstants.GL_DEBIT_CODE)) {
+        if (transactionDebitCreditCode.equalsIgnoreCase(KFSConstants.GL_DEBIT_CODE)) {
             return KFSConstants.GL_CREDIT_CODE;
-        }
-        if (transactionDebitCreditCode.equals(KFSConstants.GL_CREDIT_CODE)) {
+        } else if (transactionDebitCreditCode.equalsIgnoreCase(KFSConstants.GL_CREDIT_CODE)) {
             return KFSConstants.GL_DEBIT_CODE;
+        } else {
+            throw new RuntimeException("Unknown credit/debit code" + transactionDebitCreditCode);
         }
-        /*
-         * the transaction Debit/Credit Code should always be either Debit (D) or
-         * Credit (C). If for some reason it's not, we're just going to pass
-         * that value back.
-         */
-        return transactionDebitCreditCode;
     }
 
-    /**
-     *
-     * Custom retrieve for Entry - using entryId instead of objectId
-     *
-     * @param setOfSelectedEntryIds
-     * @return
-     * @throws Exception
-     */
+
     protected Collection<Entry> retrieveSelectedResultBOs(Set<String> setOfSelectedEntryIds) throws Exception {
         if (setOfSelectedEntryIds == null || setOfSelectedEntryIds.isEmpty()) {
             // OJB throws exception if querying on empty set
@@ -245,27 +230,7 @@ public class GeneralErrorCorrectionAction extends org.kuali.kfs.fp.document.web.
         return getBusinessObjectService().findMatching(Entry.class, queryCriteria);
     }
 
-    /**
-     * Copies content from one accounting line to the other. Ignores Source or Target information.
-     *
-     * @param source
-     *            line to copy from
-     * @param target
-     *            new line to copy data to
-     */
-    protected void copyAccountingLine(GeneralErrorCorrectionDocument doc, AccountingLine source, AccountingLine target) {
-        target.copyFrom(source);
-        addGecEntryRelationship(doc, doc.getEntryByAccountingLine(source), target);
-    }
 
-    /**
-     * Copies content from one accounting line to the other, but reverses debit/credit code and changes the line type from source to target.
-     *
-     * @param source
-     *            line to copy from
-     * @param target
-     *            new line to copy data to
-     */
     protected void reverseAccountingLine(AccountingLine source, AccountingLine target) {
         target.copyFrom(source);
         target.setFinancialDocumentLineTypeCode(KFSConstants.TARGET_ACCT_LINE_TYPE_CODE);
@@ -273,27 +238,9 @@ public class GeneralErrorCorrectionAction extends org.kuali.kfs.fp.document.web.
         target.setDebitCreditCode(debitCreditCode);
     }
 
-    @SuppressWarnings("unchecked")//AccountingLine
-    private void resequenceAccountingLines(GeneralErrorCorrectionForm gecForm) {
-        AccountingDocument document = gecForm.getFinancialDocument();
 
-        int newIndex = 0;
-        List<AccountingLine> sourceLines = document.getSourceAccountingLines();
-        for (AccountingLine line : sourceLines) {
-            newIndex++;
-            line.setSequenceNumber(newIndex);
-        }
-
-        newIndex = 0;
-        List<AccountingLine> targetLines = document.getTargetAccountingLines();
-        for (AccountingLine line : targetLines) {
-            newIndex++;
-            line.setSequenceNumber(newIndex);
-        }
-    }
-
-    // Action buttons:
-
+    // Action button
+    @SuppressWarnings("unused") // invoked via reflection, so IDE thinks it's unused
     public ActionForward copyAllAccountingLines(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         GeneralErrorCorrectionForm gecForm = (GeneralErrorCorrectionForm) form;
         GeneralErrorCorrectionDocument gecDoc = (GeneralErrorCorrectionDocument) gecForm.getDocument();
@@ -308,90 +255,120 @@ public class GeneralErrorCorrectionAction extends org.kuali.kfs.fp.document.web.
         processAccountingLineOverrides(gecDoc, gecDoc.getSourceAccountingLines());
         processAccountingLineOverrides(gecDoc, gecDoc.getTargetAccountingLines());
 
-        resequenceAccountingLines(gecForm);
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
     }
 
+
+    /*
+     * This is the "delete all" button in the jsp for source lines. We will clear all source
+     * lines, but only mark the gecDocNum on the entry as 'null', which is a sentinal value
+     * indicating any source Entry has been dissociated. The az.GECD will have it's extended
+     * postProcessSave() method clear out entries marked as such -- this is necessary for
+     * change detection for line operations occuring between route changes.
+     */
+    @SuppressWarnings("unused")// invoked via reflection, so IDE thinks it's unused
     public ActionForward deleteAllSourceAccountingLines(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         GeneralErrorCorrectionForm gecForm = (GeneralErrorCorrectionForm) form;
-        gecForm.getFinancialDocument().getSourceAccountingLines().clear();
+        GeneralErrorCorrectionDocument gecDoc = (GeneralErrorCorrectionDocument) gecForm.getDocument();
 
-        resequenceAccountingLines(gecForm);
+        @SuppressWarnings("unchecked") // super is not parameterized
+        List<GECSourceAccountingLine> gecSourceLines = gecDoc.getSourceAccountingLines();
+        for (GECSourceAccountingLine line : gecSourceLines) {
+            dissociateEntryByLine(gecDoc, line);
+        }
+
+        gecSourceLines.clear();
+        gecDoc.setNextSourceLineNumber(KFSConstants.ONE.intValue());
+
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
     }
 
+
+    // Action button
+    @SuppressWarnings("unused")// invoked via reflection, so IDE thinks it's unused
     public ActionForward deleteAllTargetAccountingLines(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         GeneralErrorCorrectionForm gecForm = (GeneralErrorCorrectionForm) form;
-        gecForm.getFinancialDocument().getTargetAccountingLines().clear();
+        GeneralErrorCorrectionDocument gecDoc = (GeneralErrorCorrectionDocument) gecForm.getDocument();
 
-        resequenceAccountingLines(gecForm);
+        gecForm.getFinancialDocument().getTargetAccountingLines().clear();
+        gecDoc.setNextSourceLineNumber(KFSConstants.ONE.intValue());
+
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
     }
 
-    @Override
-    public ActionForward performBalanceInquiryForSourceLine(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        ActionForward forward = super.performBalanceInquiryForSourceLine(mapping, form, request, response);
-        GeneralErrorCorrectionForm gecForm = (GeneralErrorCorrectionForm) form;
 
-        resequenceAccountingLines(gecForm);
-        return forward;
-    }
-
-    @Override
-    public ActionForward performBalanceInquiryForTargetLine(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        GeneralErrorCorrectionForm gecForm = (GeneralErrorCorrectionForm) form;
-        ActionForward forward = super.performBalanceInquiryForTargetLine(mapping, form, request, response);
-
-        resequenceAccountingLines(gecForm);
-        return forward;
-    }
-
+    /*
+     * Overridden to dissociate relationships as they happen
+     */
     @Override
     public ActionForward deleteSourceLine(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         GeneralErrorCorrectionForm gecForm = (GeneralErrorCorrectionForm) form;
+        GeneralErrorCorrectionDocument gecDoc = (GeneralErrorCorrectionDocument) gecForm.getDocument();
 
         // Get rid of GecEntryRelationship before it's removed from doc
-        GeneralErrorCorrectionDocument doc = (GeneralErrorCorrectionDocument) gecForm.getDocument();
-        deleteGecEntryRelationship(doc, doc.getSourceAccountingLine(getLineToDelete(request)));
+        int lineIndex = getLineToDelete(request);
+        GECSourceAccountingLine gecSourceLine = (GECSourceAccountingLine) gecDoc.getSourceAccountingLine(lineIndex);
+        dissociateEntryByLine(gecDoc, gecSourceLine);
 
-        // Now get super to do the work
-        super.deleteAccountingLine(true, gecForm, getLineToDelete(request));
+        super.deleteAccountingLine(true, gecForm, lineIndex);
 
-        resequenceAccountingLines(gecForm);
-        return mapping.findForward(KFSConstants.MAPPING_BASIC);
+        return mapping.findForward(org.kuali.kfs.sys.KFSConstants.MAPPING_BASIC);
     }
 
+
+    /*
+     * Overridden in order to add doc number to imported target lines
+     */
     @Override
-    public ActionForward deleteTargetLine(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected void uploadAccountingLines(boolean isSource, ActionForm form) throws IOException {
+        super.uploadAccountingLines(isSource, form);
+
         GeneralErrorCorrectionForm gecForm = (GeneralErrorCorrectionForm) form;
+        GeneralErrorCorrectionDocument gecDoc = (GeneralErrorCorrectionDocument) gecForm.getDocument();
 
-        // Get rid of GecEntryRelationship before it's removed from doc
-        GeneralErrorCorrectionDocument doc = (GeneralErrorCorrectionDocument) gecForm.getDocument();
-        deleteGecEntryRelationship(doc, doc.getTargetAccountingLine(getLineToDelete(request)));
-
-        // Now get super to do the work
-        ActionForward forward = super.deleteTargetLine(mapping, form, request, response);
-
-        resequenceAccountingLines(gecForm);
-        return forward;
-    }
-
-    private void deleteGecEntryRelationship(GeneralErrorCorrectionDocument doc, AccountingLine accountingLine) {
-        Integer lineSeqNum = accountingLine.getSequenceNumber();
-        Entry e = doc.getEntryByAccountingLine(accountingLine);
-        if (e != null) {
-            e.setGecDocumentNumber(null);
-            doc.getGecEntryRelationships().remove((new GecEntryRelationship(e.getEntryId(), doc.getDocumentNumber(), lineSeqNum, accountingLine.getFinancialDocumentLineTypeCode(), doc.getDocumentHeader().getWorkflowDocument().getStatus().getCode())));
+        @SuppressWarnings("unchecked")// super is not parameterized
+        List<AccountingLine> targetLines = gecDoc.getTargetAccountingLines();
+        for (AccountingLine line : targetLines) {
+            line.setDocumentNumber(gecDoc.getDocumentNumber());
         }
+
     }
 
-    private void addGecEntryRelationship(GeneralErrorCorrectionDocument doc, Entry entry, AccountingLine accountingLine) {
-        if (entry != null) {
-            entry.setGecDocumentNumber(doc.getDocumentNumber());
-            doc.getGecEntryRelationships().add(new GecEntryRelationship(entry.getEntryId(), doc.getDocumentNumber(), accountingLine.getSequenceNumber(), accountingLine.getFinancialDocumentLineTypeCode(), doc.getDocumentHeader().getWorkflowDocument().getStatus().getCode(), entry));
+
+    private void dissociateEntryByLine(GeneralErrorCorrectionDocument doc, GECSourceAccountingLine gecSourceLine) {
+
+        // Try to find any Entry associated to this line, then set null for GECD#, this will
+        // persist in the doc's postSave() hook
+        Entry entry = doc.getEntryByAccountingLine(gecSourceLine);
+        if (entry == null) {
+            // Not associated, so don't do anything
+            return;
+        } else {
+            // This entry's null GEC# will be noticed in the GEC doc during saves/route changes
+            // via its overridden postProcessSave()
+            entry.setGecDocumentNumber(null);
         }
+
+        // Find the GecEntyRelationship to remove
+        List<GecEntryRelationship> relsToDelete = new ArrayList<GecEntryRelationship>();
+        for (GecEntryRelationship rel : doc.getGecEntryRelationships()) {
+            if (rel.getEntryId().equals(entry.getEntryId())) {
+                relsToDelete.add(rel);
+                break; // doc.getGecEntryRelationships() is a set based on entryId, thus we exit loop
+            }
+        }
+
+        // Effect the changes
+        if (relsToDelete.size() > 0) {
+            doc.getGecEntryRelationships().removeAll(relsToDelete);
+            doc.updateEntryGecDocNums(Collections.singletonList(entry));
+        }
+
     }
 
+
+    // Action Button
+    @SuppressWarnings("unused")// invoked via reflection, so IDE thinks it's unused
     public ActionForward copyAccountingLine(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         GeneralErrorCorrectionForm gecForm = (GeneralErrorCorrectionForm) form;
         GeneralErrorCorrectionDocument gecDocument = (GeneralErrorCorrectionDocument) gecForm.getDocument();
@@ -406,9 +383,9 @@ public class GeneralErrorCorrectionAction extends org.kuali.kfs.fp.document.web.
         processAccountingLineOverrides(sourceLine);
         processAccountingLineOverrides(targetLine);
 
-        resequenceAccountingLines(gecForm);
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
     }
+
 
     @Override
     public ActionForward insertTargetLine(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -419,15 +396,56 @@ public class GeneralErrorCorrectionAction extends org.kuali.kfs.fp.document.web.
         AccountingLine originalLine = gecDocument.getTargetAccountingLine(index);
         AccountingLine targetLine = (AccountingLine) gecForm.getFinancialDocument().getTargetAccountingLineClass().newInstance();
 
-        copyAccountingLine(gecDocument, originalLine, targetLine);
+        targetLine.copyFrom(originalLine);
         targetLine.setAmount(KualiDecimal.ZERO);
         insertAccountingLine(false, gecForm, targetLine);
 
         processAccountingLineOverrides(originalLine);
         processAccountingLineOverrides(targetLine);
 
-        resequenceAccountingLines(gecForm);
+        gecDocument.resequenceLinesAndRelationships();
+
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
+    }
+
+
+    @Override
+    protected void insertAccountingLine(boolean isSource, KualiAccountingDocumentFormBase financialDocumentForm, AccountingLine line) {
+
+        // 1. !isSource: Source lines will have their d/c code set from its flipped GLE, leave it
+        // 2. line.getDebitCreditCode() == null: This line is imported from file, so needs a d/c code since the import template
+        //                                       doesn't have one; we'll attempt to infer from the source lines
+        // 3. If the source lines do not all have the same d/c code, then we can not infer what the target line
+        //    should be set to, so we throw a RuntimeException stating this
+        if (!isSource && StringUtils.isBlank(line.getDebitCreditCode())) {
+            // Collect all the source lines' d/c codes
+            @SuppressWarnings("unchecked")// super is not parameterized
+            List<GECSourceAccountingLine> sourceLines = financialDocumentForm.getFinancialDocument().getSourceAccountingLines();
+            Set<String> debitCreditSet = new HashSet<>();
+            for (GECSourceAccountingLine sourceLine : sourceLines) {
+                debitCreditSet.add(sourceLine.getDebitCreditCode());
+            }
+
+            // Default to natural balance state, already reversed
+            String debitCreditCode = KFSConstants.GL_DEBIT_CODE;
+
+            // Deal with unnatural balance state by going the opposite of our source lines (which come from GLEs)
+            if (debitCreditSet.size() == 1) {
+                debitCreditCode = debitCreditSet.iterator().next();
+                debitCreditCode = reverseDebitCreditCode(debitCreditCode);
+            } else if (debitCreditSet.size() > 1) {
+                // We have no way of knowing what to set the code to
+                throw new RuntimeException("Line to insert has no d/c code, and cannot be inferred from the hetergenous source line d/c set!: " + debitCreditSet);
+            }
+
+            // Now set it on this target line
+            line.setDebitCreditCode(debitCreditCode);
+        }
+
+        super.insertAccountingLine(isSource, financialDocumentForm, line);
+
+        GeneralErrorCorrectionDocument gecDoc = (GeneralErrorCorrectionDocument) financialDocumentForm.getDocument();
+        gecDoc.resequenceLinesAndRelationships();
     }
 
 
