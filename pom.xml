@@ -165,7 +165,7 @@
         <persistence.version>2.1.0</persistence.version>
 
         <quartz.version>1.8.6</quartz.version>
-        <rice.version>2.5.19</rice.version>
+        <rice.version>ua-2.5-release1</rice.version>
         <selenium-java.version>2.41.0</selenium-java.version>
         <xalan.version>2.7.2</xalan.version>
         <serializer.version>2.7.2</serializer.version>
@@ -197,7 +197,7 @@
         <jsonpath.version>2.2.0</jsonpath.version>
         <jstl-api.version>1.2</jstl-api.version>
         <jta.version>1.1</jta.version>
-        <kfs.help.version>current-SNAPSHOT</kfs.help.version>
+        <kfs.help.version>ua-release3-SNAPSHOT</kfs.help.version>
         <maven.compiler.version>3.3</maven.compiler.version>
         <mysql.groupId>mysql</mysql.groupId>
         <mysql.artifactId>mysql-connector-java</mysql.artifactId>
