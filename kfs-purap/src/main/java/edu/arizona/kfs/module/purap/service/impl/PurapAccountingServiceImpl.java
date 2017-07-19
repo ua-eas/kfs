@@ -217,25 +217,28 @@ public class PurapAccountingServiceImpl extends org.kuali.kfs.module.purap.servi
                 else {
                     difference = discountAmount.subtract(accountTotal);
                 }
-
-                for (T account : sourceAccountingLines) {
-                    if (ObjectUtils.isNotNull(account.getAccountLinePercent()) && ObjectUtils.isNotNull(account.getAmount())) {
-                        String accountLinePercentString = account.getAccountLinePercent().toString();
-                        BigDecimal accountLinePercentage = new BigDecimal(accountLinePercentString);
-                        BigDecimal accountLinePercent = accountLinePercentage.divide(ONE_HUNDRED);
-
-                        BigDecimal bigDecimalDifference = new BigDecimal(difference.toString());
-
-                        BigDecimal bigDecimalAccountingLineAmount = accountLinePercent.multiply(bigDecimalDifference);
-
-                        KualiDecimal kdAccountingLineAmount = new KualiDecimal(bigDecimalAccountingLineAmount);
-                        KualiDecimal amount = account.getAmount().add(kdAccountingLineAmount);
-                        account.setAmount(amount);
-
-                    } else {
-                        LOG.info("Either the AccountLinePercent or Amount is empty");
-                    }
-                }
+                KualiDecimal newAmount = lastAccount.getAmount().add(difference);
+                lastAccount.setAmount(newAmount);
+                //
+                //
+                // for (T account : sourceAccountingLines) {
+                // if (ObjectUtils.isNotNull(account.getAccountLinePercent()) && ObjectUtils.isNotNull(account.getAmount())) {
+                // String accountLinePercentString = account.getAccountLinePercent().toString();
+                // BigDecimal accountLinePercentage = new BigDecimal(accountLinePercentString);
+                // BigDecimal accountLinePercent = accountLinePercentage.divide(ONE_HUNDRED);
+                //
+                // BigDecimal bigDecimalDifference = new BigDecimal(difference.toString());
+                //
+                // BigDecimal bigDecimalAccountingLineAmount = accountLinePercent.multiply(bigDecimalDifference);
+                //
+                // KualiDecimal kdAccountingLineAmount = new KualiDecimal(bigDecimalAccountingLineAmount);
+                // KualiDecimal amount = account.getAmount().add(kdAccountingLineAmount);
+                // account.setAmount(amount);
+                //
+                // } else {
+                // LOG.info("Either the AccountLinePercent or Amount is empty");
+                // }
+                // }
             }
         }
         else {
