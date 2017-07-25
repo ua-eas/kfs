@@ -136,9 +136,9 @@
                     </td>
                 </tr>
 			<tr>
-				<th class="grid" width="25%" align="right"><kul:htmlAttributeLabel attributeEntry="${assetTransferAttributes.oldInventoryUnitCode}" readOnly="true" /></th>
+				<th class="grid right" width="25%"><kul:htmlAttributeLabel attributeEntry="${assetTransferAttributes.oldInventoryUnitCode}" readOnly="true" /></th>
 				<td class="grid" width="25%"><kul:htmlControlAttribute property="document.oldInventoryUnitCode" attributeEntry="${assetTransferAttributes.oldInventoryUnitCode}" readOnly="true" /></td>
-				<th class="grid" width="25%" align="right"><kul:htmlAttributeLabel attributeEntry="${assetTransferAttributes.inventoryUnitCode}" /></th>
+				<th class="grid right" width="25%"><kul:htmlAttributeLabel attributeEntry="${assetTransferAttributes.inventoryUnitCode}" /></th>
 				<td class="grid" width="25%"><kul:htmlControlAttribute property="document.inventoryUnitCode" attributeEntry="${assetTransferAttributes.inventoryUnitCode}" readOnly="${readOnly}" />
 					<c:if test="${not readOnly}">
 						&nbsp;
@@ -147,9 +147,9 @@
 				</td>
 			</tr>
 			<tr>
-				<th class="grid" width="25%" align="right"><kul:htmlAttributeLabel attributeEntry="${assetTransferAttributes.oldInventoryUnitChartOfAccountsCode}" readOnly="true" /></th>
+				<th class="grid right" width="25%"><kul:htmlAttributeLabel attributeEntry="${assetTransferAttributes.oldInventoryUnitChartOfAccountsCode}" readOnly="true" /></th>
 				<td class="grid" width="25%"><kul:htmlControlAttribute property="document.oldInventoryUnitChartOfAccountsCode" attributeEntry="${assetTransferAttributes.oldInventoryUnitChartOfAccountsCode}" readOnly="true" /></td>
-				<th class="grid" width="25%" align="right"><kul:htmlAttributeLabel attributeEntry="${assetTransferAttributes.inventoryUnitChartOfAccountsCode}" /></th>
+				<th class="grid right" width="25%"><kul:htmlAttributeLabel attributeEntry="${assetTransferAttributes.inventoryUnitChartOfAccountsCode}" /></th>
 				<td class="grid" width="25%"><kul:htmlControlAttribute property="document.inventoryUnitChartOfAccountsCode" attributeEntry="${assetTransferAttributes.inventoryUnitChartOfAccountsCode}" readOnly="${readOnly}" />
 					<c:if test="${not readOnly}">
 						&nbsp;
@@ -158,9 +158,9 @@
 				</td>
 			</tr>
 			<tr>
-				<th class="grid" width="25%" align="right"><kul:htmlAttributeLabel attributeEntry="${assetTransferAttributes.oldInventoryUnitOrganizationCode}" readOnly="true" /></th>
+				<th class="grid right" width="25%"><kul:htmlAttributeLabel attributeEntry="${assetTransferAttributes.oldInventoryUnitOrganizationCode}" readOnly="true" /></th>
 				<td class="grid" width="25%"><kul:htmlControlAttribute property="document.oldInventoryUnitOrganizationCode" attributeEntry="${assetTransferAttributes.oldInventoryUnitOrganizationCode}" readOnly="true" /></td>
-				<th class="grid" width="25%" align="right"><kul:htmlAttributeLabel attributeEntry="${assetTransferAttributes.inventoryUnitOrganizationCode}" /></th>
+				<th class="grid right" width="25%"><kul:htmlAttributeLabel attributeEntry="${assetTransferAttributes.inventoryUnitOrganizationCode}" /></th>
 				<td class="grid" width="25%"><kul:htmlControlAttribute property="document.inventoryUnitOrganizationCode" attributeEntry="${assetTransferAttributes.inventoryUnitOrganizationCode}" readOnly="${readOnly}" />
 					<c:if test="${not readOnly}">
 						&nbsp;
