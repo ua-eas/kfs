@@ -78,14 +78,17 @@
     
     <bean id="assetLookupableHelperService" scope="prototype" parent="assetLookupableHelperService-parentBean" class="edu.arizona.kfs.module.cam.businessobject.lookup.AssetLookupableHelperServiceImpl"/>
     
-    <bean id="batchExtractService" class="edu.arizona.kfs.module.cam.batch.service.impl.BatchExtractServiceImpl">
-    	<property name="extractDao" ref="extractDao" />
-		<property name="purchasingAccountsPayableItemAssetDao" ref="purchasingAccountsPayableItemAssetDao" />
-		<property name="parameterService" ref="parameterService" />
-		<property name="dateTimeService" ref="dateTimeService" />
-		<property name="businessObjectService" ref="businessObjectService" />
-		<property name="purApLineService" ref="purApLineService" />
-		<property name="purApInfoService" ref="purApInfoService" />
+    <bean id="batchExtractService" parent="batchExtractService-parentBean" class="edu.arizona.kfs.module.cam.batch.service.impl.BatchExtractServiceImpl" >
+        <property name="extractDao" ref="extractDao"/>
+        <property name="purchasingAccountsPayableItemAssetDao" ref="purchasingAccountsPayableItemAssetDao"/>
+        <property name="parameterService" ref="parameterService"/>
+        <property name="dateTimeService" ref="dateTimeService"/>
+        <property name="businessObjectService" ref="businessObjectService"/>
+        <property name="purApLineService" ref="purApLineService"/>
+        <property name="purApInfoService" ref="purApInfoService"/>
+        <property name="reconciliationService" ref="reconciliationService"/>
+        <property name="financialSystemDocumentService" ref="financialSystemDocumentService"/>
+        <property name="capitalAssetManagementModuleService" ref="capitalAssetManagementModuleService"/>
 	</bean>
 	
 	<bean id="generalLedgerEntryLookupableHelperService" scope="prototype" parent="generalLedgerEntryLookupableHelperService-parentBean" class="edu.arizona.kfs.module.cam.businessobject.lookup.GeneralLedgerEntryLookupableHelperServiceImpl">
