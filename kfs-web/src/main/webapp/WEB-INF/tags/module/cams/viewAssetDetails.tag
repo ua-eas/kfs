@@ -26,7 +26,6 @@
 </c:if>
 
 <c:set var="assetAttributes" value="${DataDictionary.Asset.attributes}" />
-<c:set var="accountAttributes" value="${DataDictionary.Account.attributes}" />
 	<kul:tab tabTitle="Asset" defaultOpen="${!defaultTabHide}" tabErrorKey="document.asset.capitalAssetNumber,commonErrorSection">
 		<div class="tab-container">
 		<table class="standard side-margins">

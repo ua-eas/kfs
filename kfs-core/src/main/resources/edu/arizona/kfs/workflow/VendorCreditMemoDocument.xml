@@ -5,7 +5,36 @@
       <name>CM</name>
       <parent>AP</parent>
       <label>Vendor Credit Memo</label>
-      <docHandler>${application.url}/purapVendorCreditMemo.do?methodToCall=docHandler</docHandler>
+      <docHandler>
+      	${kfs.url}/purapVendorCreditMemo.do?methodToCall=docHandler
+      </docHandler>
+      <helpDefinitionURL>
+          default.htm?turl=WordDocuments%2Fvendorcreditmemo.htm
+      </helpDefinitionURL>
+      <docSearchHelpURL>
+          ${kfs.externalizable.help.url}/default.htm?turl=WordDocuments%2Fcreditmemos.htm
+      </docSearchHelpURL>
+      <active>
+          true
+      </active>
+      <routingVersion>
+          2
+      </routingVersion>
+      <validApplicationStatuses>
+          <status>Initiated</status>
+          <status>In Process</status>
+          <status>Cancelled In Process</status>
+          <status>Void</status>
+          <status>Cancelled</status>
+          <status>Complete</status>
+          <status>Awaiting AP Review</status>
+      </validApplicationStatuses>
+      <policies>
+          <policy>
+              <name>DOCUMENT_STATUS_POLICY</name>
+              <stringValue>app</stringValue>
+          </policy>
+      </policies>
       <routePaths>
         <routePath>
           <start name="AdHoc" nextNode="RequiresImageAttachment"/>
