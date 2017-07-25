@@ -18,11 +18,15 @@
  */
 package org.kuali.kfs.module.purap.document;
 
+import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.kuali.kfs.fp.document.ProcurementCardDocument;
 import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
 import org.kuali.kfs.krad.util.ObjectUtils;
-
-import org.kuali.kfs.fp.document.ProcurementCardDocument;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.businessobject.AccountsPayableItem;
 import org.kuali.kfs.module.purap.businessobject.PurApItemUseTax;
@@ -42,14 +46,9 @@ import org.kuali.kfs.sys.service.OptionsService;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.kfs.vnd.businessobject.CampusParameter;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteLevelChange;
 import org.kuali.rice.kim.api.identity.Person;
-
-import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import edu.arizona.kfs.module.purap.PurapConstants;
 import edu.arizona.kfs.module.purap.PurapParameterConstants;

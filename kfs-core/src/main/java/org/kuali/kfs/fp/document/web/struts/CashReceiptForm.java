@@ -20,6 +20,7 @@ package org.kuali.kfs.fp.document.web.struts;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.util.LabelValueBean;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.businessobject.CapitalAssetInformation;
 import org.kuali.kfs.fp.businessobject.CashDrawer;
 import org.kuali.kfs.fp.businessobject.Check;
@@ -43,8 +44,6 @@ import org.kuali.rice.core.web.format.SimpleBooleanFormatter;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 
 
 /**

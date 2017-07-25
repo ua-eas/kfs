@@ -16,7 +16,7 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
 
 import edu.arizona.kfs.module.purap.businessobject.CreditMemoIncomeType;
 import edu.arizona.kfs.module.purap.document.VendorCreditMemoDocument;

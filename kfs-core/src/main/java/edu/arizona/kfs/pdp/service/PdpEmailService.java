@@ -3,7 +3,7 @@ package edu.arizona.kfs.pdp.service;
 import java.util.List;
 
 import org.kuali.kfs.pdp.businessobject.PaymentFileLoad;
-import org.kuali.rice.krad.util.MessageMap;
+import org.kuali.kfs.krad.util.MessageMap;
 
 public interface PdpEmailService extends org.kuali.kfs.pdp.service.PdpEmailService {
 

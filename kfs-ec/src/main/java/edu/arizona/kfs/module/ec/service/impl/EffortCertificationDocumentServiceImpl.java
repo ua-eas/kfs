@@ -18,9 +18,9 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.action.ActionRequestType;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.krad.bo.AdHocRoutePerson;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.bo.AdHocRoutePerson;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.arizona.kfs.module.ec.EffortConstants;

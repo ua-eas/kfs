@@ -18,6 +18,13 @@
  */
 package org.kuali.kfs.kns.service.impl;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -51,6 +58,7 @@ import org.kuali.kfs.kns.service.KNSServiceLocator;
 import org.kuali.kfs.kns.service.MaintenanceDocumentDictionaryService;
 import org.kuali.kfs.krad.bo.DataObjectAuthorizer;
 import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
+import org.kuali.kfs.krad.datadictionary.DataDictionaryEntryBase;
 import org.kuali.kfs.krad.datadictionary.DataObjectEntry;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.document.DocumentAuthorizer;
@@ -66,13 +74,6 @@ import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.permission.PermissionService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.rice.krad.bo.BusinessObject;
-
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 public class BusinessObjectAuthorizationServiceImpl extends DataObjectAuthorizationServiceImpl implements BusinessObjectAuthorizationService {
     private DataDictionaryService dataDictionaryService;
@@ -177,20 +178,25 @@ public class BusinessObjectAuthorizationServiceImpl extends DataObjectAuthorizat
     }
 
     protected void considerBusinessObjectFieldUnmaskAuthorization(Object dataObject, Person user, BusinessObjectRestrictions businessObjectRestrictions, String propertyPrefix, Document document) {
-        DataObjectEntry objectEntry = getDataDictionaryService().getDataDictionary().getDataObjectEntry(dataObject.getClass().getName());
+        // UAF-6.0 upgrade - null data object causes the application to throw NullPointerException
+        if (dataObject != null) {
+            final DataDictionaryEntryBase objectEntry = (dataObject instanceof Document) ?
+                    getDataDictionaryService().getDataDictionary().getDocumentEntry(getDataDictionaryService().getDocumentTypeNameByClass(dataObject.getClass())) :
+                    getDataDictionaryService().getDataDictionary().getBusinessObjectEntry(dataObject.getClass().getName());
 
-        BusinessObject permissionTarget = (dataObject instanceof BusinessObject) ? (BusinessObject) dataObject : document;
+            BusinessObject permissionTarget = (dataObject instanceof BusinessObject) ? (BusinessObject)dataObject : document;
 
-        for (String attributeName : objectEntry.getAttributeNames()) {
-            AttributeDefinition attributeDefinition = objectEntry.getAttributeDefinition(attributeName);
-            if (attributeDefinition.getAttributeSecurity() != null) {
-                if (attributeDefinition.getAttributeSecurity().isMask() &&
-                    !canFullyUnmaskFieldForBusinessObject(user, dataObject.getClass(), attributeName, permissionTarget, document)) {
-                    businessObjectRestrictions.addFullyMaskedField(propertyPrefix + attributeName, attributeDefinition.getAttributeSecurity().getMaskFormatter());
-                }
-                if (attributeDefinition.getAttributeSecurity().isPartialMask() &&
-                    !canPartiallyUnmaskFieldForBusinessObject(user, dataObject.getClass(), attributeName, permissionTarget, document)) {
-                    businessObjectRestrictions.addPartiallyMaskedField(propertyPrefix + attributeName, attributeDefinition.getAttributeSecurity().getPartialMaskFormatter());
+            for (String attributeName : objectEntry.getAttributeNames()) {
+                AttributeDefinition attributeDefinition = objectEntry.getAttributeDefinition(attributeName);
+                if (attributeDefinition.getAttributeSecurity() != null) {
+                    if (attributeDefinition.getAttributeSecurity().isMask() &&
+                            !canFullyUnmaskFieldForBusinessObject(user, dataObject.getClass(), attributeName, permissionTarget, document)) {
+                        businessObjectRestrictions.addFullyMaskedField(propertyPrefix + attributeName, attributeDefinition.getAttributeSecurity().getMaskFormatter());
+                    }
+                    if (attributeDefinition.getAttributeSecurity().isPartialMask() &&
+                            !canPartiallyUnmaskFieldForBusinessObject(user, dataObject.getClass(), attributeName, permissionTarget, document)) {
+                        businessObjectRestrictions.addPartiallyMaskedField(propertyPrefix + attributeName, attributeDefinition.getAttributeSecurity().getPartialMaskFormatter());
+                    }
                 }
             }
         }

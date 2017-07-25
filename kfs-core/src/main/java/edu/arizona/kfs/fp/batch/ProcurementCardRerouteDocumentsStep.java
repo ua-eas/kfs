@@ -19,7 +19,7 @@ import java.util.Date;
 
 import org.kuali.kfs.fp.batch.service.ProcurementCardCreateDocumentService;
 import org.kuali.kfs.sys.batch.AbstractStep;
-import org.kuali.rice.coreservice.framework.parameter.ParameterConstants.NAMESPACE;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterConstants.NAMESPACE;
 
 /**
  * This step will call a service method to re-route pcdo documents that are in route status at the "AccountFullEdit" route node and routed to the error account FO. 

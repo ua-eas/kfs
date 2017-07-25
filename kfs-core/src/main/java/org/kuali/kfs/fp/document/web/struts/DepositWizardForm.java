@@ -18,6 +18,11 @@
  */
 package org.kuali.kfs.fp.document.web.struts;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.businessobject.Check;
 import org.kuali.kfs.fp.businessobject.CheckBase;
 import org.kuali.kfs.fp.businessobject.CoinDetail;
@@ -29,9 +34,9 @@ import org.kuali.kfs.fp.document.CashReceiptDocument;
 import org.kuali.kfs.kns.util.WebUtils;
 import org.kuali.kfs.kns.web.struts.form.KualiForm;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSParameterKeyConstants;
 import org.kuali.kfs.sys.KFSConstants.DocumentStatusCodes.CashReceipt;
 import org.kuali.kfs.sys.KFSKeyConstants;
+import org.kuali.kfs.sys.KFSParameterKeyConstants;
 import org.kuali.kfs.sys.businessobject.Bank;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.BankService;
@@ -41,8 +46,6 @@ import org.kuali.rice.core.web.format.CurrencyFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 
 
 /**

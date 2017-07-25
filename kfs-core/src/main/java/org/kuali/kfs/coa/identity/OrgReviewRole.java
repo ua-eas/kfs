@@ -28,10 +28,8 @@ import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.identity.KfsKimAttributes;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.criteria.PredicateUtils;
 import org.kuali.rice.core.api.criteria.QueryByCriteria;
@@ -56,6 +54,9 @@ import org.kuali.rice.kim.api.type.KimType;
 import org.kuali.rice.kim.api.type.KimTypeAttribute;
 import org.kuali.rice.kim.framework.group.GroupEbo;
 import org.kuali.rice.kim.framework.role.RoleEbo;
+
+import edu.arizona.kfs.sys.KFSConstants;
+import edu.arizona.kfs.sys.identity.KfsKimAttributes;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -782,8 +783,9 @@ public class OrgReviewRole extends PersistableBusinessObjectBase implements Muta
      */
     public boolean isBothReviewRolesIndicator() {
         return getRoleNamesToConsider() != null &&
-            getRoleNamesToConsider().contains(KFSConstants.SysKimApiConstants.ORGANIZATION_REVIEWER_ROLE_NAME) &&
-            getRoleNamesToConsider().contains(KFSConstants.SysKimApiConstants.ACCOUNTING_REVIEWER_ROLE_NAME);
+                getRoleNamesToConsider().contains(KFSConstants.SysKimApiConstants.ORGANIZATION_REVIEWER_ROLE_NAME) &&
+                getRoleNamesToConsider().contains(KFSConstants.SysKimApiConstants.ORGANIZATION_FUND_REVIEWER_ROLE_NAME) &&
+                getRoleNamesToConsider().contains(KFSConstants.SysKimApiConstants.ACCOUNTING_REVIEWER_ROLE_NAME);
     }
 
     /**
@@ -1635,4 +1637,3 @@ public class OrgReviewRole extends PersistableBusinessObjectBase implements Muta
         return organizationService;
     }
 }
-

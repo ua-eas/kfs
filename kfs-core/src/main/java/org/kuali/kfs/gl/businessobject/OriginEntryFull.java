@@ -30,6 +30,7 @@ import org.kuali.kfs.coa.businessobject.ProjectCode;
 import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
 import org.kuali.kfs.coa.service.AccountService;
+import org.kuali.kfs.coa.service.ObjectCodeService;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.exception.LoadException;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
@@ -1162,5 +1163,4 @@ public class OriginEntryFull extends PersistableBusinessObjectBase implements Tr
         return originEntryFieldUtil;
     }
 }
-
 

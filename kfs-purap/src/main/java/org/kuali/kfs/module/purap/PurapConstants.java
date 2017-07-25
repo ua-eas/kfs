@@ -328,6 +328,7 @@ public class PurapConstants {
         public static final String APPDOC_PENDING_VOID = "Pending Void";
         public static final String APPDOC_CANCELLED_IN_PROCESS = "Canceled In Process";
 
+
         public static HashMap<String, String> getAllAppDocStatuses() {
             HashMap<String, String> appDocStatusMap = new HashMap<String, String>();
 
@@ -399,7 +400,7 @@ public class PurapConstants {
         public static final String NODE_SUB_FUND = "SubFund";
         public static final String NODE_OBJECT_SUB_TYPE_CODE = "ObjectSubTypeCode";
 
-        public static final HashMap<String, String> getPurchaseOrderAppDocDisapproveStatuses(){
+        public static HashMap<String, String> getPurchaseOrderAppDocDisapproveStatuses() {
 
             HashMap<String, String> poAppDocStatusMap = new HashMap<String, String>();
 

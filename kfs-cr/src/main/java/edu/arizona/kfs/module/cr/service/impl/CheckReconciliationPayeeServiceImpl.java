@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import org.kuali.kfs.pdp.businessobject.PaymentGroup;
 import org.kuali.kfs.pdp.businessobject.PaymentGroupHistory;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 import edu.arizona.kfs.module.cr.CrConstants;
 import edu.arizona.kfs.module.cr.businessobject.CheckReconciliation;

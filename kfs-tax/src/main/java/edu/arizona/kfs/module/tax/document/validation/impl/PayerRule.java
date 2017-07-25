@@ -1,7 +1,7 @@
 package edu.arizona.kfs.module.tax.document.validation.impl;
 
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
 
 import edu.arizona.kfs.module.tax.businessobject.Payer;
 

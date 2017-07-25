@@ -13,18 +13,18 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocument;
+import org.kuali.kfs.krad.datadictionary.DocumentEntry;
+import org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition;
+import org.kuali.kfs.krad.datadictionary.WorkflowAttributes;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.kns.service.KNSServiceLocator;
+import org.kuali.kfs.krad.service.KRADServiceLocatorInternal;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.rice.kew.api.document.node.RouteNodeInstance;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.services.IdentityManagementService;
-import org.kuali.rice.krad.datadictionary.DocumentEntry;
-import org.kuali.rice.krad.datadictionary.RoutingTypeDefinition;
-import org.kuali.rice.krad.datadictionary.WorkflowAttributes;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.kns.service.KNSServiceLocator;
-import org.kuali.rice.krad.service.KRADServiceLocatorInternal;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
-import org.kuali.rice.kew.api.document.node.RouteNodeInstance;
 
 
 
@@ -170,7 +170,7 @@ public class RequisitionAccountingLineAuthorizer extends org.kuali.kfs.module.pu
         return roleQualifiers;
     }
 
-    @Override
+
     public boolean hasEditPermissionOnAccountingLine(AccountingDocument accountingDocument, AccountingLine accountingLine, String accountingLineCollectionProperty, Person currentUser, boolean pageIsEditable) {
         boolean currentUserIsDocumentInitiator = StringUtils.equalsIgnoreCase( accountingDocument.getDocumentHeader().getWorkflowDocument().getInitiatorPrincipalId(), currentUser.getPrincipalId() );
         if (!determineEditPermissionOnLine(accountingDocument, accountingLine, accountingLineCollectionProperty, currentUserIsDocumentInitiator, pageIsEditable)) {

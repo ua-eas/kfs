@@ -1,6 +1,6 @@
 package edu.arizona.kfs.module.tax.document.web.struts;
 
-import org.kuali.rice.kns.web.struts.form.KualiForm;
+import org.kuali.kfs.kns.web.struts.form.KualiForm;
 
 @SuppressWarnings("deprecation")
 public class PayeeSearchForm extends KualiForm {

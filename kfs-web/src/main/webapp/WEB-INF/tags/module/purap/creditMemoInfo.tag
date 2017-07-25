@@ -123,10 +123,10 @@
 			<tr>
 	            <sys:bankLabel align="right"/>
                 <sys:bankControl property="document.bankCode" objectProperty="document.bank" readOnly="${not fullEntryMode}"/>
-                <th class="right" >
+                <th class="right">
                     <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.paymentMethodCode}" /></div>
                 </th>
-                <td  class="datacell">
+                <td class="datacell">
                     <kul:htmlControlAttribute
                             attributeEntry="${documentAttributes.paymentMethodCode}" property="document.paymentMethodCode"
                             readOnly="${not fullEntryMode}"

@@ -5,8 +5,14 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sys.KFSKeyConstants;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.krad.util.ObjectUtils;
+import edu.arizona.kfs.fp.businessobject.ProcurementCardDefault;
+import org.kuali.kfs.coa.businessobject.Account;
+import org.kuali.kfs.coa.service.AccountService;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 import edu.arizona.kfs.fp.businessobject.ProcurementCardDefault;
 import edu.arizona.kfs.sys.KFSPropertyConstants;

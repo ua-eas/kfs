@@ -52,6 +52,7 @@
 <%@ taglib tagdir="/WEB-INF/tags/module/tem/expenses" prefix="tem-exp" %>
 <%@ taglib tagdir="/WEB-INF/tags/module/tem/arranger" prefix="tem-arranger" %>
 <%@ taglib uri="/WEB-INF/tlds/tem-html.tld" prefix="tem-html" %>
+<%@ taglib tagdir="/WEB-INF/tags/portal/channel/centralAdmin" prefix="centralAdminChannel"%>
 
 <%-- utility web functions --%>
 <%@ taglib uri="/WEB-INF/tlds/kfsfunc.tld" prefix="kfsfunc" %>

@@ -86,6 +86,10 @@
         <purap:customPaymentHistory documentAttributes="${DataDictionary.RelatedDocuments.attributes}"/>
 
         <gl:generalLedgerPendingEntries/>
+     
+        <sys:incomeTypes editingMode="${KualiForm.editingMode}" incomeTypeAttributes="${DataDictionary.PaymentRequestIncomeType.attributes}" />
+
+        <sys:docuware />
 
         <kul:notes attachmentTypesValuesFinderClass="${DataDictionary.PaymentRequestDocument.attachmentTypesValuesFinderClass}"/>
 

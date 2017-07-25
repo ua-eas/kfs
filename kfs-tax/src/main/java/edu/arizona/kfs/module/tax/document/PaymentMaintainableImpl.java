@@ -2,12 +2,12 @@ package edu.arizona.kfs.module.tax.document;
 
 import java.util.Map;
 
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.service.NoteService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.krad.bo.Note;
-import org.kuali.rice.krad.service.NoteService;
-import org.kuali.rice.krad.util.GlobalVariables;
 
 import edu.arizona.kfs.module.tax.TaxConstants;
 import edu.arizona.kfs.module.tax.businessobject.Payment;

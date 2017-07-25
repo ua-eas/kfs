@@ -17,8 +17,8 @@ import org.kuali.kfs.vnd.businessobject.OwnershipCategory;
 import org.kuali.kfs.vnd.businessobject.OwnershipType;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 
 import edu.arizona.kfs.module.tax.TaxConstants;
 import edu.arizona.kfs.module.tax.TaxParameterConstants;

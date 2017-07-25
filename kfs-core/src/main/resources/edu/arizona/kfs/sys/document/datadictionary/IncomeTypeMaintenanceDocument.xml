@@ -48,7 +48,7 @@
 
   <!-- workflow attributes -->
   <bean id="IncomeTypeMaintenanceDocument-workflowAttributes" parent="IncomeTypeMaintenanceDocument-workflowAttributes-parentBean"/>
-  <bean id="IncomeTypeMaintenanceDocument-workflowAttributes-parentBean" class="org.kuali.rice.krad.datadictionary.WorkflowAttributes" abstract="true"/>
+  <bean id="IncomeTypeMaintenanceDocument-workflowAttributes-parentBean" class="org.kuali.kfs.krad.datadictionary.WorkflowAttributes" abstract="true"/>
 
 </beans>
 

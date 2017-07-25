@@ -122,7 +122,6 @@ import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 
-
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.ByteArrayOutputStream;

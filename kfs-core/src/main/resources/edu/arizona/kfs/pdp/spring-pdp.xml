@@ -399,12 +399,12 @@
 	</bean>
 	
 	<bean id="pdpEmailService" class="edu.arizona.kfs.pdp.service.impl.PdpEmailServiceImpl">
+		<property name="parameterService" ref="parameterService"/>
 		<property name="customerProfileService" ref="pdpCustomerProfileService"/>
-		<property name="configurationService" ref="kualiConfigurationService" />
-		<property name="mailService" ref="mailService" />
-		<property name="parameterService" ref="parameterService" />
-		<property name="dataDictionaryService" ref="dataDictionaryService" />
-		<property name="achBankService" ref="pdpAchBankService" />	
+		<property name="emailService" ref="emailService"/>
+		<property name="dataDictionaryService" ref="dataDictionaryService"/>
+		<property name="configurationService" ref="kualiConfigurationService"/>
+		<property name="achBankService" ref="pdpAchBankService"/>
 	</bean>
 		
 </beans>

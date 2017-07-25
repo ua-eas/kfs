@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package edu.arizona.kfs.module.ld.document.web.struts;
+/*package edu.arizona.kfs.module.ld.document.web.struts;
 
 import edu.arizona.kfs.gl.service.GlobalTransactionEditService;
 import org.apache.commons.lang.StringUtils;
@@ -31,22 +31,23 @@ import org.kuali.kfs.module.ld.document.web.struts.LaborCorrectionForm;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.Message;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
-import java.util.List;
+import java.util.List;*/
 
+// TODO: UA DEV, re-evaluate impace due to removing org.kuali.kfs.module.ld.document.web.struts.LaborCorrectionAction by KualiCo
 /**
  * Struts Action Class for the Labor Ledger Correction Process.
  */
-public class LaborCorrectionAction extends org.kuali.kfs.module.ld.document.web.struts.LaborCorrectionAction {
+//public class LaborCorrectionAction extends org.kuali.kfs.module.ld.document.web.struts.LaborCorrectionAction {
 
     /**
      * Prepare labor correction document for routing
      *
      * @see CorrectionAction#prepareForRoute(CorrectionForm)
      */
-    @Override
+    /*@Override
     protected boolean prepareForRoute(CorrectionForm correctionForm) throws Exception {
 
         LaborCorrectionForm laborCorrectionForm = (LaborCorrectionForm) correctionForm;
@@ -175,5 +176,5 @@ public class LaborCorrectionAction extends org.kuali.kfs.module.ld.document.web.
         return result;
     }
 
-}
+}*/
 

@@ -501,6 +501,3 @@ public class AccountingCycleCachingServiceImpl extends AbstractBatchTransactiona
     }
 
 }
-
-
-

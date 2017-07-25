@@ -443,9 +443,10 @@ public class PurchaseOrderServiceTest extends KualiTestBase {
 
         po.prepareForSave();
         AccountingDocumentTestUtils.saveDocument(po, docService);
+        ByteArrayOutputStream baosPDF = new ByteArrayOutputStream();
 
         try {
-            poService.performPurchaseOrderFirstTransmitViaPrinting(po);
+            poService.performPurchaseOrderFirstTransmitViaPrinting(po.getDocumentNumber(), baosPDF);
             assertTrue(po.getPurchaseOrderFirstTransmissionTimestamp() != null);
             assertTrue(po.getPurchaseOrderLastTransmitTimestamp() != null);
         } catch (ValidationException e) {

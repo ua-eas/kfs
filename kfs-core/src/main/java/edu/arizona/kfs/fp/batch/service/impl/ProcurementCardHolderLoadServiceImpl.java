@@ -16,7 +16,7 @@ import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sys.batch.BatchInputFileType;
 import org.kuali.kfs.sys.batch.service.BatchInputFileService;
 import org.kuali.kfs.sys.exception.ParseException;
-import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 
 import edu.arizona.kfs.fp.batch.service.ProcurementCardHolderLoadService;
 import edu.arizona.kfs.fp.businessobject.ProcurementCardHolderLoad;

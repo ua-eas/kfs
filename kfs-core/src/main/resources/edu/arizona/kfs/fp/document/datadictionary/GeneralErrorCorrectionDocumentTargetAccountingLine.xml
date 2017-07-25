@@ -16,7 +16,7 @@
     <bean id="GeneralErrorCorrectionDocument-targetGroupActions" class="org.springframework.beans.factory.config.ListFactoryBean">
         <property name="sourceList">
             <list>
-                <bean parent="AccountingLineView-action" p:actionMethod="deleteAllTargetAccountingLines" p:actionLabel="delete all" p:imageName="tinybutton-deleteall.gif" />
+                <bean parent="AccountingLineView-action" p:actionMethod="deleteAllTargetAccountingLines" p:actionLabel="delete all" p:buttonStyle="btn btn-red" p:buttonLabel="Delete All" />
             </list>
         </property>
     </bean>

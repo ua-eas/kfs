@@ -14,7 +14,7 @@ import org.kuali.kfs.sys.document.validation.event.UpdateAccountingLineEvent;
 import org.kuali.kfs.sys.document.validation.impl.AccountingLineAccessibleValidation;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 import edu.arizona.kfs.fp.businessobject.DisbursementVoucherSourceAccountingLineExtension;
 import edu.arizona.kfs.sys.KFSConstants;
@@ -38,8 +38,8 @@ public class DisbursementVoucherInvoiceNumberEnteredValidation extends Accountin
 
         Person financialSystemUser = GlobalVariables.getUserSession().getPerson();
         final AccountingLineAuthorizer accountingLineAuthorizer = lookupAccountingLineAuthorizer();
-        final boolean lineIsAccessible = accountingLineAuthorizer.hasEditPermissionOnAccountingLine(accountingDocument, accountingLineForValidation, getAccountingLineCollectionProperty(), financialSystemUser, true);
-        boolean isAccessible = accountingLineAuthorizer.hasEditPermissionOnField(accountingDocument, accountingLineForValidation, getAccountingLineCollectionProperty(), KFSPropertyConstants.EXTENSION_INVOICE_NUMBER, lineIsAccessible, true, financialSystemUser);
+        final boolean lineIsAccessible = accountingLineAuthorizer.hasEditPermissionOnAccountingLine(accountingDocument, accountingLineForValidation, getAccountingLineCollectionProperty(), financialSystemUser, true, accountingDocument.getDocumentHeader().getWorkflowDocument().getCurrentNodeNames());
+        boolean isAccessible = accountingLineAuthorizer.hasEditPermissionOnField(accountingDocument, accountingLineForValidation, getAccountingLineCollectionProperty(), KFSPropertyConstants.EXTENSION_INVOICE_NUMBER, lineIsAccessible, true, financialSystemUser, accountingDocument.getDocumentHeader().getWorkflowDocument().getCurrentNodeNames());
 
         if (isAccessible) {
             DisbursementVoucherSourceAccountingLineExtension accountingLineExtension = (DisbursementVoucherSourceAccountingLineExtension) accountingLineForValidation.getExtension();

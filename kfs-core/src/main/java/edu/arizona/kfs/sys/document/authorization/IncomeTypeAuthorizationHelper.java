@@ -2,7 +2,7 @@ package edu.arizona.kfs.sys.document.authorization;
 
 import java.util.Set;
 
-import org.kuali.rice.krad.document.Document;
+import org.kuali.kfs.krad.document.Document;
 
 import edu.arizona.kfs.sys.KFSConstants;
 import edu.arizona.kfs.sys.document.IncomeTypeContainer;

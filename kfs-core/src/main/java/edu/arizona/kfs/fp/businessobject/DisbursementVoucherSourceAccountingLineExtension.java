@@ -1,7 +1,7 @@
 package edu.arizona.kfs.fp.businessobject;
 
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectExtensionBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectExtensionBase;
 
 public class DisbursementVoucherSourceAccountingLineExtension extends PersistableBusinessObjectExtensionBase {
 

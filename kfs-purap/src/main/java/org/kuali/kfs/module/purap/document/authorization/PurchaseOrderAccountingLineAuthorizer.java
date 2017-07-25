@@ -114,7 +114,7 @@ public class PurchaseOrderAccountingLineAuthorizer extends PurapAccountingLineAu
 
         // check the initiation permission on the document if it is in the state of preroute, but only if
         // the PO status is not In Process.
-        WorkflowDocument workflowDocument = ((PurchasingAccountsPayableDocument) accountingDocument).getFinancialSystemDocumentHeader().getWorkflowDocument();
+        WorkflowDocument workflowDocument = accountingDocument.getFinancialSystemDocumentHeader().getWorkflowDocument();
         if (!workflowDocument.getApplicationDocumentStatus().equals(PurapConstants.PurchaseOrderStatuses.APPDOC_IN_PROCESS) && (workflowDocument.isInitiated() || workflowDocument.isSaved() || workflowDocument.isCompletionRequested())) {
             if (PurapConstants.PurchaseOrderDocTypes.PURCHASE_ORDER_AMENDMENT_DOCUMENT.equals(workflowDocument.getDocumentTypeName())) {
                 PurApAccountingLine purapAccount = (PurApAccountingLine)accountingLine;

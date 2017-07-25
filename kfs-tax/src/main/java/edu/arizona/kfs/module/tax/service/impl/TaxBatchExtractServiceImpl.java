@@ -18,7 +18,7 @@ import org.kuali.kfs.pdp.PdpConstants.PayeeIdTypeCodes;
 import org.kuali.kfs.pdp.businessobject.PaymentAccountDetail;
 import org.kuali.kfs.pdp.businessobject.PaymentDetail;
 import org.kuali.kfs.vnd.businessobject.VendorDetail;
-import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 
 import edu.arizona.kfs.fp.businessobject.DisbursementVoucherIncomeType;
 import edu.arizona.kfs.fp.document.DisbursementVoucherDocument;

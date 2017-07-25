@@ -120,6 +120,8 @@ public class PdpEmailServiceImpl implements PdpEmailService {
 
                 message.getToAddresses().addAll(toAddressList);
                 message.getCcAddresses().addAll(ccAddresses);
+                //TODO: for some reason the mail service does not work unless the bcc list has addresss. This is a temporary workaround
+                message.getBccAddresses().addAll(ccAddresses);
             }
         }
 

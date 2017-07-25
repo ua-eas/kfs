@@ -25,10 +25,12 @@ import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.ObjectSubType;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsAgency;
 import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.bo.Note;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.krad.service.NoteService;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.krad.util.UrlFactory;
@@ -57,6 +59,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+
+
+import edu.arizona.kfs.module.cam.businessobject.AssetExtension;
+import edu.arizona.kfs.module.cam.businessobject.AssetGlobalDetailExtension;
 
 public class AssetBase extends PersistableBusinessObjectBase {
 
@@ -147,7 +153,9 @@ public class AssetBase extends PersistableBusinessObjectBase {
     protected ObjectSubType financialObjectSubType;
     protected AssetAcquisitionType acquisitionType;
     protected ContractsAndGrantsAgency agency;
+    protected List<Note> boNotes = new ArrayList<Note>();
 
+    private static NoteService noteService;
 
     // Non-persisted attributes:
     protected KualiDecimal paymentTotalCost;
@@ -237,6 +245,14 @@ public class AssetBase extends PersistableBusinessObjectBase {
         this.setGovernmentTagNumber(assetGlobalDetail.getGovernmentTagNumber());
         this.setCampusTagNumber(assetGlobalDetail.getCampusTagNumber());
         this.setNationalStockNumber(assetGlobalDetail.getNationalStockNumber());
+
+        AssetExtension assetExtension = (AssetExtension) this.getExtension();
+        AssetGlobalDetailExtension assetGlobalDetailExtension = (AssetGlobalDetailExtension) assetGlobalDetail.getExtension();
+
+        assetExtension.setInventoryUnitChartOfAccountsCode(assetGlobalDetailExtension.getInventoryUnitChartOfAccountsCode());
+        assetExtension.setInventoryUnitCode(assetGlobalDetailExtension.getInventoryUnitCode());
+        assetExtension.setInventoryUnitOrganizationCode(assetGlobalDetailExtension.getInventoryUnitOrganizationCode());
+        assetExtension.setCapitalAssetNumber(assetGlobalDetail.getCapitalAssetNumber());
 
         AssetOrganization assetOrganization = new AssetOrganization();
         assetOrganization.setCapitalAssetNumber(assetGlobalDetail.getCapitalAssetNumber());
@@ -2144,6 +2160,27 @@ public class AssetBase extends PersistableBusinessObjectBase {
         return getUrlForAssetDocumentLookup(CamsConstants.DocumentTypeName.COMPLEX_MAINTENANCE_DOC_BASE);
     }
 
+    public List<Note> getBoNotes() {
+        if (!StringUtils.isEmpty(getObjectId())) {
+            boNotes = getNoteService().getByRemoteObjectId(getObjectId());
+        }
+        // ensure that the list is not null after this point
+        if (boNotes == null) {
+            boNotes = new ArrayList<Note>();
+        }
+        return boNotes;
+    }
+
+    protected NoteService getNoteService() {
+        if(noteService == null) {
+            noteService = SpringContext.getBean(NoteService.class);
+        }
+        return noteService;
+    }
+
+    public void setBoNotes(List<Note> boNotes) {
+        this.boNotes = boNotes;
+    }
 
     /**
      * override this method so we can remove the offcampus location

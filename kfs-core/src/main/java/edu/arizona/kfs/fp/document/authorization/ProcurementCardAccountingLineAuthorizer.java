@@ -1,6 +1,6 @@
 package edu.arizona.kfs.fp.document.authorization;
 
-import java.util.Map;
+import java.util.*;
 
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.AccountingDocument;
@@ -13,9 +13,9 @@ public class ProcurementCardAccountingLineAuthorizer extends org.kuali.kfs.fp.do
      * This is a copy of org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizerBase#determineEditPermissionByFieldName(AccountingDocument,AccountingLine,String,Person)
      */
     @Override
-    protected boolean determineEditPermissionByFieldName(AccountingDocument accountingDocument, AccountingLine accountingLine, String fieldName, Person currentUser) {
+    protected boolean determineEditPermissionByFieldName(AccountingDocument accountingDocument, AccountingLine accountingLine, String fieldName, Person currentUser, Set<String> currentNodes) {
         Map<String,String> roleQualifiers = getRoleQualifiers(accountingDocument, accountingLine);
-        Map<String,String> permissionDetail = getPermissionDetails( accountingDocument, fieldName);
+        Map<String,String> permissionDetail = getPermissionDetails( accountingDocument, fieldName, currentNodes);
 
         return this.hasEditPermission(accountingDocument, currentUser, permissionDetail, roleQualifiers);
     }

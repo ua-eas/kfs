@@ -24,10 +24,11 @@ import org.kuali.kfs.fp.document.validation.event.AddCheckEvent;
 import org.kuali.kfs.fp.document.validation.event.DeleteCheckEvent;
 import org.kuali.kfs.fp.document.validation.event.UpdateCheckEvent;
 import org.kuali.kfs.fp.service.CheckService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.document.Copyable;
 import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
 import org.kuali.kfs.krad.rules.rule.event.SaveDocumentEvent;
 import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DataDictionaryService;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
@@ -48,7 +49,6 @@ import org.kuali.rice.kew.api.document.DocumentStatus;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
 import org.kuali.rice.kim.api.identity.Person;
-
 
 import java.util.*;
 
@@ -107,7 +107,6 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
     protected boolean recategorized;
 
     protected String createDate;
-    
 
     /**
      * Initializes the array lists and line incrementers.
@@ -1114,7 +1113,6 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
     public String getCreateDate() {
         return SpringContext.getBean(DateTimeService.class).toDateString(getDocumentHeader().getWorkflowDocument().getDateCreated().toDate());
     }
-    
 
     /**
      * Generate the primary key for a currency or coin detail related to this document

@@ -22,7 +22,7 @@ import edu.arizona.kfs.gl.service.GlobalTransactionEditService;
 import org.kuali.kfs.gl.batch.CollectorBatch;
 import org.kuali.kfs.gl.batch.CollectorStep;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.rice.krad.util.MessageMap;
+import org.kuali.kfs.krad.util.MessageMap;
 
 /**
  * The base implementation of CollectorHelperService

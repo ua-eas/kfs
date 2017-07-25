@@ -37,18 +37,16 @@
 
     <bean id="glCollectorHelperService" parent="glCollectorHelperService-parentBean" />
     <bean id="glCollectorHelperService-parentBean" class="edu.arizona.kfs.gl.batch.service.impl.CollectorHelperServiceImpl" abstract="true">
-        <property name="collectorDetailService" ref="glCollectorDetailService"/>
-        <property name="originEntryService" ref="originEntryService"/>
-        <property name="originEntryGroupService" ref="originEntryGroupService"/>
-        <property name="parameterService" ref="parameterService"/>
-        <property name="configurationService" ref="kualiConfigurationService"/>
-        <property name="dateTimeService" ref="dateTimeService"/>
-        <property name="collectorScrubberService" ref="glCollectorScrubberService"/>
+    	<property name="parameterService" ref="parameterService"/>
         <property name="batchInputFileService" ref="batchInputFileService"/>
+        <property name="collectorScrubberService" ref="glCollectorScrubberService"/>
         <property name="accountService" ref="accountService"/>
         <property name="preScrubberService" ref="preScrubberService"/>
-        <property name="globalTransactionEditService" ref="globalTransactionEditService"/>
         <property name="batchFileDirectoryName" value="${staging.directory}/gl/originEntry"/>
+        <property name="businessObjectService" ref="businessObjectService"/>
+        <property name="collectorReportService" ref="glCollectorReportService"/>
+        <property name="collectorReportWriterService" ref="collectorReportWriterService"/>
+        <property name="globalTransactionEditService" ref="globalTransactionEditService"/>
     </bean>
 
     <bean id="scrubberValidator" parent="scrubberValidator-parentBean" />

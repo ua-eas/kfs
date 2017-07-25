@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class GeneralErrorCorrectionCorrectingAccountingLinesAuthorizer extends CapitalAccountingLinesAuthorizerBase {
 
@@ -39,22 +40,24 @@ public class GeneralErrorCorrectionCorrectingAccountingLinesAuthorizer extends C
         actions.addAll(actionMap.values());
         return actions;
     }
-
+    
     @Override
-    public boolean hasEditPermissionOnAccountingLine(AccountingDocument accountingDocument, AccountingLine accountingLine, String accountingLineCollectionProperty, Person currentUser, boolean pageIsEditable) {
+    public boolean hasEditPermissionOnAccountingLine(AccountingDocument accountingDocument,
+    		AccountingLine accountingLine, String accountingLineCollectionProperty, Person currentUser,
+    		boolean pageIsEditable, Set<String> currentNodes)  {
         if (accountingLine.getSequenceNumber() == null) {
             return false;
         }
-        boolean retval = super.hasEditPermissionOnAccountingLine(accountingDocument, accountingLine, accountingLineCollectionProperty, currentUser, pageIsEditable);
+        boolean retval = super.hasEditPermissionOnAccountingLine(accountingDocument, accountingLine, accountingLineCollectionProperty, currentUser, pageIsEditable,currentNodes);
         return retval;
     }
 
     @Override
-    public boolean hasEditPermissionOnField(AccountingDocument accountingDocument, AccountingLine accountingLine, String accountingLineCollectionProperty, String fieldName, boolean editableLine, boolean editablePage, Person currentUser) {
+    public boolean hasEditPermissionOnField(AccountingDocument accountingDocument, AccountingLine accountingLine, String accountingLineCollectionProperty, String fieldName, boolean editableLine, boolean editablePage, Person currentUser, Set<String> currentNodes) {
         if (accountingLine.getSequenceNumber() == null) {
             return false;
         }
-        boolean retval = super.hasEditPermissionOnField(accountingDocument, accountingLine, accountingLineCollectionProperty, fieldName, editableLine, editablePage, currentUser);
+        boolean retval = super.hasEditPermissionOnField(accountingDocument, accountingLine, accountingLineCollectionProperty, fieldName, editableLine, editablePage, currentUser, currentNodes);
         return retval;
     }
 
@@ -76,7 +79,8 @@ public class GeneralErrorCorrectionCorrectingAccountingLinesAuthorizer extends C
         String actionMethod = this.getAddLineMethod(accountingLine, accountingLinePropertyName, accountingLineIndex);
         String actionLabel = this.getActionLabel(KFSKeyConstants.AccountingLineViewRendering.ACCOUNTING_LINE_ADD_ACTION_LABEL, groupTitle);
         String actionImageName = getRiceImagePath() + "tinybutton-add1.gif";
-        AccountingLineViewAction retval = new AccountingLineViewAction(actionMethod, actionLabel, actionImageName);
+        // TODO: UA tech team review last parameter newly added per API change
+        AccountingLineViewAction retval = new AccountingLineViewAction(actionMethod, actionLabel, actionImageName, "add line");
         return retval;
     }
 

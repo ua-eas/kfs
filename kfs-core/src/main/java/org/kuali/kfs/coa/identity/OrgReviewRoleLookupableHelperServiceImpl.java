@@ -29,7 +29,7 @@ import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.identity.KfsKimAttributes;
+import edu.arizona.kfs.sys.identity.KfsKimAttributes;
 import org.kuali.rice.core.api.criteria.PredicateUtils;
 import org.kuali.rice.core.api.criteria.QueryByCriteria;
 import org.kuali.rice.core.api.delegation.DelegationType;
@@ -37,6 +37,7 @@ import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.common.delegate.DelegateMember;
 import org.kuali.rice.kim.api.common.delegate.DelegateType;
 import org.kuali.rice.kim.api.identity.Person;
+import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.api.identity.principal.Principal;
 import org.kuali.rice.kim.api.identity.principal.PrincipalQueryResults;
 import org.kuali.rice.kim.api.role.DelegateMemberQueryResults;
@@ -72,6 +73,7 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
     @Override
     public Collection performLookup(LookupForm lookupForm, Collection resultTable, boolean bounded) {
         lookupForm.setShowMaintenanceLinks(true);
+        lookupForm.setSuppressActions(false);
         lookupForm.setHideReturnLink(true);
         return super.performLookup(lookupForm, resultTable, bounded);
     }
@@ -192,7 +194,7 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
 
         if(StringUtils.isNotBlank(principalName)){
 
-            String wildcardPrincipalName = getQueryString(principalName);
+            String wildcardPrincipalName = getWildcardValue(principalName);
             Map<String, String> criteriaMap = Collections.singletonMap(KimConstants.UniqueKeyConstants.PRINCIPAL_NAME, wildcardPrincipalName);
             List<Person> persons= KimApiServiceLocator.getPersonService().findPeople(criteriaMap);
 
@@ -211,7 +213,8 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
             searchCriteria.put(KimConstants.UniqueKeyConstants.NAMESPACE_CODE, namespaceCode);
         }
         if (StringUtils.isNotBlank(groupName)) {
-            searchCriteria.put(KimConstants.UniqueKeyConstants.GROUP_NAME, getQueryString(groupName));
+            searchCriteria.put(KimConstants.UniqueKeyConstants.GROUP_NAME, getWildcardValue(groupName));
+
         }
         if (searchCriteria.isEmpty()) {
             return Collections.emptyList();
@@ -225,7 +228,7 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
             searchCriteria.put(KimConstants.UniqueKeyConstants.NAMESPACE_CODE, namespaceCode);
         }
         if (StringUtils.isNotBlank(roleName)) {
-            searchCriteria.put(KimConstants.UniqueKeyConstants.NAME, getQueryString(roleName));
+            searchCriteria.put(KimConstants.UniqueKeyConstants.NAME, getWildcardValue(roleName));
         }
         if (searchCriteria.isEmpty()) {
             return Collections.emptyList();
@@ -303,6 +306,7 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
                 }
 
             } else if (StringUtils.isNotBlank(chartOfAccountsCode)) {
+
                 //filter by document type if it exists
                 if (StringUtils.isNotBlank(financialSystemDocumentTypeCode)) {
                     if (!financialSystemDocumentTypeCode.equals(orgReviewRole.getFinancialSystemDocumentTypeCode())) {
@@ -337,7 +341,6 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
                     remove = true;
                 }
             }
-
 
             List<String> items = new ArrayList<String>();
 
@@ -554,8 +557,7 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
         return orgReviewRoles;
     }
 
-
-    protected String getQueryString(String parameter) {
+    protected String getWildcardValue(String parameter){
         if (StringUtils.isBlank(parameter)) {
             return KFSConstants.WILDCARD_CHARACTER;
         } else {
@@ -744,4 +746,3 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
 
 
 }
-

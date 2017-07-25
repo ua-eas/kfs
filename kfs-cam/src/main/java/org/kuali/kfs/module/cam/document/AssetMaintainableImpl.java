@@ -124,7 +124,7 @@ public class AssetMaintainableImpl extends FinancialSystemMaintainable {
      * java.util.Map)
      */
     @Override
-    public void processAfterEdit(MaintenanceDocument document, Map parameters) {
+    public void processAfterEdit(MaintenanceDocument document, Map<String, String[]>  parameters) {
         initializeAttributes(document);
         // Identifies the latest location information
         getAssetLocationService().setOffCampusLocation(copyAsset);

@@ -457,4 +457,3 @@ public interface PurchaseOrderService extends PurchasingDocumentSpecificService 
 
     public void sendAdhocFyi(PurchaseOrderDocument po);
 }
-

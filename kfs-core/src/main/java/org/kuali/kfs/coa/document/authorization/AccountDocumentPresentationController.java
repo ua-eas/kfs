@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.coa.document.authorization;
 
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.service.AccountService;

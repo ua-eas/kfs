@@ -35,13 +35,10 @@
 	We should show both the original and confirmed details after CashManagerment confirmation; 	only that neither column would be editable.
 --%>
 <c:set var="showConfirm" value="${confirmMode || confirmed}"/>
-
-
 <c:set var="currencyAttributes" value="${DataDictionary.CurrencyDetail.attributes}"/>
 <c:set var="coinAttributes" value="${DataDictionary.CoinDetail.attributes}"/>
 <c:set var="tabindexOverrideBase" value="20"/>
 <c:set var="displayCashReceiptDenominationDetail" value="${KualiForm.displayCashReceiptDenominationDetail}" />
-
 
 <table class="datatable standard">
     <c:if test="${showConfirm}">
@@ -77,6 +74,7 @@
 
     <c:choose>
         <c:when test="${displayCashReceiptDenominationDetail}">
+
     <tr>
         <td>
             <kul:htmlAttributeLabel
@@ -483,8 +481,8 @@
                     <td>&nbsp;</td>
                     <td>
                         $<kul:htmlControlAttribute property="${confirmedCoinProperty}.financialDocumentCentAmount" attributeEntry="${coinAttributes.financialDocumentCentAmount}" readOnly="${!confirmMode}"/>
-            </td>
-        </c:if>
+                    </td>
+                </c:if>
         </tr>
         <tr>
             <c:choose>
@@ -509,4 +507,5 @@
         </c:otherwise>
     </c:choose>
 </table>
+
 

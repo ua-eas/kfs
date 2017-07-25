@@ -5,9 +5,10 @@ import java.util.List;
 
 import org.kuali.kfs.fp.document.ProcurementCardDocument;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.kns.web.ui.ExtraButton;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.web.ui.ExtraButton;
 import org.kuali.rice.kew.api.document.node.RouteNodeInstance;
+
 
 import edu.arizona.kfs.sys.KFSConstants;
 import edu.arizona.kfs.sys.KFSParameterKeyConstants;

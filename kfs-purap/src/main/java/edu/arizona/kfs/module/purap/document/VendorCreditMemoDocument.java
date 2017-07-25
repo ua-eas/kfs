@@ -18,10 +18,10 @@ import org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBaseCons
 import org.kuali.kfs.vnd.businessobject.VendorHeader;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.KewApiConstants;
-import org.kuali.rice.krad.document.DocumentAuthorizer;
-import org.kuali.rice.krad.service.DocumentDictionaryService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.kfs.krad.document.DocumentAuthorizer;
+import org.kuali.kfs.krad.service.DocumentDictionaryService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
 
 import edu.arizona.kfs.fp.service.PaymentMethodGeneralLedgerPendingEntryService;
 import edu.arizona.kfs.module.purap.PurapConstants;

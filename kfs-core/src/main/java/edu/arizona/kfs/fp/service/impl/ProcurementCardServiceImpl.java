@@ -18,8 +18,8 @@ import org.kuali.kfs.sys.businessobject.TaxRegionRate;
 import org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBaseConstants;
 import org.kuali.kfs.sys.service.GeneralLedgerPendingEntryService;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 import edu.arizona.kfs.fp.businessobject.ProcurementCardTransactionDetail;

@@ -2,7 +2,7 @@ package edu.arizona.kfs.module.purap.document;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sys.businessobject.Building;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import edu.arizona.kfs.sys.businessobject.BuildingExtension;
 
 public class BulkReceivingDocument extends org.kuali.kfs.module.purap.document.BulkReceivingDocument {

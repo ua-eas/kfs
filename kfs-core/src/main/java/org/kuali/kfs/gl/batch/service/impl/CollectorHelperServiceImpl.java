@@ -21,8 +21,10 @@ package org.kuali.kfs.gl.batch.service.impl;
 import org.apache.commons.collections.IteratorUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.BalanceType;
+import org.kuali.kfs.coa.businessobject.ObjectType;
 import org.kuali.kfs.coa.service.AccountService;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
@@ -57,23 +59,8 @@ import org.kuali.kfs.sys.service.ReportWriterService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.springframework.util.AutoPopulatingList;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-
-
+import java.io.*;
+import java.util.*;
 
 /**
  * The base implementation of CollectorHelperService
@@ -82,8 +69,15 @@ import java.util.Set;
 public class CollectorHelperServiceImpl implements CollectorHelperService {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CollectorHelperServiceImpl.class);
 
-
-
+    protected ParameterService parameterService;
+    private BatchInputFileService batchInputFileService;
+    private CollectorScrubberService collectorScrubberService;
+    private AccountService accountService;
+    private PreScrubberService preScrubberService;
+    private String batchFileDirectoryName;
+    protected BusinessObjectService businessObjectService;
+    protected CollectorReportService collectorReportService;
+    protected ReportWriterService collectorReportWriterService;
 
     @Override
     public List<ErrorMessage> loadCollectorApiData(InputStream inputStream, BatchInputFileType collectorInputFileType) {
@@ -251,6 +245,10 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
 
     /**
      * Calls batch input service to parse the xml contents into an object. Any errors will be contained in GlobalVariables.MessageMap
+     *
+     * @param fileName the name of the file to parse
+     * @param MessageMap a map of errors resultant from the parsing
+     * @return the CollectorBatch of details parsed from the file
      */
     protected List<CollectorBatch> doCollectorFileParse(String fileName, MessageMap messageMap, BatchInputFileType collectorInputFileType, CollectorReportData collectorReportData) {
 
@@ -373,6 +371,7 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
      *
      * @param batch - batch to validate
      * @return boolean - true if validation was OK, false if there were errors
+     * @see org.kuali.kfs.gl.batch.service.CollectorHelperService#performValidation(org.kuali.kfs.gl.batch.CollectorBatch)
      */
     public boolean performValidation(CollectorBatch batch) {
         return performValidation(batch, GlobalVariables.getMessageMap());
@@ -380,6 +379,10 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
 
     /**
      * Performs the following checks on the collector batch: Any errors will be contained in GlobalVariables.MessageMap
+     *
+     * @param batch - batch to validate
+     * @param MessageMap the map into which to put errors encountered during validation
+     * @return boolean - true if validation was successful, false it not
      */
     protected boolean performValidation(CollectorBatch batch, MessageMap messageMap) {
         boolean valid = performCollectorHeaderValidation(batch, messageMap);
@@ -628,6 +631,8 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
      *
      * @param batch               batch to check totals for
      * @param collectorReportData collector report data (optional)
+     * @see org.kuali.kfs.gl.batch.service.CollectorHelperService#checkTrailerTotals(org.kuali.kfs.gl.batch.CollectorBatch,
+     *      org.kuali.kfs.gl.report.CollectorReportData)
      */
     public boolean checkTrailerTotals(CollectorBatch batch, CollectorReportData collectorReportData) {
         return checkTrailerTotals(batch, collectorReportData, GlobalVariables.getMessageMap());

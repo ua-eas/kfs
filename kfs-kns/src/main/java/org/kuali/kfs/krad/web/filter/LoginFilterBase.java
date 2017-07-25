@@ -93,7 +93,7 @@ public abstract class LoginFilterBase implements Filter {
 
             // Set up rice session so configuration page will work
             final org.kuali.rice.krad.UserSession riceUserSession = new org.kuali.rice.krad.UserSession(principalName);
-            request.getSession().setAttribute(org.kuali.rice.krad.util.KRADConstants.USER_SESSION_KEY, riceUserSession);
+            request.getSession().setAttribute(org.kuali.kfs.krad.util.KRADConstants.USER_SESSION_KEY, riceUserSession);
         }
     }
 

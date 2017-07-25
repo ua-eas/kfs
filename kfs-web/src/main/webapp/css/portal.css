@@ -62,7 +62,6 @@ a:active {
     text-align: right;
 }
 
-
 .small {
     font-size: .9em;
 }
@@ -173,7 +172,6 @@ a:active {
     border-right: 2px solid #761818;
     border-bottom: 2px solid #761818;
     border-left: 1px solid #FF7979;
-
 }
 
 /*******************************************************************************
@@ -194,7 +192,6 @@ a:active {
     top: 47px;
     right: 20px;
     color: #999999;
-
 }
 
 #feedback {
@@ -755,7 +752,6 @@ div.portlet-modify {
 .portlet .header span.edit {
     background: url(../images/edit.png) no-repeat;
 }
-
 
 .portlet .header span.help {
     background: url(../images/help.png) no-repeat;

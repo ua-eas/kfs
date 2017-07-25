@@ -1,20 +1,21 @@
 package edu.arizona.kfs.module.tax.businessobject.inquiry;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.businessobject.inquiry.KfsInquirableImpl;
+import org.kuali.kfs.kns.inquiry.KualiInquirableImpl;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.kns.lookup.HtmlData;
-import org.kuali.rice.kns.lookup.HtmlData.AnchorHtmlData;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.ObjectUtils;
 
 import edu.arizona.kfs.module.tax.TaxPropertyConstants;
 
 @SuppressWarnings("deprecation")
-public class PaymentInquirable extends KfsInquirableImpl {
+// TODO UA dev: org.kuali.kfs.sys.businessobject.inquiry.KfsInquirableImpl is gone. Replaced parent class by KualiInquirableImpl 
+public class PaymentInquirable extends KualiInquirableImpl {
     private static final long serialVersionUID = 7996535011188449247L;
 
     @Override

@@ -161,7 +161,6 @@ public class PurapAccountingServiceImpl implements PurapAccountingService {
             BigDecimal lowestPossible = this.getLowestPossibleRoundUpNumber();
             if (lowestPossible.compareTo(pct) <= 0) {
                 PurApAccountingLine newAccountingLine;
-                newAccountingLine = null;
 
                 try {
                     newAccountingLine = (PurApAccountingLine) clazz.newInstance();
@@ -250,7 +249,7 @@ public class PurapAccountingServiceImpl implements PurapAccountingService {
     }
 
     /**
-     * @see org.kuali.kfs.module.purap.service.PurapAccountingService#generateAccountDistributionForProrationWithZeroTotal(PurchasingAccountsPayableDocument purapDoc)
+     * @see org.kuali.kfs.module.purap.service.PurapAccountingService#generateAccountDistributionForProrationWithZeroTotal(PurchasingAccountsPayableDocument purapDoc)8
      */
     @Override
     public List<PurApAccountingLine> generateAccountDistributionForProrationWithZeroTotal(PurchasingAccountsPayableDocument purapDoc) {
@@ -621,7 +620,8 @@ public class PurapAccountingServiceImpl implements PurapAccountingService {
      */
     protected List<PurApItem> getProcessablePurapItems(List<PurApItem> items, Set itemTypeCodes, Boolean itemTypeCodesAreIncluded, Boolean useZeroTotals) {
         String methodName = "getProcessablePurapItems()";
-        List<PurApItem> newItemList = new ArrayList<PurApItem>();
+
+        List<PurApItem> newItemList = new ArrayList<>();
         // error out if we have an invalid 'itemTypeCodesAreIncluded' value
         if ((!(ITEM_TYPES_INCLUDED_VALUE.equals(itemTypeCodesAreIncluded))) && (!(ITEM_TYPES_EXCLUDED_VALUE.equals(itemTypeCodesAreIncluded)))) {
             throwRuntimeException(methodName, "Invalid parameter found while trying to find processable items for dealing with purchasing/accounts payable accounts");

@@ -123,6 +123,9 @@
     <alias name="rice.kew.documentTypeService" alias="documentTypeService"/>
     <bean id="enActionListEmailService" p:serviceName="enActionListEmailService" parent="grlBeanImporter"/>
 
+	<!--  UA KFS7 upgrade moved stuckDocumentService from kfs to rice due to rice schema standalone -->
+    <bean id="rice.kew.stuckDocumentService" p:serviceName="rice.kew.stuckDocumentService" parent="grlBeanImporter"/>
+	
     <!-- KSB -->
     <bean id="rice.ksb.serviceBus" p:serviceName="rice.ksb.serviceBus" parent="grlBeanImporter"/>
 

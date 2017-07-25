@@ -1,8 +1,6 @@
 package edu.arizona.kfs.pdp.service.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.pdp.PdpKeyConstants;
@@ -15,24 +13,20 @@ import org.kuali.kfs.pdp.service.CustomerProfileService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.core.api.mail.MailMessage;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.sys.mail.MailMessage;
+import org.kuali.kfs.sys.mail.BodyMailMessage;
+import org.kuali.kfs.coreservice.impl.parameter.ParameterServiceImpl;
 import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.service.MailService;
-import org.kuali.rice.krad.util.ErrorMessage;
-import org.kuali.rice.krad.util.MessageMap;
+import org.kuali.kfs.sys.service.EmailService;
+import org.kuali.kfs.krad.util.KRADUtils;
+
+import org.kuali.kfs.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.MessageMap;
 
 import edu.arizona.kfs.pdp.service.PdpEmailService;
 
 public class PdpEmailServiceImpl extends org.kuali.kfs.pdp.service.impl.PdpEmailServiceImpl implements PdpEmailService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PdpEmailServiceImpl.class);
-   
-    protected CustomerProfileService customerProfileService;
-    protected ConfigurationService kualiConfigurationService;
-    protected MailService mailService;
-    protected ParameterService parameterService;
-    protected DataDictionaryService dataDictionaryService;
-    protected AchBankService achBankService;
     
     public void sendPrepaidChecksLoadEmail(PaymentFileLoad prepaidChecksFile, List<String> warnings, String fileName) {    	
         LOG.debug("sendPrepaidChecksLoadEmail() starting");
@@ -42,12 +36,15 @@ public class PdpEmailServiceImpl extends org.kuali.kfs.pdp.service.impl.PdpEmail
             return;
         }
 
-        MailMessage message = new MailMessage();
+        BodyMailMessage message = new BodyMailMessage();
 
         String returnAddress = parameterService.getParameterValueAsString(KfsParameterConstants.PRE_DISBURSEMENT_BATCH.class, KFSConstants.FROM_EMAIL_ADDRESS_PARM_NM);
-        if(StringUtils.isEmpty(returnAddress)) {
-            returnAddress = mailService.getBatchMailingList();
-        }
+
+//TODO: Natalia: release 30 KFS6->KFS7 merge: MailService no longer in KFS, no where to get BatchMailingList(); from... commenting out for now
+//        if(StringUtils.isEmpty(returnAddress)) {
+//            returnAddress = emailService.getBatchMailingList();
+//        }
+
         message.setFromAddress(returnAddress);
         message.setSubject("Prepaid Checks File Load Success Notification - " + fileName);
 
@@ -73,10 +70,10 @@ public class PdpEmailServiceImpl extends org.kuali.kfs.pdp.service.impl.PdpEmail
         message.setMessage(body.toString());
 
         // KFSMI-6475 - if not a production instance, replace the recipients with the testers list
-        super.alterMessageWhenNonProductionInstance(message, null);
+        alterMessageWhenNonProductionInstance(message);
 
         try {
-            mailService.sendMessage(message);
+            emailService.sendMessage(message,false);
         }
         catch (Exception e) {
         	 LOG.error("sendPrepaidChecksLoadEmail() Invalid email address. Message not sent", e);
@@ -93,12 +90,13 @@ public class PdpEmailServiceImpl extends org.kuali.kfs.pdp.service.impl.PdpEmail
             return;
         }
 
-        MailMessage message = new MailMessage();
+        BodyMailMessage message = new BodyMailMessage();
 
         String returnAddress = parameterService.getParameterValueAsString(KfsParameterConstants.PRE_DISBURSEMENT_BATCH.class, KFSConstants.FROM_EMAIL_ADDRESS_PARM_NM);
-        if(StringUtils.isEmpty(returnAddress)) {
-            returnAddress = mailService.getBatchMailingList();
-        }
+//TODO Natalia: release 30 KFS6->KFS7 merge: MailService no longer in KFS, no where to get BatchMailingList(); from... commenting out for now
+//        if(StringUtils.isEmpty(returnAddress)) {
+//            returnAddress = emailService.getBatchMailingList();
+//        }
         message.setFromAddress(returnAddress);
         message.setSubject("Prepaid Checks File Load ERROR Notification - " + fileName);
 
@@ -155,10 +153,10 @@ public class PdpEmailServiceImpl extends org.kuali.kfs.pdp.service.impl.PdpEmail
             message.setMessage(body.toString());
 
             // KFSMI-6475 - if not a production instance, replace the recipients with the testers list
-            super.alterMessageWhenNonProductionInstance(message, null);
+            alterMessageWhenNonProductionInstance(message);
 
             try {
-                mailService.sendMessage(message);
+                emailService.sendMessage(message,false);
             }
             catch (Exception e) {
             	LOG.error("sendPrepaidChecksErrorEmail() Invalid email address.  Message not sent", e);
@@ -167,35 +165,33 @@ public class PdpEmailServiceImpl extends org.kuali.kfs.pdp.service.impl.PdpEmail
         }
                
     }
-         
-    public void setCustomerProfileService(CustomerProfileService customerProfileService) {
-    	  this.customerProfileService = customerProfileService;
-          super.setCustomerProfileService(customerProfileService);
+
+
+    /**
+     * KFSMI-6475 - Alter the subject and switch all recipients
+     *
+     * @param message
+     * @param environmentCode
+     */
+    @SuppressWarnings("rawtypes")
+    public void alterMessageWhenNonProductionInstance( BodyMailMessage message ) {
+        if (! KRADUtils.isProductionEnvironment()) {
+            // insert the original recipients into the beginning of the message
+            StringBuilder recipients = new StringBuilder();
+            recipients.append("Intended To : ").append(message.getToAddresses().toString()).append('\n');
+            recipients.append("Intended Cc : ").append(message.getCcAddresses().toString()).append('\n');
+            recipients.append("Intended Bcc: ").append(message.getBccAddresses().toString()).append('\n');
+            recipients.append('\n');
+            message.setMessage( recipients.toString() + message.getMessage() );
+            // Clear out the recipients
+            message.setToAddresses(new HashSet());
+            message.setCcAddresses(Collections.emptySet());
+            message.setBccAddresses(Collections.emptySet());
+            //TODO Natalia: release 30 KFS6->KFS7 merge: MailService no longer in KFS, no where to get BatchMailingList(); from... commenting out for now
+            // Set all to the batch mailing list
+            //message.addToAddress(emailService.getBatchMailingList());
+        }
     }
-  
-    public void setConfigurationService(ConfigurationService kualiConfigurationService) {
-        this.kualiConfigurationService = kualiConfigurationService;
-        super.setConfigurationService(kualiConfigurationService);
-    }
-    
-    public void setMailService(MailService mailService) {
-        this.mailService = mailService;
-        super.setMailService(mailService);
-    }
-    
-    public void setParameterService(ParameterService parameterService) {
-        this.parameterService = parameterService;
-        super.setParameterService(parameterService);        
-    }
-    
-    public void setDataDictionaryService(DataDictionaryService dataDictionaryService) {
-        this.dataDictionaryService = dataDictionaryService;
-        super.setDataDictionaryService(dataDictionaryService);
-    }
-   
-    public void setAchBankService(AchBankService achBankService) {
-        this.achBankService = achBankService;
-        super.setAchBankService(achBankService);
-    }
+
     
 }

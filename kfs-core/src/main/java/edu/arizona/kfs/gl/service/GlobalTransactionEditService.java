@@ -3,7 +3,7 @@ package edu.arizona.kfs.gl.service;
 import org.kuali.kfs.gl.batch.CollectorBatch;
 import org.kuali.kfs.sys.Message;
 import org.kuali.kfs.sys.businessobject.AccountingLineBase;
-import org.kuali.rice.krad.util.MessageMap;
+import org.kuali.kfs.krad.util.MessageMap;
 
 public interface GlobalTransactionEditService {
 

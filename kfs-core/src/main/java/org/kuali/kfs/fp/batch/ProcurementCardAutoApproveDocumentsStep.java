@@ -20,7 +20,7 @@ package org.kuali.kfs.fp.batch;
 
 import org.kuali.kfs.fp.batch.service.ProcurementCardCreateDocumentService;
 import org.kuali.kfs.sys.batch.AbstractStep;
-import org.kuali.rice.coreservice.framework.parameter.ParameterConstants.NAMESPACE;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterConstants.NAMESPACE;
 
 import java.util.Date;
 

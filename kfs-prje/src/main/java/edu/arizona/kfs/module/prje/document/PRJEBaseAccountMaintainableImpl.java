@@ -3,7 +3,7 @@ package edu.arizona.kfs.module.prje.document;
 import java.util.Map;
 
 import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
-import org.kuali.rice.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
 
 import edu.arizona.kfs.module.prje.businessobject.PRJEBaseAccount;
 import edu.arizona.kfs.module.prje.businessobject.defaultvalue.NextPRJEBaseAccountIdFinder;

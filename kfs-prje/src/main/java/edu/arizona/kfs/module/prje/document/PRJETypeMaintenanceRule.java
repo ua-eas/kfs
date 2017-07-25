@@ -5,9 +5,10 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase;
-import org.kuali.rice.krad.document.Document;
+
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.krad.document.Document;
 
 import edu.arizona.kfs.module.prje.PRJEConstants.Containment;
 import edu.arizona.kfs.module.prje.PRJEConstants.ProrateCreditType;

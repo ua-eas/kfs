@@ -1313,6 +1313,7 @@ public class KFSPropertyConstants {
     public static final String PAYMENT_CLAIM_AMOUNT_FROM = "amountFrom";
     public static final String PAYMENT_CLAIM_AMOUNT_TO = "amountTo";
     public static final String ADVANCE_DEPOSITS = "advanceDeposits";
+
     public static final String LINK_GROUPS = "linkGroups";
     public static final String MENU = "menu";
     public static final String LOGO_URL = "logoUrl";

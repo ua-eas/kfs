@@ -72,7 +72,4 @@ public class AutoClosePurchaseOrdersStep extends AbstractStep {
         this.autoClosePurchaseOrderService = autoClosePurchaseOrderService;
     }
 
-    public void setAutoClosePurchaseOrderService(AutoClosePurchaseOrderService autoClosePurchaseOrderService) {
-        this.autoClosePurchaseOrderService = autoClosePurchaseOrderService;
-    }
 }

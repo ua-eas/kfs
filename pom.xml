@@ -31,6 +31,7 @@
         <module>kfs-kc</module>
         <module>kfs-ld</module>
         <module>kfs-datatools</module>
+		<module>kfs-tax</module>
         <module>kfs-web</module>
     </modules>
     <groupId>org.kuali.kfs</groupId>
@@ -196,7 +197,7 @@
         <jsonpath.version>2.2.0</jsonpath.version>
         <jstl-api.version>1.2</jstl-api.version>
         <jta.version>1.1</jta.version>
-        <kfs.help.version>ua-release2</kfs.help.version>
+        <kfs.help.version>ua-release3-SNAPSHOT</kfs.help.version>
         <maven.compiler.version>3.3</maven.compiler.version>
         <mysql.groupId>mysql</mysql.groupId>
         <mysql.artifactId>mysql-connector-java</mysql.artifactId>
@@ -1345,6 +1346,17 @@
             </exclusions>
         </dependency>
         <dependency>
+	      <groupId>org.kuali.rice</groupId>
+	      <artifactId>rice-kim-ldap</artifactId>
+	      <version>${rice.version}</version>
+	      <exclusions>
+	        <exclusion>
+	         	<groupId>org.springframework</groupId>
+            	<artifactId>spring-tx</artifactId>
+	        </exclusion>
+	      </exclusions>
+	    </dependency>
+        <dependency>
             <groupId>org.kuali.rice</groupId>
             <artifactId>rice-ksb-api</artifactId>
             <version>${rice.version}</version>
@@ -1886,7 +1898,17 @@
     </pluginRepositories>
 
     <distributionManagement>
+    <repository>
+      <id>deployment</id>
+      <name>Internal Releases</name>
+      <url>https://ka-tools.mosaic.arizona.edu/nexus/content/repositories/releases/</url>
+    </repository>
         <snapshotRepository>
+      <id>deployment</id>
+      <name>Internal Releases</name>
+      <url>https://ka-tools.mosaic.arizona.edu/nexus/content/repositories/snapshots/</url>
+    </snapshotRepository>
+    <!-- snapshotRepository>
             <id>${dm.snapshotRepository.id}</id>
             <name>${dm.snapshotRepository.name}</name>
             <url>${dm.snapshotRepository.url}</url>
@@ -1895,7 +1917,7 @@
             <id>${dm.repository.id}</id>
             <name>${dm.repository.name}</name>
             <url>${dm.repository.url}</url>
-        </repository>
+    </repository> -->
     </distributionManagement>
 
 </project>

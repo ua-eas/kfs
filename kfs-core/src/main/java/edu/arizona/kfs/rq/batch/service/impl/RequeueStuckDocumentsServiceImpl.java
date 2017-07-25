@@ -1,15 +1,16 @@
 package edu.arizona.kfs.rq.batch.service.impl;
 
-import edu.arizona.kfs.rq.batch.dataaccess.StuckDocumentsDAO;
-import edu.arizona.kfs.rq.batch.helper.DocumentRequeueReportWriter;
-import edu.arizona.kfs.rq.batch.service.RequeueStuckDocumentsService;
+import java.util.List;
+
 import org.kuali.rice.kew.api.KewApiServiceLocator;
 import org.kuali.rice.kew.api.doctype.DocumentType;
 import org.kuali.rice.kew.api.doctype.DocumentTypeService;
 import org.kuali.rice.kew.api.document.Document;
 import org.kuali.rice.kew.api.document.DocumentRefreshQueue;
 
-import java.util.List;
+import edu.arizona.kfs.rq.batch.helper.DocumentRequeueReportWriter;
+import edu.arizona.kfs.rq.batch.service.RequeueStuckDocumentsService;
+import edu.arizona.rice.kew.api.document.StuckDocumentService;
 
 /**
  * UAF-475: MOD-WKFLW-03 Requeue Stuck Documents Job
@@ -20,7 +21,7 @@ public class RequeueStuckDocumentsServiceImpl implements RequeueStuckDocumentsSe
 
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(RequeueStuckDocumentsServiceImpl.class);
 
-    private StuckDocumentsDAO stuckDocumentsDAO;
+    private StuckDocumentService stuckDocumentService;
     private DocumentTypeService documentTypeService;
 
     protected enum RequeueStatus {
@@ -30,7 +31,7 @@ public class RequeueStuckDocumentsServiceImpl implements RequeueStuckDocumentsSe
     @Override
     public boolean runDocumentRequeueJob(DocumentRequeueReportWriter requeueReport) {
 
-        List<Document> stuckDocuments = getSuckdDocumentsDAO().getStuckDocuments();
+        List<Document> stuckDocuments = getStuckdDocumentService().getStuckDocuments();
 
         requeueReport.initializeReport();
 
@@ -60,12 +61,12 @@ public class RequeueStuckDocumentsServiceImpl implements RequeueStuckDocumentsSe
         this.documentTypeService = documentTypeService;
     }
 
-    protected StuckDocumentsDAO getSuckdDocumentsDAO() {
-        return this.stuckDocumentsDAO;
+    protected StuckDocumentService getStuckdDocumentService() {
+        return this.stuckDocumentService;
     }
 
-    public void setStuckDocumentsDAO(StuckDocumentsDAO suckdDocumentsDAO) {
-        this.stuckDocumentsDAO = suckdDocumentsDAO;
+    public void setStuckDocumentService(StuckDocumentService stuckDocumentService) {
+        this.stuckDocumentService = stuckDocumentService;
     }
 
     protected RequeueStatus requeueStuckDocument(Document stuckDocument) {

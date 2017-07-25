@@ -61,10 +61,10 @@
                 <td align=left valign=middle class="datacell">
                    <kul:htmlControlAttribute
                    		attributeEntry="${documentAttributes.paymentRequestPayDate}" property="document.paymentRequestPayDate" datePicker="true"
-                            readOnly="${not (fullEntryMode or editPreExtract) or not processedUsingPdp}" tabindexOverride="${tabindexOverrideBase + 0}"/>
+                   		readOnly="${not (fullEntryMode or editPreExtract) or not processedUsingPdp}" tabindexOverride="${tabindexOverrideBase + 0}"/>
                    &nbsp; &nbsp;<kul:htmlControlAttribute
                    					attributeEntry="${documentAttributes.immediatePaymentIndicator}" property="document.immediatePaymentIndicator"
-                        readOnly="${not (fullEntryMode or editPreExtract) or not processedUsingPdp}" tabindexOverride="${tabindexOverrideBase + 0}"/>
+                   					readOnly="${not (fullEntryMode or editPreExtract) or not processedUsingPdp}" tabindexOverride="${tabindexOverrideBase + 0}"/>
                    (Immediate Pay)
                 </td>
                 <th align=right valign=middle class="bord-l-b">
@@ -121,7 +121,7 @@
                 <td align=left valign=middle class="datacell">
                    <kul:htmlControlAttribute
                    		attributeEntry="${documentAttributes.paymentAttachmentIndicator}" property="document.paymentAttachmentIndicator"
-                            readOnly="${not (fullEntryMode or editPreExtract) or not processedUsingPdp}" tabindexOverride="${tabindexOverrideBase + 0}"/>
+                   		readOnly="${not (fullEntryMode or editPreExtract) or not processedUsingPdp}" tabindexOverride="${tabindexOverrideBase + 0}"/>
                 </td>
                 <th align=right valign=middle class="bord-l-b">
                 	<c:choose>
@@ -212,6 +212,5 @@
                 </script>
             </c:if>
 		</table>
-
     </div>
 </kul:tab>

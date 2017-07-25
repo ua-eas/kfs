@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 import edu.arizona.kfs.sys.KFSPropertyConstants;
 

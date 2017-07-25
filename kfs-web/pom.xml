@@ -53,12 +53,7 @@
             <url>https://nexus.kuali.co/nexus/content/repositories/releases</url>
         </pluginRepository>
     </pluginRepositories>
-    <!--
-          Using dependency unpack as opposed to war overlay for a number of reasons
-          1) overlay requires the packaging phase - tomcat plugin run goal does not work with overlays.
-          2) overlayed resources are not placed in a directory (like generated code) making
-             it difficult for developers to look at the overlayed resources
-         -->
+
     <build>
         <plugins>
             <plugin>
@@ -156,8 +151,7 @@
                     </webResources>
                     <classifier>ua-ksd</classifier>
                 </configuration>
-            </plugin>
-
+            </plugin> 
             <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
@@ -178,7 +172,6 @@
                             <npmVersion>${frontend-maven-plugin.npm.version}</npmVersion>
                         </configuration>
                     </execution>
-
                     <execution>
                         <id>npm install</id>
                         <goals>
@@ -244,60 +237,7 @@
             </plugin>
         </plugins>
     </build>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.kuali.kfs</groupId>
-            <artifactId>kfs-core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.kuali.kfs</groupId>
-            <artifactId>kfs-ar</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.kuali.kfs</groupId>
-            <artifactId>kfs-cam</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.kuali.kfs</groupId>
-            <artifactId>kfs-cg</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.kuali.kfs</groupId>
-            <artifactId>kfs-ec</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.kuali.kfs</groupId>
-            <artifactId>kfs-kc</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.kuali.kfs</groupId>
-            <artifactId>kfs-ld</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.kuali.kfs</groupId>
-            <artifactId>kfs-purap</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-    </dependencies>
-
-
  <profiles>
-
-	<!--
-	Improvement for UAF-2892- Way To Allow For Environment-Specific log4j.xml File Overrides
-	-->
-
-	<!--
-	Dev Profile used for  log4j.xml File Overrides
-	-->
    <profile>
     <id>dev</id>
      <activation>
@@ -316,11 +256,7 @@
     </resources>  
    </build>
   </profile>
-  
-	<!--
-	Test Profile used for  log4j.xml File Overrides
-	-->
-     <profile>
+   <profile>
     <id>tst</id>
      <activation>
       <property>
@@ -340,8 +276,6 @@
   </profile>
  </profiles>
   
-<<<<<<< HEAD
-=======
   <dependencies>
     <dependency>
       <groupId>org.kuali.kfs</groupId>
@@ -355,22 +289,12 @@
     </dependency>
     <dependency>
       <groupId>org.kuali.kfs</groupId>
-      <artifactId>kfs-bc</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.kuali.kfs</groupId>
       <artifactId>kfs-cam</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>org.kuali.kfs</groupId>
       <artifactId>kfs-cg</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.kuali.kfs</groupId>
-      <artifactId>kfs-cr</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
@@ -398,30 +322,23 @@
       <artifactId>kfs-tax</artifactId>
       <version>${project.version}</version>
     </dependency>
-    <dependency>
-      <groupId>org.kuali.kfs</groupId>
-      <artifactId>kfs-tem</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
+    <!--dependency>
       <groupId>org.kuali.kfs</groupId>
       <artifactId>kfs-prje</artifactId>
       <version>${project.version}</version>
-    </dependency>
+    </dependency-->
   </dependencies>
 
     <distributionManagement>
     <repository>
-       <id>deployment</id>
-       <name>Internal Releases</name>
-       <url>https://ka-tools.mosaic.arizona.edu/nexus/content/repositories/releases/</url>
+      <id>deployment</id>
+      <name>Internal Releases</name>
+      <url>https://ka-tools.mosaic.arizona.edu/nexus/content/repositories/releases/</url>
     </repository>
     <snapshotRepository>
-       <id>deployment</id>
-       <name>Internal Releases</name>
-       <url>https://ka-tools.mosaic.arizona.edu/nexus/content/repositories/snapshots/</url>
+      <id>deployment</id>
+      <name>Internal Releases</name>
+      <url>https://ka-tools.mosaic.arizona.edu/nexus/content/repositories/snapshots/</url>
     </snapshotRepository>
-  </distributionManagement>
->>>>>>> kfs6-master
-
+    </distributionManagement>
 </project>

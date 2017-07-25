@@ -39,17 +39,10 @@
     <import resource="document/validation/configuration/ProcurementCardValidation.xml" />
 
     <bean id="procurementCardCreateDocumentService" parent="procurementCardCreateDocumentService-parentBean" class="edu.arizona.kfs.fp.batch.service.impl.ProcurementCardCreateDocumentServiceImpl">
-        <property name="procurementCardGroupService" ref="procurementCardGroupService" />
         <property name="configurationService" ref="kualiConfigurationService" />
         <property name="batchFileOutputDirectoryName">
             <value>${reports.directory}/fp</value>
         </property>
-    </bean>
-
-    <bean id="procurementCardGroupService" parent="procurementCardGroupService-parentBean" />
-    <bean id="procurementCardGroupService-parentBean" class="org.kuali.rice.kim.impl.group.GroupServiceImpl" abstract="true">
-        <property name="businessObjectService" ref="businessObjectService" />
-        <property name="criteriaLookupService" ref="criteriaLookupService" />
     </bean>
 
     <bean id="procurementCardHolderDerivedRoleTypeService" class="edu.arizona.kfs.fp.identity.ProcurementCardHolderDerivedRoleTypeServiceImpl" />  
@@ -204,7 +197,7 @@
     </bean>
 
     <bean id="procurementCardDefaultLookupableHelperService" scope="prototype" parent="procurementCardDefaultLookupableHelperService-parentBean" />
-    <bean id="procurementCardDefaultLookupableHelperService-parentBean" abstract="true"  class="edu.arizona.kfs.fp.businessobject.lookup.ProcurementCardDefaultLookupableHelperServiceImpl" scope="prototype" parent="lookupableHelperService" />
+    <bean id="procurementCardDefaultLookupableHelperService-parentBean" abstract="true"  class="edu.arizona.kfs.fp.businessobject.lookup.ProcurementCardDefaultLookupableHelperServiceImpl" scope="prototype" parent="cf.lookupableHelperService" />
 
     <bean id="procurementCardDefaultLookupable"  parent="procurementCardDefaultLookupable-parentBean" scope="prototype"/>
     <bean id="procurementCardDefaultLookupable-parentBean" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" abstract="true">

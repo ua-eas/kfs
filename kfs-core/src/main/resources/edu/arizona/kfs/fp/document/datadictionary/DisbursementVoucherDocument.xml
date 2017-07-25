@@ -64,9 +64,9 @@
     <bean id="DisbursementVoucherDocument-workflowAttributes" parent="DisbursementVoucherDocument-workflowAttributes-parentBean">
         <property name="searchingTypeDefinitions">
             <list merge="true">
-                        <bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+                        <bean class="org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition">
    				<property name="searchingAttribute">
-   					<bean class="org.kuali.rice.krad.datadictionary.SearchingAttribute">
+   					<bean class="org.kuali.kfs.krad.datadictionary.SearchingAttribute">
    						<property name="businessObjectClassName" value="edu.arizona.kfs.fp.document.DisbursementVoucherDocument"/>
    						<property name="attributeName" value="dv1099IndForSearching"/>
    					</bean>
@@ -78,9 +78,9 @@
    				</property>
    			</bean>
             
-             	<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+             	<bean class="org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition">
 	   				<property name="searchingAttribute">
-	   					<bean class="org.kuali.rice.krad.datadictionary.SearchingAttribute">
+	   					<bean class="org.kuali.kfs.krad.datadictionary.SearchingAttribute">
 	   						<property name="businessObjectClassName" value="org.kuali.kfs.fp.document.DisbursementVoucherDocument"/>
 	   						<property name="attributeName" value="disbVchrPaymentMethodCode"/>
 	   					</bean>
@@ -91,9 +91,9 @@
 	   					</list>
 	   				</property>
 	   			</bean>
-                <bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+                <bean class="org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition">
                     <property name="searchingAttribute">
-                        <bean class="org.kuali.rice.krad.datadictionary.SearchingAttribute">
+                        <bean class="org.kuali.kfs.krad.datadictionary.SearchingAttribute">
                             <property name="businessObjectClassName" value="edu.arizona.kfs.fp.businessobject.DisbursementVoucherSourceAccountingLineExtension" />
                             <property name="attributeName" value="invoiceNumber" />
                             <property name="showAttributeInSearchCriteria" value="true" />
@@ -153,7 +153,7 @@
       <property name="label" value="1099 Classification"/>
       <property name="shortLabel" value="1099 Classification"/>
       <property name="control">
-      		<bean parent="RadioControlDefinition" p:valuesFinderClass="org.kuali.rice.krad.keyvalues.IndicatorValuesFinder" p:includeKeyInLabel="false"/>
+      		<bean parent="RadioControlDefinition" p:valuesFinderClass="org.kuali.kfs.krad.keyvalues.IndicatorValuesFinder" p:includeKeyInLabel="false"/>
       </property>
     </bean>
 </beans>

@@ -11,8 +11,8 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kns.web.struts.action.KualiAction;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.kns.web.struts.action.KualiAction;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 import edu.arizona.kfs.module.cr.CrPropertyConstants;
 import edu.arizona.kfs.module.cr.businessobject.CheckReconciliationReportLine;

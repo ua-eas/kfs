@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<<<<<<< HEAD
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
    -
@@ -29,15 +28,6 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>kfs-core</artifactId>
     <name>Kuali Financial Core</name>
-=======
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <parent>
-    <artifactId>kfs</artifactId>
-    <groupId>org.kuali.kfs</groupId>
-    <version>ua-release30</version>
-  </parent>
-  <modelVersion>4.0.0</modelVersion>
->>>>>>> kfs6-master
 
     <build>
         <plugins>

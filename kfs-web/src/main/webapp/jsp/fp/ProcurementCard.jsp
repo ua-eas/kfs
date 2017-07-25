@@ -41,6 +41,8 @@
 
     <gl:generalLedgerPendingEntries/>
 
+    <sys:docuware />
+
     <kul:notes/>
 
     <kul:adHocRecipients/>
@@ -49,6 +51,14 @@
 
     <kul:superUserActions/>
 
-    <sys:documentControls transactionalDocument="true"/>
+    <kul:panelFooter />
+
+    <!-- Add the pCard Return to Reconciler button -->
+    <c:set var="extraButtons" value="${KualiForm.extraButtons}"/>
+
+    <sys:documentControls
+            transactionalDocument="true"
+            extraButtons="${extraButtons}"
+            suppressRoutingControls="${KualiForm.editingMode['displayInitTab']}" />
 
 </kul:documentPage>

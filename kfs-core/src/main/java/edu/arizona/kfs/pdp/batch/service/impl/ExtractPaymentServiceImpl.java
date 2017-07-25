@@ -42,31 +42,20 @@ import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.DataDictionaryService;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.rice.location.api.country.Country;
 import org.kuali.rice.location.api.country.CountryService;
 import org.springframework.transaction.annotation.Transactional;
+
+
 
 @Transactional
 public class ExtractPaymentServiceImpl extends org.kuali.kfs.pdp.batch.service.impl.ExtractPaymentServiceImpl{
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ExtractPaymentServiceImpl.class);
 
-    protected String directoryName;
-
-    protected DateTimeService dateTimeService;
-    protected ParameterService parameterService;
-    protected PaymentGroupService paymentGroupService;
-    protected PaymentDetailService paymentDetailService;
-    protected PaymentGroupHistoryDao paymentGroupHistoryDao;
-    protected ProcessDao processDao;
-    protected PdpEmailService paymentFileEmailService;
-    protected BusinessObjectService businessObjectService;
-    protected ConfigurationService kualiConfigurationService;
-    protected CountryService countryService;
-    protected DataDictionaryService dataDictionaryService;
 
     // Set this to true to run this process without updating the database. This
     // should stay false for production.
@@ -155,7 +144,7 @@ public class ExtractPaymentServiceImpl extends org.kuali.kfs.pdp.batch.service.i
                     history.setPmtCancelExtractStat(Boolean.TRUE);
                     history.setChangeTime(new Timestamp(new Date().getTime()));
 
-                    this.businessObjectService.save(history);
+                    businessObjectService.save(history);
                 }
             }
 
@@ -756,115 +745,7 @@ public class ExtractPaymentServiceImpl extends org.kuali.kfs.pdp.batch.service.i
         return output;
     }
 
-    /**
-     * Sets the directoryName attribute value.
-     *
-     * @param directoryName The directoryName to set.
-     */
-    @Override
-    public void setDirectoryName(String directoryName) {
-        this.directoryName = directoryName;
-    }
 
-    /**
-     * Sets the dateTimeService attribute value.
-     *
-     * @param dateTimeService The dateTimeService to set.
-     */
-    @Override
-    public void setDateTimeService(DateTimeService dateTimeService) {
-        this.dateTimeService = dateTimeService;
-    }
-
-    /**
-     * Sets the parameterService attribute value.
-     *
-     * @param parameterService The parameterService to set.
-     */
-    @Override
-    public void setParameterService(ParameterService parameterService) {
-        this.parameterService = parameterService;
-    }
-
-    /**
-     * Sets the paymentGroupService attribute value.
-     *
-     * @param paymentGroupService The paymentGroupService to set.
-     */
-    @Override
-    public void setPaymentGroupService(PaymentGroupService paymentGroupService) {
-        this.paymentGroupService = paymentGroupService;
-    }
-
-    /**
-     * Sets the paymentDetailService attribute value.
-     *
-     * @param paymentDetailService The paymentDetailService to set.
-     */
-    @Override
-    public void setPaymentDetailService(PaymentDetailService paymentDetailService) {
-        this.paymentDetailService = paymentDetailService;
-    }
-
-    /**
-     * Sets the paymentGroupHistoryDao attribute value.
-     *
-     * @param paymentGroupHistoryDao The paymentGroupHistoryDao to set.
-     */
-    @Override
-    public void setPaymentGroupHistoryDao(PaymentGroupHistoryDao paymentGroupHistoryDao) {
-        this.paymentGroupHistoryDao = paymentGroupHistoryDao;
-    }
-
-    /**
-     * Sets the processDao attribute value.
-     *
-     * @param processDao The processDao to set.
-     */
-    @Override
-    public void setProcessDao(ProcessDao processDao) {
-        this.processDao = processDao;
-    }
-
-    /**
-     * Sets the paymentFileEmailService attribute value.
-     *
-     * @param paymentFileEmailService The paymentFileEmailService to set.
-     */
-    @Override
-    public void setPaymentFileEmailService(PdpEmailService paymentFileEmailService) {
-        this.paymentFileEmailService = paymentFileEmailService;
-    }
-
-    /**
-     * Sets the business object service
-     *
-     * @param businessObjectService
-     */
-    @Override
-    public void setBusinessObjectService(BusinessObjectService businessObjectService) {
-        this.businessObjectService = businessObjectService;
-    }
-
-    /**
-     * Gets the countryService attribute.
-     *
-     * @return Returns the countryService.
-     */
-    @Override
-    protected CountryService getCountryService() {
-        return countryService;
-    }
-
-    /**
-     * Sets the countryService attribute value.
-     *
-     * @param countryService The countryService to set.
-     */
-    @Override
-    public void setCountryService(CountryService countryService) {
-        this.countryService = countryService;
-    }
 
     /**
      * @see org.kuali.kfs.sys.batch.service.impl.InitiateDirectoryImpl#getRequiredDirectoryNames()
@@ -875,15 +756,7 @@ public class ExtractPaymentServiceImpl extends org.kuali.kfs.pdp.batch.service.i
         return new ArrayList<String>() {{add(directoryName); }};
     }
 
-    @Override
-    public DataDictionaryService getDataDictionaryService() {
-        return dataDictionaryService;
-    }
 
-    @Override
-    public void setDataDictionaryService(DataDictionaryService dataDictionaryService) {
-        this.dataDictionaryService = dataDictionaryService;
-    }
 
     /**
      * @see org.kuali.kfs.pdp.batch.service.ExtractPaymentService#formatCheckNoteLines(java.lang.String)

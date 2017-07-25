@@ -1461,7 +1461,7 @@ public class KFSConstants {
     static final public String TRIAL_BAL_REPORT_PERIOD = "reportFiscalPeriod";
 
     // Pcard Email Notification
-    public static final String ProcurementCardEmailTimeFormat = "EEE, MMM d, yyyy HH:mm:ss z";
+    public static final String ProcurementCardEmailTimeFormat = "EEE, MMM d, yyyy HH:mm:ss z.jsp";
     public static final String ProcurementCardTransactionTimeFormat = "EEE, MMM d, yyyy";
 
     public static class ProcurementCardEmailVariableTemplate {

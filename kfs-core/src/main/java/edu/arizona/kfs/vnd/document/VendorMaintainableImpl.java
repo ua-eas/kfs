@@ -7,9 +7,9 @@ import java.util.UUID;
 
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.vnd.VendorConstants;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.krad.bo.Note;
-import org.kuali.rice.krad.service.NoteService;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.service.NoteService;
 
 @SuppressWarnings("deprecation")
 public class VendorMaintainableImpl extends org.kuali.kfs.vnd.document.VendorMaintainableImpl {

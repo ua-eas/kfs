@@ -68,14 +68,14 @@ import java.util.Map;
 public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PurapGeneralLedgerServiceImpl.class);
 
-    private BusinessObjectService businessObjectService;
-    private GeneralLedgerPendingEntryService generalLedgerPendingEntryService;
-    private PaymentRequestService paymentRequestService;
-    private PurapAccountingService purapAccountingService;
-    private PurchaseOrderService purchaseOrderService;
-    private UniversityDateService universityDateService;
-    private ObjectCodeService objectCodeService;
-    private PurapAccountRevisionService purapAccountRevisionService;
+    protected BusinessObjectService businessObjectService;
+    protected GeneralLedgerPendingEntryService generalLedgerPendingEntryService;
+    protected PaymentRequestService paymentRequestService;
+    protected PurapAccountingService purapAccountingService;
+    protected PurchaseOrderService purchaseOrderService;
+    protected UniversityDateService universityDateService;
+    protected ObjectCodeService objectCodeService;
+    protected PurapAccountRevisionService purapAccountRevisionService;
 
     /**
      * This method sets various fields in explicitEntry based on other parameters.

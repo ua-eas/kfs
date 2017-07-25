@@ -6,8 +6,8 @@ import org.kuali.kfs.module.purap.PurapAuthorizationConstants.PurchaseOrderEditM
 import org.kuali.kfs.module.purap.PurapParameterConstants;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 
 public class PurchaseOrderDocumentPresentationController extends org.kuali.kfs.module.purap.document.authorization.PurchaseOrderDocumentPresentationController {
     

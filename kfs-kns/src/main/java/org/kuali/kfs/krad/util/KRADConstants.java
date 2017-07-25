@@ -132,7 +132,7 @@ public final class KRADConstants {
 
     public static final String MAX_UPLOAD_SIZE_PARM_NM = "MAX_FILE_SIZE_DEFAULT_UPLOAD";
 
-    public static final String UPLOADED_FILE_REQUEST_ATTRIBUTE_KEY = "org.kuali.rice.krad.util.WebUtils.uploadedFiles";
+    public static final String UPLOADED_FILE_REQUEST_ATTRIBUTE_KEY = "org.kuali.kfs.krad.util.WebUtils.uploadedFiles";
 
     public static final String NOTE_WORKFLOW_NOTIFICATION_REQUEST_LABEL = "READ NOTES";
 

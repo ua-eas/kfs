@@ -439,11 +439,9 @@ public class PurchaseOrderPdf extends PurapPdf {
         if (po.getVendorShippingPaymentTerms() != null && po.getVendorShippingTitle() != null) {
             p.add(new Chunk("     " + po.getVendorShippingPaymentTerms().getVendorShippingPaymentTermsDescription(), cour_11_normal));
             p.add(new Chunk(" - " + po.getVendorShippingTitle().getVendorShippingTitleDescription(), cour_11_normal));
-        }
-        else if (po.getVendorShippingPaymentTerms() != null && po.getVendorShippingTitle() == null) {
+        } else if (po.getVendorShippingPaymentTerms() != null && po.getVendorShippingTitle() == null) {
             p.add(new Chunk("     " + po.getVendorShippingPaymentTerms().getVendorShippingPaymentTermsDescription(), cour_11_normal));
-        }
-        else if (po.getVendorShippingTitle() != null && po.getVendorShippingPaymentTerms() == null) {
+        } else if (po.getVendorShippingTitle() != null && po.getVendorShippingPaymentTerms() == null) {
             p.add(new Chunk("     " + po.getVendorShippingTitle().getVendorShippingTitleDescription(), cour_11_normal));
         }
         cell = new PdfPCell(p);
@@ -465,11 +463,9 @@ public class PurchaseOrderPdf extends PurapPdf {
         if (po.getDeliveryRequiredDate() != null && po.getDeliveryRequiredDateReason() != null) {
             p.add(new Chunk("     " + sdf.format(po.getDeliveryRequiredDate()), cour_11_normal));
             p.add(new Chunk(" - " + po.getDeliveryRequiredDateReason().getDeliveryRequiredDateReasonDescription(), cour_11_normal));
-        }
-        else if (po.getDeliveryRequiredDate() != null && po.getDeliveryRequiredDateReason() == null) {
+        } else if (po.getDeliveryRequiredDate() != null && po.getDeliveryRequiredDateReason() == null) {
             p.add(new Chunk("     " + sdf.format(po.getDeliveryRequiredDate()), cour_11_normal));
-        }
-        else if (po.getDeliveryRequiredDate() == null && po.getDeliveryRequiredDateReason() != null) {
+        } else if (po.getDeliveryRequiredDate() == null && po.getDeliveryRequiredDateReason() != null) {
             p.add(new Chunk("     " + po.getDeliveryRequiredDateReason().getDeliveryRequiredDateReasonDescription(), cour_11_normal));
         }
         cell = new PdfPCell(p);
@@ -666,8 +662,7 @@ public class PurchaseOrderPdf extends PurapPdf {
                 // Above the line item types items display the line number; other types don't.
                 if (poi.getItemType().isLineItemIndicator()) {
                     tableCell = new PdfPCell(new Paragraph(poi.getItemLineNumber().toString(), cour_11_normal));
-                }
-                else {
+                } else {
                     tableCell = new PdfPCell(new Paragraph(" ", cour_11_normal));
                 }
                 tableCell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -787,12 +782,24 @@ public class PurchaseOrderPdf extends PurapPdf {
         itemsTable.addCell(tableCell);
         itemsTable.addCell(" ");
         KualiDecimal totalDollarAmount = new KualiDecimal(BigDecimal.ZERO);
+
+        if (!po.isUseTaxIndicator()){
 	        if (po instanceof PurchaseOrderRetransmitDocument) {
 	            totalDollarAmount = ((PurchaseOrderRetransmitDocument) po).getTotalDollarAmountForRetransmit();
 	        }
 	        else {
 	            totalDollarAmount = po.getTotalDollarAmount();
 	        }
+        } else {
+        	// For PO and PORT, use tax should be excluded from invoice to vendor so it can be paid by university to state directly.
+        	if (po instanceof PurchaseOrderRetransmitDocument) {
+	            totalDollarAmount = ((PurchaseOrderRetransmitDocument) po).getTotalPreTaxDollarAmountForRetransmit();
+	        }
+	        else {
+	            totalDollarAmount = po.getTotalPreTaxDollarAmount();
+	        }
+        }
+
         tableCell = new PdfPCell(new Paragraph(numberFormat.format(totalDollarAmount) + " ", cour_9_normal));
         tableCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
         tableCell.setNoWrap(true);

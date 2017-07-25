@@ -1,6 +1,6 @@
 package edu.arizona.kfs.sys.batch.service;
 
-import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 
 public interface RoomImportService {
 

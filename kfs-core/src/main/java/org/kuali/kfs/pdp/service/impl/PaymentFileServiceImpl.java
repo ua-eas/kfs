@@ -142,7 +142,7 @@ public class PaymentFileServiceImpl extends InitiateDirectoryBase implements Pay
 
     /**
      * @see org.kuali.kfs.pdp.service.PaymentFileService#doPaymentFileValidation(org.kuali.kfs.pdp.businessobject.PaymentFileLoad,
-     * org.kuali.rice.krad.util.MessageMap)
+     * org.kuali.kfs.krad.util.MessageMap)
      */
     @Override
     public void doPaymentFileValidation(PaymentFileLoad paymentFile, MessageMap errorMap) {

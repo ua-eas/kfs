@@ -18,16 +18,14 @@
 --%>
 <%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
-<%@ attribute name="property" required="true"
-              description="name of the property that holds the bank code value in the form" %>
-<%@ attribute name="objectProperty" required="true"
-              description="name of the property that holds the bank object in the form" %>
-<%@ attribute name="depositOnly" required="false"
-              description="boolean indicating whether the bank lookup call should request only deposit banks" %>
-<%@ attribute name="disbursementOnly" required="false"
-              description="boolean indicating whether the bank lookup call should request only disbursement banks" %>
-<%@ attribute name="readOnly" required="false"
-              description="boolean indicating whether the document is readOnly. If not an additional check is made to verify the bank edit mode was exported." %>
+<script language="JavaScript" type="text/javascript" src="scripts/fp/objectInfo.js"></script>
+<script language="JavaScript" type="text/javascript" src="dwr/interface/BankService.js"></script>
+
+<%@ attribute name="property" required="true" description="name of the property that holds the bank code value in the form" %>
+<%@ attribute name="objectProperty" required="true" description="name of the property that holds the bank object in the form" %>
+<%@ attribute name="depositOnly" required="false" description="boolean indicating whether the bank lookup call should request only deposit banks" %>
+<%@ attribute name="disbursementOnly" required="false" description="boolean indicating whether the bank lookup call should request only disbursement banks" %>
+<%@ attribute name="readOnly" required="false" description="boolean indicating whether the document is readOnly. If not an additional check is made to verify the bank edit mode was exported." %>
 <%@ attribute name="style" required="false" description="style class for the cell" %>
 
 <c:if test="${KualiForm.editingMode[KFSConstants.BANK_ENTRY_VIEWABLE_EDITING_MODE]}">
@@ -51,11 +49,15 @@
     </c:if>
 
     <td class="${style}">
-        <script language="JavaScript" type="text/javascript" src="scripts/fp/objectInfo.js"></script>
-        <script language="JavaScript" type="text/javascript" src="dwr/interface/BankService.js"></script>
+        <c:if test="${readOnly}">
+			<span id="${property}">
+		</c:if>
         <kul:htmlControlAttribute attributeEntry="${DataDictionary.Bank.attributes.bankCode}" property="${property}"
                                   readOnly="${readOnly}"
                                   onblur="loadBankInfo(document.forms['KualiForm'], '${property}', '${objectProperty}');"/>
+        <c:if test="${readOnly}">
+            </span>
+        </c:if>
         <c:if test="${not readOnly}">
             &nbsp;
             <kul:lookup boClassName="org.kuali.kfs.sys.businessobject.Bank"
@@ -64,7 +66,6 @@
         </c:if>
 
         <br/>
-
         <div id="${objectProperty}.div" class="fineprint">
             <bean:write name="KualiForm" property="${objectProperty}.bankName"/>&nbsp;
         </div>

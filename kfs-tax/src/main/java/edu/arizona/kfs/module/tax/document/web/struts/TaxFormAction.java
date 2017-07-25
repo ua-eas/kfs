@@ -15,7 +15,7 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSConstants.ReportGeneration;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.util.KfsWebUtils;
-import org.kuali.rice.kns.web.struts.action.KualiAction;
+import org.kuali.kfs.kns.web.struts.action.KualiAction;
 
 import edu.arizona.kfs.module.tax.TaxConstants;
 import edu.arizona.kfs.module.tax.TaxPropertyConstants;

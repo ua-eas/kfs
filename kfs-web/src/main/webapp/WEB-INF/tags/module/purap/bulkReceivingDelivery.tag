@@ -202,23 +202,22 @@
 	                    	property="document.deliveryToPhoneNumber" readOnly="${not (fullEntryMode)}" tabindexOverride="${tabindexOverrideBase + 5}"/>
 	                </td>
 	            </tr>
-
+				<tr>
+					<th class="right">
+						<kul:htmlAttributeLabel attributeEntry="${documentAttributes.routeCode}" /></div>
+					</th>
+				    <td align=left valign=middle class="datacell">
+						<kul:htmlControlAttribute attributeEntry="${documentAttributes.routeCode}"
+						property="document.routeCode" readOnly="true" tabindexOverride="${tabindexOverrideBase + 0}"/>&nbsp;
+					</td>
+					<th class="right">&nbsp;</th>
+					<td class="datacell">&nbsp;</td>
+				</tr>
 				<tr>
 					<th class="right">
 	                    <kul:htmlAttributeLabel attributeEntry="${documentAttributes.deliveryBuildingLine1Address}"/>
 	                </th>
-                    <td align=left valign=middle class="datacell">
-                        <kul:htmlControlAttribute attributeEntry="${documentAttributes.routeCode}"
-                                                  property="document.routeCode" readOnly="true" tabindexOverride="${tabindexOverrideBase + 0}"/>&nbsp;
-                    </td>
-                    <th align=right valign=middle class="bord-l-b">&nbsp;</th>
-                    <td align=left valign=middle class="datacell">&nbsp;</td>
-                </tr>
-                <tr>
-                    <th align=right valign=middle class="bord-l-b">
-                        <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.deliveryBuildingLine1Address}"/></div>
-                    </th>
-                    <td align=left valign=middle class="datacell">
+	                <td>
 	                    <kul:htmlControlAttribute attributeEntry="${documentAttributes.deliveryBuildingLine1Address}"
 	                    	property="document.deliveryBuildingLine1Address"  readOnly="${notOtherDeliveryBuilding or not fullEntryMode}" tabindexOverride="${tabindexOverrideBase + 0}"/>
 	                </td>

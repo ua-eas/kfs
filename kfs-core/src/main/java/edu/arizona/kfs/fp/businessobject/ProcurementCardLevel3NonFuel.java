@@ -3,7 +3,7 @@ package edu.arizona.kfs.fp.businessobject;
 import java.util.LinkedHashMap;
 
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 public class ProcurementCardLevel3NonFuel extends PersistableBusinessObjectBase {
 

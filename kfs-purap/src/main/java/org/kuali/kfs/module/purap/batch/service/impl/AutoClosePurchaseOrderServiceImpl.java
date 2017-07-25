@@ -28,11 +28,14 @@ import org.kuali.kfs.sys.service.NonTransactional;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 @NonTransactional
 public class AutoClosePurchaseOrderServiceImpl implements AutoClosePurchaseOrderService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AutoClosePurchaseOrderServiceImpl.class);
     private static final String AUTO_CLOSE_NOTE = "This PO was automatically closed in batch.";
+
 
     protected PurchaseOrderService purchaseOrderService;
 
@@ -45,7 +48,6 @@ public class AutoClosePurchaseOrderServiceImpl implements AutoClosePurchaseOrder
     public boolean autoCloseFullyDisencumberedOrders() {
         LOG.debug("autoCloseFullyDisencumberedOrders() started");
 
-        LOG.info("autoCloseFullyDisencumberedOrders(): Querying PO view for all auto-close eligible records...");
         List<AutoClosePurchaseOrderView> autoCloseList = getPurchaseOrderService().getAllOpenPurchaseOrdersForAutoClose();
         LOG.info("autoCloseFullyDisencumberedOrders(): Query returned with " + autoCloseList.size() + " records.");
 

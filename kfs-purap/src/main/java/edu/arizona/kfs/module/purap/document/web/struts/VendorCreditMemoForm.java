@@ -3,7 +3,7 @@ package edu.arizona.kfs.module.purap.document.web.struts;
 import edu.arizona.kfs.module.purap.document.VendorCreditMemoDocument;
 import edu.arizona.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 
 /**
  * Struts Action Form for Credit Memo document.

@@ -25,15 +25,13 @@ import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.gl.businessobject.Entry;
-
 import org.kuali.kfs.gl.businessobject.Transaction;
 import org.kuali.kfs.kns.lookup.HtmlData;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.util.KRADConstants;
-
+import org.kuali.kfs.krad.util.KRADConstants;
 
 
 /**
@@ -173,7 +171,6 @@ public class EntryInquirableImpl extends AbstractGeneralLedgerInquirableImpl {
 
         return super.getInquiryUrl(businessObject, attributeName);
     }
-
 
     /*
      * Set HREF for gecDocumentNumber when an entry comes through -- since gecDocumentNumber is not a PK,

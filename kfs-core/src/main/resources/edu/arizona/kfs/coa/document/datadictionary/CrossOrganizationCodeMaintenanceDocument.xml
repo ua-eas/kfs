@@ -48,5 +48,5 @@
 
     <!-- Exported Workflow Properties -->
 
-    <bean id="CrossOrganizationCodeMaintenanceDocument-workflowAttributes" class="org.kuali.rice.krad.datadictionary.WorkflowAttributes"/>
+    <bean id="CrossOrganizationCodeMaintenanceDocument-workflowAttributes" class="org.kuali.kfs.krad.datadictionary.WorkflowAttributes"/>
 </beans>

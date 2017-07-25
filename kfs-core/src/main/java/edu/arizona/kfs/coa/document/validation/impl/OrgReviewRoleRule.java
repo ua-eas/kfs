@@ -6,7 +6,7 @@ import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.identity.OrgReviewRole;
 import edu.arizona.kfs.sys.KFSConstants;
 import org.kuali.rice.kim.api.KimConstants;
-import org.kuali.rice.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
 
 import edu.arizona.kfs.sys.identity.KfsKimAttributes;
 

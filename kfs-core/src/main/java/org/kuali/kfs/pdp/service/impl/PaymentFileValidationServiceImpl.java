@@ -19,11 +19,7 @@
 package org.kuali.kfs.pdp.service.impl;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.coa.businessobject.Account;
-import org.kuali.kfs.coa.businessobject.ObjectCode;
-import org.kuali.kfs.coa.businessobject.ProjectCode;
-import org.kuali.kfs.coa.businessobject.SubAccount;
-import org.kuali.kfs.coa.businessobject.SubObjectCode;
+import org.kuali.kfs.coa.businessobject.*;
 import org.kuali.kfs.coa.service.AccountService;
 import org.kuali.kfs.coa.service.ObjectCodeService;
 import org.kuali.kfs.coa.service.SubAccountService;
@@ -39,15 +35,7 @@ import org.kuali.kfs.pdp.PdpConstants;
 import org.kuali.kfs.pdp.PdpKeyConstants;
 import org.kuali.kfs.pdp.PdpParameterConstants;
 import org.kuali.kfs.pdp.PdpPropertyConstants;
-import org.kuali.kfs.pdp.businessobject.AccountingChangeCode;
-import org.kuali.kfs.pdp.businessobject.CustomerProfile;
-import org.kuali.kfs.pdp.businessobject.PayeeType;
-import org.kuali.kfs.pdp.businessobject.PaymentAccountDetail;
-import org.kuali.kfs.pdp.businessobject.PaymentAccountHistory;
-import org.kuali.kfs.pdp.businessobject.PaymentDetail;
-import org.kuali.kfs.pdp.businessobject.PaymentFileLoad;
-import org.kuali.kfs.pdp.businessobject.PaymentGroup;
-import org.kuali.kfs.pdp.businessobject.PaymentStatus;
+import org.kuali.kfs.pdp.businessobject.*;
 import org.kuali.kfs.pdp.dataaccess.PaymentFileLoadDao;
 import org.kuali.kfs.pdp.service.CustomerProfileService;
 import org.kuali.kfs.pdp.service.PaymentFileValidationService;
@@ -95,7 +83,7 @@ public class PaymentFileValidationServiceImpl implements PaymentFileValidationSe
 
     /**
      * @see org.kuali.kfs.pdp.batch.service.PaymentFileValidationService#doHardEdits(org.kuali.kfs.pdp.businessobject.PaymentFile,
-     * org.kuali.rice.krad.util.MessageMap)
+     * org.kuali.kfs.krad.util.MessageMap)
      */
     @Override
     public void doHardEdits(PaymentFileLoad paymentFile, MessageMap errorMap) {
@@ -510,7 +498,44 @@ public class PaymentFileValidationServiceImpl implements PaymentFileValidationSe
         return paymentAccountHistory;
     }
 
+    /**
+     * Sets null amount fields to 0
+     *
+     * @param paymentDetail <code>PaymentDetail</code> to update
+     */
+    protected void updateDetailAmounts(PaymentDetail paymentDetail) {
+        KualiDecimal zero = KualiDecimal.ZERO;
 
+        if (paymentDetail.getInvTotDiscountAmount() == null) {
+            paymentDetail.setInvTotDiscountAmount(zero);
+        }
+
+        if (paymentDetail.getInvTotShipAmount() == null) {
+            paymentDetail.setInvTotShipAmount(zero);
+        }
+
+        if (paymentDetail.getInvTotOtherDebitAmount() == null) {
+            paymentDetail.setInvTotOtherDebitAmount(zero);
+        }
+
+        if (paymentDetail.getInvTotOtherCreditAmount() == null) {
+            paymentDetail.setInvTotOtherCreditAmount(zero);
+        }
+
+        // update the total payment amount with the amount from the accounts if null
+        if (paymentDetail.getNetPaymentAmount() == null) {
+            paymentDetail.setNetPaymentAmount(paymentDetail.getAccountTotal());
+        }
+
+        if (paymentDetail.getOrigInvoiceAmount() == null) {
+            KualiDecimal amt = paymentDetail.getNetPaymentAmount();
+            amt = amt.add(paymentDetail.getInvTotDiscountAmount());
+            amt = amt.subtract(paymentDetail.getInvTotShipAmount());
+            amt = amt.subtract(paymentDetail.getInvTotOtherDebitAmount());
+            amt = amt.add(paymentDetail.getInvTotOtherCreditAmount());
+            paymentDetail.setOrigInvoiceAmount(amt);
+        }
+    }
 
     /**
      * Sets null indicators to false
@@ -771,4 +796,3 @@ public class PaymentFileValidationServiceImpl implements PaymentFileValidationSe
     }
 
 }
-   

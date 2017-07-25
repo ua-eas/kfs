@@ -13,7 +13,7 @@ import org.kuali.kfs.module.purap.util.PurApDateFormatUtils;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.vnd.businessobject.ContractManager;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 

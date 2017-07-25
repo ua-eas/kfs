@@ -3,7 +3,7 @@ package edu.arizona.kfs.sys.dataaccess.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 
 import edu.arizona.kfs.sys.batch.BuildingImportStep;
 import edu.arizona.kfs.sys.dataaccess.BuildingAndRoomImportsDao;

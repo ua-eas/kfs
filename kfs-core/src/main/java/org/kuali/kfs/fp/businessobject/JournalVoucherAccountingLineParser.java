@@ -25,16 +25,17 @@ import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 
 import java.util.List;
 import java.util.Map;
 
 import static org.kuali.kfs.sys.KFSPropertyConstants.*;
 
+
 /**
  * This class represents a <code>JournalVoucherDocument</code> accounting line parser.
- */gi
+ */
 public class JournalVoucherAccountingLineParser extends AuxiliaryVoucherAccountingLineParser {
     private String balanceTypeCode;
     private final Integer currentUniversityFiscalYear = SpringContext.getBean(UniversityDateService.class).getCurrentFiscalYear();

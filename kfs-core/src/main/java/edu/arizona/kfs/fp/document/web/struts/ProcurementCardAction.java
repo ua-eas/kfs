@@ -14,24 +14,26 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.kfs.sys.context.SpringContext;
+
 import org.kuali.rice.core.api.util.RiceConstants;
-import org.kuali.rice.kew.api.document.DocumentRefreshQueue;
-import org.kuali.rice.krad.bo.Note;
-import org.kuali.rice.kns.question.ConfirmationQuestion;
-import org.kuali.rice.krad.service.NoteService;
-import org.kuali.rice.krad.util.KRADConstants;
 import org.kuali.rice.core.api.util.RiceKeyConstants;
 import org.kuali.rice.kew.api.KewApiServiceLocator;
-import org.kuali.rice.krad.util.KRADUtils;
 import org.kuali.rice.kew.api.action.WorkflowDocumentActionsService;
 import org.kuali.rice.kew.api.action.ReturnPoint;
 import org.kuali.rice.kew.api.document.node.RouteNodeInstance;
 import org.kuali.rice.kew.api.action.DocumentActionParameters;
+import org.kuali.rice.kew.api.document.DocumentRefreshQueue;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+
+import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.kns.question.ConfirmationQuestion;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.service.NoteService;
+import org.kuali.kfs.krad.util.KRADUtils;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 
 public class ProcurementCardAction extends org.kuali.kfs.fp.document.web.struts.ProcurementCardAction {
 

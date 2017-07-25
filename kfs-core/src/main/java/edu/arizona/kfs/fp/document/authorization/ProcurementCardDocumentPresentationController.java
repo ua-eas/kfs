@@ -4,7 +4,7 @@ import java.util.Set;
 
 import edu.arizona.kfs.sys.KFSConstants;
 
-import org.kuali.rice.krad.document.Document;
+import org.kuali.kfs.krad.document.Document;
 
 public class ProcurementCardDocumentPresentationController extends org.kuali.kfs.fp.document.authorization.ProcurementCardDocumentPresentationController {
 	

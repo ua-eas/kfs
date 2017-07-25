@@ -793,10 +793,29 @@ public class PurchaseOrderAction extends PurchasingActionBase {
      */
     public ActionForward firstTransmitPrintPo(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         PurchaseOrderForm poForm = (PurchaseOrderForm) form;
-        SpringContext.getBean(PurchaseOrderService.class).performPurchaseOrderFirstTransmitViaPrinting(poForm.getPurchaseOrderDocument());
-        poForm.setPurchaseOrderPrintRequested(true);
+        String poDocId = ((PurchaseOrderForm) form).getDocId();
+        ByteArrayOutputStream baosPDF = new ByteArrayOutputStream();
+        try {
+            SpringContext.getBean(PurchaseOrderService.class).performPurchaseOrderFirstTransmitViaPrinting(poDocId, baosPDF);
+        }
+        finally {
+            if (baosPDF != null) {
+                baosPDF.reset();
+            }
+        }
 
-        return mapping.findForward(KFSConstants.MAPPING_BASIC);
+        String basePath = getApplicationBaseUrl();
+        String docId = ((PurchaseOrderForm) form).getDocId();
+        String methodToCallPrintPurchaseOrderPDF = "printPurchaseOrderPDFOnly";
+        String methodToCallDocHandler = "docHandler";
+        String printPOPDFUrl = getUrlForPrintPO(basePath, docId, methodToCallPrintPurchaseOrderPDF);
+        String displayPOTabbedPageUrl = getUrlForPrintPO(basePath, docId, methodToCallDocHandler);
+        request.setAttribute("printPOPDFUrl", printPOPDFUrl);
+        request.setAttribute("displayPOTabbedPageUrl", displayPOTabbedPageUrl);
+        String label = SpringContext.getBean(DataDictionaryService.class).getDocumentLabelByTypeName(KFSConstants.FinancialDocumentTypeCodes.PURCHASE_ORDER);
+        request.setAttribute("purchaseOrderLabel", label);
+
+        return mapping.findForward("printPurchaseOrderPDF");
     }
 
     protected void generatePOOutput(HttpServletRequest request, HttpServletResponse response, String poDocId, ByteArrayOutputStream baosPDF) throws IOException {
@@ -852,6 +871,7 @@ public class PurchaseOrderAction extends PurchasingActionBase {
         poForm.setPurchaseOrderPrintRequested(false);
         String poDocId = poForm.getDocId();
         ByteArrayOutputStream baosPDF = new ByteArrayOutputStream();
+
         generatePOOutput(request, response, poDocId, baosPDF);
 
         return null;

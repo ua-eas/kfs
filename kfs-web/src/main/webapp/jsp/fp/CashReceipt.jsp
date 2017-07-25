@@ -62,7 +62,8 @@
 
     <kul:tab tabTitle="Cash Reconciliation" defaultOpen="true"
              tabErrorKey="${KFSConstants.EDIT_CASH_RECEIPT_CASH_RECONCILIATION_ERRORS}">
-        <div class="tab-container">
+        <div class="tab-container"  align=center>
+            <h3>Cash Reconciliation</h3>
             <table class="standard">
                 <tbody>
                 <c:if test="${showConfirm}">
@@ -115,7 +116,6 @@
                         <td width="35%" align="left" valign="middle"><bean:write name="KualiForm" property="document.totalConfirmedCurrencyAmount"/></td>
                     </c:if>
                 </tr>
-				<c:if test="${displayCashReceiptDenominationDetail}">
 				<tr>
                     <th>
                         <div align="right"><strong><kul:htmlAttributeLabel
@@ -127,6 +127,7 @@
                         <td width="35%" align="left" valign="middle"><bean:write name="KualiForm" property="document.totalConfirmedCoinAmount"/></td>
                     </c:if>
                 </tr>
+                <c:if test="${displayCashReceiptDenominationDetail}">
                 <tr>
                     <th>
                         <div align="right"><strong><kul:htmlAttributeLabel
@@ -170,7 +171,7 @@
                     <c:if test="${showConfirm}">
                         <td width="35%" align="left" valign="middle"><bean:write name="KualiForm" property="document.totalConfirmedChangeCoinAmount"/></td>
                     </c:if>
-                </tr>
+                </tr>	
                 <tr>
                     <th>
                         <div align="right"><strong><kul:htmlAttributeLabel
@@ -272,8 +273,6 @@
     </c:if>
 
     <fp:capitalAssetModifyTab readOnly="${readOnly}"/>
-
-<<<<<<< HEAD
     <gl:generalLedgerPendingEntries/>
     <kul:notes/>
     <kul:adHocRecipients/>
@@ -281,73 +280,4 @@
     <kul:superUserActions/>
     <sys:documentControls
             transactionalDocument="${documentEntry.transactionalDocument}"/>
-=======
-		</div>
-	</kul:tab>
-	
-  <kul:tab tabTitle="Currency and Coin Detail" defaultOpen="true" tabErrorKey="${KFSConstants.EDIT_CASH_RECEIPT_CURRENCY_COIN_ERRORS}">
-  	<c:if test="${confirmMode}"> <%-- we only show copy buttons in CashManager Confirm Mode --%>
-  	    <div class="tab-container">
-			<html:image align="center" property="methodToCall.copyAllCurrencyAndCoin" 
-			 	src="${ConfigProperties.externalizable.images.url}tinybutton-copyall.gif" styleClass="tinybutton"
-			 	title="Copy all currency and coin from Original to CashManager section" alt="Copy all currency and coin" />
-	    </div>
-	</c:if>
-    <div class="tab-container" align="center">
-        <h3>Currency and Coin Detail</h3>
-      <fp:currencyCoinLine currencyProperty="document.currencyDetail" coinProperty="document.coinDetail" 
-		confirmedCurrencyProperty="document.confirmedCurrencyDetail" confirmedCoinProperty="document.confirmedCoinDetail" 
-      	readOnly="${readOnly}" editingMode="${KualiForm.editingMode}" confirmMode="${confirmMode}" confirmed="${confirmed}" />
-    </div>
-  </kul:tab>
-	
-	<fp:crCheckLines checkDetailMode="${checkDetailMode}"
-		editingMode="${KualiForm.editingMode}"
-		totalAmount="${KualiForm.cashReceiptDocument.currencyFormattedTotalCheckAmount}"
-		totalConfirmedAmount="${KualiForm.cashReceiptDocument.currencyFormattedTotalConfirmedCheckAmount}"
-		displayHidden="${displayHidden}" 
-		confirmMode="${confirmMode}"/>
-		
-	<c:if test="${changeRequestMode and displayCashReceiptDenominationDetail}">	
-		<kul:tab tabTitle="Change Request" defaultOpen="${KualiForm.document.changeRequested}" tabErrorKey="${KFSConstants.EDIT_CASH_RECEIPT_CHANGE_REQUEST_ERRORS}">
-			<c:if test="${confirmMode}"> <%-- we only show copy buttons in CashManager Confirm Mode --%>
-				<div class="tab-container">
-					<html:image align="center" property="methodToCall.copyAllChangeCurrencyAndCoin"
-						src="${ConfigProperties.externalizable.images.url}tinybutton-copyall.gif" styleClass="tinybutton" 
-						title="Copy all change currency and coin from Original to CashManager section" alt="Copy all change currency and coin" />
-				</div>
-			</c:if>
-			<div class="tab-container" align="center">
-				<h3>Requesting</h3>
-	      		<fp:currencyCoinLine currencyProperty="document.changeCurrencyDetail" coinProperty="document.changeCoinDetail" 
-					confirmedCurrencyProperty="document.confirmedChangeCurrencyDetail" confirmedCoinProperty="document.confirmedChangeCoinDetail" 
-	      			readOnly="${readOnly}" editingMode="${KualiForm.editingMode}" confirmMode="${confirmMode}" confirmed="${confirmed}" />
-	      	</div>
-		</kul:tab>	
-	</c:if>
-		
-	<kul:tab tabTitle="Accounting Lines" defaultOpen="true" tabErrorKey="${KFSConstants.ACCOUNTING_LINE_ERRORS}">
-		<sys-java:accountingLines>
-			<sys-java:accountingLineGroup newLinePropertyName="newSourceLine" collectionPropertyName="document.sourceAccountingLines" collectionItemPropertyName="document.sourceAccountingLine" attributeGroupName="source" />
-		</sys-java:accountingLines>
-	</kul:tab>			
-		 
-  	<c:set var="readOnly" value="${!KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}" />
-  	<fp:capitalAccountingLines readOnly="${readOnly}"/>
-  	
-	<c:if test="${KualiForm.capitalAccountingLine.canCreateAsset}">
-		<fp:capitalAssetCreateTab readOnly="${readOnly}"/>
-	</c:if>
-  	
-	<fp:capitalAssetModifyTab readOnly="${readOnly}"/>  
-			
-	<gl:generalLedgerPendingEntries />
-	<kul:notes />
-	<kul:adHocRecipients />
-	<kul:routeLog />
-	<kul:superUserActions />
-	<kul:panelFooter />
-	<sys:documentControls
-		transactionalDocument="${documentEntry.transactionalDocument}" />
->>>>>>> kfs6-ua-master
 </kul:documentPage>

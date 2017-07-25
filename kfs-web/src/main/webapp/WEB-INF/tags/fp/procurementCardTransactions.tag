@@ -35,6 +35,7 @@
   <c:set var="cardAttributes" value="${DataDictionary.ProcurementCardHolder.attributes}" />
   <c:set var="canEdit" value="${KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}" scope="request" />
 
+
   <div class="tab-container" align="center">
   <logic:iterate indexId="ctr" name="KualiForm" property="document.transactionEntries" id="currentTransaction">
     <table cellpadding="0" class="datatable" summary="Transaction Details">

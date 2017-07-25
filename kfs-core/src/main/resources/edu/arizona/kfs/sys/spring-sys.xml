@@ -175,7 +175,7 @@
 
 	<bean id="electronicPaymentClaimLookupableHelperService"
 		class="edu.arizona.kfs.sys.businessobject.lookup.ElectronicPaymentClaimLookupableHelperServiceImpl"
-		scope="prototype" parent="lookupableHelperService">
+		scope="prototype" parent="cf.lookupableHelperService">
 		<property name="lookupDao">
 			<ref bean="lookupDao" />
 		</property>
@@ -184,4 +184,13 @@
 	<bean id="jobListener" parent="jobListener-parentBean" class="edu.arizona.kfs.sys.batch.JobListener">
     </bean>
     
+    <!-- UA KFS7 upgrade moved  kimRoleTypeService bean override to kfs spring context instead of KIM -->
+     <bean id="employeeDerivedRoleTypeService" parent="employeeDerivedRoleTypeService-parentBean" class="edu.arizona.kfs.sys.identity.UaEmployeeDerivedRoleTypeServiceImpl">
+     	<property name="parameterService" ref="parameterService" />
+    </bean>    
+    
+    <!-- bean id="kimRoleTypeService" class=" edu.arizona.kfs.sys.identity.UaEmployeeDerivedRoleTypeServiceImpl">
+        <property name="edsConstants" ref="edsConstants"/>
+        <property name="parameterService" ref="parameterService"/>
+    </bean -->
 </beans>

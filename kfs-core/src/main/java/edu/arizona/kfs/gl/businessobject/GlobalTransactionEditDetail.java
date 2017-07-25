@@ -1,19 +1,18 @@
 package edu.arizona.kfs.gl.businessobject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
+import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.FundGroup;
 import org.kuali.kfs.coa.businessobject.ObjectSubType;
 import org.kuali.kfs.coa.businessobject.ObjectType;
 import org.kuali.kfs.coa.businessobject.SubFundGroup;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.sys.businessobject.OriginationCode;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.rice.kew.doctype.bo.DocumentType;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.rice.kew.api.KewApiServiceLocator;
+import org.kuali.rice.kew.api.doctype.DocumentType;
+import org.kuali.rice.kew.doctype.bo.DocumentTypeEBO;
 
 
 public class GlobalTransactionEditDetail extends PersistableBusinessObjectBase implements MutableInactivatable {
@@ -26,7 +25,7 @@ public class GlobalTransactionEditDetail extends PersistableBusinessObjectBase i
     private String objectSubTypeCode;
     private String objectCodeRulePurpose;
     private boolean active;
-    private DocumentType documentType;
+    private DocumentTypeEBO documentType;
     private ObjectType objectType;
     private ObjectSubType objectSubType;
     private GlobalTransactionEdit globalTransactionEdit;
@@ -77,13 +76,18 @@ public class GlobalTransactionEditDetail extends PersistableBusinessObjectBase i
         this.subFundGroupCode = subFundGroupCode;
     }
 
+    // UA KFS7 upgrade
     public String getDocumentTypeCodeFullText() {
-        Map<String, Object> fieldMap = new HashMap<String, Object>();
-        fieldMap.put("name", documentTypeCode);
-        fieldMap.put("active", true);
-        fieldMap.put("currentInd", true);
-        DocumentType docType = new ArrayList<DocumentType>(getBoService().findMatching(DocumentType.class, fieldMap)).get(0);
-        return docType.getName() + "-" + docType.getLabel();
+        if (documentType == null || !StringUtils.equals(documentType.getName(), documentTypeCode)) {
+        	documentType = null;
+            if (StringUtils.isNotBlank(documentTypeCode)) {
+                DocumentType docType = KewApiServiceLocator.getDocumentTypeService().getDocumentTypeByName(documentTypeCode);
+                if (docType != null) {
+                	documentType = org.kuali.rice.kew.doctype.bo.DocumentType.from(docType);
+                }
+            }
+        }
+        return documentType.getName() + "-" + documentType.getLabel();
     }
 
     public String getDocumentTypeCode() {
@@ -120,11 +124,21 @@ public class GlobalTransactionEditDetail extends PersistableBusinessObjectBase i
         this.objectSubTypeCode = objectSubType;
     }
 
-    public DocumentType getDocumentType() {
+    // UA KFS7 upgrade
+    public DocumentTypeEBO getDocumentType() {
+    	 if (documentType == null || !StringUtils.equals(documentType.getName(), documentTypeCode)) {
+         	documentType = null;
+             if (StringUtils.isNotBlank(documentTypeCode)) {
+                 DocumentType docType = KewApiServiceLocator.getDocumentTypeService().getDocumentTypeByName(documentTypeCode);
+                 if (docType != null) {
+                 	documentType = org.kuali.rice.kew.doctype.bo.DocumentType.from(docType);
+                 }
+             }
+         }
         return documentType;
     }
 
-    public void setDocumentType(DocumentType documentType) {
+    public void setDocumentType(DocumentTypeEBO documentType) {
         this.documentType = documentType;
     }
 

@@ -9,8 +9,8 @@ import org.kuali.kfs.vnd.VendorKeyConstants;
 import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.kfs.vnd.businessobject.VendorSupplierDiversity;
 import org.kuali.rice.core.api.util.RiceKeyConstants;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.service.DataDictionaryService;
 
 import edu.arizona.kfs.vnd.VendorPropertyConstants;
 

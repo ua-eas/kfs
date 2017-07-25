@@ -139,7 +139,7 @@ public class PurApReportLookupableHelperServiceImpl extends KualiLookupableHelpe
      *
      * @param purApReportCollection
      */
-    private List<PurchasingAccountsPayableProcessingReport> updateResultList(List<PurchasingAccountsPayableProcessingReport> purApReportList) {
+    protected List<PurchasingAccountsPayableProcessingReport> updateResultList(List<PurchasingAccountsPayableProcessingReport> purApReportList) {
         List<PurchasingAccountsPayableProcessingReport> newResultList = new ArrayList<PurchasingAccountsPayableProcessingReport>();
         BusinessObjectService boService = this.getBusinessObjectService();
         Map pKeys = new HashMap<String, String>();
@@ -162,7 +162,7 @@ public class PurApReportLookupableHelperServiceImpl extends KualiLookupableHelpe
      * @param purApReportCollection
      * @return
      */
-    private List<? extends BusinessObject> buildSearchResultList(List purApReportList) {
+    protected List<? extends BusinessObject> buildSearchResultList(List purApReportList) {
         List<? extends BusinessObject> searchResults = null;
 
         Integer searchResultsLimit = LookupUtils.getSearchResultsLimit(PurchasingAccountsPayableProcessingReport.class);
@@ -185,9 +185,9 @@ public class PurApReportLookupableHelperServiceImpl extends KualiLookupableHelpe
      * @param purApDocs
      * @return
      */
-    private Map<String, Integer> buildDocumentNumberMap(Collection purApDocs) {
+    protected Map<String, Integer> buildDocumentNumberMap(Collection purApDocs) {
         Map<String, Integer> purApDocNumbers = new HashMap<String, Integer>();
-        for (Iterator iterator = purApDocs.iterator(); iterator.hasNext(); ) {
+        for (Iterator iterator = purApDocs.iterator(); iterator.hasNext();) {
             PurchasingAccountsPayableDocument purApdoc = (PurchasingAccountsPayableDocument) iterator.next();
             purApDocNumbers.put(purApdoc.getDocumentNumber(), purApdoc.getPurapDocumentIdentifier());
         }
@@ -201,7 +201,7 @@ public class PurApReportLookupableHelperServiceImpl extends KualiLookupableHelpe
      * @param purapDocumentIdentifier
      * @return
      */
-    private Map<String, String> getPurApDocumentLookupFields(Map<String, String> fieldValues, String purapDocumentIdentifier) {
+    protected Map<String, String> getPurApDocumentLookupFields(Map<String, String> fieldValues, String purapDocumentIdentifier) {
         Map<String, String> purapDocumentLookupFields = new HashMap<String, String>();
         purapDocumentLookupFields.put(CamsPropertyConstants.PurchasingAccountsPayableDocument.PURAP_DOCUMENT_IDENTIFIER, purapDocumentIdentifier);
         purapDocumentLookupFields.put(CamsPropertyConstants.PurchasingAccountsPayableDocument.DOCUMENT_NUMBER, fieldValues.get(CamsPropertyConstants.GeneralLedgerEntry.DOCUMENT_NUMBER));
@@ -215,7 +215,7 @@ public class PurApReportLookupableHelperServiceImpl extends KualiLookupableHelpe
      * @param purApReportCollection
      * @param purApDocNumbers
      */
-    private List<PurchasingAccountsPayableProcessingReport> updatePurApReportListByPurApDocs(List<PurchasingAccountsPayableProcessingReport> purApReportList, Map<String, Integer> purApDocNumberMap) {
+    protected List<PurchasingAccountsPayableProcessingReport> updatePurApReportListByPurApDocs(List<PurchasingAccountsPayableProcessingReport> purApReportList, Map<String, Integer> purApDocNumberMap) {
         List<PurchasingAccountsPayableProcessingReport> newReportsList = new ArrayList<PurchasingAccountsPayableProcessingReport>();
 
         for (PurchasingAccountsPayableProcessingReport report : purApReportList) {
@@ -234,7 +234,7 @@ public class PurApReportLookupableHelperServiceImpl extends KualiLookupableHelpe
      * @param searchResultIterator
      * @return
      */
-    private List<PurchasingAccountsPayableProcessingReport> buildGlEntrySearchResultCollection(Iterator searchResultIterator, String activeSelection) {
+    protected List<PurchasingAccountsPayableProcessingReport> buildGlEntrySearchResultCollection(Iterator searchResultIterator, String activeSelection) {
         List<PurchasingAccountsPayableProcessingReport> purApReportList = new ArrayList();
 
         while (searchResultIterator.hasNext()) {
@@ -289,7 +289,7 @@ public class PurApReportLookupableHelperServiceImpl extends KualiLookupableHelpe
      * @param obj
      * @return
      */
-    private Date getDate(Object obj) {
+    protected Date getDate(Object obj) {
         if (obj instanceof Date) {
             return (Date) obj;
         } else if (obj instanceof Timestamp) {
@@ -307,7 +307,7 @@ public class PurApReportLookupableHelperServiceImpl extends KualiLookupableHelpe
      * @param activeSelection
      * @return
      */
-    private boolean excludeFromSearchResults(PurchasingAccountsPayableProcessingReport newReport, String activeSelection) {
+    protected boolean excludeFromSearchResults(PurchasingAccountsPayableProcessingReport newReport, String activeSelection) {
         // If the user selects processed by CAMs, we should exclude the GL lines which have no submit amount as the search result
         if ((KFSConstants.ACTIVE_INDICATOR.equalsIgnoreCase(activeSelection) && (newReport.getTransactionLedgerSubmitAmount() == null || newReport.getTransactionLedgerSubmitAmount().isZero()))) {
             return true;
@@ -321,7 +321,7 @@ public class PurApReportLookupableHelperServiceImpl extends KualiLookupableHelpe
      * @param active
      * @param newReport
      */
-    private void setReportAmount(String active, PurchasingAccountsPayableProcessingReport newReport) {
+    protected void setReportAmount(String active, PurchasingAccountsPayableProcessingReport newReport) {
         if (KFSConstants.ACTIVE_INDICATOR.equalsIgnoreCase(active)) {
             // Processed in CAMS: set report amount as submitted amount
             newReport.setReportAmount(newReport.getTransactionLedgerSubmitAmount());
@@ -347,7 +347,7 @@ public class PurApReportLookupableHelperServiceImpl extends KualiLookupableHelpe
      * @param fieldName
      * @return
      */
-    private String getSelectedField(Map fieldValues, String fieldName) {
+    protected String getSelectedField(Map fieldValues, String fieldName) {
         String fieldValue = null;
 
         if (fieldValues.containsKey(fieldName)) {

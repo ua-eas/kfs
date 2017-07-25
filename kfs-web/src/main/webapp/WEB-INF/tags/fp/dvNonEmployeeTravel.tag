@@ -1,4 +1,4 @@
-<%--
+<<%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
    -
    - Copyright 2005-2017 Kuali, Inc.
@@ -16,7 +16,7 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 
 <kul:tab tabTitle="Non-Employee Travel Expense" defaultOpen="false"
          tabErrorKey="${KFSConstants.DV_NON_EMPL_TRAVEL_TAB_ERRORS}">
@@ -238,7 +238,7 @@
                             attributeEntry="${nonEmplTravelAttributes.disbVchrPerdiemCalculatedAmt}"
                             property="document.dvNonEmployeeTravel.disbVchrPerdiemCalculatedAmt" readOnly="true"/></div>
                     <c:if test="${fullEntryMode||travelEntryMode}">
-                        <div class="right">
+                        <%--div class="right">
                             <html:submit
                                     styleClass="btn btn-default small"
                                     property="methodToCall.clearTravelPerDiem"
@@ -253,7 +253,7 @@
                                     alt="Calculate Per Diem"
                                     title="Calculate Per Diem"
                                     value="Calculate"/>
-                        </div>
+                        </div--%>
                     </c:if>
                 </td>
                 <th scope="row">

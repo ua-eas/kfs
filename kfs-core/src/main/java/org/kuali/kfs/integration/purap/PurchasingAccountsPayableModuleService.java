@@ -99,5 +99,3 @@ public interface PurchasingAccountsPayableModuleService {
     public List<String> findPaymentRequestsByVendorNumberInvoiceNumber(Integer vendorHeaderGeneratedId, Integer vendorDetailAssignedId, java.lang.String invoiceNumber);
 
 }
-
-

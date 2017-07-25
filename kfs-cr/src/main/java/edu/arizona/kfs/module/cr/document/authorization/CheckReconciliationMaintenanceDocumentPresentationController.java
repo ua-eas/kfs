@@ -3,8 +3,8 @@ package edu.arizona.kfs.module.cr.document.authorization;
 import java.util.Set;
 
 import org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentPresentationControllerBase;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.util.KRADConstants;
 
 import edu.arizona.kfs.module.cr.CrPropertyConstants;
 

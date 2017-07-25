@@ -55,11 +55,15 @@ import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.Message;
 import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.krad.util.ObjectUtils;
+
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.WorkflowDocument;
+
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -297,7 +301,7 @@ public class GeneralLedgerCorrectionProcessAction extends KualiDocumentActionBas
             return false;
         }
 
-        if (!checkGlobalTransactionValidation(correctionForm)) {
+        if (!checkGlobalTransactionValidation(generalLedgerCorrectionProcessForm)) {
             return false;
         }
 
@@ -329,11 +333,11 @@ public class GeneralLedgerCorrectionProcessAction extends KualiDocumentActionBas
         return true;
     }
 
-    protected boolean checkGlobalTransactionValidation(CorrectionForm correctionForm) {
+    protected boolean checkGlobalTransactionValidation(GeneralLedgerCorrectionProcessForm generalLedgerCorrectionProcessForm) {
         boolean result = true;
         Message message = null;
         int lineNum = 1;
-        List<OriginEntryFull> allEntries = correctionForm.getAllEntries();
+        List<OriginEntryFull> allEntries = generalLedgerCorrectionProcessForm.getAllEntries();
         GlobalTransactionEditService globalTransactionEditService = SpringContext.getBean(GlobalTransactionEditService.class);
 
         for (OriginEntryFull oe : allEntries) {

@@ -18,7 +18,6 @@
  */
 package org.kuali.kfs.module.purap.document;
 
-
 import edu.arizona.kfs.sys.businessobject.BuildingExtension;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;

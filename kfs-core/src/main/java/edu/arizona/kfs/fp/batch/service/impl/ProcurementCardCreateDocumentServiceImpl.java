@@ -18,7 +18,7 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.fp.batch.ProcurementCardAutoApproveDocumentsStep;
 import org.kuali.kfs.fp.batch.ProcurementCardCreateDocumentsStep;
-import org.kuali.rice.krad.util.MessageMap;
+import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.kfs.fp.businessobject.CapitalAssetInformation;
 import org.kuali.kfs.fp.businessobject.ProcurementCardTargetAccountingLine;
 import org.kuali.kfs.fp.document.validation.impl.ProcurementCardDocumentRuleConstants;
@@ -39,13 +39,14 @@ import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.group.GroupService;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
+import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.rice.krad.bo.DocumentHeader;
-import org.kuali.rice.krad.exception.ValidationException;
-import org.kuali.rice.krad.util.ErrorMessage;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.AutoPopulatingList;
 
@@ -62,20 +63,12 @@ public class ProcurementCardCreateDocumentServiceImpl extends org.kuali.kfs.fp.b
 
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ProcurementCardCreateDocumentServiceImpl.class);
 
-    private GroupService procurementCardGroupService;
     private ConfigurationService configurationService;
     private String batchFileOutputDirectoryName;
 
     private static final int CARDHOLDER_NAME_MAX_LENGTH = 24;
     private static final String AUTO_APPROVE_ERROR_LOG_SEPARATOR = "-----------------\n";
-    
-    public GroupService getProcurementCardGroupService() {
-        return procurementCardGroupService;
-    }
 
-    public void setProcurementCardGroupService(GroupService procurementCardGroupService) {
-        this.procurementCardGroupService = procurementCardGroupService;
-    }
 
     protected ConfigurationService getConfigurationService() {
         return configurationService;
@@ -178,7 +171,7 @@ public class ProcurementCardCreateDocumentServiceImpl extends org.kuali.kfs.fp.b
                 
         Map<String, String> pkMap = new HashMap<String, String>();
         pkMap.put("creditCardNumber", creditCardNumber);
-        ProcurementCardDefault procurementCardDefault = (ProcurementCardDefault) getBusinessObjectService().findByPrimaryKey(ProcurementCardDefault.class, pkMap);
+        ProcurementCardDefault procurementCardDefault = (ProcurementCardDefault) businessObjectService.findByPrimaryKey(ProcurementCardDefault.class, pkMap);
                 
         return procurementCardDefault;
     }
@@ -219,7 +212,7 @@ public class ProcurementCardCreateDocumentServiceImpl extends org.kuali.kfs.fp.b
         for (Iterator iter = documents.iterator(); iter.hasNext();) {
             ProcurementCardDocument pcardDocument = (ProcurementCardDocument) iter.next();
             try {
-                getDocumentService().saveDocument(pcardDocument, DocumentSystemSaveEvent.class);
+                documentService.saveDocument(pcardDocument, DocumentSystemSaveEvent.class);
                 LOG.info("Saved Procurement Card document: "+pcardDocument.getDocumentNumber());
             }
             catch (Exception e) {
@@ -247,7 +240,7 @@ public class ProcurementCardCreateDocumentServiceImpl extends org.kuali.kfs.fp.b
 
         try {
             // get new document from doc service
-            pcardDocument = (ProcurementCardDocument) getDocumentService().getNewDocument(PROCUREMENT_CARD);
+            pcardDocument = (ProcurementCardDocument) documentService.getNewDocument(PROCUREMENT_CARD);
 
             List<CapitalAssetInformation> capitalAssets = pcardDocument.getCapitalAssetInformation();
             for (CapitalAssetInformation capitalAsset : capitalAssets) {
@@ -264,7 +257,7 @@ public class ProcurementCardCreateDocumentServiceImpl extends org.kuali.kfs.fp.b
             int transactionLineNumber = 1;
             KualiDecimal documentTotalAmount = KualiDecimal.ZERO;
             String transactionIssuesSummary = "";
-            Integer documentExplanationMaxLength = getDataDictionaryService().getAttributeMaxLength(DocumentHeader.class.getName(), KFSPropertyConstants.EXPLANATION);
+            Integer documentExplanationMaxLength = dataDictionaryService.getAttributeMaxLength(DocumentHeader.class.getName(), KFSPropertyConstants.EXPLANATION);
             for (Iterator iter = transactions.iterator(); iter.hasNext();) {
                 ProcurementCardTransaction transaction = (ProcurementCardTransaction) iter.next();
 
@@ -312,7 +305,7 @@ public class ProcurementCardCreateDocumentServiceImpl extends org.kuali.kfs.fp.b
 
             final ProcurementCardDefault procurementCardDefault = retrieveProcurementCardDefault(transaction.getTransactionCreditCardNumber());
             if (procurementCardDefault != null) {
-            if (getParameterService().getParameterValueAsBoolean(ProcurementCardCreateDocumentsStep.class, ProcurementCardCreateDocumentsStep.USE_CARD_HOLDER_DEFAULT_PARAMETER_NAME)) {
+            if (parameterService.getParameterValueAsBoolean(ProcurementCardCreateDocumentsStep.class, ProcurementCardCreateDocumentsStep.USE_CARD_HOLDER_DEFAULT_PARAMETER_NAME)) {
                 cardHolder.setCardCycleAmountLimit(procurementCardDefault.getCardCycleAmountLimit());
                 cardHolder.setCardCycleVolumeLimit(procurementCardDefault.getCardCycleVolumeLimit());
                 cardHolder.setCardHolderAlternateName(procurementCardDefault.getCardHolderAlternateName());
@@ -327,7 +320,7 @@ public class ProcurementCardCreateDocumentServiceImpl extends org.kuali.kfs.fp.b
                 cardHolder.setCardNoteText(procurementCardDefault.getCardNoteText());
                 cardHolder.setCardStatusCode(procurementCardDefault.getCardStatusCode());
             }
-                if (getParameterService().getParameterValueAsBoolean(ProcurementCardCreateDocumentsStep.class, ProcurementCardCreateDocumentsStep.USE_ACCOUNTING_DEFAULT_PARAMETER_NAME)) {
+                if (parameterService.getParameterValueAsBoolean(ProcurementCardCreateDocumentsStep.class, ProcurementCardCreateDocumentsStep.USE_ACCOUNTING_DEFAULT_PARAMETER_NAME)) {
                     cardHolder.setChartOfAccountsCode(procurementCardDefault.getChartOfAccountsCode());
                     cardHolder.setAccountNumber(procurementCardDefault.getAccountNumber());
                     cardHolder.setSubAccountNumber(procurementCardDefault.getSubAccountNumber());
@@ -366,7 +359,7 @@ public class ProcurementCardCreateDocumentServiceImpl extends org.kuali.kfs.fp.b
     protected ProcurementCardDefault retrieveProcurementCardDefault(String creditCardNumber) {
         Map<String, String> fieldValues = new HashMap<String, String>();
         fieldValues.put(KFSPropertyConstants.CREDIT_CARD_NUMBER, creditCardNumber);
-        List<ProcurementCardDefault> matchingPcardDefaults = (List<ProcurementCardDefault>) getBusinessObjectService().findMatching(ProcurementCardDefault.class, fieldValues);
+        List<ProcurementCardDefault> matchingPcardDefaults = (List<ProcurementCardDefault>) businessObjectService.findMatching(ProcurementCardDefault.class, fieldValues);
         ProcurementCardDefault procurementCardDefault = null;
         if ( !matchingPcardDefaults.isEmpty() ) {
             procurementCardDefault = matchingPcardDefaults.get(0);
@@ -587,7 +580,7 @@ public class ProcurementCardCreateDocumentServiceImpl extends org.kuali.kfs.fp.b
         targetLine.refresh();
         final String lineNumber = targetLine.getSequenceNumber() == null ? KFSPropertyConstants.NEW : targetLine.getSequenceNumber().toString();
 
-        if (!accountingLineRuleUtil.isValidChart(KFSConstants.EMPTY_STRING, targetLine.getChart(), getDataDictionaryService().getDataDictionary())) {
+        if (!accountingLineRuleUtil.isValidChart(KFSConstants.EMPTY_STRING, targetLine.getChart(), dataDictionaryService.getDataDictionary())) {
             String tempErrorText = "Target Accounting Line "+lineNumber+" Chart " + targetLine.getChartOfAccountsCode() + " is invalid; using error Chart Code.";
             if ( LOG.isInfoEnabled() ) {
                 LOG.info(tempErrorText);
@@ -598,7 +591,7 @@ public class ProcurementCardCreateDocumentServiceImpl extends org.kuali.kfs.fp.b
             targetLine.refresh();
         }
 
-        if (!accountingLineRuleUtil.isValidAccount(KFSConstants.EMPTY_STRING, targetLine.getAccount(), getDataDictionaryService().getDataDictionary()) || targetLine.getAccount().isExpired()) {
+        if (!accountingLineRuleUtil.isValidAccount(KFSConstants.EMPTY_STRING, targetLine.getAccount(), dataDictionaryService.getDataDictionary()) || targetLine.getAccount().isExpired()) {
             //changing this line from delivered code to correct the error text
             String tempErrorText = targetLine.getChartOfAccountsCode() + " Account " + targetLine.getAccountNumber() + " is invalid; using error account.";
             if ( LOG.isInfoEnabled() ) {
@@ -611,7 +604,7 @@ public class ProcurementCardCreateDocumentServiceImpl extends org.kuali.kfs.fp.b
             targetLine.refresh();
         }
 
-        if (!accountingLineRuleUtil.isValidObjectCode(KFSConstants.EMPTY_STRING, targetLine.getObjectCode(), getDataDictionaryService().getDataDictionary())) {
+        if (!accountingLineRuleUtil.isValidObjectCode(KFSConstants.EMPTY_STRING, targetLine.getObjectCode(), dataDictionaryService.getDataDictionary())) {
             String tempErrorText = "Target Accounting Line "+lineNumber+" Chart " + targetLine.getChartOfAccountsCode() + " Object Code " + targetLine.getFinancialObjectCode() + " is invalid; using default Object Code.";
             if ( LOG.isInfoEnabled() ) {
                 LOG.info(tempErrorText);
@@ -622,7 +615,7 @@ public class ProcurementCardCreateDocumentServiceImpl extends org.kuali.kfs.fp.b
             targetLine.refresh();
         }
 
-        if (StringUtils.isNotBlank(targetLine.getSubAccountNumber()) && !accountingLineRuleUtil.isValidSubAccount(KFSConstants.EMPTY_STRING, targetLine.getSubAccount(), getDataDictionaryService().getDataDictionary())) {
+        if (StringUtils.isNotBlank(targetLine.getSubAccountNumber()) && !accountingLineRuleUtil.isValidSubAccount(KFSConstants.EMPTY_STRING, targetLine.getSubAccount(), dataDictionaryService.getDataDictionary())) {
             String tempErrorText = "Target Accounting Line "+lineNumber+" Chart " + targetLine.getChartOfAccountsCode() + " Account " + targetLine.getAccountNumber() + " Sub Account " + targetLine.getSubAccountNumber() + " is invalid; Setting Sub Account to blank.";
             if ( LOG.isInfoEnabled() ) {
                 LOG.info(tempErrorText);
@@ -632,7 +625,7 @@ public class ProcurementCardCreateDocumentServiceImpl extends org.kuali.kfs.fp.b
             targetLine.setSubAccountNumber("");
         }
 
-        if (StringUtils.isNotBlank(targetLine.getFinancialSubObjectCode()) && !accountingLineRuleUtil.isValidSubObjectCode(KFSConstants.EMPTY_STRING, targetLine.getSubObjectCode(), getDataDictionaryService().getDataDictionary())) {
+        if (StringUtils.isNotBlank(targetLine.getFinancialSubObjectCode()) && !accountingLineRuleUtil.isValidSubObjectCode(KFSConstants.EMPTY_STRING, targetLine.getSubObjectCode(), dataDictionaryService.getDataDictionary())) {
             String tempErrorText = "Target Accounting Line "+lineNumber+" Chart " + targetLine.getChartOfAccountsCode() + " Account " + targetLine.getAccountNumber() + " Object Code " + targetLine.getFinancialObjectCode() + " Sub Object Code " + targetLine.getFinancialSubObjectCode() + " is invalid; setting Sub Object to blank.";
             if ( LOG.isInfoEnabled() ) {
                 LOG.info(tempErrorText);
@@ -642,7 +635,7 @@ public class ProcurementCardCreateDocumentServiceImpl extends org.kuali.kfs.fp.b
             targetLine.setFinancialSubObjectCode("");
         }
 
-        if (StringUtils.isNotBlank(targetLine.getProjectCode()) && !accountingLineRuleUtil.isValidProjectCode(KFSConstants.EMPTY_STRING, targetLine.getProject(), getDataDictionaryService().getDataDictionary())) {
+        if (StringUtils.isNotBlank(targetLine.getProjectCode()) && !accountingLineRuleUtil.isValidProjectCode(KFSConstants.EMPTY_STRING, targetLine.getProject(), dataDictionaryService.getDataDictionary())) {
             if ( LOG.isInfoEnabled() ) {
                 LOG.info("Target Accounting Line "+lineNumber+" Project Code " + targetLine.getProjectCode() + " is invalid; setting to blank.");
             }
@@ -666,7 +659,7 @@ public class ProcurementCardCreateDocumentServiceImpl extends org.kuali.kfs.fp.b
     private Collection<ProcurementCardDocument> retrieveUAProcurementCardDocumentsToRoute(String statusCode){
 
         try {
-            return getFinancialSystemDocumentService().findByWorkflowStatusCode(ProcurementCardDocument.class, DocumentStatus.fromCode(statusCode));
+            return financialSystemDocumentService.findByWorkflowStatusCode(ProcurementCardDocument.class, DocumentStatus.fromCode(statusCode));
         } catch (WorkflowException e) {
             LOG.error("Error searching for enroute procurement card documents " + e.getMessage());
             throw new RuntimeException(e.getMessage(),e);
@@ -684,7 +677,7 @@ public class ProcurementCardCreateDocumentServiceImpl extends org.kuali.kfs.fp.b
         else {
             List<String> groupMembers = new ArrayList<String>();
             String reconcilerGroupId = procurementCardDefault.getReconcilerGroupId();
-            groupMembers = SpringContext.getBean(GroupService.class).getMemberPrincipalIds(reconcilerGroupId);
+            groupMembers = KimApiServiceLocator.getGroupService().getMemberPrincipalIds(reconcilerGroupId);
             if (groupMembers.isEmpty() ||
                 (groupMembers.size() == 1 &&
                  groupMembers.get(0).equals(procurementCardDefault.getCardHolderSystemId()))) {
