@@ -141,7 +141,7 @@
         </bean>
       </list>
     </property>
-    <property name="inquirableClass" value="org.kuali.kfs.sys.businessobject.inquiry.KfsInquirableImpl"/>
+    <property name="inquirableClass" value="org.kuali.kfs.kns.inquiry.KualiInquirableImpl"/>
   </bean>
 
 </beans>
