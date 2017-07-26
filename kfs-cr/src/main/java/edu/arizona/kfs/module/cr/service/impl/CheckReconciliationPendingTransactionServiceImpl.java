@@ -23,8 +23,8 @@ import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterConstants;
-import org.kuali.kfs.coreservice.impl.parameter.ParameterServiceImpl;
-import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 
 import edu.arizona.kfs.module.cr.CrConstants;
 import edu.arizona.kfs.module.cr.CrParameterConstants;

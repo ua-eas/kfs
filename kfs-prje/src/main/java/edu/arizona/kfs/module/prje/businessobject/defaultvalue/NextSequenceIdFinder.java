@@ -1,8 +1,8 @@
 package edu.arizona.kfs.module.prje.businessobject.defaultvalue;
 
-import org.kuali.rice.krad.service.KRADServiceLocator;
-import org.kuali.rice.krad.service.SequenceAccessorService;
-import org.kuali.rice.krad.valuefinder.ValueFinder;
+import org.kuali.kfs.krad.service.KRADServiceLocator;
+import org.kuali.kfs.krad.service.SequenceAccessorService;
+import org.kuali.kfs.krad.valuefinder.ValueFinder;
 
 import edu.arizona.kfs.module.prje.PRJEPropertyConstants;
 import edu.arizona.kfs.module.prje.businessobject.PRJEType;

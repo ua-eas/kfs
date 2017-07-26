@@ -31,7 +31,9 @@
         <module>kfs-kc</module>
         <module>kfs-ld</module>
         <module>kfs-datatools</module>
-		<module>kfs-tax</module>
+        <module>kfs-tax</module>
+        <module>kfs-prje</module>
+        <module>kfs-cr</module>
         <module>kfs-web</module>
     </modules>
     <groupId>org.kuali.kfs</groupId>

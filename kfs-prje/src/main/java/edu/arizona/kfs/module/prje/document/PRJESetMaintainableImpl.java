@@ -3,7 +3,7 @@ package edu.arizona.kfs.module.prje.document;
 import java.util.Map;
 
 import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
-import org.kuali.rice.krad.maintenance.MaintenanceDocument;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
 
 import edu.arizona.kfs.module.prje.businessobject.PRJESet;
 import edu.arizona.kfs.module.prje.businessobject.defaultvalue.NextPRJESetIdFinder;
@@ -21,9 +21,7 @@ public class PRJESetMaintainableImpl extends FinancialSystemMaintainable {
     }
     
     @Override
-	public void processAfterCopy(
-			org.kuali.rice.kns.document.MaintenanceDocument document,
-			Map<String, String[]> parameters) {
+	public void processAfterCopy(MaintenanceDocument document, Map<String, String[]> parameters) {
 		super.processAfterCopy(document, parameters);
 		setPRJESetIdIfBlank();
 	}

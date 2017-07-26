@@ -8,11 +8,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.bo.Note;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.rice.krad.service.NoteService;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.service.NoteService;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 import edu.arizona.kfs.module.cr.CrPropertyConstants;
 import edu.arizona.kfs.module.cr.service.CheckReconciliationPayeeService;

@@ -322,11 +322,16 @@
       <artifactId>kfs-tax</artifactId>
       <version>${project.version}</version>
     </dependency>
-    <!--dependency>
+    <dependency>
       <groupId>org.kuali.kfs</groupId>
       <artifactId>kfs-prje</artifactId>
       <version>${project.version}</version>
-    </dependency-->
+    </dependency>
+    <dependency>
+      <groupId>org.kuali.kfs</groupId>
+      <artifactId>kfs-cr</artifactId>
+      <version>${project.version}</version>
+    </dependency>
   </dependencies>
 
     <distributionManagement>

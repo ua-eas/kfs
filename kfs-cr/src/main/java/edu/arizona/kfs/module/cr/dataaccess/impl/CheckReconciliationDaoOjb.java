@@ -25,7 +25,7 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.Bank;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
-import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.arizona.kfs.module.cr.CrConstants;

@@ -31,7 +31,7 @@ import org.kuali.kfs.pdp.businessobject.PaymentGroup;
 import org.kuali.kfs.pdp.businessobject.PaymentStatus;
 import org.kuali.kfs.sys.businessobject.Bank;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.impl.parameter.ParameterServiceImpl;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.arizona.kfs.gl.GeneralLedgerConstants;
