@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-   - The Kuali Financial System, a comprehensive financial management system for higher education.
-   -
-   - Copyright 2005-2017 Kuali, Inc.
-   -
-   - This program is free software: you can redistribute it and/or modify
-   - it under the terms of the GNU Affero General Public License as
-   - published by the Free Software Foundation, either version 3 of the
-   - License, or (at your option) any later version.
-   -
-   - This program is distributed in the hope that it will be useful,
-   - but WITHOUT ANY WARRANTY; without even the implied warranty of
-   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   - GNU Affero General Public License for more details.
-   -
-   - You should have received a copy of the GNU Affero General Public License
-   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
- -->
+
+    The Kuali Financial System, a comprehensive financial management system for higher education.
+
+    Copyright 2005-2017 Kuali, Inc.
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+-->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
     <changeSet context="bootstrap,demo,unit" author="KFS61" id="FINI-43">
         <insert tableName="krim_perm_t">
@@ -78,7 +80,7 @@
         </insert>
         <insert tableName="krim_role_perm_t">
             <column name="ROLE_PERM_ID"><![CDATA[KFS10961]]></column>
-            <column name="OBJ_ID"><![CDATA[KFS-ROLE-PERM-387]]></column>
+            <column name="OBJ_ID"><![CDATA[KFS-ROLE-PERM-391]]></column>
             <column name="VER_NBR"><![CDATA[1]]></column>
             <column name="ROLE_ID"><![CDATA[44]]></column>
             <column name="PERM_ID"><![CDATA[KFS10958]]></column>
