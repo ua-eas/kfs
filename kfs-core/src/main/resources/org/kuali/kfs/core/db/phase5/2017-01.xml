@@ -23,7 +23,7 @@
 
     <changeSet author="KFS701" id="FINP-1001" context="bootstrap,demo,unit">
         <sql>
-            INSERT /*+ IGNORE_ROW_ON_DUPKEY_INDEX(KRCR_PARM_T, PKKRCR_PARM_T) */
+            INSERT /*+ IGNORE_ROW_ON_DUPKEY_INDEX(KRCR_PARM_T, KRNS_PARM_TP1) */
             INTO KRCR_PARM_T (NMSPC_CD, CMPNT_CD, PARM_NM, OBJ_ID, VER_NBR, PARM_TYP_CD, VAL, PARM_DESC_TXT,
             EVAL_OPRTR_CD, APPL_ID)
             select 'KFS-CAM', CMPNT_CD, PARM_NM, sys_guid(), VER_NBR, PARM_TYP_CD, VAL, PARM_DESC_TXT, EVAL_OPRTR_CD,

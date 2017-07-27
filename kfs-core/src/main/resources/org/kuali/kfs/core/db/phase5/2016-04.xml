@@ -21,9 +21,10 @@
                    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
                    xsi:schemaLocation='http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd'>
 
-	<changeSet author="KFS601" id="FINI-1756_GLPE_INDEX" context="bootstrap,demo,unit">
+<!-- Already exists in UA system as index "GL_PENDING_ENTRY_TI8
+ <changeSet author="KFS601" id="FINI-1756_GLPE_INDEX" context="bootstrap,demo,unit">
 		<createIndex indexName="GL_PENDING_ENTRY_TI7" tableName="GL_PENDING_ENTRY_T">
 			<column name="FDOC_NBR" />
 		</createIndex>
-	</changeSet>
+	</changeSet> -->
 </databaseChangeLog>

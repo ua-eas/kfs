@@ -150,7 +150,7 @@
             <column name="EVAL_OPRTR_CD" value="A"/>
             <column name="APPL_ID" value="KUALI"/>
         </insert>
-
+<!-- Already exists in UA system
         <insert tableName="KRCR_PARM_T">
             <column name="NMSPC_CD" value="KR-NS"/>
             <column name="CMPNT_CD" value="All"/>
@@ -163,7 +163,7 @@
             <column name="EVAL_OPRTR_CD" value="A"/>
             <column name="APPL_ID" value="KUALI"/>
         </insert>
-
+-->
         <insert tableName="KRCR_PARM_T">
             <column name="NMSPC_CD" value="KR-KRAD"/>
             <column name="CMPNT_CD" value="Lookup"/>

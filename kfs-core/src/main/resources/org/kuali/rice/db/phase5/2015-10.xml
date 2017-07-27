@@ -78,7 +78,7 @@
         </insert>
         <insert tableName="krim_role_perm_t">
             <column name="ROLE_PERM_ID"><![CDATA[KFS10961]]></column>
-            <column name="OBJ_ID"><![CDATA[KFS-ROLE-PERM-387]]></column>
+            <column name="OBJ_ID"><![CDATA[KFS-ROLE-PERM-391]]></column>
             <column name="VER_NBR"><![CDATA[1]]></column>
             <column name="ROLE_ID"><![CDATA[44]]></column>
             <column name="PERM_ID"><![CDATA[KFS10958]]></column>

@@ -21,7 +21,7 @@
                    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
                    xsi:schemaLocation='http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd'>
 
-    <changeSet author="KFS601" id="KFSCD-26_SOURCE_OF_FUNDS_TABLE" context="bootstrap,demo,unit">
+<!--    <changeSet author="KFS601" id="KFSCD-26_SOURCE_OF_FUNDS_TABLE" context="bootstrap,demo,unit">
         <createTable tableName="CA_SOURCE_OF_FUNDS_T">
             <column name="FUNDS_TYPE_CD" type="VARCHAR(3)">
                 <constraints nullable="false"/>
@@ -38,17 +38,17 @@
             <column name="SOURCE_DESC" type="VARCHAR(200)"/>
             <column name="ACTIVE_IND" type="VARCHAR(1)"/>
         </createTable>
-    </changeSet>
+    </changeSet> -->
 
-    <changeSet author="KFS601" id="KFSCD-26_SOURCE_OF_FUNDS_PRIMARY_KEYS" context="bootstrap,demo,unit">
+<!--    <changeSet author="KFS601" id="KFSCD-26_SOURCE_OF_FUNDS_PRIMARY_KEYS" context="bootstrap,demo,unit">
         <addPrimaryKey columnNames="FUNDS_TYPE_CD" constraintName="CA_SOURCE_OF_FUNDS_TP1" tableName="CA_SOURCE_OF_FUNDS_T"/>
-     </changeSet>
+     </changeSet> -->
 
-    <changeSet author="KFS601" id="KFSCD-26_SOURCE_OF_FUNDS_OBJ_ID_CONSTRAINTS" context="bootstrap,demo,unit">
+<!--    <changeSet author="KFS601" id="KFSCD-26_SOURCE_OF_FUNDS_OBJ_ID_CONSTRAINTS" context="bootstrap,demo,unit">
         <addUniqueConstraint tableName="CA_SOURCE_OF_FUNDS_T" columnNames="OBJ_ID" constraintName="CA_SOURCE_OF_FUNDS_TC0" />
-    </changeSet>
+    </changeSet> -->
 
-    <changeSet author="KFS61" id="KFSCD-12_DI_AND_YEDI_ACCOUNTING_LINES" context="bootstrap,demo,unit">
+<!--    <changeSet author="KFS61" id="KFSCD-12_DI_AND_YEDI_ACCOUNTING_LINES" context="bootstrap,demo,unit">
         <insert tableName="KRCR_PARM_T">
             <column name="NMSPC_CD" value="KFS-FP"/>
             <column name="CMPNT_CD" value="DistributionOfIncomeAndExpense"/>
@@ -103,6 +103,6 @@
             <column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
             <column name="APPL_ID"><![CDATA[KFS]]></column>
         </insert>
-    </changeSet>
+    </changeSet> -->
 
 </databaseChangeLog>
