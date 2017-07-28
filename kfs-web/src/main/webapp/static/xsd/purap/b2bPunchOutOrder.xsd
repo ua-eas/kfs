@@ -24,7 +24,6 @@
             xmlns:purap="http://www.kuali.org/kfs/purap/types"
             xmlns:kfs="http://www.kuali.org/kfs/sys/types"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-<xsd:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/xml.xsd" />
 
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="classpath:org/kuali/kfs/sys/xml.xsd"/>
     <xsd:import namespace="http://www.kuali.org/kfs/purap/types" schemaLocation="classpath:org/kuali/kfs/module/purap/purapTypes.xsd"/>
@@ -126,8 +125,8 @@
                                 <xsd:complexType>
                                     <xsd:simpleContent>
                                         <xsd:extension base="xsd:string">
-                                            <xsd:attribute name="code" type="statusCodeType" />
-                                            <xsd:attribute name="text" type="statusTextType" />
+                                            <xsd:attribute name="code" type="purap:statusCodeType"/>
+                                            <xsd:attribute name="text" type="purap:statusTextType"/>
                                         </xsd:extension>
                                     </xsd:simpleContent>
                                 </xsd:complexType>
@@ -160,19 +159,19 @@
                                                             <xsd:sequence>
                                                                 <xsd:element ref="UnitPrice"/>
                                                                 <xsd:element ref="Description"/>
-                                                                <xsd:element name="UnitOfMeasure" type="uomType" />
+                                                                <xsd:element name="UnitOfMeasure" type="purap:uomType"/>
 
                                                                 <xsd:element name="Classification" maxOccurs="unbounded">
                                                                     <xsd:complexType>
                                                                         <xsd:simpleContent>
-                                                                            <xsd:extension base="zeroToThirtyCharType">
-                                                                                <xsd:attribute name="domain" type="oneToTwentyOneCharType" />
+                                                                            <xsd:extension base="kfs:zeroToThirtyCharType">
+                                                                                <xsd:attribute name="domain" type="kfs:oneToTwentyOneCharType"/>
                                                                             </xsd:extension>
                                                                         </xsd:simpleContent>
                                                                     </xsd:complexType>
                                                                 </xsd:element> <!-- Classification -->
-                                                                <xsd:element name="ManufacturerPartID" type="oneToTwentyOneCharType" minOccurs="0"/>
-                                                                <xsd:element name="ManufacturerName" type="zeroToFiftyFiveCharType" minOccurs="0"/>
+                                                                <xsd:element name="ManufacturerPartID" type="kfs:oneToTwentyOneCharType" minOccurs="0"/>
+                                                                <xsd:element name="ManufacturerName" type="kfs:zeroToFiftyFiveCharType" minOccurs="0"/>
                                                                 <xsd:element ref="Extrinsic" maxOccurs="unbounded"/>
                                                             </xsd:sequence>
                                                         </xsd:complexType>
@@ -180,8 +179,8 @@
                                                     <xsd:element name="SupplierID" minOccurs="0" maxOccurs="unbounded"> <!-- Not used -->
                                                         <xsd:complexType>
                                                             <xsd:simpleContent>
-                                                                <xsd:extension base="zeroToNinetyCharType">
-                                                                    <xsd:attribute name="domain" type="zeroToTwentyCharType" />
+                                                                <xsd:extension base="kfs:zeroToNinetyCharType">
+                                                                    <xsd:attribute name="domain" type="kfs:zeroToTwentyCharType"/>
                                                                 </xsd:extension>
                                                             </xsd:simpleContent>
                                                         </xsd:complexType>
