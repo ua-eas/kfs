@@ -19,7 +19,7 @@
 
 <%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 <c:set var="assetAttributes" value="${DataDictionary.Asset.attributes}"/>
-<c:set var="accountAttributes" value="${DataDictionary.Account.attributes}"/>
+<c:set var="organizationAttributes" value="${DataDictionary.Organization.attributes}"/>
 <c:set var="assetPaymentAssetDetailAttributes" value="${DataDictionary.AssetPaymentAssetDetail.attributes}"/>
 <c:set var="totalHistoricalAmount" value="${KualiForm.document.assetsTotalHistoricalCost}"/>
 <c:set var="globalTotalAllocated" value="${0.00}"/>
@@ -53,7 +53,7 @@
         <tr class="header">
             <kul:htmlAttributeHeaderCell width="10%" attributeEntry="${assetAttributes.capitalAssetNumber}"/>
             <kul:htmlAttributeHeaderCell width="42%" attributeEntry="${assetAttributes.capitalAssetDescription}"/>
-            <kul:htmlAttributeHeaderCell width="10%" attributeEntry="${accountAttributes.organizationCode}"/>
+            <kul:htmlAttributeHeaderCell width="10%" attributeEntry="${organizationAttributes.organizationCode}"/>
             <kul:htmlAttributeHeaderCell width="10%" attributeEntry="${assetPaymentAssetDetailAttributes.previousTotalCostAmount}" addClass="right"/>
 
             <th class="grid right" width="10%">${assetAllocationLabel}</th>
