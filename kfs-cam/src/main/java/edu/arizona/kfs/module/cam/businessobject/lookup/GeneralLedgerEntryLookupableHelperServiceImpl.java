@@ -11,8 +11,8 @@ import org.kuali.kfs.module.cam.CamsPropertyConstants;
 import org.kuali.kfs.module.cam.businessobject.GeneralLedgerEntry;
 import org.kuali.kfs.module.cam.businessobject.PurchasingAccountsPayableDocument;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.lookup.CollectionIncomplete;
-import org.kuali.kfs.krad.lookup.LookupUtils;
+import org.kuali.rice.krad.lookup.CollectionIncomplete;
+import org.kuali.rice.kns.lookup.LookupUtils;
 
 public class GeneralLedgerEntryLookupableHelperServiceImpl extends org.kuali.kfs.module.cam.businessobject.lookup.GeneralLedgerEntryLookupableHelperServiceImpl {
 	
