@@ -18,6 +18,20 @@
  */
 package org.kuali.kfs.module.ar.document.web.struts;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -50,19 +64,6 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.web.struts.FinancialSystemTransactionalDocumentActionBase;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class PaymentApplicationAction extends FinancialSystemTransactionalDocumentActionBase {
 
@@ -138,12 +139,12 @@ public class PaymentApplicationAction extends FinancialSystemTransactionalDocume
         // doApplicationOfFunds((PaymentApplicationForm)form);
 
         PaymentApplicationDocument paymentApplicationDocument = paymentApplicationForm.getPaymentApplicationDocument();
-        Map<String, Object> parameters = request.getParameterMap();
+        Map<String, String[]> parameters = request.getParameterMap();
         String indexToRemoveString = null;
         Integer indexToRemove = null;
 
         // Figure out which line to remove.
-        for (String k : parameters.keySet()) {
+        for (String k : request.getParameterMap().keySet()) {
             if (k.startsWith(ArPropertyConstants.PaymentApplicationDocumentFields.DELETE_NON_INVOICED_LINE_PREFIX) && k.endsWith(".x")) {
                 if (null != parameters.get(k)) {
                     int beginIndex = ArPropertyConstants.PaymentApplicationDocumentFields.DELETE_NON_INVOICED_LINE_PREFIX.length();

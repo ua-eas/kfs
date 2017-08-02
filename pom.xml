@@ -18,7 +18,7 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <modules>
         <module>kfs-kns</module>
@@ -58,16 +58,14 @@
             <email>kfs.product.team@kuali.co</email>
         </developer>
     </developers>
-    <prerequisites>
-        <maven>${maven.require.version}</maven>
-    </prerequisites>
     <properties>
 
         <!-- maven properties -->
-        <maven.require.version>3.0</maven.require.version>
+        <maven.require.version>3.3</maven.require.version>
         <enforcer.phase>validate</enforcer.phase>
         <project.build.timestamp>${maven.build.timestamp}</project.build.timestamp>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm z</maven.build.timestamp.format>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- release properties -->
         <kuali.release.arguments>-DskipTests</kuali.release.arguments>
@@ -229,6 +227,12 @@
         <!-- plugin versions -->
         <plugin.enforcer.version>1.3.1</plugin.enforcer.version>
         <plugin.surefire.version>2.18</plugin.surefire.version>
+        <plugin.source.version>3.0.0</plugin.source.version>
+        <sources.phase>package</sources.phase>
+        <plugin.jar.version>3.0.2</plugin.jar.version>
+        <test.jar.phase>package</test.jar.phase>
+        <plugin.graph.version>1.2.3</plugin.graph.version>
+        <plugin.dependency.version>3.0.1</plugin.dependency.version>
 
         <!-- logging properties -->
         <!-- switch these scopes to runtime if/when KFS gets all internal logging statements issued via slf4j -->
@@ -255,7 +259,10 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>${plugin.dependency.version}</version>
+                </plugin>
+                <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${maven.compiler.version}</version>
                     <configuration>
@@ -267,6 +274,37 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>sonar-maven-plugin</artifactId>
                     <version>2.6</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${plugin.source.version}</version>
+                    <executions>
+                        <execution>
+                            <phase>${sources.phase}</phase>
+                            <id>attach-sources</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${plugin.jar.version}</version>
+                    <executions>
+                        <execution>
+                            <phase>${test.jar.phase}</phase>
+                            <id>test-jar</id>
+                            <goals>
+                                <goal>test-jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.kuali.maven.plugins</groupId>
+                    <artifactId>graph-maven-plugin</artifactId>
+                    <version>${plugin.graph.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -309,6 +347,9 @@
                                         <include>commons-collections:commons-collections:${commons-collections.version}</include>
                                     </includes>
                                 </bannedDependencies>
+                                <requireMavenVersion>
+                                    <version>${maven.require.version}</version>
+                                </requireMavenVersion>
                             </rules>
                         </configuration>
                     </execution>
@@ -317,20 +358,12 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
-                <version>2.6</version>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.0.0</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
             </plugin>
         </plugins>
         <resources>
@@ -541,6 +574,12 @@
             <version>${jstl.version}</version>
             <!-- should be provided scope on newer containers like tomcat 7 -->
             <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>servlet-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -1348,16 +1387,16 @@
             </exclusions>
         </dependency>
         <dependency>
-	      <groupId>org.kuali.rice</groupId>
-	      <artifactId>rice-kim-ldap</artifactId>
-	      <version>${rice.version}</version>
-	      <exclusions>
-	        <exclusion>
-	         	<groupId>org.springframework</groupId>
-            	<artifactId>spring-tx</artifactId>
-	        </exclusion>
-	      </exclusions>
-	    </dependency>
+            <groupId>org.kuali.rice</groupId>
+            <artifactId>rice-kim-ldap</artifactId>
+            <version>${rice.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-tx</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
         <dependency>
             <groupId>org.kuali.rice</groupId>
             <artifactId>rice-ksb-api</artifactId>
@@ -1566,6 +1605,12 @@
             <groupId>co.kuali</groupId>
             <artifactId>core-filter</artifactId>
             <version>${core-filter.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>servlet-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.sun.jersey</groupId>
@@ -1670,7 +1715,7 @@
             <exclusions>
                 <exclusion>
                     <groupId>javax.servlet</groupId>
-                    <artifactId>javax.servlet-api</artifactId>
+                    <artifactId>servlet-api</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -1873,6 +1918,17 @@
             </releases>
         </repository>
         <repository>
+            <id>kualico.nexus.public</id>
+            <name>Nexus Repository Manager</name>
+            <url>https://nexus.kuali.co/nexus/content/groups/public/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+        <repository>
             <id>foundation.nexus</id>
             <name>Kuali Foundation Nexus Group</name>
             <url>http://nexus.kuali.org/content/groups/public</url>
@@ -1897,19 +1953,30 @@
                 <enabled>true</enabled>
             </releases>
         </pluginRepository>
+        <pluginRepository>
+            <id>kualico.nexus.releases</id>
+            <name>KualiCo Nexus Releases Repository</name>
+            <url>https://nexus.kuali.co/nexus/content/repositories/releases</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </pluginRepository>
     </pluginRepositories>
 
     <distributionManagement>
-    <repository>
-      <id>deployment</id>
-      <name>Internal Releases</name>
-      <url>https://ka-tools.mosaic.arizona.edu/nexus/content/repositories/releases/</url>
-    </repository>
+        <repository>
+            <id>deployment</id>
+            <name>Internal Releases</name>
+            <url>https://ka-tools.mosaic.arizona.edu/nexus/content/repositories/releases/</url>
+        </repository>
         <snapshotRepository>
-      <id>deployment</id>
-      <name>Internal Releases</name>
-      <url>https://ka-tools.mosaic.arizona.edu/nexus/content/repositories/snapshots/</url>
-    </snapshotRepository>
+            <id>deployment</id>
+            <name>Internal Releases</name>
+            <url>https://ka-tools.mosaic.arizona.edu/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
     <!-- snapshotRepository>
             <id>${dm.snapshotRepository.id}</id>
             <name>${dm.snapshotRepository.name}</name>
