@@ -33,6 +33,11 @@
 				<value>pdpLoadPrepaidChecksJob</value>
 			</list>
 		</property>
+		<property name="batchFileDirectories">
+            <list merge="true">
+                <value>${reports.directory}/pdp/prepaidChecks</value>               
+            </list>
+        </property>
     </bean>
     
     <bean id="paymentFileService" parent="paymentFileService-parentBean" class="edu.arizona.kfs.pdp.service.impl.PaymentFileServiceImpl">
