@@ -315,5 +315,19 @@
             </list>
         </property>
     </bean>
+    
+    <bean id="detectDocumentsMissingEntriesJob" parent="detectDocumentsMissingEntriesJob-parentBean"/>
+    <bean id="detectDocumentsMissingEntriesJob-parentBean" abstract="true" parent="unscheduledJobDescriptor">
+        <property name="steps">
+            <list>
+                <ref bean="detectDocumentsMissingEntriesStep"/>
+            </list>
+        </property>
+        <property name="dependencies">
+            <map>
+                <entry key="clearPendingEntriesJob" value="hardDependency"/>
+            </map>
+        </property>
+    </bean>
 
 </beans>
