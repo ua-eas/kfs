@@ -51,8 +51,6 @@
 
     <kul:superUserActions/>
 
-    <kul:panelFooter />
-
     <!-- Add the pCard Return to Reconciler button -->
     <c:set var="extraButtons" value="${KualiForm.extraButtons}"/>
 
