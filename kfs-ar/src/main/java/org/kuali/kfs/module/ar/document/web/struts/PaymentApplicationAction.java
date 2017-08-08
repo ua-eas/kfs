@@ -144,7 +144,7 @@ public class PaymentApplicationAction extends FinancialSystemTransactionalDocume
         Integer indexToRemove = null;
 
         // Figure out which line to remove.
-        for (String k : request.getParameterMap().keySet()) {
+        for (String k : parameters.keySet()) {
             if (k.startsWith(ArPropertyConstants.PaymentApplicationDocumentFields.DELETE_NON_INVOICED_LINE_PREFIX) && k.endsWith(".x")) {
                 if (null != parameters.get(k)) {
                     int beginIndex = ArPropertyConstants.PaymentApplicationDocumentFields.DELETE_NON_INVOICED_LINE_PREFIX.length();
