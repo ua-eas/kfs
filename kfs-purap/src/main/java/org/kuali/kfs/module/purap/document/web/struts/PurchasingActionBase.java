@@ -18,6 +18,16 @@
  */
 package org.kuali.kfs.module.purap.document.web.struts;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -92,15 +102,6 @@ import org.kuali.kfs.vnd.service.PhoneNumberService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Struts Action for Purchasing documents.
@@ -260,8 +261,7 @@ public class PurchasingActionBase extends PurchasingAccountsPayableActionBase {
                     Map<String, String> keys = SpringContext.getBean(PersistenceService.class).getPrimaryKeyFieldValues(locationBuilding);
                     locationBuilding = SpringContext.getBean(BusinessObjectService.class).findByPrimaryKey(Building.class, keys);
 
-                    Map<String, String> parameters = request.getParameterMap();
-                    Set<String> parameterKeys = parameters.keySet();
+                    Set<String> parameterKeys = request.getParameterMap().keySet();
                     String locationCapitalAssetLocationNumber = "";
                     String locationCapitalAssetItemNumber = "";
                     for (String parameterKey : parameterKeys) {
@@ -1082,14 +1082,14 @@ public class PurchasingActionBase extends PurchasingAccountsPayableActionBase {
        try {
            if (document instanceof RequisitionDocument) {
                @SuppressWarnings("unchecked")
-			RequisitionCapitalAssetLocation delLocation = (RequisitionCapitalAssetLocation) businessObjectService.findByPrimaryKey(RequisitionCapitalAssetLocation.class, keys);
+			RequisitionCapitalAssetLocation delLocation = businessObjectService.findByPrimaryKey(RequisitionCapitalAssetLocation.class, keys);
                if (delLocation != null) {
                    businessObjectService.delete(delLocation);                                
                }
            }
            else {
                @SuppressWarnings("unchecked")
-			PurchaseOrderCapitalAssetLocation delLocation = (PurchaseOrderCapitalAssetLocation) businessObjectService.findByPrimaryKey(PurchaseOrderCapitalAssetLocation.class, keys);
+			PurchaseOrderCapitalAssetLocation delLocation = businessObjectService.findByPrimaryKey(PurchaseOrderCapitalAssetLocation.class, keys);
                if (delLocation != null) {
                    businessObjectService.delete(delLocation);                            
                }
