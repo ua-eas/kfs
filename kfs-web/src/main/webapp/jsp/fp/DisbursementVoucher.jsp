@@ -92,6 +92,8 @@
     <fp:dvPrePaidTravel/>
     <fp:dvPDPStatus/>
     <gl:generalLedgerPendingEntries/>
+    <sys:incomeTypes editingMode="${KualiForm.editingMode}" incomeTypeAttributes="${DataDictionary.DisbursementVoucherIncomeType.attributes}" />
+	<sys:docuware />
     <kul:notes attachmentTypesValuesFinderClass="${documentEntry.attachmentTypesValuesFinderClass}"/>
     <kul:adHocRecipients/>
     <kul:routeLog/>
