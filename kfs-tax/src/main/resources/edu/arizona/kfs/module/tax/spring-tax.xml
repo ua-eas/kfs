@@ -34,8 +34,9 @@
         <property name="batchFileDirectories">
           <list>
             <value>${staging.directory}/1099</value>
-            <value>${reports.directory}/tax</value>
             <value>${staging.directory}/tax</value>
+            <value>${staging.directory}/tax/pdf</value>
+            <value>${reports.directory}/tax</value>
           </list>
         </property>
     </bean>
