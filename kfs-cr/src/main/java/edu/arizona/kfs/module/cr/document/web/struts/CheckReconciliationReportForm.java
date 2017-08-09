@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionMapping;
-import org.kuali.rice.kns.web.struts.form.KualiForm;
+import org.kuali.kfs.kns.web.struts.form.KualiForm;
 
 /**
  * Check Reconciliation Report Form
