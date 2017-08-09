@@ -6,7 +6,7 @@
     <bean id="CheckReconciliationMaintenanceDocument" parent="CheckReconciliationMaintenanceDocument-parentBean" />
     <bean id="CheckReconciliationMaintenanceDocument-parentBean" abstract="true" parent="MaintenanceDocumentEntry">
         <property name="businessObjectClass" value="edu.arizona.kfs.module.cr.businessobject.CheckReconciliation" />
-        <property name="maintainableClass" value="org.kuali.rice.kns.maintenance.KualiMaintainableImpl" />
+        <property name="maintainableClass" value="org.kuali.kfs.sys.document.FinancialSystemMaintainable" />
         <property name="documentPresentationControllerClass" value="edu.arizona.kfs.module.cr.document.authorization.CheckReconciliationMaintenanceDocumentPresentationController" />
         <property name="maintainableSections">
             <list>

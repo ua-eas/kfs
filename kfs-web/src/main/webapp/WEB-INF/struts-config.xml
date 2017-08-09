@@ -325,7 +325,7 @@
         <form-bean name="PayeeSearchForm" type="edu.arizona.kfs.module.tax.document.web.struts.PayeeSearchForm" />
         <form-bean name="ElectronicFilingReportForm" type="edu.arizona.kfs.module.tax.document.web.struts.ElectronicFilingReportForm" />
 
-        <!--  Check Reconciliation Form -->
+        <!--  Check Reconciliation Module Forms -->
         <form-bean name="CheckReconciliationReportForm" type="edu.arizona.kfs.module.cr.document.web.struts.CheckReconciliationReportForm" />
     </form-beans>
 
@@ -362,6 +362,7 @@
         <action path="/downloadTaxForm" name="KualiForm" type="edu.arizona.kfs.module.tax.document.web.struts.TaxFormAction" scope="request" parameter="methodToCall" validate="false" attribute="KualiForm">
         </action>
 
+        <!-- Check Reconciliation Module Action Mappings -->
         <action path="/cr*" name="{1}Form"
             input="/jsp/modules/cr/{1}.jsp"
             type="edu.arizona.kfs.module.cr.document.web.struts.{1}Action"
