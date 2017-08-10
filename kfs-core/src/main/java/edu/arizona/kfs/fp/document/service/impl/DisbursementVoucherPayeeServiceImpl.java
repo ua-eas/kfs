@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.kuali.kfs.fp.document.DisbursementVoucherDocument;
-import org.kuali.rice.krad.bo.AdHocRoutePerson;
+import org.kuali.kfs.krad.bo.AdHocRoutePerson;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;

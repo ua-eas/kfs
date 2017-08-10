@@ -4,6 +4,7 @@ import edu.arizona.kfs.fp.businessobject.BankTransaction;
 import edu.arizona.kfs.fp.businessobject.ChartBankObjectCode;
 import edu.arizona.kfs.fp.document.CreditCardReceiptDocument;
 import edu.arizona.kfs.sys.KFSConstants;
+import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.fp.businessobject.CreditCardDetail;
 import org.kuali.kfs.fp.businessobject.CreditCardVendor;
@@ -11,7 +12,7 @@ import org.kuali.kfs.sys.businessobject.Bank;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.krad.document.Document;
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.rice.krad.util.ObjectUtils;
 
 import java.text.SimpleDateFormat;
@@ -73,6 +74,12 @@ public class BankCreditCardReceiptDocumentServiceImpl extends AbstractBankDocume
 
         LOG.debug("BankAdvanceDepositDocumentServiceImpl: CreditCardReceiptDocument = " + creditCardRecieptDocument.toString());
         return creditCardRecieptDocument;
+    }
+
+    @Override
+    public void blanketApproveBankDocument(Document bankDocument) {
+        //TODO: sskinner, release 31 KFS6->KFS7 merge; New abstract method in v7 needs to be implemented
+        throw new NotImplementedException();
     }
 
 

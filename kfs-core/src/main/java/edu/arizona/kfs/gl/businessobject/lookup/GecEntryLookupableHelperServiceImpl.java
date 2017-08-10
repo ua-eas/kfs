@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.kuali.kfs.gl.Constant;
-import org.kuali.rice.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.service.LookupService;
+import org.kuali.kfs.krad.service.LookupService;
 
 public class GecEntryLookupableHelperServiceImpl extends org.kuali.kfs.gl.businessobject.lookup.EntryLookupableHelperServiceImpl {
 

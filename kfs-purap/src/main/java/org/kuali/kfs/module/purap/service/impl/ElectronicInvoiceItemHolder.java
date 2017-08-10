@@ -25,6 +25,9 @@ import org.kuali.kfs.module.purap.businessobject.PurchaseOrderItem;
 import org.kuali.kfs.module.purap.util.ElectronicInvoiceUtils;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
+import java.math.BigDecimal;
+import java.util.Map;
+
 // Note: this class edited because rejectItem does not have a getter/setter
 public class ElectronicInvoiceItemHolder {
 

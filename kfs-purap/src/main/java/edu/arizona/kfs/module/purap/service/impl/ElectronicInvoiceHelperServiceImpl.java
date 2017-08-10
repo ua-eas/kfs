@@ -1,39 +1,19 @@
 package edu.arizona.kfs.module.purap.service.impl;
 
-import java.io.File;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.krad.document.DocumentBase;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.KualiRuleService;
-import org.kuali.kfs.krad.util.ErrorMessage;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
+import edu.arizona.kfs.gl.GeneralLedgerConstants;
+import edu.arizona.kfs.module.purap.PurapKeyConstants;
+import edu.arizona.kfs.module.purap.service.PurapAccountingService;
+import edu.arizona.kfs.sys.KFSConstants;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.service.SubAccountService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapParameterConstants;
 import org.kuali.kfs.module.purap.batch.ElectronicInvoiceStep;
-import org.kuali.kfs.module.purap.businessobject.ElectronicInvoice;
-import org.kuali.kfs.module.purap.businessobject.ElectronicInvoiceLoad;
-import org.kuali.kfs.module.purap.businessobject.ElectronicInvoiceLoadSummary;
-import org.kuali.kfs.module.purap.businessobject.ElectronicInvoiceOrder;
-import org.kuali.kfs.module.purap.businessobject.ElectronicInvoiceRejectReason;
-import org.kuali.kfs.module.purap.businessobject.PaymentRequestItem;
-import org.kuali.kfs.module.purap.businessobject.PurApItem;
+import org.kuali.kfs.module.purap.businessobject.*;
 import org.kuali.kfs.module.purap.document.ElectronicInvoiceRejectDocument;
 import org.kuali.kfs.module.purap.document.PaymentRequestDocument;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
@@ -57,20 +37,21 @@ import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.rice.kns.util.KNSGlobalVariables;
-import org.kuali.rice.krad.document.DocumentBase;
+import org.kuali.kfs.krad.document.DocumentBase;
 import org.kuali.rice.krad.exception.ValidationException;
-import org.kuali.rice.krad.rules.rule.event.SaveDocumentEvent;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.service.KualiRuleService;
-import org.kuali.rice.krad.util.ErrorMessage;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.rules.rule.event.SaveDocumentEvent;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.KualiRuleService;
+import org.kuali.kfs.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.rice.krad.workflow.service.WorkflowDocumentService;
 import org.springframework.util.AutoPopulatingList;
 
-import edu.arizona.kfs.gl.GeneralLedgerConstants;
-import edu.arizona.kfs.module.purap.PurapKeyConstants;
-import edu.arizona.kfs.module.purap.service.PurapAccountingService;
-import edu.arizona.kfs.sys.KFSConstants;
+import java.io.File;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.text.MessageFormat;
+import java.util.*;
 
 /**
  * This is a helper service to parse electronic invoice file, match it with a PO and create PREQs based on the eInvoice. Also, it

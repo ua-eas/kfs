@@ -4,9 +4,9 @@ import org.kuali.kfs.module.purap.service.ElectronicInvoiceHelperService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
 import org.kuali.rice.krad.exception.ValidationException;
-import org.kuali.rice.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
 import org.kuali.rice.krad.rules.rule.event.SaveDocumentEvent;
-import org.kuali.rice.krad.service.KualiRuleService;
+import org.kuali.kfs.krad.service.KualiRuleService;
 import org.kuali.rice.krad.util.GlobalVariables;
 
 public class ElectronicInvoiceRejectDocument extends org.kuali.kfs.module.purap.document.ElectronicInvoiceRejectDocument {

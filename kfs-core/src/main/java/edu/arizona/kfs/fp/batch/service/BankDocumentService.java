@@ -1,7 +1,7 @@
 package edu.arizona.kfs.fp.batch.service;
 
 import edu.arizona.kfs.fp.businessobject.BankTransaction;
-import org.kuali.rice.krad.document.Document;
+import org.kuali.kfs.krad.document.Document;
 
 /**
  * Created by nataliac on 5/3/17.

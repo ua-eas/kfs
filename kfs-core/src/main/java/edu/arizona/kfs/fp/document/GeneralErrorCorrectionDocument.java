@@ -24,8 +24,8 @@ import org.kuali.kfs.sys.document.validation.event.UpdateAccountingLineEvent;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
 import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.document.TransactionalDocument;
-import org.kuali.rice.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.krad.document.TransactionalDocument;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
 import org.kuali.rice.krad.util.ObjectUtils;
 
 import edu.arizona.kfs.fp.businessobject.ErrorCertification;
@@ -204,7 +204,7 @@ public class GeneralErrorCorrectionDocument extends org.kuali.kfs.fp.document.Ge
     // Overridden to let framework deal with changes to the relationships
     @SuppressWarnings("unchecked")//List<?> from super
     @Override
-    public List<Collection<PersistableBusinessObject>> buildListOfDeletionAwareLists() {
+    public List buildListOfDeletionAwareLists() {
         List managedCollections = super.buildListOfDeletionAwareLists();
         managedCollections.add(this.getGecEntryRelationships());
 

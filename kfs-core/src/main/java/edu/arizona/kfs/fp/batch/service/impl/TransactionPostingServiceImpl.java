@@ -10,8 +10,7 @@ import edu.arizona.kfs.sys.KFSConstants;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.fp.businessobject.CreditCardVendor;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.krad.document.Document;
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.rice.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
 

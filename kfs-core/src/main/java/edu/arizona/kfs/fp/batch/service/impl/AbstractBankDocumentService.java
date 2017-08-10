@@ -10,13 +10,13 @@ import org.apache.log4j.Logger;
 import org.kuali.kfs.coa.service.AccountingPeriodService;
 import org.kuali.kfs.sys.businessobject.Bank;
 import org.kuali.kfs.sys.service.OptionsService;
-import org.kuali.rice.krad.bo.DocumentHeader;
-import org.kuali.rice.krad.rules.rule.event.SaveOnlyDocumentEvent;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.rules.rule.event.SaveOnlyDocumentEvent;
 import org.kuali.rice.krad.workflow.service.WorkflowDocumentService;
-import org.kuali.rice.krad.bo.Note;
-import org.kuali.rice.krad.document.Document;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.rice.krad.util.ObjectUtils;
 
 
