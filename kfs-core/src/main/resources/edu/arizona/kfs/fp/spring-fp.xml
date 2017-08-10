@@ -200,7 +200,7 @@
     <bean id="procurementCardDefaultLookupableHelperService-parentBean" abstract="true"  class="edu.arizona.kfs.fp.businessobject.lookup.ProcurementCardDefaultLookupableHelperServiceImpl" scope="prototype" parent="cf.lookupableHelperService" />
 
     <bean id="procurementCardDefaultLookupable"  parent="procurementCardDefaultLookupable-parentBean" scope="prototype"/>
-    <bean id="procurementCardDefaultLookupable-parentBean" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" abstract="true">
+    <bean id="procurementCardDefaultLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" abstract="true">
       <property name="lookupableHelperService">
         <ref bean="procurementCardDefaultLookupableHelperService" />
       </property>
