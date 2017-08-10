@@ -406,7 +406,7 @@
 	<bean id="pdpEmailService" class="edu.arizona.kfs.pdp.service.impl.PdpEmailServiceImpl">
 		<property name="customerProfileService" ref="pdpCustomerProfileService"/>
 		<property name="configurationService" ref="kualiConfigurationService" />
-		<property name="mailService" ref="mailService" />
+		<property name="emailService" ref="emailService" />
 		<property name="parameterService" ref="parameterService" />
 		<property name="dataDictionaryService" ref="dataDictionaryService" />
 		<property name="achBankService" ref="pdpAchBankService" />
