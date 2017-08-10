@@ -77,8 +77,6 @@
                    type="org.kuali.kfs.fp.document.web.struts.YearEndDistributionOfIncomeAndExpenseForm"/>
         <form-bean name="AuxiliaryVoucherForm"
                    type="org.kuali.kfs.fp.document.web.struts.AuxiliaryVoucherForm"/>
-        <form-bean name="BursarControlScreenForm"
-                   type="org.kuali.module.financial.web.struts.form.BursarControlScreenForm" />
         <form-bean name="JournalVoucherForm"
                    type="org.kuali.kfs.fp.document.web.struts.JournalVoucherForm"/>
         <form-bean name="IndirectCostAdjustmentForm"
@@ -184,8 +182,6 @@
                    type="org.kuali.kfs.module.ld.document.web.struts.BenefitExpenseTransferForm"/>
         <form-bean name="LaborJournalVoucherForm"
                    type="org.kuali.kfs.module.ld.document.web.struts.LaborJournalVoucherForm"/>
-        <form-bean name="LaborCorrectionForm"
-                   type="org.kuali.kfs.module.ld.document.web.struts.LaborCorrectionForm" />
         <form-bean name="LaborYearEndBenefitExpenseTransferForm"
                    type="org.kuali.kfs.module.ld.document.web.struts.YearEndBenefitExpenseTransferForm"/>
         <form-bean name="FringeBenefitInquiryForm"
@@ -193,39 +189,12 @@
         <form-bean name="LaborGLLaborEntrySummarizationInquiryForm"
                    type="org.kuali.kfs.module.ld.web.struts.GLLaborEntrySummarizationInquiryForm"/>
 
-		<!-- Budget Construction Bean Definitions -->
-		<form-bean name="BudgetConstructionSelectionForm"
-			type="org.kuali.kfs.module.bc.document.web.struts.BudgetConstructionSelectionForm" />
-		<form-bean name="BudgetConstructionRequestImportForm"
-			type="org.kuali.kfs.module.bc.document.web.struts.BudgetConstructionRequestImportForm" />
-		<form-bean name="OrganizationSelectionTreeForm"
-			type="org.kuali.kfs.module.bc.document.web.struts.OrganizationSelectionTreeForm" />
-		<form-bean name="QuickSalarySettingForm"
-			type="org.kuali.kfs.module.bc.document.web.struts.QuickSalarySettingForm" />
-		<form-bean name="BudgetConstructionForm"
-			type="org.kuali.kfs.module.bc.document.web.struts.BudgetConstructionForm" />
-		<form-bean name="MonthlyBudgetForm"
-			type="org.kuali.kfs.module.bc.document.web.struts.MonthlyBudgetForm" />
-		<form-bean name="PositionSalarySettingForm"
-			type="org.kuali.kfs.module.bc.document.web.struts.PositionSalarySettingForm" />
-		<form-bean name="IncumbentSalarySettingForm"
-			type="org.kuali.kfs.module.bc.document.web.struts.IncumbentSalarySettingForm" />
-		<form-bean name="TempListLookupForm"
-			type="org.kuali.kfs.module.bc.document.web.struts.TempListLookupForm" />
-		<form-bean name="OrganizationReportSelectionForm"
-			type="org.kuali.kfs.module.bc.document.web.struts.OrganizationReportSelectionForm" />
-		<form-bean name="ReportExportForm"
-			type="org.kuali.kfs.module.bc.document.web.struts.ReportExportForm" />
-		<form-bean name="ReportRunnerForm"
-			type="org.kuali.kfs.module.bc.document.web.struts.ReportRunnerForm" />
-		<form-bean name="PayrateImportExportForm"
-			type="org.kuali.kfs.module.bc.document.web.struts.PayrateImportExportForm" />
-		<form-bean name="BudgetExpansionForm"
-			type="org.kuali.kfs.module.bc.document.web.struts.BudgetExpansionForm" />
+        <!-- TODO: sskinner, release 31 KFS6->KFS7 merge; Generisized with LederCorrection*? This is gone in v7.
+        <form-bean name="LaborCorrectionForm"
+                   type="org.kuali.kfs.module.ld.document.web.struts.LaborCorrectionForm" />
+        -->
 
 		<!-- General Ledger Bean Definitions -->
-		<form-bean name="CorrectionForm"
-			type="org.kuali.kfs.gl.document.web.struts.CorrectionForm" />
         <form-bean name="GeneralLedgerCorrectionProcessForm"
             type="org.kuali.kfs.gl.document.web.struts.GeneralLedgerCorrectionProcessForm"/>
 		<form-bean name="BalanceInquiryForm"
@@ -236,6 +205,11 @@
 			type="org.kuali.kfs.gl.web.struts.TrialBalanceReportForm" />
         <form-bean name="GecMultipleValueLookupForm"
             type="edu.arizona.kfs.gl.web.struts.GecMultipleValueLookupForm" />
+
+        <!-- TODO: sskinner, release 31 KFS6->KFS7 merge; Generisized with LederCorrection*? This is gone in v7.
+        <form-bean name="CorrectionForm"
+                   type="org.kuali.kfs.gl.document.web.struts.CorrectionForm" />
+        -->
 
         <!-- PURAP Module Bean Definitions -->
 
@@ -333,6 +307,11 @@
         <form-bean name="CheckReconciliationReportForm" type="edu.arizona.kfs.module.cr.document.web.struts.CheckReconciliationReportForm" />
     </form-beans>
 
+    <!-- TODO: sskinner, release 31 KFS6->KFS7 merge; this generates three errors in the IDE:
+                1. Throwable can't be downcast to Exception
+                2. The two "meaningless" keys don't resolve to a real property
+         Should we address this to keep this file error free?
+     -->
     <global-exceptions>
         <exception type="java.lang.Throwable"
                    handler="org.kuali.kfs.kns.web.struts.form.pojo.StrutsExceptionIncidentHandler"
@@ -454,6 +433,7 @@
             <forward name="basic" path="/index.jsp"/>
         </action>
 
+        <!-- TODO: sskinner, release 31 KFS6->KFS7 merge; no dir 'backdoor' in v7 at all is this dumped in from rice? -->
         <action path="/backdoorlogin" name="BackdoorForm" scope="request"
                 parameter="methodToCall" input="/WEB-INF/jsp/backdoor/index.jsp"
                 type="org.kuali.kfs.kns.web.struts.action.BackdoorAction">
@@ -501,7 +481,7 @@
                 attribute="KualiForm" parameter="methodToCall"
                 type="org.kuali.kfs.fp.document.web.struts.DisbursementVoucherHelpAction">
             <set-property property="cancellable" value="true"/>
-            <forward name="basic" path="/kr/WEB-INF/jsp/core/KualiHelp.jsp"/>
+            <forward name="basic" path="/kr/WEB-INF/jsp/KualiHelp.jsp"/>
             <forward name="dvPerDiemLinks"
                      path="/jsp/fp/DisbursementVoucherTravelPerDiemLinks.jsp"/>
         </action>
@@ -801,14 +781,6 @@
 			<forward name="basic" path="/jsp/gl/Correction.jsp" />
 		</action-->
 
-        <action path="/laborLedgerCorrection" name="LaborCorrectionForm"
-              input="/jsp/gl/Correction.jsp"
-              type="edu.arizona.kfs.module.ld.document.web.struts.LaborCorrectionAction"
-                scope="request" parameter="methodToCall" validate="true" attribute="KualiForm">
-            <set-property property="cancellable" value="true"/>
-			      <forward name="basic" path="/jsp/gl/Correction.jsp" />
-        </action>
-
         <action path="/laborLongRowTableInquiry" name="BalanceInquiryForm"
                 scope="request" attribute="KualiForm" parameter="methodToCall"
                 type="org.kuali.kfs.gl.web.struts.BalanceInquiryAction">
@@ -836,69 +808,6 @@
                 scope="request" attribute="KualiForm" parameter="methodToCall">
             <set-property property="cancellable" value="true"/>
             <forward name="basic" path="/jsp/module/ld/GLLaborEntrySummarizationInquiry.jsp"/>
-        </action>
-
-        <action path="/budget*" name="{1}Form" input="/jsp/module/bc/{1}.jsp"
-          type="org.kuali.kfs.module.bc.document.web.struts.{1}Action" scope="request"
-          parameter="methodToCall" validate="true" attribute="KualiForm">
-          <set-property property="cancellable" value="true" />
-          <forward name="basic" path="/jsp/module/bc/{1}.jsp" />
-          <forward name="organizationSalarySettingReturning"
-            path="/jsp/module/bc/OrganizationSalarySettingReturning.jsp" />
-          <forward name="import_export"
-            path="/jsp/module/bc/BudgetConstructionImportExport.jsp" />
-        </action>
-
-        <action path="/budgetOrganizationSelectionTree" name="OrganizationSelectionTreeForm"
-          input="/jsp/module/bc/OrganizationSelectionTree.jsp"
-          type="org.kuali.kfs.module.bc.document.web.struts.OrganizationSelectionTreeAction"
-          scope="session" parameter="methodToCall" validate="true" attribute="KualiForm">
-          <set-property property="cancellable" value="true" />
-          <forward name="basic" path="/jsp/module/bc/OrganizationSelectionTree.jsp" />
-        </action>
-
-        <action path="/budgetOrganizationReportSelection" name="OrganizationReportSelectionForm"
-            input="/jsp/module/bc/OrganizationReportSelection.jsp"
-            type="org.kuali.kfs.module.bc.document.web.struts.OrganizationReportSelectionAction"
-            scope="session" parameter="methodToCall" validate="true" attribute="KualiForm">
-            <set-property property="cancellable" value="true" />
-            <forward name="basic" path="/jsp/module/bc/OrganizationReportSelection.jsp" />
-        </action>
-
-        <action path="/budgetMonthlyBudget" name="MonthlyBudgetForm"
-          input="/jsp/module/bc/MonthlyBudget.jsp"
-          type="org.kuali.kfs.module.bc.document.web.struts.MonthlyBudgetAction"
-          scope="session" parameter="methodToCall" validate="true" attribute="KualiForm">
-          <set-property property="cancellable" value="true" />
-          <forward name="basic" path="/jsp/module/bc/MonthlyBudget.jsp" />
-        </action>
-
-        <action path="/budgetQuickSalarySetting" name="QuickSalarySettingForm"
-          input="/jsp/module/bc/QuickSalarySetting.jsp"
-          type="org.kuali.kfs.module.bc.document.web.struts.QuickSalarySettingAction"
-          scope="session" parameter="methodToCall" validate="true" attribute="KualiForm">
-          <set-property property="cancellable" value="true" />
-          <forward name="basic" path="/jsp/module/bc/QuickSalarySetting.jsp" />
-        </action>
-
-        <action path="/budgetPositionSalarySetting" name="PositionSalarySettingForm"
-          input="/jsp/module/bc/PositionSalarySetting.jsp"
-          type="org.kuali.kfs.module.bc.document.web.struts.PositionSalarySettingAction"
-          scope="session" parameter="methodToCall" validate="true" attribute="KualiForm">
-          <set-property property="cancellable" value="true" />
-          <forward name="basic" path="/jsp/module/bc/PositionSalarySetting.jsp" />
-          <forward name="organizationSalarySettingReturning"
-            path="/jsp/module/bc/OrganizationSalarySettingReturning.jsp" />
-        </action>
-
-        <action path="/budgetIncumbentSalarySetting" name="IncumbentSalarySettingForm"
-          input="/jsp/module/bc/IncumbentSalarySetting.jsp"
-          type="org.kuali.kfs.module.bc.document.web.struts.IncumbentSalarySettingAction"
-          scope="session" parameter="methodToCall" validate="true" attribute="KualiForm">
-          <set-property property="cancellable" value="true" />
-          <forward name="basic" path="/jsp/module/bc/IncumbentSalarySetting.jsp" />
-          <forward name="organizationSalarySettingReturning"
-            path="/jsp/module/bc/OrganizationSalarySettingReturning.jsp" />
         </action>
 
         <action path="/cashManagementStatus" name="CashManagementStatusForm"
@@ -941,9 +850,12 @@
             redirect="false" />
         </action>
 
+        <!-- TODO: sskinner, release 31 KFS6->KFS7 merge; I added required name and parameter attribute; we should verify this is correct. -->
         <action path="/purapPrint"
                 type="org.kuali.kfs.module.purap.document.web.struts.PrintAction"
-                scope="request"/>
+                name="KualiForm"
+                scope="request"
+                parameter="methodToCall" />
 
         <action path="/purapElectronicInvoiceTestFileGeneration"
                 name="ElectronicInvoiceTestForm"
@@ -961,6 +873,7 @@
             <forward name="basic" path="/jsp/module/purap/ShopCatalogs.jsp"/>
             <forward name="removeframe" path="/jsp/module/purap/ShopRemoveFrame.jsp"/>
 
+            <!-- TODO: sskinner, release 31 KFS6->KFS7 merge; The following 2 jsps dont exist in v3,6, or 7, are these in a jar or something? -->
             <forward name="failure" path="/requisition/requisitionFailure.jsp"/>
             <forward name="invalid" path="/requisition/shopFail.jsp"/>
         </action>
@@ -1039,6 +952,7 @@
                      path="/jsp/module/common/ContractsGrantsReportLookup.jsp"/>
         </action>
 
+        <!-- TODO: sskinner, release 31 KFS6->KFS7 merge; ContractsGrantsLOCAmountsNotDrawnReportLookupAction does not exist in v3,6, or 7; should this jsp be deleted?
         <action path="/contractsGrantsLOCAmountsNotDrawnReport"
                 name="ContractsGrantsLOCAmountsNotDrawnReportLookupForm" input="/jsp/module/common/ContractsGrantsReportLookup.jsp"
                 type="org.kuali.kfs.module.ar.web.struts.ContractsGrantsLOCAmountsNotDrawnReportLookupAction"
@@ -1047,6 +961,7 @@
             <forward name="basic"
                      path="/jsp/module/common/ContractsGrantsReportLookup.jsp"/>
         </action>
+        -->
 
         <action path="/contractsGrantsSuspendedInvoiceSummaryReport"
                 name="ContractsGrantsSuspendedInvoiceSummaryReportLookupForm" input="/jsp/module/common/ContractsGrantsReportLookup.jsp"
@@ -1135,9 +1050,10 @@
             processorClass="org.kuali.kfs.kns.web.struts.action.KualiRequestProcessor"
             maxFileSize="100M"/>
 
+    <!-- TODO: sskinner, release 31 KFS6->KFS7 merge; Adding 'methodToCall' to satisfy schema, verify this doesn't break -->
     <message-resources
             factory="org.kuali.kfs.kns.web.struts.action.KualiPropertyMessageResourcesFactory"
-            parameter=""/>
+            parameter="methodToCall"/>
 
     <plug-in className="org.kuali.kfs.kns.web.struts.form.pojo.PojoPlugin"/>
 
