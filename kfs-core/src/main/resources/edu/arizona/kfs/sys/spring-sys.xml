@@ -183,12 +183,25 @@
 	
 	<bean id="jobListener" parent="jobListener-parentBean" class="edu.arizona.kfs.sys.batch.JobListener">
     </bean>
-    
+
+    <bean id="accountingLineRuleHelperService" parent="accountingLineRuleHelperService-parentBean" class="edu.arizona.kfs.sys.document.service.impl.AccountingLineRuleHelperServiceImpl">
+        <property name="dataDictionaryService" ref="dataDictionaryService"/>
+        <property name="financialSystemDocumentTypeService" ref="financialSystemDocumentTypeService" />
+        <property name="accountService" ref="accountService" />
+    </bean>
+
+    <bean id="taxService" parent="taxService-parentBean" class="edu.arizona.kfs.sys.service.impl.TaxServiceImpl" />
+
+    <bean id="taxHelperService" class="edu.arizona.kfs.sys.service.impl.TaxHelperServiceImpl">
+        <property name="taxService" ref="taxService" />
+    </bean>
+
+
     <!-- UA KFS7 upgrade moved  kimRoleTypeService bean override to kfs spring context instead of KIM -->
      <bean id="employeeDerivedRoleTypeService" parent="employeeDerivedRoleTypeService-parentBean" class="edu.arizona.kfs.sys.identity.UaEmployeeDerivedRoleTypeServiceImpl">
      	<property name="parameterService" ref="parameterService" />
-    </bean>    
-    
+    </bean>
+
     <!-- bean id="kimRoleTypeService" class=" edu.arizona.kfs.sys.identity.UaEmployeeDerivedRoleTypeServiceImpl">
         <property name="edsConstants" ref="edsConstants"/>
         <property name="parameterService" ref="parameterService"/>

@@ -124,166 +124,172 @@
                             </tr>
                             <c:set var="colCountBeforeTotal" value="${colCount - 2}"/>
 
-                            <logic:iterate indexId="ctr" name="KualiForm" property="document.invoiceRejectItems" id="itemLine">
-                                <tr>
-                                    <td class="datacell">
-                                        <kul:htmlControlAttribute
-                                                attributeEntry="${itemAttributes.invoiceReferenceItemLineNumber}"
-                                                property="document.invoiceRejectItems[${ctr}].invoiceReferenceItemLineNumber"
-                                                readOnly="${not fullEntryMode}"/>
-                                    </td>
-                                    <td class="datacell">
-                                        <kul:htmlControlAttribute
-                                                attributeEntry="${itemAttributes.invoiceItemQuantity}"
-                                                property="document.invoiceRejectItems[${ctr}].invoiceItemQuantity"
-                                                readOnly="${not fullEntryMode}"/>
-                                    </td>
-                                    <td class="datacell" nowrap>
-                                        <kul:htmlControlAttribute
-                                                attributeEntry="${itemAttributes.invoiceItemUnitOfMeasureCode}"
-                                                property="document.invoiceRejectItems[${ctr}].invoiceItemUnitOfMeasureCode"
-                                                readOnly="${true}"/><br/>
-                                        <kul:htmlControlAttribute
-                                                attributeEntry="${itemAttributes.unitOfMeasureAcceptIndicator}"
-                                                property="document.invoiceRejectItems[${ctr}].unitOfMeasureAcceptIndicator"
-                                                readOnly="${not fullEntryMode}"/>
-                                        <kul:htmlAttributeLabel attributeEntry="${itemAttributes.unitOfMeasureAcceptIndicator}" noColon="true"/>
-                                    </td>
-                                    <td class="datacell" nowrap>
-                                        <kul:htmlControlAttribute
-                                                attributeEntry="${itemAttributes.invoiceItemCatalogNumber}"
-                                                property="document.invoiceRejectItems[${ctr}].invoiceItemCatalogNumber"
-                                                readOnly="true"/><br/>
-                                        <kul:htmlControlAttribute
-                                                attributeEntry="${itemAttributes.catalogNumberAcceptIndicator}"
-                                                property="document.invoiceRejectItems[${ctr}].catalogNumberAcceptIndicator"
-                                                readOnly="${not fullEntryMode}"/>
-                                        <kul:htmlAttributeLabel attributeEntry="${itemAttributes.catalogNumberAcceptIndicator}" noColon="true"/>
-                                    </td>
-                                    <td class="datacell">
-                                        <kul:htmlControlAttribute
-                                                attributeEntry="${itemAttributes.invoiceReferenceItemDescription}"
-                                                property="document.invoiceRejectItems[${ctr}].invoiceReferenceItemDescription"
-                                                readOnly="${true}"/>
-                                    </td>
-                                    <td class="datacell">
-                                        <kul:htmlControlAttribute
-                                                attributeEntry="${itemAttributes.invoiceItemUnitPrice}"
-                                                property="document.invoiceRejectItems[${ctr}].invoiceItemUnitPrice"
-                                                readOnly="${not fullEntryMode}"/>
-                                    </td>
-                                    <td class="datacell">
-                                        <kul:htmlControlAttribute
-                                                attributeEntry="${itemAttributes.invoiceItemSubTotalAmount}"
-                                                property="document.invoiceRejectItems[${ctr}].invoiceItemSubTotalAmount"
-                                                readOnly="${true}"/>
-                                    </td>
-                                    <td class="datacell">
-                                        <kul:htmlControlAttribute
-                                                attributeEntry="${itemAttributes.invoiceItemTaxAmount}"
-                                                property="document.invoiceRejectItems[${ctr}].invoiceItemTaxAmount"
-                                                readOnly="${not fullEntryMode}"/>
-                                    </td>
-                                    <c:if test="${KualiForm.document.invoiceFileSpecialHandlingInLineIndicator || KualiForm.document.invoiceFileShippingInLineIndicator || KualiForm.document.invoiceFileDiscountInLineIndicator}">
-                                        <td class="datacell" nowrap>
-                                            <c:if test="${KualiForm.document.invoiceFileSpecialHandlingInLineIndicator}">
-                                                <kul:htmlAttributeLabel attributeEntry="${itemAttributes.invoiceItemSpecialHandlingAmount}" useShortLabel="true"/>
-                                                <kul:htmlControlAttribute
-                                                        attributeEntry="${itemAttributes.invoiceItemSpecialHandlingAmount}"
-                                                        property="document.invoiceRejectItems[${ctr}].invoiceItemSpecialHandlingAmount"
-                                                        readOnly="${true}"/><br/>
-                                            </c:if>
-                                            <c:if test="${KualiForm.document.invoiceFileShippingInLineIndicator}">
-                                                <kul:htmlAttributeLabel attributeEntry="${itemAttributes.invoiceItemShippingAmount}" useShortLabel="true"/>
-                                                <kul:htmlControlAttribute
-                                                        attributeEntry="${itemAttributes.invoiceItemShippingAmount}"
-                                                        property="document.invoiceRejectItems[${ctr}].invoiceItemShippingAmount"
-                                                        readOnly="${true}"/><br/>
-                                            </c:if>
-                                            <c:if test="${KualiForm.document.invoiceFileDiscountInLineIndicator}">
-                                                <kul:htmlAttributeLabel attributeEntry="${itemAttributes.invoiceItemDiscountAmount}" useShortLabel="true"/>
-                                                <kul:htmlControlAttribute
-                                                        attributeEntry="${itemAttributes.invoiceItemDiscountAmount}"
-                                                        property="document.invoiceRejectItems[${ctr}].invoiceItemDiscountAmount"
-                                                        readOnly="${true}"/><br/>
-                                            </c:if>
-                                        </td>
-                                    </c:if>
-                                    <td class="datacell">
-                                        <kul:htmlControlAttribute
-                                                attributeEntry="${itemAttributes.invoiceItemNetAmount}"
-                                                property="document.invoiceRejectItems[${ctr}].invoiceItemNetAmount"
-                                                readOnly="${true}"/>
-                                    </td>
-                                </tr>
-                            </logic:iterate>
-                            <tr>
-                                <td colspan="${colCountBeforeTotal}"></td>
-                                <th align="center" colspan="2">Totals:</th>
-                            </tr>
-                            <tr>
-                                <td colspan="${colCountBeforeTotal}"></td>
-                                <th align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.totalAmount}"/></th>
-                                <td>
-                                    <kul:htmlControlAttribute
-                                            attributeEntry="${documentAttributes.totalAmount}"
-                                            property="document.totalAmount"
-                                            readOnly="true"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="${colCountBeforeTotal}">&nbsp;</td>
-                                <th align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.invoiceItemTaxAmount}"/></th>
-                                <td>
-                                    <kul:htmlControlAttribute
-                                            attributeEntry="${documentAttributes.invoiceItemTaxAmount}"
-                                            property="document.invoiceItemTaxAmount"
-                                            readOnly="${not fullEntryMode || KualiForm.document.invoiceFileTaxInLineIndicator}"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="${colCountBeforeTotal}">&nbsp;</td>
-                                <th align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.invoiceItemSpecialHandlingAmount}"/></th>
-                                <td>
-                                    <kul:htmlControlAttribute
-                                            attributeEntry="${documentAttributes.invoiceItemSpecialHandlingAmount}"
-                                            property="document.invoiceItemSpecialHandlingAmount"
-                                            readOnly="${not fullEntryMode || KualiForm.document.invoiceFileSpecialHandlingInLineIndicator}"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="${colCountBeforeTotal}">&nbsp;</td>
-                                <th align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.invoiceItemShippingAmount}"/></th>
-                                <td>
-                                    <kul:htmlControlAttribute
-                                            attributeEntry="${documentAttributes.invoiceItemShippingAmount}"
-                                            property="document.invoiceItemShippingAmount"
-                                            readOnly="${not fullEntryMode || KualiForm.document.invoiceFileShippingInLineIndicator}"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="${colCountBeforeTotal}">&nbsp;</td>
-                                <th align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.invoiceItemDiscountAmount}"/></th>
-                                <td>
-                                    <kul:htmlControlAttribute
-                                            attributeEntry="${documentAttributes.invoiceItemDiscountAmount}"
-                                            property="document.invoiceItemDiscountAmount"
-                                            readOnly="${not fullEntryMode || KualiForm.document.invoiceFileDiscountInLineIndicator}"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="${colCountBeforeTotal}">&nbsp;</td>
-                                <th align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.grandTotalAmount}"/></th>
-                                <td>
-                                    <kul:htmlControlAttribute
-                                            attributeEntry="${documentAttributes.grandTotalAmount}"
-                                            property="document.grandTotalAmount"
-                                            readOnly="true"/>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
+							<logic:iterate indexId="ctr" name="KualiForm" property="document.invoiceRejectItems" id="itemLine">
+								<tr>
+									<td class="datacell">
+									    <kul:htmlControlAttribute
+										    attributeEntry="${itemAttributes.invoiceReferenceItemLineNumber}"
+										    property="document.invoiceRejectItems[${ctr}].invoiceReferenceItemLineNumber"
+										    readOnly="${not fullEntryMode}" />
+									</td>
+									<td class="datacell">
+									    <kul:htmlControlAttribute
+										    attributeEntry="${itemAttributes.invoiceItemQuantity}"
+										    property="document.invoiceRejectItems[${ctr}].invoiceItemQuantity"
+										    readOnly="${not fullEntryMode}" />
+									</td>
+									<td class="datacell" nowrap>
+									    <kul:htmlControlAttribute
+										    attributeEntry="${itemAttributes.invoiceItemUnitOfMeasureCode}"
+										    property="document.invoiceRejectItems[${ctr}].invoiceItemUnitOfMeasureCode"
+										    readOnly="${true}" /><br />
+									    <kul:htmlControlAttribute
+										    attributeEntry="${itemAttributes.unitOfMeasureAcceptIndicator}"
+										    property="document.invoiceRejectItems[${ctr}].unitOfMeasureAcceptIndicator"
+										    readOnly="${not fullEntryMode}" />
+										<kul:htmlAttributeLabel attributeEntry="${itemAttributes.unitOfMeasureAcceptIndicator}" noColon="true" />
+									</td>
+									<td class="datacell" nowrap>
+									    <kul:htmlControlAttribute
+										    attributeEntry="${itemAttributes.invoiceItemCatalogNumber}"
+										    property="document.invoiceRejectItems[${ctr}].invoiceItemCatalogNumber"
+										    readOnly="true" /><br />
+									    <kul:htmlControlAttribute
+										    attributeEntry="${itemAttributes.catalogNumberAcceptIndicator}"
+										    property="document.invoiceRejectItems[${ctr}].catalogNumberAcceptIndicator"
+										    readOnly="${not fullEntryMode}" />
+										<kul:htmlAttributeLabel attributeEntry="${itemAttributes.catalogNumberAcceptIndicator}" noColon="true" />
+									</td>
+									<td class="datacell">
+									    <kul:htmlControlAttribute
+										    attributeEntry="${itemAttributes.invoiceReferenceItemDescription}"
+										    property="document.invoiceRejectItems[${ctr}].invoiceReferenceItemDescription"
+										    readOnly="${true}" />
+									</td>
+									<td class="datacell">
+									    <kul:htmlControlAttribute
+										    attributeEntry="${itemAttributes.invoiceItemUnitPrice}"
+										    property="document.invoiceRejectItems[${ctr}].invoiceItemUnitPrice"
+										    readOnly="${not fullEntryMode}" />
+										<br />
+										<kul:htmlControlAttribute
+										    attributeEntry="${itemAttributes.unitPriceAcceptIndicator}"
+										    property="document.invoiceRejectItems[${ctr}].unitPriceAcceptIndicator"
+										    readOnly="${not fullEntryMode}" />
+										<kul:htmlAttributeLabel attributeEntry="${itemAttributes.unitPriceAcceptIndicator}" noColon="true" />
+									</td>
+									<td class="datacell">
+									    <kul:htmlControlAttribute
+										    attributeEntry="${itemAttributes.invoiceItemSubTotalAmount}"
+										    property="document.invoiceRejectItems[${ctr}].invoiceItemSubTotalAmount"
+										    readOnly="${true}" />
+									</td>
+									<td class="datacell">
+									    <kul:htmlControlAttribute
+										    attributeEntry="${itemAttributes.invoiceItemTaxAmount}"
+										    property="document.invoiceRejectItems[${ctr}].invoiceItemTaxAmount"
+										    readOnly="${not fullEntryMode}" />
+									</td>
+		    					<c:if test="${KualiForm.document.invoiceFileSpecialHandlingInLineIndicator || KualiForm.document.invoiceFileShippingInLineIndicator || KualiForm.document.invoiceFileDiscountInLineIndicator}">
+									<td class="datacell" nowrap>
+					    		<c:if test="${KualiForm.document.invoiceFileSpecialHandlingInLineIndicator}">
+										<kul:htmlAttributeLabel attributeEntry="${itemAttributes.invoiceItemSpecialHandlingAmount}" useShortLabel="true" />
+									    <kul:htmlControlAttribute
+										    attributeEntry="${itemAttributes.invoiceItemSpecialHandlingAmount}"
+										    property="document.invoiceRejectItems[${ctr}].invoiceItemSpecialHandlingAmount"
+										    readOnly="${true}" /><br />
+		    					</c:if>
+		    					<c:if test="${KualiForm.document.invoiceFileShippingInLineIndicator}">
+										<kul:htmlAttributeLabel attributeEntry="${itemAttributes.invoiceItemShippingAmount}" useShortLabel="true" />
+									    <kul:htmlControlAttribute
+										    attributeEntry="${itemAttributes.invoiceItemShippingAmount}"
+										    property="document.invoiceRejectItems[${ctr}].invoiceItemShippingAmount"
+										    readOnly="${true}" /><br />
+		    					</c:if>
+		    					<c:if test="${KualiForm.document.invoiceFileDiscountInLineIndicator}">
+										<kul:htmlAttributeLabel attributeEntry="${itemAttributes.invoiceItemDiscountAmount}" useShortLabel="true" />
+									    <kul:htmlControlAttribute
+										    attributeEntry="${itemAttributes.invoiceItemDiscountAmount}"
+										    property="document.invoiceRejectItems[${ctr}].invoiceItemDiscountAmount"
+										    readOnly="${true}" /><br />
+		    					</c:if>
+									</td>
+								</c:if>
+									<td class="datacell">
+									    <kul:htmlControlAttribute
+										    attributeEntry="${itemAttributes.invoiceItemNetAmount}"
+										    property="document.invoiceRejectItems[${ctr}].invoiceItemNetAmount"
+										    readOnly="${true}" />
+									</td>
+								</tr>
+							</logic:iterate>
+							<tr>
+								<td colspan="${colCountBeforeTotal}"></td>
+								<th align="center" colspan="2">Totals:</th>
+							</tr>
+							<tr>
+								<td colspan="${colCountBeforeTotal}"></td>
+								<th align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.totalAmount}" /></th>
+								<td>
+								    <kul:htmlControlAttribute
+									    attributeEntry="${documentAttributes.totalAmount}"
+									    property="document.totalAmount"
+									    readOnly="true" />
+								</td>
+							</tr>
+							<tr>
+								<td colspan="${colCountBeforeTotal}">&nbsp;</td>
+								<th align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.invoiceItemTaxAmount}" /></th>
+								<td>
+								    <kul:htmlControlAttribute
+									    attributeEntry="${documentAttributes.invoiceItemTaxAmount}"
+									    property="document.invoiceItemTaxAmount"
+									    readOnly="${not fullEntryMode || KualiForm.document.invoiceFileTaxInLineIndicator}" />									    
+								</td>
+							</tr>
+							<tr>
+								<td colspan="${colCountBeforeTotal}">&nbsp;</td>
+								<th align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.invoiceItemSpecialHandlingAmount}" /></th>
+								<td>
+								    <kul:htmlControlAttribute
+									    attributeEntry="${documentAttributes.invoiceItemSpecialHandlingAmount}"
+									    property="document.invoiceItemSpecialHandlingAmount"
+									    readOnly="${not fullEntryMode || KualiForm.document.invoiceFileSpecialHandlingInLineIndicator}" />
+								</td>
+							</tr>
+							<tr>
+								<td colspan="${colCountBeforeTotal}">&nbsp;</td>
+								<th align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.invoiceItemShippingAmount}" /></th>
+								<td>
+								    <kul:htmlControlAttribute
+									    attributeEntry="${documentAttributes.invoiceItemShippingAmount}"
+									    property="document.invoiceItemShippingAmount"
+									    readOnly="${not fullEntryMode || KualiForm.document.invoiceFileShippingInLineIndicator}" />
+								</td>
+							</tr>
+							<tr>
+								<td colspan="${colCountBeforeTotal}">&nbsp;</td>
+								<th align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.invoiceItemDiscountAmount}" /></th>
+								<td>
+								    <kul:htmlControlAttribute
+									    attributeEntry="${documentAttributes.invoiceItemDiscountAmount}"
+									    property="document.invoiceItemDiscountAmount"
+									    readOnly="${not fullEntryMode || KualiForm.document.invoiceFileDiscountInLineIndicator}" />
+								</td>
+							</tr>
+							<tr>
+								<td colspan="${colCountBeforeTotal}">&nbsp;</td>
+								<th align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.grandTotalAmount}" /></th>
+								<td>
+								    <kul:htmlControlAttribute
+									    attributeEntry="${documentAttributes.grandTotalAmount}"
+									    property="document.grandTotalAmount"
+									    readOnly="true" />
+								</td>
+							</tr>
+						</table>
+					</td>
+	            </tr>
 
                 <tr>
                     <td colspan="4" class="subhead">Purchase Order Data</td>

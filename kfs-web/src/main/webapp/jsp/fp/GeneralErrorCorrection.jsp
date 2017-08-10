@@ -23,13 +23,13 @@
 <c:set var="glEntryImporting" value="${!readOnly && KualiForm.editingMode['glEntryImporting']}"/>
 
 <kul:documentPage showDocumentInfo="true"
-                  documentTypeName="GeneralErrorCorrectionDocument"
-                  htmlFormAction="financialGeneralErrorCorrection" renderMultipart="true"
-                  showTabButtons="true">
+	documentTypeName="GeneralErrorCorrectionDocument"
+	htmlFormAction="financialGeneralErrorCorrection" renderMultipart="true"
+	showTabButtons="true">
 
-    <sys:documentOverview editingMode="${KualiForm.editingMode}"/>
+	<sys:documentOverview editingMode="${KualiForm.editingMode}" />
 
-	<c:if test="${glEntryImporting}">
+    <c:if test="${glEntryImporting}">
     <kul:tab tabTitle="GL Entry Importing" defaultOpen="true" tabErrorKey="universityFiscalYear,glDocId">
         <div class="tab-container" align=center>
         <h3>GL Entry Importing</h3>
@@ -42,62 +42,56 @@
                 <kul:htmlAttributeHeaderCell attributeEntry="${EntryAttributes.documentNumber}" horizontal="true" width="35%"  labelFor="glDocId" forceRequired="true" useShortLabel="false" />
                 <td class="datacell-nowrap"><kul:htmlControlAttribute attributeEntry="${EntryAttributes.documentNumber}" property="glDocId" forceRequired="true" readOnly="${readOnly}" /></td>
             </tr>
-            <tr>
+
+             <tr>
                 <td height="30" class="infoline">&nbsp;</td>
                 <td height="30" class="infoline">
                     <c:if test="${!readOnly}">
                         <input type="hidden" name="universityFiscalPeriodCodeLookupOverride" value="${KualiForm.universityFiscalPeriodCodeLookupOverride}" />
                         <gl:gecEntryLookup
-                                boClassName="edu.arizona.kfs.gl.businessobject.GecEntry"
-                                actionPath="gecEntryLookup.do"
-                                lookupParameters="universityFiscalYear:universityFiscalYear,glDocId:documentNumber,universityFiscalPeriodCodeLookupOverride:universityFiscalPeriodCode"
-                                tabindexOverride="KualiForm.currentTabIndex"
-                                hideReturnLink="false"
-                                image="buttonsmall_search.gif"/>
+                            boClassName="edu.arizona.kfs.gl.businessobject.GecEntry"
+                            actionPath="gecEntryLookup.do"
+                            lookupParameters="universityFiscalYear:universityFiscalYear,glDocId:documentNumber,universityFiscalPeriodCodeLookupOverride:universityFiscalPeriodCode"
+                            tabindexOverride="KualiForm.currentTabIndex"
+                            hideReturnLink="false"
+                            image="buttonsmall_search.gif"/>
                     </c:if>
                 </td>
             </tr>
         </table>
         </div>
     </kul:tab>
-
-    <c:if test="${KualiForm.capitalAccountingLine.canCreateAsset}">
-        <fp:capitalAssetCreateTab readOnly="${readOnly}"/>
     </c:if>
 
-    <fp:capitalAssetModifyTab readOnly="${readOnly}"/>
+	<kul:tab tabTitle="Accounting Lines" defaultOpen="true" tabErrorKey="${KFSConstants.ACCOUNTING_LINE_ERRORS}">
+		<sys-java:accountingLines>
+			<sys-java:accountingLineGroup newLinePropertyName="" collectionPropertyName="document.sourceAccountingLines" collectionItemPropertyName="document.sourceAccountingLine" attributeGroupName="source" />
+			<sys-java:accountingLineGroup newLinePropertyName="" collectionPropertyName="document.targetAccountingLines" collectionItemPropertyName="document.targetAccountingLine" attributeGroupName="target"/>
+		</sys-java:accountingLines>
+	</kul:tab>
+	
+  	<fp:capitalAccountingLines readOnly="${readOnly}"/>
+  	
+	<c:if test="${KualiForm.capitalAccountingLine.canCreateAsset}">
+		<fp:capitalAssetCreateTab readOnly="${readOnly}"/>
+	</c:if>
+  	
+	<fp:capitalAssetModifyTab readOnly="${readOnly}"/>  
 
-    <kul:tab tabTitle="Accounting Lines" defaultOpen="true" tabErrorKey="${KFSConstants.ACCOUNTING_LINE_ERRORS}"
-             helpUrl="${KualiForm.accountingLineImportInstructionsUrl}" helpLabel="Import Templates">
-        <sys-java:accountingLines>
-            <sys-java:accountingLineGroup newLinePropertyName="newSourceLine" collectionPropertyName="document.sourceAccountingLines" collectionItemPropertyName="document.sourceAccountingLine" attributeGroupName="source"/>
-            <sys-java:accountingLineGroup newLinePropertyName="newTargetLine" collectionPropertyName="document.targetAccountingLines" collectionItemPropertyName="document.targetAccountingLine" attributeGroupName="target"/>
-        </sys-java:accountingLines>
-    </kul:tab>
+	<fp:errorCertification documentAttributes="${DataDictionary.ErrorCertification.attributes}" />
+	
+	<gl:generalLedgerPendingEntries />
 
-    <fp:capitalAccountingLines readOnly="${readOnly}"/>
+	<kul:notes />
 
-    <c:if test="${KualiForm.capitalAccountingLine.canCreateAsset}">
-        <fp:capitalAssetCreateTab readOnly="${readOnly}"/>
-    </c:if>
+	<kul:adHocRecipients />
 
+	<kul:routeLog />
 
-    <fp:capitalAssetModifyTab readOnly="${readOnly}"/>
+	<kul:superUserActions />
 
-    <fp:gecErrorCertification documentAttributes="${DataDictionary.ErrorCertification.attributes}" />
+	<kul:panelFooter />
 
-    <gl:generalLedgerPendingEntries/>
-
-    <kul:notes/>
-
-    <kul:adHocRecipients/>
-
-    <kul:routeLog/>
-
-    <kul:superUserActions/>
-
-    <kul:panelFooter />
-
-    <sys:documentControls transactionalDocument="true" extraButtons="${KualiForm.extraButtons}"/>
+	<sys:documentControls transactionalDocument="true" extraButtons="${KualiForm.extraButtons}" />
 
 </kul:documentPage>

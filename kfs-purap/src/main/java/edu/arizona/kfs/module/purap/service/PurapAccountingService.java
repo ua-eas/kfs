@@ -1,6 +1,7 @@
 package edu.arizona.kfs.module.purap.service;
 
 import java.util.List;
+import java.util.Set;
 
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLine;
 import org.kuali.kfs.module.purap.businessobject.PurApItem;
@@ -23,5 +24,18 @@ public interface PurapAccountingService extends org.kuali.kfs.module.purap.servi
     */
 
     public List<PurApAccountingLine> generateAccountDistributionForProration(List<SourceAccountingLine> accounts, KualiDecimal totalAmount, Integer percentScale, Class clazz, List<PurApItem> purApItems);
-		   
+
+    /**
+     * Generates an account summary, that is it creates a list of source accounts by rounding up the purap accounts off of the purap
+     * items.
+     *
+     * @param items the items to determ
+     * @param itemTypeCodes the item types to determine whether to look at an item in combination with itemTypeCodesAreIncluded
+     * @param itemTypeCodesAreIncluded value to tell whether the itemTypeCodes parameter lists inclusion or exclusion variables
+     * @param useZeroTotals whether to include items with a zero dollar total
+     * @param useAlternateAmount an alternate amount used in certain cases for GL entry
+     * @return a list of source accounts
+     */
+    public List<SourceAccountingLine> generateAccountSummary(List<PurApItem> items, Set<String> itemTypeCodes, Boolean itemTypeCodesAreIncluded, Boolean useZeroTotals, Boolean useAlternateAmount, Boolean useTaxIncluded, Boolean taxableOnly);
+
 }

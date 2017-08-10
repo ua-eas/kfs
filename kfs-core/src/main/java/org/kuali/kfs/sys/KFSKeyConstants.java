@@ -642,6 +642,7 @@ public class KFSKeyConstants {
     public static final String MESSAGE_BATCH_UPLOAD_TITLE_COLLECTOR_FLAT_FILE = "message.batchUpload.title.collector,flat.file";
     public static final String MESSAGE_BATCH_UPLOAD_TITLE_ENTERPRISE_FEEDER = "message.batchUpload.title.enterprise.feeder";
     public static final String MESSAGE_BATCH_UPLOAD_TITLE_LABOR_ENTERPRISE_FEEDER = "message.batchUpload.title.labor.enterprise.feeder";
+    public static final String MESSAGE_BATCH_UPLOAD_TITLE_BANK_TRANSACTIONS = "message.batchUpload.title.bankTransactions";
     public static final String MESSAGE_BATCH_UPLOAD_SAVE_SUCCESSFUL = "message.batchUpload.saveSuccessful";
     public static final String ERROR_BATCH_UPLOAD_DELETE_FAILED_FILE_ALREADY_PROCESSED = "error.batchUpload.deleteFailed.fileAlreadyProcessed";
     public static final String ERROR_BATCH_UPLOAD_DELETE_FAILED_FILE_SET_ALREADY_PROCESSED = "error.batchUpload.deleteFailed.fileSetAlreadyProcessed";
@@ -720,6 +721,7 @@ public class KFSKeyConstants {
         public static final String ERROR_DOCUMENT_CREDIT_CARD_RECEIPT_REQ_NUMBER_RECEIPTS_NOT_MET = "error.document.creditCardReceipt.requiredNumberOfCreditCardReceiptsNotMet";
         public static final String ERROR_DOCUMENT_CREDIT_CARD_RECEIPT_OUT_OF_BALANCE = "error.document.creditCardReceipt.balance";
         public static final String ERROR_DOCUMENT_CREDIT_CARD_BANK_MUST_EXIST_WHEN_BANK_ENHANCEMENT_ENABLED = "error.document.creditCardReceipt.bankMustExistWhenBankEnhancementEnabled";
+        public static final String FIELD_DOCUMENT_CREDIT_CARD_TYPE_CODE = "newCreditCardReceipt.financialDocumentCreditCardTypeCode";
     }
 
     public static final class Deposit {

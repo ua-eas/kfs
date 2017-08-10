@@ -26,6 +26,7 @@
         <property name="jobNames">
             <list merge="true">
                 <value>ereSweepJob</value>
+                <value>laborEncumbranceAdjustmentJob</value>
             </list>
         </property>
     </bean>
@@ -255,5 +256,63 @@
     <bean id="accountExtensionDao" class="edu.arizona.kfs.module.ld.dataaccess.impl.AccountExtensionDaoOjb" parent="platformAwareDao" />
 
     <bean id="laborPendingEntryConverterService" parent="laborPendingEntryConverterService-parentBean" class="edu.arizona.kfs.module.ld.document.service.impl.LaborPendingEntryConverterServiceImpl" />
+    
+    <!-- UAF-4010 --> 
+	<bean id="laborEncumbranceAdjustmentService" class="edu.arizona.kfs.module.ld.batch.service.impl.LaborEncumbranceAdjustmentServiceImpl">
+		<property name="laborEncumbranceAdjustmentDao" ref="laborEncumbranceAdjustmentDao" />
+        <property name="laborEncumbranceDao" ref="laborEncumbranceDao" />
+  		<property name="dateTimeService" ref="dateTimeService" />
+		<property name="reportWriterService" ref="laborEncumbranceAdjustmentReportWriterService" />
+		<property name="accountingCycleCachingService" ref="accountingCycleCachingService" />
+        <property name="paramSrv" ref ="parameterService" />
+	</bean>
+
+   <bean id="laborEncumbranceDao"
+        class="edu.arizona.kfs.module.ld.batch.dataaccess.impl.LaborEncumbranceDaoJdbc"
+        parent="platformAwareDaoJdbc" />
+ 
+   <bean id="laborEncumbranceAdjustmentDao"
+		class="edu.arizona.kfs.module.ld.batch.dataaccess.impl.LaborEncumbranceAdjustmentDaoJdbc"
+		parent="platformAwareDaoJdbc" />
+
+	<bean id="laborBuildEncumbranceBalanceFileStep" parent="step"
+		class="edu.arizona.kfs.module.ld.batch.LaborBuildEncumbranceBalanceFileStep">
+		<property name="laborEncumbranceAdjustmentService" ref="laborEncumbranceAdjustmentService" />
+		<property name="batchFileDirectoryName" value="${staging.directory}/ld/holding" />
+	</bean>
+
+	<bean id="laborSortEncumbranceFileStep" parent="step"
+		class="edu.arizona.kfs.module.ld.batch.LaborSortEncumbranceFileStep">
+		<property name="batchFileDirectoryName" value="${staging.directory}/ld/holding" />
+		<property name="processedBatchFileDirectoryName" value="${staging.directory}/ld/holding/complete" />
+		<property name="dateTimeService" ref="dateTimeService" />
+	</bean>
+
+	<bean id="laborCalculateEncumbranceAdjustmentsStep" parent="step"
+		class="edu.arizona.kfs.module.ld.batch.LaborCalculateEncumbranceAdjustmentsStep">
+		<property name="laborEncumbranceAdjustmentService" ref="laborEncumbranceAdjustmentService" />
+		<property name="batchFileDirectoryName" value="${staging.directory}/ld/holding" />
+		<property name="batchOutputFileDirectoryName" value="${staging.directory}/ld/enterpriseFeed"/>
+		<property name="dateTimeService" ref="dateTimeService" />
+	</bean>
+
+	<bean id="laborEncumbranceAdjustmentJob" parent="unscheduledJobDescriptor">
+		<property name="steps">
+			<list>
+				<ref bean="laborSortEncumbranceFileStep" />
+				<ref bean="laborBuildEncumbranceBalanceFileStep" />
+				<ref bean="laborCalculateEncumbranceAdjustmentsStep" />
+			</list>
+		</property>
+    </bean>
+
+    <bean id="laborEncumbranceAdjustmentReportWriterService" parent="reportWriterService"
+		class="edu.arizona.kfs.module.ld.batch.report.LaborEncumbranceReportWriterService">
+		<property name="filePath" value="${reports.directory}/ld" />
+		<property name="fileNamePrefix" value="llEncumbranceAdjustmentReport" />
+		<property name="title" value="Labor Encumbrance Adjustment Results" />
+	</bean>
+
+     <!-- UAF-4010- end--> 
 
 </beans>

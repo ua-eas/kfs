@@ -130,7 +130,8 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
     protected final String UNKNOWN_DUNS_IDENTIFIER = "Unknown";
     protected final String INVOICE_FILE_MIME_TYPE = "text/xml";
 
-    private StringBuffer emailTextErrorList;
+    // Note: Making this available to child class.
+    protected StringBuffer emailTextErrorList;
 
     protected ElectronicInvoiceInputFileType electronicInvoiceInputFileType;
     protected EmailService emailService;
@@ -160,10 +161,12 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
 
         int failedCnt = 0;
 
-        LOG.info("Invoice Base Directory - " + electronicInvoiceInputFileType.getDirectoryPath());
-        LOG.info("Invoice Accept Directory - " + acceptDirName);
-        LOG.info("Invoice Reject Directory - " + rejectDirName);
-        LOG.info("Is moving files allowed - " + moveFiles);
+        if (LOG.isInfoEnabled()){
+            LOG.info("Invoice Base Directory - " + electronicInvoiceInputFileType.getDirectoryPath());
+            LOG.info("Invoice Accept Directory - " + acceptDirName);
+            LOG.info("Invoice Reject Directory - " + rejectDirName);
+            LOG.info("Is moving files allowed - " + moveFiles);
+        }
 
         if (StringUtils.isBlank(rejectDirName)) {
             throw new RuntimeException("Reject directory name should not be empty");
@@ -250,6 +253,7 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
                      */
                     GlobalVariables.getMessageMap().clearErrorMessages();
 
+                    //Do not execute rest of code below
                     continue;
                 }
             }
@@ -259,16 +263,19 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
              * then the entire file has been moved to the reject dir.
              */
             if (isRejected) {
-                LOG.info(xmlFile.getName() + " has been rejected");
-
+                if (LOG.isInfoEnabled()){
+                    LOG.info(xmlFile.getName() + " has been rejected");
+                }
                 if (moveFiles) {
-                    LOG.info(xmlFile.getName() + " has been marked to move to " + rejectDirName);
-
+                    if (LOG.isInfoEnabled()){
+                        LOG.info(xmlFile.getName() + " has been marked to move to " + rejectDirName);
+                    }
                     eInvoiceLoad.addRejectFileToMove(xmlFile, rejectDirName);
                 }
             } else {
-                LOG.info(xmlFile.getName() + " has been accepted");
-
+                if (LOG.isInfoEnabled()){
+                    LOG.info(xmlFile.getName() + " has been accepted");
+                }
                 if (moveFiles) {
                     if (!moveFile(xmlFile, acceptDirName)) {
                         String msg = xmlFile.getName() + " unable to move";
@@ -367,7 +374,8 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
      * @param element
      * @return String describing the given StackTraceElement
      */
-    private static String describeStackTraceElement(StackTraceElement element) {
+    // Note: Making this available to child class.
+    protected static String describeStackTraceElement(StackTraceElement element) {
         StringBuffer description = new StringBuffer();
         if (element == null) {
             description.append("invalid (null) element");
@@ -418,6 +426,7 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
         String xmlnsXsiValue = element.getAttribute("xmlns:xsi");
 
         LOG.info("addNamespaceDefinition: getInvoiceFile");
+        File namespaceAddedFile = getInvoiceFile(invoiceFile.getName());
 
         if (StringUtils.equals(xmlnsValue, "http://www.kuali.org/kfs/purap/electronicInvoice") &&
             StringUtils.equals(xmlnsXsiValue, "http://www.w3.org/2001/XMLSchema-instance")) {
@@ -440,7 +449,9 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
             throw new RuntimeException(e);
         }
 
-        LOG.info("addNamespaceDefinition() Namespace validation completed");
+        if (LOG.isInfoEnabled()){
+            LOG.info("Namespace validation completed");
+        }
 
         return out.toByteArray();
     }
@@ -497,7 +508,9 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
                     order.setPurchaseOrderID(po.getPurapDocumentIdentifier());
                     order.setPurchaseOrderCampusCode(po.getDeliveryCampusCode());
 
-                    LOG.info("PO matching Document found");
+                    if (LOG.isInfoEnabled()){
+                        LOG.info("PO matching Document found");
+                    }
                 }
             }
 
@@ -576,8 +589,9 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
             VendorDetail vendorDetail = vendorService.getVendorByDunsNumber(eInvoice.getDunsNumber());
 
             if (vendorDetail != null) {
-                LOG.info("Vendor match found - " + vendorDetail.getVendorNumber());
-
+                if (LOG.isInfoEnabled()) {
+                    LOG.info("Vendor match found - " + vendorDetail.getVendorNumber());
+                }
                 eInvoice.setVendorHeaderID(vendorDetail.getVendorHeaderGeneratedIdentifier());
                 eInvoice.setVendorDetailID(vendorDetail.getVendorDetailAssignedIdentifier());
                 eInvoice.setVendorName(vendorDetail.getVendorName());
@@ -598,8 +612,9 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
             VendorDetail vendorDetail = vendorService.getVendorByDunsNumber(rejectDocument.getVendorDunsNumber());
 
             if (vendorDetail != null) {
-                LOG.info("Vendor [" + vendorDetail.getVendorNumber() + "] match found for the DUNS - " + rejectDocument.getVendorDunsNumber());
-
+                if (LOG.isInfoEnabled()) {
+                    LOG.info("Vendor [" + vendorDetail.getVendorNumber() + "] match found for the DUNS - " + rejectDocument.getVendorDunsNumber());
+                }
                 rejectDocument.setVendorHeaderGeneratedIdentifier(vendorDetail.getVendorHeaderGeneratedIdentifier());
                 rejectDocument.setVendorDetailAssignedIdentifier(vendorDetail.getVendorDetailAssignedIdentifier());
                 rejectDocument.setVendorDetail(vendorDetail);
@@ -690,7 +705,9 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
             }
         }
 
-        LOG.info("No Complete failure");
+        if (LOG.isInfoEnabled()) {
+            LOG.info("No Complete failure");
+        }
 
         return false;
 
@@ -748,7 +765,9 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
             throw new RuntimeException(e);
         }
 
-        LOG.info("Complete failure document has been created (DocNo:" + eInvoiceRejectDocument.getDocumentNumber() + ")");
+        if (LOG.isInfoEnabled()) {
+            LOG.info("Complete failure document has been created (DocNo:" + eInvoiceRejectDocument.getDocumentNumber() + ")");
+        }
     }
 
     protected void attachInvoiceXMLWithRejectDoc(ElectronicInvoiceRejectDocument eInvoiceRejectDocument, File attachmentFile, String noteText) {
@@ -817,7 +836,9 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
             throw new RuntimeException(e);
         }
 
-        LOG.info("Reject document has been created (DocNo=" + eInvoiceRejectDocument.getDocumentNumber() + ")");
+        if (LOG.isInfoEnabled()) {
+            LOG.info("Reject document has been created (DocNo=" + eInvoiceRejectDocument.getDocumentNumber() + ")");
+        }
 
         emailTextErrorList.append("DUNS Number - " + eInvoice.getDunsNumber() + " " + eInvoice.getVendorName() + ":\n");
         emailTextErrorList.append("An Invoice from file '" + eInvoice.getFileName() + "' has been rejected due to the following error(s):\n");
@@ -904,7 +925,9 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
     public ElectronicInvoice loadElectronicInvoice(byte[] xmlAsBytes)
         throws CxmlParseException {
 
-        LOG.info("Loading Invoice File");
+        if (LOG.isInfoEnabled()) {
+            LOG.info("Loading Invoice File");
+        }
 
         ElectronicInvoice electronicInvoice = null;
 
@@ -914,7 +937,9 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
             throw new CxmlParseException(e.getMessage());
         }
 
-        LOG.info("Successfully loaded the Invoice File");
+        if (LOG.isInfoEnabled()) {
+            LOG.info("Successfully loaded the Invoice File");
+        }
 
         return electronicInvoice;
 
@@ -1033,7 +1058,7 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
     @NonTransactional
     public boolean doMatchingProcess(ElectronicInvoiceRejectDocument rejectDocument) {
 
-        /**
+        /*
          * This is needed here since if the user changes the DUNS number.
          */
         validateVendorDetails(rejectDocument);
@@ -1045,7 +1070,7 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
         ElectronicInvoiceOrderHolder rejectDocHolder = new ElectronicInvoiceOrderHolder(rejectDocument, itemTypeMappings, kualiItemTypes);
         matchingService.doMatchingProcess(rejectDocHolder);
 
-        /**
+        /*
          * Once we're through with the matching process, it's needed to check whether it's possible
          * to create PREQ for the reject doc
          */
@@ -1093,7 +1118,7 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
 
         ElectronicInvoiceOrderHolder rejectDocHolder = new ElectronicInvoiceOrderHolder(rejectDocument, itemTypeMappings, kualiItemTypes);
 
-        /**
+        /*
          * First, create a new payment request document.  Once this document is created, then update the reject document's PREQ_ID field
          * with the payment request document identifier.  This identifier is used to associate the reject document with the payment request.
          */
@@ -1105,7 +1130,10 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
     }
 
     protected PaymentRequestDocument createPaymentRequest(ElectronicInvoiceOrderHolder orderHolder) {
-        LOG.info("Creating Payment Request document");
+
+        if (LOG.isInfoEnabled()) {
+            LOG.info("Creating Payment Request document");
+        }
 
         KNSGlobalVariables.getMessageList().clear();
 
@@ -1186,7 +1214,9 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
             expiredOrClosedAccountList = new HashMap();
         }
 
-        LOG.info(expiredOrClosedAccountList.size() + " accounts has been found as Expired or Closed");
+        if (LOG.isInfoEnabled()) {
+             LOG.info(expiredOrClosedAccountList.size() + " accounts has been found as Expired or Closed");
+        }
 
         preqDoc.populatePaymentRequestFromPurchaseOrder(orderHolder.getPurchaseOrderDocument(), expiredOrClosedAccountList);
 
@@ -1211,9 +1241,10 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
          */
         SpringContext.getBean(KualiRuleService.class).applyRules(new AttributedPaymentRequestForEInvoiceEvent(preqDoc));
 
-        if (GlobalVariables.getMessageMap().hasErrors()) {
-            LOG.info("***************Error in rules processing - " + GlobalVariables.getMessageMap());
-
+        if(GlobalVariables.getMessageMap().hasErrors()){
+            if (LOG.isInfoEnabled()) {
+                LOG.info("***************Error in rules processing - " + GlobalVariables.getMessageMap());
+            }
             Map<String, AutoPopulatingList<ErrorMessage>> errorMessages = GlobalVariables.getMessageMap().getErrorMessages();
 
             String errors = errorMessages.toString();
@@ -1816,34 +1847,42 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
         this.electronicInvoicingDao = electronicInvoicingDao;
     }
 
+    @NonTransactional
     public void setBatchInputFileService(BatchInputFileService batchInputFileService) {
         this.batchInputFileService = batchInputFileService;
     }
 
+    @NonTransactional
     public void setElectronicInvoiceMatchingService(ElectronicInvoiceMatchingService matchingService) {
         this.matchingService = matchingService;
     }
 
+    @NonTransactional
     public void setVendorService(VendorService vendorService) {
         this.vendorService = vendorService;
     }
 
+    @NonTransactional
     public void setPurchaseOrderService(PurchaseOrderService purchaseOrderService) {
         this.purchaseOrderService = purchaseOrderService;
     }
 
+    @NonTransactional
     public void setPaymentRequestService(PaymentRequestService paymentRequestService) {
         this.paymentRequestService = paymentRequestService;
     }
 
+    @NonTransactional
     public void setConfigurationService(ConfigurationService kualiConfigurationService) {
         this.kualiConfigurationService = kualiConfigurationService;
     }
 
+    @NonTransactional
     public void setDateTimeService(DateTimeService dateTimeService) {
         this.dateTimeService = dateTimeService;
     }
 
+    @NonTransactional
     public void setParameterService(ParameterService parameterService) {
         this.parameterService = parameterService;
     }

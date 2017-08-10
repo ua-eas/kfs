@@ -16,18 +16,18 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 
 <c:set var="EntryAttributes" value="${DataDictionary.Entry.attributes}" />
 <c:set var="readOnly" value="${!KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}" />
 <c:set var="glEntryImporting" value="${!readOnly && KualiForm.editingMode['glEntryImporting']}"/>
 
 <kul:documentPage showDocumentInfo="true"
-                  documentTypeName="YearEndGeneralErrorCorrectionDocument"
-                  htmlFormAction="financialYearEndGeneralErrorCorrection"
-                  renderMultipart="true" showTabButtons="true">
-
-    <sys:documentOverview editingMode="${KualiForm.editingMode}"/>
+	documentTypeName="YearEndGeneralErrorCorrectionDocument"
+	htmlFormAction="financialYearEndGeneralErrorCorrection"
+	renderMultipart="true" showTabButtons="true">
+	
+	<sys:documentOverview editingMode="${KualiForm.editingMode}" />
 
     <c:if test="${glEntryImporting}">
     <kul:tab tabTitle="YE GL Entry Importing" defaultOpen="true" tabErrorKey="universityFiscalYear,glDocId">
@@ -63,37 +63,36 @@
     </kul:tab>
     </c:if>
 
-    <kul:tab tabTitle="Accounting Lines" defaultOpen="true" tabErrorKey="${KFSConstants.ACCOUNTING_LINE_ERRORS}"
-             helpUrl="${KualiForm.accountingLineImportInstructionsUrl}" helpLabel="Import Templates">
-        <sys-java:accountingLines>
-            <sys-java:accountingLineGroup newLinePropertyName="newSourceLine" collectionPropertyName="document.sourceAccountingLines" collectionItemPropertyName="document.sourceAccountingLine" attributeGroupName="source"/>
-            <sys-java:accountingLineGroup newLinePropertyName="newTargetLine" collectionPropertyName="document.targetAccountingLines" collectionItemPropertyName="document.targetAccountingLine" attributeGroupName="target"/>
-        </sys-java:accountingLines>
-    </kul:tab>
+	<kul:tab tabTitle="Accounting Lines" defaultOpen="true" tabErrorKey="${KFSConstants.ACCOUNTING_LINE_ERRORS}">
+		<sys-java:accountingLines>
+            <sys-java:accountingLineGroup newLinePropertyName="" collectionPropertyName="document.sourceAccountingLines" collectionItemPropertyName="document.sourceAccountingLine" attributeGroupName="source" />
+            <sys-java:accountingLineGroup newLinePropertyName="" collectionPropertyName="document.targetAccountingLines" collectionItemPropertyName="document.targetAccountingLine" attributeGroupName="target"/>
+		</sys-java:accountingLines>
+	</kul:tab>
 
-    <c:set var="readOnly" value="${!KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}"/>
-    <fp:capitalAccountingLines readOnly="${readOnly}"/>
-
-    <c:if test="${KualiForm.capitalAccountingLine.canCreateAsset}">
-        <fp:capitalAssetCreateTab readOnly="${readOnly}"/>
-    </c:if>
-
-    <fp:capitalAssetModifyTab readOnly="${readOnly}"/>
-
+	<c:set var="readOnly" value="${!KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}" />
+  	<fp:capitalAccountingLines readOnly="${readOnly}"/>
+  	
+	<c:if test="${KualiForm.capitalAccountingLine.canCreateAsset}">
+		<fp:capitalAssetCreateTab readOnly="${readOnly}"/>
+	</c:if>
+  	
+	<fp:capitalAssetModifyTab readOnly="${readOnly}"/>  
+	
 	<fp:gecErrorCertification documentAttributes="${DataDictionary.ErrorCertification.attributes}" />
+	
+	<gl:generalLedgerPendingEntries />
 
-    <gl:generalLedgerPendingEntries/>
+	<kul:notes />
 
-    <kul:notes/>
+	<kul:adHocRecipients />
 
-    <kul:adHocRecipients/>
+	<kul:routeLog />
 
-    <kul:routeLog/>
-
-    <kul:superUserActions/>
+	<kul:superUserActions />
 
 	<kul:panelFooter />
 
-    <sys:documentControls transactionalDocument="${documentEntry.transactionalDocument}" extraButtons="${KualiForm.extraButtons}"/>
+	<sys:documentControls transactionalDocument="${documentEntry.transactionalDocument}" extraButtons="${KualiForm.extraButtons}" />
 
 </kul:documentPage>

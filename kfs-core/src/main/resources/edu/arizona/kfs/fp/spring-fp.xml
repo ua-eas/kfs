@@ -25,6 +25,7 @@
         <property name="jobNames">
             <list merge="true">
                 <value>procurementCardHolderJob</value>
+                <value>documentCreationJob</value>
             </list>
         </property>
     </bean>
@@ -104,6 +105,7 @@
         </property>
     </bean>
 
+
     <bean id="procurementCardInputFileType" parent="procurementCardInputFileType-parentBean">
         <property name="digestorRulesFileName">
            <value>edu/arizona/kfs/fp/batch/pcdoLevel3DigesterRules.xml</value>
@@ -114,6 +116,7 @@
     </bean>
 
     <bean id="procurementCardLoadTransactionsService" parent="procurementCardLoadTransactionsService-parentBean" class="edu.arizona.kfs.fp.batch.service.impl.ProcurementCardLoadTransactionsServiceImpl" />
+
 	
 	<bean id="disbursementVoucherCoverSheetService" class="edu.arizona.kfs.fp.document.service.impl.DisbursementVoucherCoverSheetServiceImpl">
 		<property name="parameterService">
@@ -207,5 +210,186 @@
     </bean>
 
     <bean id="disbursementVoucherExtractionHelperService" parent="disbursementVoucherExtractionHelperService-parentBean" class="edu.arizona.kfs.fp.document.service.impl.DisbursementVoucherExtractionHelperServiceImpl" />
+    
+    <bean id="disbursementVoucherPayeeService"  parent="disbursementVoucherPayeeService-parentBean" class="edu.arizona.kfs.fp.document.service.impl.DisbursementVoucherPayeeServiceImpl">
+    </bean>
+
+    <bean id="entryGecDocNumUpdaterDao"  class="edu.arizona.kfs.fp.dataaccess.impl.EntryGecDocNumUpdaterDaoOjb" parent="platformAwareDao" />
+
+    <bean id="entryGecDocNumUpdaterService" parent="entryGecDocNumUpdaterService-parentBean"/>
+    <bean id="entryGecDocNumUpdaterService-parentBean" class="edu.arizona.kfs.fp.document.service.impl.EntryGecDocNumUpdaterServiceImpl" abstract="true">
+        <property name="entryGecDocNumUpdaterDao" ref="entryGecDocNumUpdaterDao" />
+    </bean>
+
+    <bean id="abstractBankDocumentService" class="edu.arizona.kfs.fp.batch.service.impl.AbstractBankDocumentService" abstract="true" scope="singleton">
+      <property name="transactionPostingDao">
+        <ref bean="transactionPostingDao" />
+      </property>
+      <property name="documentService">
+        <ref bean="documentService" />
+      </property>
+      <property name="workflowDocumentService">
+        <ref bean="workflowDocumentService"/>
+      </property>
+      <property name="bankParametersAccessService">
+        <ref bean="bankParametersAccessService" />
+      </property>
+      <property name="boService">
+        <ref bean="businessObjectService" />
+      </property>
+      <property name="accountingPeriodService">
+        <ref bean="accountingPeriodService" />
+      </property>
+      <property name="optionsService">
+        <ref bean="optionsService" />
+      </property>
+    </bean>
+
+    <bean id="bankCreditCardReceiptDocumentService" class="edu.arizona.kfs.fp.batch.service.impl.BankCreditCardReceiptDocumentServiceImpl" parent="abstractBankDocumentService" scope="singleton"/>
+    <bean id="bankDistIncomeDocumentService" class="edu.arizona.kfs.fp.batch.service.impl.BankDistIncomeDocumentServiceImpl"  parent="abstractBankDocumentService" scope="singleton" />
+    <bean id="bankAdvanceDepositDocumentService" class="edu.arizona.kfs.fp.batch.service.impl.BankAdvanceDepositDocumentServiceImpl"  parent="abstractBankDocumentService" scope="singleton"/>
+
+    <bean id="documentCreationJob" parent="unscheduledJobDescriptor">
+      <property name="steps">
+        <list>
+          <ref bean="transactionFilesValidationStep"/>
+          <ref bean="transactionFilesConsolidateStep"/>
+          <ref bean="documentCreationStep"/>
+        </list>
+      </property>
+    </bean>
+
+
+    <bean id="transactionFilesValidationStep" class="edu.arizona.kfs.fp.batch.TransactionFilesValidationStep" parent="step">
+      <property name="bankTransactionsLoadService">
+        <ref bean="bankTransactionsLoadService"/>
+      </property>
+    </bean>
+
+    <bean id="transactionFilesConsolidateStep" class="edu.arizona.kfs.fp.batch.TransactionFilesConsolidateStep" parent="step">
+      <property name="bankTransactionsLoadService">
+        <ref bean="bankTransactionsLoadService"/>
+      </property>
+    </bean>
+
+    <bean id="documentCreationStep" class="edu.arizona.kfs.fp.batch.DocumentCreationStep" parent="step">
+      <property name="bankTransactionsLoadService">
+        <ref bean="bankTransactionsLoadService"/>
+      </property>
+    </bean>
+
+
+  <bean id="bankTransactionsLoadService" class="edu.arizona.kfs.fp.batch.service.impl.BankTransactionsLoadServiceImpl" scope="prototype">
+    <property name="bankParametersAccessService">
+      <ref bean="bankParametersAccessService"/>
+    </property>
+    <property name="businessObjectService">
+      <ref bean="businessObjectService"/>
+    </property>
+    <property name="batchInputFileService">
+      <ref bean="batchInputFileService" />
+    </property>
+    <property name="transactionPostingService">
+      <ref bean="transactionPostingService"/>
+    </property>
+    <property name="batchInputFileType">
+        <ref bean="csvBankTransactionsInputFileType" />
+    </property>
+    <property name="bankTransactionsValidatedFileType">
+      <ref bean="csvBankTransactionsValidatedFileType" />
+    </property>
+  </bean>
+
+
+  <bean id="transactionPostingService" class="edu.arizona.kfs.fp.batch.service.impl.TransactionPostingServiceImpl" scope="prototype">
+    <property name="bankParametersAccessService">
+      <ref bean="bankParametersAccessService"/>
+    </property>
+    <property name="transactionPostingDao">
+      <ref bean="transactionPostingDao"/>
+    </property>
+    <property name="checkReconciliationFileType">
+      <ref bean="checkReconciliationFileType"/>
+    </property>
+    <property name="bankDocServiceMap">
+      <map>
+        <entry key="CCR" value-ref="bankCreditCardReceiptDocumentService"/>
+        <entry key="DI" value-ref="bankDistIncomeDocumentService"/>
+        <entry key="AD" value-ref="bankAdvanceDepositDocumentService"/>
+      </map>
+    </property>
+  </bean>
+
+
+  <bean id="csvBankTransactionsInputFileType" class="edu.arizona.kfs.fp.batch.dataaccess.impl.CsvBankTransactionsInputFileType">
+    <property name="directoryPath">
+      <value>${staging.directory}/fp/bankTransactions</value>
+    </property>
+    <property name="fileExtension">
+      <value>data</value>
+    </property>
+    <property name="validatedPath">
+      <value>${staging.directory}/fp/bankTransactions/validated</value>
+    </property>
+    <property name="reportPrefix">
+      <value>Tfile_error</value>
+    </property>
+    <property name="reportExtension">
+      <value>report</value>
+    </property>
+    <property name="reportPath">
+      <value>${reports.directory}/fp</value>
+    </property>
+    <property name="bankParametersAccessService">
+      <ref bean="bankParametersAccessService"/>
+    </property>
+    <property name="dateTimeService">
+      <ref bean="dateTimeService"/>
+    </property>
+  </bean>
+
+  <bean id="csvBankTransactionsValidatedFileType" class="edu.arizona.kfs.fp.batch.dataaccess.impl.CsvBankTransactionsValidatedFileType">
+    <property name="directoryPath">
+      <value>${staging.directory}/fp/bankTransactions/validated</value>
+    </property>
+    <property name="fileExtension">
+      <value>data</value>
+    </property>
+    <property name="outputPath">
+      <value>${staging.directory}/fp/bankTransactions/load</value>
+    </property>
+    <property name="loadFileName">
+      <value>tfile_load</value>
+    </property>
+    <property name="bankParametersAccessService">
+      <ref bean="bankParametersAccessService"/>
+    </property>
+    <property name="dateTimeService">
+      <ref bean="dateTimeService"/>
+    </property>
+  </bean>
+
+  <bean id="checkReconciliationFileType" class="edu.arizona.kfs.fp.batch.dataaccess.impl.CheckReconciliationFileType" scope="prototype">
+    <property name="directoryPath">
+      <value>${staging.directory}/recon/upload</value>
+    </property>
+    <property name="fileExtension">
+      <value>data</value>
+    </property>
+    <property name="bankParametersAccessService">
+      <ref bean="bankParametersAccessService"/>
+    </property>
+    <property name="dateTimeService">
+      <ref bean="dateTimeService"/>
+    </property>
+  </bean>
+
+  <bean id="bankParametersAccessService" class="edu.arizona.kfs.fp.batch.service.impl.BankParametersAccessServiceImpl" scope="singleton">
+    <property name="parameterService">
+      <ref bean="parameterService" />
+    </property>
+  </bean>
+
+  <bean id="transactionPostingDao" parent="platformAwareDao" class="edu.arizona.kfs.fp.batch.dataaccess.impl.TransactionPostingDaoOjb" />
 
 </beans>

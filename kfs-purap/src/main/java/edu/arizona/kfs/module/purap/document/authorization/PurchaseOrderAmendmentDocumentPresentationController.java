@@ -20,6 +20,16 @@ import org.kuali.rice.kew.api.WorkflowDocument;
 public class PurchaseOrderAmendmentDocumentPresentationController extends org.kuali.kfs.module.purap.document.authorization.PurchaseOrderAmendmentDocumentPresentationController {
 
     @Override
+    public boolean canEdit(Document document) {
+        PurchaseOrderDocument poDocument = (PurchaseOrderDocument)document;
+
+        if (PurchaseOrderStatuses.APPDOC_AWAIT_FISCAL_REVIEW.equals(poDocument.getApplicationDocumentStatus())) {
+            return true;
+        }
+        return super.canEdit(document);
+    }
+    
+    @Override
     public Set<String> getEditModes(Document document) {
         Set<String> editModes = super.getEditModes(document);
         PurchaseOrderDocument poDocument = (PurchaseOrderDocument) document;

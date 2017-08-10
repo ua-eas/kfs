@@ -7,6 +7,7 @@
 
     <bean id="AzGeneralErrorCorrectionDocument-sourceAccountingLineGroup" parent="GeneralErrorCorrectionDocument-sourceAccountingLineGroup-parentBean">
         <property name="accountingLineView" ref="GeneralErrorCorrectionDocument-sourceAccountingLineView" />
+        <property name="accountingLineClass" value="edu.arizona.kfs.fp.businessobject.GECSourceAccountingLine"/>
         <property name="groupLabel" value="Reversing" />
         <property name="accountingLineAuthorizerClass" value="edu.arizona.kfs.fp.document.authorization.GeneralErrorCorrectionReversingAccountingLinesAuthorizer" />
         <property name="accountingLineGroupActions" ref="GeneralErrorCorrectionDocument-sourceGroupActions" />
