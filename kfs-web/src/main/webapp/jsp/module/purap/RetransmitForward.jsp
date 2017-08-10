@@ -1,3 +1,4 @@
+<%-- TODO: sskinner, release 31 KFS6->KFS7 merge; verify there isn't a v7 mechanism for this jsp.  --%>
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
    - 
