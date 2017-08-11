@@ -14,10 +14,10 @@ import org.apache.ojb.broker.query.Criteria;
 import org.kuali.kfs.fp.document.GeneralErrorCorrectionDocument;
 import org.kuali.kfs.sys.businessobject.Bank;
 import org.kuali.kfs.sys.service.OptionsService;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.dao.impl.LookupDaoOjb;
-import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.dao.impl.LookupDaoOjb;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 
 import edu.arizona.kfs.gl.GeneralLedgerConstants;
 

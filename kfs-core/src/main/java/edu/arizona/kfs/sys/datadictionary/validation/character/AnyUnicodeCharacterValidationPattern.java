@@ -1,8 +1,8 @@
 package edu.arizona.kfs.sys.datadictionary.validation.character;
 
-import org.kuali.rice.krad.datadictionary.exporter.ExportMap;
-import org.kuali.rice.krad.datadictionary.validation.CharacterLevelValidationPattern;
-import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.kfs.krad.datadictionary.exporter.ExportMap;
+import org.kuali.kfs.krad.datadictionary.validation.CharacterLevelValidationPattern;
+import org.kuali.kfs.krad.util.KRADConstants;
 
 /**
  * Pattern for matching any unicode character

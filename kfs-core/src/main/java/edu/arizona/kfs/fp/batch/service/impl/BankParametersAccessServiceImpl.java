@@ -7,7 +7,7 @@ import edu.arizona.kfs.fp.businessobject.ChartBankObjectCode;
 import edu.arizona.kfs.sys.KFSConstants;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.fp.document.AdvanceDepositDocument;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 
 import java.util.*;
 import java.util.regex.Pattern;

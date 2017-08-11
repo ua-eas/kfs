@@ -1,7 +1,7 @@
 package edu.arizona.rice.krad.service.impl;
 
 
-import org.kuali.rice.krad.service.impl.LookupServiceImpl;
+import org.kuali.kfs.krad.service.impl.LookupServiceImpl;
 
 
 

@@ -244,7 +244,7 @@
         <property name="businessObjectService" ref="businessObjectService"/>
     </bean>
 
-    <bean id="lookupDaoOjb" parent="platformAwareDao" class="org.kuali.rice.krad.dao.impl.LookupDaoOjb">
+    <bean id="lookupDaoOjb" parent="platformAwareDao" class="org.kuali.kfs.krad.dao.impl.LookupDaoOjb">
         <property name="persistenceStructureService" ref="persistenceStructureService"/>
         <property name="dateTimeService" ref="dateTimeService"/>
         <property name="dataDictionaryService" ref="dataDictionaryService"/>
