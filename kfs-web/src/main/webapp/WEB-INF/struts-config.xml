@@ -1053,7 +1053,7 @@
     <!-- TODO: sskinner, release 31 KFS6->KFS7 merge; Adding 'methodToCall' to satisfy schema, verify this doesn't break -->
     <message-resources
             factory="org.kuali.kfs.kns.web.struts.action.KualiPropertyMessageResourcesFactory"
-            parameter="methodToCall"/>
+            parameter=""/>
 
     <plug-in className="org.kuali.kfs.kns.web.struts.form.pojo.PojoPlugin"/>
 
