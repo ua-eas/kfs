@@ -610,7 +610,7 @@ public class LookupDaoOjb extends PlatformAwareDaoBaseOjb implements LookupDao, 
         if (StringUtils.contains(propertyValue, SearchOperator.BETWEEN.op())) {
             if (treatWildcardsAndOperatorsAsLiteral)
                 throw new RuntimeException("Cannot use wildcards and operators on numeric field " + propertyName);
-            String[] rangeValues = StringUtils.split(propertyValue, SearchOperator.BETWEEN.op());
+            String[] rangeValues = propertyValue.split("\\.\\.");
             criteria.addBetween(propertyName, cleanNumeric(rangeValues[0]), cleanNumeric(rangeValues[1]));
         } else if (propertyValue.startsWith(SearchOperator.GREATER_THAN_EQUAL.op())) {
             if (treatWildcardsAndOperatorsAsLiteral)
