@@ -9,9 +9,13 @@ import org.kuali.rice.kew.api.KewApiConstants;
 
 public class KFSConstants extends org.kuali.kfs.sys.KFSConstants {
 
+    public static final String XML_EXTENSION = ".xml";
     public static final String MULTI_VALUE_SEPERATION_CHARACTER = ";";
     public static final String PIPE = "|";
     public static final String EQUALS = "=";
+    public static final char QUOTE_CHAR = '"';
+    public static final char DOT_CHAR = '.';
+    public static final char COMMA_CHAR = ',';
 
     public static final String INVOICE_NUMBER = "Invoice Number";
     public static final String DUPLICATE_INVOICE_QUESTION_ID = "DVDuplicateInvoice";
@@ -21,10 +25,14 @@ public class KFSConstants extends org.kuali.kfs.sys.KFSConstants {
     public static final String DOC_FORM_KEY_VALUE_88888888 = "88888888";
     public static final String NULL_STRING = "null";
     public static final String PATH_SEPERATOR = "/";
+    public static final String BLANK_ACCOUNT = "-------";
     public static final String BLANK_SUBACCOUNT = "-----";
     public static final String BLANK_SUBOBJECT = "---";
     public static final String BLANK_PROJECT_CODE = "----------";
     public static final String STAGING_DIRECTORY_KEY = "staging.directory";
+    public static final String DONE_FILE_EXTENSION = ".done";
+    public static final String THREE_CHAR_MASK = "XXX";
+
 
     // Docuware Constants
     public static final String VIEW_DOCUWARE = "viewImages";
@@ -58,6 +66,7 @@ public class KFSConstants extends org.kuali.kfs.sys.KFSConstants {
         GEC_ACTIVE_ROUTE_STATUS_CODES.add(KewApiConstants.ROUTE_HEADER_INITIATED_CD);
         GEC_ACTIVE_ROUTE_STATUS_CODES.add(KewApiConstants.ROUTE_HEADER_PROCESSED_CD);
         GEC_ACTIVE_ROUTE_STATUS_CODES.add(KewApiConstants.ROUTE_HEADER_SAVED_CD);
+        GEC_ACTIVE_ROUTE_STATUS_CODES.add(KewApiConstants.ROUTE_HEADER_FINAL_CD);
     }
 
     public static class SysKimApiConstants {
@@ -107,6 +116,7 @@ public class KFSConstants extends org.kuali.kfs.sys.KFSConstants {
         public final static String DEFAULT_CHART_METHOD = "1";
         public final static String DEFAULT_PRIMARY_DEPT_METHOD = "2";
         public final static String DEFAULT_PRIMARY_DEPT_CHART_METHOD = "3";
+        public final static String DEFAULT_COA_CODE = "UA";
 
     }
 
@@ -246,5 +256,83 @@ public class KFSConstants extends org.kuali.kfs.sys.KFSConstants {
     public static class ProcurementCardholder {
         public static final String PCDH_FILE_TYPE_IDENTIFIER = "procurementCardHolderInputFileType";
     }
-  
+
+    public static class BankTransactionsParameters {
+        public static final String BANK_TFILE_DELIMITER = "BANK_TFILE_DELIMITER";
+        public static final String BANK_TFILE_FIELD_POSITION = "BANK_TFILE_FIELD_POSITION";
+        public static final String BANK_PARAMETER_DELIM = ";";
+        public static final String ELECTRONIC_FUNDS_ACCOUNTS = "ELECTRONIC_FUNDS_ACCOUNTS";
+        public static final String DEFAULT_BANK_BY_DOCUMENT_TYPE = "DEFAULT_BANK_BY_DOCUMENT_TYPE";
+        public static final String CHECK_RECONCILIATION_BAI_TYPE_CODES ="CHECK_RECONCILIATION_BAI_TYPE_CODES";
+        public static final String EXCLUDE_BAI_TYPE_CODES = "EXCLUDE_BAI_TYPE_CODES";
+        public static final String EXCLUDE_BY_BAI_TYPE_AND_ACCOUNT = "EXCLUDE_BY_BAI_TYPE_AND_ACCOUNT";
+        public static final String ACCOUNT_AND_OBJECT_CODE_BY_BAI_AND_BANK_ACCOUNT = "ACCOUNT_AND_OBJECT_CODE_BY_BAI_AND_BANK_ACCOUNT";
+        public static final String DOCUMENT_TYPE_BY_BAI_TYPE_CODE = "DOCUMENT_TYPE_BY_BAI_TYPE_CODE";
+        public static final String DEBIT_CREDIT_BY_BAI_TYPE_CODE = "DEBIT_CREDIT_BY_BAI_TYPE_CODE";
+        public static final String DEFAULT_BANK = "DEFAULT_BANK";
+        public static final String ACCOUNT_AND_OBJECT_CODE_BY_DESCRIPTION = "ACCOUNT_AND_OBJECT_CODE_BY_DESCRIPTION";
+        public static final String DEFAULT_AD_OBJECT_CODE = "DEFAULT_AD_OBJECT_CODE";
+        public static final String BOFA_NOTES_INDICATOR = "BOFA_NOTES_INDICATOR";
+        public static final String BOFA_NOTES_REGEX_FORMAT = "BOFA_NOTES_REGEX_FORMAT";
+        public static final String BOFA_CUST_REF_NUM_LENGTH = "BOFA_CUST_REF_NUM_LENGTH";
+        public static final String BOFA_CUST_REF_NUM_REGEX_FORMAT = "BOFA_CUST_REF_NUM_REGEX_FORMAT";
+        public static final String BOFA_CUST_REF_NUM_GROUP_INDEX = "BOFA_CUST_REF_NUM_GROUP_INDEX";
+        public static final String BOFA_CC_ACCOUNT_NUM_SET = "BOFA_CC_ACCOUNT_NUM_SET";
+        public static final String BOFA_CC_BAI_TYPE_CODE_SET = "BOFA_CC_BAI_TYPE_CODE_SET";
+        public static final String BOFA_PARM_DELIMITER = "BOFA_PARAM_DELIMITER";
+        public static final String VA_ACCOUNT_NUM_SET = "VA_ACCOUNT_NUM_SET";
+        public static final String VA_BAI_TYPE_CODE_SET = "VA_BAI_TYPE_CODE_SET";
+        public static final String VA_CUST_REF_NUM_SET = "VA_CUST_REF_NUM_SET";
+        public static final String VA_NOTES_SIX_REGEX = "VA_NOTES_SIX_REGEX";
+        public static final String VA_NOTES_SEVEN_REGEX = "VA_NOTES_SEVEN_REGEX";
+        public static final String VA_NOTES_SEVEN_MASKING_REGEX = "VA_NOTES_SEVEN_MASKING_REGEX";
+        public static final String VA_PARAM_DELIMITER = "VA_PARAM_DELIM";
+        public static final String CR_STATUS_CLEARED_CODES = "CR_STATUS_CLRD_CODES";
+        public static final String CR_STATUS_NAMESPACE = "KFS-CR";
+        public static final String CR_STATUS_COMPONENT_CODE = "CheckReconciliationImportStep";
+    }
+
+    public static class BankTransactionFields {
+        public static final String ACCOUNT_NUMBER = "accountNumber";
+        public static final String BAI_TYPE = "baiType";
+        public static final String AMOUNT = "amount";
+        public static final String CUST_REF_NO = "custRefNo";
+        public static final String VALUE_DATE = "valueDate";
+        public static final String BANK_REFERENCE = "bankReference";
+        public static final String DESC_TEXT6 = "descriptiveTxt6";
+        public static final String DESC_TEXT7 = "descriptiveTxt7";
+    }
+
+    public static class BankTransactionConstants {
+        public static final String BANK_TRANSACTIONS_FILE_TYPE_IDENTIFIER = "csvBankInputFileType";
+        public static final String BANK_TRANSACTIONS_VALIDATED_FILE_TYPE_IDENTIFIER = "csvBankValidatedFileType";
+        public static final String CHECK_RECON_FILE_TYPE_IDENTIFIER = "checkReconciliationFileType";
+        public static final String TFILE_DATE_FORMAT = "yyMMdd";
+        public static final String TFILE_NAME = "tfile_load";
+        public static final String BANK_TRANSACTIONS_LOAD_BATCH_JOB_NAME = "documentCreationJob";
+        public static final String DOCUMENT_TYPE_AD = "AD";
+        public static final String DOCUMENT_TYPE_CCR = "CCR";
+        public static final String DOCUMENT_TYPE_DI = "DI";
+        public static final String BANK_TRANSACTION_ORIGIN_CODE = "BT";
+        public static final String ACCT_LINE_DATE_FORMAT = "MMddyyyy";
+        public static final int MAX_DESCRIPTION_LEN = 39;
+        public static final int MAX_NUMBER_LEN = 7;
+        public static final int MAX_BANK_REF_NBR = 10;
+    }
+
+    public enum BankTransactionDocumentType {
+        AD("Advance Deposit"), CCR("Credit Card Receipt"), DI("Distribution of Income and Expense");
+
+        private String description;
+
+        BankTransactionDocumentType(String description) {
+            this.description = description;
+        }
+
+        public String getDescription() {
+            return this.description;
+        }
+
+    }
+
 }

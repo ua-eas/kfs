@@ -10,9 +10,9 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.businessobject.CreditMemoAccount;
-import org.kuali.kfs.module.purap.businessobject.CreditMemoItem;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLine;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderItem;
+import org.kuali.kfs.module.purap.businessobject.PurchasingCapitalAssetItem;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
 import org.kuali.kfs.module.purap.document.VendorCreditMemoDocument;
 import org.kuali.kfs.module.purap.document.validation.event.AttributedContinuePurapEvent;
@@ -30,6 +30,8 @@ import org.kuali.kfs.krad.util.ObjectUtils;
 
 import edu.arizona.kfs.fp.service.PaymentMethodGeneralLedgerPendingEntryService;
 import edu.arizona.kfs.module.purap.PurapConstants;
+import edu.arizona.kfs.module.purap.businessobject.CreditMemoItem;
+import edu.arizona.kfs.module.purap.businessobject.PaymentRequestItem;
 import edu.arizona.kfs.module.purap.document.PaymentRequestDocument;
 import edu.arizona.kfs.vnd.businessobject.VendorDetailExtension;
 
@@ -179,8 +181,7 @@ public class CreditMemoServiceImpl extends org.kuali.kfs.module.purap.document.s
      * @see org.kuali.kfs.module.purap.document.service.CreditMemoService#calculateCreditMemo(org.kuali.kfs.module.purap.document.CreditMemoDocument)
      */
     @SuppressWarnings("unchecked")
-    @Override
-    public void calculateCreditMemo(VendorCreditMemoDocument cmDocument) {
+    public void calculateCreditMemo(edu.arizona.kfs.module.purap.document.VendorCreditMemoDocument cmDocument) {
 
         cmDocument.updateExtendedPriceOnItems();
 
@@ -263,6 +264,47 @@ public class CreditMemoServiceImpl extends org.kuali.kfs.module.purap.document.s
         super.populateDocumentFromPO(cmDocument, expiredOrClosedAccountList);
         PurchaseOrderDocument purchaseOrderDocument = purchaseOrderService.getCurrentPurchaseOrder(cmDocument.getPurchaseOrderIdentifier());
         cmDocument.setUseTaxIndicator(purchaseOrderDocument.isUseTaxIndicator());
+    }
+
+    protected void populateItemLinesFromPreq(VendorCreditMemoDocument cmDocument, HashMap<String, ExpiredOrClosedAccountEntry> expiredOrClosedAccountList) {
+        PaymentRequestDocument preqDocument = (PaymentRequestDocument) cmDocument.getPaymentRequestDocument();
+
+        for (PaymentRequestItem preqItemToTemplate : (List<PaymentRequestItem>) preqDocument.getItems()) {
+            preqItemToTemplate.refreshReferenceObject(PurapPropertyConstants.ITEM_TYPE);
+
+            if (preqItemToTemplate.getItemType().isLineItemIndicator() && ((preqItemToTemplate.getItemType().isQuantityBasedGeneralLedgerIndicator() && preqItemToTemplate.getItemQuantity().isNonZero())
+                    || (preqItemToTemplate.getItemType().isAmountBasedGeneralLedgerIndicator() && preqItemToTemplate.getTotalAmount().isNonZero()))) {
+                cmDocument.getItems().add(new CreditMemoItem((edu.arizona.kfs.module.purap.document.VendorCreditMemoDocument) cmDocument, preqItemToTemplate, preqItemToTemplate.getPurchaseOrderItem(), expiredOrClosedAccountList));
+            }
+        }
+
+        // add below the line items
+        purapService.addBelowLineItems(cmDocument);
+
+        cmDocument.fixItemReferences();
+    }
+    
+    @Override
+    protected void populateItemLinesFromPO(VendorCreditMemoDocument cmDocument, HashMap<String, ExpiredOrClosedAccountEntry> expiredOrClosedAccountList) {
+        List<PurchaseOrderItem> invoicedItems = getPOInvoicedItems(cmDocument.getPurchaseOrderDocument());
+        for (PurchaseOrderItem poItem : invoicedItems) {
+            poItem.refreshReferenceObject(PurapPropertyConstants.ITEM_TYPE);
+
+            if ((poItem.getItemType().isQuantityBasedGeneralLedgerIndicator() && poItem.getItemInvoicedTotalQuantity().isNonZero())
+                    || (poItem.getItemType().isAmountBasedGeneralLedgerIndicator() && poItem.getItemInvoicedTotalAmount().isNonZero())) {
+                CreditMemoItem creditMemoItem = new CreditMemoItem(cmDocument, poItem, expiredOrClosedAccountList);
+                cmDocument.getItems().add(creditMemoItem);
+                PurchasingCapitalAssetItem purchasingCAMSItem = cmDocument.getPurchaseOrderDocument().getPurchasingCapitalAssetItemByItemIdentifier(poItem.getItemIdentifier());
+                if (purchasingCAMSItem != null) {
+                    creditMemoItem.setCapitalAssetTransactionTypeCode(purchasingCAMSItem.getCapitalAssetTransactionTypeCode());
+                }
+            }
+        }
+
+        // add below the line items
+        purapService.addBelowLineItems(cmDocument);
+
+        cmDocument.fixItemReferences();
     }
 
 }

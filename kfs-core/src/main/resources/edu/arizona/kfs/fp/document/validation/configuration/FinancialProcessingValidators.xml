@@ -53,5 +53,9 @@
   </bean>
   
   <bean id="DisbursementVoucher-nonResidentAlienInformationValidation" class="edu.arizona.kfs.fp.document.validation.impl.DisbursementVoucherNonResidentAlienInformationValidation" abstract="true" />
+  
+  <bean id="AccountingDocument-capitalAccountingLinesAccessibleValidation" parent="AccountingDocument-accountingLineAccessibleValidation" class="edu.arizona.kfs.fp.document.validation.impl.CapitalAccountingLinesAccessibleValidation" abstract="true">
+    <property name="capitalAssetManagementModuleService" ref="capitalAssetManagementModuleService" />
+  </bean>
 
 </beans>

@@ -253,7 +253,7 @@ public abstract class PersistableBusinessObjectBase extends org.kuali.kfs.krad.b
      *
      * @see org.apache.ojb.broker.PersistenceBrokerAware#beforeInsert(org.apache.ojb.broker.PersistenceBroker)
      */
-    public final void beforeInsert(PersistenceBroker persistenceBroker) throws PersistenceBrokerException {
+    public void beforeInsert(PersistenceBroker persistenceBroker) throws PersistenceBrokerException {
         //setObjectId(UUID.randomUUID().toString());
         setObjectId(null);
         prePersist();

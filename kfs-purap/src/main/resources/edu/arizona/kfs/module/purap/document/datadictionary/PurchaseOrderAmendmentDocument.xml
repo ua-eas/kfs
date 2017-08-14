@@ -4,6 +4,18 @@
     <property name="documentClass" value="edu.arizona.kfs.module.purap.document.PurchaseOrderAmendmentDocument"/>
     <property name="baseDocumentClass" value="org.kuali.kfs.module.purap.document.PurchaseOrderAmendmentDocument"/>
     <property name="documentPresentationControllerClass" value="edu.arizona.kfs.module.purap.document.authorization.PurchaseOrderAmendmentDocumentPresentationController"/>
+    <property name="accountingLineGroups">
+        <map>
+            <entry>
+                <key><value>source</value></key>
+                <ref bean="PurchaseOrderAmendmentDocument-sourceAccountingLineGroup" parent="AccountingLineGroup"/>
+            </entry>
+            <entry>
+                <key><value>distributeSource</value></key>
+                <ref bean="PurchaseOrderAmendmentDocument-distributeSourceAccountingLineGroup" parent="AccountingLineGroup"/>
+            </entry>
+        </map>
+    </property>
     <property name="attributes">
       <list merge="true">
         <ref bean="PurchaseOrderAmendmentDocument-routeCode"/>
@@ -36,5 +48,15 @@
     		</map>
     	</property>
 	</bean>
+	
+	<!-- accounting line groups -->
+    <bean id="PurchaseOrderAmendmentDocument-sourceAccountingLineGroup" parent="PurchaseOrderDocument-sourceAccountingLineGroup">
+        <property name="accountingLineAuthorizerClass" value="edu.arizona.kfs.module.purap.document.authorization.PurchaseOrderAmendAccountingLineAuthorizer"/>
+    </bean>
+
+    <bean id="PurchaseOrderAmendmentDocument-distributeSourceAccountingLineGroup" parent="PurchaseOrderDocument-distributeSourceAccountingLineGroup">
+        <property name="accountingLineAuthorizerClass" value="edu.arizona.kfs.module.purap.document.authorization.PurchaseOrderAmendAccountingLineAuthorizer"/>
+    </bean>
+    
 </beans>
 

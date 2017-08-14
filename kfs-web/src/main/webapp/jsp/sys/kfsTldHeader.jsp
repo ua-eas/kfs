@@ -29,8 +29,6 @@
 
 <%@ taglib tagdir="/WEB-INF/tags/module/cg" prefix="cg" %>
 
-<%@ taglib tagdir="/WEB-INF/tags/module/bc" prefix="bc" %>
-
 <%@ taglib tagdir="/WEB-INF/tags/module/ld" prefix="ld" %>
 
 <%@ taglib tagdir="/WEB-INF/tags/module/purap" prefix="purap" %>
@@ -43,15 +41,6 @@
 
 <%@ taglib tagdir="/WEB-INF/tags/module/ec" prefix="ec" %>
 
-<%@ taglib tagdir="/WEB-INF/tags/module/tem" prefix="tem" %>
-<%@ taglib tagdir="/WEB-INF/tags/module/tem/noscript" prefix="tem-noscript" %>
-<%@ taglib tagdir="/WEB-INF/tags/module/tem/ta" prefix="tem-ta" %>
-<%@ taglib tagdir="/WEB-INF/tags/module/tem/tr" prefix="tem-tr" %>
-<%@ taglib tagdir="/WEB-INF/tags/module/tem/ent" prefix="tem-ent" %>
-<%@ taglib tagdir="/WEB-INF/tags/module/tem/relo" prefix="tem-relo" %>
-<%@ taglib tagdir="/WEB-INF/tags/module/tem/expenses" prefix="tem-exp" %>
-<%@ taglib tagdir="/WEB-INF/tags/module/tem/arranger" prefix="tem-arranger" %>
-<%@ taglib uri="/WEB-INF/tlds/tem-html.tld" prefix="tem-html" %>
 <%@ taglib tagdir="/WEB-INF/tags/portal/channel/centralAdmin" prefix="centralAdminChannel"%>
 
 <%-- utility web functions --%>

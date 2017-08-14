@@ -1,5 +1,8 @@
 package edu.arizona.kfs.gl.web.struts;
 
+import static org.kuali.kfs.sys.KFSPropertyConstants.DOCUMENT_NUMBER;
+import static org.kuali.kfs.sys.KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -20,21 +23,23 @@ import org.kuali.kfs.coa.businessobject.OffsetDefinition;
 import org.kuali.kfs.coa.service.ObjectCodeService;
 import org.kuali.kfs.fp.document.GeneralErrorCorrectionDocument;
 import org.kuali.kfs.gl.businessobject.Entry;
-import org.kuali.kfs.sys.businessobject.Bank;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.document.service.DebitDeterminerService;
 import org.kuali.kfs.sys.service.OptionsService;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
-import org.kuali.kfs.kns.web.struts.action.KualiMultipleValueLookupAction;
-import org.kuali.kfs.kns.web.struts.form.MultipleValueLookupForm;
-import org.kuali.kfs.kns.web.ui.ResultRow;
-import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.LookupService;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.UrlFactory;
+import org.kuali.rice.kns.web.struts.action.KualiMultipleValueLookupAction;
+import org.kuali.rice.kns.web.struts.form.MultipleValueLookupForm;
+import org.kuali.rice.kns.web.ui.ResultRow;
+import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.rice.krad.service.LookupService;
+import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.rice.krad.util.UrlFactory;
 
+import edu.arizona.kfs.fp.document.web.struts.GeneralErrorCorrectionAction;
 import edu.arizona.kfs.gl.GeneralLedgerConstants;
+import edu.arizona.kfs.sys.KFSConstants;
 import edu.arizona.kfs.sys.KFSPropertyConstants;
 
 
@@ -47,15 +52,16 @@ public class GecEntryLookupAction extends KualiMultipleValueLookupAction {
     private SystemOptions systemOptions;
     private BusinessObjectService businessObjectService;
     private OptionsService optionsService;
-    private List<Bank> bankAccountList;
+    protected DebitDeterminerService debitDeterminerService;
 
 
     @Override
     public ActionForward prepareToReturnSelectedResults(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        MultipleValueLookupForm multipleValueLookupForm = (MultipleValueLookupForm) form;
-        if (StringUtils.isBlank(multipleValueLookupForm.getLookupResultsSequenceNumber())) {
+        MultipleValueLookupForm multipleValueLookupForm = (GecMultipleValueLookupForm) form;
+        GecMultipleValueLookupForm gecForm = (GecMultipleValueLookupForm) form;
+        if (StringUtils.isBlank(gecForm.getLookupResultsSequenceNumber())) {
             // no search was executed
-            return prepareToReturnNone(mapping, form, request, response);
+            return prepareToReturnNone(mapping, gecForm, request, response);
         }
 
         prepareToReturnSelectedResultBOs(multipleValueLookupForm);
@@ -77,20 +83,91 @@ public class GecEntryLookupAction extends KualiMultipleValueLookupAction {
     }
 
 
-    @SuppressWarnings("deprecation") //ResultRow
+    @SuppressWarnings({"deprecation", "unchecked"}) //ResultRow, super.performMultipleValueLookup()
     @Override
     protected Collection<Entry> performMultipleValueLookup(MultipleValueLookupForm multipleValueLookupForm, List<ResultRow> resultTable, int maxRowsPerPage, boolean bounded) {
-        super.performMultipleValueLookup(multipleValueLookupForm, resultTable, maxRowsPerPage, bounded);
-        Collection<Entry> list = filterResults(multipleValueLookupForm, resultTable, maxRowsPerPage);
-        return list;
+        GecMultipleValueLookupForm gecForm = (GecMultipleValueLookupForm) multipleValueLookupForm;
+
+        LOG.info("Starting multi-value lookup...");
+        super.performMultipleValueLookup(gecForm, resultTable, maxRowsPerPage, true);
+
+        Collection<Entry> entries = filterResults(gecForm, resultTable, maxRowsPerPage);
+        LOG.info(String.format("Multi-value lookup complete, found %d results.", entries.size()));
+
+
+        return entries;
+    }
+
+    @Override
+    public ActionForward search(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        if (!shouldPerformSearch(request)) {
+            // Test if we're searching straight off the doc, and only kick off a real search when
+            // the user has supplied the two mandetory fields, otherwise just land on the search
+            // page w/out actually searching (avoids wasted operations and validation STE)
+            String forwardUrl = createSearchLandingUrl(mapping, request);
+            return new ActionForward(forwardUrl, true);
+        } else {
+            // This is not off of the GECD, so let it go through
+            return super.search(mapping, form, request, response);
+        }
+    }
+
+
+    private boolean shouldPerformSearch(HttpServletRequest request) {
+        Properties props = convertRequestParamMap(request);
+
+        String testParameter = props.getProperty(GeneralErrorCorrectionAction.INITIATED_BY_GEC_SENTINAL);
+        if (StringUtils.isNotBlank(testParameter)) {
+            props.remove(GeneralErrorCorrectionAction.INITIATED_BY_GEC_SENTINAL);
+            // If we're here, then we came straight from GeneralErrorCorrectionAction, but
+            // should only run actual search if we have both:
+            String year = props.getProperty(UNIVERSITY_FISCAL_YEAR);
+            String docNum = props.getProperty(DOCUMENT_NUMBER);
+            return StringUtils.isNotBlank(year) && StringUtils.isNotBlank(docNum);
+        }
+
+        // We did not come from the GeneralErrorCorrectionAction, run as usual
+        return true;
+    }
+
+
+    private String createSearchLandingUrl(ActionMapping mapping, HttpServletRequest request) {
+        // Replace methodToCall's "search" to "start", this averts the actual search
+        Properties props = convertRequestParamMap(request);
+        props.put(KFSConstants.DISPATCH_REQUEST_PARAMETER, KFSConstants.START_METHOD);
+
+        // Forward back to the ourselves, since the search is now no-op'ed
+        String basePath = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY);
+        String forwardUrl = UrlFactory.parameterizeUrl(basePath + mapping.getPath() + KFSConstants.ACTION_EXTENSION_DOT_DO, props);
+
+        return forwardUrl;
+    }
+
+
+    @SuppressWarnings("unchecked")//request.getParameterMap()
+    private Properties convertRequestParamMap(HttpServletRequest request) {
+        Map<String, String[]> requestParamMap = request.getParameterMap();
+        Properties props = new Properties();
+
+        for (Map.Entry<String, String[]> mapEntry : requestParamMap.entrySet()) {
+            String key = mapEntry.getKey();
+            String[] array = mapEntry.getValue();
+            if (array != null && array.length > 0) {
+                props.put(key, array[0]);
+            }
+        }
+
+        return props;
     }
 
 
     @SuppressWarnings("deprecation") //ResultRow
     @Override
     protected List<ResultRow> selectAll(MultipleValueLookupForm multipleValueLookupForm, int maxRowsPerPage) {
-        List<ResultRow> resultTable = super.selectAll(multipleValueLookupForm, maxRowsPerPage);
-        filterResults(multipleValueLookupForm, resultTable, maxRowsPerPage);
+        GecMultipleValueLookupForm gecForm = (GecMultipleValueLookupForm) multipleValueLookupForm;
+        List<ResultRow> resultTable = super.selectAll(gecForm, maxRowsPerPage);
+        filterResults(gecForm, resultTable, maxRowsPerPage);
+
         return resultTable;
     }
 
@@ -98,8 +175,10 @@ public class GecEntryLookupAction extends KualiMultipleValueLookupAction {
     @SuppressWarnings("deprecation") //ResultRow
     @Override
     protected List<ResultRow> unselectAll(MultipleValueLookupForm multipleValueLookupForm, int maxRowsPerPage) {
-        List<ResultRow> resultTable = super.unselectAll(multipleValueLookupForm, maxRowsPerPage);
-        filterResults(multipleValueLookupForm, resultTable, maxRowsPerPage);
+        GecMultipleValueLookupForm gecForm = (GecMultipleValueLookupForm) multipleValueLookupForm;
+        List<ResultRow> resultTable = super.unselectAll(gecForm, maxRowsPerPage);
+        filterResults(gecForm, resultTable, maxRowsPerPage);
+
         return resultTable;
     }
 
@@ -107,8 +186,10 @@ public class GecEntryLookupAction extends KualiMultipleValueLookupAction {
     @SuppressWarnings("deprecation") //ResultRow
     @Override
     protected List<ResultRow> switchToPage(MultipleValueLookupForm multipleValueLookupForm, int maxRowsPerPage) {
-        List<ResultRow> resultTable = super.switchToPage(multipleValueLookupForm, maxRowsPerPage);
-        filterResults(multipleValueLookupForm, resultTable, maxRowsPerPage);
+        GecMultipleValueLookupForm gecForm = (GecMultipleValueLookupForm) multipleValueLookupForm;
+        List<ResultRow> resultTable = super.switchToPage(gecForm, maxRowsPerPage);
+        filterResults(gecForm, resultTable, maxRowsPerPage);
+
         return resultTable;
     }
 
@@ -116,56 +197,66 @@ public class GecEntryLookupAction extends KualiMultipleValueLookupAction {
     @SuppressWarnings("deprecation") //ResultRow
     @Override
     protected List<ResultRow> sort(MultipleValueLookupForm multipleValueLookupForm, int maxRowsPerPage) {
-        List<ResultRow> resultTable = super.sort(multipleValueLookupForm, maxRowsPerPage);
-        filterResults(multipleValueLookupForm, resultTable, maxRowsPerPage);
+        GecMultipleValueLookupForm gecForm = (GecMultipleValueLookupForm) multipleValueLookupForm;
+        List<ResultRow> resultTable = super.sort(gecForm, maxRowsPerPage);
+        filterResults(gecForm, resultTable, maxRowsPerPage);
         return resultTable;
     }
 
 
     @SuppressWarnings("deprecation") //ResultRow
-    private Collection<Entry> filterResults(MultipleValueLookupForm multipleValueLookupForm, List<ResultRow> resultTable, int maxRowsPerPage) {
-        Collection<? extends BusinessObject> c = multipleValueLookupForm.getLookupable().performLookup(multipleValueLookupForm, new ArrayList<ResultRow>(), true);
-        if (c == null || c.isEmpty()) {
-            LOG.debug("No results found.");
-            return new ArrayList<Entry>();
+    private Collection<Entry> filterResults(GecMultipleValueLookupForm gecForm, List<ResultRow> resultTable, int maxRowsPerPage) {
+        int startSize = resultTable.size();
+        LOG.info(String.format("Starting to filter %d raw entries...", startSize));
+
+        Collection<Entry> entries = new ArrayList<>();
+        for (ResultRow row : resultTable) {
+            /*
+             * Something non-obvious here:
+             * row.getBusinessObject() only works due to DD config setting it up with:
+             * <property name="exporterClass" value="org.kuali.rice.kew.export.DataExporter"/>
+             * in {GecEntry|YeGecEntry}.xml. Otherwise rice does _not_ add the BO to the
+             * RowResult.
+             */
+            entries.add((Entry) row.getBusinessObject());
         }
 
-        @SuppressWarnings("unchecked") // Lookupable's  Collection<BusinessObject>c
-        List<Entry> entries = new ArrayList<Entry>((Collection<Entry>)c);
-        List<Entry> entriesToRemove = new ArrayList<Entry>();
-        List<String> entriesToDisable = new ArrayList<String>();
-
         // Separate entries to those that should be removed or disaabled
+        List<Entry> entriesToRemove = new ArrayList<Entry>();
+        List<String> entryIdsToDisable = new ArrayList<String>();
         for(Entry e : entries){
             if (shouldRemoveEntry(e)) {
                 entriesToRemove.add(e);
             } else if (shoulDisableEntry(e)) {
-                entriesToDisable.add(e.getObjectId());
+                entryIdsToDisable.add(e.getObjectId());
             }
         }
 
         // Do actual removals
         LOG.debug("Removing " + entriesToRemove.size() + "entries.");
         for (Entry entry : entriesToRemove) {
-            removeRecord(entry, resultTable, c);
-            multipleValueLookupForm.getCompositeObjectIdMap().remove(entry.getObjectId());
+            removeRecord(entry, resultTable, entries);
+            gecForm.getCompositeObjectIdMap().remove(entry.getObjectId());
         }
 
         // Do actual disables
-        LOG.debug("Disabling " + entriesToDisable.size() + "entries.");
+        LOG.debug("Disabling " + entryIdsToDisable.size() + "entries.");
         for (ResultRow resultRow : resultTable) {
-            if (entriesToDisable.contains(resultRow.getObjectId())) {
+            String entryObjectId = ((Entry) resultRow.getBusinessObject()).getObjectId();
+            if (entryIdsToDisable.contains(entryObjectId)) {
                 resultRow.setReturnUrl(StringUtils.EMPTY);
                 resultRow.setRowReturnable(false);
-                multipleValueLookupForm.getCompositeObjectIdMap().remove(resultRow.getObjectId());
             }
         }
 
         // Set back to jump user was on, with the column sort they had last(if any)
-        multipleValueLookupForm.jumpToPage(multipleValueLookupForm.getViewedPageNumber(), resultTable.size(), maxRowsPerPage);
-        if (multipleValueLookupForm.getPreviouslySortedColumnIndex() != null) {
-            multipleValueLookupForm.setColumnToSortIndex(Integer.parseInt(multipleValueLookupForm.getPreviouslySortedColumnIndex()));
+        gecForm.jumpToPage(gecForm.getViewedPageNumber(), resultTable.size(), maxRowsPerPage);
+        if (gecForm.getPreviouslySortedColumnIndex() != null) {
+            gecForm.setColumnToSortIndex(Integer.parseInt(gecForm.getPreviouslySortedColumnIndex()));
         }
+
+        int removedSize = startSize - entries.size();
+        LOG.info(String.format("Done filtering, returning %d entries, having removed %d.", entries.size(), removedSize));
 
         return entries;
     }
@@ -173,19 +264,21 @@ public class GecEntryLookupAction extends KualiMultipleValueLookupAction {
 
     // Short circuit on first disqualification to save time
     private boolean shouldRemoveEntry(Entry entry) {
-        LOG.debug("Determining if entry should be removed: " + entry.toString());
+        LOG.debug(String.format("Determining if Entry(entryId: %d) should be removed.", entry.getEntryId()));
 
         if (!areLookupFieldsValid(entry)) {
             // Valid Entry lookup criteria
-            LOG.debug("Entry not valid by the lookup field values specifications.");
+            LOG.debug(String.format("Entry(entryId: %d) not valid by the lookup field values specifications.", entry.getEntryId()));
             return true;
         } else if (!areParametersValid(entry)) {
             // Parameter Based Validation
-            LOG.debug("Entry not valid by the parameters");
+            LOG.debug(String.format("Entry(entryId: %d) not valid by the parameters", entry.getEntryId()));
             return true;
         } else if (isOffset(entry)) {
             // Exclude offset entries.
-            LOG.debug("Entry not valid because it is an offset.");
+            LOG.debug(String.format("Entry(entryId: %d) not valid because it is an offset.", entry.getEntryId()));
+            return true;
+        } else if (!isTransactionAmountValid(entry)) {
             return true;
         }
 
@@ -196,13 +289,10 @@ public class GecEntryLookupAction extends KualiMultipleValueLookupAction {
     // Short circuit on first disqualification to save time
     private boolean areLookupFieldsValid(Entry entry) {
         if (!isFiscalYearValid(entry)) {
-            LOG.debug("Fiscal Year not valid per specifications.");
-            return false;
-        } else if (!getSystemOptions().getActualFinancialBalanceTypeCd().equals(entry.getFinancialBalanceTypeCode())) {
-            LOG.debug("Balance Type Code not valid per specifications.");
+            LOG.debug(String.format("Entry(entryId: %d)'s Fiscal Year not valid per specifications.", entry.getEntryId()));
             return false;
         } else if (entry.getTransactionLedgerEntryAmount().isZero()) {
-            LOG.debug("Entry Amount not valid per specifications.");
+            LOG.debug(String.format("Entry(entryId: %d)'s Entry Amount not valid per specifications.", entry.getEntryId()));
             return false;
         }
 
@@ -212,20 +302,8 @@ public class GecEntryLookupAction extends KualiMultipleValueLookupAction {
 
     // Short circuit on first disqualification to save time
     private boolean areParametersValid(Entry entry) {
-        if (!isObjectTypeValid(entry)) {
-            LOG.debug("Object Type is invalid");
-            return false;
-        } else if (!isObjectSubTypeValid(entry)) {
-            LOG.debug("Object Sub-Type is invalid");
-            return false;
-        } else if (!isObjectTypeValidBySubType(entry)) {
-            LOG.debug("Object Type by Sub Type is invalid");
-            return false;
-        } else if (!isDocumentTypeValid(entry)) {
-            LOG.debug("Document Type is invalid");
-            return false;
-        } else if (!isOriginationCodeValid(entry)) {
-            LOG.debug("Origination Code is invalid");
+        if (!isObjectSubTypeValid(entry)) {
+            LOG.debug(String.format("Entry(entryId: %d)'s Object Sub-Type is invalid", entry.getEntryId()));
             return false;
         }
 
@@ -238,11 +316,6 @@ public class GecEntryLookupAction extends KualiMultipleValueLookupAction {
     }
 
 
-    private boolean isObjectTypeValid(Entry entry) {
-        return getParameterEvaluatorService().getParameterEvaluator(GeneralErrorCorrectionDocument.class, GeneralLedgerConstants.GeneralErrorCorrectionGroupParameters.RESTRICTED_OBJECT_TYPE_CODES, entry.getFinancialObjectTypeCode()).evaluationSucceeds();
-    }
-
-
     private boolean isObjectSubTypeValid(Entry entry) {
         @SuppressWarnings("deprecation")//ObjectCode
         ObjectCode code = getObjectCodeService().getByPrimaryId(entry.getUniversityFiscalYear(), entry.getChartOfAccountsCode(), entry.getFinancialObjectCode());
@@ -250,29 +323,9 @@ public class GecEntryLookupAction extends KualiMultipleValueLookupAction {
     }
 
 
-    private boolean isObjectTypeValidBySubType(Entry entry) {
-        @SuppressWarnings("deprecation")//ObjectCode
-        ObjectCode code = getObjectCodeService().getByPrimaryId(entry.getUniversityFiscalYear(), entry.getChartOfAccountsCode(), entry.getFinancialObjectCode());
-        return getParameterEvaluatorService().getParameterEvaluator(GeneralErrorCorrectionDocument.class, GeneralLedgerConstants.GeneralErrorCorrectionGroupParameters.VALID_OBJECT_SUB_TYPES_BY_OBJECT_TYPE, GeneralLedgerConstants.GeneralErrorCorrectionGroupParameters.INVALID_OBJECT_SUB_TYPES_BY_OBJECT_TYPE, code.getFinancialObjectTypeCode(), code.getFinancialObjectSubTypeCode()).evaluationSucceeds();
-    }
-
-
-    private boolean isDocumentTypeValid(Entry entry) {
-        return getParameterEvaluatorService().getParameterEvaluator(GeneralErrorCorrectionDocument.class, GeneralLedgerConstants.GeneralErrorCorrectionGroupParameters.DOCUMENT_TYPES, entry.getFinancialDocumentTypeCode()).evaluationSucceeds();
-    }
-
-
-    private boolean isOriginationCodeValid(Entry entry) {
-        return getParameterEvaluatorService().getParameterEvaluator(GeneralErrorCorrectionDocument.class, GeneralLedgerConstants.GeneralErrorCorrectionGroupParameters.ORIGIN_CODES, entry.getFinancialSystemOriginationCode()).evaluationSucceeds();
-    }
-
-
     private boolean isOffset(Entry entry) {
         if (isOffsetDefinition(entry)) {
-            LOG.debug("Entry is Offset Definition");
-            return true;
-        } else if (isOffsetAccountEntry(entry)) {
-            LOG.debug("Entry has Offset Account");
+            LOG.debug(String.format("Entry(entryId: %d) is an Offset Definition", entry.getEntryId()));
             return true;
         }
 
@@ -294,16 +347,6 @@ public class GecEntryLookupAction extends KualiMultipleValueLookupAction {
             return true;
         }
 
-        return false;
-    }
-
-
-    private boolean isOffsetAccountEntry(Entry entry) {
-        for (Bank bankAccount : getBankAccountList()) {
-            if (bankAccount.getBankAccountNumber().equals(entry.getAccountNumber())) {
-                return true;
-            }
-        }
         return false;
     }
 
@@ -345,11 +388,11 @@ public class GecEntryLookupAction extends KualiMultipleValueLookupAction {
     }
 
 
-    private List<Bank> getBankAccountList() {
-        if (bankAccountList == null) {
-            bankAccountList = (List<Bank>) getLookupService().findCollectionBySearchUnbounded(Bank.class, new HashMap<String, String>());
-        }
-        return bankAccountList;
+    // Valid if the transaction amount is present and non-zero
+    private boolean isTransactionAmountValid(Entry entry) {
+        return entry != null
+                &&  entry.getTransactionLedgerEntryAmount() != null
+                && !entry.getTransactionLedgerEntryAmount().isZero();
     }
 
 
@@ -400,4 +443,10 @@ public class GecEntryLookupAction extends KualiMultipleValueLookupAction {
         return businessObjectService;
     }
 
+    public DebitDeterminerService getDebitDeterminerService() {
+        if (debitDeterminerService == null) {
+            debitDeterminerService = SpringContext.getBean(DebitDeterminerService.class);
+        }
+        return debitDeterminerService;
+    }
 }

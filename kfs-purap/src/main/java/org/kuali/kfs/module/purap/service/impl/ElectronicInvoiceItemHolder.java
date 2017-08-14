@@ -28,6 +28,7 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import java.math.BigDecimal;
 import java.util.Map;
 
+// Note: this class edited because rejectItem does not have a getter/setter
 public class ElectronicInvoiceItemHolder {
 
     private ElectronicInvoiceOrderHolder orderHolder;
@@ -221,4 +222,14 @@ public class ElectronicInvoiceItemHolder {
     public ElectronicInvoiceOrderHolder getInvoiceOrderHolder() {
         return orderHolder;
     }
+
+    // Note: added to Foundation class because rejectItem does not have a getter/setter
+    public boolean isUnitPriceAcceptIndicatorEnabled() {
+        if (isRejectItemHolder()) {
+            return rejectItem.isUnitPriceAcceptIndicator();
+        } else {
+            return false;
+        }
+    }
+
 }

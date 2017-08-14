@@ -59,15 +59,14 @@ import java.util.Set;
 
 public class ElectronicInvoiceMatchingServiceImpl implements ElectronicInvoiceMatchingService {
 
-    private Logger LOG = Logger.getLogger(ElectronicInvoiceMatchingServiceImpl.class);
-
-    private Map<String, ElectronicInvoiceRejectReasonType> rejectReasonTypes;
-    private VendorService vendorService;
-    private TaxService taxService;
-    private DateTimeService dateTimeService;
-
-    String upperVariancePercentString;
-    String lowerVariancePercentString;
+    // Note: Making these available to child class.
+    protected Logger LOG = Logger.getLogger(ElectronicInvoiceMatchingServiceImpl.class);
+    protected Map<String, ElectronicInvoiceRejectReasonType> rejectReasonTypes;
+    protected VendorService vendorService;
+    protected TaxService taxService;
+    protected DateTimeService dateTimeService;
+    protected String upperVariancePercentString;
+    protected String lowerVariancePercentString;
 
     @Override
     public void doMatchingProcess(ElectronicInvoiceOrderHolder orderHolder) {
@@ -78,7 +77,6 @@ public class ElectronicInvoiceMatchingServiceImpl implements ElectronicInvoiceMa
 
         upperVariancePercentString = SpringContext.getBean(ParameterService.class).getParameterValueAsString(ElectronicInvoiceStep.class, PurapParameterConstants.ElectronicInvoiceParameters.SALES_TAX_UPPER_VARIANCE_PERCENT);
         lowerVariancePercentString = SpringContext.getBean(ParameterService.class).getParameterValueAsString(ElectronicInvoiceStep.class, PurapParameterConstants.ElectronicInvoiceParameters.SALES_TAX_LOWER_VARIANCE_PERCENT);
-        ;
 
         try {
             if (orderHolder.isValidateHeaderInformation()) {
