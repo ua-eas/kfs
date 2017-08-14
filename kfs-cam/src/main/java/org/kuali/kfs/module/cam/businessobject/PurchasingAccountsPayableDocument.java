@@ -316,7 +316,7 @@ public class PurchasingAccountsPayableDocument extends PersistableBusinessObject
 
             if (CamsConstants.PREQ.equals(this.documentTypeCode)) {
 
-                edu.arizona.kfs.module.purap.document.PaymentRequestDocument paymentRequestDocument = SpringContext.getBean(BusinessObjectService.class).findByPrimaryKey(PaymentRequestDocument.class, objectKeys);
+                PaymentRequestDocument paymentRequestDocument = SpringContext.getBean(BusinessObjectService.class).findByPrimaryKey(PaymentRequestDocument.class, objectKeys);
                 if (ObjectUtils.isNotNull(paymentRequestDocument)) {
                     statusDescription = paymentRequestDocument.getApplicationDocumentStatus();
                 }
