@@ -12,7 +12,7 @@ import org.kuali.kfs.module.purap.document.VendorCreditMemoDocument;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.krad.util.GlobalVariables;
 
 public class PurchasingAccountsPayableCheckNegativeAccountsValidation extends org.kuali.kfs.module.purap.document.validation.impl.PurchasingAccountsPayableCheckNegativeAccountsValidation {
