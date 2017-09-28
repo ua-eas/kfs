@@ -11,11 +11,11 @@
             UAF-2808 Migrate old PCDH type documents to the new PCDM doc type
         </comment>
         <sql>
-            update KULOWNER.krew_doc_hdr_t set doc_typ_id=(select doc_typ_id from KULOWNER.KREW_DOC_TYP_T where DOC_TYP_NM='PCDM') where doc_typ_id = '344984';
+            update KULOWNER.krew_doc_hdr_t set doc_typ_id=(select doc_typ_id from KULOWNER.KREW_DOC_TYP_T where DOC_TYP_NM='PCDM' and CUR_IND=1) where doc_typ_id = '344984';
         </sql>
         <rollback>
             <sql>
-                update KULOWNER.krew_doc_hdr_t set doc_typ_id='344984' where doc_typ_id =(select doc_typ_id from KULOWNER.KREW_DOC_TYP_T where DOC_TYP_NM='PCDM');
+                update KULOWNER.krew_doc_hdr_t set doc_typ_id='344984' where doc_typ_id =(select doc_typ_id from KULOWNER.KREW_DOC_TYP_T where DOC_TYP_NM='PCDM' and CUR_IND=1);
             </sql>
         </rollback>
 
